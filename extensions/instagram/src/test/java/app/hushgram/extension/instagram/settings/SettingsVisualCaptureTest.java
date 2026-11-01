@@ -196,7 +196,7 @@ public class SettingsVisualCaptureTest {
         open();
         capturePage("00-overview", true);
         List<Preference> categories = categories();
-        assertEquals("Every category, Pause and diagnostics included, can expand in place", 23, categories.size());
+        assertEquals("Every category, Pause and diagnostics included, can expand in place", 24, categories.size());
         int number = 1;
         for (Preference category : categories) {
             tap(category);
@@ -210,15 +210,15 @@ public class SettingsVisualCaptureTest {
         Settings.CATEGORY_PAGES.save(false);
         page.searchSettings("");
         settle();
-        capturePage("24-all-settings", false);
+        capturePage("25-all-settings", false);
         page.searchSettings("Hide ads");
         settle();
         assertNotNull(page.getPreferenceScreen().findPreference(Settings.HIDE_ADS.key));
-        capturePage("25-search-results", false);
+        capturePage("26-search-results", false);
         page.searchSettings("zzzz-no-settings-match");
         settle();
         assertNotNull(page.getPreferenceScreen().findPreference("hushgram_settings_search_empty"));
-        capturePage("26-search-empty", false);
+        capturePage("27-search-empty", false);
     }
 
     @Test public void everyPageKeepsItsTitlesAndControlsAtLargerText() throws Exception {

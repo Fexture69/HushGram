@@ -1,0 +1,84 @@
+/*
+ * Copyright 2026 Hushfacebook contributors
+ * https://github.com/SysAdminDoc/Hushfacebook
+ *
+ * Modified for HushGram (Instagram), 2026.
+ */
+package app.hushgram.extension.instagram.settings;
+
+import static app.hushgram.extension.instagram.settings.HushgramPreferenceFragment.category;
+import static app.hushgram.extension.instagram.settings.HushgramPreferenceFragment.mark;
+import static app.hushgram.extension.instagram.settings.HushgramPreferenceFragment.toggle;
+
+import android.app.Activity;
+import android.content.Context;
+import android.preference.PreferenceCategory;
+import android.preference.PreferenceScreen;
+
+import java.util.Set;
+
+import app.hushgram.extension.instagram.misc.DeveloperOptions;
+import app.hushgram.extension.instagram.settings.HushgramPreferenceFragment.Row;
+import app.hushgram.extension.shared.L10n;
+import app.hushgram.extension.shared.Utils;
+
+/** Builds the Developer category of HushGram settings. */
+final class DeveloperCategory {
+    private DeveloperCategory() { }
+
+    static void add(HushgramPreferenceFragment page, PreferenceScreen screen, Context context, Set<PatchFamily> build) {
+        if (build.contains(PatchFamily.DEVELOPER_OPTIONS)) {
+            PreferenceCategory developer = category(screen, L10n.t("Developer"), SettingsIcons.CODE,
+                    L10n.t("Instagram's own testing tools. Change them only if you know what they do."));
+            developer.addPreference(toggle(context, Settings.OPEN_DEVELOPER_OPTIONS,
+                    L10n.t("Developer options on a long press of Home"),
+                    L10n.t("Opens Instagram's own developer options, where you can look at and change its hidden "
+                            + "settings. A wrong change can break parts of Instagram until you reset it.")));
+
+            Row openOverrides = new Row(context);
+            openOverrides.setKey("hushgram_open_overrides");
+            openOverrides.setPersistent(false);
+            openOverrides.setTitle(L10n.t("Open MetaConfig overrides"));
+            openOverrides.setSummary(L10n.t("Opens Instagram's own editor for its hidden settings (MetaConfig). A wrong override, "
+                    + "which is a changed setting, can break parts of Instagram."));
+            openOverrides.setOnPreferenceClickListener(row -> {
+                Activity activity = page.getActivity();
+                if (DeveloperOptions.openOverrides(activity)) {
+                    SettingsEntry.onClosedByUser();
+                    if (page.getParentFragment() instanceof SettingsDialog) {
+                        ((SettingsDialog) page.getParentFragment()).dismissAllowingStateLoss();
+                    }
+                } else {
+                    String unavailable = L10n.t("MetaConfig is unavailable on this screen. Open HushGram settings from Home while signed in.");
+                    row.setSummary(unavailable);
+                    Utils.showToastShort(unavailable);
+                }
+                return true;
+            });
+            developer.addPreference(mark(openOverrides, SettingsIcons.CODE));
+
+            Row openWhitehat = new Row(context);
+            openWhitehat.setKey("hushgram_open_whitehat");
+            openWhitehat.setPersistent(false);
+            openWhitehat.setTitle(L10n.t("Open Whitehat settings"));
+            openWhitehat.setSummary(L10n.t("Opens Instagram's own Whitehat settings. Its switch lets Instagram trust the certificates "
+                    + "installed on this phone for 24 hours, so you can check the app's traffic. Restart "
+                    + "Instagram after you turn it on."));
+            openWhitehat.setOnPreferenceClickListener(row -> {
+                Activity activity = page.getActivity();
+                if (DeveloperOptions.openWhitehat(activity)) {
+                    SettingsEntry.onClosedByUser();
+                    if (page.getParentFragment() instanceof SettingsDialog) {
+                        ((SettingsDialog) page.getParentFragment()).dismissAllowingStateLoss();
+                    }
+                } else {
+                    String unavailable = L10n.t("Whitehat settings are unavailable on this screen. Open HushGram settings from Home while signed in.");
+                    row.setSummary(unavailable);
+                    Utils.showToastShort(unavailable);
+                }
+                return true;
+            });
+            developer.addPreference(mark(openWhitehat, SettingsIcons.CODE));
+        }
+    }
+}

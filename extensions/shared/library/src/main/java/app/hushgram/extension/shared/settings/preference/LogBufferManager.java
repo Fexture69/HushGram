@@ -744,6 +744,12 @@ public final class LogBufferManager {
                 output.flush();
                 output.getFD().sync();
                 atomicFile.finishWrite(output);
+                File newFile = new File(context.getFilesDir(), fileName + ".new");
+                if (newFile.exists()) {
+                    File baseFile = atomicFile.getBaseFile();
+                    baseFile.delete();
+                    newFile.renameTo(baseFile);
+                }
             } catch (Exception exception) {
                 if (output != null) atomicFile.failWrite(output);
                 throw exception;

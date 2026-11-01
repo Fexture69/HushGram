@@ -575,6 +575,7 @@ public final class HushgramPreferenceFragment extends AbstractPreferenceFragment
         DownloadsCategory.add(this, screen, context, build);
         BatteryCategory.add(this, screen, context, build);
         UpdatesCategory.add(this, screen, context, build);
+        DeveloperCategory.add(this, screen, context, build);
         EntryCategory.add(this, screen, context, build);
         PatchTimeCategory.add(this, screen, context, build);
         BackupCategory.add(this, screen, context, build);
