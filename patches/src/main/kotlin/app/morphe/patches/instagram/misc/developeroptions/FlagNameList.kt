@@ -245,16 +245,34 @@ private fun isLabelGetter(getter: MethodReference, owner: String, name: FieldRef
         Opcode.IGET_OBJECT, Opcode.INVOKE_VIRTUAL, Opcode.MOVE_RESULT, Opcode.IF_EQZ, Opcode.IGET, Opcode.INVOKE_STATIC,
         Opcode.MOVE_RESULT_OBJECT, Opcode.CONST_STRING, Opcode.INVOKE_STATIC, Opcode.MOVE_RESULT_OBJECT, Opcode.RETURN_OBJECT,
     )
-    if (code.map { it.opcode } != shape) return false
+    val stringBuilderShape = listOf(
+        Opcode.IGET_OBJECT, Opcode.INVOKE_VIRTUAL, Opcode.MOVE_RESULT, Opcode.IF_EQZ, Opcode.IGET, Opcode.INVOKE_STATIC,
+        Opcode.MOVE_RESULT_OBJECT, Opcode.CONST_STRING, Opcode.NEW_INSTANCE, Opcode.INVOKE_DIRECT,
+        Opcode.INVOKE_VIRTUAL, Opcode.INVOKE_VIRTUAL, Opcode.MOVE_RESULT_OBJECT, Opcode.RETURN_OBJECT,
+    )
+    val opcodes = code.map { it.opcode }
     val self = (method.implementation?.registerCount ?: return false) - 1
-    val label = (code[0] as TwoRegisterInstruction)
-    val concat = code[8].method()
-    return code[0].reads(name) && label.registerB == self && code[4].reads(number) && (code[4] as TwoRegisterInstruction).registerB == self &&
+    val label = (code.getOrNull(0) as? TwoRegisterInstruction) ?: return false
+    val commonChecks = code[0].reads(name) && label.registerB == self && code[4].reads(number) && (code[4] as TwoRegisterInstruction).registerB == self &&
         code[1].method()?.toString() == "Ljava/lang/String;->isEmpty()Z" &&
         code[5].method()?.toString() == "Ljava/lang/String;->valueOf(I)Ljava/lang/String;" &&
-        ((code[7] as ReferenceInstruction).reference as? StringReference)?.string == "_" &&
-        concat?.parameterTypes?.map(Any::toString) == listOf("Ljava/lang/String;", "Ljava/lang/String;") && concat.returnType == "Ljava/lang/String;" &&
-        (code[9] as OneRegisterInstruction).registerA == label.registerA && (code[10] as OneRegisterInstruction).registerA == label.registerA
+        ((code[7] as ReferenceInstruction).reference as? StringReference)?.string == "_"
+    if (!commonChecks) return false
+
+    if (opcodes == shape) {
+        val concat = code[8].method()
+        return concat?.parameterTypes?.map(Any::toString) == listOf("Ljava/lang/String;", "Ljava/lang/String;") && concat.returnType == "Ljava/lang/String;" &&
+            (code[9] as OneRegisterInstruction).registerA == label.registerA && (code[10] as OneRegisterInstruction).registerA == label.registerA
+    } else if (opcodes == stringBuilderShape) {
+        val init = code[9].method()
+        val append = code[10].method()
+        val toString = code[11].method()
+        return init?.definingClass == "Ljava/lang/StringBuilder;" && init.name == "<init>" &&
+            append?.definingClass == "Ljava/lang/StringBuilder;" && append.name == "append" &&
+            toString?.name == "toString" && toString.returnType == "Ljava/lang/String;" &&
+            (code[12] as OneRegisterInstruction).registerA == (code[13] as OneRegisterInstruction).registerA
+    }
+    return false
 }
 
 /** The two bridge stubs' bodies: the entry's own config number or index, or -1 for anything else. */
