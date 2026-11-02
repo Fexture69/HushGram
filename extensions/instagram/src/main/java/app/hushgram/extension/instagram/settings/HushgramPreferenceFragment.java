@@ -128,6 +128,8 @@ import app.hushgram.extension.instagram.stories.StoryPriority;
 import app.hushgram.extension.instagram.stories.StoryEmoji;
 import app.hushgram.extension.instagram.stories.StoryFonts;
 import app.hushgram.extension.instagram.stories.StoryRingColor;
+import app.hushgram.extension.instagram.stories.UploadBitrate;
+import app.hushgram.extension.instagram.stories.UploadScope;
 import app.hushgram.extension.instagram.stories.StoryRingSize;
 import app.hushgram.extension.instagram.stories.StoryTimeMode;
 import app.hushgram.extension.instagram.stories.TrayBadge;
@@ -726,7 +728,10 @@ public final class HushgramPreferenceFragment extends AbstractPreferenceFragment
                     belongs |= family == PatchFamily.LIKE_ANIMATION && Settings.LIKE_ANIMATION.key.equals(key);
                     belongs |= family == PatchFamily.CAPTION_WORD_REELS && (Settings.REELS_BLOCKED_WORDS.key.equals(key)
                             || Settings.HIDE_CAPTION_WORD_HOME.key.equals(key));
-                    belongs |= family == PatchFamily.LOW_VIEW_REELS && Settings.MIN_REEL_VIEWS.key.equals(key);
+                    belongs |= family == PatchFamily.LOW_VIEW_REELS
+                            && (Settings.MIN_REEL_VIEWS.key.equals(key) || Settings.MIN_REEL_LIKES.key.equals(key));
+                    belongs |= family == PatchFamily.STORY_UPLOAD_QUALITY && (Settings.UPLOAD_QUALITY_APPLIES_TO.key.equals(key)
+                            || Settings.UPLOAD_VIDEO_BITRATE.key.equals(key));
                     belongs |= family == PatchFamily.STORY_PRIORITY && Settings.STORY_PRIORITY_ACCOUNTS.key.equals(key);
                     belongs |= family == PatchFamily.MESSAGES_LOCK
                             && (Settings.LOCK_AGAIN.key.equals(key) || LOCKED_CHATS_ROW.equals(key)
@@ -4358,6 +4363,71 @@ public final class HushgramPreferenceFragment extends AbstractPreferenceFragment
         return row;
     }
 
+    /** Which uploads Upload stories at full quality covers (#37). The list shows the chosen entry as its summary. */
+    static UploadChoiceRow uploadScopeRow(Context context) {
+        UploadChoiceRow row = new UploadChoiceRow(context);
+        row.setKey(Settings.UPLOAD_QUALITY_APPLIES_TO.key);
+        row.setTitle(L10n.t("Upload quality applies to"));
+        row.setDialogTitle(L10n.t("Upload quality applies to"));
+        row.setNegativeButtonText(L10n.t("Cancel"));
+        UploadScope[] scopes = UploadScope.values();
+        CharSequence[] entries = new CharSequence[scopes.length];
+        CharSequence[] values = new CharSequence[scopes.length];
+        for (int i = 0; i < scopes.length; i++) {
+            entries[i] = scopes[i] == UploadScope.ALL ? L10n.t("Stories, posts and reels") : L10n.t("Stories only");
+            values[i] = scopes[i].name();
+        }
+        row.setEntries(entries);
+        row.setEntryValues(values);
+        row.setValue(Settings.UPLOAD_QUALITY_APPLIES_TO.savedValue().name());
+        row.setSummary(row.getEntry());
+        return row;
+    }
+
+    /** The least video bitrate an upload is prepared at (#37). */
+    static UploadChoiceRow uploadBitrateRow(Context context) {
+        UploadChoiceRow row = new UploadChoiceRow(context);
+        row.setKey(Settings.UPLOAD_VIDEO_BITRATE.key);
+        row.setTitle(L10n.t("Video bitrate"));
+        row.setDialogTitle(L10n.t("Video bitrate"));
+        row.setNegativeButtonText(L10n.t("Cancel"));
+        UploadBitrate[] rates = UploadBitrate.values();
+        CharSequence[] entries = new CharSequence[rates.length];
+        CharSequence[] values = new CharSequence[rates.length];
+        for (int i = 0; i < rates.length; i++) {
+            entries[i] = rates[i] == UploadBitrate.INSTAGRAM ? L10n.t("Instagram's own")
+                    : String.format(L10n.t("%1$s Mbps"), rates[i].megabits);
+            values[i] = rates[i].name();
+        }
+        row.setEntries(entries);
+        row.setEntryValues(values);
+        row.setValue(Settings.UPLOAD_VIDEO_BITRATE.savedValue().name());
+        row.setSummary(row.getEntry());
+        return row;
+    }
+
+    /** A plain choice row for the upload quality settings. Its summary is the chosen entry, set by the base class. */
+    static final class UploadChoiceRow extends ListPreference {
+        UploadChoiceRow(Context context) {
+            super(context);
+        }
+
+        @Override
+        protected void onBindView(View view) {
+            super.onBindView(view);
+            showAllText(view);
+            ScreenColors.row(view, this);
+            view.setAccessibilityDelegate(new RowSemantics(this, Button.class));
+        }
+
+        /** Its list takes the screen's colours, as the other rows' dialogs do. */
+        @Override
+        protected void showDialog(Bundle state) {
+            super.showDialog(state);
+            if (getDialog() instanceof AlertDialog) ScreenColors.dialog((AlertDialog) getDialog());
+        }
+    }
+
     /** What the list calls [scope]. */
     static String tapToPlayScopeLabel(TapToPlayScope scope) {
         switch (scope) {
@@ -6662,44 +6732,60 @@ public final class HushgramPreferenceFragment extends AbstractPreferenceFragment
     }
 
     /** The view count Hide reels with few views keeps a reel at, typed as a number (#444). */
-    static MinViewsRow minViewsRow(Context context) {
-        MinViewsRow row = new MinViewsRow(context);
-        row.setKey(Settings.MIN_REEL_VIEWS.key);
-        row.setTitle(L10n.t("Minimum views"));
-        row.setDialogTitle(L10n.t("Minimum views"));
-        row.setDialogMessage(L10n.t("Reels with fewer views than this are left out. Type a whole number."));
+    static MinCountRow minViewsRow(Context context) {
+        return minCountRow(context, Settings.MIN_REEL_VIEWS, L10n.t("Minimum views"),
+                L10n.t("Reels with fewer views than this are left out. Type a whole number."));
+    }
+
+    /** The like count it keeps a reel at, typed as a number, 0 leaving likes alone (#444). */
+    static MinCountRow minLikesRow(Context context) {
+        return minCountRow(context, Settings.MIN_REEL_LIKES, L10n.t("Minimum likes"),
+                L10n.t("Reels with fewer likes than this are left out. Type a whole number, or 0 to not look at likes."));
+    }
+
+    private static MinCountRow minCountRow(Context context, IntegerSetting setting, String title, String message) {
+        MinCountRow row = new MinCountRow(context, setting);
+        row.setKey(setting.key);
+        row.setTitle(title);
+        row.setDialogTitle(title);
+        row.setDialogMessage(message);
         row.setPositiveButtonText(L10n.t("Save"));
         row.setNegativeButtonText(L10n.t("Cancel"));
         EditText field = row.getEditText();
         field.setInputType(InputType.TYPE_CLASS_NUMBER);
         field.setSingleLine(true);
         field.setFilters(new InputFilter[]{new InputFilter.LengthFilter(9)});
-        row.setText(String.valueOf(Settings.MIN_REEL_VIEWS.savedValue()));
+        row.setText(String.valueOf(setting.savedValue()));
         return row;
     }
 
-    /** What the minimum views row says under its title. */
-    static String minViewsSummary(String stored) {
-        return String.format(L10n.t("Fewer than %1$s views"),
-                java.text.NumberFormat.getIntegerInstance().format(MinViewsRow.valueOf(stored)));
+    /** What a minimum row says under its title. */
+    static String minCountSummary(IntegerSetting setting, String stored) {
+        int count = MinCountRow.valueOf(setting, stored);
+        String number = java.text.NumberFormat.getIntegerInstance().format(count);
+        if (setting != Settings.MIN_REEL_LIKES) return String.format(L10n.t("Fewer than %1$s views"), number);
+        return count == 0 ? L10n.t("Likes aren't looked at") : String.format(L10n.t("Fewer than %1$s likes"), number);
     }
 
     /**
-     * The minimum views row, a number typed in a dialog. Its text is always a whole number inside the
-     * setting's range, and its summary follows it, whoever sets it.
+     * A minimum count row (views or likes), a number typed in a dialog. Its text is always a whole
+     * number inside its setting's range, and its summary follows it, whoever sets it.
      */
-    static final class MinViewsRow extends EditTextPreference {
-        MinViewsRow(Context context) {
+    static final class MinCountRow extends EditTextPreference {
+        final IntegerSetting setting;
+
+        MinCountRow(Context context, IntegerSetting setting) {
             super(context);
+            this.setting = setting;
         }
 
-        /** [text] as a count inside the setting's range, or its default when it isn't a number. */
-        static int valueOf(@Nullable String text) {
+        /** [text] as a count inside [setting]'s range, or its default when it isn't a number. */
+        static int valueOf(IntegerSetting setting, @Nullable String text) {
             try {
                 long value = Long.parseLong(text == null ? "" : text.trim());
-                return (int) Math.max(Settings.MIN_REEL_VIEWS.minimum(), Math.min(Settings.MIN_REEL_VIEWS.maximum(), value));
+                return (int) Math.max(setting.minimum(), Math.min(setting.maximum(), value));
             } catch (NumberFormatException notANumber) {
-                return Settings.MIN_REEL_VIEWS.defaultValue;
+                return setting.defaultValue;
             }
         }
 
@@ -6712,14 +6798,15 @@ public final class HushgramPreferenceFragment extends AbstractPreferenceFragment
         @Override
         protected void onDialogClosed(boolean positiveResult) {
             // What was typed is brought inside the range first, so the setting never takes an empty or huge count.
-            if (positiveResult) getEditText().setText(String.valueOf(valueOf(getEditText().getText().toString())));
+            if (positiveResult) getEditText().setText(String.valueOf(valueOf(setting, getEditText().getText().toString())));
             super.onDialogClosed(positiveResult);
         }
 
         @Override
         public void setText(String text) {
             super.setText(text);
-            setSummary(minViewsSummary(text));
+            // The field is set once the preference itself is made.
+            if (setting != null) setSummary(minCountSummary(setting, text));
         }
 
         @Override

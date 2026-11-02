@@ -218,6 +218,12 @@ Download on stories	Unduh di cerita
 Adds Download to the menu of anyone's story, photo or video, saved at your download quality. Off or paused, Instagram's own menu returns.	Menambahkan Unduh ke menu cerita siapa pun, foto atau video, disimpan dengan kualitas unduhan Anda. Saat nonaktif atau dijeda, menu asli Instagram kembali.
 Upload stories at full quality	Unggah cerita dengan kualitas penuh
 Video stories you post are sent at 1080p and a higher bitrate, as with Instagram's own Upload at highest quality setting on. Instagram still shrinks story videos to 720p on its servers, so the difference viewers see is small. Photo stories already go up larger than Instagram keeps.	Cerita video yang Anda posting dikirim dalam 1080p dengan bitrate lebih tinggi, seperti saat setelan Unggah dengan kualitas tertinggi milik Instagram aktif. Instagram tetap mengecilkan video cerita menjadi 720p di servernya, jadi perbedaan yang terlihat kecil. Cerita foto sudah diunggah lebih besar daripada yang disimpan Instagram.
+# context: Stories settings under Upload stories at full quality: which uploads it covers (Stories only, or Stories, posts and reels), and the video bitrate; %1$s is a number of megabits a second (#37)
+Upload quality applies to	Kualitas unggahan berlaku untuk
+Stories only	Hanya cerita
+Stories, posts and reels	Cerita, postingan, dan Reels
+Video bitrate	Bitrate video
+%1$s Mbps	%1$s Mbps
 Download feed videos	Unduh video feed
 Adds Download to the menu of a post in your feed with a video. Uses the quality below. Off or paused, Instagram's own menu returns.	Menambahkan Unduh ke menu postingan berisi video di feed kamu. Memakai kualitas di bawah. Saat nonaktif atau dijeda, menu Instagram sendiri kembali.
 Playback	Pemutaran
@@ -1418,7 +1424,7 @@ Only suggestions in For you. Home will open on Following.	Hanya saran di Untuk A
 Mix in Following	Campurkan Mengikuti
 For you shows a page of posts from accounts you follow after each page of its own, until you've seen them all. Pull down on Home to start both over. Restart Instagram to see the change.	Untuk Anda menampilkan satu halaman postingan dari akun yang kamu ikuti setelah setiap halamannya sendiri, sampai kamu melihat semuanya. Tarik ke bawah di Beranda untuk memulai keduanya dari awal. Mulai ulang Instagram untuk melihat perubahannya.
 Explore without personalization	Jelajahi tanpa personalisasi
-Where Instagram offers it (in the EU), Explore opens with the grid that isn't personalized every time, and stays on it past ten minutes.	Jika Instagram menawarkannya (di UE), Jelajahi selalu dibuka dengan kisi yang tidak dipersonalisasi, dan tetap begitu setelah sepuluh menit.
+Explore asks for the grid that isn't personalized every time it opens, and stays on it past ten minutes. Instagram only promises that grid in the EU.	Jelajahi meminta kisi yang tidak dipersonalisasi setiap kali dibuka, dan tetap begitu setelah sepuluh menit. Instagram hanya menjanjikan kisi itu di UE.
 Hide Explore's personalized menu	Sembunyikan menu personalisasi Jelajahi
 Hides the top bar button that switches Explore's personalization, where Instagram shows it (in the EU).	Menyembunyikan tombol di bilah atas yang mengubah personalisasi Jelajahi, jika Instagram menampilkannya (di UE).
 # context: Feed settings: the Carousel arrows switch and the two arrow buttons' TalkBack labels (#417)
@@ -1539,12 +1545,16 @@ Couldn't read that picture.	Gambar itu tidak bisa dibaca.
 This launcher can't add it.	Launcher ini tidak bisa menambahkannya.
 Glass in chats	Kaca di chat
 Gives a chat's top bar frosted glass and puts the back, call and video buttons on round glass circles. It shows the next time you open a chat. Needs Android 12 or newer for the blur.	Memberi bilah atas chat efek kaca buram dan menaruh tombol kembali, panggilan, dan video di atas lingkaran kaca. Tampil saat Anda membuka chat berikutnya. Efek blur butuh Android 12 atau lebih baru.
-# context: Reels switch Hide reels with few views, its summary, the Minimum views row, its dialog message and the row's summary; %1$s is a number with thousands separators (#444)
+# context: Reels switch Hide reels with few views, its summary, the Minimum views row, its dialog message and the row's summary, then the Minimum likes row, its dialog message, its summary and its summary at 0; %1$s is a number with thousands separators (#444)
 Hide reels with few views	Sembunyikan reel dengan sedikit tayangan
-Leaves out reels in the Reels tab that fewer people have watched than the number below. Reels from accounts you follow, reels sent to you and reels with no view count still play.	Menyembunyikan reel di tab Reels yang ditonton lebih sedikit orang daripada angka di bawah. Reel dari akun yang kamu ikuti, reel yang dikirim kepadamu, dan reel tanpa jumlah tayangan tetap diputar.
+Leaves out reels in the Reels tab with fewer views or likes than the numbers below. Reels from accounts you follow, reels sent to you and reels with no count still play.	Menyembunyikan reel di tab Reels yang tayangan atau sukanya lebih sedikit daripada angka di bawah. Reel dari akun yang kamu ikuti, reel yang dikirim kepadamu, dan reel tanpa jumlah tetap diputar.
 Minimum views	Tayangan minimum
 Reels with fewer views than this are left out. Type a whole number.	Reel dengan tayangan lebih sedikit dari ini disembunyikan. Ketik bilangan bulat.
 Fewer than %1$s views	Kurang dari %1$s tayangan
+Minimum likes	Suka minimum
+Reels with fewer likes than this are left out. Type a whole number, or 0 to not look at likes.	Reel dengan suka lebih sedikit dari ini disembunyikan. Ketik bilangan bulat, atau 0 agar suka tidak dihitung.
+Fewer than %1$s likes	Kurang dari %1$s suka
+Likes aren't looked at	Suka tidak dihitung
 # context: Stories switch Stories priority, its summary, the Priority accounts row, its dialog message and the row's summaries (none, one account, several accounts) (#451)
 Stories priority	Prioritas cerita
 Puts the accounts on your list first in the stories row at the top of Home while they have a story you haven't watched, in the order of the list. Once you've watched it, Instagram's own placement applies again. Your own story stays first.	Menaruh akun di daftarmu paling depan di baris cerita di bagian atas Beranda selama mereka punya cerita yang belum kamu tonton, sesuai urutan daftar. Setelah kamu menontonnya, penempatan bawaan Instagram berlaku lagi. Ceritamu sendiri tetap di depan.

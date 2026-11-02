@@ -218,6 +218,12 @@ Download on stories	Scarica sulle storie
 Adds Download to the menu of anyone's story, photo or video, saved at your download quality. Off or paused, Instagram's own menu returns.	Aggiunge Scarica al menu della storia di chiunque, foto o video, salvata alla qualità di download scelta. Se è off o in pausa, torna il menu di Instagram.
 Upload stories at full quality	Carica le storie a piena qualità
 Video stories you post are sent at 1080p and a higher bitrate, as with Instagram's own Upload at highest quality setting on. Instagram still shrinks story videos to 720p on its servers, so the difference viewers see is small. Photo stories already go up larger than Instagram keeps.	I video delle storie che pubblichi vengono inviati in 1080p e con un bitrate più alto, come con l'impostazione di Instagram Carica alla qualità più alta attiva. Instagram riduce comunque i video delle storie a 720p sui suoi server, quindi la differenza visibile è piccola. Le storie con foto vengono già caricate più grandi di quanto Instagram conservi.
+# context: Stories settings under Upload stories at full quality: which uploads it covers (Stories only, or Stories, posts and reels), and the video bitrate; %1$s is a number of megabits a second (#37)
+Upload quality applies to	La qualità di caricamento vale per
+Stories only	Solo storie
+Stories, posts and reels	Storie, post e Reel
+Video bitrate	Bitrate video
+%1$s Mbps	%1$s Mbps
 Download feed videos	Scarica i video del feed
 Adds Download to the menu of a post in your feed with a video. Uses the quality below. Off or paused, Instagram's own menu returns.	Aggiunge Scarica al menu di un post con video nel tuo feed. Usa la qualità qui sotto. Se è off o in pausa, torna il menu di Instagram.
 Playback	Riproduzione
@@ -1418,7 +1424,7 @@ Only suggestions in For you. Home will open on Following.	Solo suggerimenti in P
 Mix in Following	Mescola Seguiti
 For you shows a page of posts from accounts you follow after each page of its own, until you've seen them all. Pull down on Home to start both over. Restart Instagram to see the change.	Per te mostra una pagina di post degli account che segui dopo ogni sua pagina, finché non li hai visti tutti. Trascina verso il basso la Home per ricominciare entrambi. Riavvia Instagram per vedere la modifica.
 Explore without personalization	Esplora senza personalizzazione
-Where Instagram offers it (in the EU), Explore opens with the grid that isn't personalized every time, and stays on it past ten minutes.	Dove Instagram lo offre (nell'UE), Esplora si apre ogni volta con la griglia non personalizzata e ci resta anche dopo dieci minuti.
+Explore asks for the grid that isn't personalized every time it opens, and stays on it past ten minutes. Instagram only promises that grid in the EU.	Esplora chiede la griglia non personalizzata ogni volta che si apre e ci resta anche dopo dieci minuti. Instagram garantisce quella griglia solo nell'UE.
 Hide Explore's personalized menu	Nascondi il menu di personalizzazione di Esplora
 Hides the top bar button that switches Explore's personalization, where Instagram shows it (in the EU).	Nasconde il pulsante nella barra in alto che cambia la personalizzazione di Esplora, dove Instagram lo mostra (nell'UE).
 # context: Feed settings: the Carousel arrows switch and the two arrow buttons' TalkBack labels (#417)
@@ -1539,12 +1545,16 @@ Couldn't read that picture.	Impossibile leggere l'immagine.
 This launcher can't add it.	Questo launcher non può aggiungerla.
 Glass in chats	Vetro nelle chat
 Gives a chat's top bar frosted glass and puts the back, call and video buttons on round glass circles. It shows the next time you open a chat. Needs Android 12 or newer for the blur.	Dà alla barra in alto di una chat un effetto vetro smerigliato e mette i pulsanti indietro, chiamata e video su cerchi di vetro. Si vede alla prossima apertura di una chat. La sfocatura richiede Android 12 o successivo.
-# context: Reels switch Hide reels with few views, its summary, the Minimum views row, its dialog message and the row's summary; %1$s is a number with thousands separators (#444)
+# context: Reels switch Hide reels with few views, its summary, the Minimum views row, its dialog message and the row's summary, then the Minimum likes row, its dialog message, its summary and its summary at 0; %1$s is a number with thousands separators (#444)
 Hide reels with few views	Nascondi i reel con poche visualizzazioni
-Leaves out reels in the Reels tab that fewer people have watched than the number below. Reels from accounts you follow, reels sent to you and reels with no view count still play.	Esclude dalla scheda Reels i reel visti da meno persone del numero qui sotto. I reel degli account che segui, quelli che ti vengono inviati e quelli senza conteggio restano visibili.
+Leaves out reels in the Reels tab with fewer views or likes than the numbers below. Reels from accounts you follow, reels sent to you and reels with no count still play.	Esclude dalla scheda Reels i reel con meno visualizzazioni o Mi piace dei numeri qui sotto. I reel degli account che segui, quelli che ti vengono inviati e quelli senza conteggio restano visibili.
 Minimum views	Visualizzazioni minime
 Reels with fewer views than this are left out. Type a whole number.	I reel con meno visualizzazioni di questo valore vengono esclusi. Scrivi un numero intero.
 Fewer than %1$s views	Meno di %1$s visualizzazioni
+Minimum likes	Mi piace minimi
+Reels with fewer likes than this are left out. Type a whole number, or 0 to not look at likes.	I reel con meno Mi piace di questo valore vengono esclusi. Scrivi un numero intero, o 0 per non contare i Mi piace.
+Fewer than %1$s likes	Meno di %1$s Mi piace
+Likes aren't looked at	I Mi piace non contano
 # context: Stories switch Stories priority, its summary, the Priority accounts row, its dialog message and the row's summaries (none, one account, several accounts) (#451)
 Stories priority	Priorità delle storie
 Puts the accounts on your list first in the stories row at the top of Home while they have a story you haven't watched, in the order of the list. Once you've watched it, Instagram's own placement applies again. Your own story stays first.	Mette per prime le storie degli account della tua lista nella riga delle storie in cima alla Home finché ne hanno una che non hai guardato, nell'ordine della lista. Una volta guardata, torna la posizione scelta da Instagram. La tua storia resta la prima.

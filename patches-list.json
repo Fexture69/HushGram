@@ -1103,7 +1103,7 @@
     },
     {
       "name": "Explore without personalization",
-      "description": "Where Instagram lets you turn off personalization in Explore (in the EU), opens Explore on the grid that isn't personalized every time and keeps it from switching back after ten minutes. A second switch hides the menu button for it. Both start off. Turn them on in HushGram settings > Explore.",
+      "description": "Opens Explore on the grid that isn't personalized every time and keeps it from switching back after ten minutes. Instagram only promises that grid in the EU. A second switch hides the EU menu button for it. Both start off. Turn them on in HushGram settings > Explore.",
       "category": "Privacy",
       "use": true,
       "dependencies": [
@@ -2000,7 +2000,7 @@
     },
     {
       "name": "Hide reels with few views",
-      "description": "Leaves out reels in the Reels tab that fewer people have watched than a number you pick. Accounts you follow stay. Starts off. Turn it on in HushGram settings > Reels.",
+      "description": "Leaves out reels in the Reels tab with fewer views or likes than numbers you pick. Accounts you follow stay. Starts off. Turn it on in HushGram settings > Reels.",
       "category": "Reels",
       "use": true,
       "dependencies": [
@@ -5581,7 +5581,7 @@
     },
     {
       "name": "Upload stories at full quality",
-      "description": "Sends the video stories you post at 1080p and a higher bitrate, as Instagram does with its own Upload at highest quality setting on. Instagram still shrinks story videos to 720p on its servers, so viewers see a small difference. Starts off. Turn it on in HushGram settings > Stories.",
+      "description": "Sends the video stories you post at 1080p and a higher bitrate, as Instagram does with its own Upload at highest quality setting on. Two choices under it can cover posts and reels too and ask for a bitrate up to 50 Mbps. Instagram still shrinks story videos to 720p on its servers, so viewers see a small difference. Starts off. Turn it on in HushGram settings > Stories.",
       "category": "Stories",
       "use": true,
       "dependencies": [

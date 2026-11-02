@@ -115,6 +115,10 @@ public final class ConfigurationBackup {
             settings.put(Settings.STORY_RING_SCALE.key, Settings.STORY_RING_SCALE);
             settings.put(Settings.STORY_RING_COLOR.key, Settings.STORY_RING_COLOR);
         }
+        if (PatchFamily.STORY_UPLOAD_QUALITY.inBuild()) {
+            settings.put(Settings.UPLOAD_QUALITY_APPLIES_TO.key, Settings.UPLOAD_QUALITY_APPLIES_TO);
+            settings.put(Settings.UPLOAD_VIDEO_BITRATE.key, Settings.UPLOAD_VIDEO_BITRATE);
+        }
         if (PatchFamily.ROUNDED_POST_CORNERS.inBuild()) settings.put(Settings.ROUNDED_CORNER_SIZE.key, Settings.ROUNDED_CORNER_SIZE);
         if (PatchFamily.AMBIENT_LIGHT.inBuild()) {
             settings.put(Settings.AMBIENT_LIGHT_SPREAD.key, Settings.AMBIENT_LIGHT_SPREAD);
@@ -125,7 +129,10 @@ public final class ConfigurationBackup {
         if (PatchFamily.SPOOF_LOCATION.inBuild()) settings.put(Settings.SPOOF_LOCATION_PLACE.key, Settings.SPOOF_LOCATION_PLACE);
         if (PatchFamily.APP_PROXY.inBuild()) settings.put(Settings.APP_PROXY_SERVER.key, Settings.APP_PROXY_SERVER);
         if (PatchFamily.CAPTION_WORD_REELS.inBuild()) settings.put(Settings.REELS_BLOCKED_WORDS.key, Settings.REELS_BLOCKED_WORDS);
-        if (PatchFamily.LOW_VIEW_REELS.inBuild()) settings.put(Settings.MIN_REEL_VIEWS.key, Settings.MIN_REEL_VIEWS);
+        if (PatchFamily.LOW_VIEW_REELS.inBuild()) {
+            settings.put(Settings.MIN_REEL_VIEWS.key, Settings.MIN_REEL_VIEWS);
+            settings.put(Settings.MIN_REEL_LIKES.key, Settings.MIN_REEL_LIKES);
+        }
         if (PatchFamily.STORY_PRIORITY.inBuild()) settings.put(Settings.STORY_PRIORITY_ACCOUNTS.key, Settings.STORY_PRIORITY_ACCOUNTS);
         if (PatchFamily.SANITIZE_SHARING_LINKS.inBuild()) settings.put(Settings.SHARING_DOMAIN.key, Settings.SHARING_DOMAIN);
         if (PatchFamily.LIKE_ANIMATION.inBuild()) settings.put(Settings.LIKE_ANIMATION.key, Settings.LIKE_ANIMATION);

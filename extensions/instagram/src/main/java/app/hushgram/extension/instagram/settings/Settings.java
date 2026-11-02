@@ -350,6 +350,22 @@ public class Settings extends BaseSettings {
             new BooleanSetting("hushgram_upload_stories_at_full_quality", FALSE);
 
     /**
+     * Under {@link #UPLOAD_STORIES_AT_FULL_QUALITY}: whether it covers only video stories or every
+     * video upload, posts and reels too (#37). Stories to start, as the switch has always worked.
+     */
+    public static final EnumSetting<app.hushgram.extension.instagram.stories.UploadScope> UPLOAD_QUALITY_APPLIES_TO =
+            new EnumSetting<>("hushgram_upload_quality_applies_to", app.hushgram.extension.instagram.stories.UploadScope.STORIES,
+                    parent(UPLOAD_STORIES_AT_FULL_QUALITY));
+
+    /**
+     * Under {@link #UPLOAD_STORIES_AT_FULL_QUALITY}: the least video bitrate an upload it covers is
+     * prepared at (#37). Instagram's own to start, which leaves the bitrate it works out.
+     */
+    public static final EnumSetting<app.hushgram.extension.instagram.stories.UploadBitrate> UPLOAD_VIDEO_BITRATE =
+            new EnumSetting<>("hushgram_upload_video_bitrate", app.hushgram.extension.instagram.stories.UploadBitrate.INSTAGRAM,
+                    parent(UPLOAD_STORIES_AT_FULL_QUALITY));
+
+    /**
      * The first feed video of a Home session starts with its sound on, through the video's own sound
      * flag, when the phone's ringer is on and its volume is up
      * ({@link app.hushgram.extension.instagram.feed.FeedSound}). Off to start.
@@ -1167,8 +1183,8 @@ public class Settings extends BaseSettings {
             new BooleanSetting("hushgram_show_all_recent_searches", FALSE);
 
     /**
-     * Where Instagram offers a grid that isn't personalized (the EU), Explore opens with it each
-     * time and the ten-minute switch back is skipped
+     * Explore asks for the grid that isn't personalized each time it opens, on any account (#311),
+     * and the ten-minute switch back is skipped. Instagram only promises that grid in the EU
      * ({@link app.hushgram.extension.instagram.explore.ExploreMenu}). Read each time Explore
      * resumes. Off to start.
      */
@@ -1943,8 +1959,9 @@ public class Settings extends BaseSettings {
             new BooleanSetting("hushgram_hide_caption_word_home", FALSE, parent(HIDE_CAPTION_WORD_REELS));
 
     /**
-     * Reels in the Reels tab with fewer views than {@link #MIN_REEL_VIEWS}, unless their author is
-     * followed ({@link app.hushgram.extension.instagram.reels.LowViewReels}). Read as each page of
+     * Reels in the Reels tab with fewer views than {@link #MIN_REEL_VIEWS} or fewer likes than
+     * {@link #MIN_REEL_LIKES}, unless their author is followed
+     * ({@link app.hushgram.extension.instagram.reels.LowViewReels}). Read as each page of
      * reels arrives, so a change shows from the next page. Off to start (#444).
      */
     public static final BooleanSetting HIDE_LOW_VIEW_REELS =
@@ -1957,6 +1974,15 @@ public class Settings extends BaseSettings {
     public static final IntegerSetting MIN_REEL_VIEWS =
             new IntegerSetting("hushgram_min_reel_views", 1000, false, parent(HIDE_LOW_VIEW_REELS))
                     .withRange(1, 100_000_000);
+
+    /**
+     * Under {@link #HIDE_LOW_VIEW_REELS}: the like count a reel needs to stay, typed as a number, and
+     * 0 to leave likes alone. Starts at 10, since Instagram 453 sends most Reels tab reels with their
+     * likes but no view count (#444). A value control, not a switch.
+     */
+    public static final IntegerSetting MIN_REEL_LIKES =
+            new IntegerSetting("hushgram_min_reel_likes", 10, false, parent(HIDE_LOW_VIEW_REELS))
+                    .withRange(0, 100_000_000);
 
     /** An explicit Copy action for original comment text. Off until enabled. */
     public static final BooleanSetting COPY_COMMENTS =

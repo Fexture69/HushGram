@@ -218,6 +218,12 @@ Download on stories	Hikayelerde indir
 Adds Download to the menu of anyone's story, photo or video, saved at your download quality. Off or paused, Instagram's own menu returns.	Herkesin hikayesinin menüsüne İndir ekler, fotoğraf ya da video, indirme kalitende kaydedilir. Kapalıyken veya duraklatıldığında Instagram'ın kendi menüsü geri gelir.
 Upload stories at full quality	Hikayeleri tam kalitede yükle
 Video stories you post are sent at 1080p and a higher bitrate, as with Instagram's own Upload at highest quality setting on. Instagram still shrinks story videos to 720p on its servers, so the difference viewers see is small. Photo stories already go up larger than Instagram keeps.	Paylaştığın video hikayeler 1080p ve daha yüksek bit hızıyla gönderilir, Instagram'ın kendi En yüksek kalitede yükle ayarı açıkken olduğu gibi. Instagram hikaye videolarını sunucularında yine de 720p'ye küçültür, bu yüzden görünen fark küçüktür. Fotoğraf hikayeler zaten Instagram'ın sakladığından daha büyük yüklenir.
+# context: Stories settings under Upload stories at full quality: which uploads it covers (Stories only, or Stories, posts and reels), and the video bitrate; %1$s is a number of megabits a second (#37)
+Upload quality applies to	Yükleme kalitesinin geçerli olduğu yerler
+Stories only	Yalnızca hikayeler
+Stories, posts and reels	Hikayeler, gönderiler ve Reels
+Video bitrate	Video bit hızı
+%1$s Mbps	%1$s Mbps
 Download feed videos	Akıştaki videoları indir
 Adds Download to the menu of a post in your feed with a video. Uses the quality below. Off or paused, Instagram's own menu returns.	Akışındaki videolu bir gönderinin menüsüne İndir ekler. Aşağıdaki kaliteyi kullanır. Kapalıyken veya duraklatıldığında Instagram'ın kendi menüsü geri gelir.
 Playback	Oynatma
@@ -1418,7 +1424,7 @@ Only suggestions in For you. Home will open on Following.	Senin için'de sadece 
 Mix in Following	Takip edilenleri karıştır
 For you shows a page of posts from accounts you follow after each page of its own, until you've seen them all. Pull down on Home to start both over. Restart Instagram to see the change.	Senin için, kendi her sayfasından sonra takip ettiğin hesapların gönderilerinden bir sayfa gösterir, hepsini görene kadar. İkisini de baştan başlatmak için Ana Sayfa'yı aşağı çek. Değişikliği görmek için Instagram'ı yeniden başlat.
 Explore without personalization	Kişiselleştirme olmadan Keşfet
-Where Instagram offers it (in the EU), Explore opens with the grid that isn't personalized every time, and stays on it past ten minutes.	Instagram'ın sunduğu yerlerde (AB'de), Keşfet her seferinde kişiselleştirilmemiş ızgarayla açılır ve on dakika sonra da öyle kalır.
+Explore asks for the grid that isn't personalized every time it opens, and stays on it past ten minutes. Instagram only promises that grid in the EU.	Keşfet her açıldığında kişiselleştirilmemiş ızgarayı ister ve on dakika sonra da öyle kalır. Instagram bu ızgarayı yalnızca AB'de garanti eder.
 Hide Explore's personalized menu	Keşfet'in kişiselleştirme menüsünü gizle
 Hides the top bar button that switches Explore's personalization, where Instagram shows it (in the EU).	Instagram'ın gösterdiği yerlerde (AB'de), Keşfet'in kişiselleştirmesini değiştiren üst çubuk düğmesini gizler.
 # context: Feed settings: the Carousel arrows switch and the two arrow buttons' TalkBack labels (#417)
@@ -1539,12 +1545,16 @@ Couldn't read that picture.	Bu resim okunamadı.
 This launcher can't add it.	Bu başlatıcı ekleyemiyor.
 Glass in chats	Sohbetlerde cam
 Gives a chat's top bar frosted glass and puts the back, call and video buttons on round glass circles. It shows the next time you open a chat. Needs Android 12 or newer for the blur.	Bir sohbetin üst çubuğuna buzlu cam efekti verir ve geri, arama ve video düğmelerini yuvarlak cam dairelere koyar. Sohbeti bir sonraki açışında görünür. Bulanıklık için Android 12 veya daha yenisi gerekir.
-# context: Reels switch Hide reels with few views, its summary, the Minimum views row, its dialog message and the row's summary; %1$s is a number with thousands separators (#444)
+# context: Reels switch Hide reels with few views, its summary, the Minimum views row, its dialog message and the row's summary, then the Minimum likes row, its dialog message, its summary and its summary at 0; %1$s is a number with thousands separators (#444)
 Hide reels with few views	Az izlenen reelleri gizle
-Leaves out reels in the Reels tab that fewer people have watched than the number below. Reels from accounts you follow, reels sent to you and reels with no view count still play.	Reels sekmesinde, aşağıdaki sayıdan az kişinin izlediği reelleri çıkarır. Takip ettiğin hesapların reelleri, sana gönderilen reeller ve izlenme sayısı olmayan reeller oynamaya devam eder.
+Leaves out reels in the Reels tab with fewer views or likes than the numbers below. Reels from accounts you follow, reels sent to you and reels with no count still play.	Reels sekmesinde izlenmesi veya beğenisi aşağıdaki sayılardan az olan reelleri çıkarır. Takip ettiğin hesapların reelleri, sana gönderilen reeller ve sayısı olmayan reeller oynamaya devam eder.
 Minimum views	En az izlenme
 Reels with fewer views than this are left out. Type a whole number.	Bundan az izlenen reeller çıkarılır. Tam sayı yaz.
 Fewer than %1$s views	%1$s izlenmeden az
+Minimum likes	En az beğeni
+Reels with fewer likes than this are left out. Type a whole number, or 0 to not look at likes.	Bundan az beğenisi olan reeller çıkarılır. Tam sayı yaz ya da beğenilere bakılmasın diye 0 yaz.
+Fewer than %1$s likes	%1$s beğeniden az
+Likes aren't looked at	Beğenilere bakılmıyor
 # context: Stories switch Stories priority, its summary, the Priority accounts row, its dialog message and the row's summaries (none, one account, several accounts) (#451)
 Stories priority	Hikaye önceliği
 Puts the accounts on your list first in the stories row at the top of Home while they have a story you haven't watched, in the order of the list. Once you've watched it, Instagram's own placement applies again. Your own story stays first.	Listendeki hesapları, henüz izlemediğin bir hikayeleri olduğu sürece Ana Sayfa'nın üstündeki hikaye satırında listenin sırasıyla en öne koyar. İzledikten sonra Instagram'ın kendi yerleşimi yeniden geçerli olur. Kendi hikayen ilk sırada kalır.

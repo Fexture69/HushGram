@@ -216,6 +216,12 @@ Download on stories	Tải xuống trên tin
 Adds Download to the menu of anyone's story, photo or video, saved at your download quality. Off or paused, Instagram's own menu returns.	Thêm Tải xuống vào menu tin của bất kỳ ai, ảnh hay video, lưu ở chất lượng tải xuống của bạn. Khi tắt hoặc tạm dừng, menu của Instagram trở lại.
 Upload stories at full quality	Tải tin lên ở chất lượng đầy đủ
 Video stories you post are sent at 1080p and a higher bitrate, as with Instagram's own Upload at highest quality setting on. Instagram still shrinks story videos to 720p on its servers, so the difference viewers see is small. Photo stories already go up larger than Instagram keeps.	Tin video bạn đăng được gửi ở 1080p và tốc độ bit cao hơn, giống khi bật cài đặt Tải lên ở chất lượng cao nhất của Instagram. Instagram vẫn thu nhỏ video tin xuống 720p trên máy chủ nên người xem ít thấy khác biệt. Tin ảnh vốn đã được tải lên lớn hơn mức Instagram giữ.
+# context: Stories settings under Upload stories at full quality: which uploads it covers (Stories only, or Stories, posts and reels), and the video bitrate; %1$s is a number of megabits a second (#37)
+Upload quality applies to	Chất lượng tải lên áp dụng cho
+Stories only	Chỉ tin
+Stories, posts and reels	Tin, bài viết và Reels
+Video bitrate	Tốc độ bit video
+%1$s Mbps	%1$s Mbps
 Download feed videos	Tải video trên bảng feed
 Adds Download to the menu of a post in your feed with a video. Uses the quality below. Off or paused, Instagram's own menu returns.	Thêm Tải xuống vào menu của bài viết có video trong bảng feed. Dùng chất lượng bên dưới. Khi tắt hoặc tạm dừng, menu của Instagram trở lại.
 Playback	Phát lại
@@ -1360,7 +1366,7 @@ Only suggestions in For you. Home will open on Following.	Dành cho bạn chỉ 
 Mix in Following	Trộn Đang theo dõi
 For you shows a page of posts from accounts you follow after each page of its own, until you've seen them all. Pull down on Home to start both over. Restart Instagram to see the change.	Dành cho bạn hiện một trang bài viết từ các tài khoản bạn theo dõi sau mỗi trang của chính nó, cho đến khi bạn xem hết. Kéo trang chủ xuống để bắt đầu lại cả hai. Hãy khởi động lại Instagram để thấy thay đổi.
 Explore without personalization	Khám phá không cá nhân hóa
-Where Instagram offers it (in the EU), Explore opens with the grid that isn't personalized every time, and stays on it past ten minutes.	Nơi Instagram có tính năng này (ở EU), Khám phá luôn mở với lưới không cá nhân hóa và ở lại đó quá mười phút.
+Explore asks for the grid that isn't personalized every time it opens, and stays on it past ten minutes. Instagram only promises that grid in the EU.	Khám phá yêu cầu lưới không cá nhân hóa mỗi khi mở và ở lại đó quá mười phút. Instagram chỉ cam kết lưới này ở EU.
 Hide Explore's personalized menu	Ẩn menu cá nhân hóa của Khám phá
 Hides the top bar button that switches Explore's personalization, where Instagram shows it (in the EU).	Ẩn nút trên thanh trên cùng chuyển cá nhân hóa của Khám phá, nơi Instagram hiện nút này (ở EU).
 Carousel arrows	Mũi tên ảnh nhiều trang
@@ -1456,12 +1462,16 @@ Couldn't read that picture.	Không đọc được ảnh đó.
 This launcher can't add it.	Launcher này không thêm được.
 Glass in chats	Kính trong trò chuyện
 Gives a chat's top bar frosted glass and puts the back, call and video buttons on round glass circles. It shows the next time you open a chat. Needs Android 12 or newer for the blur.	Làm thanh trên cùng của cuộc trò chuyện có hiệu ứng kính mờ và đặt các nút quay lại, gọi và video lên những vòng tròn kính. Hiện ở lần mở cuộc trò chuyện tiếp theo. Hiệu ứng làm mờ cần Android 12 trở lên.
-# context: Reels switch Hide reels with few views, its summary, the Minimum views row, its dialog message and the row's summary; %1$s is a number with thousands separators (#444)
+# context: Reels switch Hide reels with few views, its summary, the Minimum views row, its dialog message and the row's summary, then the Minimum likes row, its dialog message, its summary and its summary at 0; %1$s is a number with thousands separators (#444)
 Hide reels with few views	Ẩn reel có ít lượt xem
-Leaves out reels in the Reels tab that fewer people have watched than the number below. Reels from accounts you follow, reels sent to you and reels with no view count still play.	Bỏ qua các reel trong tab Reels có ít người xem hơn con số bên dưới. Reel của tài khoản bạn theo dõi, reel được gửi cho bạn và reel không có lượt xem vẫn phát bình thường.
+Leaves out reels in the Reels tab with fewer views or likes than the numbers below. Reels from accounts you follow, reels sent to you and reels with no count still play.	Bỏ qua các reel trong tab Reels có lượt xem hoặc lượt thích ít hơn các con số bên dưới. Reel của tài khoản bạn theo dõi, reel được gửi cho bạn và reel không có con số vẫn phát bình thường.
 Minimum views	Số lượt xem tối thiểu
 Reels with fewer views than this are left out. Type a whole number.	Reel có ít lượt xem hơn số này sẽ bị bỏ qua. Nhập một số nguyên.
 Fewer than %1$s views	Dưới %1$s lượt xem
+Minimum likes	Số lượt thích tối thiểu
+Reels with fewer likes than this are left out. Type a whole number, or 0 to not look at likes.	Reel có ít lượt thích hơn số này sẽ bị bỏ qua. Nhập một số nguyên, hoặc 0 để không xét lượt thích.
+Fewer than %1$s likes	Dưới %1$s lượt thích
+Likes aren't looked at	Không xét lượt thích
 # context: Stories switch Stories priority, its summary, the Priority accounts row, its dialog message and the row's summaries (none, one account, several accounts) (#451)
 Stories priority	Ưu tiên tin
 Puts the accounts on your list first in the stories row at the top of Home while they have a story you haven't watched, in the order of the list. Once you've watched it, Instagram's own placement applies again. Your own story stays first.	Đưa các tài khoản trong danh sách của bạn lên đầu hàng tin ở đầu Trang chủ khi họ có tin bạn chưa xem, theo thứ tự trong danh sách. Xem xong thì vị trí mặc định của Instagram được áp dụng lại. Tin của chính bạn vẫn ở đầu.

@@ -8,6 +8,7 @@ Every HushGram release, newest first.
 
 * **Instagram:** `HushGram settings` adds `Black settings page` under Settings entry. Cards and dialogs go black, HushGram's name and version sit at the top, and each category is one line with its icon. It starts off. Asked for in #455.
 * **Instagram:** `Home header text` is a new patch. Under Layout, type a few words or pick a picture and it shows at the top of Home where Instagram's logo was. Leave both empty to keep the logo. Asked for in #454.
+* **Instagram:** `Upload stories at full quality` adds `Upload quality applies to`, so posts and reels can go up at 1080p too, and `Video bitrate`, which asks for 12 to 50 Mbps. Instagram still re-encodes everything on its servers. Asked for in #37.
 * **Instagram:** `Start Home on Following` adds `Mix in Following` under Feed. For you shows a page of posts from accounts you follow after each page of its own, until you've seen them all. It starts off. Asked for in #438.
 * **Instagram:** `Glass in chats` is a new patch. Under Messages, one switch gives a chat's top bar frosted glass and puts the back, call and video buttons on round glass circles. It starts off. Asked for in #449.
 * **Instagram:** `Chat plus menu` is a new patch. Under Messages you can take Saved, AI images and Draw off the plus menu in a chat's message bar, each with its own switch, and move the gallery and microphone buttons into that menu. All four start off. Asked for in #448.
@@ -19,7 +20,7 @@ Every HushGram release, newest first.
 * **Instagram:** `Keep stories playing while zooming` is a new patch. With its switch on under Stories, a story keeps playing while you pinch to zoom it. Hold it still first and it stays paused. It starts off. Asked for in #382.
 * **Instagram:** `Skip the ad data reminder` is a new patch under Ads and privacy. Instagram's reminder to review how it uses your data for ads stops opening by itself. Your ad choice doesn't change. It starts off. Asked for in #331.
 * **Instagram:** `Stories priority` is a new patch. Type the accounts you care about under Stories, one to a line, and when one has a story you haven't watched it goes first in Home's stories row, in your order. Asked for in #451.
-* **Instagram:** `Hide reels with few views` is a new patch. Switch it on under Reels and the Reels tab leaves out reels watched fewer times than a number you type (1,000 to start). Followed accounts and reels with no count stay. Asked for in #444.
+* **Instagram:** `Hide reels with few views` is a new patch. Switch it on under Reels and the Reels tab leaves out reels with fewer views than a number you type (1,000 to start) or fewer likes than a second one (10 to start). Instagram leaves the view count off most Reels tab posts now, so likes do most of the work. Set likes to 0 to go by views only. Followed accounts and reels with no count stay. Asked for in #444.
 * **Instagram:** `Hide Suggested for you on follow lists` now also takes the suggested people off the Follow requests screen. Your real requests stay. Asked for in #441.
 
 ### Improvements
@@ -32,7 +33,10 @@ Every HushGram release, newest first.
 
 ### Bug Fixes
 
+* **Instagram:** `Turn off HDR brightness boosts` now also turns off the fake HDR Instagram's own AV1 video decoder can add to ordinary reels. Where Instagram plays a reel through that decoder, the reel could still come out brighter than the rest of the screen. The diagnostic report counts each time. Reported in #85.
+* **Instagram:** `Logo and titles at the start` now moves the Messages title and the Reels tabs too. Messages keeps the gap its new message button has on the right, and the Reels tabs sit right after Create, or off the edge when Create is hidden. Reported in #407.
 * **Instagram:** With `Stop after the chat's reels` on, the reels a chat shares scroll again, one after another. A swipe up past the last one goes back to the chat, and pulling down at the top no longer reloads the viewer with suggested reels. Reported in #390.
+* **Instagram:** `Explore without personalization` did nothing outside the EU. It waited for the EU's menu button before asking for the grid that isn't personalized, and now it asks on every account. Instagram only promises that grid in the EU, so elsewhere it's up to them what comes back. Reported in #311.
 * **Instagram:** `Rounded corners on Reels` rounded the corners of the screen instead of the video when a reel had black bars above and below it, so the video itself stayed square. The corners now go on the video and move with it. Reported in #456.
 * **Instagram:** `Jump to the first message` could stop partway up a long chat and say "Here it is." On a slow connection it now waits while Instagram shows older messages loading and taps Instagram's Retry when a page fails. If Instagram still won't send more, it tells you so. A clock button next to the call buttons at the top of a chat opens the menu too, and the menu is now a small popup with icons. Reported in #453.
 * **Instagram:** The glass tab bar could stay over a story's reply box until Instagram restarted, when an older story viewer was still hidden in the background. The bar now looks past it. Reported in #450.
