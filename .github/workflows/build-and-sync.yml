@@ -1,0 +1,168 @@
+name: Build and Sync HushGram Patches
+
+on:
+  schedule:
+    # Run automatically every day at 00:00 UTC
+    - cron: '0 0 * * *'
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - 'README.md'
+      - '.github/ISSUE_TEMPLATE/**'
+      - 'FUNDING.yml'
+  workflow_dispatch:
+    inputs:
+      sync_upstream:
+        description: 'Sync with upstream repository before building'
+        type: boolean
+        default: true
+      publish_release:
+        description: 'Publish build to GitHub Releases'
+        type: boolean
+        default: true
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+  packages: read
+
+jobs:
+  sync-and-build:
+    name: Sync, Build & Release
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '21'
+
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Sync with Upstream
+        if: github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && inputs.sync_upstream == true)
+        run: |
+          echo "Configuring git identity..."
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          echo "Configuring upstream remote..."
+          git remote add upstream https://github.com/SysAdminDoc/HushGram.git || git remote set-url upstream https://github.com/SysAdminDoc/HushGram.git
+          git fetch upstream main
+
+          BEHIND_COUNT=$(git rev-list --count HEAD..upstream/main)
+          echo "Commits behind upstream: $BEHIND_COUNT"
+
+          if [ "$BEHIND_COUNT" -gt 0 ]; then
+            echo "Merging upstream/main into main branch..."
+            if ! git merge upstream/main --no-edit -m "chore(sync): sync with upstream/main"; then
+              echo "Checking conflict status..."
+              UNMERGED=$(git diff --name-only --diff-filter=U)
+              echo "Unmerged files:"
+              echo "$UNMERGED"
+
+              # Auto-resolve L10nTranslations.java conflict if generated translations conflict
+              if [ "$UNMERGED" = "extensions/shared/library/src/main/java/app/hushgram/extension/shared/L10nTranslations.java" ]; then
+                echo "Conflict is exclusively in L10nTranslations.java. Regenerating translations..."
+                python3 scripts/gen-l10n.py
+                git add extensions/shared/library/src/main/java/app/hushgram/extension/shared/L10nTranslations.java
+                git commit -m "chore(sync): sync with upstream/main and regenerate translations"
+                echo "Translations conflict resolved automatically."
+              else
+                echo "::error::Merge conflicts encountered that require manual resolution:"
+                echo "$UNMERGED"
+                git merge --abort
+                exit 1
+              fi
+            fi
+
+            echo "Pushing merged changes to origin/main..."
+            git push origin main
+            echo "Successfully synced with upstream!"
+          else
+            echo "Repository is already up to date with upstream."
+          fi
+
+      - name: Make gradlew executable
+        run: chmod +x gradlew
+
+      - name: Extract Patch Version
+        id: version
+        run: |
+          VER=$(grep '^version\s*=' gradle.properties | cut -d '=' -f2 | tr -d ' ')
+          echo "VERSION=$VER" >> $GITHUB_OUTPUT
+          echo "Detected version: $VER"
+
+      - name: Build Patch Bundle (.mpp)
+        env:
+          GITHUB_ACTOR: ${{ github.actor }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          ./gradlew :patches:buildAndroid --no-daemon
+
+      - name: Verify MPP Artifact
+        run: |
+          ls -la patches/build/release/
+          if [ ! -f patches/build/release/patches-${{ steps.version.outputs.VERSION }}.mpp ]; then
+            echo "::error::Expected release bundle patches-${{ steps.version.outputs.VERSION }}.mpp not found!"
+            exit 1
+          fi
+
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: hushgram-patches-v${{ steps.version.outputs.VERSION }}-build${{ github.run_number }}
+          path: |
+            patches/build/release/*.mpp
+            patches/build/release/*.cdx.json
+            patches/build/release/bundle.sha256
+          if-no-files-found: error
+
+      - name: Create or Update GitHub Release
+        if: github.ref == 'refs/heads/main' && (github.event_name == 'push' || github.event_name == 'schedule' || inputs.publish_release == true)
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v${{ steps.version.outputs.VERSION }}-build${{ github.run_number }}
+          name: "HushGram Patches v${{ steps.version.outputs.VERSION }} (Build ${{ github.run_number }})"
+          body: |
+            ## HushGram Patches Bundle v${{ steps.version.outputs.VERSION }}
+            
+            Automated build from commit `${{ github.sha }}`.
+
+            ### Features included:
+            - **Developer Options Unlocked:** Full MetaConfig flags editor & settings menu.
+            - **Custom Overrides:** Import, export, reset, and restore custom MetaConfig overrides.
+            - **Mapping File Support:** Import custom flag name mappings (`id_name_mapping.json` / text format).
+            - **Instagram 453 Support:** Fixed MetaConfig label reflection for newer Instagram builds.
+            - **Latest Upstream Sync:** Automatically merged upstream fixes and features.
+
+            ### Assets:
+            - **Patch Bundle:** `patches-${{ steps.version.outputs.VERSION }}.mpp` (Load directly into Morphe Manager)
+            - **SBOM:** `patches-${{ steps.version.outputs.VERSION }}.cdx.json`
+            - **SHA-256 Checksum:** `bundle.sha256`
+          files: |
+            patches/build/release/*.mpp
+            patches/build/release/*.cdx.json
+            patches/build/release/bundle.sha256
+          draft: false
+          prerelease: false
+          make_latest: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
