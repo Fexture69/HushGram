@@ -78,10 +78,13 @@ internal fun BytecodePatchContext.findOverrideEditor(): OverrideEditor {
     val getter = classDefBy(IG_ACTIVITY).methods.singleOrNull {
         it.name == mainGetter.name && it.parameterTypes.isEmpty() && it.returnType == session && it.isPublicInstance()
     } ?: editorRefuse("native activity has no matching session accessor")
-    if (getter.implementation?.instructions?.none {
-            val ref = (it as? ReferenceInstruction)?.reference
-            ref?.toString()?.startsWith("$MODAL->") == true
-        } != false) editorRefuse("native session accessor doesn't support modal activities")
+    val modalSupported = getter.implementation?.instructions?.any {
+        val ref = (it as? ReferenceInstruction)?.reference
+        ref?.toString()?.startsWith("$MODAL->") == true
+    } == true || classDefBy(MODAL).methods.any {
+        it.name == getter.name && it.parameterTypes.isEmpty() && it.returnType == session && it.isPublicInstance()
+    }
+    if (!modalSupported) editorRefuse("native session accessor doesn't support modal activities")
 
     val (factoryIndex, factory) = (maxOf(0, newEditor - 8) until newEditor).mapNotNull { index ->
         if (code[index].opcode != Opcode.INVOKE_STATIC) null
