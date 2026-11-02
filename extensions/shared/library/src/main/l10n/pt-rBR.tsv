@@ -1669,3 +1669,18 @@ Shows the Import and Restore rows. An import changes Instagram's hidden settings
 The current overrides already match the saved copy. Nothing changed.	Os valores atuais já correspondem à cópia salva. Nada mudou.
 This file matches the current overrides. Nothing changed.	Este arquivo corresponde aos valores atuais. Nada mudou.
 This phone has no file picker. Overrides haven't changed.	Este celular não tem seletor de arquivos. Os overrides não mudaram.
+Use HushGram's setting names	Usar nomes de configuração do HushGram
+MetaConfig shows names from HushGram's own list in place of numbers. The list comes from Instagram 447, so a few newer settings still show as numbers. A list you import is used instead.	O MetaConfig mostra nomes da própria lista do HushGram em vez de números. A lista vem do Instagram 447, portanto, algumas configurações mais recentes ainda aparecem como números. Uma lista importada é usada no lugar.
+Import mapping file	Import mapping file
+Pick an Instagram id_name_mapping.json or HushGram text list. Shows names in MetaConfig in place of numbers.	Pick an Instagram id_name_mapping.json or HushGram text list. Shows names in MetaConfig in place of numbers.
+Remove imported mapping	Remove imported mapping
+Forget the imported names. MetaConfig goes back to HushGram's names, or to Instagram's own labels if that switch is off.	Forget the imported names. MetaConfig goes back to HushGram's names, or to Instagram's own labels if that switch is off.
+This phone has no file picker. Mapping hasn't changed.	This phone has no file picker. Mapping hasn't changed.
+Couldn't read mapping from that file. Nothing changed.	Couldn't read mapping from that file. Nothing changed.
+Mapping file removed. Open MetaConfig again to see the change.	Mapping file removed. Open MetaConfig again to see the change.
+There is no imported mapping file to remove.	There is no imported mapping file to remove.
+Mapping imported: %1$d names. Open MetaConfig again to see them.	Mapping imported: %1$d names. Open MetaConfig again to see them.
+%1$d entries left out because they repeat or don't fit.	%1$d entries left out because they repeat or don't fit.
+That file has no mapping names in it. Nothing changed.	That file has no mapping names in it. Nothing changed.
+Couldn't remove mapping file. Try again.	Couldn't remove mapping file. Try again.
+Couldn't save mapping file. Nothing changed.	Couldn't save mapping file. Nothing changed.

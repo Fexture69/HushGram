@@ -80,6 +80,37 @@ final class DeveloperCategory {
             });
             developer.addPreference(mark(openWhitehat, SettingsIcons.CODE));
 
+            if (PatchFamily.flagNamesInBuild()) {
+                developer.addPreference(toggle(context, Settings.USE_FLAG_NAMES,
+                        L10n.t("Use HushGram's setting names"),
+                        L10n.t("MetaConfig shows names from HushGram's own list in place of numbers. The list comes from "
+                                + "Instagram 447, so a few newer settings still show as numbers. A list you import is used instead.")));
+
+                Row importMapping = new Row(context);
+                importMapping.setKey("hushgram_import_flag_names");
+                importMapping.setPersistent(false);
+                importMapping.setTitle(L10n.t("Import mapping file"));
+                importMapping.setSummary(L10n.t("Pick an Instagram id_name_mapping.json or HushGram text list. "
+                        + "Shows names in MetaConfig in place of numbers."));
+                importMapping.setOnPreferenceClickListener(row -> {
+                    page.pickFlagNames();
+                    return true;
+                });
+                developer.addPreference(mark(importMapping, SettingsIcons.CODE));
+
+                Row removeMapping = new Row(context);
+                removeMapping.setKey("hushgram_remove_flag_names");
+                removeMapping.setPersistent(false);
+                removeMapping.setTitle(L10n.t("Remove imported mapping"));
+                removeMapping.setSummary(L10n.t("Forget the imported names. MetaConfig goes back to HushGram's names, "
+                        + "or to Instagram's own labels if that switch is off."));
+                removeMapping.setOnPreferenceClickListener(row -> {
+                    page.flagNames(null, HushgramPreferenceFragment.REMOVE_FLAG_NAMES);
+                    return true;
+                });
+                developer.addPreference(mark(removeMapping, SettingsIcons.CODE));
+            }
+
             if (PatchFamily.overrideExchangeInBuild()) {
                 Row exportOverrides = new Row(context);
                 exportOverrides.setKey("hushgram_export_overrides");

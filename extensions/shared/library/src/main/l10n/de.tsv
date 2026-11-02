@@ -1669,3 +1669,18 @@ Shows the Import and Restore rows. An import changes Instagram's hidden settings
 The current overrides already match the saved copy. Nothing changed.	Die aktuellen Überschreibungen entsprechen bereits der gespeicherten Kopie. Es wurde nichts geändert.
 This file matches the current overrides. Nothing changed.	Diese Datei entspricht den aktuellen Überschreibungen. Es wurde nichts geändert.
 This phone has no file picker. Overrides haven't changed.	Dieses Handy hat keine Dateiauswahl. Die Overrides haben sich nicht geändert.
+Use HushGram's setting names	HushGram-Einstellungsnamen verwenden
+MetaConfig shows names from HushGram's own list in place of numbers. The list comes from Instagram 447, so a few newer settings still show as numbers. A list you import is used instead.	MetaConfig zeigt Namen aus der eigenen Liste von HushGram statt Nummern. Die Liste stammt von Instagram 447, deshalb erscheinen ein paar neuere Einstellungen weiterhin als Nummern. Eine importierte Liste wird stattdessen verwendet.
+Import mapping file	Import mapping file
+Pick an Instagram id_name_mapping.json or HushGram text list. Shows names in MetaConfig in place of numbers.	Pick an Instagram id_name_mapping.json or HushGram text list. Shows names in MetaConfig in place of numbers.
+Remove imported mapping	Remove imported mapping
+Forget the imported names. MetaConfig goes back to HushGram's names, or to Instagram's own labels if that switch is off.	Forget the imported names. MetaConfig goes back to HushGram's names, or to Instagram's own labels if that switch is off.
+This phone has no file picker. Mapping hasn't changed.	This phone has no file picker. Mapping hasn't changed.
+Couldn't read mapping from that file. Nothing changed.	Couldn't read mapping from that file. Nothing changed.
+Mapping file removed. Open MetaConfig again to see the change.	Mapping file removed. Open MetaConfig again to see the change.
+There is no imported mapping file to remove.	There is no imported mapping file to remove.
+Mapping imported: %1$d names. Open MetaConfig again to see them.	Mapping imported: %1$d names. Open MetaConfig again to see them.
+%1$d entries left out because they repeat or don't fit.	%1$d entries left out because they repeat or don't fit.
+That file has no mapping names in it. Nothing changed.	That file has no mapping names in it. Nothing changed.
+Couldn't remove mapping file. Try again.	Couldn't remove mapping file. Try again.
+Couldn't save mapping file. Nothing changed.	Couldn't save mapping file. Nothing changed.

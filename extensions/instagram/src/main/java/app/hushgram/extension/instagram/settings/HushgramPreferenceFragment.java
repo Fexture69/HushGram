@@ -116,6 +116,7 @@ import app.hushgram.extension.instagram.misc.HeaderPicture;
 import app.hushgram.extension.instagram.misc.HeaderText;
 import app.hushgram.extension.instagram.misc.MediaCache;
 import app.hushgram.extension.instagram.misc.NotificationGroups;
+import app.hushgram.extension.instagram.misc.FlagNames;
 import app.hushgram.extension.instagram.misc.OverrideExchange;
 import app.hushgram.extension.instagram.misc.OverrideImport;
 import app.hushgram.extension.instagram.misc.SettingsRows;
@@ -251,7 +252,8 @@ public final class HushgramPreferenceFragment extends AbstractPreferenceFragment
     private static final int IMPORT_CONFIGURATION = 0x4848;
     static final int EXPORT_OVERRIDES = 0x4849;
     static final int IMPORT_OVERRIDES = 0x484b;
-    static final int RESTORE_OVERRIDES = 0, RESET_OVERRIDES = -2;
+    static final int IMPORT_FLAG_NAMES = 0x484c;
+    static final int RESTORE_OVERRIDES = 0, RESET_OVERRIDES = -2, REMOVE_FLAG_NAMES = -3;
     private static final int PICK_FONT = 0x484d;
     private static final int PICK_STORY_FONT = 0x484e;
     private static final int PICK_STORY_EMOJI = 0x484f;
@@ -1829,6 +1831,21 @@ public final class HushgramPreferenceFragment extends AbstractPreferenceFragment
             }
             return;
         }
+        if (request == IMPORT_FLAG_NAMES) {
+            documentRequest = 0;
+            documentCode = 0;
+            if (result == Activity.RESULT_OK) {
+                Uri uri = data == null ? null : data.getData();
+                if (uri != null && "content".equals(uri.getScheme())) {
+                    flagNames(uri, request);
+                } else {
+                    showOverrideResult(L10n.t("Couldn't read mapping from that file. Nothing changed."));
+                }
+            } else {
+                showConfiguration();
+            }
+            return;
+        }
         if (request != EXPORT_CONFIGURATION && request != IMPORT_CONFIGURATION) return;
         documentRequest = 0;
         documentCode = 0;
@@ -2227,6 +2244,61 @@ public final class HushgramPreferenceFragment extends AbstractPreferenceFragment
     private void showOverrideResult(String message) {
         Utils.showToastLong(message);
         Utils.runOnMainThread(this::showConfiguration);
+    }
+
+    void pickFlagNames() {
+        if (!allowMutation()) return;
+        if (documentSequence == Integer.MAX_VALUE) {
+            Utils.showToastLong(L10n.t("Couldn't start that. Try again."));
+            return;
+        }
+        documentRequest = IMPORT_FLAG_NAMES;
+        documentCode = ++documentSequence;
+        showConfiguration();
+        Intent picker = new Intent(Intent.ACTION_OPEN_DOCUMENT)
+                .addCategory(Intent.CATEGORY_OPENABLE)
+                .setType("*/*");
+        try {
+            startActivityForResult(picker, documentCode);
+        } catch (ActivityNotFoundException | SecurityException failure) {
+            documentRequest = 0;
+            documentCode = 0;
+            showConfiguration();
+            showOverrideResult(L10n.t("This phone has no file picker. Mapping hasn't changed."));
+        }
+    }
+
+    void flagNames(@Nullable Uri uri, int request) {
+        boolean removing = request == REMOVE_FLAG_NAMES;
+        Context context = getContext();
+        if (context == null || (!removing && uri == null)) { showConfiguration(); return; }
+        if (!Utils.runOnBackgroundThread(() -> {
+            try {
+                if (removing) {
+                    showOverrideResult(FlagNames.clear(context)
+                            ? L10n.t("Mapping file removed. Open MetaConfig again to see the change.")
+                            : L10n.t("There is no imported mapping file to remove."));
+                } else {
+                    byte[] bytes;
+                    try (InputStream input = context.getContentResolver().openInputStream(uri)) {
+                        bytes = FlagNames.read(input);
+                    }
+                    FlagNames.Names names = FlagNames.importNames(context, bytes);
+                    String imported = L10n.f("Mapping imported: %1$d names. Open MetaConfig again to see them.", names.size());
+                    showOverrideResult(names.leftOut == 0 ? imported : imported + " " + L10n.f(
+                            "%1$d entries left out because they repeat or don't fit.", names.leftOut));
+                }
+            } catch (FlagNames.Empty failure) {
+                showOverrideResult(L10n.t("That file has no mapping names in it. Nothing changed."));
+            } catch (FlagNames.Unreadable failure) {
+                showOverrideResult(L10n.t("Couldn't read mapping from that file. Nothing changed."));
+            } catch (Exception failure) {
+                showOverrideResult(removing ? L10n.t("Couldn't remove mapping file. Try again.")
+                        : L10n.t("Couldn't save mapping file. Nothing changed."));
+            }
+        })) {
+            Utils.showToastLong(L10n.t("Couldn't start that. Try again."));
+        }
     }
 
     private static String resetOutcome(OverrideImport.Result result) {
