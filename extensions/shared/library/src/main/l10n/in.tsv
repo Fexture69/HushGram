@@ -1634,3 +1634,38 @@ Ultra HDR photos	Ultra HDR photos
 Upload stories at higher quality	Upload stories at higher quality
 Usernames in Messages and notifications	Usernames in Messages and notifications
 Whitehat settings are unavailable on this screen. Open HushGram settings from Home while signed in.	Whitehat settings are unavailable on this screen. Open HushGram settings from Home while signed in.
+%1$d overrides from a different Instagram version don't fit this one and were left out.	%1$d override dari versi Instagram yang berbeda tidak cocok dengan versi ini dan dilewati.
+Allow importing overrides	Izinkan impor nilai pengganti
+Allow importing overrides is off or HushGram is paused. Nothing changed.	Izinkan impor nilai pengganti nonaktif atau HushGram sedang dijeda. Tidak ada yang berubah.
+An earlier import still needs Restore previous overrides, or Discard saved overrides if Restore can't run. Nothing changed.	Impor sebelumnya masih perlu Pulihkan nilai pengganti sebelumnya, atau Buang nilai pengganti tersimpan jika Pulihkan tidak bisa dijalankan. Tidak ada yang berubah.
+Applies a HushGram export, or Instagram's own overrides file. Your current overrides are saved first so Restore can bring them back.	Menerapkan ekspor HushGram atau file override milik Instagram. Override kamu saat ini disimpan dulu agar Pulihkan bisa mengembalikannya.
+Couldn't export overrides. The selected file may be incomplete. Instagram's overrides haven't changed.	Tidak bisa mengekspor override. File yang dipilih mungkin tidak lengkap. Override Instagram tidak berubah.
+Couldn't import overrides. Check the file and open settings from Home while signed in. Nothing changed.	Nilai pengganti tidak dapat diimpor. Periksa berkas dan buka pengaturan dari Beranda saat sudah masuk. Tidak ada yang berubah.
+Couldn't reset overrides. Open settings from Home while signed in. Nothing changed.	Tidak bisa mengatur ulang nilai pengganti. Buka pengaturan dari Beranda saat masuk. Tidak ada yang berubah.
+Couldn't restore overrides. Open settings from Home while signed in. Nothing changed.	Nilai pengganti tidak dapat dipulihkan. Buka pengaturan dari Beranda saat sudah masuk. Tidak ada yang berubah.
+Couldn't restore overrides. The saved copy doesn't fit this account and Instagram version. Use Discard saved overrides if you don't need it. Nothing changed.	Tidak bisa memulihkan override. Salinan tersimpan tidak cocok dengan akun dan versi Instagram ini. Pakai Discard saved overrides jika tidak membutuhkannya. Tidak ada yang berubah.
+Couldn't restore overrides. There's no saved copy for this account and Instagram version. Nothing changed.	Tidak bisa memulihkan override. Tidak ada salinan tersimpan untuk akun dan versi Instagram ini. Tidak ada yang berubah.
+Couldn't use that file. Instagram's overrides haven't changed.	Tidak bisa memakai file itu. Override Instagram tidak berubah.
+Every override is already cleared. Nothing changed.	Every override is already cleared. Nothing changed.
+Export overrides	Ekspor nilai pengganti
+Import overrides	Impor nilai pengganti
+Imported %1$d override changes. Restart Instagram to apply them.	%1$d perubahan nilai pengganti diimpor. Mulai ulang Instagram untuk menerapkannya.
+Instagram didn't keep the change and the overrides couldn't be confirmed. Use Restore previous overrides, then restart Instagram.	Instagram tidak menyimpan perubahan itu dan nilai pengganti tidak dapat dipastikan. Gunakan Pulihkan nilai pengganti sebelumnya, lalu mulai ulang Instagram.
+Instagram didn't keep the change, so the overrides were put back as they were.	Instagram tidak menyimpan perubahan itu, jadi nilai pengganti dikembalikan seperti semula.
+Instagram is still saving an override change. Wait a moment and try again. Nothing changed.	Instagram masih menyimpan perubahan nilai pengganti. Tunggu sebentar lalu coba lagi. Tidak ada yang berubah.
+None of this file's overrides fit this Instagram version. Nothing changed.	Tidak ada override dalam file ini yang cocok dengan versi Instagram ini. Tidak ada yang berubah.
+Overrides cleared. Restart Instagram to apply the change.	Overrides cleared. Restart Instagram to apply the change.
+Overrides exported for this Instagram version.	Override diekspor untuk versi Instagram ini.
+Previous overrides restored. Restart Instagram to apply them.	Nilai pengganti sebelumnya sudah dipulihkan. Mulai ulang Instagram untuk menerapkannya.
+Puts back the overrides saved before your last import for this account and Instagram version.	Mengembalikan override yang disimpan sebelum impor terakhir kamu untuk akun dan versi Instagram ini.
+Recovery cleanup didn't finish. Use Restore previous overrides or Discard saved overrides.	Pembersihan pemulihan belum selesai. Gunakan Pulihkan nilai pengganti sebelumnya atau Buang nilai pengganti tersimpan.
+Removes every override from this signed-in account, so Instagram goes back to its own settings. Your current overrides are saved first for Restore.	Menghapus semua override dari akun yang sedang masuk ini, sehingga Instagram kembali ke pengaturannya sendiri. Override kamu saat ini disimpan dulu untuk Pulihkan.
+Reset all overrides	Atur ulang semua nilai pengganti
+Restore previous overrides	Pulihkan nilai pengganti sebelumnya
+Restore put back what it could, except %1$d overrides that were set to nothing, which can't be put back this way. Imports stay blocked until you use Discard saved overrides. Restart Instagram to apply the rest.	Pulihkan mengembalikan apa yang bisa, kecuali %1$d override yang diatur ke kosong dan tidak bisa dikembalikan dengan cara ini. Impor tetap diblokir sampai kamu memakai Discard saved overrides. Mulai ulang Instagram untuk menerapkan sisanya.
+Restore put back what it could, except %1$d overrides that were set to nothing, which can't be put back this way. Restart Instagram to apply the rest.	Pulihkan mengembalikan apa yang bisa, kecuali %1$d override yang diatur ke kosong dan tidak bisa dikembalikan dengan cara ini. Mulai ulang Instagram untuk menerapkan sisanya.
+Saves your overrides (changes to Instagram's hidden settings) for this exact Instagram version.	Menyimpan override kamu (perubahan pada pengaturan tersembunyi Instagram) untuk versi Instagram yang persis ini.
+Shows the Import and Restore rows. An import changes Instagram's hidden settings for this signed-in account.	Menampilkan baris Impor dan Pulihkan. Impor mengubah pengaturan tersembunyi Instagram untuk akun yang sedang masuk ini.
+The current overrides already match the saved copy. Nothing changed.	Nilai pengganti saat ini sudah sama dengan salinan tersimpan. Tidak ada yang berubah.
+This file matches the current overrides. Nothing changed.	Berkas ini sama dengan nilai pengganti saat ini. Tidak ada yang berubah.
+This phone has no file picker. Overrides haven't changed.	Ponsel ini tidak punya pemilih file. Override tidak berubah.

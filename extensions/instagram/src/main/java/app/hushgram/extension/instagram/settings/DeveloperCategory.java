@@ -79,6 +79,63 @@ final class DeveloperCategory {
                 return true;
             });
             developer.addPreference(mark(openWhitehat, SettingsIcons.CODE));
+
+            if (PatchFamily.overrideExchangeInBuild()) {
+                Row exportOverrides = new Row(context);
+                exportOverrides.setKey("hushgram_export_overrides");
+                exportOverrides.setPersistent(false);
+                exportOverrides.setTitle(L10n.t("Export overrides"));
+                exportOverrides.setSummary(L10n.t("Saves your overrides (changes to Instagram's hidden settings) for "
+                        + "this exact Instagram version."));
+                exportOverrides.setOnPreferenceClickListener(row -> {
+                    page.pickOverrides(HushgramPreferenceFragment.EXPORT_OVERRIDES);
+                    return true;
+                });
+                developer.addPreference(mark(exportOverrides, SettingsIcons.CODE));
+            }
+
+            if (PatchFamily.overrideImportInBuild()) {
+                developer.addPreference(toggle(context, Settings.ALLOW_OVERRIDE_IMPORT,
+                        L10n.t("Allow importing overrides"),
+                        L10n.t("Shows the Import and Restore rows. An import changes Instagram's hidden settings for "
+                                + "this signed-in account.")));
+
+                Row importOverrides = new Row(context);
+                importOverrides.setKey("hushgram_import_overrides");
+                importOverrides.setPersistent(false);
+                importOverrides.setTitle(L10n.t("Import overrides"));
+                importOverrides.setSummary(L10n.t("Applies a HushGram export, or Instagram's own overrides file. "
+                        + "Your current overrides are saved first so Restore can bring them back."));
+                importOverrides.setOnPreferenceClickListener(row -> {
+                    page.pickOverrides(HushgramPreferenceFragment.IMPORT_OVERRIDES);
+                    return true;
+                });
+                developer.addPreference(mark(importOverrides, SettingsIcons.CODE));
+
+                Row restoreOverrides = new Row(context);
+                restoreOverrides.setKey("hushgram_restore_overrides");
+                restoreOverrides.setPersistent(false);
+                restoreOverrides.setTitle(L10n.t("Restore previous overrides"));
+                restoreOverrides.setSummary(L10n.t("Puts back the overrides saved before your last import for this "
+                        + "account and Instagram version."));
+                restoreOverrides.setOnPreferenceClickListener(row -> {
+                    page.exchangeOverrides(null, HushgramPreferenceFragment.RESTORE_OVERRIDES);
+                    return true;
+                });
+                developer.addPreference(mark(restoreOverrides, SettingsIcons.CODE));
+
+                Row resetOverrides = new Row(context);
+                resetOverrides.setKey("hushgram_reset_overrides");
+                resetOverrides.setPersistent(false);
+                resetOverrides.setTitle(L10n.t("Reset all overrides"));
+                resetOverrides.setSummary(L10n.t("Removes every override from this signed-in account, so Instagram "
+                        + "goes back to its own settings. Your current overrides are saved first for Restore."));
+                resetOverrides.setOnPreferenceClickListener(row -> {
+                    page.exchangeOverrides(null, HushgramPreferenceFragment.RESET_OVERRIDES);
+                    return true;
+                });
+                developer.addPreference(mark(resetOverrides, SettingsIcons.CODE));
+            }
         }
     }
 }

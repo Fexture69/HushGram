@@ -1637,3 +1637,38 @@ Ultra HDR photos	Ultra HDR photos
 Upload stories at higher quality	Upload stories at higher quality
 Usernames in Messages and notifications	Usernames in Messages and notifications
 Whitehat settings are unavailable on this screen. Open HushGram settings from Home while signed in.	Whitehat settings are unavailable on this screen. Open HushGram settings from Home while signed in.
+%1$d overrides from a different Instagram version don't fit this one and were left out.	%1$d overrides from a different Instagram version don't fit this one and were left out.
+Allow importing overrides	Allow importing overrides
+Allow importing overrides is off or HushGram is paused. Nothing changed.	Allow importing overrides is off or HushGram is paused. Nothing changed.
+An earlier import still needs Restore previous overrides, or Discard saved overrides if Restore can't run. Nothing changed.	An earlier import still needs Restore previous overrides, or Discard saved overrides if Restore can't run. Nothing changed.
+Applies a HushGram export, or Instagram's own overrides file. Your current overrides are saved first so Restore can bring them back.	Applies a HushGram export, or Instagram's own overrides file. Your current overrides are saved first so Restore can bring them back.
+Couldn't export overrides. The selected file may be incomplete. Instagram's overrides haven't changed.	Couldn't export overrides. The selected file may be incomplete. Instagram's overrides haven't changed.
+Couldn't import overrides. Check the file and open settings from Home while signed in. Nothing changed.	Couldn't import overrides. Check the file and open settings from Home while signed in. Nothing changed.
+Couldn't reset overrides. Open settings from Home while signed in. Nothing changed.	Couldn't reset overrides. Open settings from Home while signed in. Nothing changed.
+Couldn't restore overrides. Open settings from Home while signed in. Nothing changed.	Couldn't restore overrides. Open settings from Home while signed in. Nothing changed.
+Couldn't restore overrides. The saved copy doesn't fit this account and Instagram version. Use Discard saved overrides if you don't need it. Nothing changed.	Couldn't restore overrides. The saved copy doesn't fit this account and Instagram version. Use Discard saved overrides if you don't need it. Nothing changed.
+Couldn't restore overrides. There's no saved copy for this account and Instagram version. Nothing changed.	Couldn't restore overrides. There's no saved copy for this account and Instagram version. Nothing changed.
+Couldn't use that file. Instagram's overrides haven't changed.	Couldn't use that file. Instagram's overrides haven't changed.
+Every override is already cleared. Nothing changed.	Every override is already cleared. Nothing changed.
+Export overrides	Export overrides
+Import overrides	Import overrides
+Imported %1$d override changes. Restart Instagram to apply them.	Imported %1$d override changes. Restart Instagram to apply them.
+Instagram didn't keep the change and the overrides couldn't be confirmed. Use Restore previous overrides, then restart Instagram.	Instagram didn't keep the change and the overrides couldn't be confirmed. Use Restore previous overrides, then restart Instagram.
+Instagram didn't keep the change, so the overrides were put back as they were.	Instagram didn't keep the change, so the overrides were put back as they were.
+Instagram is still saving an override change. Wait a moment and try again. Nothing changed.	Instagram is still saving an override change. Wait a moment and try again. Nothing changed.
+None of this file's overrides fit this Instagram version. Nothing changed.	None of this file's overrides fit this Instagram version. Nothing changed.
+Overrides cleared. Restart Instagram to apply the change.	Overrides cleared. Restart Instagram to apply the change.
+Overrides exported for this Instagram version.	Overrides exported for this Instagram version.
+Previous overrides restored. Restart Instagram to apply them.	Previous overrides restored. Restart Instagram to apply them.
+Puts back the overrides saved before your last import for this account and Instagram version.	Puts back the overrides saved before your last import for this account and Instagram version.
+Recovery cleanup didn't finish. Use Restore previous overrides or Discard saved overrides.	Recovery cleanup didn't finish. Use Restore previous overrides or Discard saved overrides.
+Removes every override from this signed-in account, so Instagram goes back to its own settings. Your current overrides are saved first for Restore.	Removes every override from this signed-in account, so Instagram goes back to its own settings. Your current overrides are saved first for Restore.
+Reset all overrides	Reset all overrides
+Restore previous overrides	Restore previous overrides
+Restore put back what it could, except %1$d overrides that were set to nothing, which can't be put back this way. Imports stay blocked until you use Discard saved overrides. Restart Instagram to apply the rest.	Restore put back what it could, except %1$d overrides that were set to nothing, which can't be put back this way. Imports stay blocked until you use Discard saved overrides. Restart Instagram to apply the rest.
+Restore put back what it could, except %1$d overrides that were set to nothing, which can't be put back this way. Restart Instagram to apply the rest.	Restore put back what it could, except %1$d overrides that were set to nothing, which can't be put back this way. Restart Instagram to apply the rest.
+Saves your overrides (changes to Instagram's hidden settings) for this exact Instagram version.	Saves your overrides (changes to Instagram's hidden settings) for this exact Instagram version.
+Shows the Import and Restore rows. An import changes Instagram's hidden settings for this signed-in account.	Shows the Import and Restore rows. An import changes Instagram's hidden settings for this signed-in account.
+The current overrides already match the saved copy. Nothing changed.	The current overrides already match the saved copy. Nothing changed.
+This file matches the current overrides. Nothing changed.	This file matches the current overrides. Nothing changed.
+This phone has no file picker. Overrides haven't changed.	This phone has no file picker. Overrides haven't changed.

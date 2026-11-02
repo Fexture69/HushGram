@@ -68,6 +68,9 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.text.NumberFormat;
 import java.lang.ref.WeakReference;
 import java.text.Normalizer;
@@ -113,6 +116,8 @@ import app.hushgram.extension.instagram.misc.HeaderPicture;
 import app.hushgram.extension.instagram.misc.HeaderText;
 import app.hushgram.extension.instagram.misc.MediaCache;
 import app.hushgram.extension.instagram.misc.NotificationGroups;
+import app.hushgram.extension.instagram.misc.OverrideExchange;
+import app.hushgram.extension.instagram.misc.OverrideImport;
 import app.hushgram.extension.instagram.misc.SettingsRows;
 import app.hushgram.extension.instagram.misc.SpoofLocation;
 import app.hushgram.extension.instagram.share.ShareSheetActions;
@@ -244,6 +249,9 @@ public final class HushgramPreferenceFragment extends AbstractPreferenceFragment
     };
     private static final int EXPORT_CONFIGURATION = 0x4847;
     private static final int IMPORT_CONFIGURATION = 0x4848;
+    static final int EXPORT_OVERRIDES = 0x4849;
+    static final int IMPORT_OVERRIDES = 0x484b;
+    static final int RESTORE_OVERRIDES = 0, RESET_OVERRIDES = -2;
     private static final int PICK_FONT = 0x484d;
     private static final int PICK_STORY_FONT = 0x484e;
     private static final int PICK_STORY_EMOJI = 0x484f;
@@ -1806,6 +1814,21 @@ public final class HushgramPreferenceFragment extends AbstractPreferenceFragment
             showConfiguration();
             return;
         }
+        if (request == EXPORT_OVERRIDES || request == IMPORT_OVERRIDES) {
+            documentRequest = 0;
+            documentCode = 0;
+            if (result == Activity.RESULT_OK) {
+                Uri uri = data == null ? null : data.getData();
+                if (uri != null && "content".equals(uri.getScheme())) {
+                    exchangeOverrides(uri, request);
+                } else {
+                    showOverrideResult(L10n.t("Couldn't use that file. Instagram's overrides haven't changed."));
+                }
+            } else {
+                showConfiguration();
+            }
+            return;
+        }
         if (request != EXPORT_CONFIGURATION && request != IMPORT_CONFIGURATION) return;
         documentRequest = 0;
         documentCode = 0;
@@ -2119,6 +2142,123 @@ public final class HushgramPreferenceFragment extends AbstractPreferenceFragment
             return;
         }
         Utils.showToastShort(L10n.f("Folder set to %1$s.", L10n.isolate(SaveTree.label(context, tree))));
+    }
+
+    void pickOverrides(int request) {
+        if (!allowMutation()) return;
+        if (documentSequence == Integer.MAX_VALUE) {
+            Utils.showToastLong(L10n.t("Couldn't start that. Try again."));
+            return;
+        }
+        documentRequest = request;
+        documentCode = ++documentSequence;
+        showConfiguration();
+        boolean exporting = request == EXPORT_OVERRIDES;
+        Intent picker = new Intent(exporting ? Intent.ACTION_CREATE_DOCUMENT : Intent.ACTION_OPEN_DOCUMENT)
+                .addCategory(Intent.CATEGORY_OPENABLE)
+                .setType("application/json");
+        if (exporting) picker.putExtra(Intent.EXTRA_TITLE, "HushGram-overrides.json");
+        try {
+            startActivityForResult(picker, documentCode);
+        } catch (ActivityNotFoundException | SecurityException failure) {
+            showOverrideResult(L10n.t("This phone has no file picker. Overrides haven't changed."));
+        }
+    }
+
+    void exchangeOverrides(@Nullable Uri uri, int request) {
+        Context context = getContext();
+        Activity activity = getActivity();
+        if (context == null || activity == null) { showConfiguration(); return; }
+        if (!Utils.runOnBackgroundThread(() -> {
+            try {
+                if (request == RESTORE_OVERRIDES) {
+                    showOverrideResult(overrideOutcome(OverrideImport.restore(activity), true));
+                } else if (request == RESET_OVERRIDES) {
+                    showOverrideResult(resetOutcome(OverrideImport.reset(activity)));
+                } else if (request == IMPORT_OVERRIDES) {
+                    byte[] bytes;
+                    try (InputStream input = context.getContentResolver().openInputStream(uri)) {
+                        bytes = OverrideExchange.read(input);
+                    }
+                    showOverrideResult(overrideOutcome(OverrideImport.apply(activity, bytes), false));
+                } else if (request == EXPORT_OVERRIDES) {
+                    OverrideExchange.Snapshot snapshot = OverrideExchange.capture(activity);
+                    byte[] bytes = OverrideExchange.export(snapshot);
+                    try (OutputStream output = context.getContentResolver().openOutputStream(uri, "wt")) {
+                        if (output == null) throw new IOException();
+                        output.write(bytes);
+                    }
+                    String exported = L10n.t("Overrides exported for this Instagram version.");
+                    showOverrideResult(snapshot.leftOut() == 0 ? exported : exported + " " + L10n.f("%1$d "
+                            + "overrides from a different Instagram version don't fit this one and were left out.", snapshot.leftOut()));
+                }
+            } catch (OverrideImport.RestoreFirst failure) {
+                showOverrideResult(L10n.t("An earlier import still needs Restore previous overrides, "
+                        + "or Discard saved overrides if Restore can't run. Nothing changed."));
+            } catch (OverrideImport.NotAllowed failure) {
+                showOverrideResult(L10n.t("Allow importing overrides is off or HushGram is paused. Nothing changed."));
+            } catch (OverrideImport.StoreChanging failure) {
+                showOverrideResult(L10n.t("Instagram is still saving an override change. Wait a moment and try again. Nothing changed."));
+            } catch (OverrideImport.NothingSaved failure) {
+                showOverrideResult(L10n.t("Couldn't restore overrides. There's no saved copy for this account "
+                        + "and Instagram version. Nothing changed."));
+            } catch (OverrideExchange.NothingFits failure) {
+                showOverrideResult(L10n.t("None of this file's overrides fit this Instagram version. Nothing "
+                        + "changed."));
+            } catch (OverrideImport.SavedCopyDoesntFit failure) {
+                showOverrideResult(L10n.t("Couldn't restore overrides. The saved copy doesn't fit this "
+                        + "account and Instagram version. Use Discard saved overrides if you don't need it. Nothing "
+                        + "changed."));
+            } catch (Exception failure) {
+                showOverrideResult(request == RESTORE_OVERRIDES
+                        ? L10n.t("Couldn't restore overrides. Open settings from Home while signed in. Nothing changed.")
+                        : request == RESET_OVERRIDES
+                        ? L10n.t("Couldn't reset overrides. Open settings from Home while signed in. Nothing changed.")
+                        : request == IMPORT_OVERRIDES
+                        ? L10n.t("Couldn't import overrides. Check the file and open settings from Home while signed in. Nothing changed.")
+                        : L10n.t("Couldn't export overrides. The selected file may be incomplete. Instagram's "
+                                + "overrides haven't changed."));
+            }
+        })) {
+            Utils.showToastLong(L10n.t("Couldn't start that. Try again."));
+        }
+    }
+
+    private void showOverrideResult(String message) {
+        Utils.showToastLong(message);
+        Utils.runOnMainThread(this::showConfiguration);
+    }
+
+    private static String resetOutcome(OverrideImport.Result result) {
+        if (result.outcome == OverrideImport.Outcome.UNCHANGED) {
+            return L10n.t("Every override is already cleared. Nothing changed.");
+        }
+        String message = L10n.t("Overrides cleared. Restart Instagram to apply the change.");
+        return result.blocked ? message + " " + L10n.t("Recovery cleanup didn't finish. Use Restore previous overrides or Discard saved overrides.") : message;
+    }
+
+    private static String overrideOutcome(OverrideImport.Result result, boolean restoring) {
+        String message;
+        switch (result.outcome) {
+            case UNCHANGED: message = restoring
+                    ? L10n.t("The current overrides already match the saved copy. Nothing changed.")
+                    : L10n.t("This file matches the current overrides. Nothing changed."); break;
+            case APPLIED: message = restoring
+                    ? L10n.t("Previous overrides restored. Restart Instagram to apply them.")
+                    : L10n.f("Imported %1$d override changes. Restart Instagram to apply them.", result.changes); break;
+            case ROLLED_BACK: message = L10n.t("Instagram didn't keep the change, so the overrides were put back as they were."); break;
+            case PARTIAL: return result.blocked
+                    ? L10n.f("Restore put back what it could, except %1$d overrides that were set to nothing, which "
+                    + "can't be put back this way. Imports stay blocked until you use Discard saved overrides. "
+                    + "Restart Instagram to apply the rest.", result.skipped)
+                    : L10n.f("Restore put back what it could, except %1$d overrides that were set to nothing, which "
+                    + "can't be put back this way. Restart Instagram to apply the rest.", result.skipped);
+            default: return L10n.t("Instagram didn't keep the change and the overrides couldn't be confirmed. "
+                    + "Use Restore previous overrides, then restart Instagram.");
+        }
+        if (result.leftOut > 0) message += " " + L10n.f("%1$d overrides from a different Instagram version don't fit "
+                + "this one and were left out.", result.leftOut);
+        return result.blocked ? message + " " + L10n.t("Recovery cleanup didn't finish. Use Restore previous overrides or Discard saved overrides.") : message;
     }
 
     /** What the two folder rows say and allow now, for the picked folder or none. */

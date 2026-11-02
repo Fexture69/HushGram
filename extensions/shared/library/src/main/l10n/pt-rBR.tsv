@@ -1634,3 +1634,38 @@ Ultra HDR photos	Ultra HDR photos
 Upload stories at higher quality	Upload stories at higher quality
 Usernames in Messages and notifications	Usernames in Messages and notifications
 Whitehat settings are unavailable on this screen. Open HushGram settings from Home while signed in.	Whitehat settings are unavailable on this screen. Open HushGram settings from Home while signed in.
+%1$d overrides from a different Instagram version don't fit this one and were left out.	%1$d overrides de uma versão diferente do Instagram não servem para esta e foram ignorados.
+Allow importing overrides	Permitir importar valores personalizados
+Allow importing overrides is off or HushGram is paused. Nothing changed.	Permitir importar valores personalizados está desativado ou o HushGram está pausado. Nada mudou.
+An earlier import still needs Restore previous overrides, or Discard saved overrides if Restore can't run. Nothing changed.	Uma importação anterior ainda precisa de Restaurar valores anteriores, ou de Descartar valores salvos se Restaurar não puder rodar. Nada mudou.
+Applies a HushGram export, or Instagram's own overrides file. Your current overrides are saved first so Restore can bring them back.	Aplica uma exportação do HushGram ou o arquivo de overrides do próprio Instagram. Seus overrides atuais são salvos antes, para o Restaurar poder trazê-los de volta.
+Couldn't export overrides. The selected file may be incomplete. Instagram's overrides haven't changed.	Não foi possível exportar os overrides. O arquivo escolhido pode estar incompleto. Os overrides do Instagram não mudaram.
+Couldn't import overrides. Check the file and open settings from Home while signed in. Nothing changed.	Não foi possível importar os valores personalizados. Confira o arquivo e abra as configurações pela página inicial com a sessão iniciada. Nada mudou.
+Couldn't reset overrides. Open settings from Home while signed in. Nothing changed.	Não deu para redefinir os valores personalizados. Abra as configurações pelo Início com a conta conectada. Nada mudou.
+Couldn't restore overrides. Open settings from Home while signed in. Nothing changed.	Não foi possível restaurar os valores personalizados. Abra as configurações pela página inicial com a sessão iniciada. Nada mudou.
+Couldn't restore overrides. The saved copy doesn't fit this account and Instagram version. Use Discard saved overrides if you don't need it. Nothing changed.	Não foi possível restaurar os overrides. A cópia salva não serve para esta conta e versão do Instagram. Use Discard saved overrides se não precisar dela. Nada mudou.
+Couldn't restore overrides. There's no saved copy for this account and Instagram version. Nothing changed.	Não foi possível restaurar os overrides. Não há cópia salva para esta conta e versão do Instagram. Nada mudou.
+Couldn't use that file. Instagram's overrides haven't changed.	Não foi possível usar esse arquivo. Os overrides do Instagram não mudaram.
+Every override is already cleared. Nothing changed.	Every override is already cleared. Nothing changed.
+Export overrides	Exportar valores personalizados
+Import overrides	Importar valores personalizados
+Imported %1$d override changes. Restart Instagram to apply them.	%1$d alterações importadas. Reinicie o Instagram para aplicá-las.
+Instagram didn't keep the change and the overrides couldn't be confirmed. Use Restore previous overrides, then restart Instagram.	O Instagram não manteve a alteração e não foi possível confirmar os valores. Use Restaurar valores anteriores e depois reinicie o Instagram.
+Instagram didn't keep the change, so the overrides were put back as they were.	O Instagram não manteve a alteração, então os valores voltaram ao que eram.
+Instagram is still saving an override change. Wait a moment and try again. Nothing changed.	O Instagram ainda está salvando uma alteração nos valores personalizados. Espere um pouco e tente de novo. Nada mudou.
+None of this file's overrides fit this Instagram version. Nothing changed.	Nenhum dos overrides deste arquivo serve para esta versão do Instagram. Nada mudou.
+Overrides cleared. Restart Instagram to apply the change.	Overrides cleared. Restart Instagram to apply the change.
+Overrides exported for this Instagram version.	Overrides exportados para esta versão do Instagram.
+Previous overrides restored. Restart Instagram to apply them.	Valores anteriores restaurados. Reinicie o Instagram para aplicá-los.
+Puts back the overrides saved before your last import for this account and Instagram version.	Traz de volta os overrides salvos antes da sua última importação para esta conta e versão do Instagram.
+Recovery cleanup didn't finish. Use Restore previous overrides or Discard saved overrides.	A limpeza da recuperação não terminou. Use Restaurar valores anteriores ou Descartar valores salvos.
+Removes every override from this signed-in account, so Instagram goes back to its own settings. Your current overrides are saved first for Restore.	Tira todos os overrides desta conta conectada, e o Instagram volta às configurações dele. Seus overrides atuais são salvos antes para o Restaurar.
+Reset all overrides	Redefinir todos os valores personalizados
+Restore previous overrides	Restaurar valores anteriores
+Restore put back what it could, except %1$d overrides that were set to nothing, which can't be put back this way. Imports stay blocked until you use Discard saved overrides. Restart Instagram to apply the rest.	O Restaurar trouxe de volta o que deu, exceto %1$d overrides que estavam definidos como nada e não podem ser restaurados assim. As importações continuam bloqueadas até você usar Discard saved overrides. Reinicie o Instagram para aplicar o resto.
+Restore put back what it could, except %1$d overrides that were set to nothing, which can't be put back this way. Restart Instagram to apply the rest.	O Restaurar trouxe de volta o que deu, exceto %1$d overrides que estavam definidos como nada e não podem ser restaurados assim. Reinicie o Instagram para aplicar o resto.
+Saves your overrides (changes to Instagram's hidden settings) for this exact Instagram version.	Salva seus overrides (mudanças nas configurações ocultas do Instagram) para esta versão exata do Instagram.
+Shows the Import and Restore rows. An import changes Instagram's hidden settings for this signed-in account.	Mostra as linhas Importar e Restaurar. Uma importação muda as configurações ocultas do Instagram para esta conta conectada.
+The current overrides already match the saved copy. Nothing changed.	Os valores atuais já correspondem à cópia salva. Nada mudou.
+This file matches the current overrides. Nothing changed.	Este arquivo corresponde aos valores atuais. Nada mudou.
+This phone has no file picker. Overrides haven't changed.	Este celular não tem seletor de arquivos. Os overrides não mudaram.

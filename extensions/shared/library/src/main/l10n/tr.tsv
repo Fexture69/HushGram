@@ -1634,3 +1634,38 @@ Ultra HDR photos	Ultra HDR photos
 Upload stories at higher quality	Upload stories at higher quality
 Usernames in Messages and notifications	Usernames in Messages and notifications
 Whitehat settings are unavailable on this screen. Open HushGram settings from Home while signed in.	Whitehat settings are unavailable on this screen. Open HushGram settings from Home while signed in.
+%1$d overrides from a different Instagram version don't fit this one and were left out.	Farklı bir Instagram sürümünden gelen %1$d override bu sürüme uymuyor ve atlandı.
+Allow importing overrides	Geçersiz kılmaları içe aktarmaya izin ver
+Allow importing overrides is off or HushGram is paused. Nothing changed.	Geçersiz kılmaları içe aktarmaya izin ver kapalı ya da HushGram duraklatıldı. Hiçbir şey değişmedi.
+An earlier import still needs Restore previous overrides, or Discard saved overrides if Restore can't run. Nothing changed.	Önceki bir içe aktarma için hâlâ Önceki geçersiz kılmaları geri yükle gerekiyor. Geri yükleme çalışamıyorsa Kayıtlı geçersiz kılmaları at seçeneğini kullanın. Hiçbir şey değişmedi.
+Applies a HushGram export, or Instagram's own overrides file. Your current overrides are saved first so Restore can bring them back.	Bir HushGram dışa aktarımını veya Instagram'ın kendi override dosyasını uygular. Geri Yükle'nin geri getirebilmesi için mevcut override'ların önce kaydedilir.
+Couldn't export overrides. The selected file may be incomplete. Instagram's overrides haven't changed.	Override'lar dışa aktarılamadı. Seçilen dosya eksik olabilir. Instagram'ın override'ları değişmedi.
+Couldn't import overrides. Check the file and open settings from Home while signed in. Nothing changed.	Geçersiz kılmalar içe aktarılamadı. Dosyayı denetleyin ve oturum açıkken Ana Sayfa'dan ayarları açın. Hiçbir şey değişmedi.
+Couldn't reset overrides. Open settings from Home while signed in. Nothing changed.	Geçersiz kılmalar sıfırlanamadı. Oturum açıkken ayarları Ana Sayfa'dan aç. Hiçbir şey değişmedi.
+Couldn't restore overrides. Open settings from Home while signed in. Nothing changed.	Geçersiz kılmalar geri yüklenemedi. Oturum açıkken Ana Sayfa'dan ayarları açın. Hiçbir şey değişmedi.
+Couldn't restore overrides. The saved copy doesn't fit this account and Instagram version. Use Discard saved overrides if you don't need it. Nothing changed.	Override'lar geri yüklenemedi. Kayıtlı kopya bu hesaba ve Instagram sürümüne uymuyor. Gerekmiyorsa Discard saved overrides'ı kullan. Hiçbir şey değişmedi.
+Couldn't restore overrides. There's no saved copy for this account and Instagram version. Nothing changed.	Override'lar geri yüklenemedi. Bu hesap ve Instagram sürümü için kayıtlı kopya yok. Hiçbir şey değişmedi.
+Couldn't use that file. Instagram's overrides haven't changed.	Bu dosya kullanılamadı. Instagram'ın override'ları değişmedi.
+Every override is already cleared. Nothing changed.	Every override is already cleared. Nothing changed.
+Export overrides	Geçersiz kılmaları dışa aktar
+Import overrides	Geçersiz kılmaları içe aktar
+Imported %1$d override changes. Restart Instagram to apply them.	%1$d geçersiz kılma değişikliği içe aktarıldı. Uygulamak için Instagram'ı yeniden başlatın.
+Instagram didn't keep the change and the overrides couldn't be confirmed. Use Restore previous overrides, then restart Instagram.	Instagram değişikliği tutmadı ve geçersiz kılmalar doğrulanamadı. Önceki geçersiz kılmaları geri yükle seçeneğini kullanın, ardından Instagram'ı yeniden başlatın.
+Instagram didn't keep the change, so the overrides were put back as they were.	Instagram değişikliği tutmadı, bu yüzden geçersiz kılmalar eski haline getirildi.
+Instagram is still saving an override change. Wait a moment and try again. Nothing changed.	Instagram hâlâ bir geçersiz kılma değişikliğini kaydediyor. Biraz bekleyip yeniden deneyin. Hiçbir şey değişmedi.
+None of this file's overrides fit this Instagram version. Nothing changed.	Bu dosyadaki hiçbir override bu Instagram sürümüne uymuyor. Hiçbir şey değişmedi.
+Overrides cleared. Restart Instagram to apply the change.	Overrides cleared. Restart Instagram to apply the change.
+Overrides exported for this Instagram version.	Override'lar bu Instagram sürümü için dışa aktarıldı.
+Previous overrides restored. Restart Instagram to apply them.	Önceki geçersiz kılmalar geri yüklendi. Uygulamak için Instagram'ı yeniden başlatın.
+Puts back the overrides saved before your last import for this account and Instagram version.	Bu hesap ve Instagram sürümü için son içe aktarmandan önce kaydedilen override'ları geri getirir.
+Recovery cleanup didn't finish. Use Restore previous overrides or Discard saved overrides.	Kurtarma temizliği tamamlanmadı. Önceki geçersiz kılmaları geri yükle veya Kayıtlı geçersiz kılmaları at seçeneğini kullanın.
+Removes every override from this signed-in account, so Instagram goes back to its own settings. Your current overrides are saved first for Restore.	Oturum açık olan bu hesaptaki tüm override'ları kaldırır, böylece Instagram kendi ayarlarına döner. Mevcut override'ların önce Geri Yükle için kaydedilir.
+Reset all overrides	Tüm geçersiz kılmaları sıfırla
+Restore previous overrides	Önceki geçersiz kılmaları geri yükle
+Restore put back what it could, except %1$d overrides that were set to nothing, which can't be put back this way. Imports stay blocked until you use Discard saved overrides. Restart Instagram to apply the rest.	Geri Yükle yapabildiğini geri getirdi, ancak hiçbir şeye ayarlanmış olan %1$d override bu yolla geri getirilemez. Discard saved overrides'ı kullanana kadar içe aktarmalar engelli kalır. Kalanını uygulamak için Instagram'ı yeniden başlat.
+Restore put back what it could, except %1$d overrides that were set to nothing, which can't be put back this way. Restart Instagram to apply the rest.	Geri Yükle yapabildiğini geri getirdi, ancak hiçbir şeye ayarlanmış olan %1$d override bu yolla geri getirilemez. Kalanını uygulamak için Instagram'ı yeniden başlat.
+Saves your overrides (changes to Instagram's hidden settings) for this exact Instagram version.	Override'larını (Instagram'ın gizli ayarlarında yaptığın değişiklikler) tam olarak bu Instagram sürümü için kaydeder.
+Shows the Import and Restore rows. An import changes Instagram's hidden settings for this signed-in account.	İçe Aktar ve Geri Yükle satırlarını gösterir. İçe aktarma, oturum açık olan bu hesap için Instagram'ın gizli ayarlarını değiştirir.
+The current overrides already match the saved copy. Nothing changed.	Geçerli geçersiz kılmalar kayıtlı kopyayla zaten aynı. Hiçbir şey değişmedi.
+This file matches the current overrides. Nothing changed.	Bu dosya geçerli geçersiz kılmalarla aynı. Hiçbir şey değişmedi.
+This phone has no file picker. Overrides haven't changed.	Bu telefonda dosya seçici yok. Override'lar değişmedi.

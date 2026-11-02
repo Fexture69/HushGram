@@ -1633,3 +1633,38 @@ Ultra HDR photos	Ultra HDR photos
 Upload stories at higher quality	Upload stories at higher quality
 Usernames in Messages and notifications	Usernames in Messages and notifications
 Whitehat settings are unavailable on this screen. Open HushGram settings from Home while signed in.	Whitehat settings are unavailable on this screen. Open HushGram settings from Home while signed in.
+%1$d overrides from a different Instagram version don't fit this one and were left out.	다른 Instagram 버전에서 온 오버라이드 %1$d개는 이 버전에 맞지 않아 제외되었습니다.
+Allow importing overrides	재정의 가져오기 허용
+Allow importing overrides is off or HushGram is paused. Nothing changed.	‘재정의 가져오기 허용’이 꺼져 있거나 HushGram이 일시 정지되었습니다. 변경된 사항은 없습니다
+An earlier import still needs Restore previous overrides, or Discard saved overrides if Restore can't run. Nothing changed.	이전에 가져온 설정이 아직 적용된 상태입니다. '이전 재정의 복원’을 실행하거나, 복원이 불가능한 경우 '저장된 재정의 삭제'를 실행해야 합니다. 변경된 사항은 없습니다
+Applies a HushGram export, or Instagram's own overrides file. Your current overrides are saved first so Restore can bring them back.	HushGram에서 내보낸 파일이나 Instagram의 오버라이드 파일을 적용합니다. 복원으로 되돌릴 수 있도록 현재 오버라이드를 먼저 저장합니다.
+Couldn't export overrides. The selected file may be incomplete. Instagram's overrides haven't changed.	오버라이드를 내보낼 수 없습니다. 선택한 파일이 불완전할 수 있습니다. Instagram의 오버라이드는 바뀌지 않았습니다.
+Couldn't import overrides. Check the file and open settings from Home while signed in. Nothing changed.	재정의를 가져올 수 없습니다. 파일을 확인한 후 로그인된 상태에서 홈 화면을 통해 설정을 여세요. 변경된 사항은 없습니다
+Couldn't reset overrides. Open settings from Home while signed in. Nothing changed.	재정의를 초기화하지 못했습니다. 로그인한 상태에서 홈에서 설정을 여세요. 아무것도 바뀌지 않았습니다.
+Couldn't restore overrides. Open settings from Home while signed in. Nothing changed.	재정의를 복원할 수 없습니다. 로그인한 상태에서 홈 화면을 통해 설정을 여세요. 변경된 사항은 없습니다
+Couldn't restore overrides. The saved copy doesn't fit this account and Instagram version. Use Discard saved overrides if you don't need it. Nothing changed.	오버라이드를 복원할 수 없습니다. 저장된 사본이 이 계정과 Instagram 버전에 맞지 않습니다. 필요 없다면 Discard saved overrides를 사용하세요. 바뀐 것은 없습니다.
+Couldn't restore overrides. There's no saved copy for this account and Instagram version. Nothing changed.	오버라이드를 복원할 수 없습니다. 이 계정과 Instagram 버전에 저장된 사본이 없습니다. 바뀐 것은 없습니다.
+Couldn't use that file. Instagram's overrides haven't changed.	그 파일을 사용할 수 없습니다. Instagram의 오버라이드는 바뀌지 않았습니다.
+Every override is already cleared. Nothing changed.	Every override is already cleared. Nothing changed.
+Export overrides	재정의 내보내기
+Import overrides	재정의 가져오기
+Imported %1$d override changes. Restart Instagram to apply them.	%1$d 개의 재정의 변경 사항을 가져왔습니다. 적용하려면 Instagram을 다시 시작하세요
+Instagram didn't keep the change and the overrides couldn't be confirmed. Use Restore previous overrides, then restart Instagram.	Instagram에서 변경 사항을 유지하지 못하였고 재정의 설정도 확인할 수 없습니다. ‘이전 재정의 복원’을 실행한 다음 Instagram을 다시 시작하세요
+Instagram didn't keep the change, so the overrides were put back as they were.	Instagram에서 변경 사항을 유지하지 못하였고 재정의 설정도 확인할 수 없습니다. ‘이전 재정의 복원’을 실행한 다음 Instagram을 다시 시작하세요
+Instagram is still saving an override change. Wait a moment and try again. Nothing changed.	Instagram이 아직 재정의 변경 사항을 저장하고 있습니다. 잠시 후 다시 시도하세요. 변경된 사항은 없습니다
+None of this file's overrides fit this Instagram version. Nothing changed.	이 파일의 오버라이드 중 이 Instagram 버전에 맞는 것이 없습니다. 바뀐 것은 없습니다.
+Overrides cleared. Restart Instagram to apply the change.	Overrides cleared. Restart Instagram to apply the change.
+Overrides exported for this Instagram version.	이 Instagram 버전의 오버라이드를 내보냈습니다.
+Previous overrides restored. Restart Instagram to apply them.	이전 재정의 설정이 복원되었습니다. 적용하려면 Instagram을 다시 시작하세요
+Puts back the overrides saved before your last import for this account and Instagram version.	마지막 가져오기 전에 저장해 둔 이 계정과 Instagram 버전의 오버라이드를 되돌립니다.
+Recovery cleanup didn't finish. Use Restore previous overrides or Discard saved overrides.	복구 작업을 완료하지 못하였습니다. ‘이전 재정의 복원’ 또는 ‘저장된 재정의 삭제’를 사용하세요
+Removes every override from this signed-in account, so Instagram goes back to its own settings. Your current overrides are saved first for Restore.	로그인된 이 계정의 모든 오버라이드를 지워서 Instagram이 자체 설정으로 돌아가게 합니다. 복원할 수 있도록 현재 오버라이드를 먼저 저장합니다.
+Reset all overrides	모든 재정의 초기화
+Restore previous overrides	이전 재정의 복원
+Restore put back what it could, except %1$d overrides that were set to nothing, which can't be put back this way. Imports stay blocked until you use Discard saved overrides. Restart Instagram to apply the rest.	복원이 가능한 것은 되돌렸지만, 값이 비어 있던 오버라이드 %1$d개는 이 방법으로 되돌릴 수 없습니다. Discard saved overrides를 사용하기 전까지 가져오기는 막혀 있습니다. 나머지를 적용하려면 Instagram을 다시 시작하세요.
+Restore put back what it could, except %1$d overrides that were set to nothing, which can't be put back this way. Restart Instagram to apply the rest.	복원이 가능한 것은 되돌렸지만, 값이 비어 있던 오버라이드 %1$d개는 이 방법으로 되돌릴 수 없습니다. 나머지를 적용하려면 Instagram을 다시 시작하세요.
+Saves your overrides (changes to Instagram's hidden settings) for this exact Instagram version.	이 Instagram 버전에 맞춰 오버라이드(Instagram 숨겨진 설정의 변경 사항)를 저장합니다.
+Shows the Import and Restore rows. An import changes Instagram's hidden settings for this signed-in account.	가져오기와 복원 항목을 표시합니다. 가져오기는 로그인된 이 계정의 Instagram 숨겨진 설정을 바꿉니다.
+The current overrides already match the saved copy. Nothing changed.	현재 재정의 설정이 이미 저장된 복사본과 동일합니다. 변경된 사항은 없습니다
+This file matches the current overrides. Nothing changed.	이 파일의 내용이 현재 재정의 설정과 동일합니다. 변경된 사항은 없습니다
+This phone has no file picker. Overrides haven't changed.	이 휴대폰에는 파일 선택기가 없습니다. 오버라이드는 바뀌지 않았습니다.

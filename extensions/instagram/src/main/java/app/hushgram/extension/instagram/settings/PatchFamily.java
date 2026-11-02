@@ -424,7 +424,6 @@ public enum PatchFamily {
         if (families != null) return families.contains(FOLLOWING_FEED);
         return FOLLOWING_FEED.inBuild() && SettingsStatus.followingMix();
     }
-    }
 
     /** The families this build carries, in declaration order. */
     public static Set<PatchFamily> inThisBuild() {
