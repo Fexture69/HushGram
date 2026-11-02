@@ -74,6 +74,13 @@ once-call Lapp/hushgram/extension/instagram/metaai/MetaAi;->inboxRow(Ljava/lang/
 # there and nowhere else. Left out, the notes row comes back; twice or elsewhere, it isn't the hook
 # the patch wrote. HideNotesRowHookTest checks where it lands.
 once-call Lapp/hushgram/extension/instagram/direct/NotesRow;->sections([Ljava/lang/Object;)[Ljava/lang/Object; in static (LX/*;)V holding InboxViewModelGenerator.calculateAndApplyDiffUpdate
+# The same patch asks NotesRow whether the row keeps its Map bubble, right before the method turning
+# your notes into the row's items tests that. Left out, the bubble stays with the switch on; twice or
+# elsewhere, it isn't the hook the patch wrote. NativeNotesMapTest checks where it lands.
+once-call Lapp/hushgram/extension/instagram/direct/NotesRow;->mapShown(I)I in static (LX/*;LX/*;IZZZ)LX/*; pooled holding instagram.features.direct.inbox.notes.tray.compose.ui.toNotesTrayUiState\s(NotesTrayComposeItem.kt:319)
+# The row built from views asks the same thing, and so does the first-run tip pointing at the bubble.
+once-call Lapp/hushgram/extension/instagram/direct/NotesRow;->mapShown(I)I in instance (LX/*;LX/*;)V pooled holding FriendMapEntryPoint
+once-call Lapp/hushgram/extension/instagram/direct/NotesRow;->mapShown(I)I in instance (Ljava/lang/Object;LX/*;)Ljava/lang/Object; pooled holding musicRowView
 # Hide the search bar in Messages asks at the same place, right after or right before NotesRow
 # (whichever patch went in first asks first), and InboxSearchBar drops SEARCH_BAR by name. Same
 # one method, called once there and nowhere else. HideNotesRowHookTest checks both orders.
@@ -382,6 +389,20 @@ start-call Lapp/hushgram/extension/instagram/reels/ReelDeclutter;->hideProductPi
 shared-call Lapp/hushgram/extension/instagram/reels/ReelDeclutter;->hideProductPills()Z holding android_purge_26_q3_ShoppingCtaComponent_render
 start-call Lapp/hushgram/extension/instagram/reels/ReelDeclutter;->hidePollPills()Z holding android_purge_26_q3_PollCTAComponent_render
 shared-call Lapp/hushgram/extension/instagram/reels/ReelDeclutter;->hidePollPills()Z holding android_purge_26_q3_PollCTAComponent_render
+start-call Lapp/hushgram/extension/instagram/reels/ReelDeclutter;->hideSearchPill()Z holding android_purge_26_q3_ClipsRelatedAdsPivotComponent_render
+shared-call Lapp/hushgram/extension/instagram/reels/ReelDeclutter;->hideSearchPill()Z holding android_purge_26_q3_ClipsRelatedAdsPivotComponent_render
+start-call Lapp/hushgram/extension/instagram/reels/ReelDeclutter;->hideProductPills()Z holding android_purge_26_q3_RelatedAdsPivotCTAComponent_render
+shared-call Lapp/hushgram/extension/instagram/reels/ReelDeclutter;->hideProductPills()Z holding android_purge_26_q3_RelatedAdsPivotCTAComponent_render
+start-call Lapp/hushgram/extension/instagram/reels/ReelDeclutter;->hideProductPills()Z holding android_purge_26_q3_ShopLensCtaComponent_render
+shared-call Lapp/hushgram/extension/instagram/reels/ReelDeclutter;->hideProductPills()Z holding android_purge_26_q3_ShopLensCtaComponent_render
+start-call Lapp/hushgram/extension/instagram/reels/ReelDeclutter;->hideProductPills()Z holding android_purge_26_q3_ShopLensBarCtaComponent_render
+shared-call Lapp/hushgram/extension/instagram/reels/ReelDeclutter;->hideProductPills()Z holding android_purge_26_q3_ShopLensBarCtaComponent_render
+start-call Lapp/hushgram/extension/instagram/reels/ReelDeclutter;->hideProductPills()Z holding android_purge_26_q3_ShopLensPausePillComponent_render
+shared-call Lapp/hushgram/extension/instagram/reels/ReelDeclutter;->hideProductPills()Z holding android_purge_26_q3_ShopLensPausePillComponent_render
+start-call Lapp/hushgram/extension/instagram/reels/ReelDeclutter;->hideProductPills()Z holding android_purge_26_q3_ShopLensMidSceneComponent_render
+shared-call Lapp/hushgram/extension/instagram/reels/ReelDeclutter;->hideProductPills()Z holding android_purge_26_q3_ShopLensMidSceneComponent_render
+start-call Lapp/hushgram/extension/instagram/reels/ReelDeclutter;->hideProductPills()Z holding android_purge_26_q3_ClipsCTAComponent_renderNonSponsoredProductCta
+shared-call Lapp/hushgram/extension/instagram/reels/ReelDeclutter;->hideProductPills()Z holding android_purge_26_q3_ClipsCTAComponent_renderNonSponsoredProductCta
 start-call Lapp/hushgram/extension/instagram/reels/ReelDeclutter;->hideSocialFooter()Z holding android_purge_26_q3_ClipsInfoOverlayUseCase_shouldShowFloatingBubblesAboveUsername
 shared-call Lapp/hushgram/extension/instagram/reels/ReelDeclutter;->hideSocialFooter()Z holding android_purge_26_q3_ClipsInfoOverlayUseCase_shouldShowFloatingBubblesAboveUsername
 start-call Lapp/hushgram/extension/instagram/reels/ReelDeclutter;->hideSocialFooter()Z holding android_purge_26_q3_ClipsInlineCommentSocialContextComponent_render
@@ -609,6 +630,12 @@ no-call Landroid/view/SurfaceControl$Transaction;->setExtendedRangeBrightness(La
 # elsewhere, it isn't the hook the patch wrote.
 start-call Lapp/hushgram/extension/instagram/media/HdrBoost;->optionOff(JJ)Z in instance (L*;JZ)Z class-holding __fbt_null__
 once-call Lapp/hushgram/extension/instagram/media/HdrBoost;->optionOff(JJ)Z in instance (L*;JZ)Z class-holding __fbt_null__
+# The patches that read video, and the one that wants it off HDR, put VideoSurface.textureOnly first
+# in Instagram's choice of a SurfaceView, the static (UserSession, String)Z loading the marker below.
+# Left out, a video on a SurfaceView shows sharp through the glass (#430) and can still render HDR
+# (#85); twice or elsewhere, it isn't the hook the patch wrote.
+start-call Lapp/hushgram/extension/instagram/media/VideoSurface;->textureOnly()Z in static (Lcom/instagram/common/session/UserSession;Ljava/lang/String;)Z pooled holding Pixel\s10
+once-call Lapp/hushgram/extension/instagram/media/VideoSurface;->textureOnly()Z in static (Lcom/instagram/common/session/UserSession;Ljava/lang/String;)Z pooled holding Pixel\s10
 #
 # Not pinned:
 # Sanitize sharing links also sends ClipboardManager.setPrimaryClip and both Intent.createChooser
@@ -693,6 +720,14 @@ once-call Lapp/hushgram/extension/instagram/stories/StoryLoop;->loop(I)Z in inst
 # on; twice or elsewhere, it isn't the spring the patch eased.
 once-call Lapp/hushgram/extension/instagram/stories/SmoothStoryOpen;->stiffness(F)F in instance (Landroid/app/Activity;Landroid/view/ViewGroup;Lcom/instagram/common/session/UserSession;Ljava/lang/String;Z)V pooled class-holding ReelViewerAnimator.animateReveal
 once-call Lapp/hushgram/extension/instagram/stories/SmoothStoryOpen;->damping(F)F in instance (Landroid/app/Activity;Landroid/view/ViewGroup;Lcom/instagram/common/session/UserSession;Ljava/lang/String;Z)V pooled class-holding ReelViewerAnimator.animateReveal
+# Keep stories playing while zooming asks keepPlaying() first in the runnable that pauses the story
+# viewer for a pinch (0CnX on 453), which is the one run() holding the pinch's pause reason, and
+# reports every pause and resume of the viewer (A18 and A19 on 453), found by the marks they log
+# (#382). Left out, a pinch pauses the story as Instagram does; twice or elsewhere, it isn't the
+# pause the patch means.
+once-call Lapp/hushgram/extension/instagram/stories/StoryZoomPlay;->keepPlaying()Z in instance ()V holding paused_for_pinch_to_zoom
+once-call Lapp/hushgram/extension/instagram/stories/StoryZoomPlay;->paused(Ljava/lang/String;)V in static (Linstagram/features/stories/fragment/ReelViewerFragment;Ljava/lang/String;)V holding pause_story
+once-call Lapp/hushgram/extension/instagram/stories/StoryZoomPlay;->resumed()V in static (Linstagram/features/stories/fragment/ReelViewerFragment;Ljava/lang/String;Z)V holding resume_story_request_skipped
 # Swipe through a chat's reels answers the read of Instagram's own chat reels flag through chain(),
 # right after it in the test taking the session that the opener of a reel shared in a chat asks
 # (01Oo.A00 on 453's 385914285, 01PZ.A00 on 385914282, #350). Its sibling tests share the shape,
@@ -928,6 +963,14 @@ once-call Lapp/hushgram/extension/instagram/metaai/MetaAi;->composerButton(Ljava
 # MessageBoxHookTest checks both places, alone and with Meta AI's hook in either order.
 once-call Lapp/hushgram/extension/instagram/direct/MessageBox;->button(Ljava/lang/Object;I)Z in instance (LX/*;LX/*;Z)V holding const:0x1ce57a65
 once-call Lapp/hushgram/extension/instagram/direct/MessageBox;->composerCreated(Landroid/view/View;Landroid/view/View;Landroid/view/View;)V in instance (Landroid/app/Activity;Landroid/view/View;Landroid/view/ViewGroup;Lcom/instagram/common/session/UserSession;LX/*;)V holding const:0x7f0b384d const:0x7f0b3857 const:0x7f0b3871
+# Chat plus menu (#448) hands the plus menu's finished list and the button map to PlusMenu.menu
+# where the composer's button list builder leaves the loop that fills the menu, the one instance
+# (session state) List method that gets each button enum's item from a Map and adds it to a list
+# (02QI.A01 on 453). It's held by the static call that makes the button map from an array of pairs
+# and the live access helper's lookup, which keeps its name in every 453 build; each picks that one
+# method in all eight. Left out, the plus menu stays as Instagram builds it with its switches on;
+# twice or elsewhere, it isn't the call the patch wrote. ChatPlusMenuHookTest checks the place.
+once-call Lapp/hushgram/extension/instagram/direct/PlusMenu;->menu(Ljava/util/List;Ljava/util/Map;)V in instance (LX/*;)Ljava/util/List; calling Ljava/util/Map;->get(Ljava/lang/Object;)Ljava/lang/Object; holding LX/*;->*([LX/*;)Ljava/util/Map; Lcom/instagram/live/access/IgLiveAccessHelper;->A00(Lcom/instagram/common/session/UserSession;)Lcom/instagram/live/access/IgLiveAccessHelper;
 start-call Lapp/hushgram/extension/instagram/metaai/MetaAi;->museBanner()Z in static (Landroid/content/Context;L*;)L*; holding impression_muse_banner tap_muse_banner
 once-call Lapp/hushgram/extension/instagram/metaai/MetaAi;->museBanner()Z in static (Landroid/content/Context;L*;)L*; holding impression_muse_banner tap_muse_banner
 # The same switch asks MetaAi.dropsPromotion first in the method that turns a quick promotion into
@@ -1055,6 +1098,20 @@ once-call Lapp/hushgram/extension/instagram/feed/FollowingFeed;->picked(Ljava/la
 # isn't the hook the patch wrote. TitleLogoHookTest checks all seven 450 builds.
 start-call Lapp/hushgram/extension/instagram/feed/FollowingFeed;->keepLogo(Ljava/lang/Object;)I in instance (ZLjava/lang/String;)V holding secondLabel secondLabelChevron
 once-call Lapp/hushgram/extension/instagram/feed/FollowingFeed;->keepLogo(Ljava/lang/Object;)I in instance (ZLjava/lang/String;)V holding secondLabel secondLabelChevron
+# Its fifth switch, Mix in Following (#438), asks FollowingMix in Home's fetcher, the page method
+# holding "AsyncPrefetch-ConnectToPrefetch" (05bS.Gw0 on 453), for the cursor where the head load
+# and load more paths meet, then for the built request's paging source flag and paging source. The
+# reply handler holding "SHELL_RESPONSE_RECEIVED_FROM_NETWORK" (05tU.A0B) hands it the reply's
+# cursor and whether there's more as each is written, and the delivery holding "No new items
+# delivered" (04uI.A0D) the cursor it goes back to. Each is called once there and nowhere else. Left
+# out, For you never asks for Following or loses its own cursor to Following's; twice or elsewhere,
+# it isn't the hook the patch wrote. FollowingMixHookTest checks all eight 453 builds.
+once-call Lapp/hushgram/extension/instagram/feed/FollowingMix;->cursor(Ljava/lang/String;ILjava/lang/String;)Ljava/lang/String; in (LX/*;LX/*;Ljava/lang/String;Ljava/util/Map;Ljava/util/Map;Z)Z pooled holding AsyncPrefetch-ConnectToPrefetch
+once-call Lapp/hushgram/extension/instagram/feed/FollowingMix;->sourceSet(I)I in (LX/*;LX/*;Ljava/lang/String;Ljava/util/Map;Ljava/util/Map;Z)Z pooled holding AsyncPrefetch-ConnectToPrefetch
+once-call Lapp/hushgram/extension/instagram/feed/FollowingMix;->source(Ljava/lang/String;)Ljava/lang/String; in (LX/*;LX/*;Ljava/lang/String;Ljava/util/Map;Ljava/util/Map;Z)Z pooled holding AsyncPrefetch-ConnectToPrefetch
+once-call Lapp/hushgram/extension/instagram/feed/FollowingMix;->nextCursor(Ljava/lang/String;)Ljava/lang/String; in (LX/*;Z)V pooled holding SHELL_RESPONSE_RECEIVED_FROM_NETWORK
+once-call Lapp/hushgram/extension/instagram/feed/FollowingMix;->moreAvailable(I)I in (LX/*;Z)V pooled holding SHELL_RESPONSE_RECEIVED_FROM_NETWORK
+once-call Lapp/hushgram/extension/instagram/feed/FollowingMix;->rewound(Ljava/lang/String;)Ljava/lang/String; in (LX/*;LX/*;LX/*;IZ)V pooled holding No\snew\sitems\sdelivered
 # Stop swipe to create hands every move of Home's sliding container to SwipeToCreate.hold right
 # before the move's animate flag is read, in the container's setInternalPosition. It loads no string,
 # and setPosition has the same shape and reads the same flag, so the rule picks it as the one also
@@ -1431,6 +1488,10 @@ once-call Lapp/hushgram/extension/instagram/stories/StorySeenRings;->seen(Ljava/
 # or elsewhere, it isn't the hook the patch wrote.
 once-call Lapp/hushgram/extension/instagram/stories/StoryTrayOrder;->order(Ljava/util/List;Ljava/lang/Object;)Ljava/util/List; in instance (Ljava/util/List;)Ljava/util/List; calling static LX/*;->*(Lcom/instagram/common/session/UserSession;Ljava/util/List;)Ljava/util/ArrayList; holding const:0x811378000167cf
 once-call Lapp/hushgram/extension/instagram/stories/StoryTrayOrder;->order(Ljava/util/List;Ljava/lang/Object;)Ljava/util/List; in instance (ZZ)Ljava/util/List; holding main\sfeed\stray\sreels\sis\sempty
+# Stories priority hands the same two lists to StoryPriority.order after that sort, once each (#451),
+# so the accounts a user listed go first while they have an unwatched story. Same two methods.
+once-call Lapp/hushgram/extension/instagram/stories/StoryPriority;->order(Ljava/util/List;Ljava/lang/Object;)Ljava/util/List; in instance (Ljava/util/List;)Ljava/util/List; calling static LX/*;->*(Lcom/instagram/common/session/UserSession;Ljava/util/List;)Ljava/util/ArrayList; holding const:0x811378000167cf
+once-call Lapp/hushgram/extension/instagram/stories/StoryPriority;->order(Ljava/util/List;Ljava/lang/Object;)Ljava/util/List; in instance (ZZ)Ljava/util/List; holding main\sfeed\stray\sreels\sis\sempty
 #
 # Turn off double tap to like asks the extension first thing in the feed's double-tap like, the one
 # method every kind of post's gesture delegate hands a double tap to, and returns there before the
@@ -1772,6 +1833,16 @@ once-call Lapp/hushgram/extension/instagram/profile/ProfileSuggestions;->followL
 # checks on every 452 build that the read is that one and where the hook lands.
 once-call Lapp/hushgram/extension/instagram/profile/ProfileSuggestions;->suggestedTab(I)I in instance (Landroid/os/Bundle;)V pooled holding UnifiedFollowFragment.HAS_SIMILAR_ACCOUNTS
 #
+# The same switch takes the suggested people off the Follow requests screen (#441). The method that
+# builds that screen's request (FollowRequestsGraphQLDataSource.BJ2 on 453) copies its first boolean
+# parameter into the exclude_suggested_users variable, and its first instruction hands that parameter to
+# ProfileSuggestions.excludeRequestSuggestions and takes the answer back, so the server leaves the
+# suggested people out and the screen gets the real requests alone. Left out, the Suggested for you
+# section and its Follow rows come back; twice or elsewhere, it isn't the hook the patch wrote.
+# RequestSuggestionsHookTest checks on every 453 build that this is the one method loading both
+# variable names and where the hook lands.
+once-call Lapp/hushgram/extension/instagram/profile/ProfileSuggestions;->excludeRequestSuggestions(I)Z in instance (LX/*;ZZ)Ljava/lang/Object; pooled holding exclude_suggested_users defer_suggested_users
+#
 # It also takes Suggested for you off the bottom of the mutual followers list (#302). The list
 # adapter's rows (LX/0N6E;->A0C()V on 452.1) hand the suggested accounts to
 # ProfileSuggestions.mutualSuggestions right after reading them and before their isEmpty(). The rows
@@ -1932,6 +2003,12 @@ once-call Lapp/hushgram/extension/instagram/reels/CaptionWordReels;->page(Ljava/
 # DownloadReelHookTest checks on every build.
 once-call Lapp/hushgram/extension/instagram/reels/HiddenSounds;->page(Ljava/util/List;Ljava/lang/String;)Ljava/util/List; in instance (L*;)V holding android_purge_26_q2_ClipsItemsNetworkCallback_onSuccess
 
+# Hide reels with few views hands the same pages, at the same join, to LowViewReels.page, once
+# (#444). Its stubs read the post's play counts and whether the author is followed through
+# getters HideLowViewReelsHookTest finds on every retained build; the join itself is checked by
+# HidePaidPartnershipReelsHookTest.
+once-call Lapp/hushgram/extension/instagram/reels/LowViewReels;->page(Ljava/util/List;Ljava/lang/String;)Ljava/util/List; in instance (L*;)V holding android_purge_26_q2_ClipsItemsNetworkCallback_onSuccess
+
 # Show a reel's exact time hands the Reels title and the list of its column's parts to
 # ReelPostTime.line just before the title makes that column (the one method loading the title's
 # render marker below), once, so the line with the time goes in after the name row and Instagram's
@@ -1973,6 +2050,12 @@ once-call Lapp/hushgram/extension/instagram/reels/ReelSeekBar;->lazy(I)Z in stat
 start-call Lapp/hushgram/extension/instagram/reels/ReelSeekBar;->progress(Landroid/widget/SeekBar;I)V in instance (Landroid/widget/SeekBar;IZ)V holding Lcom/instagram/ui/mediaactions/VideoScrubberSeekBar;->A01:Landroid/widget/SeekBar$OnSeekBarChangeListener;
 once-call Lapp/hushgram/extension/instagram/reels/ReelSeekBar;->progress(Landroid/widget/SeekBar;I)V in instance (Landroid/widget/SeekBar;IZ)V holding Lcom/instagram/ui/mediaactions/VideoScrubberSeekBar;->A01:Landroid/widget/SeekBar$OnSeekBarChangeListener;
 once-call Lapp/hushgram/extension/instagram/reels/ReelSeekBar;->bind(Ljava/lang/Object;I)V in instance (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object; pooled holding clips_scrubber_ LX/*;->A0F:Landroid/graphics/drawable/Drawable;
+# The same patch swaps the one setOnTouchListener call in the Reels progress controller's
+# prepareExpandedTouchView, which gives the invisible strip over the bottom of Reels its scrubbing
+# listener, for ReelSeekTouch.listen with the same strip and listener (#452). Left out, the strip
+# keeps taking taps meant for More and the audio square on phones where it reaches over them; twice
+# or elsewhere, it isn't the hook the patch wrote. On 453.0.0.57.79 that's 04FC.A0L.
+once-call Lapp/hushgram/extension/instagram/reels/ReelSeekTouch;->listen(Landroid/view/View;Landroid/view/View$OnTouchListener;)V in static (L*;IZZ)V holding android_purge_26_q2_ClipsProgressController_prepareExpandedTouchView
 
 # Keep Reels auto scroll on hands the choice made with one of Instagram's auto scroll switches to
 # ReelAutoScroll.chosen first thing in the Reels auto scroll plugin's handler for them (0CrH.A00 on
@@ -2141,6 +2224,13 @@ once-call Lapp/hushgram/extension/instagram/feed/HiddenLikeCounts;->sawCount(Lja
 # Back scrolls Home up and reloads it first; twice or elsewhere, it isn't the hook the patch wrote.
 # NativeBackLeavesHomeTest checks where it lands on all seven 450 builds.
 once-call Lapp/hushgram/extension/instagram/feed/BackLeavesHome;->leave()I in instance ()Z calling static Ljava/lang/System;->currentTimeMillis()J class-holding MainFeedFragment.scrollToTopWithReason.
+# Back leaves Home also asks BackLeavesHome.skipTapAgain first thing in the same class's handler for Back
+# at the top of the feed (04rY.FAg on 453, its one instance (Z)Z), which says "Tap again to exit" and can
+# reload with BACK_BUTTON_PRESS_AT_TOP (#54). Left out or not first, the top of the feed takes a second Back
+# and fetches a new page; twice or elsewhere, it isn't the hook the patch wrote.
+# NativeBackLeavesHomeTest checks where it lands on all eight 453 builds.
+start-call Lapp/hushgram/extension/instagram/feed/BackLeavesHome;->skipTapAgain()I in instance (Z)Z class-holding MainFeedFragment.scrollToTopWithReason.
+once-call Lapp/hushgram/extension/instagram/feed/BackLeavesHome;->skipTapAgain()I in instance (Z)Z class-holding MainFeedFragment.scrollToTopWithReason.
 # Keep your place in Home hands HomePlace.timeAway the time away right before Home's warm-start check
 # (02xG.A0F on 452, the instance (Integer)Z loading "MainFeedFragment.onHotStart") asks whether that time is
 # under the minimum for a reload, and reads the answer back into the same pair (#354). Left out, Home

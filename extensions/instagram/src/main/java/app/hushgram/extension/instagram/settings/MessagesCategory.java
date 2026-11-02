@@ -41,6 +41,8 @@ final class MessagesCategory {
                 || build.contains(PatchFamily.CHAT_HISTORY)
                 || build.contains(PatchFamily.ASK_BEFORE_CALL)
                 || build.contains(PatchFamily.MESSAGE_BOX)
+                || build.contains(PatchFamily.PLUS_MENU)
+                || build.contains(PatchFamily.GLASS_CHAT)
                 || build.contains(PatchFamily.FULL_SCREEN_BARS)) {
             PreferenceCategory messages = category(screen, L10n.t("Messages"), SettingsIcons.CHATS,
                     L10n.t("Privacy and controls for your chats."));
@@ -48,6 +50,8 @@ final class MessagesCategory {
                 messages.addPreference(toggle(context, Settings.HIDE_NOTES_ROW, L10n.t("Hide the notes row"),
                         L10n.t("Takes the row of notes off the top of your messages, the Map bubble in it too. "
                                 + "Your chats, search and requests stay.")));
+                messages.addPreference(toggle(context, Settings.HIDE_NOTES_MAP, L10n.t("Hide the Map bubble"),
+                        L10n.t("Takes only the Map bubble out of the row of notes. Your notes stay.")));
             }
             if (build.contains(PatchFamily.INBOX_SEARCH)) {
                 messages.addPreference(toggle(context, Settings.HIDE_INBOX_SEARCH,
@@ -133,11 +137,13 @@ final class MessagesCategory {
             }
             if (build.contains(PatchFamily.CHAT_HISTORY)) {
                 messages.addPreference(toggle(context, Settings.JUMP_IN_CHAT, L10n.t("Jump to the first message or a date"),
-                        L10n.t("Open a chat, long press its name at the top and pick Jump to the first message or Jump "
-                                + "to a date. The chat loads its older messages on its own, with a count and a Cancel button.")));
+                        L10n.t("Open a chat, tap the clock button next to the call buttons at the top, or long press "
+                                + "the chat's name, and pick Jump to the first message or Jump to a date. The chat loads its "
+                                + "older messages on its own, with a count and a Cancel button.")));
                 messages.addPreference(toggle(context, Settings.EXPORT_CHAT, L10n.t("Export a chat as text"),
-                        L10n.t("Open a chat, long press its name at the top and pick Export chat. The whole chat is saved "
-                                + "as a text file in Downloads, HushGram folder, one line per message.")));
+                        L10n.t("Open a chat, tap the clock button next to the call buttons at the top, or long press "
+                                + "the chat's name, and pick Export chat. The whole chat is saved as a text file in "
+                                + "Downloads, HushGram folder, one line per message.")));
             }
             if (build.contains(PatchFamily.ASK_BEFORE_CALL)) {
                 messages.addPreference(toggle(context, Settings.ASK_BEFORE_CALL, L10n.t("Ask before a call"),
@@ -149,6 +155,22 @@ final class MessagesCategory {
             }
             if (build.contains(PatchFamily.MESSAGE_BOX)) {
                 messages.addPreference(page.messageBoxRow(context));
+            }
+            if (build.contains(PatchFamily.PLUS_MENU)) {
+                messages.addPreference(toggle(context, Settings.HIDE_PLUS_SAVED, L10n.t("Hide Saved in the plus menu"),
+                        L10n.t("Takes Saved off the menu the plus button opens in a chat's message bar.")));
+                messages.addPreference(toggle(context, Settings.HIDE_PLUS_AI_IMAGES, L10n.t("Hide AI images in the plus menu"),
+                        L10n.t("Takes AI images off the menu the plus button opens in a chat's message bar.")));
+                messages.addPreference(toggle(context, Settings.HIDE_PLUS_DRAW, L10n.t("Hide Draw in the plus menu"),
+                        L10n.t("Takes Draw off the menu the plus button opens in a chat's message bar.")));
+                messages.addPreference(toggle(context, Settings.MOVE_TO_PLUS_MENU, L10n.t("Gallery and microphone in the plus menu"),
+                        L10n.t("Moves the gallery and microphone buttons off the message bar and into the plus menu. "
+                                + "They work as before. Turn it off and they're back the next time a chat opens.")));
+            }
+            if (build.contains(PatchFamily.GLASS_CHAT)) {
+                messages.addPreference(toggle(context, Settings.GLASS_CHAT, L10n.t("Glass in chats"),
+                        L10n.t("Gives a chat's top bar frosted glass and puts the back, call and video buttons on round "
+                                + "glass circles. It shows the next time you open a chat. Needs Android 12 or newer for the blur.")));
             }
             if (build.contains(PatchFamily.FULL_SCREEN_BARS)) {
                 messages.addPreference(toggle(context, Settings.FULL_SCREEN_MESSAGES, L10n.t("Full screen Messages"),

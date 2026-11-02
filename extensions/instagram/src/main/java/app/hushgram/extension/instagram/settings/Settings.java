@@ -126,6 +126,13 @@ public class Settings extends BaseSettings {
     public static final BooleanSetting DESCRIPTIONS_BEHIND_INFO =
             new BooleanSetting("hushgram_descriptions_behind_info", FALSE);
 
+    /**
+     * The black look for HushGram's page (#455): black rows and dialogs, HushGram's name at the top
+     * and each category on one line. Off to start. A settings-page choice, read saved even during Pause.
+     */
+    public static final BooleanSetting SETTINGS_BLACK_LOOK =
+            new BooleanSetting("hushgram_settings_black_look", FALSE);
+
     /** A settings-page choice, read saved even during Pause. Existing backup names stay the default. */
     public static final BooleanSetting DATE_SETTINGS_EXPORT =
             new BooleanSetting("hushgram_date_settings_export", FALSE);
@@ -279,6 +286,29 @@ public class Settings extends BaseSettings {
             new BooleanSetting("hushgram_smooth_story_open", FALSE, true);
 
     /**
+     * A story keeps playing while two fingers pinch it, instead of pausing for the zoom
+     * ({@link app.hushgram.extension.instagram.stories.StoryZoomPlay}). A story held still first
+     * stays paused. Off to start.
+     */
+    public static final BooleanSetting KEEP_STORIES_PLAYING_ON_ZOOM =
+            new BooleanSetting("hushgram_keep_stories_playing_on_zoom", FALSE);
+
+    /**
+     * Accounts on {@link #STORY_PRIORITY_ACCOUNTS} that have a story not watched yet go first in the
+     * stories row at the top of Home, in the list's order
+     * ({@link app.hushgram.extension.instagram.stories.StoryPriority}). Off to start (#451).
+     */
+    public static final BooleanSetting STORY_PRIORITY =
+            new BooleanSetting("hushgram_story_priority", FALSE);
+
+    /**
+     * The usernames {@link #STORY_PRIORITY} puts first, one per line, the first line first. A value
+     * control, not a switch. Empty to start.
+     */
+    public static final StringSetting STORY_PRIORITY_ACCOUNTS =
+            new StringSetting("hushgram_story_priority_accounts", "", parent(STORY_PRIORITY));
+
+    /**
      * Stories open with their sound on, through Instagram's own audio state, when the phone's ringer
      * is on and its volume is up ({@link app.hushgram.extension.instagram.stories.StorySound}). Off
      * to start.
@@ -342,6 +372,14 @@ public class Settings extends BaseSettings {
      */
     public static final BooleanSetting FEED_SEEK_BAR =
             new BooleanSetting("hushgram_feed_seek_bar", FALSE);
+
+    /**
+     * A small button on the bottom start of a feed video that shows or hides its seek bar with one tap
+     * (#437, {@link app.hushgram.extension.instagram.feed.FeedSeekBar}). A tap flips {@link #FEED_SEEK_BAR}.
+     * Off to start.
+     */
+    public static final BooleanSetting FEED_SEEK_BUTTON =
+            new BooleanSetting("hushgram_feed_seek_button", FALSE);
 
     /**
      * A long press on a feed photo shows it zoomed in around the finger until the finger lifts, in
@@ -706,6 +744,23 @@ public class Settings extends BaseSettings {
     public static final BooleanSetting ASK_BEFORE_CALL = new BooleanSetting("hushgram_ask_before_call", FALSE);
 
     /**
+     * The plus menu of a chat's message bar leaves off its Saved, AI images and Draw rows
+     * ({@link app.hushgram.extension.instagram.direct.PlusMenu}, #448). Each off to start.
+     */
+    public static final BooleanSetting HIDE_PLUS_SAVED = new BooleanSetting("hushgram_hide_plus_saved", FALSE);
+    public static final BooleanSetting HIDE_PLUS_AI_IMAGES = new BooleanSetting("hushgram_hide_plus_ai_images", FALSE);
+    public static final BooleanSetting HIDE_PLUS_DRAW = new BooleanSetting("hushgram_hide_plus_draw", FALSE);
+
+    /**
+     * A chat's header shows the glass of the See-through top bar, and its buttons sit on glass discs
+     * ({@link app.hushgram.extension.instagram.direct.GlassChat}, #449). Off to start.
+     */
+    public static final BooleanSetting GLASS_CHAT = new BooleanSetting("hushgram_glass_chat", FALSE);
+
+    /** The message bar's gallery and microphone buttons move into the plus menu. Off to start. */
+    public static final BooleanSetting MOVE_TO_PLUS_MENU = new BooleanSetting("hushgram_move_to_plus_menu", FALSE);
+
+    /**
      * The buttons the message box of a chat leaves off, as the names of Instagram's button enum with
      * commas between ({@link app.hushgram.extension.instagram.direct.MessageBox}, #217): any of
      * GALLERY, STICKER and VOICE_MESSAGE. Nothing named is the start, so every button shows. The text
@@ -1017,6 +1072,14 @@ public class Settings extends BaseSettings {
             new BooleanSetting("hushgram_following_fallback", FALSE, true);
 
     /**
+     * For you shows a page of posts from accounts you follow after each page of its own, until
+     * Following runs out (#438, {@link app.hushgram.extension.instagram.feed.FollowingMix}). Works
+     * without Start Home on Following. Off to start.
+     */
+    public static final BooleanSetting FOLLOWING_MIX =
+            new BooleanSetting("hushgram_following_mix", FALSE, true);
+
+    /**
      * The ids of the accounts {@link #FOLLOWING_FALLBACK} moved to Following, a line each. Not a
      * switch, and left out of a backup, since the ids are only good on this phone's accounts.
      */
@@ -1126,6 +1189,14 @@ public class Settings extends BaseSettings {
      */
     public static final BooleanSetting HIDE_NOTES_ROW =
             new BooleanSetting("hushgram_hide_notes_row", FALSE);
+
+    /**
+     * Only the Map bubble in the row of notes
+     * ({@link app.hushgram.extension.instagram.direct.NotesRow#mapShown}). Read each time Instagram
+     * works out the row's items again. Off to start.
+     */
+    public static final BooleanSetting HIDE_NOTES_MAP =
+            new BooleanSetting("hushgram_hide_notes_map", FALSE);
 
     /**
      * The search bar at the top of your messages, the Meta AI one included
@@ -1349,6 +1420,15 @@ public class Settings extends BaseSettings {
             new IntegerSetting("hushgram_glass_tab_bar_opacity_percent", 100, false, parent(GLASS_TAB_BAR))
                     .withRange(0, 150);
 
+    /**
+     * Under {@link #GLASS_TAB_BAR_REFRACT}: how far the liquid pill bends what's behind it, in percent of the
+     * bend it has always had, from a slider (#391). Zero leaves the backdrop straight, higher bends it harder.
+     * Read as the pill draws, so a change shows on the bar without a restart.
+     */
+    public static final IntegerSetting GLASS_TAB_BAR_REFRACT_STRENGTH =
+            new IntegerSetting("hushgram_glass_tab_bar_refract_strength_percent", 100, false, parent(GLASS_TAB_BAR_REFRACT))
+                    .withRange(0, 200);
+
     /** Where the steps the blur and opacity had before their sliders were saved (#391). */
     static final String OLD_GLASS_BLUR_KEY = "hushgram_glass_tab_bar_blur_strength";
     static final String OLD_GLASS_OPACITY_KEY = "hushgram_glass_tab_bar_opacity";
@@ -1514,6 +1594,25 @@ public class Settings extends BaseSettings {
      */
     public static final BooleanSetting LAUNCH_SCREEN =
             new BooleanSetting("hushgram_launch_screen", FALSE, true);
+
+    /**
+     * Words of your own at the top of Home in place of Instagram's logo, with the Home header text
+     * patch in the build ({@link app.hushgram.extension.instagram.misc.HeaderText}, #454). Blank
+     * keeps the logo, and so does a paused Instagram. The header reads it before each draw, so a
+     * change shows without a restart. Not a switch.
+     */
+    public static final StringSetting HEADER_TEXT = new StringSetting("hushgram_header_text", "");
+
+    /**
+     * The name of a picture of your own for the top of Home, which takes the place of
+     * {@link #HEADER_TEXT}'s words and Instagram's logo ({@link
+     * app.hushgram.extension.instagram.misc.HeaderPicture}, #454). Empty keeps the words or the logo,
+     * and so does a paused Instagram. Only the settings screen writes it, after the shrunk copy has
+     * been written to Instagram's files. It isn't a switch, and a settings file leaves it out: the
+     * picture can't travel in one, and the name alone would point at nothing on another phone.
+     */
+    public static final StringSetting HEADER_PICTURE =
+            new StringSetting("hushgram_header_picture", "", false, false);
 
     /**
      * The font Instagram's text draws in: Instagram's own, the phone's, or a font file picked in
@@ -1842,6 +1941,22 @@ public class Settings extends BaseSettings {
      */
     public static final BooleanSetting HIDE_CAPTION_WORD_HOME =
             new BooleanSetting("hushgram_hide_caption_word_home", FALSE, parent(HIDE_CAPTION_WORD_REELS));
+
+    /**
+     * Reels in the Reels tab with fewer views than {@link #MIN_REEL_VIEWS}, unless their author is
+     * followed ({@link app.hushgram.extension.instagram.reels.LowViewReels}). Read as each page of
+     * reels arrives, so a change shows from the next page. Off to start (#444).
+     */
+    public static final BooleanSetting HIDE_LOW_VIEW_REELS =
+            new BooleanSetting("hushgram_hide_low_view_reels", FALSE);
+
+    /**
+     * Under {@link #HIDE_LOW_VIEW_REELS}: the view count a reel needs to stay, typed as a number.
+     * Starts at 1,000. A value control, not a switch.
+     */
+    public static final IntegerSetting MIN_REEL_VIEWS =
+            new IntegerSetting("hushgram_min_reel_views", 1000, false, parent(HIDE_LOW_VIEW_REELS))
+                    .withRange(1, 100_000_000);
 
     /** An explicit Copy action for original comment text. Off until enabled. */
     public static final BooleanSetting COPY_COMMENTS =
@@ -2283,6 +2398,14 @@ public class Settings extends BaseSettings {
      */
     public static final BooleanSetting SETTINGS_BUTTON_ON_HOME =
             new BooleanSetting("hushgram_settings_button_on_home", FALSE, true);
+
+    /**
+     * A menu button at the end of Home's header with the viewing history, Ghost mode and HushGram settings
+     * (#437, {@link app.hushgram.extension.instagram.settings.HomeMenuButton}). The header builds it as it
+     * draws, so a change takes a restart. Off to start.
+     */
+    public static final BooleanSetting MENU_BUTTON_ON_HOME =
+            new BooleanSetting("hushgram_menu_button_on_home", FALSE, true);
 
     /**
      * Instagram's own Messages button is off Home's header, for accounts that still have it there and

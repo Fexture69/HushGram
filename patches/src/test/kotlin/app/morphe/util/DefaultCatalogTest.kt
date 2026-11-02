@@ -8,6 +8,8 @@ import app.morphe.patches.instagram.ads.hideAdsPatch
 import app.morphe.patches.instagram.coexist.installNextToInstagramPatch
 import app.morphe.patches.instagram.direct.calls.askBeforeCallPatch
 import app.morphe.patches.instagram.direct.messagebox.messageBoxPatch
+import app.morphe.patches.instagram.direct.glass.glassChatPatch
+import app.morphe.patches.instagram.direct.plusmenu.chatPlusMenuPatch
 import app.morphe.patches.instagram.feed.confirm.askBeforeLikePatch
 import app.morphe.patches.instagram.feed.confirm.askBeforeRefreshPatch
 import app.morphe.patches.instagram.direct.instants.hideInstantsPatch
@@ -81,6 +83,7 @@ import app.morphe.patches.instagram.misc.settings.settingsPatch
 import app.morphe.patches.instagram.misc.settingsrows.hideSettingsRowsPatch
 import app.morphe.patches.instagram.misc.sharelinks.sanitizeSharingLinksPatch
 import app.morphe.patches.instagram.misc.theme.accentColorPatch
+import app.morphe.patches.instagram.misc.theme.homeHeaderTextPatch
 import app.morphe.patches.instagram.misc.theme.launchScreenPatch
 import app.morphe.patches.instagram.misc.theme.pureBlackPatch
 import app.morphe.patches.instagram.misc.translatedstart.translatedStartPatch
@@ -96,6 +99,7 @@ import app.morphe.patches.instagram.reels.ailabel.hideAiLabeledReelsPatch
 import app.morphe.patches.instagram.reels.autoscroll.keepReelsAutoScrollPatch
 import app.morphe.patches.instagram.reels.blur.blurReelBarsPatch
 import app.morphe.patches.instagram.reels.captionwords.hideCaptionWordReelsPatch
+import app.morphe.patches.instagram.reels.lowviews.hideLowViewReelsPatch
 import app.morphe.patches.instagram.reels.cleanup.cleanUpReelsPatch
 import app.morphe.patches.instagram.reels.doubletap.turnOffDoubleTapLikePatch
 import app.morphe.patches.instagram.reels.origin.findReelOriginPatch
@@ -122,6 +126,8 @@ import app.morphe.patches.instagram.stories.autoadvance.stopStoryAutoAdvancePatc
 import app.morphe.patches.instagram.stories.follow.hideStoryFollowPatch
 import app.morphe.patches.instagram.stories.loop.loopStoryPatch
 import app.morphe.patches.instagram.stories.opening.smoothStoryOpenPatch
+import app.morphe.patches.instagram.stories.zoom.keepStoriesPlayingOnZoomPatch
+import app.morphe.patches.instagram.stories.priority.storiesPriorityPatch
 import app.morphe.patches.instagram.stories.mentions.storyMentionsPatch
 import app.morphe.patches.instagram.stories.progressbar.storyProgressBarPatch
 import app.morphe.patches.instagram.stories.ring.storyRingSizePatch
@@ -207,11 +213,14 @@ class DefaultCatalogTest {
         hideProfileNotesPatch,
         hideProfileTabsPatch,
         messageBoxPatch,
+        chatPlusMenuPatch,
+        glassChatPatch,
         hideProfileSuggestionsPatch,
         hideReelsSuggestionsPatch,
         hidePaidPartnershipReelsPatch,
         hideAiLabeledReelsPatch,
         hideCaptionWordReelsPatch,
+        hideLowViewReelsPatch,
         hideReelsTabPatch,
         hideRepostButtonPatch,
         hideShareButtonPatch,
@@ -224,6 +233,7 @@ class DefaultCatalogTest {
         chatHistoryPatch,
         keepReelsAutoScrollPatch,
         launchScreenPatch,
+        homeHeaderTextPatch,
         lockMessagesPatch,
         loopStoryPatch,
         openDeveloperOptionsPatch,
@@ -242,6 +252,8 @@ class DefaultCatalogTest {
         showStoryTimePatch,
         skipCollectionsTrayPatch,
         smoothStoryOpenPatch,
+        keepStoriesPlayingOnZoomPatch,
+        storiesPriorityPatch,
         spoofLocationPatch,
         appProxyPatch,
         skipSetupPopupsPatch,
@@ -315,7 +327,7 @@ class DefaultCatalogTest {
     }
 
     @Test fun initiallyNeutralControlsAreAvailableInSimpleMode() {
-        assertEquals(120, neutral.size)
+        assertEquals(126, neutral.size)
         neutral.forEach { assertEquals(it.name, true, it.default) }
     }
 
@@ -327,7 +339,7 @@ class DefaultCatalogTest {
     @Test fun generatedCatalogMatchesAllReviewedDeclarations() {
         val all = prior + neutral + optIn
         val declarations = all.associate { it.name!! to it.default }
-        assertEquals("every named patch needs one reviewed decision", 141, all.size)
+        assertEquals("every named patch needs one reviewed decision", 147, all.size)
         assertEquals("the review must not name a patch twice", all.size, declarations.size)
         val file = File("patches-list.json").takeIf(File::isFile) ?: File("../patches-list.json")
         val rows = JsonParser.parseString(file.readText()).asJsonObject.getAsJsonArray("patches")

@@ -9,6 +9,7 @@ package app.hushgram.extension.instagram.settings;
 import static app.hushgram.extension.instagram.settings.HushgramPreferenceFragment.CLEAR_UNFOLLOWERS;
 import static app.hushgram.extension.instagram.settings.HushgramPreferenceFragment.category;
 import static app.hushgram.extension.instagram.settings.HushgramPreferenceFragment.clearUnfollowers;
+import static app.hushgram.extension.instagram.settings.HushgramPreferenceFragment.followerHistoryRow;
 import static app.hushgram.extension.instagram.settings.HushgramPreferenceFragment.followLabelPlaceRow;
 import static app.hushgram.extension.instagram.settings.HushgramPreferenceFragment.mark;
 import static app.hushgram.extension.instagram.settings.HushgramPreferenceFragment.toggle;
@@ -58,6 +59,8 @@ final class ProfilesCategory {
                                     + "and lists who's gone. Nothing extra is asked of Instagram, and the list stays on your phone.")));
                     Preference unfollowersList = unfollowersRow(context);
                     profiles.addPreference(unfollowersList);
+                    Preference followerHistory = followerHistoryRow(context);
+                    profiles.addPreference(followerHistory);
                     Row clearUnfollowers = new Row(context);
                     clearUnfollowers.setKey(CLEAR_UNFOLLOWERS);
                     clearUnfollowers.setPersistent(false);
@@ -66,7 +69,7 @@ final class ProfilesCategory {
                     clearUnfollowers.setSummary(L10n.t("Forgets the saved Followers lists and everyone listed above, "
                             + "for all your accounts."));
                     clearUnfollowers.setOnPreferenceClickListener(p -> {
-                        clearUnfollowers(p, unfollowersList);
+                        clearUnfollowers(p, unfollowersList, followerHistory);
                         return true;
                     });
                     profiles.addPreference(mark(clearUnfollowers, SettingsIcons.DELETE));
@@ -78,8 +81,9 @@ final class ProfilesCategory {
                                 + "Bios, counts, posts and follower lists stay.")));
                 profiles.addPreference(toggle(context, Settings.HIDE_FOLLOW_LIST_SUGGESTIONS,
                         L10n.t("Hide Suggested for you on follow lists"),
-                        L10n.t("Leaves the Suggested for you section off the followers, following and mutual lists, "
-                                + "and the Suggested tab off other people's follow lists. Every account in the lists stays.")));
+                        L10n.t("Leaves the Suggested for you section off the followers, following and mutual lists and the screen "
+                                + "where you approve follow requests, and the Suggested tab off other people's follow lists. "
+                                + "Every account in the lists and every real request stays.")));
                 profiles.addPreference(toggle(context, Settings.HIDE_PROFILE_COMPLETION,
                         L10n.t("Hide Complete your profile"),
                         L10n.t("Takes the Complete your profile cards, like Add bio and Find people to follow, off "

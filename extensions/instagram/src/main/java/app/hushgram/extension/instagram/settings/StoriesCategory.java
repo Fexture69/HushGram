@@ -8,6 +8,7 @@ package app.hushgram.extension.instagram.settings;
 
 import static app.hushgram.extension.instagram.settings.HushgramPreferenceFragment.category;
 import static app.hushgram.extension.instagram.settings.HushgramPreferenceFragment.onFlip;
+import static app.hushgram.extension.instagram.settings.HushgramPreferenceFragment.priorityAccountsRow;
 import static app.hushgram.extension.instagram.settings.HushgramPreferenceFragment.storyBarRow;
 import static app.hushgram.extension.instagram.settings.HushgramPreferenceFragment.storyRingColorRow;
 import static app.hushgram.extension.instagram.settings.HushgramPreferenceFragment.storyRingRow;
@@ -80,6 +81,18 @@ final class StoriesCategory {
             stories.add(toggle(context, Settings.SMOOTH_STORY_OPEN, L10n.t("Smooth story opening"),
                     L10n.t("A story you tap in the stories row opens with a slower zoom that doesn't bounce, "
                             + "and closes the same way.")));
+        }
+        if (build.contains(PatchFamily.STORY_ZOOM_PLAY)) {
+            stories.add(toggle(context, Settings.KEEP_STORIES_PLAYING_ON_ZOOM, L10n.t("Keep stories playing while zooming"),
+                    L10n.t("A story keeps playing while you pinch to zoom it. Hold it still first and it stays "
+                            + "paused while you zoom.")));
+        }
+        if (build.contains(PatchFamily.STORY_PRIORITY)) {
+            stories.add(toggle(context, Settings.STORY_PRIORITY, L10n.t("Stories priority"),
+                    L10n.t("Puts the accounts on your list first in the stories row at the top of Home while they "
+                            + "have a story you haven't watched, in the order of the list. Once you've watched it, "
+                            + "Instagram's own placement applies again. Your own story stays first.")));
+            stories.add(priorityAccountsRow(context));
         }
         if (build.contains(PatchFamily.STORY_PROGRESS_BAR)) {
             stories.add(onFlip(toggle(context, Settings.THICKER_STORY_BAR, L10n.t("Thicker story progress bar"),
