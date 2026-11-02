@@ -131,8 +131,13 @@ private fun BytecodePatchContext.whitehatStub() = (mutableClassDefByOrNull(OVERR
  * then Instagram's own navigation to a new [screen], which its navigator gives the session. The
  * screen needs no arguments. Changes nothing.
  */
-internal fun BytecodePatchContext.prepareWhitehatScreen(editor: OverrideEditor, screen: String): PreparedStubs =
-    prepareStubs(listOf(whitehatStub()), listOf(3 to """
+internal fun BytecodePatchContext.prepareWhitehatScreen(editor: OverrideEditor, screen: String): PreparedStubs {
+    val presentCall = if (editor.isVirtualPresenter) {
+        "invoke-virtual { v1, v0 }, ${editor.present}"
+    } else {
+        "invoke-static { v0, v1 }, ${editor.present}"
+    }
+    return prepareStubs(listOf(whitehatStub()), listOf(3 to """
             instance-of v0, p0, $MAIN_HOST
             if-nez v0, :session
             instance-of v0, p0, $MODAL_HOST
@@ -147,12 +152,13 @@ internal fun BytecodePatchContext.prepareWhitehatScreen(editor: OverrideEditor, 
             move-result-object v1
             new-instance v0, $screen
             invoke-direct { v0 }, $screen-><init>()V
-            invoke-static { v0, v1 }, ${editor.present}
+            $presentCall
             const/4 v0, 0x1
             return v0
             :unavailable
             const/4 v0, 0x0
             return v0
         """.trimIndent()), ::whitehatRefuse)
+}
 
 private fun whitehatRefuse(detail: String): Nothing = throw PatchException("Open developer options: $detail")

@@ -44,8 +44,30 @@ class OverrideEditorTest {
     @Test fun nativeNavigationKeepsTheOverrideArgumentsAndGuardsItsSession() {
         val patch = PatchContexts.of(classes())
         val editor = patch.findOverrideEditor()
+        assertFalse(editor.isVirtualPresenter)
         patch.fillOverrideEditor(editor)
         assertEditor(patch, editor)
+    }
+
+    @Test fun nativeNavigationWithVirtualPresenterKeepsTheOverrideArgumentsAndGuardsItsSession() {
+        val patch = PatchContexts.of(classes(virtualPresenter = true))
+        val editor = patch.findOverrideEditor()
+        assertTrue(editor.isVirtualPresenter)
+        patch.fillOverrideEditor(editor)
+        assertEditor(patch, editor)
+    }
+
+    @Test fun virtualPresenterRequiresCorrectRegisters() {
+        val show = "invoke-virtual { v0, v1 }, $navigation->present($androidFragment)V"
+        val cases = mapOf<String, (String) -> String>(
+            "wrong receiver register" to { it.replace(show, "invoke-virtual { v1, v0 }, $navigation->present($androidFragment)V") },
+            "wrong argument register" to { it.replace(show, "invoke-virtual { v0, v2 }, $navigation->present($androidFragment)V") },
+        )
+        for ((case, alter) in cases) {
+            val patch = PatchContexts.of(classes(virtualPresenter = true, alterBranch = alter))
+            val failure = runCatching { patch.fillOverrideEditor(patch.findOverrideEditor()) }.exceptionOrNull()
+            assertTrue(case, failure?.message?.startsWith("Open developer options: ") == true)
+        }
     }
 
     /** A branch asking a string pool for both keys, as 450's 385611395 and 385611400 builds do, is found the same (#77). */
@@ -201,7 +223,7 @@ class OverrideEditorTest {
 
     private fun classes(title: String = OVERRIDE_TITLE, editorName: String = "QuickExperimentEditFragment",
                         constructorFlags: Int = public, factoryFlags: Int = static, modalSupport: Boolean = true,
-                        extraGetter: Boolean = false, pooledKeys: Boolean = false,
+                        extraGetter: Boolean = false, pooledKeys: Boolean = false, virtualPresenter: Boolean = false,
                         alterBranch: (String) -> String = { it }): List<ClassDef> = listOf(
         clazz(user, supertype = session),
         clazz(main, methods = listOf(method(main, "session", emptyList(), session, 2, public, """
@@ -214,11 +236,15 @@ class OverrideEditorTest {
         clazz(fragment, methods = listOf(method(fragment, "<init>", emptyList(), "V", 1, constructorFlags, "return-void")),
             fields = listOf(ImmutableField(fragment, "__redex_internal_original_name", "Ljava/lang/String;", static,
                 ImmutableStringEncodedValue(editorName), null, null))),
+        clazz(navigation, methods = if (virtualPresenter) listOf(
+            method(navigation, "present", listOf(androidFragment), "V", 2, public, "return-void")
+        ) else emptyList()),
         clazz(native, methods = listOf(
-            branch(native, title) { code -> alterBranch(if (pooledKeys) poolKeys(code) else code) },
+            branch(native, title, virtualPresenter) { code -> alterBranch(if (pooledKeys) poolKeys(code) else code) },
             method(native, "factory", listOf(activity, session), navigation, 3, factoryFlags, "const/4 v0, 0x0\nreturn-object v0"),
-            method(native, "present", listOf(androidFragment, navigation), "V", 2, static, "return-void"),
-        )), bridgeClass(),
+        ) + if (!virtualPresenter) listOf(
+            method(native, "present", listOf(androidFragment, navigation), "V", 2, static, "return-void")
+        ) else emptyList()), bridgeClass(),
         // A Redex string pool: a packed switch from each key's number to the key, anything else null.
         clazz(pool, methods = listOf(method(pool, "A00", listOf("I"), "Ljava/lang/String;", 2, static, """
             packed-switch p0, :keys
@@ -246,7 +272,7 @@ class OverrideEditorTest {
     private fun bridgeClass() = clazz(OVERRIDE_BRIDGE, methods = listOf(method(OVERRIDE_BRIDGE, "openOverridesNative",
         listOf("Ljava/lang/Object;"), "I", 2, static, "const/4 v0, 0x0\nreturn v0")))
 
-    private fun branch(owner: String, title: String = OVERRIDE_TITLE, alter: (String) -> String = { it }) =
+    private fun branch(owner: String, title: String = OVERRIDE_TITLE, virtualPresenter: Boolean = false, alter: (String) -> String = { it }) =
         method(owner, "branch", emptyList(), "V", 5, static, alter("""
         invoke-static { v0, v1 }, $native->factory($activity$session)$navigation
         move-result-object v0
@@ -261,7 +287,7 @@ class OverrideEditorTest {
         const/4 v4, 0x1
         invoke-virtual { v2, v3, v4 }, Landroid/os/BaseBundle;->putBoolean(Ljava/lang/String;Z)V
         invoke-virtual { v1, v2 }, $androidFragment->setArguments(Landroid/os/Bundle;)V
-        invoke-static { v1, v0 }, $native->present($androidFragment$navigation)V
+        ${if (virtualPresenter) "invoke-virtual { v0, v1 }, $navigation->present($androidFragment)V" else "invoke-static { v1, v0 }, $native->present($androidFragment$navigation)V"}
         return-void
     """.trimIndent()))
 

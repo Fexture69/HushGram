@@ -13,6 +13,7 @@ import app.morphe.patches.instagram.misc.extension.originalName
 import app.morphe.patches.instagram.misc.settings.EXTENSION_ROOT
 import com.android.tools.smali.dexlib2.AccessFlags
 import com.android.tools.smali.dexlib2.Opcode
+import com.android.tools.smali.dexlib2.iface.ClassDef
 import com.android.tools.smali.dexlib2.iface.Method
 import com.android.tools.smali.dexlib2.iface.instruction.FiveRegisterInstruction
 import com.android.tools.smali.dexlib2.iface.instruction.Instruction
@@ -35,7 +36,13 @@ private const val USER = "Lcom/instagram/common/session/UserSession;"
 private const val ACTIVITY = "Landroidx/fragment/app/FragmentActivity;"
 private const val FRAGMENT = "Landroidx/fragment/app/Fragment;"
 
-internal data class OverrideEditor(val getter: String, val factory: String, val fragment: String, val present: String)
+internal data class OverrideEditor(
+    val getter: String,
+    val factory: String,
+    val fragment: String,
+    val present: String,
+    val isVirtualPresenter: Boolean = false,
+)
 
 /** Resolve the editor's own native branch and session accessor, without shortened class names. */
 internal fun BytecodePatchContext.findOverrideEditor(): OverrideEditor {
@@ -92,23 +99,79 @@ internal fun BytecodePatchContext.findOverrideEditor(): OverrideEditor {
             it.parameterTypes.map(Any::toString) == listOf(ACTIVITY, session) && it.returnType.startsWith("L")
         }?.let { index to it }
     }.singleOrNull() ?: editorRefuse("override branch has no unique navigation factory")
-    val (presentIndex, present) = (title + 1 until minOf(code.size, title + 16)).mapNotNull { index ->
-        if (code[index].opcode != Opcode.INVOKE_STATIC) null
-        else ((code[index] as? ReferenceInstruction)?.reference as? MethodReference)?.takeIf {
-            it.parameterTypes.map(Any::toString) == listOf(FRAGMENT, factory.returnType) && it.returnType == "V"
-        }?.let { index to it }
+
+    data class PresenterCandidate(val index: Int, val reference: MethodReference, val isVirtual: Boolean)
+
+    val presenter = (title + 1 until minOf(code.size, title + 16)).mapNotNull { index ->
+        val instruction = code[index]
+        val ref = (instruction as? ReferenceInstruction)?.reference as? MethodReference ?: return@mapNotNull null
+        if (instruction.opcode == Opcode.INVOKE_STATIC &&
+            ref.parameterTypes.map(Any::toString) == listOf(FRAGMENT, factory.returnType) &&
+            ref.returnType == "V"
+        ) {
+            PresenterCandidate(index, ref, isVirtual = false)
+        } else if ((instruction.opcode == Opcode.INVOKE_VIRTUAL || instruction.opcode == Opcode.INVOKE_VIRTUAL_RANGE) &&
+            isSubtypeOf(factory.returnType, ref.definingClass) &&
+            ref.parameterTypes.map(Any::toString) == listOf(FRAGMENT) &&
+            ref.returnType == "V"
+        ) {
+            PresenterCandidate(index, ref, isVirtual = true)
+        } else {
+            null
+        }
     }.singleOrNull() ?: editorRefuse("override branch has no unique navigation presenter")
-    for (reference in listOf(factory, present)) {
-        val owner = classDefBy(reference.definingClass)
-        if (!AccessFlags.PUBLIC.isSet(owner.accessFlags) || owner.methods.none {
-                it.name == reference.name && it.parameterTypes == reference.parameterTypes && it.returnType == reference.returnType &&
-                    AccessFlags.PUBLIC.isSet(it.accessFlags) && AccessFlags.STATIC.isSet(it.accessFlags)
-            }) editorRefuse("native navigation reference isn't public static")
+
+    val factoryOwner = classDefBy(factory.definingClass)
+    if (!AccessFlags.PUBLIC.isSet(factoryOwner.accessFlags) || factoryOwner.methods.none {
+            it.name == factory.name && it.parameterTypes == factory.parameterTypes && it.returnType == factory.returnType &&
+                AccessFlags.PUBLIC.isSet(it.accessFlags) && AccessFlags.STATIC.isSet(it.accessFlags)
+        }) editorRefuse("native navigation reference isn't public static")
+
+    val present = presenter.reference
+    val presentOwner = classDefBy(present.definingClass)
+    if (!AccessFlags.PUBLIC.isSet(presentOwner.accessFlags)) {
+        editorRefuse("native navigation presenter class isn't public")
     }
-    branch.requireNativeObjects(code, factoryIndex, newEditor, presentIndex, fragment)
+    if (!hasMatchingMethod(present.definingClass, present.name, present.parameterTypes, present.returnType, presenter.isVirtual)) {
+        editorRefuse(if (presenter.isVirtual) "native navigation reference isn't public instance" else "native navigation reference isn't public static")
+    }
+
+    branch.requireNativeObjects(code, factoryIndex, newEditor, presenter.index, fragment, presenter.isVirtual)
     // Refuse a missing bridge before the Home handler can be changed.
     overrideStub()
-    return OverrideEditor("$IG_ACTIVITY->${getter.name}()$session", factory.toString(), fragment, present.toString())
+    return OverrideEditor("$IG_ACTIVITY->${getter.name}()$session", factory.toString(), fragment, present.toString(), presenter.isVirtual)
+}
+
+private fun BytecodePatchContext.isSubtypeOf(type: String, expectedSupertype: String): Boolean {
+    if (type == expectedSupertype) return true
+    var current: String? = type
+    val seen = mutableSetOf<String>()
+    while (current != null) {
+        if (!seen.add(current)) break
+        val clazz = classDefByOrNull(current) ?: break
+        if (clazz.superclass == expectedSupertype || clazz.interfaces.contains(expectedSupertype)) return true
+        current = clazz.superclass
+    }
+    return false
+}
+
+private fun BytecodePatchContext.hasMatchingMethod(
+    definingClass: String,
+    name: String,
+    parameterTypes: List<CharSequence>,
+    returnType: String,
+    isVirtual: Boolean,
+): Boolean {
+    var current: ClassDef? = classDefByOrNull(definingClass)
+    while (current != null) {
+        if (current.methods.any {
+                it.name == name && it.parameterTypes.map(Any::toString) == parameterTypes.map(Any::toString) &&
+                    it.returnType == returnType && AccessFlags.PUBLIC.isSet(it.accessFlags) &&
+                    (AccessFlags.STATIC.isSet(it.accessFlags) != isVirtual)
+            }) return true
+        current = current.superclass?.let { classDefByOrNull(it) }
+    }
+    return false
 }
 
 private fun Method.isPublicInstance() = AccessFlags.PUBLIC.isSet(accessFlags) && !AccessFlags.STATIC.isSet(accessFlags)
@@ -116,7 +179,14 @@ private fun Method.isPublicInstance() = AccessFlags.PUBLIC.isSet(accessFlags) &&
 private enum class NativeObject { NAVIGATION, NEW_EDITOR, EDITOR }
 
 /** Prove that one native straight-line branch presents its initialized editor and factory result. */
-private fun Method.requireNativeObjects(code: List<Instruction>, factory: Int, editor: Int, present: Int, fragment: String) {
+private fun Method.requireNativeObjects(
+    code: List<Instruction>,
+    factory: Int,
+    editor: Int,
+    present: Int,
+    fragment: String,
+    isVirtual: Boolean,
+) {
     val addresses = IntArray(code.size + 1)
     code.forEachIndexed { index, instruction -> addresses[index + 1] = addresses[index] + instruction.codeUnits }
     fun entersBranch(address: Int) = address > addresses[factory] && address <= addresses[present]
@@ -147,7 +217,12 @@ private fun Method.requireNativeObjects(code: List<Instruction>, factory: Int, e
         val instruction = code[index]
         if (index == present) {
             val args = instruction.nativeArguments()
-            if (args.size != 2 || objects[args[0]] != NativeObject.EDITOR || objects[args[1]] != NativeObject.NAVIGATION) {
+            val valid = if (isVirtual) {
+                args.size == 2 && objects[args[0]] == NativeObject.NAVIGATION && objects[args[1]] == NativeObject.EDITOR
+            } else {
+                args.size == 2 && objects[args[0]] == NativeObject.EDITOR && objects[args[1]] == NativeObject.NAVIGATION
+            }
+            if (!valid) {
                 editorRefuse("native presenter doesn't receive the constructed editor and factory result")
             }
             break
@@ -192,8 +267,13 @@ private fun BytecodePatchContext.overrideStub() = mutableClassDefBy(OVERRIDE_BRI
 internal fun BytecodePatchContext.fillOverrideEditor(editor: OverrideEditor) = putStubs(prepareOverrideEditor(editor))
 
 /** Only a current logged-in Home/modal host can supply the native editor's session. Assembles, changes nothing. */
-internal fun BytecodePatchContext.prepareOverrideEditor(editor: OverrideEditor): PreparedStubs =
-    prepareStubs(listOf(overrideStub()), listOf(6 to """
+internal fun BytecodePatchContext.prepareOverrideEditor(editor: OverrideEditor): PreparedStubs {
+    val presentCall = if (editor.isVirtualPresenter) {
+        "invoke-virtual { v1, v0 }, ${editor.present}"
+    } else {
+        "invoke-static { v0, v1 }, ${editor.present}"
+    }
+    return prepareStubs(listOf(overrideStub()), listOf(6 to """
             instance-of v0, p0, $MAIN
             if-nez v0, :session
             instance-of v0, p0, $MODAL
@@ -217,12 +297,13 @@ internal fun BytecodePatchContext.prepareOverrideEditor(editor: OverrideEditor):
             const/4 v4, 0x1
             invoke-virtual { v2, v3, v4 }, Landroid/os/BaseBundle;->putBoolean(Ljava/lang/String;Z)V
             invoke-virtual { v0, v2 }, Landroidx/fragment/app/Fragment;->setArguments(Landroid/os/Bundle;)V
-            invoke-static { v0, v1 }, ${editor.present}
+            $presentCall
             const/4 v0, 0x1
             return v0
             :unavailable
             const/4 v0, 0x0
             return v0
         """.trimIndent()), ::editorRefuse)
+}
 
 private fun editorRefuse(detail: String): Nothing = throw PatchException("Open developer options: $detail")

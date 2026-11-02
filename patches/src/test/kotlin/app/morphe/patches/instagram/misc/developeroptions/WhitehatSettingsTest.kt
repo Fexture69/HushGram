@@ -57,6 +57,20 @@ class WhitehatSettingsTest {
         assertBridge(patch, found)
     }
 
+    @Test fun theScreenOpensWithVirtualPresenterThroughTheCheckedNativeNavigation() {
+        val patch = PatchContexts.of(classes())
+        val found = patch.findWhitehatScreen()
+        assertEquals(screen, found)
+        val virtualEditor = editor.copy(
+            present = "Lfixture/Navigation;->present(Landroidx/fragment/app/Fragment;)V",
+            isVirtualPresenter = true,
+        )
+        patch.putStubs(patch.prepareWhitehatScreen(virtualEditor, found))
+        val code = patch.bridge().implementation!!.instructions.toList()
+        val references = code.mapNotNull { (it as? ReferenceInstruction)?.reference?.toString() }
+        assertEquals(listOf(virtualEditor.factory, found, "$found-><init>()V", virtualEditor.present), references.drop(5))
+    }
+
     @Test fun anythingButTheNativeDaySwitchLeavesTheBridgeAlone() {
         val cases = mapOf(
             "no day" to classes(day = "0x1"),
