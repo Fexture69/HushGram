@@ -18,6 +18,7 @@ import app.morphe.patches.instagram.misc.extension.jumpTargets
 import app.morphe.patches.instagram.misc.extension.localRegisterCount
 import app.morphe.patches.instagram.misc.extension.markers
 import app.morphe.patches.instagram.misc.extension.parameterRegisterNumber
+import app.morphe.patches.instagram.misc.extension.patchLog
 import app.morphe.patches.instagram.misc.extension.requireStatusMethod
 import app.morphe.patches.instagram.misc.extension.stringLoadedAt
 import app.morphe.patches.instagram.misc.extension.typesMarked
@@ -60,6 +61,13 @@ internal const val LISTEN = "$EXTENSION_PACKAGE/reels/ReelSeekTouch;->listen(Lan
 internal const val ORGANIC_MIN_SECONDS = 0x8208d0002913a8L
 internal const val ORGANIC_MIN_SECONDS_READS = 3
 
+internal val CANDIDATE_ORGANIC_MIN_SECONDS = listOf(
+    ORGANIC_MIN_SECONDS, // 454 (386014758)
+    0x8208fe00291415L,   // 453
+    0x82090f00291471L,   // 452
+    0x82091900291476L,   // 451
+)
+
 /**
  * Whether a short ordinary reel's bar is the hidden kind, shown only while you hold the reel. 450
  * reads it once, where the seek bar row's state is worked out, in the same place as the ads' flag.
@@ -68,6 +76,13 @@ internal const val ORGANIC_MIN_SECONDS_READS = 3
 // read by the same seek bar row state.
 internal const val ORGANIC_LAZY = 0x8108d00010323fL
 internal const val ORGANIC_LAZY_READS = 1
+
+internal val CANDIDATE_ORGANIC_LAZY = listOf(
+    ORGANIC_LAZY,        // 454 (386014758)
+    0x8108fe00103259L,   // 453
+    0x81090f00103271L,   // 452
+    0x8109190010330cL,   // 451
+)
 
 /** The markers, after Instagram's release prefix, of the methods that prove the reads are the seek bar's. */
 internal const val SHOULD_SHOW_ATTACHED = "ClipsExperimentUtil_shouldShowAttachedScrubber"
@@ -130,12 +145,26 @@ val reelSeekBarPatch = bytecodePatch(
 
     execute {
         requireStatusMethod("reelSeekBar")
-        applyReelSeekBar(findReelSeekBarSites())
-        enableStatus("reelSeekBar")
+        val sites = findReelSeekBarSitesWhereItFits()
+        if (sites != null) {
+            applyReelSeekBar(sites)
+            enableStatus("reelSeekBar")
+        }
     }
 }
 
 private fun refuse(detail: String): Nothing = throw PatchException("$PATCH: $detail")
+
+/**
+ * What [findReelSeekBarSites] finds, or null with a warning in the patch log when the build differs,
+ * so other patches still apply cleanly without failing the patch session.
+ */
+internal fun BytecodePatchContext.findReelSeekBarSitesWhereItFits(): ReelSeekBarSites? = try {
+    findReelSeekBarSites()
+} catch (unknown: PatchException) {
+    patchLog.warning("${unknown.message}. Keep a seek bar on Reels goes in without seek bar adjustments.")
+    null
+}
 
 /** The three reads of the minimum, the read of the hidden kind, the seek bar's listener method, the binder and the strip. */
 internal class ReelSeekBarSites(
@@ -174,17 +203,15 @@ internal class BindSite(
  * before anything changes when any of it isn't so.
  */
 internal fun BytecodePatchContext.findReelSeekBarSites(): ReelSeekBarSites {
-    val lengths = findFlagLoads(PATCH, ORGANIC_MIN_SECONDS, "J")
-    if (lengths.size != ORGANIC_MIN_SECONDS_READS) {
-        refuse(
+    val lengths = CANDIDATE_ORGANIC_MIN_SECONDS.map { findFlagLoads(PATCH, it, "J") }
+        .firstOrNull { it.size == ORGANIC_MIN_SECONDS_READS }
+        ?: refuse(
             "expected $ORGANIC_MIN_SECONDS_READS reads of the shortest reel with a seek bar " +
-                "(${ORGANIC_MIN_SECONDS.toString(16)}), found ${lengths.size}",
+                "(${ORGANIC_MIN_SECONDS.toString(16)}), found ${findFlagLoads(PATCH, ORGANIC_MIN_SECONDS, "J").size}",
         )
-    }
-    val lazies = findFlagLoads(PATCH, ORGANIC_LAZY, "Z")
-    if (lazies.size != ORGANIC_LAZY_READS) {
-        refuse("expected $ORGANIC_LAZY_READS read of the hidden seek bar flag (${ORGANIC_LAZY.toString(16)}), found ${lazies.size}")
-    }
+    val lazies = CANDIDATE_ORGANIC_LAZY.map { findFlagLoads(PATCH, it, "Z") }
+        .firstOrNull { it.size == ORGANIC_LAZY_READS }
+        ?: refuse("expected $ORGANIC_LAZY_READS read of the hidden seek bar flag (${ORGANIC_LAZY.toString(16)}), found ${findFlagLoads(PATCH, ORGANIC_LAZY, "Z").size}")
     val lazy = lazies.single()
 
     val marked = markedMethods(listOf(SHOULD_SHOW_ATTACHED, CALCULATE_SHOULD_SHOW, SCRUBBER_ROW_STATE, TOUCH_STRIP))

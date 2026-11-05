@@ -15,6 +15,7 @@ import app.morphe.patches.instagram.misc.extension.EXTENSION_PACKAGE
 import app.morphe.patches.instagram.misc.extension.classesLoading
 import app.morphe.patches.instagram.misc.extension.enableStatus
 import app.morphe.patches.instagram.misc.extension.instagramExtensionPatch
+import app.morphe.patches.instagram.misc.extension.patchLog
 import app.morphe.patches.instagram.misc.extension.requireLocals
 import app.morphe.patches.instagram.misc.extension.requireStatusMethod
 import app.morphe.patches.instagram.misc.settings.settingsPatch
@@ -35,6 +36,14 @@ internal const val HIDE_INSTANTS = "$EXTENSION_PACKAGE/direct/Instants;->hide()Z
 internal const val INSTANTS_FLAG = 0x81057c000019a6L
 internal const val INSTANTS_SECOND_FLAG = 0x810c740000467cL
 
+/** Alternate candidate pairs across 454/453/452/451 builds */
+internal val CANDIDATE_INSTANTS_PAIRS = listOf(
+    INSTANTS_FLAG to INSTANTS_SECOND_FLAG,
+    0x8105a0000019ceL to 0x810ca900004675L,
+    0x8105ae00001a0aL to 0x810cbc0000466eL,
+    0x8105b600001a75L to 0x810cce0000474eL,
+)
+
 /** The check's shape: static, (UserSession, boolean that logs an exposure), answering a boolean. */
 internal val GATE_PARAMETERS = listOf("Lcom/instagram/common/session/UserSession;", "Z")
 
@@ -51,13 +60,27 @@ val hideInstantsPatch = bytecodePatch(
 
     execute {
         requireStatusMethod("instants")
-        holdInstantsGate(findInstantsGate())
-        enableStatus("instants")
+        val gate = findInstantsGateWhereItFits()
+        if (gate != null) {
+            holdInstantsGate(gate)
+            enableStatus("instants")
+        }
     }
 }
 
 /** Where Instagram's Instants check lives: its class and method name. */
 internal class InstantsGate(val type: String, val name: String)
+
+/**
+ * What [findInstantsGate] finds, or null with a warning in the patch log when the build differs,
+ * so other patches still apply cleanly without failing the patch session.
+ */
+internal fun BytecodePatchContext.findInstantsGateWhereItFits(): InstantsGate? = try {
+    findInstantsGate()
+} catch (unknown: PatchException) {
+    patchLog.warning("${unknown.message}. Hide Instants goes in without holding the Instants check.")
+    null
+}
 
 /**
  * Instagram 450 asks one static method whether the account has Instants, and every entry point
@@ -66,14 +89,38 @@ internal class InstantsGate(val type: String, val name: String)
  * both [INSTANTS_FLAG] and [INSTANTS_SECOND_FLAG]; anything else fails the patch.
  */
 internal fun BytecodePatchContext.findInstantsGate(): InstantsGate {
-    val gates = classesLoading(INSTANTS_FLAG).flatMap { classDef ->
+    val candidateClasses = CANDIDATE_INSTANTS_PAIRS.flatMap { (f1, f2) ->
+        classesLoading(f1) + classesLoading(f2)
+    }.distinctBy { it.type }
+
+    val gates = candidateClasses.flatMap { classDef ->
         classDef.methods.filter { method ->
             AccessFlags.STATIC.isSet(method.accessFlags) && method.returnType == "Z" &&
                 method.parameterTypes.map(CharSequence::toString) == GATE_PARAMETERS &&
-                method.wides().containsAll(listOf(INSTANTS_FLAG, INSTANTS_SECOND_FLAG))
+                CANDIDATE_INSTANTS_PAIRS.any { (f1, f2) -> method.wides().contains(f1) && method.wides().contains(f2) }
         }.map { InstantsGate(classDef.type, it.name) }
+    }.distinctBy { "${it.type}->${it.name}" }
+
+    if (gates.isNotEmpty()) {
+        return gates.singleOrNull() ?: throw PatchException("$PATCH: ${gates.size} Instants checks, not one")
     }
-    return gates.singleOrNull() ?: throw PatchException("$PATCH: ${gates.size} Instants checks, not one")
+
+    // Structural search: static (UserSession, boolean) -> boolean loading both a 0x8105... and 0x810c... flag
+    val structuralGates = mutableListOf<InstantsGate>()
+    classDefForEach { classDef ->
+        classDef.methods.forEach { method ->
+            if (AccessFlags.STATIC.isSet(method.accessFlags) && method.returnType == "Z" &&
+                method.parameterTypes.map(CharSequence::toString) == GATE_PARAMETERS
+            ) {
+                val wides = method.wides()
+                if (wides.any { (it ushr 48) == 0x8105L } && wides.any { (it ushr 48) == 0x810cL }) {
+                    structuralGates += InstantsGate(classDef.type, method.name)
+                }
+            }
+        }
+    }
+    val distinct = structuralGates.distinctBy { "${it.type}->${it.name}" }
+    return distinct.singleOrNull() ?: throw PatchException("$PATCH: ${distinct.size} Instants checks, not one")
 }
 
 /**

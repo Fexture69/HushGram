@@ -11,6 +11,7 @@ import app.morphe.patches.instagram.misc.extension.EXTENSION_PACKAGE
 import app.morphe.patches.instagram.misc.extension.enableStatus
 import app.morphe.patches.instagram.misc.extension.instagramExtensionPatch
 import app.morphe.patches.instagram.misc.extension.markers
+import app.morphe.patches.instagram.misc.extension.patchLog
 import app.morphe.patches.instagram.misc.extension.requireStatusMethod
 import app.morphe.patches.instagram.misc.extension.typesMarked
 import app.morphe.patches.instagram.misc.flags.FlagLoad
@@ -65,9 +66,22 @@ val pinchZoomReelsPatch = bytecodePatch(
 
     execute {
         requireStatusMethod("reelZoom")
-        zoomReels()
-        enableStatus("reelZoom")
+        if (zoomReelsWhereItFits()) {
+            enableStatus("reelZoom")
+        }
     }
+}
+
+/**
+ * What [zoomReels] applies, or false with a warning in the patch log when the build differs,
+ * so other patches still apply cleanly without failing the patch session.
+ */
+internal fun BytecodePatchContext.zoomReelsWhereItFits(): Boolean = try {
+    zoomReels()
+    true
+} catch (unknown: PatchException) {
+    patchLog.warning("${unknown.message}. Pinch to zoom on Reels goes in without zoom hooks.")
+    false
 }
 
 /** Finds both reads with [findReelZoom] and has the extension answer each through [ZOOM]. */

@@ -58,6 +58,12 @@ internal const val MUSIC_CARD = "$EXTENSION_PACKAGE/stories/StoriesTray;->musicC
  */
 internal const val MUSIC_CARD_FLAG = 0x810c6600014620L
 
+internal val CANDIDATE_MUSIC_CARD_FLAGS = listOf(
+    MUSIC_CARD_FLAG,    // 454 (386014758)
+    0x810c9b0001461aL,  // 453
+    0x810cc0000146f1L,  // 452 / 451
+)
+
 /** The name only the music midcard repository's constructor holds, which it gives its base class. */
 internal const val MUSIC_CARD_REPOSITORY = "MusicMidcardRepository"
 private const val USER_SESSION = "Lcom/instagram/common/session/UserSession;"
@@ -117,7 +123,7 @@ val hideSuggestedStoriesPatch = bytecodePatch(
         val owner = findTrayOwnerOrWarn()
         hookTrayParser(parse, findTrayRemaining(parse.site))
         owner?.let { fillTrayOwnerStubs(it) }
-        hideMusicCard()
+        hideMusicCardOrWarn()
         hideStorySuggestions(netegoCheck)
         hideStoryMidcards(midcards)
         enableStatus("storiesTray")
@@ -127,6 +133,15 @@ val hideSuggestedStoriesPatch = bytecodePatch(
 /** Finds the Music for you card's flag read with [findMusicCard] and has the extension answer it through [MUSIC_CARD]. */
 internal fun BytecodePatchContext.hideMusicCard() {
     answerFlagLoads(listOf(findMusicCard() to MUSIC_CARD))
+}
+
+/** [hideMusicCard], or null with a warning if the Music card flag has moved. */
+internal fun BytecodePatchContext.hideMusicCardOrWarn() {
+    try {
+        hideMusicCard()
+    } catch (moved: PatchException) {
+        patchLog.warning("${moved.message}. Hide suggested stories goes in without hiding Music for you cards.")
+    }
 }
 
 /**
@@ -140,8 +155,10 @@ internal fun BytecodePatchContext.findMusicCard(): FlagLoad {
     val flag = MUSIC_CARD_FLAG.toString(16)
     val repositories = musicCardRepositories()
     if (repositories.isEmpty()) refuse("no class holds $MUSIC_CARD_REPOSITORY, so $flag isn't the Music for you card's flag")
-    val reads = findFlagLoads(PATCH, MUSIC_CARD_FLAG, "Z")
-    val read = reads.singleOrNull() ?: refuse("expected one read of the Music for you card flag $flag, found ${reads.size}")
+    val reads = CANDIDATE_MUSIC_CARD_FLAGS.map { findFlagLoads(PATCH, it, "Z") }
+        .firstOrNull { it.size == 1 }
+        ?: refuse("expected one read of the Music for you card flag $flag, found ${findFlagLoads(PATCH, MUSIC_CARD_FLAG, "Z").size}")
+    val read = reads.single()
     val where = "${read.type}->${read.name}"
     if (read.shared) refuse("the read of $flag in $where is shared with another flag")
     if (read.parameters != listOf(USER_SESSION) || read.returnType != "Z") {
