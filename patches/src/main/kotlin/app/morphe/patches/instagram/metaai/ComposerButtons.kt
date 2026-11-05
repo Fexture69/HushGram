@@ -34,10 +34,28 @@ internal val COMPOSER_BUTTON_NAMES = listOf("META_AI_DISCOVERY", "META_AI_INVOCA
  * ten 454 builds (aapt2). 453 had them at 0x7f0b3862 to 0x7f0b3864.
  */
 internal val COMPOSER_BUTTON_IDS = listOf(0x7f0b3848, 0x7f0b3849, 0x7f0b384a)
+
+/** Known candidate composer button ID sets across various Instagram versions/splits. */
+internal val CANDIDATE_COMPOSER_BUTTON_SETS = listOf(
+    COMPOSER_BUTTON_IDS, // listOf(0x7f0b3848, 0x7f0b3849, 0x7f0b384a)
+    listOf(0x7f0b3862, 0x7f0b3863, 0x7f0b3864), // 453
+    listOf(0x7f0b3849, 0x7f0b384a, 0x7f0b384b),
+    listOf(0x7f0b3847, 0x7f0b3848, 0x7f0b3849),
+)
 private const val VIEW = "Landroid/view/View;"
 private const val FIND_VIEW = "$VIEW->findViewById(I)$VIEW"
 
 internal class ComposerVisibilitySite(val type: String, val name: String, val parameters: List<String>)
+
+/**
+ * What [findComposerButtonVisibility] finds, or null with a warning in the patch log when the build differs.
+ */
+internal fun BytecodePatchContext.findComposerButtonVisibilityWhereItFits(): ComposerVisibilitySite? = try {
+    findComposerButtonVisibility()
+} catch (unknown: PatchException) {
+    app.morphe.patches.instagram.misc.extension.patchLog.warning("${unknown.message}. Hide Meta AI goes in without hiding composer buttons.")
+    null
+}
 
 /**
  * Discover the composer through its three optional resource lookups and the button enum's names.
@@ -52,13 +70,23 @@ internal fun BytecodePatchContext.findComposerButtonVisibility(): ComposerVisibi
         }
     }
     val buttonEnum = enums.singleOrNull() ?: refuseComposer("${enums.size} composer button enums, not one")
-    val loading = COMPOSER_BUTTON_IDS.map { id -> classesLoading(id.toLong()).mapTo(HashSet()) { it.type } }
-    val lookups = classesLoading(COMPOSER_BUTTON_IDS.first().toLong()).filter { candidate -> loading.all { candidate.type in it } }
-        .flatMap { candidate -> candidate.methods.map { candidate to it } }.filter { (_, method) ->
-        method.parameterTypes.isEmpty() && method.returnType == "Ljava/lang/Object;" &&
-            method.code().mapNotNull { it.literal() }.containsAll(COMPOSER_BUTTON_IDS)
+    
+    var foundLookupClass: ClassDef? = null
+    var foundLookup: Method? = null
+    for (candidateIds in CANDIDATE_COMPOSER_BUTTON_SETS) {
+        val loading = candidateIds.map { id -> classesLoading(id.toLong()).mapTo(HashSet()) { it.type } }
+        val lookups = classesLoading(candidateIds.first().toLong()).filter { candidate -> loading.all { candidate.type in it } }
+            .flatMap { candidate -> candidate.methods.map { candidate to it } }.filter { (_, method) ->
+            method.parameterTypes.isEmpty() && method.returnType == "Ljava/lang/Object;" &&
+                method.code().mapNotNull { it.literal() }.containsAll(candidateIds)
+        }
+        val pair = lookups.singleOrNull() ?: continue
+        foundLookupClass = pair.first
+        foundLookup = pair.second
+        break
     }
-    val (lookupClass, lookup) = lookups.singleOrNull() ?: refuseComposer("${lookups.size} optional composer lookup methods, not one")
+    val lookupClass = foundLookupClass ?: refuseComposer("optional composer lookup methods not found")
+    val lookup = foundLookup!!
     requireOptionalLookups(lookup)
     val candidates = classesCalling(lookupClass.type, "<init>").filter { candidate ->
         candidate.methods.any { method ->

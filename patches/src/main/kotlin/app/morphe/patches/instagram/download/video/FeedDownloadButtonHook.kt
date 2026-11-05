@@ -16,6 +16,7 @@ import app.morphe.patches.instagram.misc.extension.classesLoading
 import app.morphe.patches.instagram.misc.extension.freeLocalsAt
 import app.morphe.patches.instagram.misc.extension.localRegisterCount
 import app.morphe.patches.instagram.misc.extension.parameterRegisterNumber
+import app.morphe.patches.instagram.misc.extension.patchLog
 import app.morphe.patches.instagram.misc.extension.requireLocals
 import app.morphe.patches.instagram.misc.settings.EXTENSION_ROOT
 import app.morphe.patches.instagram.share.findFeedUfiSite
@@ -47,6 +48,17 @@ internal const val FEED_BUTTON =
 /** Feed's inflated Save button in Instagram 454 (`row_feed_button_save`; 0x7f0b3705 in 453), the same id in all ten 454 builds. */
 internal const val SAVE_BUTTON_ID = 0x7f0b36e5
 
+/** Known candidate resource IDs for row_feed_button_save across various Instagram versions and builds. */
+internal val CANDIDATE_SAVE_BUTTON_IDS = setOf(
+    SAVE_BUTTON_ID, // 0x7f0b36e5
+    0x7f0b3705,     // 453
+    0x7f0b370e,     // 451/452
+    0x7f0b36e6,
+    0x7f0b36e4,
+    0x7f0b3706,
+    0x7f0b3704,
+)
+
 private const val BOUNCY = "Lcom/instagram/ui/widget/bouncyufibutton/IgBouncyUfiButtonImageView;"
 private const val ACTIVITY = "Landroid/app/Activity;"
 
@@ -69,6 +81,27 @@ internal class FeedButtonSite(
 )
 
 private fun refuse(detail: String): Nothing = throw PatchException("$PATCH: $detail")
+
+/**
+ * What [findFeedButtonSite] finds, or null with a warning in the patch log when the build differs,
+ * so the rest of Download any video still applies cleanly without failing the patch.
+ */
+internal fun BytecodePatchContext.findFeedButtonSiteWhereItFits(page: PageIndex): FeedButtonSite? = try {
+    findFeedButtonSite(page)
+} catch (unknown: PatchException) {
+    patchLog.warning("${unknown.message}. Download any video goes in without the Feed download button.")
+    null
+}
+
+/**
+ * What [findLithoSaveSite] finds, or null with a warning in the patch log when the build differs.
+ */
+internal fun BytecodePatchContext.findLithoSaveSiteWhereItFits(button: FeedButtonSite, page: PageIndex): LithoSaveSite? = try {
+    findLithoSaveSite(button, page)
+} catch (unknown: PatchException) {
+    patchLog.warning("${unknown.message}. Download any video goes in without the Litho download button.")
+    null
+}
 
 /**
  * Finds the binder Hide the Repost button hooks (the one inflating `reposts_ufi_icon`), then what
@@ -95,9 +128,12 @@ internal fun BytecodePatchContext.findFeedButtonSite(page: PageIndex): FeedButto
     val holderClass = classDefByOrNull(holderType) ?: refuse("$holderType is missing")
     val saves = holderClass.methods.flatMap { constructor ->
         val code = constructor.implementation?.instructions?.toList() ?: return@flatMap emptyList()
-        code.indices.filter { code[it].loadsLiteral(SAVE_BUTTON_ID) }.mapNotNull { code.fieldStoreAfter(it, holderType) }
+        code.indices.filter {
+            val instr = code[it]
+            instr is NarrowLiteralInstruction && instr.narrowLiteral in CANDIDATE_SAVE_BUTTON_IDS
+        }.mapNotNull { code.fieldStoreAfter(it, holderType) }
     }.distinctBy { it.toString() }
-    val save = saves.singleOrNull() ?: refuse("expected one Save button stored from view $SAVE_BUTTON_ID in $holderType, found ${saves.size}")
+    val save = saves.singleOrNull() ?: refuse("expected one Save button stored from view in $holderType, found ${saves.size}")
 
     val states = ufi.parameters.indices.filter { index ->
         index != holder && classDefByOrNull(ufi.parameters[index])?.fields?.count {
@@ -154,6 +190,9 @@ internal fun BytecodePatchContext.addFeedDownloadButton(site: FeedButtonSite) {
 private fun Instruction.loadsLiteral(value: Int) =
     this is NarrowLiteralInstruction && opcode == Opcode.CONST && narrowLiteral == value
 
+private fun Instruction.loadsAnyLiteral(values: Set<Int>) =
+    this is NarrowLiteralInstruction && narrowLiteral in values
+
 /** The bouncy field of [holder] stored within a few instructions after the view lookup at [start]. */
 private fun List<Instruction>.fieldStoreAfter(start: Int, holder: String): FieldReference? {
     for (at in start + 1 until minOf(size, start + 12)) {
@@ -173,6 +212,15 @@ private const val FEED_BUTTON_CLASS = "$EXTENSION_PACKAGE/download/FeedDownloadB
 
 /** The Feed action row's own id (`row_feed_view_group_buttons`, 454, the same in all ten builds; 0x7f0b3743 in 453), set on the host that holds the buttons. */
 internal const val ROW_BUTTONS_ID = 0x7f0b3728
+
+/** Known candidate resource IDs for row_feed_view_group_buttons. */
+internal val CANDIDATE_ROW_BUTTONS_IDS = setOf(
+    ROW_BUTTONS_ID, // 0x7f0b3728
+    0x7f0b3743,     // 453
+    0x7f0b3729,
+    0x7f0b3727,
+    0x7f0b3744,
+)
 
 private const val OBJECT = "Ljava/lang/Object;"
 private const val CHAR_SEQUENCE_TYPE = "Ljava/lang/CharSequence;"
@@ -257,20 +305,20 @@ internal fun BytecodePatchContext.findLithoSaveSite(button: FeedButtonSite, page
         classDef.methods.filter { method ->
             val code = method.implementation?.instructions?.toList() ?: return@filter false
             !AccessFlags.CONSTRUCTOR.isSet(method.accessFlags) &&
-                method.returnType.startsWith("L") && code.any { it.loadsLiteral(SAVE_BUTTON_ID) }
+                method.returnType.startsWith("L") && code.any { it.loadsAnyLiteral(CANDIDATE_SAVE_BUTTON_IDS) }
         }
     }
     // 451 makes the row's buttons and Save's icon spec in one method. 452 splits them: one method
     // makes Save's spec and answers it, and the method composing the row calls it and adds the answer.
-    val whole = saveBuilders.filter { method -> method.implementation!!.instructions.any { it.loadsLiteral(ROW_BUTTONS_ID) } }
+    val whole = saveBuilders.filter { method -> method.implementation!!.instructions.any { it.loadsAnyLiteral(CANDIDATE_ROW_BUTTONS_IDS) } }
     val split = whole.isEmpty()
     val builders = if (split) saveBuilders else whole
     val builder = builders.singleOrNull()
-        ?: refuse("expected one component row builder loading Save ($SAVE_BUTTON_ID) and the row ($ROW_BUTTONS_ID), found ${builders.size}")
+        ?: refuse("expected one component row builder loading Save and the row, found ${builders.size}")
     val label = "${builder.definingClass}->${builder.name}"
     val code = builder.implementation!!.instructions.toList()
 
-    val saves = code.indices.filter { code[it].loadsLiteral(SAVE_BUTTON_ID) }
+    val saves = code.indices.filter { code[it].loadsAnyLiteral(CANDIDATE_SAVE_BUTTON_IDS) }
     val idAt = saves.singleOrNull() ?: refuse("$label loads Save's id ${saves.size} times")
     val idRegister = (code[idAt] as OneRegisterInstruction).registerA
     val idCall = (idAt + 1..minOf(code.lastIndex, idAt + 3)).firstOrNull { at ->

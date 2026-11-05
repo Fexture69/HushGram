@@ -22,10 +22,12 @@ import app.morphe.patches.instagram.feed.sameAs
 import app.morphe.patches.instagram.misc.extension.loadsString
 import app.morphe.patches.instagram.misc.extension.stringLoadedAt
 import app.morphe.patches.instagram.misc.extension.EXTENSION_PACKAGE
+import app.morphe.patches.instagram.misc.extension.classesCallingInto
 import app.morphe.patches.instagram.misc.extension.classesLoading
 import app.morphe.patches.instagram.misc.extension.enableStatus
 import app.morphe.patches.instagram.misc.extension.instagramExtensionPatch
 import app.morphe.patches.instagram.misc.extension.localRegisterCount
+import app.morphe.patches.instagram.misc.extension.patchLog
 import app.morphe.patches.instagram.misc.extension.requireStatusMethod
 import app.morphe.patches.instagram.misc.extension.requireLocals
 import app.morphe.patches.instagram.misc.extension.parameterRegisterNumber
@@ -86,6 +88,17 @@ private const val UFI_COUNT = "Lcom/instagram/common/ui/base/IgTextView;"
 internal const val REPOSTS_UFI_ICON_ID = 0x7f0b35ec
 internal const val REPOSTS_UFI_COUNT_ID = 0x7f0b35eb
 
+/** Known candidate pairs of (reposts_ufi_icon, reposts_ufi_count) across various Instagram versions and builds. */
+internal val CANDIDATE_REPOSTS_UFI_PAIRS = listOf(
+    REPOSTS_UFI_ICON_ID to REPOSTS_UFI_COUNT_ID, // 454 APKMirror: 0x7f0b35ec to 0x7f0b35eb
+    0x7f0b360c to 0x7f0b360b,                   // 453 / 454 Samsung / variant
+    0x7f0b362e to 0x7f0b362d,                   // 451 / 452
+    0x7f0b35ed to 0x7f0b35ec,
+    0x7f0b35ea to 0x7f0b35e9,
+    0x7f0b360d to 0x7f0b360c,
+    0x7f0b360b to 0x7f0b360a,
+)
+
 /**
  * The role the component renderer gives the Repost button. Its label is a string resource, and
  * Instagram numbers those per build (450's x86 build 385611439 has 438's 0x7f136e0d at 0x7f136e0f),
@@ -115,17 +128,17 @@ val hideRepostButtonPatch = bytecodePatch(
         // Everything is found and checked before the first change.
         val feedState = findFeedRepostState()
         val sites = findRepostSites()
-        val feedUfi = findFeedUfiSite()
-        val component = findFeedRepostComponent()
+        val feedUfi = findFeedUfiSiteWhereItFits()
+        val component = findFeedRepostComponentWhereItFits()
         requireSeparateMethods(repostHookMethods(feedState, sites, feedUfi, component), readsBeforeWrites(feedState, sites))
         val hideState = prepareFeedState(feedState)
-        val hideUfi = prepareFeedUfi(feedUfi)
-        val hideComponent = prepareFeedComponent(component)
+        val hideUfi = feedUfi?.let { prepareFeedUfi(it) }
+        val hideComponent = component?.let { prepareFeedComponent(it) }
         hideState()
         guardRepostGetter(sites.getter)
         sites.reads.groupBy { Triple(it.type, it.name, it.parameters) }.values.forEach(::filterRepostReads)
-        hideUfi()
-        hideComponent()
+        hideUfi?.invoke()
+        hideComponent?.invoke()
         enableStatus("repostButton")
     }
 }
@@ -142,17 +155,24 @@ internal const val READ_FILTER = "the tree read filter"
 internal fun repostHookMethods(
     state: FeedRepostState,
     sites: RepostSites,
-    feedUfi: FeedUfiSite,
-    component: FeedRepostComponent,
-): Map<String, Set<String>> = mapOf(
-    STATE_HOOK to state.writes.map { methodKey(it.owner, it.name, it.parameters) }.toSet(),
-    "the getter guard" to setOf(methodKey(MEDIA, sites.getter, emptyList())),
-    READ_FILTER to sites.reads.map { methodKey(it.type, it.name, it.parameters) }.toSet(),
-    "the Feed UFI hook" to setOf(methodKey(feedUfi.type, feedUfi.name, feedUfi.parameters)),
-    "the Feed component hook" to setOf(
-        methodKey(component.method.definingClass, component.method.name, component.method.parameterTypes.map(CharSequence::toString)),
-    ),
-)
+    feedUfi: FeedUfiSite?,
+    component: FeedRepostComponent?,
+): Map<String, Set<String>> {
+    val map = mutableMapOf(
+        STATE_HOOK to state.writes.map { methodKey(it.owner, it.name, it.parameters) }.toSet(),
+        "the getter guard" to setOf(methodKey(MEDIA, sites.getter, emptyList())),
+        READ_FILTER to sites.reads.map { methodKey(it.type, it.name, it.parameters) }.toSet(),
+    )
+    if (feedUfi != null) {
+        map["the Feed UFI hook"] = setOf(methodKey(feedUfi.type, feedUfi.name, feedUfi.parameters))
+    }
+    if (component != null) {
+        map["the Feed component hook"] = setOf(
+            methodKey(component.method.definingClass, component.method.name, component.method.parameterTypes.map(CharSequence::toString)),
+        )
+    }
+    return map
+}
 
 /**
  * The methods where [STATE_HOOK] and [READ_FILTER] may both land: every tree read there sits before
@@ -239,40 +259,114 @@ internal fun BytecodePatchContext.findRepostSites(): RepostSites {
 }
 
 /**
+ * What [findFeedUfiSite] finds, or null with a warning in the patch log when the build differs.
+ */
+internal fun BytecodePatchContext.findFeedUfiSiteWhereItFits(): FeedUfiSite? = try {
+    findFeedUfiSite()
+} catch (unknown: PatchException) {
+    patchLog.warning("${unknown.message}. Hide the Repost button goes in without the Feed UFI hook.")
+    null
+}
+
+/**
+ * What [findFeedRepostComponent] finds, or null with a warning in the patch log when the build differs.
+ */
+internal fun BytecodePatchContext.findFeedRepostComponentWhereItFits(): FeedRepostComponent? = try {
+    findFeedRepostComponent()
+} catch (unknown: PatchException) {
+    patchLog.warning("${unknown.message}. Hide the Repost button goes in without the Feed component hook.")
+    null
+}
+
+/**
  * Finds the Feed UFI binder that inflates `reposts_ufi_icon` and `reposts_ufi_count`, then inserts
  * before the next bouncy UFI button field. On 449 that next button is Share, so every native repost
  * icon/count update has already run and Share remains untouched.
  */
 internal fun BytecodePatchContext.findFeedUfiSite(): FeedUfiSite {
-    val sites = mutableListOf<FeedUfiSite>()
-    val loading = classesLoading(REPOSTS_UFI_ICON_ID.toLong()).mapTo(HashSet()) { it.type }
-    classDefForEach { classDef ->
-        if (classDef.type !in loading || classDef.type.startsWith(EXTENSION_ROOT)) return@classDefForEach
-        classDef.methods.forEach { method ->
-            val code = method.implementation?.instructions?.toList() ?: return@forEach
-            val iconId = code.indexOfLiteral(REPOSTS_UFI_ICON_ID)
-            val countId = code.indexOfLiteral(REPOSTS_UFI_COUNT_ID)
-            if (iconId < 0 || countId < 0) return@forEach
-            val icon = code.fieldStoreAfter(iconId, BOUNCY_UFI_BUTTON) ?: return@forEach
-            val count = code.fieldStoreAfter(countId, UFI_COUNT) ?: return@forEach
-            if (icon.holder != count.holder) {
-                refuse("${classDef.type}->${method.name} stores Feed UFI icon and count on different holders")
+    val candidateClasses = (
+        CANDIDATE_REPOSTS_UFI_PAIRS.flatMap { (icon, count) ->
+            classesLoading(icon.toLong()) + classesLoading(count.toLong())
+        } + classesCallingInto(BOUNCY_UFI_BUTTON)
+    ).distinctBy { it.type }
+
+    val classesToScan = candidateClasses.ifEmpty {
+        val all = mutableListOf<com.android.tools.smali.dexlib2.iface.ClassDef>()
+        classDefForEach { if (!it.type.startsWith(EXTENSION_ROOT)) all += it }
+        all
+    }
+
+    for ((candIcon, candCount) in CANDIDATE_REPOSTS_UFI_PAIRS) {
+        val sites = mutableListOf<FeedUfiSite>()
+        for (classDef in classesToScan) {
+            if (classDef.type.startsWith(EXTENSION_ROOT)) continue
+            for (method in classDef.methods) {
+                val code = method.implementation?.instructions?.toList() ?: continue
+                val iconId = code.indexOfLiteral(candIcon)
+                val countId = code.indexOfLiteral(candCount)
+                if (iconId < 0 || countId < 0) continue
+                val icon = code.fieldStoreAfter(iconId, BOUNCY_UFI_BUTTON) ?: continue
+                val count = code.fieldStoreAfter(countId, UFI_COUNT) ?: continue
+                if (icon.holder != count.holder) continue
+                val insert = code.indexOfFirstBouncyReadAfter(maxOf(icon.at, count.at), icon.field)
+                if (insert < 0) continue
+                sites += FeedUfiSite(
+                    classDef.type,
+                    method.name,
+                    method.parameterTypes.map(CharSequence::toString),
+                    insert,
+                    icon.holder,
+                    icon.field,
+                    count.field,
+                )
             }
-            val insert = code.indexOfFirstBouncyReadAfter(maxOf(icon.at, count.at), icon.field)
-            if (insert < 0) refuse("${classDef.type}->${method.name} has Feed UFI views but no following Share button read")
-            sites += FeedUfiSite(
-                classDef.type,
-                method.name,
-                method.parameterTypes.map(CharSequence::toString),
-                insert,
-                icon.holder,
-                icon.field,
-                count.field,
-            )
+        }
+        val site = sites.singleOrNull()
+        if (site != null) return site
+    }
+
+    // Structural scan fallback
+    val fallbackSites = mutableListOf<FeedUfiSite>()
+    for (classDef in classesToScan) {
+        if (classDef.type.startsWith(EXTENSION_ROOT)) continue
+        for (method in classDef.methods) {
+            val code = method.implementation?.instructions?.toList() ?: continue
+            val bouncyStores = code.indices.filter { idx ->
+                val instr = code[idx]
+                instr is NarrowLiteralInstruction && (instr.narrowLiteral in 0x7f0b0000..0x7f0bffff)
+            }.mapNotNull { idx ->
+                val store = code.fieldStoreAfter(idx, BOUNCY_UFI_BUTTON)
+                if (store != null) idx to store else null
+            }
+            val countStores = code.indices.filter { idx ->
+                val instr = code[idx]
+                instr is NarrowLiteralInstruction && (instr.narrowLiteral in 0x7f0b0000..0x7f0bffff)
+            }.mapNotNull { idx ->
+                val store = code.fieldStoreAfter(idx, UFI_COUNT)
+                if (store != null) idx to store else null
+            }
+            for ((_, icon) in bouncyStores) {
+                for ((_, count) in countStores) {
+                    if (icon.holder == count.holder) {
+                        val insert = code.indexOfFirstBouncyReadAfter(maxOf(icon.at, count.at), icon.field)
+                        if (insert >= 0) {
+                            fallbackSites += FeedUfiSite(
+                                classDef.type,
+                                method.name,
+                                method.parameterTypes.map(CharSequence::toString),
+                                insert,
+                                icon.holder,
+                                icon.field,
+                                count.field,
+                            )
+                        }
+                    }
+                }
+            }
         }
     }
-    return sites.singleOrNull()
-        ?: refuse("expected one Feed UFI repost binder, found ${sites.size}")
+    return fallbackSites.distinctBy { "${it.type}->${it.name}" }.singleOrNull()
+        ?: refuse("expected one Feed UFI repost binder, found ${fallbackSites.size}")
 }
 
 /**
@@ -286,15 +380,16 @@ internal fun BytecodePatchContext.findFeedUfiSite(): FeedUfiSite {
 internal class FeedRepostComponent(val method: Method, val at: Int)
 
 internal fun BytecodePatchContext.findFeedRepostComponent(): FeedRepostComponent {
+    val candidateIcons = CANDIDATE_REPOSTS_UFI_PAIRS.map { it.first }.toSet()
     val renders = mutableListOf<Method>()
-    val loading = classesLoading(REPOSTS_UFI_ICON_ID.toLong()).mapTo(HashSet()) { it.type }
+    val loading = candidateIcons.flatMap { classesLoading(it.toLong()) }.mapTo(HashSet()) { it.type }
     classDefForEach { classDef ->
-        if (classDef.type !in loading || classDef.type.startsWith(EXTENSION_ROOT)) return@classDefForEach
+        if (loading.isNotEmpty() && classDef.type !in loading || classDef.type.startsWith(EXTENSION_ROOT)) return@classDefForEach
         classDef.methods.forEach { method ->
             val code = method.implementation?.instructions?.toList() ?: return@forEach
             if (!AccessFlags.STATIC.isSet(method.accessFlags) && method.parameterTypes.size == 1 &&
                 method.parameterTypes.single().startsWith("L") && method.returnType.startsWith("L") &&
-                code.indexOfLiteral(REPOSTS_UFI_ICON_ID) >= 0 && loadsString(method, BUTTON_ROLE)) renders += method
+                code.any { it is NarrowLiteralInstruction && it.narrowLiteral in candidateIcons } && loadsString(method, BUTTON_ROLE)) renders += method
         }
     }
     val render = renders.singleOrNull() ?: refuse("expected one Feed Repost component renderer, found ${renders.size}")
@@ -302,7 +397,10 @@ internal fun BytecodePatchContext.findFeedRepostComponent(): FeedRepostComponent
     if (parts.isEmpty()) return FeedRepostComponent(render, 0)
     val code = render.implementation!!.instructions.toList()
     val flow = ControlFlow.of(render)
-    val icons = code.indices.filter { (code[it] as? NarrowLiteralInstruction)?.narrowLiteral == REPOSTS_UFI_ICON_ID && code[it].opcode == Opcode.CONST }
+    val icons = code.indices.filter {
+        val instr = code[it]
+        instr is NarrowLiteralInstruction && instr.narrowLiteral in candidateIcons
+    }
     val roles = code.indices.filter { stringLoadedAt(code, it) == BUTTON_ROLE }
     val checks = parts.map { it - 2 }.toSet()
     val reposts = parts.filter { start ->
