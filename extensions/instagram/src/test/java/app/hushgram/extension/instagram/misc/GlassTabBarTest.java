@@ -280,10 +280,23 @@ public class GlassTabBarTest {
                         if (floating) assertEquals(0, Color.alpha(corner));
                         else assertEquals("no strip leaves the bar's own colour", Color.BLACK, corner);
                     }
+                    // #487: a reel's ambient light goes over the bar's colour round a docked pill.
+                    GlassTabBar.glow = (canvas, bar) -> {
+                        Paint green = new Paint();
+                        green.setColor(Color.GREEN);
+                        canvas.drawRect(0, 0, 4, 4, green);
+                    };
+                    try (Pixels pixels = host.background()) {
+                        int corner = pixels.bitmap.getPixel(1, 1);
+                        if (floating) assertEquals("no glow round a floating pill", 0, Color.alpha(corner));
+                        else assertEquals("the glow over the bar's colour", Color.GREEN, corner);
+                    }
+                    GlassTabBar.glow = app.hushgram.extension.instagram.feed.AmbientLight::drawUnderPill;
                 }
             }
         } finally {
             GlassTabBar.strip = app.hushgram.extension.instagram.reels.ReelBlurBars::drawStrip;
+            GlassTabBar.glow = app.hushgram.extension.instagram.feed.AmbientLight::drawUnderPill;
         }
     }
 
@@ -2535,14 +2548,18 @@ public class GlassTabBarTest {
     }
 
     /**
-     * #335: with the Reels auto-hide holding the pill all the way off, the reel gets the pill's height
-     * instead of a black band. Only the navigation bar's room stays under it (#221).
+     * #466, #467: with a Reels auto-hide the reel runs behind the pill, so it keeps one size as the pill
+     * slides instead of growing into its slot, and leaves no black band while it's away (#335).
      */
     @Test
-    public void reelsGiveUpThePillsHeightWhileTheAutoHideHasItOff() {
-        assertEquals("pill showing", GlassTabBar.reelsMargin(150), GlassTabBar.reelsSlot(150, false));
-        assertEquals("pill slid all the way off", GlassTabBar.reelsMargin(0), GlassTabBar.reelsSlot(150, true));
-        assertEquals(GlassTabBar.reelsMargin(0), GlassTabBar.reelsSlot(0, false));
+    public void aReelsAutoHideRunsTheReelBehindThePill() {
+        assertFalse(GlassTabBar.reelsRunBehind(false, GlassReelsHide.NEVER));
+        assertFalse(GlassTabBar.reelsRunBehind(false, null));
+        assertTrue(GlassTabBar.reelsRunBehind(true, GlassReelsHide.NEVER));
+        for (GlassReelsHide hide : GlassReelsHide.values()) {
+            if (hide != GlassReelsHide.NEVER) assertTrue(hide.name(), GlassTabBar.reelsRunBehind(false, hide));
+        }
+        assertEquals("never hidden by default", GlassReelsHide.NEVER, Settings.GLASS_TAB_BAR_REELS_HIDE.defaultValue);
     }
 
     /**

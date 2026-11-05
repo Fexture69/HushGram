@@ -93,6 +93,9 @@ public class NeutralDefaultsSettingsTest {
         }
     }
 
+    /** Stands in for Instagram's chat menu actions, with the debug row Preview borrows. */
+    public enum StockMenu { THREAD_LEVEL_DEBUG }
+
     /** Stands in for the unit leading your messages' Accounts to follow section. */
     public static final class StockUnit {
         public String getName() { return "suggested_accounts_to_follow"; }
@@ -100,26 +103,28 @@ public class NeutralDefaultsSettingsTest {
 
     @Before public void prepare() {
         RuntimeEnvironment.getApplication().getApplicationInfo().targetSdkVersion = 37;
-        initiallyOff = new BooleanSetting[]{Settings.ASK_BEFORE_CALL, Settings.HIDE_CALL_BUTTONS, Settings.HIDE_REEL_COMMENT_BAR, Settings.HIDE_REEL_COMMENT_BAR_EVERYWHERE, Settings.HIDE_REEL_REPLY_BAR, Settings.HIDE_REELS_TOP_BAR, Settings.HIDE_REEL_SAVE_BUTTON, Settings.KEEP_REEL_CLEAR_MODE, Settings.HIDE_FEED_INTEREST, Settings.HIDE_CAUGHT_UP_CARD, Settings.COPY_COMMENTS, Settings.COPY_COMMENT_AUTHORS, Settings.SAVE_COMMENT_PHOTOS, Settings.REPLY_WITH_COMMENT_GIFS,Settings.SAVE_PROFILE_PICTURES, Settings.VIEW_PROFILE_PICTURES, Settings.COPY_PROFILE_TEXT, Settings.PROFILE_EXTRAS_BUTTON, Settings.HIDE_FEED_VIDEOS, Settings.HIDE_FEED_PHOTOS, Settings.HIDE_FEED_CAROUSELS, Settings.HIDE_FEED_LIKED, Settings.DOWNLOAD_VOICE_MESSAGES, Settings.HIDE_COMMENTS, Settings.HIDE_SHARE_BUTTON, Settings.CHANGE_LIKE_ANIMATION,
+        initiallyOff = new BooleanSetting[]{Settings.ASK_BEFORE_CALL, Settings.HIDE_CALL_BUTTONS, Settings.HIDE_REEL_COMMENT_BAR, Settings.HIDE_REEL_COMMENT_BAR_EVERYWHERE, Settings.HIDE_REEL_REPLY_BAR, Settings.HIDE_REELS_TOP_BAR, Settings.HIDE_REEL_SAVE_BUTTON, Settings.KEEP_REEL_CLEAR_MODE, Settings.QUIET_REEL_CLEAR_MODE, Settings.HIDE_FEED_INTEREST, Settings.HIDE_CAUGHT_UP_CARD, Settings.COPY_COMMENTS, Settings.COPY_COMMENT_AUTHORS, Settings.SAVE_COMMENT_PHOTOS, Settings.REPLY_WITH_COMMENT_GIFS,Settings.SAVE_PROFILE_PICTURES, Settings.VIEW_PROFILE_PICTURES, Settings.COPY_PROFILE_TEXT, Settings.PROFILE_EXTRAS_BUTTON, Settings.HIDE_FEED_VIDEOS, Settings.HIDE_FEED_PHOTOS, Settings.HIDE_FEED_CAROUSELS, Settings.HIDE_FEED_LIKED, Settings.DOWNLOAD_VOICE_MESSAGES, Settings.HIDE_COMMENTS, Settings.HIDE_SHARE_BUTTON, Settings.CHANGE_LIKE_ANIMATION,
                 Settings.ASK_BEFORE_LIKE, Settings.ASK_BEFORE_REFRESH, Settings.SKIP_COLLECTIONS_TRAY,
                 Settings.HIDE_HIGHLIGHTS, Settings.HIDE_THREADS_BUTTON, Settings.HIDE_CREATE_BUTTON, Settings.HIDE_SHARE_PROFILE_BUTTON, Settings.HIDE_SUBSCRIBE_PROFILE_BUTTON, Settings.HIDE_PROFILE_OVERFLOW_BUTTON, Settings.HIDE_PROFILE_NOTES, Settings.PROFILE_POSTS_LIST, Settings.HIDE_NOTES_ROW, Settings.HIDE_NOTES_MAP, Settings.HIDE_INBOX_SEARCH, Settings.HIDE_INBOX_SUGGESTIONS, Settings.HIDE_INSTANTS,
                 Settings.STOP_SWIPE_TO_CREATE, Settings.STOP_REELS_SCROLLING, Settings.REEL_CAP, Settings.REEL_SWIPE_TO_PROFILE, Settings.FIND_REEL_ORIGIN, Settings.FIND_REEL_ORIGIN_ON_TAP, Settings.FULL_RESOLUTION_PHOTOS, Settings.ASK_FOR_LARGER_PHOTOS, Settings.FULL_SIZE_COVERS,
-                Settings.HIDE_HOME_FEED, Settings.STOP_TAB_SWIPING, Settings.TURN_OFF_HDR_BOOSTS, Settings.STOP_VIDEO_LOOPING, Settings.DONT_SAVE_RECENT_SEARCHES, Settings.DATA_SAVER, Settings.CLEAR_MEDIA_CACHE, Settings.GROUP_NOTIFICATIONS,
+                Settings.HIDE_HOME_FEED, Settings.STOP_TAB_SWIPING, Settings.TURN_OFF_HDR_BOOSTS, Settings.STOP_VIDEO_LOOPING, Settings.KEEP_PLAYING_IN_BACKGROUND, Settings.DONT_SAVE_RECENT_SEARCHES, Settings.DATA_SAVER, Settings.CLEAR_MEDIA_CACHE, Settings.GROUP_NOTIFICATIONS,
                 Settings.LOCK_MESSAGES, Settings.LOCK_APP,
                 Settings.HIDE_SCREENSHOTS,
+                Settings.HIDE_BLEND_VISITS,
+                Settings.HIDE_ACTIVITY_BUBBLES,
                 Settings.ALLOW_SCREENSHOTS,
                 Settings.KEEP_IN_CHAT, Settings.MARK_VIEW_ONCE,
                 Settings.VIEW_LIVE_ANONYMOUSLY, Settings.NOTO_EMOJI, Settings.ACCENT_COLOR, Settings.ACCENT_BADGES, Settings.ACCENT_ICONS, Settings.LAUNCH_SCREEN,
-                Settings.DONT_SEND_REEL_WATCH_HISTORY, Settings.BLOCK_STORY_AUTO_ADVANCE, Settings.START_STORIES_WITH_SOUND, Settings.STOP_STORY_SWIPE_REPLY, Settings.UPLOAD_STORIES_AT_FULL_QUALITY, Settings.STORY_FONTS, Settings.STORY_EMOJI, Settings.START_FEED_VIDEOS_WITH_SOUND, Settings.TAP_FEED_VIDEO_TO_PAUSE, Settings.LONG_PRESS_TO_ZOOM, Settings.ROUNDED_POST_CORNERS, Settings.CAROUSEL_ARROWS, Settings.CAROUSEL_DOTS_PILL, Settings.AMBIENT_LIGHT, Settings.AMBIENT_LIGHT_STORIES, Settings.FULL_SCREEN_REELS, Settings.FILL_REEL_SCREEN, Settings.FIT_REEL_SCREEN, Settings.FULL_SCREEN_HOME, Settings.FULL_SCREEN_MESSAGES, Settings.SHOW_STORY_TIME,
+                Settings.DONT_SEND_REEL_WATCH_HISTORY, Settings.BLOCK_STORY_AUTO_ADVANCE, Settings.START_STORIES_WITH_SOUND, Settings.STOP_STORY_SWIPE_REPLY, Settings.UPLOAD_STORIES_AT_FULL_QUALITY, Settings.STORY_FONTS, Settings.STORY_EMOJI, Settings.START_FEED_VIDEOS_WITH_SOUND, Settings.TAP_FEED_VIDEO_TO_PAUSE, Settings.LONG_PRESS_TO_ZOOM, Settings.ROUNDED_POST_CORNERS, Settings.CAROUSEL_ARROWS, Settings.CAROUSEL_DOTS_PILL, Settings.AMBIENT_LIGHT, Settings.AMBIENT_LIGHT_STORIES, Settings.FULL_SCREEN_REELS, Settings.FILL_REEL_SCREEN, Settings.FIT_REEL_SCREEN, Settings.FULL_SCREEN_HOME, Settings.FULL_SCREEN_MESSAGES, Settings.FILL_STORY_SCREEN, Settings.SHOW_STORY_TIME,
                 Settings.SHOW_STORY_MENTIONS, Settings.HIDE_STORY_FOLLOW, Settings.SHOW_POST_TIME, Settings.SHOW_HIDDEN_LIKE_COUNTS, Settings.BACK_LEAVES_HOME, Settings.KEEP_HOME_PLACE, Settings.LOOP_STORIES, Settings.SMOOTH_STORY_OPEN, Settings.KEEP_STORIES_PLAYING_ON_ZOOM, Settings.VIEW_STORIES_ANONYMOUSLY,
-                Settings.SPOOF_LOCATION, Settings.APP_PROXY, Settings.SKIP_SETUP_POPUPS, Settings.SKIP_AD_DATA_REMINDER, Settings.READ_WITHOUT_SEEN_RECEIPT, Settings.HIDE_TYPING, Settings.HIDE_ACTIVE_STATUS, Settings.SHOW_LAST_ACTIVE,
+                Settings.SPOOF_LOCATION, Settings.APP_PROXY, Settings.SKIP_SETUP_POPUPS, Settings.SKIP_AD_DATA_REMINDER, Settings.READ_WITHOUT_SEEN_RECEIPT, Settings.HIDE_TYPING, Settings.HIDE_ACTIVE_STATUS, Settings.SHOW_LAST_ACTIVE, Settings.PREVIEW_CHATS,
                 Settings.HIDE_FEED_REELS, Settings.START_ON_FOLLOWING, Settings.HIDE_EXPLORE_GRID,
-                Settings.HIDE_SHARE_SHEET_GROUP, Settings.HIDE_REPOST_BUTTON, Settings.REMOVE_BOTTOM_SPACE,
+                Settings.HIDE_SHARE_SHEET_GROUP, Settings.HIDE_REPOST_BUTTON, Settings.REMOVE_BOTTOM_SPACE, Settings.PHONE_LAYOUT,
                 Settings.HIDE_PROFILE_SUGGESTIONS, Settings.HIDE_REELS_SUGGESTIONS, Settings.HIDE_PAID_PARTNERSHIP_REELS, Settings.HIDE_AI_LABELED_REELS, Settings.HIDE_CAPTION_WORD_REELS, Settings.HIDE_LOW_VIEW_REELS, Settings.STORY_PRIORITY, Settings.SHOW_REEL_POST_TIME, Settings.REEL_POST_TIME_SECONDS, Settings.REEL_POST_TIME_AGO, Settings.HIDE_REEL_FOLLOW_BUTTON,
                 Settings.HIDE_REEL_CHIPS, Settings.HIDE_REEL_SEARCH_PILL, Settings.HIDE_REEL_PRODUCT_PILLS, Settings.HIDE_REEL_POLL_PILLS, Settings.HIDE_REEL_SOCIAL_FOOTER, Settings.TURN_OFF_DOUBLE_TAP_LIKE,
                 Settings.HIDE_REELS_TAB, Settings.SHOW_REELS_TAB, Settings.SHOW_MESSAGES_TAB, Settings.HIDE_MESSAGES_TAB, Settings.SHOW_ACTIVITY_TAB, Settings.HIDE_HOME_TAB, Settings.HIDE_SEARCH_TAB, Settings.HIDE_CREATE_TAB, Settings.HIDE_PROFILE_TAB, Settings.HIDE_HOME_CREATE_BUTTON, Settings.HIDE_HOME_NOTIFICATIONS_BUTTON, Settings.SEARCH_BUTTON_ON_HOME, Settings.MESSAGES_BUTTON_ON_HOME, Settings.SETTINGS_BUTTON_ON_HOME, Settings.MENU_BUTTON_ON_HOME, Settings.DOWNLOAD_BUTTON_ON_STORIES, Settings.TEXT_BUTTON_ON_STORIES, Settings.HIDE_HOME_MESSAGES_BUTTON, Settings.GHOST_BUTTON_ON_HOME, Settings.CENTER_HOME_LOGO, Settings.CENTER_PROFILE_NAME, Settings.CENTER_SCREEN_TITLES, Settings.TITLES_AT_START, Settings.REEL_SEEK_BAR, Settings.BLUR_REEL_BARS, Settings.KEEP_REEL_AUTO_SCROLL, Settings.REEL_AUTO_ADVANCE,
                 Settings.DOWNLOAD_VIDEOS, Settings.DOWNLOAD_SKIP_SAVED, Settings.VIEWING_HISTORY, Settings.HOLD_TO_DOWNLOAD, Settings.TAP_TO_PLAY, Settings.KEEP_REELS_MUTED,
-                Settings.HIDE_CAPTIONS, Settings.KEEP_HOME_TOP_BAR, Settings.SEE_THROUGH_HOME_TOP_BAR, Settings.KEEP_REELS_TOP_BAR, Settings.GLASS_TAB_BAR, Settings.SAVED_ON_PROFILE, Settings.HIDE_COMMENT_EMOJI_ROW, Settings.COMMENT_KEYBOARD_DOWN, Settings.HIDE_FEED_FOLLOW, Settings.STOP_HEARTBEAT, Settings.STOP_UPLOAD_ALARM};
+                Settings.HIDE_CAPTIONS, Settings.KEEP_HOME_TOP_BAR, Settings.SEE_THROUGH_HOME_TOP_BAR, Settings.KEEP_REELS_TOP_BAR, Settings.GLASS_TAB_BAR, Settings.SAVED_ON_PROFILE, Settings.HIDE_COMMENT_EMOJI_ROW, Settings.COMMENT_KEYBOARD_DOWN, Settings.HIDE_FEED_FOLLOW, Settings.HIDE_FEED_AUDIO_ICON, Settings.STOP_HEARTBEAT, Settings.STOP_UPLOAD_ALARM};
         restoreDefaults();
         BaseSettings.SAFE_MODE.save(false);
         Settings.SIGN_IN_NOTICE_HIDDEN.save(true);
@@ -127,16 +132,16 @@ public class NeutralDefaultsSettingsTest {
                 PatchFamily.ASK_BEFORE_LIKE, PatchFamily.ASK_BEFORE_REFRESH, PatchFamily.SAVE_TRAY,
                 PatchFamily.PROFILE_HIGHLIGHTS, PatchFamily.THREADS_BUTTON, PatchFamily.PROFILE_NOTES, PatchFamily.PROFILE_POSTS_LIST, PatchFamily.NOTES_ROW, PatchFamily.INBOX_SEARCH, PatchFamily.INBOX_SUGGESTIONS, PatchFamily.INSTANTS, PatchFamily.SWIPE_TO_CREATE,
                 PatchFamily.REEL_SCROLLING, PatchFamily.SWIPE_TO_PROFILE, PatchFamily.REEL_ORIGIN, PatchFamily.STORY_RING, PatchFamily.FULL_RESOLUTION, PatchFamily.HOME_FEED, PatchFamily.FEED_SUGGESTIONS,
-                PatchFamily.TAB_SWIPE, PatchFamily.TAB_BAR_LAYOUT, PatchFamily.HDR_BOOST, PatchFamily.STOP_LOOPING, PatchFamily.RECENT_SEARCHES, PatchFamily.DATA_SAVER, PatchFamily.MEDIA_CACHE, PatchFamily.NOTIFICATION_GROUPS, PatchFamily.MESSAGES_LOCK, PatchFamily.SCREENSHOT_REPORTS, PatchFamily.SCREENSHOT_BLOCK, PatchFamily.KEEP_IN_CHAT, PatchFamily.VIEW_ONCE_MARK, PatchFamily.LIVE_SEEN,
+                PatchFamily.TAB_SWIPE, PatchFamily.TAB_BAR_LAYOUT, PatchFamily.HDR_BOOST, PatchFamily.STOP_LOOPING, PatchFamily.BACKGROUND_PLAY, PatchFamily.RECENT_SEARCHES, PatchFamily.DATA_SAVER, PatchFamily.MEDIA_CACHE, PatchFamily.NOTIFICATION_GROUPS, PatchFamily.MESSAGES_LOCK, PatchFamily.SCREENSHOT_REPORTS, PatchFamily.BLEND_VISITS, PatchFamily.SCREENSHOT_BLOCK, PatchFamily.KEEP_IN_CHAT, PatchFamily.VIEW_ONCE_MARK, PatchFamily.LIVE_SEEN,
                 PatchFamily.EMOJI_STYLE, PatchFamily.ACCENT_COLOR, PatchFamily.LAUNCH_SCREEN, PatchFamily.FONT, PatchFamily.APP_ICON,
                 PatchFamily.REEL_WATCH_HISTORY, PatchFamily.STORY_AUTO_ADVANCE, PatchFamily.STORY_SOUND, PatchFamily.STORY_SWIPE_REPLY, PatchFamily.STORY_UPLOAD_QUALITY, PatchFamily.STORY_FONTS, PatchFamily.FEED_SOUND, PatchFamily.FEED_TAP_PAUSE, PatchFamily.LONG_PRESS_ZOOM, PatchFamily.ROUNDED_POST_CORNERS, PatchFamily.CAROUSEL_ARROWS, PatchFamily.AMBIENT_LIGHT, PatchFamily.FULL_SCREEN_BARS, PatchFamily.STORY_TIME, PatchFamily.STORY_MENTIONS, PatchFamily.STORY_FOLLOW, PatchFamily.STORY_DOWNLOAD,
                 PatchFamily.POST_TIME, PatchFamily.HIDDEN_LIKE_COUNTS, PatchFamily.BACK_LEAVES_HOME, PatchFamily.HOME_PLACE, PatchFamily.STORY_LOOP, PatchFamily.SMOOTH_STORY_OPEN, PatchFamily.STORY_ZOOM_PLAY, PatchFamily.STORY_SEEN, PatchFamily.SPOOF_LOCATION, PatchFamily.APP_PROXY, PatchFamily.SETUP_POPUPS, PatchFamily.AD_DATA_REMINDER,
-                PatchFamily.THREAD_SEEN, PatchFamily.TYPING, PatchFamily.ACTIVE_STATUS, PatchFamily.LAST_ACTIVE, PatchFamily.FEED_REELS, PatchFamily.FOLLOWING_FEED,
-                PatchFamily.EXPLORE_GRID, PatchFamily.SHARE_SHEET, PatchFamily.REPOST_BUTTON, PatchFamily.BOTTOM_SPACE,
+                PatchFamily.THREAD_SEEN, PatchFamily.TYPING, PatchFamily.ACTIVE_STATUS, PatchFamily.LAST_ACTIVE, PatchFamily.PREVIEW_CHATS, PatchFamily.FEED_REELS, PatchFamily.FOLLOWING_FEED,
+                PatchFamily.EXPLORE_GRID, PatchFamily.SHARE_SHEET, PatchFamily.REPOST_BUTTON, PatchFamily.BOTTOM_SPACE, PatchFamily.PHONE_LAYOUT,
                 PatchFamily.PROFILE_SUGGESTIONS, PatchFamily.REELS_SUGGESTIONS, PatchFamily.PAID_PARTNERSHIP_REELS, PatchFamily.AI_LABELED_REELS, PatchFamily.CAPTION_WORD_REELS, PatchFamily.LOW_VIEW_REELS, PatchFamily.STORY_PRIORITY, PatchFamily.REEL_POST_TIME, PatchFamily.DOUBLE_TAP_LIKE,
                 PatchFamily.REELS_TAB, PatchFamily.REEL_SEEK_BAR, PatchFamily.REEL_BLUR_BARS, PatchFamily.REEL_TAP_AND_VOLUME, PatchFamily.REEL_AUTO_SCROLL,
                 PatchFamily.VIDEO_DOWNLOAD, PatchFamily.TAP_TO_PLAY,
-                PatchFamily.HIDE_CAPTIONS, PatchFamily.HOME_TOP_BAR, PatchFamily.KEEP_REELS_TOP_BAR, PatchFamily.GLASS_TAB_BAR, PatchFamily.SAVED_ON_PROFILE, PatchFamily.COMMENT_EMOJI_ROW, PatchFamily.COMMENT_KEYBOARD, PatchFamily.FEED_FOLLOW, PatchFamily.STOP_HEARTBEAT);
+                PatchFamily.HIDE_CAPTIONS, PatchFamily.HOME_TOP_BAR, PatchFamily.KEEP_REELS_TOP_BAR, PatchFamily.GLASS_TAB_BAR, PatchFamily.SAVED_ON_PROFILE, PatchFamily.COMMENT_EMOJI_ROW, PatchFamily.COMMENT_KEYBOARD, PatchFamily.FEED_FOLLOW, PatchFamily.ACTIVITY_BUBBLES, PatchFamily.FEED_AUDIO_ICON, PatchFamily.STOP_HEARTBEAT);
     }
 
     @After public void restore() throws Exception {
@@ -297,6 +302,16 @@ public class NeutralDefaultsSettingsTest {
         assertEquals("once", app.hushgram.extension.instagram.direct.KeepInChat.viewMode("once", new Object()));
         assertFalse(app.hushgram.extension.instagram.direct.ScreenshotBlock.lift());
         assertFalse(app.hushgram.extension.instagram.direct.ScreenshotReports.hold());
+        assertFalse(app.hushgram.extension.instagram.direct.BlendVisits.quiet(0));
+        assertTrue(app.hushgram.extension.instagram.direct.BlendVisits.quiet(1));
+        assertFalse(app.hushgram.extension.instagram.feed.ActivityBubbles.hide(0));
+        assertTrue(app.hushgram.extension.instagram.feed.ActivityBubbles.hide(1));
+        assertEquals(673, app.hushgram.extension.instagram.misc.PhoneLayout.width(673));
+        assertTrue(app.hushgram.extension.instagram.misc.PhoneLayout.foldable(1));
+        java.util.List<Object> menuRows = new java.util.ArrayList<>();
+        app.hushgram.extension.instagram.direct.ChatPreview.offer(menuRows, StockMenu.class);
+        assertTrue("the chat menu gets no Preview row", menuRows.isEmpty());
+        assertFalse(app.hushgram.extension.instagram.direct.ChatPreview.open(StockMenu.THREAD_LEVEL_DEBUG, null, null));
         assertEquals(0, SwipeToCreate.enabled());
         assertEquals(0, SwipeToCreate.hold(-1f, 0f, "swipe"));
         assertEquals(0, app.hushgram.extension.instagram.feed.BackLeavesHome.leave());

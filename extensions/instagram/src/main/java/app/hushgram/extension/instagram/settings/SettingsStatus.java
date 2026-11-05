@@ -96,6 +96,10 @@ public final class SettingsStatus {
         return false;
     }
 
+    public static boolean storyReplyBox() {
+        return false;
+    }
+
     public static boolean storyFonts() {
         return false;
     }
@@ -218,6 +222,11 @@ public final class SettingsStatus {
         return false;
     }
 
+    /** Rewritten by the Speed button on stories patch. */
+    public static boolean storySpeed() {
+        return false;
+    }
+
     public static boolean repostButton() {
         return false;
     }
@@ -227,6 +236,11 @@ public final class SettingsStatus {
     }
 
     public static boolean bottomSpace() {
+        return false;
+    }
+
+    /** Rewritten by the Phone layout on big screens patch. */
+    public static boolean phoneLayout() {
         return false;
     }
 
@@ -268,6 +282,11 @@ public final class SettingsStatus {
 
     /** Rewritten by the Stop videos looping patch. */
     public static boolean stopLooping() {
+        return false;
+    }
+
+    /** Rewritten by the Keep playing in the background patch. */
+    public static boolean backgroundPlay() {
         return false;
     }
 
@@ -402,7 +421,16 @@ public final class SettingsStatus {
         return false;
     }
 
+    /** Rewritten by the Hide activity bubbles patch. */
+    public static boolean activityBubbles() {
+        return false;
+    }
+
     public static boolean hideCaptions() {
+        return false;
+    }
+
+    public static boolean feedAudioIcon() {
         return false;
     }
 
@@ -576,6 +604,11 @@ public final class SettingsStatus {
         return false;
     }
 
+    /** Rewritten by the Don't report Blend visits patch. */
+    public static boolean blendVisits() {
+        return false;
+    }
+
     /** Rewritten by the Allow screenshots patch. */
     public static boolean screenshotBlock() {
         return false;
@@ -681,6 +714,11 @@ public final class SettingsStatus {
 
     /** Rewritten by the Chat history tools patch. */
     public static boolean chatHistory() {
+        return false;
+    }
+
+    /** Rewritten by the Preview chats patch. */
+    public static boolean previewChats() {
         return false;
     }
 

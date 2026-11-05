@@ -14,6 +14,7 @@ import app.morphe.patches.instagram.FixtureDex
 import app.morphe.patches.instagram.NeutralNativePath
 import app.morphe.patches.instagram.profile.threads.PROFILE_ACTION_BAR
 import app.morphe.patches.instagram.profile.threads.USER_DETAIL
+import app.morphe.patches.instagram.profile.threads.USER_SESSION
 import app.morphe.patches.shared.compat.AppCompatibilities
 import com.android.tools.smali.dexlib2.AccessFlags
 import com.android.tools.smali.dexlib2.Opcode
@@ -25,7 +26,11 @@ import com.android.tools.smali.dexlib2.iface.instruction.ReferenceInstruction
 import com.android.tools.smali.dexlib2.iface.instruction.RegisterRangeInstruction
 import com.android.tools.smali.dexlib2.iface.reference.FieldReference
 import com.android.tools.smali.dexlib2.iface.reference.MethodReference
+import com.android.tools.smali.dexlib2.immutable.ImmutableClassDef
+import com.android.tools.smali.dexlib2.immutable.ImmutableMethod
+import app.morphe.patches.instagram.download.USER
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertThrows
 import org.junit.Assert.assertTrue
 import org.junit.Test
@@ -48,6 +53,26 @@ class ProfileExtrasHookTest {
     fun aBuildThePatchCantReadFailsBeforeAnythingChanges() {
         val noBar = assertThrows(PatchException::class.java) { PatchContexts.of(listOf(ExtensionDex.classDef(PROFILE_EXTRAS))).findProfileExtras() }
         assertTrue(noBar.message, noBar.message!!.contains("this Instagram build has no $PROFILE_ACTION_BAR"))
+    }
+
+    /** The entry hook hands over the bar in p0 and the bind's first argument in p1, so a static bind fails the patch. */
+    @Test
+    fun aStaticBindFailsThePatch() {
+        val bundle = Fixtures.files { it.extension == "apks" }.first()
+        val bar = FixtureDex.classes(bundle, setOf(PROFILE_ACTION_BAR)).getValue(PROFILE_ACTION_BAR)
+        val stock = assertThrows(PatchException::class.java) { PatchContexts.of(listOf(bar)).findProfileExtras() }
+        assertTrue("the real bind passes: ${stock.message}", stock.message!!.contains("this Instagram build has no $USER_DETAIL"))
+        val static = ImmutableClassDef(
+            bar.type, bar.accessFlags, bar.superclass, bar.interfaces, bar.sourceFile, bar.annotations, bar.fields,
+            bar.methods.map {
+                ImmutableMethod(
+                    it.definingClass, it.name, it.parameters, it.returnType, it.accessFlags or AccessFlags.STATIC.value,
+                    it.annotations, it.hiddenApiRestrictions, it.implementation,
+                )
+            },
+        )
+        val refused = assertThrows(PatchException::class.java) { PatchContexts.of(listOf(static)).findProfileExtras() }
+        assertTrue(refused.message, refused.message!!.contains("isn't an instance method whose first argument is an object"))
     }
 
     @Test
@@ -76,7 +101,8 @@ class ProfileExtrasHookTest {
         }.map { it.definingClass }.toSet()
         val callerClasses = FixtureDex.classes(bundle, callers).values
         val modelReads = accountReadClasses(bundle, base)
-        val context = PatchContexts.of((base + callerClasses + modelReads).distinctBy { it.type } + ExtensionDex.classDef(PROFILE_EXTRAS))
+        val aboutClasses = FixtureDex.classesLoading(bundle, ABOUT_SCREEN) + FixtureDex.classes(bundle, setOf(USER_SESSION)).values
+        val context = PatchContexts.of((base + callerClasses + modelReads + aboutClasses).distinctBy { it.type } + ExtensionDex.classDef(PROFILE_EXTRAS))
         val site = context.findProfileExtras()
         assertTrue("$label: a caller binds the bar", site.ties.isNotEmpty())
 
@@ -87,12 +113,12 @@ class ProfileExtrasHookTest {
 
         val binder = context.method(PROFILE_ACTION_BAR, site.name, site.parameters)
         val code = binder.code()
-        assertEquals("$label: the bind hands over first", listOf(Opcode.MOVE_OBJECT_FROM16, Opcode.IGET_OBJECT, Opcode.INVOKE_STATIC),
-            code.take(3).map { it.opcode })
-        assertEquals("$label: bound", EXTRAS_BOUND, code[2].referenceText())
-        assertEquals("$label: the right row", site.right, code[1].referenceText())
+        assertEquals("$label: the bind hands over first", listOf(Opcode.MOVE_OBJECT_FROM16, Opcode.MOVE_OBJECT_FROM16, Opcode.IGET_OBJECT, Opcode.INVOKE_STATIC),
+            code.take(4).map { it.opcode })
+        assertEquals("$label: bound", EXTRAS_BOUND, code[3].referenceText())
+        assertEquals("$label: the right row", site.right, code[2].referenceText())
         assertEquals("$label: bound once", 1, code.count { it.referenceText() == EXTRAS_BOUND })
-        binderBefore.assertPreserved(label, binder, setOf(0, 1, 2))
+        binderBefore.assertPreserved(label, binder, setOf(0, 1, 2, 3))
 
         for (tie in site.ties) {
             val method = context.method(tie.owner, tie.method, tie.parameters)
@@ -111,19 +137,32 @@ class ProfileExtrasHookTest {
         val steps = listOfNotNull(site.user.field, site.user.live, site.user.getValue, site.user.holderField).map { it.toString() }
         assertTrue("$label: the account read's steps: $read", read.containsAll(steps))
         assertEquals("$label: ends at the account", "Lcom/instagram/user/model/User;", read.last())
+
+        // #492: the About this account button. Every build has the call, and the account's id getter even
+        // where Redex inlined it into hashCode, so both must be found; the stubs then answer yes, read the
+        // account's id and call Instagram's own opener with the session.
+        val about = site.about
+        assertNotNull("$label: the About this account call and the id getter", about)
+        val available = context.method(PROFILE_EXTRAS, "aboutAvailable", emptyList()).code()
+        assertEquals("$label: aboutAvailable says yes", Opcode.CONST_4, available.first().opcode)
+        val opener = context.method(PROFILE_EXTRAS, "openAbout", listOf("Landroid/content/Context;", "Ljava/lang/Object;", "Ljava/lang/String;", "Ljava/lang/String;"))
+        val calls = opener.code().mapNotNull { it.referenceText() }
+        assertTrue("$label: openAbout calls ${about!!.owner}->${about.name}: $calls", calls.any { it.startsWith("${about.owner}->${about.name}(") })
+        val id = context.method(PROFILE_EXTRAS, "userId", listOf("Ljava/lang/Object;")).code().mapNotNull { it.referenceText() }
+        assertEquals("$label: userId reads the id getter", "$USER->${about.idGetter}()Ljava/lang/String;", id.last())
     }
 
     /** What the model's fields and methods name, with the classes above those and what those classes keep, which the read is found through. */
     private fun accountReadClasses(bundle: File, base: Collection<ClassDef>): Collection<ClassDef> {
         val model = base.single { it.type == USER_DETAIL_MODEL }
-        val wanted = model.fields.map { it.type.toString() }.filter { it.startsWith("L") }.toMutableSet()
+        val wanted = model.fields.map { it.type }.filter { it.startsWith("L") }.toMutableSet()
         model.methods.flatMap { it.implementation?.instructions?.toList().orEmpty() }.forEach { step ->
             ((step as? ReferenceInstruction)?.reference as? FieldReference)?.let { wanted += it.definingClass }
         }
         wanted += "Lcom/instagram/user/model/User;"
         val found = FixtureDex.classes(bundle, wanted).values
         val above = FixtureDex.classes(bundle, found.flatMap { it.interfaces.map(CharSequence::toString) + listOfNotNull(it.superclass) }.toSet()).values
-        val kept = (found + above).flatMap { classDef -> classDef.fields.map { it.type.toString() } }.filter { it.startsWith("L") }.toSet()
+        val kept = (found + above).flatMap { classDef -> classDef.fields.map { it.type } }.filter { it.startsWith("L") }.toSet()
         return found + above + FixtureDex.classes(bundle, kept).values
     }
 

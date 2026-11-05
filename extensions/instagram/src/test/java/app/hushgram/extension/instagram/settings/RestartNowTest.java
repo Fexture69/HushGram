@@ -99,7 +99,8 @@ public class RestartNowTest {
             int rows = page.getPreferenceScreen().getPreferenceCount();
             View bar = dialog.getView().findViewById(SettingsDialog.RESTART_ID);
             assertNull(page.getPreferenceScreen().findPreference("hushgram_status"));
-            assertEquals("hushgram_settings_search", page.getPreferenceScreen().getPreference(0).getKey());
+            assertEquals(SettingsHeader.KEY, page.getPreferenceScreen().getPreference(0).getKey());
+            assertEquals("hushgram_settings_search", page.getPreferenceScreen().getPreference(1).getKey());
             assertEquals("nothing owed, so no bar", View.GONE, bar.getVisibility());
 
             TwoStatePreference following = (TwoStatePreference) page.findPreference(Settings.START_ON_FOLLOWING.key);
@@ -141,7 +142,7 @@ public class RestartNowTest {
 
             assertNull("Instagram was opened again mid-export", Shadows.shadowOf(controller.get()).getNextStartedActivity());
             assertEquals(0, ended.get());
-            assertEquals("A save or an export is still running. Restart once it's done.", ShadowToast.getTextOfLatestToast());
+            assertEquals("Still saving or exporting. Restart once it's done.", ShadowToast.getTextOfLatestToast());
         } finally {
             ExportStatus.CONFIGURATION.finish(token, "done");
         }

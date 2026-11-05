@@ -32,7 +32,8 @@
               "View DM photos and videos anonymously",
               "Hide that you're typing",
               "Hide your active status",
-              "Don't report screenshots"
+              "Don't report screenshots",
+              "Don't report Blend visits"
             ]
           }
         ]
@@ -50,7 +51,8 @@
               "View DM photos and videos anonymously",
               "Hide that you're typing",
               "Hide your active status",
-              "Don't report screenshots"
+              "Don't report screenshots",
+              "Don't report Blend visits"
             ]
           }
         },
@@ -96,7 +98,9 @@
           "Full screen Reels and Home",
           "Hide Follow on feed posts",
           "Hide captions",
-          "Keep Home's top bar"
+          "Hide the audio icon on posts",
+          "Keep Home's top bar",
+          "Hide activity bubbles"
         ]
       },
       "anchors": [
@@ -233,11 +237,13 @@
           "Show when someone was last active",
           "Lock your messages",
           "Don't report screenshots",
+          "Don't report Blend visits",
           "Allow screenshots",
           "Keep in chat",
           "Mark one-time photos and videos",
           "Swipe through a chat's reels",
           "Chat history tools",
+          "Preview chats",
           "Ask before a call",
           "Message box buttons",
           "Chat plus menu",
@@ -334,10 +340,12 @@
           "Stories priority",
           "Thicker story progress bar",
           "Seek bar on stories",
+          "Speed button on stories",
           "Stop Story auto-advance",
           "Loop a story",
           "Start stories with sound",
           "Stop swipe up to reply",
+          "Hide the reply box on stories",
           "Show a story's exact time",
           "See who a story mentions",
           "Hide Follow on stories",
@@ -384,7 +392,8 @@
           "Start reels with sound",
           "Default playback quality",
           "Data saver",
-          "Stop videos looping"
+          "Stop videos looping",
+          "Keep playing in the background"
         ]
       },
       "anchors": [
@@ -526,6 +535,7 @@
         "op": "any",
         "patches": [
           "Remove the empty space at the bottom",
+          "Phone layout on big screens",
           "Emoji style",
           "Accent color",
           "HushGram launch screen",

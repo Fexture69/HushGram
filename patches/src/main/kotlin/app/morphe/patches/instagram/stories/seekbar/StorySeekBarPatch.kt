@@ -15,6 +15,7 @@ import app.morphe.patches.instagram.media.taptoplay.REEL_VIEWER_FRAGMENT
 import app.morphe.patches.instagram.media.taptoplay.RESUME_STORY
 import app.morphe.patches.instagram.media.taptoplay.VIDEO_PLAYER_FIELD
 import app.morphe.patches.instagram.misc.extension.EXTENSION_PACKAGE
+import app.morphe.patches.instagram.misc.extension.classesHolding
 import app.morphe.patches.instagram.misc.extension.enableStatus
 import app.morphe.patches.instagram.misc.extension.instagramExtensionPatch
 import app.morphe.patches.instagram.misc.extension.jumpTargets
@@ -70,7 +71,8 @@ private const val VIEW = "Landroid/view/View;"
 val storySeekBarPatch = bytecodePatch(
     name = "Seek bar on stories",
     description = "Shows a bar near the bottom of a video story that you can drag to jump to any point in the " +
-        "video. Photos don't get one. Starts off. Turn it on in HushGram settings > Stories.",
+        "video. Photos don't get one. A choice under it makes the bar see-through or puts it on frosted glass. " +
+        "Starts off. Turn it on in HushGram settings > Stories.",
 ) {
     category("Stories")
     dependsOn(settingsPatch, instagramExtensionPatch)
@@ -112,7 +114,8 @@ internal class StorySeekSites(
  *   holding [SCRUBBER] read (Bvx, which loads -1, answers only for a live story);
  * - the viewer's public static (viewer, String) method holding [PAUSE_STORY], and its public
  *   instance no-argument method loading [RESUME] whose only call is the static (viewer, String, boolean)
- *   one holding [RESUME_STORY] (on 452 F8S; Grw makes the same call and then posts more of its own);
+ *   one holding [RESUME_STORY] (on 452 F8S; Grw makes the same call and then posts more of its own),
+ *   an instance (String, boolean) method on 454;
  * - the viewer's own onResume and onPause, each with one call on to its superclass's, on `this`,
  *   whose next instruction nothing jumps to and where `this` is still the viewer.
  */
@@ -126,11 +129,11 @@ internal fun BytecodePatchContext.findStorySeek(): StorySeekSites {
         ?.takeIf { AccessFlags.INTERFACE.isSet(it.accessFlags) && AccessFlags.PUBLIC.isSet(it.accessFlags) }
         ?: refuse("$REEL_VIEWER_FRAGMENT->$VIDEO_PLAYER_FIELD isn't a public interface")
     val players = mutableListOf<ClassDef>()
-    val scrubbers = mutableListOf<Method>()
     classDefForEach { classDef ->
         if (playerInterface.type in classDef.interfaces && !AccessFlags.ABSTRACT.isSet(classDef.accessFlags)) players += classDef
-        classDef.methods.filterTo(scrubbers) { it.holds(SCRUBBER) }
     }
+    // Only the classes the patcher's string index names for the scrubber's string are read (#173).
+    val scrubbers = classesHolding(SCRUBBER).flatMap { classDef -> classDef.methods.filter { it.holds(SCRUBBER) } }
     if (players.isEmpty()) refuse("nothing implements ${playerInterface.type}")
     val where = playerInterface.type
 
@@ -179,11 +182,12 @@ internal fun BytecodePatchContext.findStorySeek(): StorySeekSites {
     }
     val pause = pauses.singleOrNull() ?: refuse("expected one static pause on $REEL_VIEWER_FRAGMENT holding $PAUSE_STORY, found ${pauses.size}")
     if (!AccessFlags.PUBLIC.isSet(pause.accessFlags)) refuse("$REEL_VIEWER_FRAGMENT->${pause.name} isn't public")
+    // 454 made it an instance (String, boolean) method.
     val resumers = viewer.methods.filter {
-        AccessFlags.STATIC.isSet(it.accessFlags) && it.returnType == "V" && it.parameters() == listOf(viewer.type, STRING, "Z") &&
-            RESUME_STORY.all { value -> loadsString(it, value) }
+        it.returnType == "V" && RESUME_STORY.all { value -> loadsString(it, value) } &&
+            it.parameters() == if (AccessFlags.STATIC.isSet(it.accessFlags)) listOf(viewer.type, STRING, "Z") else listOf(STRING, "Z")
     }
-    val resumer = resumers.singleOrNull() ?: refuse("expected one static resume on $REEL_VIEWER_FRAGMENT holding $RESUME_STORY, found ${resumers.size}")
+    val resumer = resumers.singleOrNull() ?: refuse("expected one resume on $REEL_VIEWER_FRAGMENT holding $RESUME_STORY, found ${resumers.size}")
     val resumes = viewer.methods.filter { method ->
         !AccessFlags.STATIC.isSet(method.accessFlags) && AccessFlags.PUBLIC.isSet(method.accessFlags) &&
             method.returnType == "V" && method.parameterTypes.isEmpty() && loadsString(method, RESUME) &&

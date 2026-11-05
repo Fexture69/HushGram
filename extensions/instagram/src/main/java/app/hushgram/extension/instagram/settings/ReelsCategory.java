@@ -7,6 +7,7 @@
 package app.hushgram.extension.instagram.settings;
 
 import static app.hushgram.extension.instagram.settings.HushgramPreferenceFragment.blockedWordsRow;
+import static app.hushgram.extension.instagram.settings.HushgramPreferenceFragment.keptLanguagesRow;
 import static app.hushgram.extension.instagram.settings.HushgramPreferenceFragment.minLikesRow;
 import static app.hushgram.extension.instagram.settings.HushgramPreferenceFragment.minViewsRow;
 import static app.hushgram.extension.instagram.settings.HushgramPreferenceFragment.burnInGuardRow;
@@ -66,6 +67,15 @@ final class ReelsCategory {
                         L10n.t("Leaves out posts on Home whose caption holds a word or phrase from the list too. "
                                 + "Pull down on Home to refresh after changing it.")));
             }
+            reels.add(toggle(context, Settings.HIDE_OTHER_LANGUAGE_REELS, L10n.t("Hide reels in other languages"),
+                    L10n.t("Leaves out reels in the Reels tab whose caption is in a language you didn't list below. "
+                            + "A caption too short to tell, or a reel you open yourself, still shows.")));
+            reels.add(keptLanguagesRow(context));
+            if (PatchFamily.feedTypesInBuild()) {
+                reels.add(toggle(context, Settings.HIDE_OTHER_LANGUAGE_HOME, L10n.t("Also on Home"),
+                        L10n.t("Leaves out posts on Home whose caption is in another language too. "
+                                + "Pull down on Home to refresh after changing it.")));
+            }
         }
         if (build.contains(PatchFamily.LOW_VIEW_REELS)) {
             reels.add(toggle(context, Settings.HIDE_LOW_VIEW_REELS, L10n.t("Hide reels with few views"),
@@ -120,6 +130,14 @@ final class ReelsCategory {
             reels.add(toggle(context, Settings.BURN_IN_STAY_DIM, L10n.t("Stay dim when I tap"),
                     L10n.t("Once Burn-in guard fades the buttons, they stay faded on Reels whatever you tap or swipe, "
                             + "the next reel too. They still work. Leaving Reels brings them back.")));
+            if (build.contains(PatchFamily.REEL_TAP_AND_VOLUME)) {
+                reels.add(toggle(context, Settings.BURN_IN_LIGHT_WHEN_PAUSED, L10n.t("Light when paused"),
+                        L10n.t("Pause a reel and Burn-in guard brings the buttons back to full brightness until you play "
+                                + "it again or swipe on. The wait then starts over.")));
+            }
+            reels.add(toggle(context, Settings.BURN_IN_STORIES, L10n.t("Dim stories too"),
+                    L10n.t("Burn-in guard also fades the top and bottom of a story while you watch without "
+                            + "touching, the eye button too. Any tap brings them back.")));
             reels.add(toggle(context, Settings.KEEP_REEL_CLEAR_MODE, L10n.t("Keep clear mode on"),
                     L10n.t("Turn on Instagram's clear mode on a reel and the next reels open in it too. Leave clear "
                             + "mode yourself and the next reels show their buttons again.")));
@@ -127,6 +145,9 @@ final class ReelsCategory {
                     L10n.t("Reels open in clear mode from the first one, with no tap. Leave it yourself and the next "
                             + "reels show their buttons again. Instagram blocks screenshots in clear mode unless Allow "
                             + "screenshots is on.")));
+            reels.add(toggle(context, Settings.QUIET_REEL_CLEAR_MODE, L10n.t("Don't vibrate in clear mode"),
+                    L10n.t("Stops the short buzz Instagram plays when a reel opens in clear mode. With Keep clear mode "
+                            + "on, that's every swipe.")));
         }
         if (build.contains(PatchFamily.KEEP_REELS_TOP_BAR)) {
             reels.add(toggle(context, Settings.KEEP_REELS_TOP_BAR, L10n.t("Keep the Reels top bar"),
@@ -166,6 +187,9 @@ final class ReelsCategory {
                     L10n.t("The heart that pops up when you double tap a post plays the animation you pick below. "
                             + "They're animations Instagram made for its Rings creators.")));
             reels.add(likeAnimationRow(context));
+            reels.add(toggle(context, Settings.GROW_LIKE_HEART, L10n.t("Grow the heart"),
+                    L10n.t("Double tap the same post again within a second and a half and the heart pops up bigger, "
+                            + "up to nearly twice its size. A pause and it starts small again.")));
         }
         if (build.contains(PatchFamily.FULL_SCREEN_BARS)) {
             reels.add(toggle(context, Settings.FULL_SCREEN_REELS, L10n.t("Full screen Reels"),
@@ -205,7 +229,7 @@ final class ReelsCategory {
             reels.add(toggle(context, Settings.DM_REEL_SEEK_BAR, L10n.t("Seek bar like DM videos"),
                     L10n.t("Gives reels the seek bar of a video in a chat, a thin gray line that turns white as it plays, "
                             + "with a big round white handle. The time shows above it. Drag it to seek. When Bigger seek "
-                            + "bar is on too, this look wins. It also keeps the bar on short reels.")));
+                            + "bar on reels is on too, this look wins. It also keeps the bar on short reels.")));
         }
         if (build.contains(PatchFamily.REEL_ZOOM)) {
             reels.add(toggle(context, Settings.PINCH_ZOOM_REELS, L10n.t("Pinch to zoom"),
@@ -216,7 +240,7 @@ final class ReelsCategory {
             reels.add(toggle(context, Settings.BLUR_REEL_BARS, L10n.t("Blur the bars around a reel"),
                     L10n.t("A reel that doesn't fill the screen shows a blurred copy of itself above and below it "
                             + "instead of black bars, and the strip under the tab bar and the band behind the clock show the reel "
-                            + "blurred too. "
+                            + "blurred too. The copy shows only where a reel leaves room, as with Show the whole reel on. "
                             + "Open Reels again after a change.")));
         }
         if (build.contains(PatchFamily.REEL_AUTO_SCROLL)) {
@@ -269,6 +293,16 @@ final class ReelsCategory {
             reels.add(toggle(context, Settings.TEXT_BUTTON_ON_REELS, L10n.t("Copy text button on reels"),
                     L10n.t("Puts a Lens icon beside a reel. Tap it and Google Lens opens on what's showing, so you "
                             + "can select and copy its text.")));
+            if (build.contains(PatchFamily.KEEP_REEL_SPEED)) {
+                reels.add(toggle(context, Settings.SPEED_BUTTON_ON_REELS, L10n.t("Speed button on reels"),
+                        L10n.t("Puts a speed icon beside a reel. Tap it to pick a speed from 0.5x to 3x. With Keep "
+                                + "the reel speed on, the next reels play at it too.")));
+            }
+            if (build.contains(PatchFamily.REEL_DECLUTTER)) {
+                reels.add(toggle(context, Settings.FULL_SCREEN_BUTTON_ON_REELS, L10n.t("Full screen button on reels"),
+                        L10n.t("Puts a Full screen icon beside a reel, so one tap does what Full screen in its menu "
+                                + "does. Start every reel in clear mode opens every reel that way.")));
+            }
         }
         if (!reels.isEmpty()) {
             PreferenceCategory section = category(screen, L10n.t("Reels"), SettingsIcons.REELS,

@@ -610,7 +610,8 @@ tasks.register("verifyAndroidBoundaries") {
                 "pausedLeavesTheList[28]", "pausedLeavesTheList[37]",
                 "beforeTheSettingsAreReadyItLeavesTheList[28]", "beforeTheSettingsAreReadyItLeavesTheList[37]",
                 "aThrowingStubLeavesTheListAndIsReported[28]", "aThrowingStubLeavesTheListAndIsReported[37]",
-                "aRebuildByNameGetsTheLastAppliedFontBack[28]", "aRebuildByNameGetsTheLastAppliedFontBack[37]",
+                "eachPickedFontFindsItsOwnRow[28]", "eachPickedFontFindsItsOwnRow[37]",
+                "aRemovedFontNeverAnswersAnotherFontsRow[28]", "aRemovedFontNeverAnswersAnotherFontsRow[37]",
                 "addingAndRemovingFiles[28]", "addingAndRemovingFiles[37]",
                 "cleanNames[28]", "cleanNames[37]",
                 "freeNames[28]", "freeNames[37]"),
@@ -1050,6 +1051,13 @@ tasks.register("verifyAndroidBoundaries") {
                 "withTheSwitchOnAFeedCaptionIsLeftOutAndCounted", "offPausedAndUnreadyDrawTheFeedCaption"
             ).flatMap { listOf("$it[28]", "$it[37]") },
             "app.hushgram.extension.instagram.settings.HideCaptionsSettingsTest" to listOf(
+                "missingPatchHasNoSwitch", "aloneItStillGetsFeed", "switchStartsOffUnderFeedAndHonorsPause"
+            ).flatMap { listOf("$it[28]", "$it[37]") },
+            "app.hushgram.extension.instagram.feed.FeedAudioIconTest" to listOf(
+                "theSwitchStartsOffAndNeedsNoRestart", "offToStartKeepsInstagramsFlag", "onSetsTheFlagAndCountsIt",
+                "anyNonZeroValueReadsAsYes", "pausedAndUnreadyReadAsOff", "flippingItOffStopsSettingTheFlag"
+            ).flatMap { listOf("$it[28]", "$it[37]") },
+            "app.hushgram.extension.instagram.settings.FeedAudioIconSettingsTest" to listOf(
                 "missingPatchHasNoSwitch", "aloneItStillGetsFeed", "switchStartsOffUnderFeedAndHonorsPause"
             ).flatMap { listOf("$it[28]", "$it[37]") },
             "app.hushgram.extension.instagram.feed.HomeTopBarTest" to listOf(

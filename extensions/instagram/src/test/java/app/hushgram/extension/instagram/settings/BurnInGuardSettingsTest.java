@@ -45,6 +45,8 @@ public class BurnInGuardSettingsTest {
         Settings.BURN_IN_GUARD.resetToDefault();
         Settings.BURN_IN_WAIT.resetToDefault();
         Settings.BURN_IN_STAY_DIM.resetToDefault();
+        Settings.BURN_IN_LIGHT_WHEN_PAUSED.resetToDefault();
+        Settings.BURN_IN_STORIES.resetToDefault();
         BaseSettings.PAUSED.save(false);
         PauseForTests.resume();
         BaseSettings.SAFE_MODE.save(false);
@@ -57,6 +59,8 @@ public class BurnInGuardSettingsTest {
         Settings.BURN_IN_GUARD.resetToDefault();
         Settings.BURN_IN_WAIT.resetToDefault();
         Settings.BURN_IN_STAY_DIM.resetToDefault();
+        Settings.BURN_IN_LIGHT_WHEN_PAUSED.resetToDefault();
+        Settings.BURN_IN_STORIES.resetToDefault();
         Settings.SIGN_IN_NOTICE_HIDDEN.resetToDefault();
     }
     private void open(EnumSet<PatchFamily> build) throws Exception {
@@ -153,6 +157,68 @@ public class BurnInGuardSettingsTest {
         }
         assertEquals("right after Dim after", wait + 1, stay);
         assertTrue(ConfigurationBackup.eligible().containsKey(Settings.BURN_IN_STAY_DIM.key));
+    }
+    /** Light when paused (#457) is a switch right after Stay dim when I tap, off to start, backed up, and needs the tap patch. */
+    @Test public void lightWhenPausedFollowsStayDimAndStartsOff() throws Exception {
+        open(EnumSet.of(PatchFamily.REEL_DECLUTTER, PatchFamily.REEL_TAP_AND_VOLUME));
+        Preference found = page.getPreferenceScreen().findPreference(Settings.BURN_IN_LIGHT_WHEN_PAUSED.key);
+        assertTrue(found instanceof android.preference.SwitchPreference);
+        android.preference.SwitchPreference row = (android.preference.SwitchPreference) found;
+        assertEquals("Light when paused", row.getTitle().toString());
+        assertEquals("Pause a reel and Burn-in guard brings the buttons back to full brightness until you play it "
+                + "again or swipe on. The wait then starts over.", row.getSummary().toString());
+        assertFalse(row.isChecked());
+        assertFalse(Settings.BURN_IN_LIGHT_WHEN_PAUSED.defaultValue);
+        assertFalse(Settings.BURN_IN_LIGHT_WHEN_PAUSED.rebootApp);
+        PreferenceGroup reels = (PreferenceGroup) row.getParent();
+        int stay = -1;
+        int light = -1;
+        for (int i = 0; i < reels.getPreferenceCount(); i++) {
+            String key = reels.getPreference(i).getKey();
+            if (Settings.BURN_IN_STAY_DIM.key.equals(key)) stay = i;
+            if (Settings.BURN_IN_LIGHT_WHEN_PAUSED.key.equals(key)) light = i;
+        }
+        assertEquals("right after Stay dim when I tap", stay + 1, light);
+        assertTrue(ConfigurationBackup.eligible().containsKey(Settings.BURN_IN_LIGHT_WHEN_PAUSED.key));
+    }
+    @Test public void lightWhenPausedHasNoRowWithoutTheTapPatch() throws Exception {
+        open(EnumSet.of(PatchFamily.REEL_DECLUTTER));
+        assertNull(page.getPreferenceScreen().findPreference(Settings.BURN_IN_LIGHT_WHEN_PAUSED.key));
+    }
+    /** Dim stories too (#479) is a switch right after Light when paused, on to start, and backed up. */
+    @Test public void dimStoriesTooFollowsLightWhenPausedAndStartsOn() throws Exception {
+        open(EnumSet.of(PatchFamily.REEL_DECLUTTER, PatchFamily.REEL_TAP_AND_VOLUME));
+        Preference found = page.getPreferenceScreen().findPreference(Settings.BURN_IN_STORIES.key);
+        assertTrue(found instanceof android.preference.SwitchPreference);
+        android.preference.SwitchPreference row = (android.preference.SwitchPreference) found;
+        assertEquals("Dim stories too", row.getTitle().toString());
+        assertEquals("Burn-in guard also fades the top and bottom of a story while you watch without touching, the "
+                + "eye button too. Any tap brings them back.", row.getSummary().toString());
+        assertTrue(row.isChecked());
+        assertTrue(Settings.BURN_IN_STORIES.defaultValue);
+        assertFalse(Settings.BURN_IN_STORIES.rebootApp);
+        PreferenceGroup reels = (PreferenceGroup) row.getParent();
+        int light = -1;
+        int stories = -1;
+        for (int i = 0; i < reels.getPreferenceCount(); i++) {
+            String key = reels.getPreference(i).getKey();
+            if (Settings.BURN_IN_LIGHT_WHEN_PAUSED.key.equals(key)) light = i;
+            if (Settings.BURN_IN_STORIES.key.equals(key)) stories = i;
+        }
+        assertEquals("right after Light when paused", light + 1, stories);
+        assertTrue(ConfigurationBackup.eligible().containsKey(Settings.BURN_IN_STORIES.key));
+    }
+    @Test public void withoutTheTapPatchDimStoriesTooFollowsStayDim() throws Exception {
+        open(EnumSet.of(PatchFamily.REEL_DECLUTTER));
+        PreferenceGroup reels = (PreferenceGroup) page.getPreferenceScreen().findPreference(Settings.BURN_IN_STAY_DIM.key).getParent();
+        int stay = -1;
+        int stories = -1;
+        for (int i = 0; i < reels.getPreferenceCount(); i++) {
+            String key = reels.getPreference(i).getKey();
+            if (Settings.BURN_IN_STAY_DIM.key.equals(key)) stay = i;
+            if (Settings.BURN_IN_STORIES.key.equals(key)) stories = i;
+        }
+        assertEquals("right after Stay dim when I tap", stay + 1, stories);
     }
     @Test public void withoutCleanUpReelsThereIsNoRowAndNothingToBackUp() throws Exception {
         open(EnumSet.noneOf(PatchFamily.class));

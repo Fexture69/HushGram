@@ -58,8 +58,8 @@ private const val CLICK = "Landroid/view/View\$OnClickListener;"
 private const val LIST = "Ljava/util/List;"
 private const val POPUP_WINDOW = "Landroid/widget/PopupWindow;"
 
-/** How many arguments the constructor of one of the pop-up list's items takes on 450. */
-internal const val POPUP_ITEM_ARGUMENTS = 24
+/** How many arguments the constructor of one of the pop-up list's items takes: 24 on 450 to 453, 26 on 454. */
+internal const val POPUP_ITEM_ARGUMENTS = 26
 
 /** The parameters of the stub [ADD_ROW_STUB], and of the sheet's adder of a plain row after them. */
 internal val ADD_ROW_PARAMETERS = listOf(OBJECT, CONTEXT, CLICK, STRING)
@@ -519,7 +519,6 @@ private fun BytecodePatchContext.replace(method: MutableMethod, registers: Int, 
 
 private fun Method.code(): List<Instruction> = implementation?.instructions?.toList().orEmpty()
 private fun Method.parameters(): List<String> = parameterTypes.map { it.toString() }
-private fun Method.strings(): Set<String> = code().mapNotNull { (it.reference() as? StringReference)?.string }.toSet()
 private fun Instruction.reference() = (this as? ReferenceInstruction)?.reference
 private fun Instruction.call() = reference() as? MethodReference
 private fun Instruction.field() = reference() as? FieldReference

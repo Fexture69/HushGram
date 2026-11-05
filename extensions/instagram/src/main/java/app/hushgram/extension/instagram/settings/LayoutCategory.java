@@ -32,7 +32,7 @@ final class LayoutCategory {
     private LayoutCategory() { }
 
     static void add(HushgramPreferenceFragment page, PreferenceScreen screen, Context context, Set<PatchFamily> build) {
-        if (build.contains(PatchFamily.BOTTOM_SPACE) || build.contains(PatchFamily.EMOJI_STYLE)
+        if (build.contains(PatchFamily.BOTTOM_SPACE) || build.contains(PatchFamily.PHONE_LAYOUT) || build.contains(PatchFamily.EMOJI_STYLE)
                 || build.contains(PatchFamily.ACCENT_COLOR) || build.contains(PatchFamily.LAUNCH_SCREEN)
                 || build.contains(PatchFamily.HEADER_TEXT) || build.contains(PatchFamily.FONT) || build.contains(PatchFamily.APP_ICON)
                 || build.contains(PatchFamily.SETTINGS_ROWS) || build.contains(PatchFamily.REFRESH_RATE)) {
@@ -44,7 +44,15 @@ final class LayoutCategory {
                                 + "its navigation bar or Instagram is in a pop-up window. Restart Instagram to see "
                                 + "the change.")));
             }
-            if (build.contains(PatchFamily.FONT)) layout.addPreference(page.fontRow(context));
+            if (build.contains(PatchFamily.PHONE_LAYOUT)) {
+                layout.addPreference(toggle(context, Settings.PHONE_LAYOUT, L10n.t("Phone layout on big screens"),
+                        L10n.t("On a foldable or tablet, Instagram keeps its phone layout across the whole screen, "
+                                + "with the tab bar at the bottom instead of down the side. Restart Instagram to see "
+                                + "the change.")));
+            }
+            // Rows whose key words name no icon get one that says what they change, not the
+            // category's grid on every other row.
+            if (build.contains(PatchFamily.FONT)) layout.addPreference(mark(page.fontRow(context), SettingsIcons.WRITING));
             if (build.contains(PatchFamily.EMOJI_STYLE)) {
                 layout.addPreference(toggle(context, Settings.NOTO_EMOJI, L10n.t("Google's emoji everywhere"),
                         L10n.t("Shows every emoji in Google's style instead of your phone's own. Restart Instagram "
@@ -79,19 +87,19 @@ final class LayoutCategory {
                                 + "starts, on Android 13 and newer. It shows from the next start.")));
             }
             if (build.contains(PatchFamily.HEADER_TEXT)) {
-                layout.addPreference(headerTextRow(context));
-                layout.addPreference(page.headerPictureRow(context));
-                layout.addPreference(page.removeHeaderPictureRow(context));
+                layout.addPreference(mark(headerTextRow(context), SettingsIcons.WRITING));
+                layout.addPreference(mark(page.headerPictureRow(context), SettingsIcons.STORIES));
+                layout.addPreference(mark(page.removeHeaderPictureRow(context), SettingsIcons.DELETE));
             }
             if (build.contains(PatchFamily.REFRESH_RATE)) {
-                layout.addPreference(onFlip(toggle(context, Settings.HIGHEST_REFRESH_RATE, L10n.t("Use the highest refresh rate"),
+                layout.addPreference(mark(onFlip(toggle(context, Settings.HIGHEST_REFRESH_RATE, L10n.t("Use the highest refresh rate"),
                         L10n.t("Asks Android to run Instagram at your screen's fastest refresh rate, at the same "
                                 + "resolution. Some phones keep their own limit for apps, and battery saver can "
-                                + "still lower it.")), RefreshRate::switchChanged));
+                                + "still lower it.")), RefreshRate::switchChanged), SettingsIcons.PHONE));
             }
             if (build.contains(PatchFamily.APP_ICON)) {
-                layout.addPreference(appIconRow(context));
-                layout.addPreference(page.customIconRow(context));
+                layout.addPreference(mark(appIconRow(context), SettingsIcons.PHONE));
+                layout.addPreference(mark(page.customIconRow(context), SettingsIcons.STORIES));
             }
             if (build.contains(PatchFamily.SETTINGS_ROWS)) layout.addPreference(page.settingsRowsRow(context));
         }

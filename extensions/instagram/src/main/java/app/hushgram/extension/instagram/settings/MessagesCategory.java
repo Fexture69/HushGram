@@ -34,11 +34,13 @@ final class MessagesCategory {
                 || build.contains(PatchFamily.LAST_ACTIVE)
                 || build.contains(PatchFamily.MESSAGES_LOCK)
                 || build.contains(PatchFamily.SCREENSHOT_REPORTS)
+                || build.contains(PatchFamily.BLEND_VISITS)
                 || build.contains(PatchFamily.SCREENSHOT_BLOCK)
                 || build.contains(PatchFamily.KEEP_IN_CHAT)
                 || build.contains(PatchFamily.VIEW_ONCE_MARK)
                 || build.contains(PatchFamily.CHAT_REELS)
                 || build.contains(PatchFamily.CHAT_HISTORY)
+                || build.contains(PatchFamily.PREVIEW_CHATS)
                 || build.contains(PatchFamily.ASK_BEFORE_CALL)
                 || build.contains(PatchFamily.MESSAGE_BOX)
                 || build.contains(PatchFamily.PLUS_MENU)
@@ -85,6 +87,24 @@ final class MessagesCategory {
                         L10n.t("Mark a chat seen when you reply"),
                         L10n.t("Sending a message in a chat lets the other person see that you've read what they "
                                 + "sent before it. Chats you don't answer stay unseen to them.")));
+                if (build.contains(PatchFamily.MESSAGES_LOCK)) {
+                    // Both buttons learn which chat is open from the lock patch's ChatLocks, the only
+                    // hook that reads a chat's thread, so a build without it would show two dead rows.
+                    messages.addPreference(toggle(context, Settings.MARK_READ_IN_CHAT,
+                            L10n.t("Mark as read button in chats"),
+                            L10n.t("A check mark shows at the top of a chat while it hasn't told the other person "
+                                    + "you've seen it. Tap it and they see Seen.")));
+                    messages.addPreference(toggle(context, Settings.SEEN_PER_CHAT,
+                            L10n.t("Choose Seen in each chat"),
+                            L10n.t("An eye at the top of each chat holds or sends Seen in that chat alone, whatever "
+                                    + "Read messages without the seen receipt says. Changing it doesn't send anything "
+                                    + "by itself.")));
+                }
+            }
+            if (build.contains(PatchFamily.PREVIEW_CHATS)) {
+                messages.addPreference(toggle(context, Settings.PREVIEW_CHATS, L10n.t("Preview chats"),
+                        L10n.t("Long press a chat in your messages and tap Preview to read its newest messages without "
+                                + "opening it, so nobody sees Seen. You can reply from there too.")));
             }
             if (build.contains(PatchFamily.TYPING)) {
                 messages.addPreference(toggle(context, Settings.HIDE_TYPING, L10n.t("Hide that you're typing"),
@@ -113,6 +133,11 @@ final class MessagesCategory {
                 messages.addPreference(toggle(context, Settings.HIDE_SCREENSHOTS, L10n.t("Don't report screenshots"),
                         L10n.t("Instagram doesn't notice when you take a screenshot, so whoever sent you a disappearing photo or video isn't told. Your screenshots save as usual.")));
             }
+            if (build.contains(PatchFamily.BLEND_VISITS)) {
+                messages.addPreference(toggle(context, Settings.HIDE_BLEND_VISITS, L10n.t("Don't report Blend visits"),
+                        L10n.t("Opening a Blend doesn't tell the chat it belongs to that you visited it. The Blend "
+                                + "and its reels open as usual.")));
+            }
             if (build.contains(PatchFamily.SCREENSHOT_BLOCK)) {
                 messages.addPreference(toggle(context, Settings.ALLOW_SCREENSHOTS, L10n.t("Allow screenshots"),
                         L10n.t("Screenshots and screen recordings work wherever Instagram blocks them, like disappearing photos and videos. Turn on Don't report screenshots too if the sender shouldn't hear about it.")));
@@ -134,6 +159,13 @@ final class MessagesCategory {
                 messages.addPreference(toggle(context, Settings.STOP_AFTER_CHAT_REELS, L10n.t("Stop after the chat's reels"),
                         L10n.t("Reels you opened from a chat end after the last one shared in that chat, with no "
                                 + "suggested reels after it. Works with Swipe through a chat's reels on.")));
+                messages.addPreference(toggle(context, Settings.ONLY_RECEIVED_CHAT_REELS, L10n.t("Only received reels"),
+                        L10n.t("Swiping through a chat's reels skips the ones you sent there, so it only goes through "
+                                + "the reels the other person shared. Works with Swipe through a chat's reels on.")));
+                messages.addPreference(toggle(context, Settings.MESSAGES_AFTER_CHAT_REELS, L10n.t("Messages after a reel"),
+                        L10n.t("While you swipe through a chat's reels, a banner says when the other person sent a message "
+                                + "after the reel on screen. Tap it to go back to the chat at that message. Works with Swipe "
+                                + "through a chat's reels on.")));
             }
             if (build.contains(PatchFamily.CHAT_HISTORY)) {
                 messages.addPreference(toggle(context, Settings.JUMP_IN_CHAT, L10n.t("Jump to the first message or a date"),

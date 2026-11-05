@@ -61,6 +61,12 @@ public final class ConfigurationBackup {
     static final int MAX_WORDS_TEXT = 4096;
     private static final SettingsJson.Limits LIMITS =
             new SettingsJson.Limits(4, 2048, MAX_WORDS_TEXT, MAX_ENTRIES, MAX_BYTES);
+    /**
+     * Guards the Undo state below. It's a lock of its own, never the class's: an import holds the class
+     * lock from its validation through its disk commit, and the page reads whether Undo is on offer, and
+     * its deadline, on the main thread, which mustn't wait on that.
+     */
+    private static final Object UNDO = new Object();
     private static Map<Setting<?>, Object> undoValues;
     private static Map<Setting<?>, Object> importedValues;
     private static Map<Setting<?>, Long> importedRevisions;
@@ -128,7 +134,15 @@ public final class ConfigurationBackup {
         if (PatchFamily.STORIES_TRAY.inBuild()) settings.put(Settings.TRAY_BADGE.key, Settings.TRAY_BADGE);
         if (PatchFamily.SPOOF_LOCATION.inBuild()) settings.put(Settings.SPOOF_LOCATION_PLACE.key, Settings.SPOOF_LOCATION_PLACE);
         if (PatchFamily.APP_PROXY.inBuild()) settings.put(Settings.APP_PROXY_SERVER.key, Settings.APP_PROXY_SERVER);
-        if (PatchFamily.CAPTION_WORD_REELS.inBuild()) settings.put(Settings.REELS_BLOCKED_WORDS.key, Settings.REELS_BLOCKED_WORDS);
+        if (PatchFamily.CAPTION_WORD_REELS.inBuild()) {
+            settings.put(Settings.REELS_BLOCKED_WORDS.key, Settings.REELS_BLOCKED_WORDS);
+            settings.put(Settings.REELS_KEPT_LANGUAGES.key, Settings.REELS_KEPT_LANGUAGES);
+            // Also on Home, both of them: their rows show only with Home's reads in the build.
+            if (PatchFamily.feedTypesInBuild()) {
+                settings.put(Settings.HIDE_CAPTION_WORD_HOME.key, Settings.HIDE_CAPTION_WORD_HOME);
+                settings.put(Settings.HIDE_OTHER_LANGUAGE_HOME.key, Settings.HIDE_OTHER_LANGUAGE_HOME);
+            }
+        }
         if (PatchFamily.LOW_VIEW_REELS.inBuild()) {
             settings.put(Settings.MIN_REEL_VIEWS.key, Settings.MIN_REEL_VIEWS);
             settings.put(Settings.MIN_REEL_LIKES.key, Settings.MIN_REEL_LIKES);
@@ -136,6 +150,7 @@ public final class ConfigurationBackup {
         if (PatchFamily.STORY_PRIORITY.inBuild()) settings.put(Settings.STORY_PRIORITY_ACCOUNTS.key, Settings.STORY_PRIORITY_ACCOUNTS);
         if (PatchFamily.SANITIZE_SHARING_LINKS.inBuild()) settings.put(Settings.SHARING_DOMAIN.key, Settings.SHARING_DOMAIN);
         if (PatchFamily.LIKE_ANIMATION.inBuild()) settings.put(Settings.LIKE_ANIMATION.key, Settings.LIKE_ANIMATION);
+        if (PatchFamily.LIKE_ANIMATION.inBuild()) settings.put(Settings.GROW_LIKE_HEART.key, Settings.GROW_LIKE_HEART);
         if (PatchFamily.HEADER_TEXT.inBuild()) settings.put(Settings.HEADER_TEXT.key, Settings.HEADER_TEXT);
         if (PatchFamily.NOTIFICATION_GROUPS.inBuild()) {
             settings.put(Settings.GROUP_NOTIFICATIONS_BY_TYPE.key, Settings.GROUP_NOTIFICATIONS_BY_TYPE);
@@ -162,6 +177,8 @@ public final class ConfigurationBackup {
             settings.put(Settings.BURN_IN_GUARD.key, Settings.BURN_IN_GUARD);
             settings.put(Settings.BURN_IN_WAIT.key, Settings.BURN_IN_WAIT);
             settings.put(Settings.BURN_IN_STAY_DIM.key, Settings.BURN_IN_STAY_DIM);
+            settings.put(Settings.BURN_IN_LIGHT_WHEN_PAUSED.key, Settings.BURN_IN_LIGHT_WHEN_PAUSED);
+            settings.put(Settings.BURN_IN_STORIES.key, Settings.BURN_IN_STORIES);
             settings.put(Settings.START_REEL_CLEAR_MODE.key, Settings.START_REEL_CLEAR_MODE);
         }
         if (GhostMode.offered(GhostMode.switches(PatchFamily.inThisBuild()))) {
@@ -174,6 +191,10 @@ public final class ConfigurationBackup {
             settings.put(Settings.HIDDEN_PROFILE_TABS.key, Settings.HIDDEN_PROFILE_TABS);
         }
         if (PatchFamily.STORY_TIME.inBuild()) settings.put(Settings.STORY_TIME_MODE.key, Settings.STORY_TIME_MODE);
+        if (PatchFamily.STORY_MENTIONS.inBuild()) settings.put(Settings.STORY_MENTIONS_LOOK.key, Settings.STORY_MENTIONS_LOOK);
+        if (PatchFamily.CAROUSEL_ARROWS.inBuild()) settings.put(Settings.CAROUSEL_PILL_LOOK.key, Settings.CAROUSEL_PILL_LOOK);
+        if (PatchFamily.FEED_SEEK_BAR.inBuild()) settings.put(Settings.FEED_SEEK_BAR_LOOK.key, Settings.FEED_SEEK_BAR_LOOK);
+        if (PatchFamily.STORY_SEEK_BAR.inBuild()) settings.put(Settings.STORY_SEEK_BAR_LOOK.key, Settings.STORY_SEEK_BAR_LOOK);
         if (PatchFamily.FRIENDSHIP_STATUS.inBuild()) settings.put(Settings.FOLLOW_LABEL_PLACE.key, Settings.FOLLOW_LABEL_PLACE);
         if (PatchFamily.FULL_SCREEN_BARS.inBuild()) settings.put(Settings.FULL_SCREEN_HIDES.key, Settings.FULL_SCREEN_HIDES);
         if (PatchFamily.TAB_BAR_LAYOUT.inBuild()) settings.put(Settings.TAB_BAR_LAYOUT.key, Settings.TAB_BAR_LAYOUT);
@@ -207,6 +228,12 @@ public final class ConfigurationBackup {
             settings.put(Settings.REEL_BLOCK_BUTTON.key, Settings.REEL_BLOCK_BUTTON);
             settings.put(Settings.HIDE_SOUND_REELS.key, Settings.HIDE_SOUND_REELS);
             settings.put(Settings.TEXT_BUTTON_ON_REELS.key, Settings.TEXT_BUTTON_ON_REELS);
+            if (PatchFamily.KEEP_REEL_SPEED.inBuild()) {
+                settings.put(Settings.SPEED_BUTTON_ON_REELS.key, Settings.SPEED_BUTTON_ON_REELS);
+            }
+            if (PatchFamily.REEL_DECLUTTER.inBuild()) {
+                settings.put(Settings.FULL_SCREEN_BUTTON_ON_REELS.key, Settings.FULL_SCREEN_BUTTON_ON_REELS);
+            }
         }
         if (PatchFamily.REEL_POST_TIME.inBuild()) {
             settings.put(Settings.REEL_POST_TIME_SECONDS.key, Settings.REEL_POST_TIME_SECONDS);
@@ -247,6 +274,7 @@ public final class ConfigurationBackup {
         settings.put(Settings.SETTINGS_SHORTCUT.key, Settings.SETTINGS_SHORTCUT);
         settings.put(Settings.SETTINGS_LOGO_PRESS.key, Settings.SETTINGS_LOGO_PRESS);
         settings.put(Settings.CATEGORY_PAGES.key, Settings.CATEGORY_PAGES);
+        settings.put(Settings.CATEGORY_GRID.key, Settings.CATEGORY_GRID);
         settings.put(Settings.DESCRIPTIONS_BEHIND_INFO.key, Settings.DESCRIPTIONS_BEHIND_INFO);
         settings.put(Settings.SETTINGS_BLACK_LOOK.key, Settings.SETTINGS_BLACK_LOOK);
         settings.put(Settings.DATE_SETTINGS_EXPORT.key, Settings.DATE_SETTINGS_EXPORT);
@@ -397,7 +425,8 @@ public final class ConfigurationBackup {
             int given = (Integer) value;
             return given < number.minimum() || given > number.maximum() ? null : value;
         }
-        int longest = setting == Settings.REELS_BLOCKED_WORDS || setting == Settings.STORY_PRIORITY_ACCOUNTS || setting == Settings.HIDDEN_SETTINGS_ROWS
+        int longest = setting == Settings.REELS_BLOCKED_WORDS || setting == Settings.REELS_KEPT_LANGUAGES
+                || setting == Settings.STORY_PRIORITY_ACCOUNTS || setting == Settings.HIDDEN_SETTINGS_ROWS
                 || setting == Settings.MUTED_NOTIFICATION_CHANNELS ? MAX_WORDS_TEXT : MAX_TEXT;
         if (!(value instanceof String) || ((String) value).length() > longest) return null;
         if (fallback instanceof Enum) {
@@ -475,7 +504,8 @@ public final class ConfigurationBackup {
             return text.equals(ProfileTabs.SAME_AS_OTHERS) || text.equals(ProfileTabs.join(ProfileTabs.parse(text)));
         }
         // The words Hide reels by caption words looks for: any text without control characters but line breaks.
-        if (setting == Settings.REELS_BLOCKED_WORDS || setting == Settings.STORY_PRIORITY_ACCOUNTS) return blockedWordsAllowed(text);
+        if (setting == Settings.REELS_BLOCKED_WORDS || setting == Settings.REELS_KEPT_LANGUAGES
+                || setting == Settings.STORY_PRIORITY_ACCOUNTS) return blockedWordsAllowed(text);
         // An enum constant name of Instagram's; a name this Instagram lacks keeps its heart.
         if (setting == Settings.LIKE_ANIMATION) return text.matches("[A-Za-z0-9_$]{0,64}");
         // The ghost switches Ghost mode turns, as their keys with commas between; blank means all of them.
@@ -496,9 +526,11 @@ public final class ConfigurationBackup {
     }
 
     /** Expiry and process lifetime bound the snapshot; there is no disk copy of Undo. */
-    public static synchronized boolean canUndo() {
-        if (undoValues != null && SystemClock.elapsedRealtime() >= undoUntil) forgetUndo();
-        return undoValues != null;
+    public static boolean canUndo() {
+        synchronized (UNDO) {
+            if (undoValues != null && SystemClock.elapsedRealtime() >= undoUntil) forgetUndo();
+            return undoValues != null;
+        }
     }
 
     /** Consumed before a commit, including a failed Undo. The caller reports rollback explicitly. */
@@ -506,12 +538,16 @@ public final class ConfigurationBackup {
         return undo(undoToken());
     }
 
-    public static synchronized long undoToken() {
-        return canUndo() ? undoId : 0;
+    public static long undoToken() {
+        synchronized (UNDO) {
+            return canUndo() ? undoId : 0;
+        }
     }
 
-    public static synchronized long undoDeadline(long token) {
-        return token != 0 && token == undoToken() ? undoUntil : 0;
+    public static long undoDeadline(long token) {
+        synchronized (UNDO) {
+            return token != 0 && token == undoToken() ? undoUntil : 0;
+        }
     }
 
     /** A queued action belongs to the import it offered, never a later restore point. */
@@ -524,10 +560,17 @@ public final class ConfigurationBackup {
         if (undoDeadline(token) == 0) return null;
         synchronized (Setting.class) {
             requirePermission(mayCommit);
-            Map<Setting<?>, Object> values = undoValues;
-            Map<Setting<?>, Object> expected = importedValues;
-            Map<Setting<?>, Long> revisions = importedRevisions;
-            forgetUndo();
+            Map<Setting<?>, Object> values;
+            Map<Setting<?>, Object> expected;
+            Map<Setting<?>, Long> revisions;
+            synchronized (UNDO) {
+                // The deadline can pass while the page's permission is checked.
+                if (undoDeadline(token) == 0) return null;
+                values = undoValues;
+                expected = importedValues;
+                revisions = importedRevisions;
+                forgetUndo();
+            }
             Map<Setting<?>, Object> before = new LinkedHashMap<>();
             boolean restart = false;
             int skipped = 0;
@@ -554,12 +597,11 @@ public final class ConfigurationBackup {
     }
 
     private static void offerUndo(Map<Setting<?>, Object> values) {
-        undoValues = values;
-        importedValues = new LinkedHashMap<>();
-        importedRevisions = new LinkedHashMap<>();
+        Map<Setting<?>, Object> imported = new LinkedHashMap<>();
+        Map<Setting<?>, Long> revisions = new LinkedHashMap<>();
         for (Setting<?> setting : values.keySet()) {
-            importedValues.put(setting, setting.savedValue());
-            importedRevisions.put(setting, setting.savedRevision());
+            imported.put(setting, setting.savedValue());
+            revisions.put(setting, setting.savedRevision());
         }
         int timeout = (int) UNDO_WINDOW_MS;
         Context context = Utils.getContext();
@@ -568,16 +610,23 @@ public final class ConfigurationBackup {
             if (accessibility != null) timeout = accessibility.getRecommendedTimeoutMillis(timeout,
                     AccessibilityManager.FLAG_CONTENT_TEXT | AccessibilityManager.FLAG_CONTENT_CONTROLS);
         }
-        undoId++;
-        undoUntil = SystemClock.elapsedRealtime() + timeout;
+        synchronized (UNDO) {
+            undoValues = values;
+            importedValues = imported;
+            importedRevisions = revisions;
+            undoId++;
+            undoUntil = SystemClock.elapsedRealtime() + timeout;
+        }
         Utils.runOnMainThreadDelayed(ConfigurationBackup::canUndo, timeout);
     }
 
-    static synchronized void forgetUndo() {
-        undoValues = null;
-        importedValues = null;
-        importedRevisions = null;
-        undoUntil = 0;
+    static void forgetUndo() {
+        synchronized (UNDO) {
+            undoValues = null;
+            importedValues = null;
+            importedRevisions = null;
+            undoUntil = 0;
+        }
     }
 
     private static String type(Object value) throws IOException {

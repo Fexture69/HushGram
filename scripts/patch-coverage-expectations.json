@@ -3,13 +3,13 @@
   "fixtures": [
     {
       "package": "com.instagram.android",
-      "versionName": "453.0.0.57.79",
-      "versionCode": "385914557",
+      "versionName": "454.0.0.54.77",
+      "versionCode": "386014758",
       "families": [
         {
           "family": "sanitizeSharingLinks",
           "patch": "Sanitize sharing links",
-          "targets": ["permalink parser", "story link parser", "clipboard copies", "share sheets", "direct shares", "in-app browser menu"],
+          "targets": ["permalink parser", "clipboard copies", "share sheets", "direct shares", "in-app browser menu"],
           "optional": []
         },
         {

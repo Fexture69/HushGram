@@ -26,6 +26,7 @@ import app.morphe.patches.instagram.misc.settings.EXTENSION_ROOT
 import app.morphe.patches.instagram.misc.settings.settingsPatch
 import app.morphe.patches.shared.compat.AppCompatibilities
 import app.morphe.util.ControlFlow
+import app.morphe.util.addInstructionsAtControlFlowLabel
 import com.android.tools.smali.dexlib2.AccessFlags
 import com.android.tools.smali.dexlib2.Opcode
 import com.android.tools.smali.dexlib2.iface.ClassDef
@@ -93,6 +94,11 @@ private const val USER_SESSION = "Lcom/instagram/common/session/UserSession;"
  * scroller, which asks the plugin the extension already answers. See [findScrollerInstall]. Asked
  * for in #175.
  *
+ * Where a scroller exists, a server setting decides whether it moves on just before a reel ends or
+ * only once the reel has started over, which plays its first second again during the move. The
+ * extension answers the scroller's constructor that it moves on just before. See
+ * [findScrollerLead]. Reported in #473.
+ *
  * Every method is found by Instagram's own markers, strings and kept class names, and everything is
  * found and checked before anything changes, so a build that differs stops the patch naming what
  * it couldn't find, and nothing is half done.
@@ -127,6 +133,8 @@ internal class MethodSite(val definingClass: String, val name: String, val param
 internal class ReelAutoScrollSites(
     /** The plugin's check of whether auto scroll is on: every return is answered. */
     val isActive: MethodSite,
+    /** Static copies of the check Redex put beside it (09FH.A02 on 454's 386014758): every return is answered too. */
+    val checkCopies: List<MethodSite>,
     /** The saved preference's getter: every return goes through [AUTO_SCROLL_SAVED]. */
     val getter: MethodSite,
     /** The plugin's handler for its switches, and the register of its choice, read first thing. */
@@ -262,6 +270,15 @@ internal fun BytecodePatchContext.findReelAutoScroll(): ReelAutoScrollSites {
         }
         MemoryRead(method.site(), index, (read as TwoRegisterInstruction).registerA)
     }
+    // A copy answers what the check does from the memory, the timer and the getter; 454's reads the timer
+    // too, so its memory read alone isn't enough and every return goes through the check's answer.
+    val checkCopies = reads.map { it.first }.distinctBy { it.text() }.filter { method ->
+        method.text() != isActive.text() && method.isStatic() && method.returnType == "Z" &&
+            method.parameters() == listOf(USER_SESSION) && method.code().any { it.calls(getter) }
+    }
+    if (checkCopies.any { copy -> copy.code().none { it.opcode == Opcode.RETURN } }) {
+        refuse("a copy of ${isActive.text()} in ${checkCopies.map { it.text() }} has no return to answer at")
+    }
     val others = callers.filter { (_, method) -> method.text() != click.text() }
     val pauses = others.filter { (_, method) ->
         method.name == "onPause" && !method.isStatic() && method.parameters().isEmpty() && method.returnType == "V" &&
@@ -297,13 +314,17 @@ internal fun BytecodePatchContext.findReelAutoScroll(): ReelAutoScrollSites {
     val timer = findTimerChoices(isActive, click, getter.parameters().single())
     val install = findScrollerInstall(isActive)
     // Every index here was read off Instagram's own code, so no method may be changed in two places.
-    val changed = listOf(isActive.site(), getter.site(), click.site(), toggle.site(), timer.method) + memoryReads.map { it.method }
+    val changed = listOf(isActive.site(), getter.site(), click.site(), toggle.site(), timer.method) + memoryReads.map { it.method } +
+        checkCopies.map { it.site() }
     if (changed.any { it.toString() == install.builder.toString() }) {
         refuse("${install.builder} builds the Reels auto scroller and is changed for something else too")
     }
+    if ((changed + install.builder).any { it.toString() == install.lead.constructor.toString() }) {
+        refuse("${install.lead.constructor} sets up the Reels auto scroller and is changed for something else too")
+    }
 
     return ReelAutoScrollSites(
-        isActive.site(), getter.site(), click.site(), click.parameterRegisterNumber(click.parameterTypes.lastIndex), clickKeeps,
+        isActive.site(), checkCopies.map { it.site() }, getter.site(), click.site(), click.parameterRegisterNumber(click.parameterTypes.lastIndex), clickKeeps,
         toggle.site(), toggleAt, toggleChoice, memoryReads, timer, install,
     )
 }
@@ -316,9 +337,11 @@ internal fun BytecodePatchContext.findReelAutoScroll(): ReelAutoScrollSites {
  * jump to the instruction that followed it, which keeps its label: that jump didn't come through the
  * read or the keeping. The Reels viewer's read of whether auto scroll is offered passes through
  * [AUTO_SCROLL_INSTALL] right after it, in front of the branch that goes by it, which nothing jumps
- * to. Then every return of the check passes its answer through [AUTO_SCROLL_ANSWER], and every
- * return of the getter through [AUTO_SCROLL_SAVED], at the return's own label, so a branch straight
- * to a return passes through it too.
+ * to. In the scroller's constructor, whether it moves on before a reel ends passes through
+ * [AUTO_SCROLL_LEAD] and how long before through [AUTO_SCROLL_LEAD_TIME], each right before the
+ * write that keeps it, at its label. Then every return of the check passes its answer through
+ * [AUTO_SCROLL_ANSWER], and every return of the getter through [AUTO_SCROLL_SAVED], at the return's
+ * own label, so a branch straight to a return passes through it too.
  */
 internal fun BytecodePatchContext.keepReelAutoScroll(sites: ReelAutoScrollSites) {
     val duration = mutable(sites.timer.method)
@@ -356,7 +379,27 @@ internal fun BytecodePatchContext.keepReelAutoScroll(sites: ReelAutoScrollSites)
             move-result v${sites.install.register}
         """,
     )
+    val lead = sites.install.lead
+    mutable(lead.constructor).apply {
+        // The time's write comes after the switch's, so it goes in first and the switch's index holds.
+        addInstructionsAtControlFlowLabel(
+            lead.timeAt,
+            """
+                invoke-static/range { v${lead.timeRegister} .. v${lead.timeRegister} }, $AUTO_SCROLL_LEAD_TIME
+                move-result v${lead.timeRegister}
+            """,
+        )
+        addInstructionsAtControlFlowLabel(
+            lead.switchAt,
+            """
+                invoke-static/range { v${lead.switchRegister} .. v${lead.switchRegister} }, $AUTO_SCROLL_LEAD
+                move-result v${lead.switchRegister}
+            """,
+        )
+    }
     mutable(sites.isActive).filterEveryBooleanReturn(PATCH, AUTO_SCROLL_ANSWER)
+    // A copy's memory read is answered above already; the answer gives the same back for what it gave.
+    sites.checkCopies.forEach { mutable(it).filterEveryBooleanReturn(PATCH, AUTO_SCROLL_ANSWER) }
     mutable(sites.getter).filterEveryBooleanReturn(PATCH, AUTO_SCROLL_SAVED)
 }
 

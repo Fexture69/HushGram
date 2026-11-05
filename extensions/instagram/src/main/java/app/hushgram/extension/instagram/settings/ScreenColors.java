@@ -54,6 +54,11 @@ public final class ScreenColors {
     public final int title;
     /** Row summaries and a dialog's message. */
     public final int summary;
+    /**
+     * A dialog field's placeholder. Quieter than {@link #summary}, so an example in an empty field
+     * doesn't read as a value already saved, and still 4.5:1 on every surface.
+     */
+    public final int hint;
     /** Section titles. */
     public final int heading;
     /** A switch that's on, and the buttons of a dialog. */
@@ -97,6 +102,7 @@ public final class ScreenColors {
         dialog = pureBlack ? Color.BLACK : 0xFF18161D;
         title = 0xFFF8F5F8;
         summary = 0xFFAAA5AF;
+        hint = 0xFF8C8792;
         // Instagram's own blues (AccentColor.role): its link on a dark screen, 7:1 on the charcoal,
         // and its Prism indigo button fill, which white text reads on at 5:1.
         heading = 0xFF85A1FF;
@@ -122,6 +128,16 @@ public final class ScreenColors {
      */
     static ColorStateList dimmedWhenDisabled(int color) {
         int dimmed = (color & 0x00FFFFFF) | 0x61000000;
+        return new ColorStateList(new int[][]{{-android.R.attr.state_enabled}, {}}, new int[]{dimmed, color});
+    }
+
+    /**
+     * [color] for a disabled row's summary, at 75%. The summary is where a greyed-out row says
+     * what to turn on first, and at 38% it read at about 2:1 on the card. The title and switch
+     * keep the 38% that shows the row is off.
+     */
+    static ColorStateList readableWhenDisabled(int color) {
+        int dimmed = (color & 0x00FFFFFF) | 0xC0000000;
         return new ColorStateList(new int[][]{{-android.R.attr.state_enabled}, {}}, new int[]{dimmed, color});
     }
 
@@ -188,7 +204,7 @@ public final class ScreenColors {
         }
         TextView summary = row.findViewById(android.R.id.summary);
         if (summary != null) {
-            summary.setTextColor(dimmedWhenDisabled(this.summary));
+            summary.setTextColor(readableWhenDisabled(this.summary));
             summary.setTextSize(TypedValue.COMPLEX_UNIT_SP, overview ? 12 : 13);
             summary.setLineSpacing(0, 1);
         }
@@ -301,7 +317,9 @@ public final class ScreenColors {
                 first ? radius : 0, first ? radius : 0,
                 last ? radius : 0, last ? radius : 0,
                 last ? radius : 0, last ? radius : 0});
-        int side = overview ? 0 : dp(row, 18);
+        // Full-bleed rows push their side strokes off the screen as they do the top one, so the
+        // main page has no hairline down either edge.
+        int side = overview ? -dp(row, 1) : dp(row, 18);
         Drawable inset = new InsetDrawable(surface, side, overview ? -dp(row, 1) : first ? dp(row, 4) : -dp(row, 1),
                 side, !overview && last ? dp(row, 4) : 0);
         row.setBackground(preference.isSelectable()
@@ -311,7 +329,8 @@ public final class ScreenColors {
         int vertical = overview ? 6 : 10;
         row.setPaddingRelative(dp(row, horizontal), dp(row, vertical + (!overview && first ? 4 : 0)),
                 dp(row, horizontal), dp(row, vertical + (!overview && last ? 4 : 0)));
-        row.setMinimumHeight(dp(row, "hushgram_view_toggle".equals(preference.getKey()) ? 48
+        row.setMinimumHeight(dp(row, "hushgram_view_toggle".equals(preference.getKey())
+                || "hushgram_grid_toggle".equals(preference.getKey()) ? 48
                 : "hushgram_status".equals(preference.getKey()) ? 56 : overview ? 52 : 64));
     }
 
@@ -591,6 +610,28 @@ public final class ScreenColors {
         }
         View field = dialog.findViewById(android.R.id.edit);
         if (field instanceof EditText) paintField((EditText) field);
+        if (window != null) startTextAtTheStart(window.getDecorView());
+    }
+
+    /**
+     * Text set to start at its start edge starts at the layout's: on the right in a right-to-left
+     * layout, under the title, where HushGram's English otherwise sits flush left. Centred text and
+     * buttons keep their gravity, a field keeps the direction of what's typed, and a list's rows
+     * are its adapter's.
+     */
+    public static void startTextAtTheStart(View view) {
+        if (view instanceof android.widget.AdapterView) return;
+        if (view instanceof TextView && !(view instanceof EditText)) {
+            TextView text = (TextView) view;
+            if ((text.getGravity() & android.view.Gravity.RELATIVE_HORIZONTAL_GRAVITY_MASK) == android.view.Gravity.START
+                    && text.getTextAlignment() == View.TEXT_ALIGNMENT_GRAVITY) {
+                text.setTextAlignment(View.TEXT_ALIGNMENT_VIEW_START);
+            }
+        }
+        if (view instanceof ViewGroup) {
+            ViewGroup group = (ViewGroup) view;
+            for (int index = 0; index < group.getChildCount(); index++) startTextAtTheStart(group.getChildAt(index));
+        }
     }
 
     /**
@@ -598,7 +639,7 @@ public final class ScreenColors {
      * the framework's teal, so they take the accent the buttons have.
      */
     void paintField(EditText field) {
-        field.setHintTextColor(dimmedWhenDisabled(summary));
+        field.setHintTextColor(dimmedWhenDisabled(hint));
         GradientDrawable outline = new GradientDrawable();
         outline.setColor(dialog);
         outline.setCornerRadius(dp(field, 12));

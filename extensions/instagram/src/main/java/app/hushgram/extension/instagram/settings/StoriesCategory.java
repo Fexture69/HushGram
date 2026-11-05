@@ -10,8 +10,10 @@ import static app.hushgram.extension.instagram.settings.HushgramPreferenceFragme
 import static app.hushgram.extension.instagram.settings.HushgramPreferenceFragment.onFlip;
 import static app.hushgram.extension.instagram.settings.HushgramPreferenceFragment.priorityAccountsRow;
 import static app.hushgram.extension.instagram.settings.HushgramPreferenceFragment.storyBarRow;
+import static app.hushgram.extension.instagram.settings.HushgramPreferenceFragment.storyMentionsLookRow;
 import static app.hushgram.extension.instagram.settings.HushgramPreferenceFragment.storyRingColorRow;
 import static app.hushgram.extension.instagram.settings.HushgramPreferenceFragment.storyRingRow;
+import static app.hushgram.extension.instagram.settings.HushgramPreferenceFragment.storySeekBarLookRow;
 import static app.hushgram.extension.instagram.settings.HushgramPreferenceFragment.storyTimeModeRow;
 import static app.hushgram.extension.instagram.settings.HushgramPreferenceFragment.uploadBitrateRow;
 import static app.hushgram.extension.instagram.settings.HushgramPreferenceFragment.uploadScopeRow;
@@ -106,6 +108,18 @@ final class StoriesCategory {
             stories.add(toggle(context, Settings.STORY_SEEK_BAR, L10n.t("Seek bar on stories"),
                     L10n.t("Shows a bar near the bottom of a video story. Drag it to jump to any point in the "
                             + "video. Photos don't get one.")));
+            stories.add(storySeekBarLookRow(context));
+        }
+        if (build.contains(PatchFamily.STORY_SPEED)) {
+            stories.add(toggle(context, Settings.STORY_SPEED_BUTTON, L10n.t("Speed button on stories"),
+                    L10n.t("Puts a speed button at the top of a video story, beside the three dots. Tap it for "
+                            + "1.5x, again for 2x and once more for 1x. Later video stories keep the speed until you "
+                            + "change it or restart Instagram. Ads play at normal speed.")));
+        }
+        if (build.contains(PatchFamily.FULL_SCREEN_BARS)) {
+            stories.add(toggle(context, Settings.FILL_STORY_SCREEN, L10n.t("Stories fill the screen"),
+                    L10n.t("On a tall screen a story covers the whole screen, with the reply bar on top of it like "
+                            + "on shorter phones, instead of a rounded card above the bar.")));
         }
         if (build.contains(PatchFamily.AMBIENT_LIGHT)) {
             stories.add(onFlip(toggle(context, Settings.AMBIENT_LIGHT_STORIES, L10n.t("Ambient light in stories"),
@@ -132,6 +146,11 @@ final class StoriesCategory {
                     L10n.t("A swipe up on someone's story no longer opens the reply box and its reactions. "
                             + "Tap Send message to reply.")));
         }
+        if (build.contains(PatchFamily.STORY_REPLY_BOX)) {
+            stories.add(toggle(context, Settings.HIDE_STORY_REPLY_BOX, L10n.t("Hide the reply box on stories"),
+                    L10n.t("Takes the Send message box off the bottom of other people's stories. The like and "
+                            + "share buttons next to it stay where they are.")));
+        }
         if (build.contains(PatchFamily.STORY_TIME)) {
             stories.add(toggle(context, Settings.SHOW_STORY_TIME, L10n.t("Show a story's exact time"),
                     L10n.t("A story's header shows its time the way the choice below says, instead of how long ago. "
@@ -142,6 +161,9 @@ final class StoriesCategory {
             stories.add(toggle(context, Settings.SHOW_STORY_MENTIONS, L10n.t("See who a story mentions"),
                     L10n.t("A story's header says how many accounts it mentions, even when the mention is hidden. "
                             + "Tap that for the list, and tap someone to open their profile.")));
+            stories.add(toggle(context, Settings.RED_STORY_MENTIONS, L10n.t("Red story mentions"),
+                    L10n.t("Draws the mention pill's text in red instead of white, so it stands out on bright stories.")));
+            stories.add(storyMentionsLookRow(context));
         }
         if (build.contains(PatchFamily.STORY_FOLLOW)) {
             stories.add(toggle(context, Settings.HIDE_STORY_FOLLOW, L10n.t("Hide Follow on stories"),

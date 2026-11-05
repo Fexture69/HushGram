@@ -99,6 +99,8 @@ public class DownloadSettingsTest {
         Settings.REEL_BLOCK_BUTTON.resetToDefault();
         Settings.HIDE_SOUND_REELS.resetToDefault();
         Settings.TEXT_BUTTON_ON_REELS.resetToDefault();
+        Settings.SPEED_BUTTON_ON_REELS.resetToDefault();
+        Settings.FULL_SCREEN_BUTTON_ON_REELS.resetToDefault();
         Settings.HIDDEN_SOUNDS.resetToDefault();
         Settings.HOLD_TO_DOWNLOAD.resetToDefault();
         Settings.HOLD_FINGERS.resetToDefault();
@@ -263,6 +265,54 @@ public class DownloadSettingsTest {
         }
     }
 
+    /**
+     * Speed button on reels and Full screen button on reels (#480) sit right after Copy text under
+     * Reels, each only with the patch its tap goes through. They start off, have their own switches
+     * and go in a settings file.
+     */
+    @Test
+    public void theSpeedAndFullScreenButtonsSitAfterCopyTextWithTheirPatches() {
+        PatchFamily.inBuildForTests = EnumSet.of(PatchFamily.REEL_DOWNLOAD, PatchFamily.KEEP_REEL_SPEED, PatchFamily.REEL_DECLUTTER);
+        try (ActivityController<Activity> controller = Robolectric.buildActivity(Activity.class).setup()) {
+            HushgramPreferenceFragment page = pageIn(controller);
+            PreferenceGroup reels = section(page.getPreferenceScreen(), "Reels");
+            Preference speed = reels.findPreference(Settings.SPEED_BUTTON_ON_REELS.key);
+            assertTrue("the speed button isn't under Reels", speed instanceof SwitchPreference);
+            assertEquals("Speed button on reels", String.valueOf(speed.getTitle()));
+            assertTrue(String.valueOf(speed.getSummary()).contains("0.5x to 3x"));
+            assertFalse("it starts off", ((SwitchPreference) speed).isChecked());
+            Preference full = reels.findPreference(Settings.FULL_SCREEN_BUTTON_ON_REELS.key);
+            assertTrue("the Full screen button isn't under Reels", full instanceof SwitchPreference);
+            assertEquals("Full screen button on reels", String.valueOf(full.getTitle()));
+            assertTrue("it points at the switch that opens every reel that way",
+                    String.valueOf(full.getSummary()).contains("Start every reel in clear mode"));
+            assertFalse("it starts off", ((SwitchPreference) full).isChecked());
+            List<Preference> rows = rowsOf(page);
+            assertEquals(indexOfKey(rows, Settings.TEXT_BUTTON_ON_REELS.key) + 1, indexOfKey(rows, Settings.SPEED_BUTTON_ON_REELS.key));
+            assertEquals(indexOfKey(rows, Settings.SPEED_BUTTON_ON_REELS.key) + 1, indexOfKey(rows, Settings.FULL_SCREEN_BUTTON_ON_REELS.key));
+            ((SwitchPreference) page.findPreference(Settings.DOWNLOAD_REELS.key)).setChecked(false);
+            ShadowLooper.idleMainLooper();
+            assertTrue("neither waits for Download on reels", speed.isEnabled() && full.isEnabled());
+            assertTrue(ConfigurationBackup.eligible().containsKey(Settings.SPEED_BUTTON_ON_REELS.key));
+            assertTrue(ConfigurationBackup.eligible().containsKey(Settings.FULL_SCREEN_BUTTON_ON_REELS.key));
+        }
+        PatchFamily.inBuildForTests = EnumSet.of(PatchFamily.REEL_DOWNLOAD);
+        try (ActivityController<Activity> controller = Robolectric.buildActivity(Activity.class).setup()) {
+            List<Preference> rows = rowsOf(pageIn(controller));
+            assertEquals("no speed icon without Keep the reel speed", -1, indexOfKey(rows, Settings.SPEED_BUTTON_ON_REELS.key));
+            assertEquals("no Full screen icon without clear mode's patch", -1, indexOfKey(rows, Settings.FULL_SCREEN_BUTTON_ON_REELS.key));
+            assertFalse(ConfigurationBackup.eligible().containsKey(Settings.SPEED_BUTTON_ON_REELS.key));
+            assertFalse(ConfigurationBackup.eligible().containsKey(Settings.FULL_SCREEN_BUTTON_ON_REELS.key));
+        }
+        PatchFamily.inBuildForTests = EnumSet.of(PatchFamily.KEEP_REEL_SPEED, PatchFamily.REEL_DECLUTTER);
+        try (ActivityController<Activity> controller = Robolectric.buildActivity(Activity.class).setup()) {
+            List<Preference> rows = rowsOf(pageIn(controller));
+            assertEquals("no column to put them in without the reel download", -1, indexOfKey(rows, Settings.SPEED_BUTTON_ON_REELS.key));
+            assertEquals(-1, indexOfKey(rows, Settings.FULL_SCREEN_BUTTON_ON_REELS.key));
+            assertFalse(ConfigurationBackup.eligible().containsKey(Settings.FULL_SCREEN_BUTTON_ON_REELS.key));
+        }
+    }
+
     /** Hidden sounds lists each sound by title and artist, checked; unchecking one brings its reels back and checking it hides them again. */
     @Test
     public void hiddenSoundsListsEachSoundAndUncheckingOneBringsItsReelsBack() {
@@ -377,7 +427,7 @@ public class DownloadSettingsTest {
             assertEquals("Convert to keep the full size", String.valueOf(convertRow.getTitle()));
             assertEquals("Saves videos other apps can open, at full size. A video Instagram only has as VP9 or AV1 "
                     + "is converted to H.264 on your phone instead of saved smaller. Slower, and videos over "
-                    + "3 minutes stay smaller.", String.valueOf(convertRow.getSummary()));
+                    + "3 minutes or in HDR stay smaller.", String.valueOf(convertRow.getSummary()));
 
             int noAv1 = indexOfKey(rows, Settings.DOWNLOAD_NO_AV1.key);
             assertEquals("the AV1 switch isn't right under the convert one (#379)", convert + 1, noAv1);
@@ -881,7 +931,7 @@ public class DownloadSettingsTest {
 
     /**
      * Skip what's already saved sits in the download naming rows, under Name saves by account and
-     * post time and the Add the source to saved photos row that follows it, with Clear download
+     * post time and the Add the source to saved photos and videos row that follows it, with Clear download
      * history directly under Skip. The switch starts off and goes in a settings file, the list it
      * keeps never does, and Clear forgets the list at once and says so (#150).
      */
@@ -1029,7 +1079,7 @@ public class DownloadSettingsTest {
             assertEquals("Download file name", String.valueOf(name.getTitle()));
             assertTrue(String.valueOf(name.getDialogMessage()).contains("{shortcode}"));
             // The photo prefix is HushGram's own, so the summary doesn't call it Instagram's.
-            assertEquals("Videos are named " + L10n.isolate("IG_VID_{date}") + ". Photos are always named "
+            assertEquals("Videos are named " + L10n.isolate("IG_VID_{date}") + ". Photos are named "
                     + L10n.isolate("IG_IMG_") + " followed by the date and time.", String.valueOf(name.getSummary()));
             String message = String.valueOf(name.getDialogMessage());
             assertTrue(message, message.contains(L10n.isolate("{date}")) && message.contains(L10n.isolate("{video_id}"))
@@ -1076,6 +1126,36 @@ public class DownloadSettingsTest {
             assertEquals("Videos and photos use " + L10n.isolate("{shortcode}")
                     + ". Unknown codes are left out.", name.getSummary().toString());
         }
+    }
+
+    /**
+     * With Name saves by account and post time on, the file name row says its names are only for the
+     * saves that switch can't name, and it drops that the moment the switch goes off.
+     */
+    @Test
+    public void theFileNameRowSaysNameByPostTakesTheSavesItCanName() {
+        PatchFamily.inBuildForTests = EnumSet.of(PatchFamily.REEL_DOWNLOAD, PatchFamily.VIDEO_DOWNLOAD);
+        String names = "Videos are named " + L10n.isolate("IG_VID_{date}") + ". Photos are named "
+                + L10n.isolate("IG_IMG_") + " followed by the date and time.";
+        String onlyLeftovers = " With Name saves by account and post time on, only a save that doesn't know who "
+                + "posted or when is named this way.";
+        try (ActivityController<Activity> controller = Robolectric.buildActivity(Activity.class).setup()) {
+            HushgramPreferenceFragment page = pageIn(controller);
+            Preference name = page.findPreference(Settings.FILENAME_TEMPLATE.key);
+            SwitchPreference byPost = (SwitchPreference) page.findPreference(Settings.SAVE_NAME_BY_POST.key);
+            assertEquals(names, String.valueOf(name.getSummary()));
+
+            byPost.setChecked(true);
+            ShadowLooper.idleMainLooper();
+            assertTrue(Settings.SAVE_NAME_BY_POST.savedValue());
+            assertEquals(names + onlyLeftovers, String.valueOf(name.getSummary()));
+
+            byPost.setChecked(false);
+            ShadowLooper.idleMainLooper();
+            assertEquals(names, String.valueOf(name.getSummary()));
+        }
+        assertEquals("Videos and photos use " + L10n.isolate("{shortcode}") + ". Unknown codes are left out."
+                + onlyLeftovers, HushgramPreferenceFragment.fileNameSummary("{shortcode}", true));
     }
 
     /** The dialog's example is the name the save pipeline would give, and Cancel keeps the saved template. */
@@ -1164,7 +1244,7 @@ public class DownloadSettingsTest {
                 assertEquals(key + " doesn't resize above the keyboard", WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE,
                         mode & WindowManager.LayoutParams.SOFT_INPUT_MASK_ADJUST);
                 assertTrue(key + "'s field has no outlined surface", row.getEditText().getBackground() instanceof GradientDrawable);
-                assertEquals(ScreenColors.DEFAULT.dialog,
+                assertEquals(ScreenColors.current().dialog,
                         ((GradientDrawable) row.getEditText().getBackground()).getColor().getDefaultColor());
             } finally {
                 row.getDialog().dismiss();
