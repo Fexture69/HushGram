@@ -70,21 +70,12 @@ jobs:
           if [ "$BEHIND_COUNT" -gt 0 ]; then
             echo "Merging upstream/main into main branch..."
             if ! git merge upstream/main --no-edit -m "chore(sync): sync with upstream/main"; then
-              echo "Checking conflict status..."
-              UNMERGED=$(git diff --name-only --diff-filter=U)
-              echo "Unmerged files:"
-              echo "$UNMERGED"
-
-              # Auto-resolve L10nTranslations.java conflict if generated translations conflict
-              if [ "$UNMERGED" = "extensions/shared/library/src/main/java/app/hushgram/extension/shared/L10nTranslations.java" ]; then
-                echo "Conflict is exclusively in L10nTranslations.java. Regenerating translations..."
-                python3 scripts/gen-l10n.py
-                git add extensions/shared/library/src/main/java/app/hushgram/extension/shared/L10nTranslations.java
-                git commit -m "chore(sync): sync with upstream/main and regenerate translations"
-                echo "Translations conflict resolved automatically."
+              echo "Merge encountered conflicts. Invoking automated conflict resolver..."
+              if python3 scripts/resolve-sync-conflicts.py; then
+                git commit -m "chore(sync): sync with upstream/main and auto-resolve sync conflicts"
+                echo "All conflicts resolved and committed successfully."
               else
-                echo "::error::Merge conflicts encountered that require manual resolution:"
-                echo "$UNMERGED"
+                echo "::error::Manual resolution required for remaining conflicts."
                 git merge --abort
                 exit 1
               fi
