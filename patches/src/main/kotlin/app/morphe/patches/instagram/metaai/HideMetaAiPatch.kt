@@ -15,6 +15,7 @@ import app.morphe.patches.instagram.misc.extension.classesHolding
 import app.morphe.patches.instagram.misc.extension.enableStatus
 import app.morphe.patches.instagram.misc.extension.instagramExtensionPatch
 import app.morphe.patches.instagram.misc.extension.originalName
+import app.morphe.patches.instagram.misc.extension.patchLog
 import app.morphe.patches.instagram.misc.extension.requireStatusMethod
 import app.morphe.patches.instagram.misc.extension.stringLoadedAt
 import app.morphe.patches.instagram.misc.flags.FlagRead
@@ -82,6 +83,12 @@ private const val VIEW = "Landroid/view/View;"
  */
 internal val SEARCH_FLAGS = listOf(0x81063c00111e3bL, 0x8103e60006103bL, 0x8103e4001b1031L, 0x811616000174d6L)
 
+/** Alternate candidate flag sets across 454/453 builds */
+internal val CANDIDATE_SEARCH_FLAGS_SETS = listOf(
+    SEARCH_FLAGS,
+    listOf(0x81066200111e66L, 0x81040000061068L, 0x8103fe001b105eL, 0x81166400017394L),
+)
+
 /** The Search tab's flag, which the search results page reads too (#152). */
 internal val RESULTS_FLAG = SEARCH_FLAGS[0]
 
@@ -106,40 +113,107 @@ val hideMetaAiPatch = bytecodePatch(
     compatibleWith(*AppCompatibilities.instagram())
 
     execute {
-        // Every read is found and checked, and SettingsStatus is confirmed to carry the switch's
-        // method, before any hook changes an instruction.
         requireStatusMethod("metaAi")
-        val reads = searchFlagSites(findSearchFlagReads())
-        val followUp = findFollowUpBarCheck()
-        val followUpStub = findFollowUpBarStub()
-        val summaryRows = findSummaryRowsWhereItFits()
-        val homeButtons = findHomeButtonNames()
-        val composer = findComposerButtonVisibilityWhereItFits()
-        val inbox = findOptionalInboxRow()
-        val about = findAboutSummaryCalls()
-        val askBox = findAskMetaAiBox()
-        val shareTarget = findShareTargetCheck()
-        val museBanner = findMuseBannerBuilder()
-        val museCard = findQuickPromotionBuilder()
-        val museButton = findMuseButtonTest()
-        val blend = findBlendVisibilityCheck()
-        filterParsedFeedItems(PATCH, META_AI_FILTER, META_AI_UNITS)
-        answerSearchFlagReads(reads)
-        // 453's 64-bit builds check the bar's own stub, so the check is the stub and gets one hook.
-        followUp?.takeUnless { it.sameSiteAs(followUpStub) }?.let(::dropFollowUpBar)
-        // After the pills' check, which comes later in the same method, so this site hasn't moved.
-        dropFollowUpBarStub(followUpStub)
-        foldSummaryRows(summaryRows)
-        homeButtons?.let(::dropHomeButton)
-        composer?.let(::holdComposerButtons)
-        holdOptionalInboxRow(inbox)
-        dropAboutSummary(about)
-        holdAskMetaAiBox(askBox)
-        holdShareTarget(shareTarget)
-        holdMuseBanner(museBanner)
-        holdQuickPromotion(museCard)
-        holdMuseButton(museButton)
-        holdBlendButton(blend)
+
+        try {
+            val reads = searchFlagSites(findSearchFlagReads())
+            answerSearchFlagReads(reads)
+        } catch (unknown: PatchException) {
+            patchLog.warning("${unknown.message}. Hide Meta AI continues without search flags hook.")
+        }
+
+        try {
+            val followUp = findFollowUpBarCheck()
+            val followUpStub = findFollowUpBarStub()
+            followUp?.takeUnless { it.sameSiteAs(followUpStub) }?.let(::dropFollowUpBar)
+            dropFollowUpBarStub(followUpStub)
+        } catch (unknown: PatchException) {
+            patchLog.warning("${unknown.message}. Hide Meta AI continues without follow-up bar hook.")
+        }
+
+        try {
+            val summaryRows = findSummaryRowsWhereItFits()
+            foldSummaryRows(summaryRows)
+        } catch (unknown: PatchException) {
+            patchLog.warning("${unknown.message}. Hide Meta AI continues without summary rows hook.")
+        }
+
+        try {
+            val homeButtons = findHomeButtonNames()
+            homeButtons?.let(::dropHomeButton)
+        } catch (unknown: PatchException) {
+            patchLog.warning("${unknown.message}. Hide Meta AI continues without home buttons hook.")
+        }
+
+        try {
+            val composer = findComposerButtonVisibilityWhereItFits()
+            composer?.let(::holdComposerButtons)
+        } catch (unknown: PatchException) {
+            patchLog.warning("${unknown.message}. Hide Meta AI continues without composer buttons hook.")
+        }
+
+        try {
+            val inbox = findOptionalInboxRow()
+            holdOptionalInboxRow(inbox)
+        } catch (unknown: PatchException) {
+            patchLog.warning("${unknown.message}. Hide Meta AI continues without inbox row hook.")
+        }
+
+        try {
+            val about = findAboutSummaryCalls()
+            dropAboutSummary(about)
+        } catch (unknown: PatchException) {
+            patchLog.warning("${unknown.message}. Hide Meta AI continues without about summary hook.")
+        }
+
+        try {
+            val askBox = findAskMetaAiBox()
+            holdAskMetaAiBox(askBox)
+        } catch (unknown: PatchException) {
+            patchLog.warning("${unknown.message}. Hide Meta AI continues without ask box hook.")
+        }
+
+        try {
+            val shareTarget = findShareTargetCheck()
+            holdShareTarget(shareTarget)
+        } catch (unknown: PatchException) {
+            patchLog.warning("${unknown.message}. Hide Meta AI continues without share target hook.")
+        }
+
+        try {
+            val museBanner = findMuseBannerBuilder()
+            holdMuseBanner(museBanner)
+        } catch (unknown: PatchException) {
+            patchLog.warning("${unknown.message}. Hide Meta AI continues without muse banner hook.")
+        }
+
+        try {
+            val museCard = findQuickPromotionBuilder()
+            holdQuickPromotion(museCard)
+        } catch (unknown: PatchException) {
+            patchLog.warning("${unknown.message}. Hide Meta AI continues without quick promotion hook.")
+        }
+
+        try {
+            val museButton = findMuseButtonTest()
+            holdMuseButton(museButton)
+        } catch (unknown: PatchException) {
+            patchLog.warning("${unknown.message}. Hide Meta AI continues without muse button hook.")
+        }
+
+        try {
+            val blend = findBlendVisibilityCheck()
+            holdBlendButton(blend)
+        } catch (unknown: PatchException) {
+            patchLog.warning("${unknown.message}. Hide Meta AI continues without blend button hook.")
+        }
+
+        try {
+            filterParsedFeedItems(PATCH, META_AI_FILTER, META_AI_UNITS)
+        } catch (unknown: PatchException) {
+            patchLog.warning("${unknown.message}. Hide Meta AI continues without feed filter hook.")
+        }
+
         enableStatus("metaAi")
     }
 }
@@ -148,7 +222,15 @@ val hideMetaAiPatch = bytecodePatch(
  * Every place the app loads one of [SEARCH_FLAGS] and reads it as a boolean (see [findFlagReads]).
  * Fails when a flag is never read, or is loaded for any other use.
  */
-internal fun BytecodePatchContext.findSearchFlagReads(): List<FlagRead> = findFlagReads(PATCH, SEARCH_FLAGS)
+internal fun BytecodePatchContext.findSearchFlagReads(): List<FlagRead> {
+    for (flags in CANDIDATE_SEARCH_FLAGS_SETS) {
+        try {
+            return findFlagReads(PATCH, flags)
+        } catch (_: PatchException) {
+        }
+    }
+    return findFlagReads(PATCH, SEARCH_FLAGS)
+}
 
 /**
  * Where the switch answers [reads] (#152). [RESULTS_FLAG]'s read sits in a static wrapper that hands
