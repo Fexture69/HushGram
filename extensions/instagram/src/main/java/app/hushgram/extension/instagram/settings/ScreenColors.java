@@ -17,7 +17,6 @@ import android.graphics.Path;
 import android.graphics.PixelFormat;
 import android.graphics.Rect;
 import android.graphics.Typeface;
-import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.InsetDrawable;
@@ -100,20 +99,21 @@ public final class ScreenColors {
     ScreenColors(boolean pureBlack) {
         light = false;
         background = Color.BLACK;
-        dialog = pureBlack ? Color.BLACK : 0xFF16161A;
-        title = 0xFFFFFFFF;
-        summary = 0xFF8E8E93;
-        hint = 0xFF636366;
-        // Instagram vibrant electric blue and clean iOS-style system accents
-        heading = 0xFF0095F6;
-        accent = 0xFF0095F6;
-        // iOS off-state neutral switch track
-        switchOff = 0xFF36363E;
-        card = pureBlack ? Color.BLACK : 0xFF18181C;
-        outline = 0xFF282830;
-        iconSurface = 0xFF222228;
+        dialog = pureBlack ? Color.BLACK : 0xFF18161D;
+        title = 0xFFF8F5F8;
+        summary = 0xFFAAA5AF;
+        hint = 0xFF8C8792;
+        // Instagram's own blues (AccentColor.role): its link on a dark screen, 7:1 on the charcoal,
+        // and its Prism indigo button fill, which white text reads on at 5:1.
+        heading = 0xFF85A1FF;
+        accent = 0xFF4A5DF9;
+        // At least 3:1 against either charcoal surface, with a white thumb above 5:1.
+        switchOff = 0xFF696370;
+        card = pureBlack ? Color.BLACK : 0xFF151419;
+        outline = 0xFF2D2832;
+        iconSurface = 0xFF211D27;
         onAccent = Color.WHITE;
-        error = 0xFFFF453A;
+        error = 0xFFFFB4AB;
     }
 
     /** A switch's white thumb remains distinct from either track. */
@@ -194,7 +194,7 @@ public final class ScreenColors {
         if (title != null) {
             title.setTextColor(dimmedWhenDisabled(this.title));
             title.setTextSize(TypedValue.COMPLEX_UNIT_SP,
-                    "hushgram_status".equals(preference.getKey()) ? 15 : overview ? 15 : 16);
+                    "hushgram_status".equals(preference.getKey()) ? 14 : overview ? 15 : 16);
             title.setTypeface(Typeface.create("sans-serif-medium", Typeface.NORMAL));
             if (title.getParent() instanceof View) {
                 View text = (View) title.getParent();
@@ -206,7 +206,7 @@ public final class ScreenColors {
         if (summary != null) {
             summary.setTextColor(readableWhenDisabled(this.summary));
             summary.setTextSize(TypedValue.COMPLEX_UNIT_SP, overview ? 12 : 13);
-            summary.setLineSpacing(0, 1.15f);
+            summary.setLineSpacing(0, 1);
         }
         View widget = row.findViewById(android.R.id.switch_widget);
         if (widget instanceof Switch) {
@@ -214,17 +214,17 @@ public final class ScreenColors {
                     {-android.R.attr.state_enabled}, {android.R.attr.state_checked}, {}};
             Switch toggle = (Switch) widget;
             GradientDrawable thumb = new GradientDrawable();
-            thumb.setShape(GradientDrawable.OVAL);
-            thumb.setSize(dp(row, 24), dp(row, 24));
+            thumb.setShape(GradientDrawable.RECTANGLE);
+            thumb.setCornerRadius(dp(row, 4));
+            thumb.setSize(dp(row, 20), dp(row, 20));
             thumb.setColor(Color.WHITE);
             GradientDrawable track = new GradientDrawable();
-            track.setShape(GradientDrawable.RECTANGLE);
-            track.setCornerRadius(dp(row, 15));
-            track.setSize(dp(row, 48), dp(row, 28));
+            track.setCornerRadius(dp(row, 6));
+            track.setSize(dp(row, 40), dp(row, 24));
             track.setColor(Color.WHITE);
             toggle.setThumbDrawable(thumb);
             toggle.setTrackDrawable(track);
-            toggle.setSwitchMinWidth(dp(row, 48));
+            toggle.setSwitchMinWidth(dp(row, 40));
             toggle.setSplitTrack(false);
             toggle.setThumbTintList(new ColorStateList(states, new int[]{half(onAccent), half(offThumb()), onAccent, offThumb()}));
             toggle.setTrackTintList(new ColorStateList(states, new int[]{half(accent), half(switchOff), accent, switchOff}));
@@ -234,20 +234,19 @@ public final class ScreenColors {
         // Decoration: the row's title already says what it is, so a screen reader skips the icon.
         if (icon != null) icon.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
         if (icon != null && preference.getIcon() != null) {
-            int iconSize = dp(row, 24);
-            icon.setBackground(null);
-            icon.setPadding(0, 0, 0, 0);
             ViewGroup.LayoutParams imageSize = icon.getLayoutParams();
-            imageSize.width = iconSize;
-            imageSize.height = iconSize;
+            imageSize.width = dp(row, 24);
+            imageSize.height = dp(row, 24);
             icon.setLayoutParams(imageSize);
-            icon.setScaleType(ImageView.ScaleType.FIT_CENTER);
-            icon.setImageTintList(ColorStateList.valueOf(this.title));
+            icon.setPadding(0, 0, 0, 0);
+            icon.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
+            icon.setImageTintList(dimmedWhenDisabled(heading));
+            icon.setBackground(null);
             if (icon.getParent() instanceof ViewGroup) {
                 ViewGroup frame = (ViewGroup) icon.getParent();
-                frame.setPaddingRelative(0, 0, dp(row, 16), 0);
+                frame.setPaddingRelative(0, 0, dp(row, 14), 0);
                 ViewGroup.LayoutParams size = frame.getLayoutParams();
-                size.width = iconSize + dp(row, 16);
+                size.width = dp(row, 38);
                 frame.setLayoutParams(size);
             }
         }
@@ -255,7 +254,10 @@ public final class ScreenColors {
     }
 
     /**
-     * Whether [preference] is the top row of the card it sits in.
+     * Whether [preference] is the top row of the card it sits in. A section's rows share one card.
+     * On the page itself, the rows that open each category's page share one too, and Report a
+     * problem and Support HushGram join the About row they follow; every other row there is a card
+     * of its own.
      */
     static boolean opensCard(Preference preference) {
         PreferenceGroup parent = preference.getParent();
@@ -300,35 +302,49 @@ public final class ScreenColors {
     }
 
     /**
-     * Native Instagram list row presentation: edge-to-edge seamless rows with subtle touch ripple.
+     * Group boundaries follow the visible rows, including a filtered search result. The card's
+     * height is the row's: its text wraps at any font size and the row grows to fit.
      */
     void paintSurface(View row, Preference preference, boolean first, boolean last) {
-        if (preference.isSelectable()) {
-            ColorStateList rippleColor = ColorStateList.valueOf(0x18FFFFFF);
-            ColorDrawable content = new ColorDrawable(Color.TRANSPARENT);
-            RippleDrawable ripple = new RippleDrawable(rippleColor, content, new ColorDrawable(Color.WHITE));
-            row.setBackground(ripple);
-        } else {
-            row.setBackground(null);
-        }
-        int horizontal = dp(row, 16);
-        int vertical = dp(row, 13);
-        row.setPaddingRelative(horizontal, vertical, horizontal, vertical);
-        row.setMinimumHeight(dp(row, 52));
+        boolean overview = preference.getParent() instanceof PreferenceScreen;
+        float radius = overview ? 0 : dp(row, 10);
+        GradientDrawable surface = new GradientDrawable();
+        surface.setColor(card);
+        surface.setStroke(dp(row, 1), preference.isSelectable() ? interactionOutline(outline)
+                : ColorStateList.valueOf(outline));
+        surface.setCornerRadii(new float[]{
+                first ? radius : 0, first ? radius : 0,
+                first ? radius : 0, first ? radius : 0,
+                last ? radius : 0, last ? radius : 0,
+                last ? radius : 0, last ? radius : 0});
+        // Full-bleed rows push their side strokes off the screen as they do the top one, so the
+        // main page has no hairline down either edge.
+        int side = overview ? -dp(row, 1) : dp(row, 18);
+        Drawable inset = new InsetDrawable(surface, side, overview ? -dp(row, 1) : first ? dp(row, 4) : -dp(row, 1),
+                side, !overview && last ? dp(row, 4) : 0);
+        row.setBackground(preference.isSelectable()
+                ? new RippleDrawable(interactionRipple(heading), inset, null).mutate() : inset);
+        // Explicit padding after the inset background prevents its padding from moving the text.
+        int horizontal = overview ? 20 : 30;
+        int vertical = overview ? 6 : 10;
+        row.setPaddingRelative(dp(row, horizontal), dp(row, vertical + (!overview && first ? 4 : 0)),
+                dp(row, horizontal), dp(row, vertical + (!overview && last ? 4 : 0)));
+        row.setMinimumHeight(dp(row, "hushgram_view_toggle".equals(preference.getKey())
+                || "hushgram_grid_toggle".equals(preference.getKey()) ? 48
+                : "hushgram_status".equals(preference.getKey()) ? 56 : overview ? 52 : 64));
     }
 
     /** A section title. */
     void paintHeading(View row) {
-        row.setBackground(null);
         TextView title = row.findViewById(android.R.id.title);
         if (title != null) {
-            title.setTextColor(summary);
-            title.setTextSize(TypedValue.COMPLEX_UNIT_SP, 13);
-            title.setTypeface(Typeface.create("sans-serif-medium", Typeface.BOLD));
-            title.setLetterSpacing(0.04f);
+            title.setTextColor(heading);
+            title.setTextSize(TypedValue.COMPLEX_UNIT_SP, 12);
+            title.setTypeface(Typeface.create("sans-serif-medium", Typeface.NORMAL));
+            title.setLetterSpacing(0.055f);
             title.setAllCaps(true);
         }
-        row.setPaddingRelative(dp(row, 16), dp(row, 24), dp(row, 16), dp(row, 8));
+        row.setPaddingRelative(dp(row, 22), dp(row, 20), dp(row, 22), dp(row, 8));
     }
 
     /** Marks the chevron a row was given, so a recycled row's can be found and taken off. */
@@ -372,13 +388,14 @@ public final class ScreenColors {
             image.setTag(CHEVRON);
             // The row already tells a screen reader it's a button; the shape adds nothing to hear.
             image.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
-            frame.addView(image, new LinearLayout.LayoutParams(dp(row, 14), dp(row, 20)));
+            frame.addView(image, new LinearLayout.LayoutParams(dp(row, 16), dp(row, 24)));
         }
         Drawable drawn = image.getDrawable();
-        int direction = 0;
-        if (!(drawn instanceof Chevron) || ((Chevron) drawn).color != 0xFF737373
+        int direction = preference instanceof HushgramPreferenceFragment.Heading
+                ? ((HushgramPreferenceFragment.Heading) preference).expanded ? -1 : 1 : 0;
+        if (!(drawn instanceof Chevron) || ((Chevron) drawn).color != summary
                 || ((Chevron) drawn).direction != direction) {
-            image.setImageDrawable(new Chevron(0xFF737373, dp(row, 2), direction));
+            image.setImageDrawable(new Chevron(summary, dp(row, 2), direction));
         }
         image.setEnabled(preference.isEnabled());
         frame.setVisibility(View.VISIBLE);
@@ -525,8 +542,8 @@ public final class ScreenColors {
             // Centred by gravity, which a start alignment from showAllText would override.
             title.setTextAlignment(View.TEXT_ALIGNMENT_GRAVITY);
             title.setTextSize(22);
-            title.setTextColor(palette.title);
-            title.setTypeface(Typeface.create("sans-serif-medium", Typeface.BOLD));
+            ShimmerTitle.wear(title);
+            title.setTypeface(Typeface.create("sans-serif-medium", 0));
             Drawable icon = SettingsIcons.icon(row.getContext(), SettingsIcons.ABOUT, palette.heading);
             icon.setBounds(0, 0, dp(row, 56), dp(row, 56));
             title.setCompoundDrawablesRelative(null, icon, null, null);
@@ -568,9 +585,10 @@ public final class ScreenColors {
         int titleId = dialog.getContext().getResources().getIdentifier("alertTitle", "id", "android");
         TextView title = titleId == 0 ? null : dialog.findViewById(titleId);
         if (title != null) {
-            title.setTextColor(this.title);
-            title.setTextSize(TypedValue.COMPLEX_UNIT_SP, 19);
-            title.setTypeface(Typeface.create("sans-serif-medium", Typeface.BOLD));
+            // In the gradient, as every HushGram title is.
+            ShimmerTitle.wear(title);
+            title.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
+            title.setTypeface(Typeface.create("sans-serif-medium", Typeface.NORMAL));
             title.setSingleLine(false);
             title.setMaxLines(Integer.MAX_VALUE);
         }

@@ -21,7 +21,6 @@ import java.util.WeakHashMap;
 import java.util.function.BooleanSupplier;
 
 import app.hushgram.extension.instagram.settings.FamilyNames;
-import app.hushgram.extension.instagram.settings.Settings;
 import app.hushgram.extension.shared.diagnostics.HookStatus;
 
 /**
@@ -196,17 +195,6 @@ final class GlassTabSlide {
         switch (state) {
             case WATCHING:
                 if (ends || action == MotionEvent.ACTION_POINTER_DOWN || !running.getAsBoolean()) {
-                    if (ends && action == MotionEvent.ACTION_UP) {
-                        float dist = (float) Math.hypot(event.getRawX() - downX, event.getRawY() - downY);
-                        if (dist < slop) {
-                            View tab = tabAt(event.getRawX() - barLeft);
-                            if (tab != null && tab.isSelected()) {
-                                if (Settings.GLASS_TAB_BAR_HAPTICS.get()) GlassTabBar.Haptics.tick(tab, Settings.GLASS_TAB_BAR_HAPTIC_STYLE.get());
-                                if (Settings.IOS_TAB_BOUNCE.get()) GlassTabBar.bounceTabIcon(tab);
-                                if (Settings.IOS_TAB_RECLICK_SCROLL.get()) GlassTabBar.scrollToTop(bar);
-                            }
-                        }
-                    }
                     state = ends ? IDLE : REFUSED;
                     return false;
                 }
@@ -283,13 +271,7 @@ final class GlassTabSlide {
     /** Clicks the tab at [x], in the bar's pixels, unless it's already open. */
     private void open(float x) {
         View tab = tabAt(x);
-        if (tab == null) return;
-        if (tab.isSelected()) {
-            if (Settings.GLASS_TAB_BAR_HAPTICS.get()) GlassTabBar.Haptics.tick(tab, Settings.GLASS_TAB_BAR_HAPTIC_STYLE.get());
-            if (Settings.IOS_TAB_BOUNCE.get()) GlassTabBar.bounceTabIcon(tab);
-            if (Settings.IOS_TAB_RECLICK_SCROLL.get()) GlassTabBar.scrollToTop(bar);
-            return;
-        }
+        if (tab == null || tab.isSelected()) return;
         if (tab.performClick()) HookStatus.counted(FamilyNames.GLASS_TAB_BAR, COUNT_OPENED);
         else HookStatus.counted(FamilyNames.GLASS_TAB_BAR, COUNT_NO_CLICK);
     }

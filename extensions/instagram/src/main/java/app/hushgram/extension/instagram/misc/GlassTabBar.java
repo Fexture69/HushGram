@@ -680,7 +680,7 @@ public final class GlassTabBar {
     /** How long the blur rests on the plain tint after {@link #BLUR_TRIES} failed recordings in a row. */
     static final long BLUR_REST_MS = 2000;
     /** How long the capsule takes to slide to a new tab. */
-    static final long SLIDE_MS = 140;
+    static final long SLIDE_MS = 280;
     /** How long a missing shadow or content view stays unsearched before the parent is walked for it again. */
     static final long RESEARCH_MS = 500;
     /**
@@ -1295,15 +1295,8 @@ public final class GlassTabBar {
         private final ViewGroup bar;
         private final float density;
         private final boolean blurWanted;
-
-        private boolean haptics() {
-            return Settings.GLASS_TAB_BAR_HAPTICS.get();
-        }
-
-        private HapticStyle hapticStyle() {
-            return Settings.GLASS_TAB_BAR_HAPTIC_STYLE.get();
-        }
-
+        private final boolean haptics;
+        private final HapticStyle hapticStyle;
         private final GlassHeight height;
         /** How round the pill and its highlight are, outside the liquid look (#144). */
         private final GlassCorners corners;
@@ -1430,6 +1423,8 @@ public final class GlassTabBar {
             this.density = bar.getResources().getDisplayMetrics().density;
             this.blurWanted = Settings.GLASS_TAB_BAR_BLUR.get() && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S;
             this.floating = Settings.GLASS_TAB_BAR_FLOAT.get();
+            this.haptics = Settings.GLASS_TAB_BAR_HAPTICS.get();
+            this.hapticStyle = Settings.GLASS_TAB_BAR_HAPTIC_STYLE.get();
             this.height = Settings.GLASS_TAB_BAR_HEIGHT.get();
             this.corners = Settings.GLASS_TAB_BAR_CORNERS.get();
             this.lift = liftPx(Settings.GLASS_TAB_BAR_LIFT.get(), floating, density);
@@ -1437,15 +1432,14 @@ public final class GlassTabBar {
             this.liquid = Settings.GLASS_TAB_BAR_LIQUID.get();
             this.refract = liquid && Settings.GLASS_TAB_BAR_REFRACT.get();
             boolean hideOnScroll = Settings.GLASS_TAB_BAR_HIDE_ON_SCROLL.get();
-            boolean minimizeOnScroll = Settings.GLASS_TAB_BAR_MINIMIZE_ON_SCROLL.get();
             // The liquid look shrinks the bar as a list scrolls down, unless a scroll is to take it away altogether
             // or the pill is to keep its full size (#256).
-            boolean shrinkOnScroll = liquid && !hideOnScroll && !minimizeOnScroll && !Settings.GLASS_TAB_BAR_KEEP_SIZE.get();
+            boolean shrinkOnScroll = liquid && !hideOnScroll && !Settings.GLASS_TAB_BAR_KEEP_SIZE.get();
             GlassReelsHide hideOnReels = Settings.GLASS_TAB_BAR_REELS_HIDE.get();
             long reelsMillis = hideOnReels == null ? 0L : hideOnReels.millis;
-            this.scrollHide = hideOnScroll || minimizeOnScroll || shrinkOnScroll || reelsMillis > 0
-                    ? new GlassScrollHide(bar, () -> !HushgramPause.isPaused(), hideOnScroll || minimizeOnScroll || shrinkOnScroll, reelsMillis,
-                            shrinkOnScroll ? this : null, null, minimizeOnScroll) : null;
+            this.scrollHide = hideOnScroll || shrinkOnScroll || reelsMillis > 0
+                    ? new GlassScrollHide(bar, () -> !HushgramPause.isPaused(), hideOnScroll || shrinkOnScroll, reelsMillis,
+                            shrinkOnScroll ? this : null) : null;
             this.slide = Settings.GLASS_TAB_BAR_SLIDE.get()
                     ? new GlassTabSlide(bar, this, () -> !HushgramPause.isPaused()) : null;
             this.base = baseColor(bar.getBackground());
@@ -1827,7 +1821,6 @@ public final class GlassTabBar {
             // ripple is the tab's touch feedback, not a capsule, and stays.
             for (int i = 0; i < bar.getChildCount(); i++) {
                 View tab = bar.getChildAt(i);
-                tab.setHapticFeedbackEnabled(true);
                 clearBadgeRings(tab);
                 Drawable own = tab.getBackground();
                 if (own == null || touchFeedbackOnly(own)) continue;
@@ -2214,14 +2207,6 @@ public final class GlassTabBar {
                     lastSelected = selected == null ? null : new WeakReference<>(selected);
                     if (scrollHide != null) scrollHide.show();
                     bar.invalidate();
-                    if (before != null && selected != null) {
-                        if (haptics()) {
-                            Haptics.tick(selected, hapticStyle());
-                        }
-                    }
-                    if (selected != null && Settings.IOS_TAB_BOUNCE.get()) {
-                        bounceTabIcon(selected);
-                    }
                 }
             } catch (Throwable failure) {
                 // Reported, and the frame and the blur go on: neither depends on what threw (#262).
@@ -2231,7 +2216,10 @@ public final class GlassTabBar {
                 Trace.endSection();
             }
             recordUnder();
-            return true;
+            if (!layOutAgain) return true;
+            if (now - heldBackAt < HOLD_BACK_MS) return true;
+            heldBackAt = now;
+            return false;
         }
 
         /**
@@ -2398,12 +2386,6 @@ public final class GlassTabBar {
                 stroke.setColor(edge(base));
                 rect.inset(density / 2f, density / 2f);
                 canvas.drawRoundRect(rect, radius, radius, stroke);
-
-                if (Settings.IOS_TAB_HAIRLINE.get()) {
-                    stroke.setStrokeWidth(Math.max(1f, density * 0.5f));
-                    stroke.setColor(dark ? 0x28FFFFFF : 0x28000000);
-                    canvas.drawLine(0, 0, bar.getWidth(), 0, stroke);
-                }
             }
 
             /**
@@ -2454,11 +2436,6 @@ public final class GlassTabBar {
                     outline.set(circle);
                     outline.inset(half, half);
                     canvas.drawOval(outline, stroke);
-                }
-                if (Settings.IOS_TAB_HAIRLINE.get()) {
-                    stroke.setStrokeWidth(Math.max(1f, density * 0.5f));
-                    stroke.setColor(dark ? 0x28FFFFFF : 0x28000000);
-                    canvas.drawLine(0, 0, bar.getWidth(), 0, stroke);
                 }
             }
 
@@ -2529,17 +2506,13 @@ public final class GlassTabBar {
                     slideStart = now - SLIDE_MS;
                     bubbleNow = bubbleFrom = 1f;
                 } else if (Math.abs(targetLeft - toLeft) > 0.5f || Math.abs(targetRight - toRight) > 0.5f) {
+                    tickedThisSlide = false;
                     fromLeft = nowLeft;
                     fromRight = nowRight;
                     toLeft = targetLeft;
                     toRight = targetRight;
                     slideStart = slideStartAt(now);
                     bubbleFrom = bubbleNow;
-                    tickedThisSlide = true;
-                    tickedTab = bar.indexOfChild(selected);
-                    if (haptics()) {
-                        Haptics.tick(bar, hapticStyle());
-                    }
                 }
                 float progress = slideProgress(now - slideStart);
                 boolean bubble = liquidNow() && share > 0f;
@@ -2548,9 +2521,7 @@ public final class GlassTabBar {
                 nowLeft = fromLeft + (toLeft - fromLeft) * progress;
                 nowRight = fromRight + (toRight - fromRight) * progress;
                 capsule.set(nowLeft, within.top + inset, nowRight, within.bottom - inset);
-                if (!Float.isNaN(dragX)) {
-                    tick((nowLeft + nowRight) / 2f);
-                }
+                tick((nowLeft + nowRight) / 2f);
                 int color = highlight(base);
                 if (share < 1f) color = (color & 0x00ffffff) | (scaledAlpha(Color.alpha(color), Math.max(0f, share)) << 24);
                 fill.setColor(color);
@@ -2654,9 +2625,9 @@ public final class GlassTabBar {
                 if (over < 0 || over == tickedTab) return;
                 boolean first = tickedTab < 0;
                 tickedTab = over;
-                if (!first && haptics() && !tickedThisSlide) {
+                if (!first && haptics && !tickedThisSlide) {
                     tickedThisSlide = true;
-                    Haptics.tick(bar, hapticStyle());
+                    Haptics.tick(bar, hapticStyle);
                 }
             }
 
@@ -2989,7 +2960,7 @@ public final class GlassTabBar {
         if (elapsed <= 0) return 0f;
         float t = elapsed / (float) SLIDE_MS;
         float rest = 1f - t;
-        return 1f - rest * rest * rest * rest;
+        return 1f - rest * rest * rest;
     }
 
     /** How much larger the liquid look's bubble is while it moves between tabs, and under a finger (#289). */
@@ -3052,14 +3023,15 @@ public final class GlassTabBar {
      */
     static final class Haptics {
         /** How much of the phone's tick primitive the light tick plays. */
-        static final float SOFT_SCALE = 0.35f;
+        static final float SOFT_SCALE = 0.45f;
         /** The short pulse: how long, and how hard of 255. */
-        static final int SHORT_MS = 6;
-        static final int SHORT_AMPLITUDE = 160;
-        static final long MIN_TICK_GAP_MS = 25;
+        static final int SHORT_MS = 4;
+        static final int SHORT_AMPLITUDE = 170;
+        static final long MIN_TICK_GAP_MS = 35;
 
+        private static Handler handler;
         private static long lastTick;
-        @Nullable private static android.os.Vibrator cachedVibrator;
+        private static int primitives = -1;
 
         private Haptics() {
         }
@@ -3074,186 +3046,70 @@ public final class GlassTabBar {
                 long now = android.os.SystemClock.uptimeMillis();
                 if (!farEnough(now, lastTick)) return;
                 lastTick = now;
-                Context context = view.getContext();
-                play(view, context, style);
+                if (style == HapticStyle.SYSTEM && Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
+                    view.performHapticFeedback(HapticFeedbackConstants.CLOCK_TICK);
+                    return;
+                }
+                Context context = view.getContext().getApplicationContext();
+                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU && style != HapticStyle.SHORT
+                        && style != HapticStyle.SYSTEM) {
+                    view.performHapticFeedback(style == HapticStyle.FULL ? HapticFeedbackConstants.CLOCK_TICK
+                            : HapticFeedbackConstants.TEXT_HANDLE_MOVE);
+                    return;
+                }
+                handler().post(() -> play(context, style));
             } catch (Throwable failure) {
                 diagnose("haptic failed", failure);
             }
         }
 
-        private static android.os.Vibrator vibrator(Context context) {
-            if (cachedVibrator == null) {
-                cachedVibrator = Build.VERSION.SDK_INT >= Build.VERSION_CODES.S
+        private static void play(Context context, HapticStyle style) {
+            try {
+                android.os.Vibrator vibrator = Build.VERSION.SDK_INT >= Build.VERSION_CODES.S
                         ? context.getSystemService(android.os.VibratorManager.class).getDefaultVibrator()
                         : (android.os.Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
-            }
-            return cachedVibrator;
-        }
-
-        private static void play(View view, Context context, HapticStyle style) {
-            try {
-                view.setHapticFeedbackEnabled(true);
-                int flags = HapticFeedbackConstants.FLAG_IGNORE_VIEW_SETTING;
-
-                if (style == HapticStyle.SYSTEM) {
-                    boolean played = false;
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
-                        played = view.performHapticFeedback(HapticFeedbackConstants.SEGMENT_TICK, flags);
+                if (vibrator == null || !vibrator.hasVibrator()) return;
+                android.os.VibrationEffect effect = null;
+                // Before Android 10 the system tick never gets here: tick() plays it through the view.
+                if (style == HapticStyle.SYSTEM && Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                    effect = android.os.VibrationEffect.createPredefined(android.os.VibrationEffect.EFFECT_CLICK);
+                } else if (style == HapticStyle.SHORT && vibrator.hasAmplitudeControl()) {
+                    effect = android.os.VibrationEffect.createOneShot(SHORT_MS, SHORT_AMPLITUDE);
+                } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                    if (primitives < 0) {
+                        primitives = vibrator.areAllPrimitivesSupported(
+                                android.os.VibrationEffect.Composition.PRIMITIVE_TICK) ? 1 : 0;
                     }
-                    if (!played) {
-                        played = view.performHapticFeedback(HapticFeedbackConstants.KEYBOARD_TAP, flags);
-                    }
-                    if (played) return;
-                } else if (style == HapticStyle.SOFT) {
-                    boolean played = false;
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
-                        played = view.performHapticFeedback(HapticFeedbackConstants.SEGMENT_FREQUENT_TICK, flags);
-                    }
-                    if (!played) {
-                        played = view.performHapticFeedback(HapticFeedbackConstants.CLOCK_TICK, flags);
-                    }
-                    if (!played) {
-                        played = view.performHapticFeedback(HapticFeedbackConstants.TEXT_HANDLE_MOVE, flags);
-                    }
-                    if (played) return;
-                } else if (style == HapticStyle.FULL) {
-                    boolean played = false;
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-                        played = view.performHapticFeedback(HapticFeedbackConstants.CONFIRM, flags);
-                    }
-                    if (!played) {
-                        played = view.performHapticFeedback(HapticFeedbackConstants.LONG_PRESS, flags);
-                    }
-                    if (played) return;
-                }
-
-                android.os.Vibrator vibrator = vibrator(context);
-                if (vibrator != null && vibrator.hasVibrator()) {
-                    android.os.VibrationEffect effect = null;
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-                        int primitive = (style == HapticStyle.SOFT)
-                                ? android.os.VibrationEffect.Composition.PRIMITIVE_TICK
-                                : android.os.VibrationEffect.Composition.PRIMITIVE_CLICK;
-                        if (vibrator.areAllPrimitivesSupported(primitive)) {
-                            float scale = (style == HapticStyle.FULL) ? 0.90f
-                                    : (style == HapticStyle.SOFT) ? SOFT_SCALE
-                                    : 0.50f;
-                            effect = android.os.VibrationEffect.startComposition()
-                                    .addPrimitive(primitive, scale)
-                                    .compose();
-                        }
-                    }
-
-                    if (effect == null && vibrator.hasAmplitudeControl()) {
-                        int ms = (style == HapticStyle.SHORT) ? SHORT_MS : (style == HapticStyle.SOFT) ? 4 : 8;
-                        int amp = (style == HapticStyle.FULL) ? 200
-                                : (style == HapticStyle.SOFT) ? 50
-                                : SHORT_AMPLITUDE;
-                        effect = android.os.VibrationEffect.createOneShot(ms, amp);
-                    }
-
-                    if (effect != null) {
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                            vibrator.vibrate(effect, android.os.VibrationAttributes.createForUsage(
-                                    android.os.VibrationAttributes.USAGE_TOUCH));
-                        } else {
-                            vibrator.vibrate(effect);
-                        }
-                        return;
+                    if (primitives == 1) {
+                        effect = android.os.VibrationEffect.startComposition().addPrimitive(
+                                android.os.VibrationEffect.Composition.PRIMITIVE_TICK,
+                                style == HapticStyle.FULL ? 1f : SOFT_SCALE).compose();
                     }
                 }
-
-                view.performHapticFeedback(HapticFeedbackConstants.KEYBOARD_TAP, flags);
+                // Android 9 has no predefined effects, so a motor without amplitude control gets the short pulse.
+                if (effect == null) {
+                    effect = Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q
+                            ? android.os.VibrationEffect.createPredefined(android.os.VibrationEffect.EFFECT_TICK)
+                            : android.os.VibrationEffect.createOneShot(SHORT_MS, android.os.VibrationEffect.DEFAULT_AMPLITUDE);
+                }
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                    vibrator.vibrate(effect, android.os.VibrationAttributes.createForUsage(
+                            android.os.VibrationAttributes.USAGE_TOUCH));
+                } else {
+                    vibrator.vibrate(effect);
+                }
             } catch (Throwable failure) {
-                try {
-                    view.performHapticFeedback(HapticFeedbackConstants.KEYBOARD_TAP,
-                            HapticFeedbackConstants.FLAG_IGNORE_VIEW_SETTING);
-                } catch (Throwable ignored) {}
+                diagnose("haptic failed", failure);
             }
         }
-    }
 
-    /**
-     * iOS-style spring bounce micro-interaction on tab icons when selected.
-     */
-    public static void bounceTabIcon(@Nullable View tab) {
-        if (tab == null) return;
-        View target = tab;
-        if (tab instanceof ViewGroup) {
-            ViewGroup vg = (ViewGroup) tab;
-            for (int i = 0; i < vg.getChildCount(); i++) {
-                View child = vg.getChildAt(i);
-                if (child instanceof android.widget.ImageView || child.getVisibility() == View.VISIBLE) {
-                    target = child;
-                    break;
-                }
+        private static synchronized Handler handler() {
+            if (handler == null) {
+                android.os.HandlerThread thread = new android.os.HandlerThread("hushgram-haptics");
+                thread.start();
+                handler = new Handler(thread.getLooper());
             }
+            return handler;
         }
-        target.animate().cancel();
-        target.setScaleX(0.94f);
-        target.setScaleY(0.94f);
-        target.animate()
-                .scaleX(1.0f)
-                .scaleY(1.0f)
-                .setDuration(120)
-                .setInterpolator(new DecelerateInterpolator())
-                .start();
-    }
-
-    /**
-     * Smoothly scrolls the active screen list/feed to the top when the active tab is re-tapped.
-     */
-    public static void scrollToTop(@Nullable View bar) {
-        if (bar == null) return;
-        Activity activity = activityOf(bar.getContext());
-        if (activity == null) return;
-        View decor = activity.getWindow().getDecorView();
-        View scrollable = findFirstScrollable(decor);
-        if (scrollable == null) return;
-        if (scrollable instanceof android.widget.AbsListView) {
-            ((android.widget.AbsListView) scrollable).smoothScrollToPosition(0);
-        } else if (scrollable instanceof android.widget.ScrollView) {
-            ((android.widget.ScrollView) scrollable).smoothScrollTo(0, 0);
-        } else {
-            try {
-                java.lang.reflect.Method method = scrollable.getClass().getMethod("smoothScrollToPosition", int.class);
-                method.invoke(scrollable, 0);
-            } catch (Throwable ignored) {
-            }
-        }
-    }
-
-    @Nullable
-    private static View findFirstScrollable(@Nullable View view) {
-        if (view == null || view.getVisibility() != View.VISIBLE) return null;
-        if (view instanceof android.widget.AbsListView
-                || view instanceof android.widget.ScrollView
-                || isRecyclerView(view)) {
-            return view;
-        }
-        if (view instanceof ViewGroup) {
-            ViewGroup group = (ViewGroup) view;
-            for (int i = 0; i < group.getChildCount(); i++) {
-                View found = findFirstScrollable(group.getChildAt(i));
-                if (found != null) return found;
-            }
-        }
-        return null;
-    }
-
-    private static boolean isRecyclerView(View view) {
-        for (Class<?> at = view.getClass(); at != null; at = at.getSuperclass()) {
-            if ("androidx.recyclerview.widget.RecyclerView".equals(at.getName())) return true;
-        }
-        return false;
-    }
-
-    @Nullable
-    static Activity activityOf(@Nullable Context context) {
-        while (context instanceof ContextWrapper) {
-            if (context instanceof Activity) return (Activity) context;
-            context = ((ContextWrapper) context).getBaseContext();
-        }
-        return null;
     }
 }
