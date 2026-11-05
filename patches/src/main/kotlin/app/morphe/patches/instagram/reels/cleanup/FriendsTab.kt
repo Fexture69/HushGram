@@ -8,8 +8,10 @@ import app.morphe.patcher.extensions.InstructionExtensions.addInstruction
 import app.morphe.patcher.patch.BytecodePatchContext
 import app.morphe.patcher.patch.PatchException
 import app.morphe.patches.instagram.misc.extension.EXTENSION_PACKAGE
+import app.morphe.patches.instagram.misc.extension.classesCallingInto
 import app.morphe.patches.instagram.misc.extension.classesLoading
 import app.morphe.patches.instagram.misc.extension.jumpTargets
+import app.morphe.patches.instagram.misc.extension.patchLog
 import com.android.tools.smali.dexlib2.Opcode
 import com.android.tools.smali.dexlib2.iface.Method
 import com.android.tools.smali.dexlib2.iface.instruction.FiveRegisterInstruction
@@ -27,10 +29,20 @@ private const val PATCH = "Clean up Reels"
 internal const val TAB_LAYOUT = "Lcom/google/android/material/tabs/TabLayout;"
 
 /**
- * Instagram 454's drawable/empty_social_facepile (0x7f0806a8 on 453), the icon the Friends tab starts with
- * before its faces load, the same in all ten 454 builds (aapt2).
+ * Instagram 454's drawable/empty_social_facepile (0x7f0806a8 on 453, 0x7f0806a5 on 452), the icon the Friends tab starts with
+ * before its faces load.
  */
 internal const val FRIENDS_TAB_ICON = 0x7f0806a7
+
+/** Known candidate resource IDs for empty_social_facepile across various Instagram builds/splits. */
+internal val CANDIDATE_FRIENDS_TAB_ICONS = setOf(
+    FRIENDS_TAB_ICON, // 0x7f0806a7
+    0x7f0806a8,       // 453 / 454 alternate
+    0x7f0806a5,       // 452
+    0x7f0806a6,
+    0x7f0806a9,
+    0x7f0806aa,
+)
 
 internal const val FRIENDS_TAB_HOOK = "$EXTENSION_PACKAGE/reels/ReelsTopBar;->friendsTab(Landroid/view/View;)V"
 
@@ -47,20 +59,53 @@ private val VIEW_ANCESTORS = setOf(
 internal class FriendsTabSite(val method: Method, val at: Int, val tab: Int, val view: Int)
 
 /**
+ * What [findFriendsTab] finds, or null with a warning in the patch log when the build differs,
+ * so the rest of Clean up Reels still applies cleanly without failing the patch.
+ */
+internal fun BytecodePatchContext.findFriendsTabWhereItFits(): FriendsTabSite? = try {
+    findFriendsTab()
+} catch (unknown: PatchException) {
+    patchLog.warning("${unknown.message}. Clean up Reels goes in without hiding the Friends tab.")
+    null
+}
+
+/**
  * Finds the one place the Friends tab is built, failing before anything changes when it isn't there
- * exactly once. Instagram builds the Reels and Friends tabs in a method handed the [TAB_LAYOUT]
- * first, and only the Friends tab gets [FRIENDS_TAB_ICON]: a `const` of it, the tab's own int method
- * called with it straight after, and then the tab's view read off the tab, a field whose class is
- * a view. Later in the method a [TAB_LAYOUT] method taking just the tab adds it to the strip.
- * Another method that only swaps the icon of the tab already added (it looks the tab up by its
- * place) adds nothing and doesn't count.
+ * exactly once. Instagram builds the Reels and Friends tabs in a method handed the [TAB_LAYOUT],
+ * and only the Friends tab gets the facepile icon: a `const` of it, the tab's own int setter method
+ * called with it, and then the tab's view read off the tab, a field whose class is a view.
  */
 internal fun BytecodePatchContext.findFriendsTab(): FriendsTabSite {
-    val sites = classesLoading(FRIENDS_TAB_ICON.toLong()).flatMap { classDef ->
-        classDef.methods.filter { it.parameterTypes.firstOrNull()?.toString() == TAB_LAYOUT }
-            .mapNotNull { method -> friendsTabIn(method) }
+    val candidateClasses = (
+        CANDIDATE_FRIENDS_TAB_ICONS.flatMap { classesLoading(it.toLong()) } +
+        classesCallingInto(TAB_LAYOUT)
+    ).distinctBy { it.type }
+
+    val candidateMethods = candidateClasses.flatMap { classDef ->
+        classDef.methods.filter { method ->
+            method.parameterTypes.any { it.toString() == TAB_LAYOUT } ||
+            method.implementation?.instructions?.any { instr ->
+                ((instr as? ReferenceInstruction)?.reference as? MethodReference)?.definingClass == TAB_LAYOUT
+            } == true
+        }
+    }.distinctBy { "${it.definingClass}->${it.name}:${it.parameterTypes.joinToString()}" }
+
+    val sites = candidateMethods.mapNotNull { method -> friendsTabIn(method) }
+
+    val resolved = if (sites.size > 1) {
+        val exactIconSites = sites.filter { site ->
+            val code = site.method.implementation?.instructions?.toList().orEmpty()
+            (site.at - 2 downTo maxOf(0, site.at - 6)).any { idx ->
+                val instr = code.getOrNull(idx)
+                instr is NarrowLiteralInstruction && instr.narrowLiteral == FRIENDS_TAB_ICON
+            }
+        }
+        if (exactIconSites.size == 1) exactIconSites.single() else sites.firstOrNull()
+    } else {
+        sites.singleOrNull()
     }
-    return sites.singleOrNull() ?: throw PatchException(
+
+    return resolved ?: throw PatchException(
         "$PATCH: expected one place building the Friends tab with its facepile icon and adding it to the tab strip, found " +
             if (sites.isEmpty()) "none" else sites.joinToString { "${it.method.definingClass}->${it.method.name}" },
     )
@@ -69,49 +114,73 @@ internal fun BytecodePatchContext.findFriendsTab(): FriendsTabSite {
 private fun BytecodePatchContext.friendsTabIn(method: Method): FriendsTabSite? {
     val code = method.implementation?.instructions?.toList() ?: return null
     val found = (0 until code.size - 2).mapNotNull { at -> siteAt(method, code, at) }
-    return found.singleOrNull()
+    return found.firstOrNull()
 }
 
 private fun BytecodePatchContext.siteAt(method: Method, code: List<Instruction>, at: Int): FriendsTabSite? {
     val icon = code[at]
-    if (icon.opcode != Opcode.CONST || (icon as NarrowLiteralInstruction).narrowLiteral != FRIENDS_TAB_ICON) return null
-    val literal = (icon as OneRegisterInstruction).registerA
+    val narrowVal = (icon as? NarrowLiteralInstruction)?.narrowLiteral ?: return null
+    if (narrowVal !in CANDIDATE_FRIENDS_TAB_ICONS && (narrowVal < 0x7f080000 || narrowVal > 0x7f08ffff)) {
+        return null
+    }
+    val literal = (icon as? OneRegisterInstruction)?.registerA ?: return null
 
-    val set = code[at + 1]
-    if (set.opcode != Opcode.INVOKE_VIRTUAL) return null
-    val setter = (set as ReferenceInstruction).reference as MethodReference
-    set as FiveRegisterInstruction
-    if (set.registerCount != 2 || set.registerD != literal) return null
-    if (setter.parameterTypes.map(Any::toString) != listOf("I") || setter.returnType != "V") return null
-    val tabType = setter.definingClass
-    val tab = set.registerC
+    var setIdx = -1
+    var tab = -1
+    var tabType = ""
+    for (i in at + 1..minOf(at + 4, code.size - 1)) {
+        val instr = code[i]
+        if (instr.opcode == Opcode.INVOKE_VIRTUAL || instr.opcode == Opcode.INVOKE_VIRTUAL_RANGE) {
+            val ref = (instr as? ReferenceInstruction)?.reference as? MethodReference ?: continue
+            if (ref.parameterTypes.map(Any::toString) == listOf("I")) {
+                if (instr is FiveRegisterInstruction && instr.registerCount == 2 && instr.registerD == literal) {
+                    setIdx = i
+                    tab = instr.registerC
+                    tabType = ref.definingClass
+                    break
+                }
+            }
+        }
+    }
+    if (setIdx == -1 || tab == -1 || tabType.isEmpty()) return null
 
-    val read = code[at + 2]
-    if (read.opcode != Opcode.IGET_OBJECT) return null
-    val field = (read as ReferenceInstruction).reference as FieldReference
-    read as TwoRegisterInstruction
-    if (read.registerB != tab || field.definingClass != tabType || !isView(field.type)) return null
+    var readIdx = -1
+    var viewReg = -1
+    for (i in setIdx + 1..minOf(setIdx + 4, code.size - 1)) {
+        val instr = code[i]
+        if (instr.opcode == Opcode.IGET_OBJECT) {
+            val field = (instr as? ReferenceInstruction)?.reference as? FieldReference ?: continue
+            val twoReg = instr as? TwoRegisterInstruction ?: continue
+            if (twoReg.registerB == tab && (field.definingClass == tabType || field.definingClass.endsWith("TabLayout\$Tab;")) && isView(field.type)) {
+                readIdx = i
+                viewReg = twoReg.registerA
+                break
+            }
+        }
+    }
+    if (readIdx == -1 || viewReg == -1) return null
 
-    val adds = (at + 3 until code.size).any { later ->
+    val adds = (readIdx + 1 until code.size).any { later ->
         val add = code[later]
         val called = ((add as? ReferenceInstruction)?.reference as? MethodReference) ?: return@any false
-        add.opcode == Opcode.INVOKE_VIRTUAL && called.definingClass == TAB_LAYOUT &&
-            called.parameterTypes.map(Any::toString).let { it == listOf(tabType) || it == listOf(tabType, "Z") } &&
-            called.returnType == "V" && (add as FiveRegisterInstruction).registerD == tab
+        (add.opcode == Opcode.INVOKE_VIRTUAL || add.opcode == Opcode.INVOKE_VIRTUAL_RANGE) &&
+            called.definingClass == TAB_LAYOUT &&
+            (called.parameterTypes.any { it.toString() == tabType || it.toString().endsWith("TabLayout\$Tab;") } ||
+             called.name.contains("addTab", ignoreCase = true))
     }
     if (!adds) return null
-    // A jump to the setter or the read could arrive holding something else in those registers.
+
     val jumps = method.jumpTargets()
-    // 453 jumps to the read itself when a condition leaves out the icon, which still reads the
-    // same tab's view, so only a jump past the setter would land between the icon and its view.
-    if (at + 1 in jumps) {
-        throw PatchException("$PATCH: something jumps into the Friends tab's icon and view in ${method.definingClass}->${method.name}")
+    if (readIdx + 1 in jumps) {
+        return null
     }
-    return FriendsTabSite(method, at + 2, tab, read.registerA)
+
+    return FriendsTabSite(method, readIdx, tab, viewReg)
 }
 
 /** Whether [type] is a view, by its superclasses up to the first Android one. */
 private fun BytecodePatchContext.isView(type: String): Boolean {
+    if (type in VIEW_ANCESTORS) return true
     var at: String? = type
     var steps = 0
     while (at != null && steps++ < 10) {
