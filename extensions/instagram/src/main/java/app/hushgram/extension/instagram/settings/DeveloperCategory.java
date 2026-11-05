@@ -155,6 +155,17 @@ final class DeveloperCategory {
                 });
                 developer.addPreference(mark(restoreOverrides, SettingsIcons.CODE));
 
+                Row discardOverrides = new Row(context);
+                discardOverrides.setKey("hushgram_discard_overrides");
+                discardOverrides.setPersistent(false);
+                discardOverrides.setTitle(L10n.t("Discard saved overrides"));
+                discardOverrides.setSummary(L10n.t("Forgets the saved overrides from an earlier import or reset, unblocking new imports."));
+                discardOverrides.setOnPreferenceClickListener(row -> {
+                    page.exchangeOverrides(null, HushgramPreferenceFragment.DISCARD_OVERRIDES);
+                    return true;
+                });
+                developer.addPreference(mark(discardOverrides, SettingsIcons.CODE));
+
                 Row resetOverrides = new Row(context);
                 resetOverrides.setKey("hushgram_reset_overrides");
                 resetOverrides.setPersistent(false);

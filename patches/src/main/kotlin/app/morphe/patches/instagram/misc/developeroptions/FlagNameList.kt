@@ -99,7 +99,8 @@ internal fun BytecodePatchContext.findFlagNameList(): FlagNameList {
     val candidates = (classesAccessing(entry.type, roles.name.name, Opcode.IGET_OBJECT) + classesCallingInto(entry.type)).distinctBy { it.type }
     candidates.forEach { clazz ->
         clazz.methods.filterTo(builders) { method ->
-            AccessFlags.STATIC.isSet(method.accessFlags) && method.parameterTypes.isEmpty() && method.returnType == LIST &&
+            AccessFlags.STATIC.isSet(method.accessFlags) &&
+                (method.parameterTypes.isEmpty() && method.returnType == LIST || method.parameterTypes.map(Any::toString) == listOf(entry.type)) &&
                 method.code().any { it.opcode == Opcode.INVOKE_DIRECT && it.method()?.isRow() == true }
         }
     }

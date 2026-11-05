@@ -258,7 +258,7 @@ public final class HushgramPreferenceFragment extends AbstractPreferenceFragment
     static final int EXPORT_OVERRIDES = 0x4849;
     static final int IMPORT_OVERRIDES = 0x484b;
     static final int IMPORT_FLAG_NAMES = 0x484c;
-    static final int RESTORE_OVERRIDES = 0, RESET_OVERRIDES = -2, REMOVE_FLAG_NAMES = -3;
+    static final int RESTORE_OVERRIDES = 0, RESET_OVERRIDES = -2, REMOVE_FLAG_NAMES = -3, DISCARD_OVERRIDES = -4;
     private static final int PICK_FONT = 0x484d;
     private static final int PICK_STORY_FONT = 0x484e;
     private static final int PICK_STORY_EMOJI = 0x484f;
@@ -2373,6 +2373,11 @@ public final class HushgramPreferenceFragment extends AbstractPreferenceFragment
                     showOverrideResult(overrideOutcome(OverrideImport.restore(activity), true));
                 } else if (request == RESET_OVERRIDES) {
                     showOverrideResult(resetOutcome(OverrideImport.reset(activity)));
+                } else if (request == DISCARD_OVERRIDES) {
+                    boolean discarded = OverrideImport.discard(activity);
+                    showOverrideResult(discarded
+                            ? L10n.t("Saved overrides discarded. You can now import overrides.")
+                            : L10n.t("No saved overrides to discard."));
                 } else if (request == IMPORT_OVERRIDES) {
                     byte[] bytes;
                     try (InputStream input = context.getContentResolver().openInputStream(uri)) {
@@ -2412,6 +2417,8 @@ public final class HushgramPreferenceFragment extends AbstractPreferenceFragment
                         ? L10n.t("Couldn't restore overrides. Open settings from Home while signed in. Nothing changed.")
                         : request == RESET_OVERRIDES
                         ? L10n.t("Couldn't reset overrides. Open settings from Home while signed in. Nothing changed.")
+                        : request == DISCARD_OVERRIDES
+                        ? L10n.t("Couldn't discard overrides. Open settings from Home while signed in.")
                         : request == IMPORT_OVERRIDES
                         ? L10n.t("Couldn't import overrides. Check the file and open settings from Home while signed in. Nothing changed.")
                         : L10n.t("Couldn't export overrides. The selected file may be incomplete. Instagram's "

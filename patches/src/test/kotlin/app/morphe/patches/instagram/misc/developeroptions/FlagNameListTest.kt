@@ -197,7 +197,7 @@ class FlagNameListTest {
                     val code = method.implementation?.instructions?.toList().orEmpty()
                     code.any { (it.reference() as? StringReference)?.string in setOf(NAME_LOADER, NAME_FAILURE) } ||
                         code.any { (it.reference() as? MethodReference)?.isRecord() == true } ||
-                        (AccessFlags.STATIC.isSet(method.accessFlags) && method.parameterTypes.isEmpty() && method.returnType == "Ljava/util/List;" &&
+                        (AccessFlags.STATIC.isSet(method.accessFlags) &&
                             code.any { it.opcode == Opcode.INVOKE_DIRECT && (it.reference() as? MethodReference)?.isRowConstructor() == true })
                 }
                 if (!wanted) continue
