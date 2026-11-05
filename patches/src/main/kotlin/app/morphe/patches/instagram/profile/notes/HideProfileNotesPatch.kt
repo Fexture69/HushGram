@@ -10,6 +10,7 @@ import app.morphe.patcher.patch.bytecodePatch
 import app.morphe.patches.instagram.misc.extension.EXTENSION_PACKAGE
 import app.morphe.patches.instagram.misc.extension.enableStatus
 import app.morphe.patches.instagram.misc.extension.instagramExtensionPatch
+import app.morphe.patches.instagram.misc.extension.patchLog
 import app.morphe.patches.instagram.misc.extension.requireStatusMethod
 import app.morphe.patches.instagram.misc.flags.FlagLoad
 import app.morphe.patches.instagram.misc.flags.answerFlagLoads
@@ -81,12 +82,21 @@ val hideProfileNotesPatch = bytecodePatch(
 
     execute {
         requireStatusMethod("profileNotes")
-        hideProfileNotes()
-        enableStatus("profileNotes")
+        if (hideProfileNotesWhereItFits()) {
+            enableStatus("profileNotes")
+        }
     }
 }
 
 private fun refuse(detail: String): Nothing = throw PatchException("$PATCH: $detail")
+
+internal fun BytecodePatchContext.hideProfileNotesWhereItFits(): Boolean = try {
+    hideProfileNotes()
+    true
+} catch (unknown: PatchException) {
+    patchLog.warning("$PATCH: not applied on this build (${unknown.message})")
+    false
+}
 
 /**
  * Finds the Notes reads with [findProfileNotes] and the prompt's with [findNotesPrompt], and has the

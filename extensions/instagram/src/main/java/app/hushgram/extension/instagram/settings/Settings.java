@@ -1522,6 +1522,13 @@ public class Settings extends BaseSettings {
             new BooleanSetting("hushgram_glass_tab_bar_hide_on_scroll", FALSE, true);
 
     /**
+     * Under {@link #GLASS_TAB_BAR}: reduces the size of the tab bar while scrolling down,
+     * keeping it docked and visible like iOS Instagram. Off to start.
+     */
+    public static final BooleanSetting GLASS_TAB_BAR_MINIMIZE_ON_SCROLL =
+            new BooleanSetting("hushgram_glass_tab_bar_minimize_on_scroll", FALSE, true, parent(GLASS_TAB_BAR));
+
+    /**
      * A finger put on the tab bar and slid sideways carries a highlight, and lifting it opens the tab under
      * it ({@link app.hushgram.extension.instagram.misc.GlassTabSlide}, #136). On the glass pill or, with
      * {@link #GLASS_TAB_BAR} off, on Instagram's own bar (#201), so it isn't under the glass switch. Taps
@@ -1657,6 +1664,24 @@ public class Settings extends BaseSettings {
     public static final EnumSetting<app.hushgram.extension.instagram.misc.GlassReelsHide> GLASS_TAB_BAR_REELS_HIDE =
             new EnumSetting<>("hushgram_glass_tab_bar_reels_hide",
                     app.hushgram.extension.instagram.misc.GlassReelsHide.NEVER, true, parent(GLASS_TAB_BAR));
+
+    /**
+     * Under {@link #GLASS_TAB_BAR}: subtle iOS-style spring bounce animation on tab icons when tapped.
+     */
+    public static final BooleanSetting IOS_TAB_BOUNCE =
+            new BooleanSetting("hushgram_ios_tab_bounce", TRUE, false, parent(GLASS_TAB_BAR));
+
+    /**
+     * Under {@link #GLASS_TAB_BAR}: subtle translucent 0.5dp top border on the tab bar matching iOS navigation styling.
+     */
+    public static final BooleanSetting IOS_TAB_HAIRLINE =
+            new BooleanSetting("hushgram_ios_tab_hairline", TRUE, false, parent(GLASS_TAB_BAR));
+
+    /**
+     * Under {@link #GLASS_TAB_BAR}: tapping the currently active tab scrolls the current feed or list to the top.
+     */
+    public static final BooleanSetting IOS_TAB_RECLICK_SCROLL =
+            new BooleanSetting("hushgram_ios_tab_reclick_scroll", TRUE, false, parent(GLASS_TAB_BAR));
 
     /**
      * Your own profile's tabs get one more, a bookmark, that opens Saved
@@ -3362,6 +3387,6 @@ public class Settings extends BaseSettings {
      * switch: a pause doesn't bring the notice back, and a settings backup leaves it out.
      */
     public static final BooleanSetting SIGN_IN_NOTICE_HIDDEN =
-            new BooleanSetting("hushgram_sign_in_notice_hidden", FALSE, false, false);
+            new BooleanSetting("hushgram_sign_in_notice_hidden", TRUE, false, false);
 
 }

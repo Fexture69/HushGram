@@ -18,6 +18,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.TypedValue;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,6 +32,10 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.window.BackEvent;
+import android.window.OnBackAnimationCallback;
+import android.window.OnBackInvokedCallback;
+import android.window.OnBackInvokedDispatcher;
 
 import app.hushgram.extension.instagram.direct.MessagesLock;
 import app.hushgram.extension.shared.L10n;
@@ -60,6 +65,7 @@ public final class SettingsDialog extends DialogFragment {
     private Button retry;
     private TextView heading;
     private TextView restart;
+    ModernSettingsView modernView;
     /** The lock's checks on this dialog's window while it's started. */
     private Window lockWindow;
     private ViewTreeObserver.OnPreDrawListener lockDraw;
@@ -104,8 +110,6 @@ public final class SettingsDialog extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         Dialog dialog = new Dialog(getActivity(), getTheme()) {
-            // Back clears an active search before dismissing settings. Android 13 and up
-            // route the gesture here too, through the dialog's own back callback.
             @Override
             @SuppressWarnings("deprecation")
             public void onBackPressed() {
@@ -115,14 +119,18 @@ public final class SettingsDialog extends DialogFragment {
         };
         Window window = dialog.getWindow();
         if (window != null) {
+            window.setWindowAnimations(android.R.style.Animation_Activity);
             window.setBackgroundDrawable(new android.graphics.drawable.ColorDrawable(ScreenColors.current().background));
             window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-            // With three-button navigation Android lays a grey scrim under the buttons; the
-            // screen is black edge to edge, so the scrim only shows as a grey band. Android 9 has
-            // no scrim to turn off.
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) window.setNavigationBarContrastEnforced(false);
             window.setSoftInputMode(android.view.WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
         }
+        dialog.setOnKeyListener((d, keyCode, event) -> {
+            if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_UP) {
+                if (closeCategory()) return true;
+            }
+            return false;
+        });
         return dialog;
     }
 
@@ -156,19 +164,19 @@ public final class SettingsDialog extends DialogFragment {
         bar.setOrientation(LinearLayout.HORIZONTAL);
         bar.setGravity(Gravity.CENTER_VERTICAL);
         // Start and end, not left and right: in a right-to-left language the bar is mirrored.
-        bar.setPaddingRelative(dp(4), dp(4), dp(18), dp(4));
+        bar.setPaddingRelative(dp(4), dp(2), dp(16), dp(2));
 
         ImageButton back = new ImageButton(getContext());
         android.graphics.drawable.Drawable arrow = SettingsIcons.icon(getContext(), SettingsIcons.BACK, palette.title);
         arrow.setBounds(0, 0, dp(24), dp(24));
         arrow.setLayoutDirection(rightToLeft() ? View.LAYOUT_DIRECTION_RTL : View.LAYOUT_DIRECTION_LTR);
         back.setImageDrawable(arrow);
-        back.setPadding(dp(12), dp(12), dp(12), dp(12));
+        back.setPadding(dp(10), dp(10), dp(10), dp(10));
         back.setBackground(new android.graphics.drawable.RippleDrawable(
-                android.content.res.ColorStateList.valueOf(ScreenColors.half(palette.heading)), null,
+                android.content.res.ColorStateList.valueOf(0x22FFFFFF), null,
                 new android.graphics.drawable.ColorDrawable(Color.WHITE)));
-        back.setMinimumWidth(dp(48));
-        back.setMinimumHeight(dp(48));
+        back.setMinimumWidth(dp(44));
+        back.setMinimumHeight(dp(44));
         back.setContentDescription(L10n.t(getContext(), "Back"));
         // A screen reader calls it a button, as it would the back arrow of any other screen.
         back.setAccessibilityDelegate(new View.AccessibilityDelegate() {
@@ -183,20 +191,24 @@ public final class SettingsDialog extends DialogFragment {
             SettingsEntry.onClosedByUser();
             dismissAllowingStateLoss();
         });
-        bar.addView(back, new LinearLayout.LayoutParams(dp(48), dp(48)));
+        bar.addView(back, new LinearLayout.LayoutParams(dp(44), dp(44)));
 
         TextView title = new TextView(getContext());
         heading = title;
-        title.setText("HushGram");
-        ShimmerTitle.wear(title);
-        title.setTypeface(Typeface.create("sans-serif", Typeface.BOLD));
-        title.setTextSize(TypedValue.COMPLEX_UNIT_SP, 22);
+        title.setText(L10n.t(getContext(), "Instagram Plus"));
+        title.setTextColor(palette.title);
+        title.setTypeface(Typeface.create("sans-serif-medium", Typeface.BOLD));
+        title.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
         title.setPaddingRelative(dp(8), 0, 0, 0);
         // Next to the back arrow in a right-to-left layout too, not at the bar's far end.
         title.setTextAlignment(View.TEXT_ALIGNMENT_VIEW_START);
         title.setAccessibilityHeading(true);
         bar.addView(title, new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1));
-        root.addView(bar);
+        root.addView(bar, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, dp(52)));
+
+        View divider = new View(getContext());
+        divider.setBackgroundColor(0xFF1F1F1F);
+        root.addView(divider, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, dp(1)));
 
         FrameLayout container = new FrameLayout(getContext());
         container.setId(CONTAINER_ID);
@@ -267,8 +279,21 @@ public final class SettingsDialog extends DialogFragment {
             }
         });
         bar.setOnClickListener(v -> {
-            Fragment page = getChildFragmentManager().findFragmentById(CONTAINER_ID);
-            if (page instanceof HushgramPreferenceFragment) ((HushgramPreferenceFragment) page).restartNow();
+            Activity act = getActivity();
+            if (act != null && !act.isFinishing()) {
+                switch (RestartNow.restart(act)) {
+                    case BUSY:
+                        app.hushgram.extension.shared.Utils.showToastLong(
+                                L10n.t(act, "Still saving or exporting. Restart once it's done."));
+                        break;
+                    case FAILED:
+                        app.hushgram.extension.shared.Utils.showToastLong(
+                                L10n.t(act, "Couldn't restart Instagram. Close it and open it again."));
+                        break;
+                    default:
+                        break;
+                }
+            }
         });
         bar.setVisibility(View.GONE);
         return bar;
@@ -296,18 +321,156 @@ public final class SettingsDialog extends DialogFragment {
     void showTitle(@androidx.annotation.Nullable CharSequence title, boolean pageHeader) {
         TextView bar = heading;
         if (bar == null) return;
-        CharSequence text = title == null ? "HushGram" : title;
+        CharSequence text = title == null ? L10n.t(getContext(), "Instagram Plus") : title;
         // A new text asks for a layout, which a scroll in the middle of one shouldn't.
-        if (!TextUtils.equals(text, bar.getText())) bar.setText(text);
-        // Invisible rather than gone, so the bar keeps its height and a search doesn't move the rows.
-        int shown = title == null && pageHeader ? View.INVISIBLE : View.VISIBLE;
-        if (bar.getVisibility() != shown) bar.setVisibility(shown);
+        if (!TextUtils.equals(text, bar.getText())) {
+            bar.animate().cancel();
+            bar.setAlpha(0.3f);
+            bar.setText(text);
+            bar.animate().alpha(1f).setDuration(160).start();
+        }
+        bar.setVisibility(View.VISIBLE);
+    }
+
+    private BackSupport backSupport;
+
+    void setupBackSupport() {
+        Dialog dialog = getDialog();
+        if (dialog == null) return;
+        backSupport = new BackSupport(dialog, this);
+        backSupport.update();
+    }
+
+    void updateBackHandler() {
+        if (backSupport != null) {
+            backSupport.update();
+        } else {
+            setupBackSupport();
+        }
+    }
+
+    static final class BackSupport {
+        private final Dialog dialog;
+        private final SettingsDialog settingsDialog;
+        private Object registeredCallback;
+
+        BackSupport(Dialog dialog, SettingsDialog settingsDialog) {
+            this.dialog = dialog;
+            this.settingsDialog = settingsDialog;
+        }
+
+        void update() {
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) return;
+            boolean canGoBack = settingsDialog != null && settingsDialog.canGoBack();
+            if (canGoBack) {
+                if (registeredCallback == null) register();
+            } else {
+                if (registeredCallback != null) unregister();
+            }
+        }
+
+        private void register() {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
+                registeredCallback = Api34BackHelper.register(dialog, settingsDialog, this::unregister);
+            } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                registeredCallback = Api33BackHelper.register(dialog, settingsDialog, this::unregister);
+            }
+        }
+
+        void unregister() {
+            if (registeredCallback != null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                try {
+                    OnBackInvokedDispatcher dispatcher = dialog.getOnBackInvokedDispatcher();
+                    if (dispatcher != null && registeredCallback instanceof OnBackInvokedCallback) {
+                        dispatcher.unregisterOnBackInvokedCallback((OnBackInvokedCallback) registeredCallback);
+                    }
+                } catch (Throwable ignored) {
+                } finally {
+                    registeredCallback = null;
+                }
+            }
+        }
+    }
+
+    @androidx.annotation.RequiresApi(Build.VERSION_CODES.UPSIDE_DOWN_CAKE)
+    static final class Api34BackHelper {
+        static Object register(Dialog dialog, SettingsDialog settingsDialog, Runnable onComplete) {
+            try {
+                OnBackInvokedDispatcher dispatcher = dialog.getOnBackInvokedDispatcher();
+                if (dispatcher == null) return null;
+                OnBackAnimationCallback callback = new OnBackAnimationCallback() {
+                    @Override
+                    public void onBackStarted(BackEvent backEvent) {
+                        if (settingsDialog.modernView != null) {
+                            settingsDialog.modernView.onBackStarted(backEvent);
+                        }
+                    }
+
+                    @Override
+                    public void onBackProgressed(BackEvent backEvent) {
+                        if (settingsDialog.modernView != null) {
+                            settingsDialog.modernView.onBackProgressed(backEvent);
+                        }
+                    }
+
+                    @Override
+                    public void onBackInvoked() {
+                        if (settingsDialog.modernView != null) {
+                            settingsDialog.modernView.onBackInvoked();
+                        } else {
+                            settingsDialog.closeCategory();
+                        }
+                        if (onComplete != null) onComplete.run();
+                    }
+
+                    @Override
+                    public void onBackCancelled() {
+                        if (settingsDialog.modernView != null) {
+                            settingsDialog.modernView.onBackCancelled();
+                        }
+                    }
+                };
+                dispatcher.registerOnBackInvokedCallback(OnBackInvokedDispatcher.PRIORITY_OVERLAY, callback);
+                return callback;
+            } catch (Throwable t) {
+                Logger.printException(() -> "Could not register API 34 back animation callback", t);
+                return null;
+            }
+        }
+    }
+
+    @androidx.annotation.RequiresApi(Build.VERSION_CODES.TIRAMISU)
+    static final class Api33BackHelper {
+        static Object register(Dialog dialog, SettingsDialog settingsDialog, Runnable onComplete) {
+            try {
+                OnBackInvokedDispatcher dispatcher = dialog.getOnBackInvokedDispatcher();
+                if (dispatcher == null) return null;
+                OnBackInvokedCallback callback = () -> {
+                    settingsDialog.closeCategory();
+                    if (onComplete != null) onComplete.run();
+                };
+                dispatcher.registerOnBackInvokedCallback(OnBackInvokedDispatcher.PRIORITY_OVERLAY, callback);
+                return callback;
+            } catch (Throwable t) {
+                Logger.printException(() -> "Could not register API 33 back callback", t);
+                return null;
+            }
+        }
     }
 
     /** Clears a search before Back closes the dialog. Expanding a section adds no Back level. */
-    private boolean closeCategory() {
-        Fragment page = getChildFragmentManager().findFragmentById(CONTAINER_ID);
-        return page instanceof HushgramPreferenceFragment && ((HushgramPreferenceFragment) page).closeCategory();
+    boolean closeCategory() {
+        if (modernView != null && modernView.handleBack()) return true;
+        return false;
+    }
+
+    boolean canGoBack() {
+        return modernView != null && modernView.canGoBack();
+    }
+
+    @androidx.annotation.Nullable
+    View getActiveBackView() {
+        return modernView != null ? modernView.getActiveBackView() : null;
     }
 
     @Override
@@ -320,13 +483,6 @@ public final class SettingsDialog extends DialogFragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        // Keep the restored child's identity and pending activity result, but defer its view
-        // until openPage can catch construction failures. Framework restoration would otherwise
-        // build that view after this callback and before onResume, outside the recovery boundary.
-        FragmentManager manager = getChildFragmentManager();
-        Fragment restored = manager.findFragmentById(CONTAINER_ID);
-        if (restored != null && !restored.isDetached()) manager.beginTransaction().detach(restored).commitNow();
-        // Closing over an unthemed screen: the failure page's text would throw the same way.
         if (failed && !closing) showFailure(view);
     }
 
@@ -346,10 +502,12 @@ public final class SettingsDialog extends DialogFragment {
         super.onStart();
         watchLock();
         ShortcutCover.offOnceDrawn(getDialog());
+        setupBackSupport();
     }
 
     @Override
     public void onStop() {
+        if (backSupport != null) backSupport.unregister();
         unwatchLock();
         super.onStop();
     }
@@ -393,12 +551,6 @@ public final class SettingsDialog extends DialogFragment {
      */
     private void guard(Activity activity, Window window) {
         if (!MessagesLock.guardSettings(activity, window)) return;
-        try {
-            Fragment page = getChildFragmentManager().findFragmentById(CONTAINER_ID);
-            if (page instanceof HushgramPreferenceFragment) ((HushgramPreferenceFragment) page).closeDialogs();
-        } catch (Exception failure) {
-            Logger.printException(() -> "Settings: could not close what was open over them", failure);
-        }
     }
 
     private void unwatchLock() {
@@ -448,6 +600,7 @@ public final class SettingsDialog extends DialogFragment {
         retry = null;
         heading = null;
         restart = null;
+        modernView = null;
         super.onDestroyView();
     }
 
@@ -455,60 +608,26 @@ public final class SettingsDialog extends DialogFragment {
         return owner != null && owner == getView() && !closing && isAdded() && isResumed()
                 && !isRemoving() && !isDetached() && getActivity() != null
                 && !getActivity().isFinishing() && !getActivity().isDestroyed()
-                && getDialog() != null && getDialog().isShowing()
-                && !getFragmentManager().isStateSaved()
-                && !getChildFragmentManager().isStateSaved()
-                && !getChildFragmentManager().isDestroyed();
+                && getDialog() != null && getDialog().isShowing();
     }
 
     private void openPage(View owner) {
         if (loading || !canOpenPage(owner)) return;
         loading = true;
-        boolean recovering = failed;
         FrameLayout container = owner.findViewById(CONTAINER_ID);
-        FragmentManager manager = getChildFragmentManager();
         try {
-            Fragment child = manager.findFragmentById(CONTAINER_ID);
-            if (failed && child != null) {
-                manager.beginTransaction().remove(child).commitNow();
-                child = null;
-            }
-            if (child == null) {
+            if (modernView == null) {
                 container.removeAllViews();
-                manager.beginTransaction()
-                        .replace(CONTAINER_ID, new HushgramPreferenceFragment())
-                        .commitNow();
-            } else if (child.isDetached()) {
-                manager.beginTransaction().attach(child).commitNow();
+                modernView = new ModernSettingsView(getActivity(), this);
+                container.addView(modernView, new FrameLayout.LayoutParams(
+                        ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+                modernView.openStartPage(startPage());
             }
             failed = false;
             retry = null;
-            if (recovering) {
-                View list = container.findViewById(android.R.id.list);
-                if (list != null) list.requestFocus();
-                TextView barTitle = heading;
-                owner.post(() -> {
-                    if (!canOpenPage(owner) || failed || heading != barTitle) return;
-                    // The bar's title, or the header's name while the page shows it in its place.
-                    View pageHeading = barTitle.getVisibility() == View.VISIBLE
-                            ? barTitle : container.findViewWithTag(SettingsHeader.NAME);
-                    if (pageHeading != null) {
-                        pageHeading.performAccessibilityAction(
-                                AccessibilityNodeInfo.ACTION_ACCESSIBILITY_FOCUS, null);
-                    }
-                });
-            }
         } catch (Exception ex) {
             failed = true;
-            Logger.printException(() -> "Could not show the preference list", ex);
-            try {
-                Fragment partial = manager.findFragmentById(CONTAINER_ID);
-                if (partial != null) manager.beginTransaction().remove(partial).commitNow();
-            } catch (Exception cleanup) {
-                Logger.printException(() -> "Could not remove the failed preference list", cleanup);
-            }
-            // A throw from onViewCreated can leave a view attached before the fragment has
-            // reached ACTIVITY_CREATED, so removal alone doesn't necessarily remove that view.
+            Logger.printException(() -> "Could not show the settings view", ex);
             container.removeAllViews();
             showFailure(owner);
         } finally {
@@ -533,7 +652,7 @@ public final class SettingsDialog extends DialogFragment {
         content.addView(icon, iconSize);
         TextView title = new TextView(getContext());
         title.setText(L10n.t(getContext(), "Settings couldn't open"));
-        ShimmerTitle.wear(title);
+        title.setTextColor(palette.title);
         title.setTextSize(TypedValue.COMPLEX_UNIT_SP, 22);
         title.setTypeface(Typeface.create("sans-serif-medium", Typeface.NORMAL));
         title.setGravity(Gravity.CENTER);

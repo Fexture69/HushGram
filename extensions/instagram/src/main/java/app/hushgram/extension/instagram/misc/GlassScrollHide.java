@@ -212,6 +212,8 @@ final class GlassScrollHide {
     private boolean roomGiven;
     /** Whether a scroll shrank the bar, in place of sliding it away. */
     private boolean shrunk;
+    private final boolean minimize;
+    private boolean minimized;
     private final Runnable watch = this::watchScroller;
     private final Runnable reelsWait = this::waitedOnReels;
 
@@ -247,6 +249,11 @@ final class GlassScrollHide {
      */
     GlassScrollHide(View bar, BooleanSupplier running, boolean onScroll, long reelsMillis, @Nullable Shrinker shrinker,
             @Nullable Room room) {
+        this(bar, running, onScroll, reelsMillis, shrinker, room, false);
+    }
+
+    GlassScrollHide(View bar, BooleanSupplier running, boolean onScroll, long reelsMillis, @Nullable Shrinker shrinker,
+            @Nullable Room room, boolean minimize) {
         this.bar = bar;
         this.room = room;
         this.running = running;
@@ -256,6 +263,7 @@ final class GlassScrollHide {
         this.density = bar.getResources().getDisplayMetrics().density;
         this.touchSlop = ViewConfiguration.get(bar.getContext()).getScaledTouchSlop();
         this.slop = Math.max(SLOP_DP * density, touchSlop);
+        this.minimize = minimize;
     }
 
     boolean isHidden() {
@@ -264,7 +272,7 @@ final class GlassScrollHide {
 
     /** Whether the bar has slid all the way off, so nothing needs drawing behind it. A shrunk bar is still on screen. */
     boolean isOffScreen() {
-        return hidden && !shrunk && bar.getTranslationY() >= travel() - 1f;
+        return hidden && !shrunk && !minimized && bar.getTranslationY() >= travel() - 1f;
     }
 
     /** Whether a scroll shrank the bar to its compact row, in place of sliding it away. */
@@ -546,7 +554,22 @@ final class GlassScrollHide {
      * compact row instead, and when it can't, the bar stays as it is for the rest of this drag.
      */
     private void slideAway(@Nullable WeakReference<View> held, boolean reels, String counted) {
-        if (!reels && shrinker != null) {
+        if (!reels && minimize) {
+            minimized = true;
+            shrunk = true;
+            bar.animate().cancel();
+            bar.setPivotX(bar.getWidth() / 2f);
+            bar.setPivotY(bar.getHeight() / 2f);
+            bar.animate()
+                    .scaleX(0.84f)
+                    .scaleY(0.84f)
+                    .translationY(-4 * density)
+                    .alpha(0.95f)
+                    .setDuration(SLIDE_MS)
+                    .setInterpolator(new DecelerateInterpolator())
+                    .start();
+            counted = COUNT_SHRANK;
+        } else if (!reels && shrinker != null) {
             if (!shrinker.shrink(true, false)) {
                 refused = true;
                 return;
@@ -577,9 +600,24 @@ final class GlassScrollHide {
         hidden = false;
         byReels = false;
         bar.removeCallbacks(watch);
+        if (minimized) {
+            minimized = false;
+            shrunk = false;
+            bar.animate().cancel();
+            bar.animate()
+                    .scaleX(1.0f)
+                    .scaleY(1.0f)
+                    .translationY(0f)
+                    .alpha(1.0f)
+                    .setDuration(SLIDE_MS)
+                    .setInterpolator(new DecelerateInterpolator())
+                    .start();
+            HookStatus.counted(FamilyNames.GLASS_TAB_BAR, counted);
+            return;
+        }
         if (shrunk) {
             shrunk = false;
-            shrinker.shrink(false, false);
+            if (shrinker != null) shrinker.shrink(false, false);
             HookStatus.counted(FamilyNames.GLASS_TAB_BAR, counted);
             return;
         }
@@ -614,9 +652,18 @@ final class GlassScrollHide {
         hidden = false;
         byReels = false;
         fingerDown = false;
+        if (minimized) {
+            minimized = false;
+            shrunk = false;
+            bar.animate().cancel();
+            bar.setScaleX(1.0f);
+            bar.setScaleY(1.0f);
+            bar.setTranslationY(0f);
+            bar.setAlpha(1.0f);
+        }
         if (shrunk) {
             shrunk = false;
-            shrinker.shrink(false, true);
+            if (shrinker != null) shrinker.shrink(false, true);
         }
         giveRoom(false);
         if (!moved) return;
