@@ -1885,3 +1885,8 @@ Mapping imported: %1$d names. Open MetaConfig again to see them.	Mapping importe
 That file has no mapping names in it. Nothing changed.	That file has no mapping names in it. Nothing changed.
 Couldn't remove mapping file. Try again.	Couldn't remove mapping file. Try again.
 Couldn't save mapping file. Nothing changed.	Couldn't save mapping file. Nothing changed.
+Couldn't discard overrides. Open settings from Home while signed in.	Couldn't discard overrides. Open settings from Home while signed in.
+Discard saved overrides	Discard saved overrides
+Forgets the saved overrides from an earlier import or reset, unblocking new imports.	Forgets the saved overrides from an earlier import or reset, unblocking new imports.
+No saved overrides to discard.	No saved overrides to discard.
+Saved overrides discarded. You can now import overrides.	Saved overrides discarded. You can now import overrides.
