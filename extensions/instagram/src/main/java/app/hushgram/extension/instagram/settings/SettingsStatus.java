@@ -336,6 +336,10 @@ public final class SettingsStatus {
         return false;
     }
 
+    public static boolean profileGridJump() {
+        return false;
+    }
+
     public static boolean homeFeed() {
         return false;
     }
@@ -395,6 +399,11 @@ public final class SettingsStatus {
         return false;
     }
 
+    /** Show a comment GIF's name, Save comment photo's third switch, which a build can lack. */
+    public static boolean commentGifName() {
+        return false;
+    }
+
     /** Rewritten by the Save profile picture patch. */
     public static boolean profilePicture() {
         return false;
@@ -410,6 +419,10 @@ public final class SettingsStatus {
     }
 
     public static boolean commentEmojiRow() {
+        return false;
+    }
+
+    public static boolean commentGifs() {
         return false;
     }
 
@@ -709,6 +722,11 @@ public final class SettingsStatus {
 
     /** Rewritten by the Swipe through a chat's reels patch. */
     public static boolean chatReels() {
+        return false;
+    }
+
+    /** Rewritten by the Swipe through a chat's photos and posts patch. */
+    public static boolean chatMediaWalk() {
         return false;
     }
 

@@ -710,7 +710,7 @@ public final class HushgramPreferenceFragment extends AbstractPreferenceFragment
                 if (Settings.REMOVE_BUILD_EXPIRED_POPUP.key.equals(key)) aliases.append(' ').append(L10n.t("Updates"));
                 // Instagram's menu calls clear mode Full screen (#480).
                 if (Settings.KEEP_REEL_CLEAR_MODE.key.equals(key) || Settings.START_REEL_CLEAR_MODE.key.equals(key)
-                        || Settings.QUIET_REEL_CLEAR_MODE.key.equals(key)) {
+                        || Settings.QUIET_REEL_CLEAR_MODE.key.equals(key) || Settings.CLEAR_MODE_SEEK_BAR.key.equals(key)) {
                     aliases.append(' ').append(L10n.t("Full screen")).append(" fullscreen");
                 }
                 for (PatchFamily family : build) {
@@ -719,7 +719,7 @@ public final class HushgramPreferenceFragment extends AbstractPreferenceFragment
                             || Settings.STORY_RING_COLOR.key.equals(key));
                     belongs |= family == PatchFamily.ROUNDED_POST_CORNERS && Settings.ROUNDED_CORNER_SIZE.key.equals(key);
                     belongs |= family == PatchFamily.AMBIENT_LIGHT && (Settings.AMBIENT_LIGHT_SPREAD.key.equals(key)
-                            || Settings.AMBIENT_LIGHT_SPEED.key.equals(key));
+                            || Settings.AMBIENT_LIGHT_SPEED.key.equals(key) || Settings.AMBIENT_LIGHT_BLEND.key.equals(key));
                     belongs |= family == PatchFamily.STORY_PROGRESS_BAR && Settings.STORY_BAR_THICKNESS.key.equals(key);
                     belongs |= family == PatchFamily.STORIES_TRAY && Settings.TRAY_BADGE.key.equals(key);
                     belongs |= family == PatchFamily.REEL_TAP_AND_VOLUME && Settings.REEL_TAP_CHOICE.key.equals(key);
@@ -4095,6 +4095,11 @@ public final class HushgramPreferenceFragment extends AbstractPreferenceFragment
         return note.isEmpty() ? summary : summary + " " + note;
     }
 
+    /** [summary] with the note a switch that works the phone hard carries (#510). */
+    static String slowsOlderPhones(String summary) {
+        return summary + " " + L10n.t("Can slow down older phones.");
+    }
+
     static SwitchPreference toggle(Context context, BooleanSetting setting, String title, String summary) {
         SwitchPreference preference = new Toggle(context);
         preference.setKey(setting.key);
@@ -5220,10 +5225,10 @@ public final class HushgramPreferenceFragment extends AbstractPreferenceFragment
     /** What [delay] does and how the bar comes back, for the row's summary. */
     static String glassReelsHideSummary(GlassReelsHide delay) {
         if (delay == GlassReelsHide.NEVER) {
-            return L10n.t("Never. Pick a time and the pill slides away once a reel has played that long without a "
+            return L10n.t("Never. Pick a time and the tab bar slides away once a reel has played that long without a "
                     + "touch. Restart Instagram after changing it.");
         }
-        return L10n.f("On Reels, the pill slides away after %1$d seconds without a touch. Tap the bottom edge of the "
+        return L10n.f("On Reels, the tab bar slides away after %1$d seconds without a touch. Tap the bottom edge of the "
                 + "screen, change tab or press Back to bring it back. Restart Instagram after changing it.",
                 delay.millis / 1000);
     }

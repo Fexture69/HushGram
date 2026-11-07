@@ -129,6 +129,7 @@ public final class ConfigurationBackup {
         if (PatchFamily.AMBIENT_LIGHT.inBuild()) {
             settings.put(Settings.AMBIENT_LIGHT_SPREAD.key, Settings.AMBIENT_LIGHT_SPREAD);
             settings.put(Settings.AMBIENT_LIGHT_SPEED.key, Settings.AMBIENT_LIGHT_SPEED);
+            settings.put(Settings.AMBIENT_LIGHT_BLEND.key, Settings.AMBIENT_LIGHT_BLEND);
         }
         if (PatchFamily.STORY_PROGRESS_BAR.inBuild()) settings.put(Settings.STORY_BAR_THICKNESS.key, Settings.STORY_BAR_THICKNESS);
         if (PatchFamily.STORIES_TRAY.inBuild()) settings.put(Settings.TRAY_BADGE.key, Settings.TRAY_BADGE);
@@ -174,6 +175,7 @@ public final class ConfigurationBackup {
             settings.put(Settings.REEL_CAP_BREAK.key, Settings.REEL_CAP_BREAK);
         }
         if (PatchFamily.REEL_DECLUTTER.inBuild()) {
+            settings.put(Settings.FRIENDS_TAB_PICKS.key, Settings.FRIENDS_TAB_PICKS);
             settings.put(Settings.BURN_IN_GUARD.key, Settings.BURN_IN_GUARD);
             settings.put(Settings.BURN_IN_WAIT.key, Settings.BURN_IN_WAIT);
             settings.put(Settings.BURN_IN_STAY_DIM.key, Settings.BURN_IN_STAY_DIM);
@@ -426,7 +428,8 @@ public final class ConfigurationBackup {
             return given < number.minimum() || given > number.maximum() ? null : value;
         }
         int longest = setting == Settings.REELS_BLOCKED_WORDS || setting == Settings.REELS_KEPT_LANGUAGES
-                || setting == Settings.STORY_PRIORITY_ACCOUNTS || setting == Settings.HIDDEN_SETTINGS_ROWS
+                || setting == Settings.STORY_PRIORITY_ACCOUNTS || setting == Settings.FRIENDS_TAB_PICKS
+                || setting == Settings.HIDDEN_SETTINGS_ROWS
                 || setting == Settings.MUTED_NOTIFICATION_CHANNELS ? MAX_WORDS_TEXT : MAX_TEXT;
         if (!(value instanceof String) || ((String) value).length() > longest) return null;
         if (fallback instanceof Enum) {
@@ -505,7 +508,9 @@ public final class ConfigurationBackup {
         }
         // The words Hide reels by caption words looks for: any text without control characters but line breaks.
         if (setting == Settings.REELS_BLOCKED_WORDS || setting == Settings.REELS_KEPT_LANGUAGES
-                || setting == Settings.STORY_PRIORITY_ACCOUNTS) return blockedWordsAllowed(text);
+                || setting == Settings.STORY_PRIORITY_ACCOUNTS || setting == Settings.FRIENDS_TAB_PICKS) {
+            return blockedWordsAllowed(text);
+        }
         // An enum constant name of Instagram's; a name this Instagram lacks keeps its heart.
         if (setting == Settings.LIKE_ANIMATION) return text.matches("[A-Za-z0-9_$]{0,64}");
         // The ghost switches Ghost mode turns, as their keys with commas between; blank means all of them.

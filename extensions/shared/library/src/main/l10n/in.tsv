@@ -283,6 +283,13 @@ Once you turn on Instagram's auto scroll in Reels, it stays on after a restart o
 Move on when a reel ends	Lanjut saat reel selesai
 When a reel ends, Reels moves on to the next one instead of playing it again. It uses Instagram's own auto scroll, even on accounts where Instagram doesn't offer it. While it's on, Instagram's own Auto scroll switch can't turn it off. Restart Instagram to see the change.	Saat sebuah reel selesai, Reels pindah ke reel berikutnya alih-alih memutarnya lagi. Fitur ini memakai gulir otomatis milik Instagram, bahkan di akun yang tidak ditawari fitur itu oleh Instagram. Selama aktif, sakelar gulir otomatis milik Instagram tidak bisa mematikannya. Mulai ulang Instagram untuk melihat perubahannya.
 Stop Reels scrolling	Hentikan gulir Reels
+# context: Reels page, the three switches under Stop Reels scrolling. They name that switch by its label, and each lets one kind of viewer keep scrolling.
+Still scroll reels from a profile	Tetap gulir reel dari profil
+With Stop Reels scrolling on, reels you open from a profile still move on when you swipe.	Saat Hentikan gulir Reels aktif, reel yang kamu buka dari profil tetap berpindah saat kamu menggeser.
+Still scroll reels from Search and Explore	Tetap gulir reel dari Cari dan Jelajahi
+With Stop Reels scrolling on, reels you open from Search, Explore, a hashtag or a place still move on when you swipe.	Saat Hentikan gulir Reels aktif, reel yang kamu buka dari Cari, Jelajahi, tagar, atau tempat tetap berpindah saat kamu menggeser.
+Still scroll reels from a song page	Tetap gulir reel dari halaman lagu
+With Stop Reels scrolling on, reels you open from a song or audio page still move on when you swipe.	Saat Hentikan gulir Reels aktif, reel yang kamu buka dari halaman lagu atau audio tetap berpindah saat kamu menggeser.
 A swipe in Reels no longer moves on to the next reel, and pulling down doesn't load new ones. The reel you opened still plays. Restart Instagram to see the change.	Menggeser di Reels tidak lagi pindah ke reel berikutnya, dan tarik ke bawah tidak memuat yang baru. Reel yang kamu buka tetap diputar. Mulai ulang Instagram untuk melihat perubahannya.
 Lock a reel at 2x (hold its edge, then slide down) and the next reels play at 2x too. Slide the lock off, or hold the edge and let go, to go back to normal speed.	Kunci reel di 2x (tahan tepinya, lalu geser ke bawah) dan reels berikutnya juga diputar di 2x. Geser kuncinya untuk melepasnya, atau tahan tepinya lalu lepaskan, untuk kembali ke kecepatan normal.
 Open links in external browser	Buka tautan di browser eksternal
@@ -418,6 +425,11 @@ Hide the Threads button	Sembunyikan tombol Threads
 Takes the Threads button off the top of profiles, yours included. The menu and the other buttons stay where they were.	Menghapus tombol Threads dari bagian atas profil, termasuk profilmu. Menu dan tombol lainnya tetap di tempatnya.
 Show profile posts as a list	Tampilkan postingan profil sebagai daftar
 Opening someone's profile takes you on to their posts as a scrolling list of full posts. Go Back for the grid. Your own profile keeps its grid.	Membuka profil seseorang langsung membawamu ke postingannya sebagai daftar postingan utuh yang bisa digulir. Kembali untuk melihat kisi. Profilmu sendiri tetap memakai kisi.
+Jump a profile's posts to a date	Lompat ke tanggal di postingan profil
+Puts a calendar on a profile's top bar. Pick a day and the posts grid goes back to that day. Pull down for the newest again.	Menambahkan kalender di bilah atas profil. Pilih hari dan kisi postingan kembali ke hari itu. Tarik ke bawah untuk yang terbaru lagi.
+Open the profile's posts first	Buka postingan profil dulu
+Still loading, try again	Masih memuat, coba lagi
+Going to that date	Menuju tanggal itu
 The cards of people and creators to follow that Instagram puts between reels. Every reel still plays.	Kartu orang dan kreator untuk diikuti yang diselipkan Instagram di antara reel. Semua reel tetap diputar.
 Leaves out reels with a Paid partnership label, and reels Instagram marks as boosted. Ads have their own switch.	Melewati reel berlabel Kemitraan berbayar, dan reel yang ditandai Instagram sebagai dipromosikan. Iklan punya tombolnya sendiri.
 Turn on Start Home on Following to use this choice.	Aktifkan Buka Beranda di Mengikuti untuk menggunakan pilihan ini.
@@ -486,6 +498,11 @@ Save comment photo	Simpan foto komentar
 Adds Save to a selected comment's menu when the comment has its own photo or GIF. Saves the largest size Instagram sent.	Menambahkan Simpan ke menu komentar yang dipilih jika komentar memiliki foto atau GIF sendiri. Menyimpan ukuran terbesar yang dikirim Instagram.
 Reply with a comment's GIF	Balas dengan GIF komentar
 When a comment has a GIF, its menu gets a GIF reply that sends that same GIF back as your reply, animated.	Jika komentar memiliki GIF, menunya mendapat balasan GIF yang mengirim GIF yang sama sebagai balasanmu, tetap beranimasi.
+Show a comment GIF's name	Tampilkan nama GIF komentar
+When a comment has a GIF or sticker, its menu shows its name. Tap the name to copy it.	Jika komentar memiliki GIF atau stiker, menunya menampilkan namanya. Ketuk nama untuk menyalinnya.
+GIF name	Nama GIF
+GIF name copied	Nama GIF disalin
+Couldn't copy the GIF name	Tidak dapat menyalin nama GIF
 Couldn't reply with this GIF	Tidak bisa membalas dengan GIF ini
 # context: View stories anonymously's second switch, and the label TalkBack reads for its eye button in a story's header
 Mark as seen button	Tombol Tandai sudah dilihat
@@ -508,6 +525,8 @@ Bigger seek bar on reels	Bilah geser lebih besar di Reel
 Makes the seek bar thicker, with a round white handle and the time above it, over a soft dark fade so it shows on any video. Drag it to seek. It also keeps the bar on short reels.	Membuat bilah geser lebih tebal, dengan pegangan putih bulat dan waktu di atasnya, di atas gradasi gelap lembut agar terlihat di video apa pun. Seret untuk mencari posisi. Bilah juga tetap tampil di Reel pendek.
 Seek bar like DM videos	Bilah geser seperti video di pesan
 Gives reels the seek bar of a video in a chat, a thin gray line that turns white as it plays, with a big round white handle. The time shows above it. Drag it to seek. When Bigger seek bar on reels is on too, this look wins. It also keeps the bar on short reels.	Memberi Reel bilah geser seperti video di obrolan, garis abu-abu tipis yang berubah putih saat diputar, dengan pegangan putih bulat yang besar. Waktu tampil di atasnya. Seret untuk mencari posisi. Jika Bilah geser lebih besar di Reel juga aktif, gaya ini yang dipakai. Bilah juga tetap tampil di Reel pendek.
+Seek bar on photos with music	Bilah geser di foto dengan musik
+Reels that are a photo with a song get the same seek bar and time as a video reel, following the song. Drag it to seek.	Reel berupa foto dengan lagu mendapat bilah geser dan waktu yang sama seperti reel video, mengikuti lagunya. Seret untuk mencari posisi.
 Blur the bars around a reel	Buramkan bilah di sekitar reel
 A reel that doesn't fill the screen shows a blurred copy of itself above and below it instead of black bars, and the strip under the tab bar and the band behind the clock show the reel blurred too. The copy shows only where a reel leaves room, as with Show the whole reel on. Open Reels again after a change.	Reel yang tidak memenuhi layar menampilkan salinan buramnya di atas dan di bawahnya, bukan bilah hitam, dan strip di bawah bilah tab serta area di belakang jam juga menampilkan reel itu secara buram. Salinan itu hanya muncul di tempat reel menyisakan ruang, seperti saat Tampilkan reel utuh aktif. Buka Reel lagi setelah ada perubahan.
 # Chosen navigation long-press settings entry. Account tab availability varies.
@@ -588,6 +607,8 @@ Turns the switches that keep what you do to yourself on or off in one go, like V
 View live anonymously	Tonton siaran langsung secara anonim
 Photos and videos sent as view once or replayable stay in the chat so you can open them again. Open the chat again to update ones already loaded.	Foto dan video yang dikirim sekali lihat atau bisa diputar ulang tetap ada di chat sehingga bisa kamu buka lagi. Buka chat lagi untuk memperbarui yang sudah dimuat.
 Swipe through a chat's reels	Geser melalui reel di chat
+Swipe through a chat's photos and posts	Geser melalui foto dan postingan di chat
+Open a photo or video from a chat and swipe up for the next photo, video or shared post in that chat, in chat order. Swipe down to go back one. Back takes you to the chat.	Buka foto atau video dari chat lalu geser ke atas untuk foto, video, atau postingan yang dibagikan berikutnya di chat itu, sesuai urutan chat. Geser ke bawah untuk mundur satu. Kembali membawamu ke chat.
 Swiping up on a reel you opened from a chat goes through the other reels shared in that chat before any suggested reels. Back takes you to the chat.	Menggeser ke atas pada reel yang kamu buka dari chat akan melewati reel lain yang dibagikan di chat itu sebelum reel yang disarankan. Kembali membawamu ke chat.
 Stop after the chat's reels	Berhenti setelah reel chat
 Reels you opened from a chat end after the last one shared in that chat, with no suggested reels after it. Works with Swipe through a chat's reels on.	Reel yang kamu buka dari chat berakhir setelah reel terakhir yang dibagikan di chat itu, tanpa reel yang disarankan setelahnya. Berfungsi saat Geser melalui reel di chat aktif.
@@ -669,6 +690,9 @@ Takes the Comment button and the comment count off the posts in your feed.	Mengh
 # context: Comments: the switch that hides the row of quick emoji above the comment box (#248). Comment box is the field where you type a comment.
 Hide the emoji row	Sembunyikan baris emoji
 Takes the row of quick emoji off above the comment box. The box itself stays.	Menghapus baris emoji cepat di atas kotak komentar. Kotaknya tetap ada.
+# context: Comments: the switch that takes GIFs and stickers out of a post's comments (#511). A comment that has words keeps its words and loses only the picture. A comment that's only a GIF disappears, and its replies with it. Comment box is the field where you type a comment.
+Hide GIFs in comments	Sembunyikan GIF di komentar
+Takes GIFs and stickers out of comments, and the GIF button off the comment box. A comment with words keeps them. One that's only a GIF goes, along with its replies.	Menghapus GIF dan stiker dari komentar, serta tombol GIF dari kotak komentar. Komentar yang berisi tulisan tetap menyimpan tulisannya. Komentar yang hanya berisi GIF hilang bersama balasannya.
 Open comments without the keyboard	Buka komentar tanpa keyboard
 Comments open with the keyboard down. A tap in the comment box, or on Reply, still brings it up.	Komentar terbuka dengan keyboard tersembunyi. Mengetuk kotak komentar, atau Balas, tetap memunculkannya.
 # context: Feed: the switch that hides the Follow and Subscribe buttons beside the author's name on a post (#248). Follow and Subscribe are the labels Instagram uses on those buttons.
@@ -821,6 +845,10 @@ Badges in the accent color	Lencana dengan warna aksen
 The red dots and counts for new messages and notifications take the color you picked. Restart Instagram to see the change.	Titik dan angka merah untuk pesan dan notifikasi baru memakai warna yang kamu pilih. Mulai ulang Instagram untuk melihat perubahannya.
 Icons in the accent color	Ikon dengan warna aksen
 Instagram's icons on the top bar, the tab bar and under posts take the color you picked. Text stays as it is. Restart Instagram to see the change.	Ikon Instagram di bilah atas, bilah tab, dan di bawah postingan memakai warna yang kamu pilih. Teks tetap seperti semula. Mulai ulang Instagram untuk melihat perubahannya.
+Story rings in the accent color	Lingkaran story dengan warna aksen
+Story rings take the color you picked instead of Instagram's gradient. A few other gradients share those colors and change with them. Restart Instagram to see the change.	Lingkaran story memakai warna yang kamu pilih, bukan gradien Instagram. Beberapa gradien lain memakai warna yang sama dan ikut berubah. Mulai ulang Instagram untuk melihat perubahannya.
+Backgrounds in the accent color	Latar belakang dengan warna aksen
+Screens, panels, cards and menus take a dark or light shade of the color you picked. Story and reel viewers keep their own background. Wins over Pure black dark mode. Restart Instagram to see the change.	Layar, panel, kartu, dan menu memakai warna gelap atau terang dari warna yang kamu pilih. Penampil story dan reel tetap memakai latar belakangnya sendiri. Mengalahkan Pure black dark mode. Mulai ulang Instagram untuk melihat perubahannya.
 # context: Layout list under Accent color; its choices are Instagram blue and the colors below
 Color	Warna
 Instagram blue	Biru Instagram
@@ -841,7 +869,7 @@ Download video covers	Unduh sampul video
 Adds Download cover to the menu of a feed post with a video, and of a carousel showing one. It saves the still picture shown before the video plays, at its largest size.	Menambahkan Unduh sampul ke menu postingan feed berisi video, dan ke carousel yang sedang menampilkan video. Ini menyimpan gambar diam yang tampil sebelum video diputar, dalam ukuran terbesarnya.
 # context: Downloads switch under the feed video and photo downloads; it puts a Download icon in a feed post's action row beside Save
 Download button on feed posts	Tombol unduh di kiriman beranda
-Puts a download icon in the row under a post, left of Save, so one tap saves it without opening the menu. On a carousel it asks for this page or all of them.	Menaruh ikon unduh di baris di bawah kiriman, di sebelah kiri Simpan, sehingga satu ketukan menyimpannya tanpa membuka menu. Pada carousel, ia menanyakan halaman ini saja atau semuanya.
+Puts a download icon in the row under a post, left of Save, so one tap saves it without opening the menu. On a carousel it asks for this page or all of them. Needs Download feed videos or photos.	Menaruh ikon unduh di baris di bawah kiriman, di sebelah kiri Simpan, sehingga satu ketukan menyimpannya tanpa membuka menu. Pada carousel, ia menanyakan halaman ini saja atau semuanya. Perlu Unduh video feed atau Unduh foto feed.
 Download button on reels	Tombol unduh di reel
 Puts a download icon under Save beside a reel, so one tap saves it the way Download in its menu does. Needs Download on reels.	Menaruh ikon unduh di bawah Simpan di samping reel, sehingga satu ketukan menyimpannya seperti Unduh di menunya. Perlu Unduh di reel.
 Nothing to download on this post	Tidak ada yang bisa diunduh di kiriman ini
@@ -1008,14 +1036,14 @@ More	Lebih banyak
 Hide the tab bar as you scroll	Sembunyikan bilah tab saat menggulir
 Scrolling a list down slides the tab bar out of the way. Scrolling up, reaching the top, or changing tab brings it back. It works with or without Glass tab bar. Restart Instagram after changing it.	Menggulir daftar ke bawah menggeser bilah tab keluar dari jalan. Menggulir ke atas, mencapai bagian atas, atau berpindah tab akan memunculkannya lagi. Bisa dipakai dengan atau tanpa Bilah tab kaca. Mulai ulang Instagram setelah mengubahnya.
 Hide the tab bar on Reels	Sembunyikan bilah tab di Reels
-# context: a choice in the Hide the tab bar on Reels list under Glass tab bar; the bar is never hidden there
+# context: a choice in the Hide the tab bar on Reels list; the bar is never hidden there
 Never	Tidak pernah
 # context: a choice in the Hide the tab bar on Reels list; %1$d is 2, 3, 5 or 8
 After %1$d seconds	Setelah %1$d detik
 # context: summary of the Hide the tab bar on Reels row while its choice is Never
-Never. Pick a time and the pill slides away once a reel has played that long without a touch. Restart Instagram after changing it.	Tidak pernah. Pilih waktu, lalu pil bergeser keluar setelah reel diputar selama itu tanpa sentuhan. Mulai ulang Instagram setelah mengubahnya.
+Never. Pick a time and the tab bar slides away once a reel has played that long without a touch. Restart Instagram after changing it.	Tidak pernah. Pilih waktu, lalu bilah tab bergeser keluar setelah reel diputar selama itu tanpa sentuhan. Mulai ulang Instagram setelah mengubahnya.
 # context: summary of the Hide the tab bar on Reels row; %1$d is the seconds picked, 2, 3, 5 or 8
-On Reels, the pill slides away after %1$d seconds without a touch. Tap the bottom edge of the screen, change tab or press Back to bring it back. Restart Instagram after changing it.	Di Reels, pil bergeser keluar setelah %1$d detik tanpa sentuhan. Ketuk tepi bawah layar, pindah tab, atau tekan Kembali untuk memunculkannya lagi. Mulai ulang Instagram setelah mengubahnya.
+On Reels, the tab bar slides away after %1$d seconds without a touch. Tap the bottom edge of the screen, change tab or press Back to bring it back. Restart Instagram after changing it.	Di Reels, bilah tab bergeser keluar setelah %1$d detik tanpa sentuhan. Ketuk tepi bawah layar, pindah tab, atau tekan Kembali untuk memunculkannya lagi. Mulai ulang Instagram setelah mengubahnya.
 Start feed videos with sound	Mulai video feed dengan suara
 The first video on Home plays with its sound on, the same as tapping its speaker. Your phone's ringer and volume still count, so on silent or with the volume down, it stays quiet.	Video pertama di Beranda diputar dengan suara menyala, sama seperti mengetuk speakernya. Mode dering dan volume ponsel tetap berlaku, jadi saat senyap atau volume dimatikan, video tetap tanpa suara.
 Tap a feed video to pause it	Ketuk video feed untuk menjedanya
@@ -1024,6 +1052,10 @@ Long press a photo to zoom	Tekan lama foto untuk memperbesar
 Press and hold a photo in a feed to see it twice as big around your finger, and slide to look around. Let go to close it. While this is on, it takes the place of Instagram's own long press on a photo.	Tekan dan tahan foto di feed untuk melihatnya dua kali lebih besar di sekitar jarimu, lalu geser untuk melihat sekeliling. Lepaskan untuk menutupnya. Selama ini aktif, fitur ini menggantikan tekan lama bawaan Instagram pada foto.
 Keep the zoom open	Biarkan zoom tetap terbuka
 The zoom stays up after you let go. Drag to look around, pinch to zoom from 1x to 4x, and tap or press Back to close it.	Zoom tetap terbuka setelah kamu melepas jari. Geser untuk melihat sekeliling, cubit untuk memperbesar dari 1x hingga 4x, lalu ketuk atau tekan Kembali untuk menutupnya.
+# context: Feed settings, right under Keep the zoom open, and the toast when a post's video can't be opened in the full screen viewer. Close matches the viewer's Close button.
+Long press a post for full screen	Tekan lama postingan untuk layar penuh
+Press and hold a post in a feed to open it full screen. Pinch a photo to zoom and tap it to close. A video plays with a slider and a Close button. While this is on, it goes before the zoom and Instagram's own long press.	Tekan lama postingan di feed untuk membukanya dalam layar penuh. Cubit foto untuk memperbesar dan ketuk untuk menutup. Video diputar dengan penggeser dan tombol Tutup. Selama aktif, ini didahulukan sebelum zoom dan tekan lama bawaan Instagram.
+Couldn't play this video	Tidak dapat memutar video ini
 # context: what TalkBack reads for the zoomed photo left open over the feed
 Zoomed photo	Foto yang diperbesar
 Full screen Reels	Reels layar penuh
@@ -1071,6 +1103,15 @@ Hide Your algorithm on reels	Sembunyikan Algoritma Anda di reel
 Takes the Your algorithm button off the top of the Reels tab and closes up the gap. The rest of the bar stays.	Menghapus tombol Algoritma Anda dari bagian atas tab Reels lalu menutup celahnya. Bagian bilah lainnya tetap ada.
 Hide the Friends tab on Reels	Sembunyikan tab Teman di Reels
 Takes the Friends tab, with reels the people you follow shared, off the top of the Reels tab. Reels stays where it is.	Menghapus tab Teman, berisi reel yang dibagikan orang yang kamu ikuti, dari bagian atas tab Reels. Reels tetap di tempatnya.
+# context: Reels settings. Shows Instagram's Friends tab at the top of the Reels tab on accounts that never got it. Friends tab wording matches the Hide the Friends tab row above it.
+Show the Friends tab on Reels	Tampilkan tab Teman di Reels
+Adds the Friends tab to the top of the Reels tab if your account never got it. What's in it still comes from Instagram, so it can be empty. Hide the Friends tab wins.	Menambahkan tab Teman di bagian atas tab Reels jika akunmu belum pernah mendapatkannya. Isinya tetap dari Instagram, jadi bisa kosong. Sembunyikan tab Teman lebih diutamakan.
+# context: Reels settings and the list held open from the Friends tab at the top of the Reels tab. Friends tab wording matches the Hide the Friends tab row above it. The last two are short toasts.
+Hold the Friends tab to pick friends	Tahan tab Teman untuk memilih teman
+Hold the Friends tab on Reels and pick from the friends it has shown you. It then keeps only reels they liked or shared. A page with none of them keeps one reel so the next page can load.	Tahan tab Teman di Reels lalu pilih dari teman yang sudah ditampilkan. Setelah itu tab hanya menyimpan reel yang mereka sukai atau bagikan. Halaman tanpa mereka tetap menyimpan satu reel agar halaman berikutnya bisa dimuat.
+Pick friends	Pilih teman
+Open the Friends tab first.	Buka tab Teman dulu.
+Applies to the next reels loaded.	Berlaku untuk reel berikutnya yang dimuat.
 Hide the Save button on reels	Sembunyikan tombol Simpan di reel
 Burn-in guard	Pelindung burn-in
 Dim when idle	Redupkan saat diam
@@ -1090,6 +1131,9 @@ Reels open in clear mode from the first one, with no tap. Leave it yourself and 
 # context: Reels settings: a switch under Start every reel in clear mode (#480). It stops the short vibration Instagram plays when a reel opens in clear mode; Keep clear mode on is HushGram's switch of that name, so use the same words as that row
 Don't vibrate in clear mode	Jangan bergetar dalam mode bersih
 Stops the short buzz Instagram plays when a reel opens in clear mode. With Keep clear mode on, that's every swipe.	Menghentikan getaran singkat yang diputar Instagram saat reel terbuka dalam mode bersih. Dengan Tetap aktifkan mode bersih, itu terjadi setiap kali menggeser.
+# context: Reels settings: a switch under Don't vibrate in clear mode (#480). It keeps the seek bar on screen in clear mode; seek bar and clear mode use the same words as Keep a seek bar and Keep clear mode on
+Always show seek bar in clear mode	Selalu tampilkan bilah putar di mode bersih
+Keeps the seek bar on a reel in clear mode, and you can still drag it, while the other buttons stay hidden. Short reels get a bar too, in clear mode or not.	Bilah putar tetap ada di reel dalam mode bersih, dan masih bisa kamu geser, sementara tombol lain tetap tersembunyi. Reel pendek juga mendapat bilah, dalam mode bersih atau tidak.
 Unlock with	Buka kunci dengan
 Phone lock	Kunci ponsel
 HushGram PIN	PIN HushGram
@@ -1397,7 +1441,7 @@ Couldn't use that folder. Saves go where they did.	Folder tidak bisa dipakai. Lo
 Saves go to Movies and Pictures again.	Simpanan kembali masuk ke Movies dan Pictures.
 %1$s didn't take this save, so it went to Movies and Pictures.	%1$s tidak menerima simpanan ini, jadi simpanan masuk ke Movies dan Pictures.
 Start reels with sound	Mulai reel dengan suara
-A reel you tap open from a post on Home plays with sound, and Home is muted again when you go back. Your phone's ringer and volume still count.	Reel yang kamu buka dari postingan di Beranda diputar dengan suara, dan Beranda kembali bisu saat kamu kembali. Mode dering dan volume ponselmu tetap berlaku.
+A reel you open from the Reels tab or a post on Home plays with sound, and Home is muted again when you go back. Your phone's ringer and volume still count.	Reel yang kamu buka dari tab Reels atau postingan di Beranda diputar dengan suara, dan Beranda kembali bisu saat kamu kembali. Mode dering dan volume ponselmu tetap berlaku.
 Keep your place in Home	Tetap di posisi Anda di Beranda
 Coming back to Instagram leaves Home on the post you were on, however long you were away. Pull down to refresh still reloads it.	Saat kembali ke Instagram, Beranda tetap di postingan yang sedang Anda lihat, selama apa pun Anda pergi. Tarik ke bawah untuk menyegarkan tetap memuat ulang.
 Filter the Stories tray by verified accounts	Filter baris Cerita menurut akun terverifikasi
@@ -1773,6 +1817,12 @@ Playing in the background	Diputar di latar belakang
 Paused in the background	Dijeda di latar belakang
 Play	Putar
 Stop	Hentikan
+# context: a warning added to a setting's description
+Can slow down older phones.	Bisa memperlambat ponsel lama.
+# context: a switch under Ambient light
+Blend post edges	Baurkan tepi postingan
+# context: what that switch does
+Fades the top and bottom of a post's photo or video into its glow, so the edge doesn't show as a hard line.	Memudarkan bagian atas dan bawah foto atau video postingan ke dalam cahayanya, sehingga tepinya tidak terlihat sebagai garis tegas.
 2x speed for videos in the feed	2x speed for videos in the feed
 Adds a shortcut to your saved posts in the Explore tab.	Adds a shortcut to your saved posts in the Explore tab.
 Adds a speed choice to the menu on a reel.	Adds a speed choice to the menu on a reel.

@@ -13,6 +13,7 @@ import static app.hushgram.extension.instagram.settings.HushgramPreferenceFragme
 import static app.hushgram.extension.instagram.settings.HushgramPreferenceFragment.cornerSizeRow;
 import static app.hushgram.extension.instagram.settings.HushgramPreferenceFragment.feedSeekBarLookRow;
 import static app.hushgram.extension.instagram.settings.HushgramPreferenceFragment.onFlip;
+import static app.hushgram.extension.instagram.settings.HushgramPreferenceFragment.slowsOlderPhones;
 import static app.hushgram.extension.instagram.settings.HushgramPreferenceFragment.toggle;
 
 import android.content.Context;
@@ -217,6 +218,10 @@ final class FeedCategory {
             feed.addPreference(toggle(context, Settings.LONG_PRESS_ZOOM_STAYS_OPEN, L10n.t("Keep the zoom open"),
                     L10n.t("The zoom stays up after you let go. Drag to look around, pinch to zoom from 1x to 4x, "
                             + "and tap or press Back to close it.")));
+            feed.addPreference(toggle(context, Settings.LONG_PRESS_FULL_SCREEN, L10n.t("Long press a post for full screen"),
+                    L10n.t("Press and hold a post in a feed to open it full screen. Pinch a photo to zoom and tap it "
+                            + "to close. A video plays with a slider and a Close button. While this is on, it goes "
+                            + "before the zoom and Instagram's own long press.")));
         }
         if (roundedCorners) {
             feed.addPreference(toggle(context, Settings.ROUNDED_POST_CORNERS, L10n.t("Rounded corners on posts"),
@@ -245,11 +250,14 @@ final class FeedCategory {
         }
         if (ambientLight) {
             feed.addPreference(onFlip(toggle(context, Settings.AMBIENT_LIGHT, L10n.t("Ambient light"),
-                    L10n.t("Puts a soft glow in a post's own colors around its photo or video, and in the bands "
-                            + "around a reel that doesn't fill the screen. The glow follows a video as it plays.")),
+                    slowsOlderPhones(L10n.t("Puts a soft glow in a post's own colors around its photo or video, and in the bands "
+                            + "around a reel that doesn't fill the screen. The glow follows a video as it plays."))),
                     AmbientLight::switchChanged));
             feed.addPreference(ambientSpreadRow(context));
             feed.addPreference(ambientSpeedRow(context));
+            feed.addPreference(toggle(context, Settings.AMBIENT_LIGHT_BLEND, L10n.t("Blend post edges"),
+                    L10n.t("Fades the top and bottom of a post's photo or video into its glow, so the edge doesn't "
+                            + "show as a hard line.")));
         }
         if (fullScreen) {
             feed.addPreference(toggle(context, Settings.FULL_SCREEN_HOME, L10n.t("Full screen Home"),

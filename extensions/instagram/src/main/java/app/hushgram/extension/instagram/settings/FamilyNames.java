@@ -109,6 +109,7 @@ public final class FamilyNames {
     public static final String THREADS_BUTTON = "Hide the Threads button";
     public static final String PROFILE_NOTES = "Hide Notes on profile pictures";
     public static final String PROFILE_POSTS_LIST = "Profile posts as a list";
+    public static final String PROFILE_GRID_JUMP = "Jump a profile's posts to a date";
     public static final String COMMENT_COPY = "Copy comment";
     public static final String COMMENT_PHOTO = "Save comment photo";
     public static final String PROFILE_PICTURE = "Save profile picture";
@@ -116,6 +117,7 @@ public final class FamilyNames {
     public static final String HIDE_COMMENTS = "Hide comments";
     public static final String COMMENT_EMOJI_ROW = "Hide the comment emoji row";
     public static final String COMMENT_KEYBOARD = "Open comments without the keyboard";
+    public static final String COMMENT_GIFS = "Hide GIFs in comments";
     public static final String FEED_FOLLOW = "Hide Follow on feed posts";
     public static final String ACTIVITY_BUBBLES = "Hide activity bubbles";
     public static final String HIDE_CAPTIONS = "Hide captions";
@@ -162,6 +164,7 @@ public final class FamilyNames {
     public static final String KEEP_IN_CHAT = "Keep in chat";
     public static final String VIEW_ONCE_MARK = "Mark one-time photos and videos";
     public static final String CHAT_REELS = "Swipe through a chat's reels";
+    public static final String CHAT_MEDIA_WALK = "Swipe through a chat's photos and posts";
     public static final String CHAT_HISTORY = "Chat history tools";
     public static final String PREVIEW_CHATS = "Preview chats";
     public static final String ASK_BEFORE_CALL = "Ask before a call";

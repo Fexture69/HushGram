@@ -6,6 +6,33 @@ Every HushGram release, newest first.
 
 ### Features
 
+* `Swipe through a chat's photos and posts` under Messages lets you open a photo or video from a chat and swipe up through the chat's other photos, videos and shared posts, in chat order. Asked for in #350.
+* `Seek bar on photos with music` under Reels gives a reel that's a photo with a song the same seek bar and time as a video reel, following the song. Asked for in #10.
+* `Jump a profile's posts to a date` puts a calendar on a profile's top bar. Pick a day and the posts grid goes back to that day, with older posts as you scroll. Asked for in #498.
+* `Hide GIFs in comments` under Comments takes GIFs and stickers out of comments and the GIF button off the comment box. A comment with words keeps them. Asked for in #511.
+
+### Improvements
+
+* **Tooling:** The release walk now reads the settings overview while its own header shows HushGram's name, Home's welcome screen on 454, a long reel with its scrubber, and a screen with the activity tooltip up.
+* **Tooling:** `patch-all-builds.ps1` merges a split bundle before patching it, like the other patching scripts.
+* **Tooling:** The release facts check reads the patch count and target build from the description's sentences, so a change's bullet that counts patches no longer stops a release.
+* **Tooling:** Morphe Desktop 2.1.1 now has its reviewed advisory exceptions, so the audit accepts it.
+* With `Keep a seek bar on Reels` on, Instagram's own track now glides between position updates too, and a round handle stays on the line's end. Reported in #10.
+
+### Bug Fixes
+
+* `Phone layout on big screens` now takes the rail down the side away too. It only changed Home's header on 454, since Instagram's main screen asks a second copy of the width check. Reported in #515.
+* `See-through top bar` now reaches up behind the clock again instead of stopping at the header's top edge. Reported in #513.
+* `See-through top bar` no longer draws an empty frosted band across Home when nothing in the header is showing. Only the strip behind the clock stays. Reported in #513.
+
+## 0.0.19 (2026-11-06)
+
+### Features
+
+* New `Blend post edges` switch under `Ambient light` fades a post's top and bottom into its glow, so the edge doesn't show as a hard line. Asked for in #510.
+* `Story rings in the accent color` is a new switch under `Accent color`, off to start. Rings drop Instagram's gradient for your color after a restart. Asked for in #187.
+* `Backgrounds in the accent color` is another new switch there. Screens, panels, cards and menus take a dark or light shade of your color, and it wins over `Pure black dark mode`. Asked for in #187 and #8.
+* `Accent color` now reaches text that gets its blue from a layout, like the `Older posts` link. Reported in #187.
 * `Add the source to saved photos` covers videos now and is called `Add the source to saved photos and videos`. A saved MP4 gets the poster, the post date and the post's link in tags exiftool and most galleries read.
 * Tagging a saved video leaves its picture and sound exactly as they were. A video the save knows nothing about isn't touched.
 * `Choose Seen in each chat` under Messages puts an eye next to a chat's call buttons. Tap it to hold Seen in just that chat, send it there, or go back to what `Read messages without the seen receipt` says. Asked for in #13.
@@ -20,6 +47,12 @@ Every HushGram release, newest first.
 * `Full screen Reels and Home` adds `Stories fill the screen` under Stories. On a tall phone a story fills the whole screen like on shorter phones, instead of a rounded card that stops above the reply bar. Starts off. Asked for in #436.
 * `Speed button on reels` adds an icon beside a reel with a short list of speeds, 0.5x to 3x. `Keep the reel speed` carries your pick to the next reels. Both are under Reels and start off. Asked for in #480.
 * `Full screen button on reels` adds an icon beside a reel that does what Full screen in its menu does. Turn on `Start every reel in clear mode` to open every reel that way. Starts off, under Reels. Asked for in #480.
+* `Stop Reels scrolling` has three new switches under it, so reels opened from a profile, Search and Explore or a song page can still scroll while the Reels tab stays stopped. They start off. Asked for in #508.
+* `Always show seek bar in clear mode` under Reels keeps the seek bar on screen and draggable in clear mode while everything else stays hidden. Short reels get a bar too. Asked for in #480.
+* `Show the Friends tab on Reels` adds the Friends tab to the top of the Reels tab on accounts that never got it. What's in it still comes from Instagram, so it can be empty. Asked for in #499.
+* `Hold the Friends tab to pick friends` lets you hold the Friends tab on Reels, pick friends, and keep only the reels they liked or shared. Asked for in #503.
+* `Hide the tab bar on Reels` works with Glass tab bar off now, so Instagram's own bar can slide away on Reels too after the wait you pick, and the reel takes its room. Asked for in #343.
+* `Long press a post for full screen` under Feed opens a photo or video on black when you hold it, with a slider on videos. Starts off. Asked for in #505.
 * `Don't vibrate in clear mode` under Reels stops the little buzz Instagram plays when a reel opens in clear mode. With `Keep clear mode on` you'd feel it on every swipe. It starts off and changes take effect right away. Asked for in #480.
 * `Burn-in guard` dims stories now too. Leave a story untouched and its progress bar, name and buttons fade until your next tap. Typing a reply keeps them bright. `Dim stories too` under Reels turns this off. Asked for in #479.
 * `Preview chats` is a new patch under Messages. Long press a chat and tap Preview to read it without sending Seen, and reply there. It has Mark as read when `Read messages without the seen receipt` is on. Starts off. Asked for in #477.
@@ -57,12 +90,18 @@ Every HushGram release, newest first.
 * `Notify me of unfollowers` sits under Recent unfollowers and needs it on. Once you scroll your own Followers list to the end, a notification names whoever left since last time. It never checks in the background. Starts off. Asked for in #492.
 * `Save profile picture` adds `About this account button`, an (i) next to a profile's three dots that opens Instagram's About this account page for it, since Instagram took its own button away. Starts off. Asked for in #492.
 * `Ambient light` now reaches under the tab bar on the Reels tab, on Instagram's own bar and around a docked glass pill, so the glow doesn't stop at the bar. Asked for in #487.
+* `Show a comment GIF's name` adds a row to a comment's menu with the name of its GIF or sticker, and a tap on it copies the name. Asked for in #502.
 
 ### Improvements
 
+* `Ambient light` works the phone less. It waits for a scrolling list to stop before reading a picture, and a still photo gets read less and less often. Reported in #510.
+* The switches that work the phone hardest now say they can slow down older phones. Asked for in #510.
+* `Start reels with sound` covers the Reels tab as well as a reel you open from a post on Home. Home is still muted again when you leave. Reported in #504.
+* `Glass tab bar` blurs less to start with, so what passes under the pill shows as soft shapes instead of a flat dark tint. `Blur strength` starts at 8 dp now, and a value you already set stays. Reported in #289.
+* With `Liquid glass look` on, the bubble on your tab springs into place when you switch tabs. Asked for in #289.
 * `Mark as read button in chats` shows under Messages only when `Lock your messages` is patched in too, since the check mark finds the open chat through it.
 * HushGram now patches Instagram 454.0.0.54.77 instead of 453.0.0.57.79. Get APKMirror's (arm64-v8a) (480dpi) (Android 9.0+) bundle, build 386014758. Its armeabi-v7a (386014757), x86 (386014759) and x86_64 (386014760) builds are declared too, and the other arm64 density builds patch cleanly.
-* HushGram now builds on Morphe patcher 2.2.0, so patching needs Morphe Manager 2.4.0 or newer. On a computer, use morphe-desktop 2.0.0 or newer.
+* HushGram now builds on Morphe patcher 2.3.0, so patching needs Morphe Manager 2.5.0 or newer. On a computer, use morphe-desktop 2.1.0 or newer.
 * `Hide the Map bubble` is a new switch under Messages. It takes only the Map bubble out of the row of notes, and your notes stay. It starts off. Asked for in #432.
 * `Glass tab bar` has a `Refraction intensity` slider for how hard the liquid pill bends what's behind its edge, and a preview that changes as you drag. The opacity slider is now `Tint intensity`. Asked for in #391.
 * The `Glass tab bar` preview now draws its glass on black in the dark theme and on white in the light theme, like the real bar. It used to draw it on black in both. Follows #391.
@@ -72,6 +111,7 @@ Every HushGram release, newest first.
 * `Report a problem` no longer leaves a stray question mark when it has to shorten a very long phone name with emoji in it.
 * On a phone with no browser, `Report a problem`, `Source code and issues` and `Support HushGram` say so and then show their address in a second toast. With both in one toast, the end of the address got cut off.
 * VP9 and AV1 reels whose only sound in the manifest is xHE-AAC now save at full quality. The join couldn't read the post's plain video file, where their sound comes from, so they fell back to the 720p copy. Refs #496.
+* At the best download quality, a 60fps video now beats a 30fps one of the same size, even in another format. Reported in #348.
 * `Import settings` lets you pick any file. A settings file from a chat or a download often carries some other type, and the picker used to grey it out. A file that isn't a settings file is still refused.
 * In Morphe Manager's patch list, `Control taps and volume on Reels` now sits under Playback next to its switches, and `Hide rows in Instagram's settings` under Settings, so no group runs past 16 patches.
 * The chat preview bubble, the story mentions sheet and its Close button use the same corners as the rest of HushGram. The friendship chip and the carousel arrows aren't round pills anymore.
@@ -87,6 +127,7 @@ Every HushGram release, newest first.
 * About 60 of HushGram's toasts ran past the two lines Android shows, in English or a translation, so their ends never showed. They're shorter now in all ten languages.
 * When safe mode pauses HushGram it says so in two toasts, and the second says where to turn it back on.
 * `Pure black dark mode` and `Seek bar on stories` find their story code through the patcher's index instead of reading every class. With every patch on, patching takes about 4% less processor time. The patched app is the same. Refs #173.
+* **Tooling:** `patch-for-device.ps1` merges a split bundle before handing it to the CLI, so it works on a machine that refuses to follow the links the CLI makes.
 * **Tooling:** `preflight.ps1 -Version` now refuses a source census past its 14 days. Until now the index push was the first thing to say so, after the gate, the walk and the publish.
 * **Tooling:** `count_tests.py --description` prints only the validation sentence on stdout and its counts on stderr, so saving its output gives `release_notes.py` the one line it wants.
 * **Tooling:** When `verify-all-patches.ps1 -KeepIn` can't keep a passing run, it now deletes only the files the keep writes. It used to delete the whole folder you named, with everything else in it.
@@ -95,6 +136,11 @@ Every HushGram release, newest first.
 
 ### Bug Fixes
 
+* `Ambient light` no longer glows around photos and stickers in chats, or in the strip under the comment bar on a reel opened from the feed. Reported in #510.
+* `Ambient light`'s glow now carries on under a post's rounded corners, which showed as dark wedges with `Rounded corners on posts` on. Reported in #510.
+* The story mentions pill sits right under the name again, not a pill's height below it. Reported in #510.
+* `Keep clear mode on` no longer brings the top bar back when you swipe to the next reel. Reported in #480.
+* `Profile extras button` and `About this account button` no longer look the same side by side. The extras one is a circled arrow now.
 * With `Add the source to saved photos and videos` on, a saved carousel page links the post it's from instead of a link that doesn't open. A saved story gets no link, since stories have no post page.
 * With `Gallery and microphone in the plus menu` on, `Buttons in the message box` says those two are in the plus menu instead of calling them shown or left off. It updates the moment that switch flips.
 * With `Name saves by account and post time` on, `Download file name` now says its names only go to saves that don't know who posted or when, and it updates as soon as that switch flips.
@@ -132,6 +178,7 @@ Every HushGram release, newest first.
 * With `Glass tab bar` and `Hide the tab bar on Reels`, the reel stays put when the pill slides away or comes back. It runs behind the pill with its caption and buttons kept above it. Reported in #466 and #467.
 * `See who a story mentions` opens its list again after a profile. That works when the next story mentions other people too, and on Instagram 453, where the profile opens over the story. Reported in #403.
 * `See-through top bar` now reaches behind the status bar. Home's posts scroll on under the clock and the glass covers that strip too, so the blur runs to the top of the screen. Reported in #462.
+* `Download button on feed posts` now says it needs `Download feed videos` or `Download feed photos`. The row stays grey until one of them is on, and nothing explained why. Reported in #465.
 * `Turn off HDR brightness boosts` now also turns off the fake HDR that Instagram's own AV1 decoder can add to ordinary reels, which could still come out brighter than the rest of the screen. Reported in #85.
 * `Logo and titles at the start` now moves the Messages title and the Reels tabs too. The Reels tabs sit right after Create, or off the edge when Create is hidden. Reported in #407.
 * With `Stop after the chat's reels` on, a chat's reels scroll one after another again. A swipe past the last one goes back to the chat, and pulling down no longer loads suggested reels. Reported in #390.
@@ -169,6 +216,13 @@ Every HushGram release, newest first.
 * `Ambient light` lights the screen around story videos that Instagram plays on a SurfaceView. It used to light the picture behind them. Reported in #492.
 * The Saved bookmark on your profile opens your saved posts through Instagram's own link, in any language. Before, it could open settings. Reported in #492.
 * The `Blur the bars around Reels` summary says the blur only shows where a reel leaves room. The share sheet's button list says Reply to author is on posts and reels, and Download profile card on profiles. From #492.
+* With `Gray out stories you've watched` on, a story you've watched all the way through keeps its place in the tray after a long watch too, until you pull to refresh or restart. Reported in #377.
+* `Mark who doesn't follow you back` gives the mark a second line on your Following list, so the Message button can't cut it short. Reported in #351.
+* A saved photo is now the largest size Instagram lists. A bigger size could lose to a smaller one because of how its address looked, and a report names every size listed. Reported in #500.
+* `Download as photo` on a video story saves the video's first frame when Instagram's picture is smaller and the same shape, so 640x1136 becomes 1080x1920. Reported in #214.
+* `About this account button` no longer shows an error on Pages. It told the screen it came from an ad, and now says it came from the profile, the way Instagram's own menu does. Reported in #507.
+* `Keep Featured off the heart's dot` also covers other people's new posts and Instagram's own news, and counts that arrive with your inbox. Likes, comments, follows and follow requests still light the heart. Reported in #189.
+* Turning off `Search button on Home's header` takes the magnifier away as soon as you close settings, not at the next restart. The header's other added buttons do the same. Reported in #492.
 
 ## 0.0.18 (2026-10-31)
 
