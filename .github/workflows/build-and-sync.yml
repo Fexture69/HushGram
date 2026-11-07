@@ -7,6 +7,7 @@ on:
   push:
     branches:
       - main
+      - perf/s24-plus-exynos
     paths-ignore:
       - 'README.md'
       - '.github/ISSUE_TEMPLATE/**'
@@ -127,7 +128,7 @@ jobs:
           if-no-files-found: error
 
       - name: Create or Update GitHub Release
-        if: github.ref == 'refs/heads/main' && (github.event_name == 'push' || github.event_name == 'schedule' || inputs.publish_release == true)
+        if: (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/perf/s24-plus-exynos') && (github.event_name == 'push' || github.event_name == 'schedule' || inputs.publish_release == true)
         uses: softprops/action-gh-release@v2
         with:
           tag_name: v${{ steps.version.outputs.VERSION }}-build${{ github.run_number }}
