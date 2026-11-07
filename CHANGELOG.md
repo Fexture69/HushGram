@@ -6,7 +6,7 @@ Every HushGram release, newest first.
 
 ### Features
 
-* `Swipe through a chat's photos and posts` under Messages lets you open a photo or video from a chat and swipe up through the chat's other photos, videos and shared posts, in chat order. Asked for in #350.
+* `Swipe through a chat's photos and posts` under Messages lets you open a photo, video or shared post from a chat and swipe up through the chat's other photos, videos and shared posts, in chat order. Asked for in #350.
 * `Seek bar on photos with music` under Reels gives a reel that's a photo with a song the same seek bar and time as a video reel, following the song. Asked for in #10.
 * `Jump a profile's posts to a date` puts a calendar on a profile's top bar. Pick a day and the posts grid goes back to that day, with older posts as you scroll. Asked for in #498.
 * `Hide GIFs in comments` under Comments takes GIFs and stickers out of comments and the GIF button off the comment box. A comment with words keeps them. Asked for in #511.
@@ -24,6 +24,7 @@ Every HushGram release, newest first.
 * `Phone layout on big screens` now takes the rail down the side away too. It only changed Home's header on 454, since Instagram's main screen asks a second copy of the width check. Reported in #515.
 * `See-through top bar` now reaches up behind the clock again instead of stopping at the header's top edge. Reported in #513.
 * `See-through top bar` no longer draws an empty frosted band across Home when nothing in the header is showing. Only the strip behind the clock stays. Reported in #513.
+* `Start tab` now works when you open Instagram from its icon without a saved `Tab order`. On 454 Instagram picks the first tab before the tab bar is built, and that pick used to need a saved order. Reported in #534.
 
 ## 0.0.19 (2026-11-06)
 
