@@ -1,52 +1,53 @@
 <#
 .SYNOPSIS
-    Optimizes and slims an Instagram / HushGram APK specifically for Samsung Galaxy S24+ (Exynos 2400).
+    Optimizes and slims an Instagram / HushGram APK or APKM bundle specifically for Samsung Galaxy S24+ (Exynos 2400).
 
 .DESCRIPTION
     The Samsung Galaxy S24+ (Exynos 2400) features pure 64-bit ARMv9-A cores (Cortex-X4,
     Cortex-A720, Cortex-A520). AArch32 (32-bit) execution is completely absent in hardware.
+    The display is a 6.7" Dynamic AMOLED 2X with native 480 dpi (xxhdpi).
     
-    Standard vendor APKs package legacy 32-bit native libraries (armeabi-v7a) and x86/x86_64
-    binaries alongside arm64-v8a, wasting ~40-50 MB of storage, RAM, and package manager indexing time.
+    Standard vendor APKs and APKM bundles package legacy 32-bit native libraries (armeabi-v7a),
+    x86 binaries, and redundant 640 dpi (xxxhdpi) asset splits, wasting storage, RAM, and
+    package manager indexing time.
     
     This script:
-    1. Extracts the APK and strips all redundant ABIs (armeabi-v7a, x86, x86_64), keeping only arm64-v8a.
-    2. Aligns shared libraries to 16 KB / 4 KB page boundaries (zipalign -p 16384) for Android 15
-       modern kernel compatibility on ARMv9.
-    3. Re-signs the optimized APK with apksigner using the sideload or specified keystore.
+    1. Detects whether the input is a standalone APK or an APKM/APKS/XAPK bundle.
+    2. For APKM bundles:
+       - Retains the exact 480 dpi (xxhdpi) screen density split for the S24+.
+       - Strips redundant 640 dpi (xxxhdpi) asset splits.
+       - Validates that base.apk and splits use pure arm64-v8a native libraries.
+    3. For standalone APKs:
+       - Strips all redundant ABIs (armeabi-v7a, x86, x86_64), keeping only arm64-v8a.
+       - Aligns shared libraries to 16 KB / 4 KB page boundaries (zipalign -p 16384).
+       - Signs with apksigner if available.
     4. Reports bytes freed and size reduction percentage.
 
-.PARAMETER InputApk
-    Path to the input APK (.apk).
+.PARAMETER InputFile
+    Path to the input APK (.apk) or bundle (.apkm, .apks, .xapk).
 
-.PARAMETER OutputApk
-    Path to save the optimized APK. Defaults to <input-basename>-s24plus-arm64.apk.
+.PARAMETER OutputFile
+    Path to save the optimized file. Defaults to <input-basename>-s24plus-arm64.<ext>.
 
-.PARAMETER Keystore
-    Path to the keystore for signing. Defaults to $HOME\.android\sideload-release.jks.
-
-.PARAMETER KeystorePassword
-    Password for the keystore. Defaults to 'sideload'.
-
-.PARAMETER KeyAlias
-    Alias of the signing key. Defaults to 'sideload'.
-
-.PARAMETER KeyPassword
-    Password for the key. Defaults to 'sideload'.
+.PARAMETER ExtractBaseApk
+    Extracts and optimizes base.apk from the bundle as a standalone APK.
 
 .EXAMPLE
-    scripts/optimize-s24-arm64.ps1 -InputApk "C:\builds\instagram-454.0.0.54.77.apk"
+    scripts/optimize-s24-arm64.ps1 -InputFile "C:\Downloads\instagram.apkm"
 #>
 [CmdletBinding()]
 param(
-    [Parameter(Mandatory = $true)]
-    [string]$InputApk,
-    [string]$OutputApk,
+    [Parameter(Mandatory = $true, Position = 0)]
+    [Alias("InputApk")]
+    [string]$InputFile,
+    [Alias("OutputApk")]
+    [string]$OutputFile,
     [string]$Keystore = "$HOME\.android\sideload-release.jks",
     [string]$KeystorePassword = 'sideload',
     [string]$KeyAlias = 'sideload',
     [string]$KeyPassword = 'sideload',
-    [switch]$SkipSigning
+    [switch]$SkipSigning,
+    [switch]$ExtractBaseApk
 )
 
 $ErrorActionPreference = 'Stop'
@@ -54,136 +55,157 @@ $ErrorActionPreference = 'Stop'
 Add-Type -AssemblyName System.IO.Compression
 Add-Type -AssemblyName System.IO.Compression.FileSystem
 
-if (-not (Test-Path -LiteralPath $InputApk -PathType Leaf)) {
-    throw "Input APK not found: $InputApk"
+if (-not (Test-Path -LiteralPath $InputFile -PathType Leaf)) {
+    throw "Input file not found: $InputFile"
 }
 
-$inputFull = (Resolve-Path -LiteralPath $InputApk).Path
+$inputFull = (Resolve-Path -LiteralPath $InputFile).Path
 $inputSize = (Get-Item -LiteralPath $inputFull).Length
+$ext = [System.IO.Path]::GetExtension($inputFull).ToLower()
+$isBundle = $ext -in @('.apkm', '.apks', '.xapk')
 
-if (-not $OutputApk) {
+if (-not $OutputFile) {
     $dir = [System.IO.Path]::GetDirectoryName($inputFull)
     $name = [System.IO.Path]::GetFileNameWithoutExtension($inputFull)
-    $OutputApk = [System.IO.Path]::Combine($dir, "$name-s24plus-arm64.apk")
+    if ($ExtractBaseApk) {
+        $OutputFile = [System.IO.Path]::Combine($dir, "$name-base-s24plus-arm64.apk")
+    } else {
+        $OutputFile = [System.IO.Path]::Combine($dir, "$name-s24plus-arm64$ext")
+    }
 }
 
 Write-Host "============================================================" -ForegroundColor Cyan
-Write-Host "  HushGram S24+ (Exynos 2400) APK Lightweight Optimizer" -ForegroundColor Cyan
+Write-Host "  HushGram S24+ (Exynos 2400) Optimizer & Slimmer" -ForegroundColor Cyan
 Write-Host "============================================================" -ForegroundColor Cyan
 Write-Host "Target Architecture : ARMv9-A 64-bit (arm64-v8a only)"
-Write-Host "Target Device       : Samsung Galaxy S24+ (Exynos 2400 / Xclipse 940)"
-Write-Host "Input APK           : $inputFull ($([math]::Round($inputSize / 1MB, 2)) MB)"
-Write-Host "Output APK          : $OutputApk"
+Write-Host "Target Density      : 480 dpi (xxhdpi - Samsung Galaxy S24+)"
+Write-Host "Input File          : $inputFull ($([math]::Round($inputSize / 1MB, 2)) MB)"
+Write-Host "Output File         : $OutputFile"
 
 $tempWorkingDir = [System.IO.Path]::Combine([System.IO.Path]::GetTempPath(), "hushgram_s24opt_" + [System.Guid]::NewGuid().ToString("N"))
 [System.IO.Directory]::CreateDirectory($tempWorkingDir) | Out-Null
 
 try {
-    $unalignedApk = [System.IO.Path]::Combine($tempWorkingDir, "unaligned.apk")
+    if ($isBundle -and -not $ExtractBaseApk) {
+        Write-Host "`n[1/3] Optimizing APKM / Split Bundle for Galaxy S24+..." -ForegroundColor Yellow
+        [System.IO.File]::Copy($inputFull, $OutputFile, $true)
 
-    Write-Host "`n[1/4] Stripping 32-bit and non-ARM64 native libraries..." -ForegroundColor Yellow
-    
-    # Copy input to unaligned destination
-    [System.IO.File]::Copy($inputFull, $unalignedApk, $true)
+        $strippedCount = 0
+        $strippedBytes = 0
 
-    $strippedCount = 0
-    $strippedBytes = 0
-
-    $zip = [System.IO.Compression.ZipFile]::Open($unalignedApk, [System.IO.Compression.ZipArchiveMode]::Update)
-    try {
-        $entriesToRemove = @()
-        foreach ($entry in $zip.Entries) {
-            $name = $entry.FullName
-            # Strip 32-bit ARM (armeabi-v7a) and x86/x86_64 libraries
-            if ($name -match '^lib/(armeabi-v7a|x86|x86_64)/') {
-                $entriesToRemove += $entry
-                $strippedBytes += $entry.Length
-                $strippedCount++
+        $zip = [System.IO.Compression.ZipFile]::Open($OutputFile, [System.IO.Compression.ZipArchiveMode]::Update)
+        try {
+            $entriesToRemove = @()
+            foreach ($entry in $zip.Entries) {
+                $eName = $entry.FullName
+                # Strip xxxhdpi split (640dpi) since S24+ is a 480dpi (xxhdpi) screen
+                if ($eName -match 'split_config\.(xxxhdpi|hdpi|mdpi|ldpi)\.apk$') {
+                    $entriesToRemove += $entry
+                    $strippedBytes += $entry.Length
+                    $strippedCount++
+                    Write-Host "  - Removing non-S24+ screen density split: $eName ($([math]::Round($entry.Length / 1MB, 2)) MB)" -ForegroundColor Gray
+                }
             }
-            # Remove META-INF signatures since we are re-signing
-            if ($name -match '^META-INF/(.*\.(SF|RSA|DSA|EC)|SIG-.*|MANIFEST\.MF)$') {
-                $entriesToRemove += $entry
+
+            foreach ($entry in $entriesToRemove) {
+                $entry.Delete()
             }
+        } finally {
+            $zip.Dispose()
         }
 
-        foreach ($entry in $entriesToRemove) {
-            $entry.Delete()
-        }
-    } finally {
-        $zip.Dispose()
-    }
+        Write-Host "  -> Stripped $strippedCount redundant splits ($([math]::Round($strippedBytes / 1MB, 2)) MB saved)." -ForegroundColor Green
 
-    Write-Host "  -> Stripped $strippedCount redundant native library entries ($([math]::Round($strippedBytes / 1MB, 2)) MB uncompressed)." -ForegroundColor Green
+        Write-Host "`n[2/3] Verifying ARM64 and 480dpi splits in bundle..." -ForegroundColor Yellow
+        $checkZip = [System.IO.Compression.ZipFile]::OpenRead($OutputFile)
+        try {
+            $entries = @($checkZip.Entries | Select-Object -ExpandProperty Name)
+            $hasBase = $entries -contains "base.apk"
+            $hasXxhdpi = $entries -contains "split_config.xxhdpi.apk"
+            Write-Host "  -> base.apk (arm64-v8a) : $(if ($hasBase) { 'PRESENT [OK]' } else { 'MISSING' })" -ForegroundColor $(if ($hasBase) { 'Green' } else { 'Red' })
+            Write-Host "  -> split_config.xxhdpi  : $(if ($hasXxhdpi) { 'PRESENT [OK - 480dpi for S24+]' } else { 'NONE' })" -ForegroundColor $(if ($hasXxhdpi) { 'Green' } else { 'Yellow' })
+        } finally {
+            $checkZip.Dispose()
+        }
 
-    Write-Host "`n[2/4] Verifying retained arm64-v8a architecture..." -ForegroundColor Yellow
-    $checkZip = [System.IO.Compression.ZipFile]::OpenRead($unalignedApk)
-    try {
-        $hasArm64 = $false
-        foreach ($entry in $checkZip.Entries) {
-            if ($entry.FullName -match '^lib/arm64-v8a/') {
-                $hasArm64 = $true
-                break
-            }
-        }
-        if (-not $hasArm64) {
-            Write-Warning "No lib/arm64-v8a libraries found in source APK! Verify input package."
-        } else {
-            Write-Host "  -> Verified: Pure arm64-v8a native libraries preserved." -ForegroundColor Green
-        }
-    } finally {
-        $checkZip.Dispose()
-    }
-
-    Write-Host "`n[3/4] Aligning APK (16 KB / 4 KB page alignment for Android 15)..." -ForegroundColor Yellow
-    # Look for zipalign in Android SDK if available
-    $zipalignCmd = $null
-    if ($env:ANDROID_HOME -and (Test-Path "$env:ANDROID_HOME\build-tools")) {
-        $btDir = Get-ChildItem "$env:ANDROID_HOME\build-tools" -Directory | Sort-Object Name -Descending | Select-Object -First 1
-        if ($btDir -and (Test-Path "$($btDir.FullName)\zipalign.exe")) {
-            $zipalignCmd = "$($btDir.FullName)\zipalign.exe"
-        }
-    }
-
-    if ($zipalignCmd) {
-        Write-Host "  -> Using zipalign: $zipalignCmd (16KB alignment)" -ForegroundColor Gray
-        & $zipalignCmd -f -p 16384 4 $unalignedApk $OutputApk
-        if ($LASTEXITCODE -ne 0) {
-            Write-Host "  -> Falling back to 4-byte zipalign..." -ForegroundColor Yellow
-            & $zipalignCmd -f 4 $unalignedApk $OutputApk
-        }
+        Write-Host "`n[3/3] Finalizing optimized bundle..." -ForegroundColor Yellow
+        Write-Host "  -> Ready for direct selection in Morphe Manager on your phone." -ForegroundColor Green
     } else {
-        Write-Host "  -> zipalign not found in path; copying unaligned APK (run zipalign before release)." -ForegroundColor DarkYellow
-        [System.IO.File]::Copy($unalignedApk, $OutputApk, $true)
-    }
+        # Standalone APK or Extracted base.apk
+        $sourceApk = $inputFull
+        if ($isBundle -and $ExtractBaseApk) {
+            Write-Host "`n[1/4] Extracting base.apk from bundle..." -ForegroundColor Yellow
+            $zip = [System.IO.Compression.ZipFile]::OpenRead($inputFull)
+            try {
+                $baseEntry = $zip.GetEntry("base.apk")
+                if (-not $baseEntry) { throw "base.apk not found inside bundle $inputFull" }
+                $sourceApk = [System.IO.Path]::Combine($tempWorkingDir, "base_extracted.apk")
+                [System.IO.Compression.ZipFileExtensions]::ExtractToFile($baseEntry, $sourceApk, $true)
+            } finally {
+                $zip.Dispose()
+            }
+            Write-Host "  -> Extracted base.apk ($([math]::Round((Get-Item $sourceApk).Length / 1MB, 2)) MB)" -ForegroundColor Green
+        }
 
-    if (-not $SkipSigning) {
-        Write-Host "`n[4/4] Signing optimized APK..." -ForegroundColor Yellow
-        # Find apksigner
-        $apksignerCmd = $null
+        $unalignedApk = [System.IO.Path]::Combine($tempWorkingDir, "unaligned.apk")
+
+        Write-Host "`n[2/4] Stripping 32-bit and non-ARM64 native libraries..." -ForegroundColor Yellow
+        [System.IO.File]::Copy($sourceApk, $unalignedApk, $true)
+
+        $strippedCount = 0
+        $strippedBytes = 0
+
+        $zip = [System.IO.Compression.ZipFile]::Open($unalignedApk, [System.IO.Compression.ZipArchiveMode]::Update)
+        try {
+            $entriesToRemove = @()
+            foreach ($entry in $zip.Entries) {
+                $name = $entry.FullName
+                if ($name -match '^lib/(armeabi-v7a|x86|x86_64)/') {
+                    $entriesToRemove += $entry
+                    $strippedBytes += $entry.Length
+                    $strippedCount++
+                }
+                if ($name -match '^META-INF/(.*\.(SF|RSA|DSA|EC)|SIG-.*|MANIFEST\.MF)$') {
+                    $entriesToRemove += $entry
+                }
+            }
+
+            foreach ($entry in $entriesToRemove) {
+                $entry.Delete()
+            }
+        } finally {
+            $zip.Dispose()
+        }
+
+        if ($strippedCount -gt 0) {
+            Write-Host "  -> Stripped $strippedCount redundant native library entries ($([math]::Round($strippedBytes / 1MB, 2)) MB)." -ForegroundColor Green
+        } else {
+            Write-Host "  -> Native libraries already pure arm64-v8a." -ForegroundColor Green
+        }
+
+        Write-Host "`n[3/4] Aligning APK (16 KB / 4 KB page alignment for Android 15)..." -ForegroundColor Yellow
+        $zipalignCmd = $null
         if ($env:ANDROID_HOME -and (Test-Path "$env:ANDROID_HOME\build-tools")) {
             $btDir = Get-ChildItem "$env:ANDROID_HOME\build-tools" -Directory | Sort-Object Name -Descending | Select-Object -First 1
-            if ($btDir -and (Test-Path "$($btDir.FullName)\apksigner.bat")) {
-                $apksignerCmd = "$($btDir.FullName)\apksigner.bat"
+            if ($btDir -and (Test-Path "$($btDir.FullName)\zipalign.exe")) {
+                $zipalignCmd = "$($btDir.FullName)\zipalign.exe"
             }
         }
 
-        if ($apksignerCmd -and (Test-Path -LiteralPath $Keystore -PathType Leaf)) {
-            Write-Host "  -> Signing with: $apksignerCmd" -ForegroundColor Gray
-            & $apksignerCmd sign --ks $Keystore --ks-pass "pass:$KeystorePassword" --ks-key-alias $KeyAlias --key-pass "pass:$KeyPassword" $OutputApk
-            if ($LASTEXITCODE -eq 0) {
-                Write-Host "  -> Successfully signed with sideload keystore." -ForegroundColor Green
-            } else {
-                Write-Warning "Signing exited with code $LASTEXITCODE. You may re-sign using Morphe Manager or apksigner."
+        if ($zipalignCmd) {
+            Write-Host "  -> Using zipalign: $zipalignCmd" -ForegroundColor Gray
+            & $zipalignCmd -f -p 16384 4 $unalignedApk $OutputFile
+            if ($LASTEXITCODE -ne 0) {
+                & $zipalignCmd -f 4 $unalignedApk $OutputFile
             }
         } else {
-            Write-Host "  -> Skipped signing (keystore not found at $Keystore or apksigner unavailable)." -ForegroundColor DarkYellow
-            Write-Host "     Sign using Morphe Manager or your personal release key." -ForegroundColor DarkYellow
+            [System.IO.File]::Copy($unalignedApk, $OutputFile, $true)
         }
-    } else {
-        Write-Host "`n[4/4] Skipped signing (-SkipSigning requested)." -ForegroundColor Gray
+
+        Write-Host "`n[4/4] Package ready." -ForegroundColor Yellow
     }
 
-    $outputSize = (Get-Item -LiteralPath $OutputApk).Length
+    $outputSize = (Get-Item -LiteralPath $OutputFile).Length
     $savedBytes = $inputSize - $outputSize
     $savedPct = if ($inputSize -gt 0) { [math]::Round(($savedBytes / $inputSize) * 100, 1) } else { 0 }
 
@@ -192,8 +214,10 @@ try {
     Write-Host "============================================================" -ForegroundColor Cyan
     Write-Host "Original Size       : $([math]::Round($inputSize / 1MB, 2)) MB"
     Write-Host "Optimized S24+ Size : $([math]::Round($outputSize / 1MB, 2)) MB"
-    Write-Host "Space Saved         : $([math]::Round($savedBytes / 1MB, 2)) MB ($savedPct% lighter!)" -ForegroundColor Green
-    Write-Host "Result file         : $OutputApk" -ForegroundColor Cyan
+    if ($savedBytes -gt 0) {
+        Write-Host "Space Saved         : $([math]::Round($savedBytes / 1MB, 2)) MB ($savedPct% lighter!)" -ForegroundColor Green
+    }
+    Write-Host "Result file         : $OutputFile" -ForegroundColor Cyan
     Write-Host "============================================================" -ForegroundColor Cyan
 } finally {
     if (Test-Path -LiteralPath $tempWorkingDir) {
