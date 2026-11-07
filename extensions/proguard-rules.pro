@@ -1,5 +1,8 @@
 -dontobfuscate
--dontoptimize
+-optimizationpasses 5
+-allowaccessmodification
+-mergeinterfacesaggressively
+
 -keepattributes *
 # From AGP 9.2 the wildcard above no longer matches the RuntimeInvisible attributes, so it would
 # quietly stop keeping them once the Morphe settings plugin brings that AGP in. Naming them
@@ -12,8 +15,8 @@
 -keepattributes RuntimeInvisibleAnnotations,RuntimeInvisibleParameterAnnotations
 -keepattributes RuntimeInvisibleTypeAnnotations
 # Extension classes are called from injected target bytecode and by reflection.
-# Keep the extension namespace intact while allowing unrelated Morphe classes to shrink.
--keep class app.hushgram.extension.** {
+# Keep the extension namespace intact while allowing R8 to inline, devirtualize, and optimize bytecode.
+-keep,allowoptimization class app.hushgram.extension.** {
   *;
 }
 # Proguard can strip away kotlin intrinsics methods that are used by extension Kotlin code. Unclear why.

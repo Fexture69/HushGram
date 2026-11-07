@@ -54,6 +54,16 @@ public final class VideoSurface {
     /** The switch that needs a TextureView, the first one on, or null when none is. */
     @Nullable
     private static String asking() {
+        if (Settings.HARDWARE_VIDEO_OVERLAYS.get()) {
+            // Hardware video acceleration prioritizes SurfaceView over TextureView,
+            // only falling back to TextureView if blurs or ambient effects strictly require pixel reading.
+            if (Settings.GLASS_TAB_BAR.get()) return FamilyNames.GLASS_TAB_BAR;
+            if (Settings.GLASS_CHAT.get()) return FamilyNames.GLASS_CHAT;
+            if (Settings.SEE_THROUGH_HOME_TOP_BAR.get()) return FamilyNames.HOME_TOP_BAR;
+            if (Settings.BLUR_REEL_BARS.get()) return FamilyNames.REEL_BLUR_BARS;
+            if (Settings.AMBIENT_LIGHT.get() || Settings.AMBIENT_LIGHT_STORIES.get()) return FamilyNames.AMBIENT_LIGHT;
+            return null;
+        }
         if (Settings.TURN_OFF_HDR_BOOSTS.get()) return FamilyNames.HDR_BOOST;
         if (Settings.GLASS_TAB_BAR.get()) return FamilyNames.GLASS_TAB_BAR;
         if (Settings.GLASS_CHAT.get()) return FamilyNames.GLASS_CHAT;
