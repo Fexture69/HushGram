@@ -26,7 +26,6 @@ public class ExynosOptimizerTest {
     @Before
     public void prepare() {
         Settings.HIGHEST_REFRESH_RATE.save(false);
-        Settings.HARDWARE_VIDEO_OVERLAYS.save(false);
         Settings.STOP_HEARTBEAT.save(false);
         Settings.STOP_UPLOAD_ALARM.save(false);
         Settings.CLEAR_MEDIA_CACHE.save(false);
@@ -36,7 +35,6 @@ public class ExynosOptimizerTest {
     @After
     public void cleanup() {
         Settings.HIGHEST_REFRESH_RATE.resetToDefault();
-        Settings.HARDWARE_VIDEO_OVERLAYS.resetToDefault();
         Settings.STOP_HEARTBEAT.resetToDefault();
         Settings.STOP_UPLOAD_ALARM.resetToDefault();
         Settings.CLEAR_MEDIA_CACHE.resetToDefault();
@@ -49,7 +47,6 @@ public class ExynosOptimizerTest {
         assertTrue(result.contains("S24+ Exynos 2400 preset"));
 
         assertTrue("120Hz refresh rate must be enabled", Settings.HIGHEST_REFRESH_RATE.get());
-        assertTrue("SurfaceView hardware overlays must be enabled", Settings.HARDWARE_VIDEO_OVERLAYS.get());
         assertTrue("Heartbeat alarm must be stopped", Settings.STOP_HEARTBEAT.get());
         assertTrue("Upload alarm must be stopped", Settings.STOP_UPLOAD_ALARM.get());
         assertTrue("Media cache must be enabled", Settings.CLEAR_MEDIA_CACHE.get());

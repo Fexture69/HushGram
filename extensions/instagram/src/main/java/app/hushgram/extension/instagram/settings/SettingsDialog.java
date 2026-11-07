@@ -91,7 +91,7 @@ public final class SettingsDialog extends DialogFragment {
         failed = savedInstanceState != null && savedInstanceState.getBoolean(PAGE_FAILED);
         try {
             super.onCreate(savedInstanceState);
-        } catch (Exception failure) {
+        } catch (Throwable failure) {
             // Fragment.onCreate restores child constructors before our view exists.
             // Finish the dialog's own initialization without retrying the failed saved child.
             super.onCreate(null);
@@ -504,13 +504,13 @@ public final class SettingsDialog extends DialogFragment {
                     }
                 });
             }
-        } catch (Exception ex) {
+        } catch (Throwable ex) {
             failed = true;
             Logger.printException(() -> "Could not show the preference list", ex);
             try {
                 Fragment partial = manager.findFragmentById(CONTAINER_ID);
                 if (partial != null) manager.beginTransaction().remove(partial).commitNow();
-            } catch (Exception cleanup) {
+            } catch (Throwable cleanup) {
                 Logger.printException(() -> "Could not remove the failed preference list", cleanup);
             }
             // A throw from onViewCreated can leave a view attached before the fragment has

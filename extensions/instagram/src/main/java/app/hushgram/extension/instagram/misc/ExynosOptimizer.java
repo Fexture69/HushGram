@@ -92,22 +92,19 @@ public final class ExynosOptimizer {
         // 1. Lock 120Hz smooth scrolling for the 120Hz Dynamic AMOLED 2X panel
         Settings.HIGHEST_REFRESH_RATE.save(true);
 
-        // 2. Prioritize hardware video overlays (SurfaceView) on AMD Xclipse 940 GPU
-        Settings.HARDWARE_VIDEO_OVERLAYS.save(true);
-
-        // 3. Stop background wakeups to keep Cortex-X4 in deep sleep
+        // 2. Stop background wakeups to keep Cortex-X4 in deep sleep
         Settings.STOP_HEARTBEAT.save(true);
         Settings.STOP_UPLOAD_ALARM.save(true);
 
-        // 4. Enable automatic media cache pruning for lightweight storage
+        // 3. Enable automatic media cache pruning for lightweight storage
         Settings.CLEAR_MEDIA_CACHE.save(true);
 
-        // 5. Disable aggressive HDR brightness boost to reduce GPU tone-mapping thermals
+        // 4. Disable aggressive HDR brightness boost to reduce GPU tone-mapping thermals
         Settings.TURN_OFF_HDR_BOOSTS.save(true);
 
         Logger.printDebug(() -> "ExynosOptimizer: Applied Samsung Galaxy S24+ Exynos 2400 optimization preset.");
 
-        return "Configured S24+ Exynos 2400 preset: 120Hz refresh rate, SurfaceView hardware acceleration, "
+        return "Configured S24+ Exynos 2400 preset: 120Hz refresh rate, "
                 + "heartbeat wake-up suppression, analytics alarm suppression, and media cache pruning enabled.";
     }
 }

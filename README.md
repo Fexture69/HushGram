@@ -67,9 +67,9 @@ Back it up right after your first patch. In Morphe Manager open **Settings → S
 This branch (`perf/s24-plus-exynos`) includes specialized performance, battery, and lightweight enhancements tailored for the **Samsung Galaxy S24+** (Exynos 2400 / AMD Xclipse 940 GPU / 120Hz LTPO Dynamic AMOLED 2X):
 
 - **120Hz LTPO Smooth Scrolling**: Sets both `preferredDisplayModeId` and `preferredRefreshRate = 120Hz` to prevent Samsung One UI from capping the app at 60Hz during feed navigation.
-- **AMD Xclipse 940 Hardware Acceleration**: `Hardware video overlays (SurfaceView)` prioritizes direct hardware composer (HWC) overlays rather than forcing GPU `TextureView` rendering, reducing GPU load by ~40% and keeping thermals cool.
+- **AMD Xclipse 940 GPU & Surface Optimization**: Prioritizes SurfaceView hardware display composer overlays where possible and stabilizes display timing on AMD Xclipse 940.
 - **Exynos 2400 Battery Protection**: Suppresses 1–2 minute background heartbeat wakeups and 5-minute analytics upload alarms to keep Cortex-X4 prime cores in low-power deep sleep.
-- **R8 / ProGuard Optimization**: Optimized R8 passes (`-optimizationpasses 5`) with aggressive dead-code elimination and method inlining for a smaller extension DEX footprint.
+- **Worker Thread Background Priority**: Demotes background worker tasks to Android THREAD_PRIORITY_BACKGROUND to prevent CPU thread contention.
 - **Pure 64-bit ARMv9 APK Slimming**: Use `scripts/optimize-s24-arm64.ps1` to strip redundant 32-bit `armeabi-v7a`, `x86`, and `x86_64` native binaries, shaving 40–50 MB off the APK.
 
 See the [Samsung Galaxy S24+ Exynos Optimization Guide](docs/s24-plus-exynos-optimization.md) for full details.

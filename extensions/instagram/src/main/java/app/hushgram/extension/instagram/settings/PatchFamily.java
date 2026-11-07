@@ -172,7 +172,7 @@ public enum PatchFamily {
     SETTINGS_ROWS(FamilyNames.SETTINGS_ROWS, "settingsRows", null),
     FONT(FamilyNames.FONT, "font", null),
     NOTIFICATION_GROUPS(FamilyNames.NOTIFICATION_GROUPS, "notificationGroups", null, Settings.GROUP_NOTIFICATIONS),
-    HDR_BOOST(FamilyNames.HDR_BOOST, "hdrBoost", null, Settings.HARDWARE_VIDEO_OVERLAYS, Settings.TURN_OFF_HDR_BOOSTS),
+    HDR_BOOST(FamilyNames.HDR_BOOST, "hdrBoost", null, Settings.TURN_OFF_HDR_BOOSTS),
     STOP_LOOPING(FamilyNames.STOP_LOOPING, "stopLooping", null, Settings.STOP_VIDEO_LOOPING),
     BACKGROUND_PLAY(FamilyNames.BACKGROUND_PLAY, "backgroundPlay", null, Settings.KEEP_PLAYING_IN_BACKGROUND),
     MEDIA_CACHE(FamilyNames.MEDIA_CACHE, "mediaCache", null, Settings.CLEAR_MEDIA_CACHE),

@@ -72,18 +72,6 @@ public class VideoSurfaceTest {
         assertKeptFor(Settings.TURN_OFF_HDR_BOOSTS, FamilyNames.HDR_BOOST);
     }
 
-    @Test
-    public void hardwareVideoOverlaysKeepVideoOnSurfaceView() {
-        Settings.TURN_OFF_HDR_BOOSTS.save(true);
-        Settings.HARDWARE_VIDEO_OVERLAYS.save(true);
-        assertFalse("Hardware overlays keep video on SurfaceView", VideoSurface.textureOnly());
-        Settings.GLASS_TAB_BAR.save(true);
-        assertTrue("Live blurs still take TextureView when needed", VideoSurface.textureOnly());
-        Settings.GLASS_TAB_BAR.save(false);
-        Settings.HARDWARE_VIDEO_OVERLAYS.save(false);
-        Settings.TURN_OFF_HDR_BOOSTS.save(false);
-    }
-
     /** #430, #136, #144: the glass can't read a SurfaceView, so the video showed sharp through it. */
     @Test
     public void theGlassBarsKeepVideoOnATexture() {

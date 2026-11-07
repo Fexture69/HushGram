@@ -95,8 +95,6 @@ final class PlaybackCategory {
                         L10n.t("Wi-Fi stays as it is. Turn this off to save data on every network.")));
             }
             if (build.contains(PatchFamily.HDR_BOOST)) {
-                playback.addPreference(toggle(context, Settings.HARDWARE_VIDEO_OVERLAYS, L10n.t("Hardware video overlays (SurfaceView)"),
-                        L10n.t("Prioritizes hardware SurfaceView overlays for 60/120 fps playback with minimum GPU load and cooler operation on Exynos 2400 (Xclipse 940).")));
                 playback.addPreference(toggle(context, Settings.TURN_OFF_HDR_BOOSTS, L10n.t("Turn off HDR brightness boosts"),
                         L10n.t("HDR photos and reels stop brightening the screen above everything else. They show "
                                 + "at the same brightness as the rest of Instagram.")));

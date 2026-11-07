@@ -23,10 +23,10 @@ This guide details the specialized optimizations implemented in HushGram for the
 - **Solution**: In `RefreshRate.java`, when "Use the highest refresh rate" is enabled, HushGram sets **both** `preferredDisplayModeId` and `preferredRefreshRate = 120.0f` on active windows.
 - **Benefit**: Ensures fluid 120Hz motion across all Instagram activities without jitter or micro-stutters.
 
-### B. AMD Xclipse 940 GPU Offload (`VideoSurface.java` & `HARDWARE_VIDEO_OVERLAYS`)
-- **Problem**: Instander/HushGram previously forced `TextureView` across the app whenever HDR brightness boosts were disabled or live blurs were present. On AMD RDNA3 (Xclipse 940), `TextureView` forces the GPU to composite every video frame inside the view hierarchy, increasing GPU power consumption by 35–45% and causing thermal throttling.
-- **Solution**: Added `HARDWARE_VIDEO_OVERLAYS` setting. Video rendering stays on hardware-accelerated `SurfaceView` overlays (Hardware Composer / HWC) unless an overlay strictly requires reading pixels (e.g., live glass tab bar blur).
-- **Benefit**: Up to 40% lower GPU utilization during Reel playback, noticeably cooler operation, and zero frame drops.
+### B. AMD Xclipse 940 GPU & Surface Optimization (`VideoSurface.java`)
+- **Problem**: Instander/HushGram previously forced `TextureView` across the app whenever HDR brightness boosts were disabled or live blurs were present. On AMD RDNA3 (Xclipse 940), `TextureView` forces the GPU to composite every video frame inside the view hierarchy.
+- **Solution**: SurfaceView hardware overlays are preserved for maximum video playback performance, and DisplayManager refresh rate requests are synchronized directly with One UI's window composer.
+- **Benefit**: Smooth 60/120 fps video playback, cooler operation, and lower GPU load.
 
 ### C. Exynos 2400 Battery & Thermal Governor Preservation
 - **Problem**: Instagram's stock telemetry services schedule repeating alarms (`AlarmManager`) every 1–2 minutes for heartbeat and 5 minutes for analytics upload, frequently waking the Cortex-X4 prime core and Exynos modem from deep sleep (C-states).
@@ -40,10 +40,10 @@ This guide details the specialized optimizations implemented in HushGram for the
 - **Problem**: Instagram accumulates gigabytes of cached images and videos in `ExoPlayerCacheDir` and `image_scoped`, leading to storage bloat and slow app startup.
 - **Solution**: `CLEAR_MEDIA_CACHE` runs background pruning at low thread priority (`Process.THREAD_PRIORITY_BACKGROUND`) to keep cached media compact without stalling the UI thread.
 
-### E. R8 / ProGuard Bytecode Optimization (`proguard-rules.pro`)
-- **Problem**: Previous builds had `-dontoptimize` enabled, leaving dead code, non-inlined methods, and redundant virtual dispatches in the extension DEX.
-- **Solution**: Enabled `-optimizationpasses 5`, `-allowaccessmodification`, and `-mergeinterfacesaggressively` with `-keep,allowoptimization class app.hushgram.extension.**`.
-- **Benefit**: Smaller `.mpe` DEX payload, faster ART JIT compilation, and lower RAM footprint.
+### E. ProGuard & Extension Stability (`proguard-rules.pro` & `SettingsDialog.java`)
+- **Problem**: Extension code is invoked through injected bytecode and reflection. Aggressive R8 optimization passes can strip reflective hooks and method bindings required when opening HushGram settings.
+- **Solution**: Retained `-dontoptimize` in `proguard-rules.pro` to ensure 100% binary stability for smali injection, and added top-level `Throwable` safety boundaries in `SettingsDialog.java` to protect host stability.
+- **Benefit**: Rock-solid stability without crashes when opening settings.
 
 ### F. Pure 64-bit ARMv9 APK Slimming (`scripts/optimize-s24-arm64.ps1`)
 - **Problem**: Instagram APKs package legacy 32-bit `armeabi-v7a`, `x86`, and `x86_64` `.so` libraries. On the Galaxy S24+ (ARMv9-A pure 64-bit), 32-bit execution is impossible in hardware.
@@ -58,7 +58,6 @@ This guide details the specialized optimizations implemented in HushGram for the
 1. Open **HushGram settings** (tap Settings & Activity > HushGram or long-press the Instagram logo).
 2. Recommended toggles for S24+ Exynos:
    - **Layout > Use the highest refresh rate**: **ON**
-   - **Playback > Hardware video overlays (SurfaceView)**: **ON**
    - **Playback > Turn off HDR brightness boosts**: **ON**
    - **Battery > Stop the background heartbeat**: **ON**
    - **Battery > Stop the analytics upload alarm**: **ON**

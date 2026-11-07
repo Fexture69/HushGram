@@ -3235,16 +3235,6 @@ public class Settings extends BaseSettings {
             new BooleanSetting("hushgram_resume_long_videos", FALSE);
 
     /**
-     * Prefer SurfaceView hardware overlay video rendering over TextureView
-     * ({@link app.hushgram.extension.instagram.media.VideoSurface}). SurfaceView renders directly
-     * through the hardware display compositor (SurfaceFlinger/HWC), bypassing the GPU rendering
-     * pipeline. Essential for smooth 60/120fps video playback, lower thermals, and reduced battery drain
-     * on Samsung Exynos / AMD Xclipse architectures.
-     */
-    public static final BooleanSetting HARDWARE_VIDEO_OVERLAYS =
-            new BooleanSetting("hushgram_hardware_video_overlays", FALSE);
-
-    /**
      * HDR photos and reels don't brighten the screen: every headroom Instagram asks Android for is
      * none, HDR color mode is the default one, the screen's HDR/SDR ratio reads as none, the screen
      * reads as one without HDR outside the camera's recording helper, and Instagram's extended range
