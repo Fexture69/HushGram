@@ -53,9 +53,10 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: '21'
+          cache: 'gradle'
 
       - name: Sync with Upstream
-        if: github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && inputs.sync_upstream == true)
+        if: github.ref == 'refs/heads/main' && (github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && inputs.sync_upstream == true))
         run: |
           echo "Configuring git identity..."
           git config user.name "github-actions[bot]"
@@ -107,7 +108,21 @@ jobs:
           GITHUB_ACTOR: ${{ github.actor }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          ./gradlew :patches:buildAndroid --no-daemon --dependency-verification=lenient
+          for i in 1 2 3; do
+            echo "Attempt $i to build patch bundle..."
+            if ./gradlew :patches:buildAndroid --no-daemon --dependency-verification=lenient; then
+              echo "Build succeeded on attempt $i!"
+              break
+            else
+              if [ $i -lt 3 ]; then
+                echo "Attempt $i failed. Retrying in 10s..."
+                sleep 10
+              else
+                echo "Build failed after 3 attempts."
+                exit 1
+              fi
+            fi
+          done
 
       - name: Verify MPP Artifact
         run: |
