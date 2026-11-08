@@ -1,5 +1,6 @@
 -dontobfuscate
 -dontoptimize
+
 -keepattributes *
 # From AGP 9.2 the wildcard above no longer matches the RuntimeInvisible attributes, so it would
 # quietly stop keeping them once the Morphe settings plugin brings that AGP in. Naming them

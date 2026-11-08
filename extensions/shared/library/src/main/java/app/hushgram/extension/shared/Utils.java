@@ -254,7 +254,13 @@ public class Utils {
             TimeUnit.SECONDS,
             new ArrayBlockingQueue<>(32),
             r -> { // ThreadFactory
-                Thread t = new Thread(r);
+                Thread t = new Thread(() -> {
+                    try {
+                        Process.setThreadPriority(Process.THREAD_PRIORITY_BACKGROUND);
+                    } catch (Throwable ignored) {
+                    }
+                    r.run();
+                });
                 t.setPriority(Thread.NORM_PRIORITY);
                 t.setDaemon(true);
                 return t;

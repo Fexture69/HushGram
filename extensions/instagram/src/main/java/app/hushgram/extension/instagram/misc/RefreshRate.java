@@ -143,6 +143,7 @@ public final class RefreshRate {
                 // Only a window this class set, and only while it still holds this class's request.
                 if (ours != null && params.preferredDisplayModeId == ours) {
                     params.preferredDisplayModeId = 0;
+                    params.preferredRefreshRate = 0f;
                     window.setAttributes(params);
                 }
                 return;
@@ -151,10 +152,32 @@ public final class RefreshRate {
             int[] current = new int[1];
             Mode[] modes = source.modes(activity, current);
             int id = fastestId(current[0], modes);
-            if (id == 0 || params.preferredDisplayModeId == id) return;
-            params.preferredDisplayModeId = id;
-            window.setAttributes(params);
-            asked.put(activity, id);
+            if (id == 0) return;
+
+            float fastestRate = 0f;
+            if (modes != null) {
+                for (Mode mode : modes) {
+                    if (mode != null && mode.id == id) {
+                        fastestRate = mode.hertz;
+                        break;
+                    }
+                }
+            }
+
+            boolean changed = false;
+            if (params.preferredDisplayModeId != id) {
+                params.preferredDisplayModeId = id;
+                changed = true;
+            }
+            if (fastestRate > 0f && Math.abs(params.preferredRefreshRate - fastestRate) > 0.5f) {
+                params.preferredRefreshRate = fastestRate;
+                changed = true;
+            }
+
+            if (changed) {
+                window.setAttributes(params);
+                asked.put(activity, id);
+            }
         } catch (Throwable failure) {
             HookStatus.threw(FamilyNames.REFRESH_RATE, "mode request", failure);
         }

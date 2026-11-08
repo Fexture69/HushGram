@@ -62,6 +62,18 @@ Morphe Manager signs the patched Instagram with a key it makes on your phone, an
 
 Back it up right after your first patch. In Morphe Manager open **Settings → System → Import & export → Signing key**, tap **Export** and keep the `Morphe.keystore` file somewhere private, since anyone who has it can sign an APK your phone will take as an update. On a new phone, import it before you patch anything. A different key means uninstalling the patched Instagram first, which deletes its data and signs you out. Morphe's own guide is [Backup and keystore](https://github.com/MorpheApp/morphe-manager/blob/main/docs/backup-and-keystore.md).
 
+## Samsung Galaxy S24+ (Exynos 2400) Performance & Lightweight Profile
+
+HushGram includes specialized performance, battery, and lightweight enhancements tailored for the **Samsung Galaxy S24+** (Exynos 2400 / AMD Xclipse 940 GPU / 120Hz LTPO Dynamic AMOLED 2X):
+
+- **120Hz LTPO Smooth Scrolling**: Sets both `preferredDisplayModeId` and `preferredRefreshRate = 120Hz` to prevent Samsung One UI from capping the app at 60Hz during feed navigation.
+- **AMD Xclipse 940 GPU & Surface Optimization**: Prioritizes SurfaceView hardware display composer overlays where possible and stabilizes display timing on AMD Xclipse 940.
+- **Exynos 2400 Battery Protection**: Suppresses 1–2 minute background heartbeat wakeups and 5-minute analytics upload alarms to keep Cortex-X4 prime cores in low-power deep sleep.
+- **Worker Thread Background Priority**: Demotes background worker tasks to Android THREAD_PRIORITY_BACKGROUND to prevent CPU thread contention.
+- **Pure 64-bit ARMv9 APK Slimming**: Use `scripts/optimize-s24-arm64.ps1` to strip redundant 32-bit `armeabi-v7a`, `x86`, and `x86_64` native binaries, shaving 40–50 MB off the APK.
+
+See the [Samsung Galaxy S24+ Exynos Optimization Guide](docs/s24-plus-exynos-optimization.md) for full details.
+
 ## Patches
 
 There are 158 patches for `com.instagram.android`, checked against Instagram 454.0.0.54.77. Manager's simple mode includes 153 of them, so you don't need Expert mode to get any feature below. A patch that comes in this way changes nothing until you turn its switch on in HushGram settings, and each description says where that switch is. A few start on: Hide ads, Sanitize sharing links, Open links in external browser, Remove build expired popup, Hide suggested posts, Hide suggested stories, Hide Meta AI's search and posts switches, Show if a profile follows you, Download any reel, Download any story and Keep the reel speed. Story ring size and Default playback quality start on too, but they keep Instagram's own size and quality until you pick one. Tab bar layout has no switch at all and keeps the bar Instagram gives you until you pick another.
