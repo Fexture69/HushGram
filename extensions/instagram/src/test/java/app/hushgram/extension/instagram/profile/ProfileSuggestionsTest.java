@@ -72,6 +72,7 @@ public class ProfileSuggestionsTest {
         Settings.HIDE_FOLLOW_BACK_SUGGESTIONS.resetToDefault();
         Settings.HIDE_NOTIFICATION_SUGGESTIONS.resetToDefault();
         Settings.HIDE_NOTIFICATION_FEATURED.resetToDefault();
+        Settings.HIDE_NOTIFICATION_CHANNEL_INVITES.resetToDefault();
         BaseSettings.PAUSED.save(false);
         PauseForTests.resume();
         HookStatus.clear();
@@ -523,6 +524,70 @@ public class ProfileSuggestionsTest {
     }
 
     /**
+     * #539: the follow list switch also takes Suggested subscriptions off your own Subscriptions tab,
+     * with no next page asked for, and the Discover people button off your own follow lists. Off,
+     * paused or unready, all three answers stand.
+     */
+    @Test
+    public void suggestedSubscriptionsAndTheDiscoverButtonGoWithTheFollowListSwitch() {
+        List<Object> creators = Arrays.asList(new Object(), new Object());
+        assertSame("the profile switch alone", creators, ProfileSuggestions.suggestedSubscriptions(creators));
+        assertTrue("the profile switch alone", ProfileSuggestions.moreSuggestedSubscriptions(1));
+        assertEquals("the profile switch alone", 1, ProfileSuggestions.friendingButton(1));
+
+        Settings.HIDE_FOLLOW_LIST_SUGGESTIONS.save(true);
+        List<?> hidden = ProfileSuggestions.suggestedSubscriptions(creators);
+        assertTrue(hidden.isEmpty());
+        assertEquals("the reply keeps its creators", 2, creators.size());
+        @SuppressWarnings("unchecked") List<Object> added = (List<Object>) hidden;
+        added.add(new Object());
+        assertEquals("the empty answer can be added to", 1, hidden.size());
+        List<Object> none = Collections.emptyList();
+        assertSame("nothing to hide", none, ProfileSuggestions.suggestedSubscriptions(none));
+        assertNull(ProfileSuggestions.suggestedSubscriptions(null));
+        assertFalse("no next page", ProfileSuggestions.moreSuggestedSubscriptions(1));
+        assertFalse("the last page stays the last", ProfileSuggestions.moreSuggestedSubscriptions(0));
+        assertEquals(0, ProfileSuggestions.friendingButton(1));
+        assertEquals("someone else's lists stay without it", 0, ProfileSuggestions.friendingButton(0));
+        String report = FeedFilterCounters.report().toString();
+        assertTrue(report, report.contains(ProfileSuggestions.SUGGESTED_SUBSCRIPTIONS));
+        assertTrue(report, report.contains(ProfileSuggestions.FRIENDING_BUTTON));
+        Settings.HIDE_PROFILE_SUGGESTIONS.save(false);
+        assertTrue("with the profile switch off", ProfileSuggestions.suggestedSubscriptions(creators).isEmpty());
+        assertEquals("with the profile switch off", 0, ProfileSuggestions.friendingButton(1));
+
+        BaseSettings.PAUSED.save(true);
+        PauseForTests.pause(HushgramPause.Reason.SWITCH);
+        assertSame("paused", creators, ProfileSuggestions.suggestedSubscriptions(creators));
+        assertTrue("paused", ProfileSuggestions.moreSuggestedSubscriptions(1));
+        assertEquals("paused", 1, ProfileSuggestions.friendingButton(1));
+        BaseSettings.PAUSED.save(false);
+        PauseForTests.resume();
+        SettingsContextRule.withoutContext(() -> {
+            assertSame("unready", creators, ProfileSuggestions.suggestedSubscriptions(creators));
+            assertTrue("unready", ProfileSuggestions.moreSuggestedSubscriptions(1));
+            assertEquals("unready", 1, ProfileSuggestions.friendingButton(1));
+        });
+
+        Settings.HIDE_FOLLOW_LIST_SUGGESTIONS.save(false);
+        assertSame("off", creators, ProfileSuggestions.suggestedSubscriptions(creators));
+        assertTrue("off", ProfileSuggestions.moreSuggestedSubscriptions(1));
+        assertEquals("off", 1, ProfileSuggestions.friendingButton(1));
+    }
+
+    /** A follow list switch that throws keeps the creators, the next page and the button, and says which hook threw. */
+    @Test
+    public void aThrowingSwitchKeepsSuggestedSubscriptionsAndTheDiscoverButton() {
+        List<Object> creators = Collections.singletonList(new Object());
+        assertSame(creators, ProfileSuggestions.suggestedSubscriptions(creators, THROWS));
+        assertTrue(ProfileSuggestions.moreSuggestedSubscriptions(1, THROWS));
+        assertEquals(1, ProfileSuggestions.friendingButton(1, THROWS));
+        String missing = HookStatus.missing(FamilyNames.PROFILE_SUGGESTIONS).toString();
+        assertTrue(missing, missing.contains("'" + ProfileSuggestions.SUGGESTED_SUBSCRIPTIONS + "'"));
+        assertTrue(missing, missing.contains("'" + ProfileSuggestions.FRIENDING_BUTTON + "'"));
+    }
+
+    /**
      * #159: the Complete your profile cards go only with their own switch. A hidden set is counted,
      * with the profile switch on or off; off, paused or unready, Instagram's own check stands.
      */
@@ -872,6 +937,69 @@ public class ProfileSuggestionsTest {
         Settings.HIDE_NOTIFICATION_FEATURED.save(false);
         ProfileSuggestions.notificationParsed(nudge, "ig_text_app_thread_you_may_enjoy");
         assertSame("off", nudge, ProfileSuggestions.keepNotification(nudge));
+    }
+
+    /**
+     * #259 on 454: Threads rows also come as ig_text_post_app_ ("Suggested thread for you by nasa" is
+     * ig_text_post_app_daily_digest), and those leave with the same switches as the ig_text_app_ ones.
+     */
+    @Test
+    public void textPostAppRowsAreThreadsRowsToo() {
+        assertTrue(ProfileSuggestions.isFeaturedNudge("ig_text_post_app_daily_digest"));
+        assertTrue(ProfileSuggestions.isFeaturedNudge("ig_text_post_app_unconnected_daily_digest"));
+        assertTrue(ProfileSuggestions.isSuggestion("ig_text_post_app_unconnected_daily_digest"));
+        assertFalse("from an account you follow", ProfileSuggestions.isSuggestion("ig_text_post_app_daily_digest"));
+        assertFalse(ProfileSuggestions.isFeaturedNudge("ig_text_post_app_reply"));
+        assertFalse(ProfileSuggestions.isFeaturedNudge("ig_text_post_app_mention"));
+        assertFalse("not Threads", ProfileSuggestions.isFeaturedNudge("ig_text_post_daily_digest"));
+
+        Object digest = new Object();
+        Settings.HIDE_NOTIFICATION_FEATURED.save(true);
+        ProfileSuggestions.notificationParsed(digest, "ig_text_post_app_daily_digest");
+        assertNull(ProfileSuggestions.keepNotification(digest));
+        Settings.HIDE_NOTIFICATION_FEATURED.save(false);
+        ProfileSuggestions.notificationParsed(digest, "ig_text_post_app_daily_digest");
+        assertSame("off", digest, ProfileSuggestions.keepNotification(digest));
+    }
+
+    /**
+     * #259: "cnn invited you to join their channel" (igd_broadcast_chat_creation on 454) and a roundup of
+     * channel invites leave with Hide channel invites in notifications, and only with it. Other rows stay.
+     */
+    @Test
+    public void channelInvitesGoWithTheirOwnSwitch() {
+        assertTrue(ProfileSuggestions.isChannelInvite("igd_broadcast_chat_creation"));
+        assertTrue(ProfileSuggestions.isChannelInvite("igd_broadcast_channel_invites_digest"));
+        assertTrue(ProfileSuggestions.isChannelInvite("ig_channel_invite_reminder"));
+        assertFalse(ProfileSuggestions.isChannelInvite("igd_broadcast_chat_message"));
+        assertFalse(ProfileSuggestions.isChannelInvite("unseen_direct_message_reminder"));
+        assertFalse(ProfileSuggestions.isChannelInvite("user_followed"));
+        assertFalse(ProfileSuggestions.isChannelInvite(null));
+
+        Object invite = new Object();
+        Object follow = new Object();
+        Settings.HIDE_NOTIFICATION_SUGGESTIONS.save(true);
+        Settings.HIDE_NOTIFICATION_FEATURED.save(true);
+        ProfileSuggestions.notificationParsed(invite, "igd_broadcast_chat_creation");
+        assertSame("the other switches", invite, ProfileSuggestions.keepNotification(invite));
+
+        Settings.HIDE_NOTIFICATION_CHANNEL_INVITES.save(true);
+        ProfileSuggestions.notificationParsed(invite, "igd_broadcast_chat_creation");
+        assertNull(ProfileSuggestions.keepNotification(invite));
+        ProfileSuggestions.notificationParsed(follow, "user_followed");
+        assertSame(follow, ProfileSuggestions.keepNotification(follow));
+        String report = FeedFilterCounters.report().toString();
+        assertTrue(report, report.contains(ProfileSuggestions.CHANNEL_INVITES + " 1"));
+
+        BaseSettings.PAUSED.save(true);
+        PauseForTests.pause(HushgramPause.Reason.SWITCH);
+        ProfileSuggestions.notificationParsed(invite, "igd_broadcast_chat_creation");
+        assertSame("paused", invite, ProfileSuggestions.keepNotification(invite));
+        BaseSettings.PAUSED.save(false);
+        PauseForTests.resume();
+        Settings.HIDE_NOTIFICATION_CHANNEL_INVITES.save(false);
+        ProfileSuggestions.notificationParsed(invite, "igd_broadcast_chat_creation");
+        assertSame("off", invite, ProfileSuggestions.keepNotification(invite));
     }
 
     /** #259: the list builder skips a row tagged priority_stories only while the Featured switch is on. */

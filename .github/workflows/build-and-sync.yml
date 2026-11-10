@@ -55,6 +55,9 @@ jobs:
           java-version: '21'
           cache: 'gradle'
 
+      - name: Make gradlew executable
+        run: chmod +x gradlew
+
       - name: Sync with Upstream
         if: github.ref == 'refs/heads/main' && (github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && inputs.sync_upstream == true))
         run: |
@@ -91,9 +94,6 @@ jobs:
           else
             echo "Repository is already up to date with upstream."
           fi
-
-      - name: Make gradlew executable
-        run: chmod +x gradlew
 
       - name: Extract Patch Version
         id: version

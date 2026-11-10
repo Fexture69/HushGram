@@ -37,6 +37,7 @@ import app.hushgram.extension.instagram.misc.NotificationGroups;
 import app.hushgram.extension.instagram.misc.SettingsRows;
 import app.hushgram.extension.instagram.misc.SpoofLocation;
 import app.hushgram.extension.instagram.misc.AppProxy;
+import app.hushgram.extension.instagram.misc.CustomAccent;
 import app.hushgram.extension.instagram.reels.TabOrder;
 import app.hushgram.extension.instagram.share.ShareSheetActions;
 import app.hushgram.extension.instagram.share.SharingDomain;
@@ -124,6 +125,9 @@ public final class ConfigurationBackup {
         if (PatchFamily.STORY_UPLOAD_QUALITY.inBuild()) {
             settings.put(Settings.UPLOAD_QUALITY_APPLIES_TO.key, Settings.UPLOAD_QUALITY_APPLIES_TO);
             settings.put(Settings.UPLOAD_VIDEO_BITRATE.key, Settings.UPLOAD_VIDEO_BITRATE);
+            settings.put(Settings.UPLOAD_VIDEO_RESOLUTION.key, Settings.UPLOAD_VIDEO_RESOLUTION);
+            settings.put(Settings.UPLOAD_FRAME_RATE.key, Settings.UPLOAD_FRAME_RATE);
+            settings.put(Settings.UPLOAD_PHOTO_QUALITY.key, Settings.UPLOAD_PHOTO_QUALITY);
         }
         if (PatchFamily.ROUNDED_POST_CORNERS.inBuild()) settings.put(Settings.ROUNDED_CORNER_SIZE.key, Settings.ROUNDED_CORNER_SIZE);
         if (PatchFamily.AMBIENT_LIGHT.inBuild()) {
@@ -149,6 +153,10 @@ public final class ConfigurationBackup {
             settings.put(Settings.MIN_REEL_LIKES.key, Settings.MIN_REEL_LIKES);
         }
         if (PatchFamily.STORY_PRIORITY.inBuild()) settings.put(Settings.STORY_PRIORITY_ACCOUNTS.key, Settings.STORY_PRIORITY_ACCOUNTS);
+        if (PatchFamily.CALL_BLOCKER.inBuild()) {
+            settings.put(Settings.CALL_BLOCK_MODE.key, Settings.CALL_BLOCK_MODE);
+            settings.put(Settings.CALL_BLOCK_ACCOUNTS.key, Settings.CALL_BLOCK_ACCOUNTS);
+        }
         if (PatchFamily.SANITIZE_SHARING_LINKS.inBuild()) settings.put(Settings.SHARING_DOMAIN.key, Settings.SHARING_DOMAIN);
         if (PatchFamily.LIKE_ANIMATION.inBuild()) settings.put(Settings.LIKE_ANIMATION.key, Settings.LIKE_ANIMATION);
         if (PatchFamily.LIKE_ANIMATION.inBuild()) settings.put(Settings.GROW_LIKE_HEART.key, Settings.GROW_LIKE_HEART);
@@ -171,6 +179,7 @@ public final class ConfigurationBackup {
         if (PatchFamily.REEL_TAP_AND_VOLUME.inBuild()) settings.put(Settings.REEL_TAP_CHOICE.key, Settings.REEL_TAP_CHOICE);
         if (PatchFamily.REEL_SCROLLING.inBuild()) {
             settings.put(Settings.SCROLL_BREAK.key, Settings.SCROLL_BREAK);
+            settings.put(Settings.SCROLL_BREAK_LENGTH.key, Settings.SCROLL_BREAK_LENGTH);
             settings.put(Settings.REEL_CAP_COUNT.key, Settings.REEL_CAP_COUNT);
             settings.put(Settings.REEL_CAP_BREAK.key, Settings.REEL_CAP_BREAK);
         }
@@ -195,14 +204,19 @@ public final class ConfigurationBackup {
         if (PatchFamily.STORY_TIME.inBuild()) settings.put(Settings.STORY_TIME_MODE.key, Settings.STORY_TIME_MODE);
         if (PatchFamily.STORY_MENTIONS.inBuild()) settings.put(Settings.STORY_MENTIONS_LOOK.key, Settings.STORY_MENTIONS_LOOK);
         if (PatchFamily.CAROUSEL_ARROWS.inBuild()) settings.put(Settings.CAROUSEL_PILL_LOOK.key, Settings.CAROUSEL_PILL_LOOK);
-        if (PatchFamily.FEED_SEEK_BAR.inBuild()) settings.put(Settings.FEED_SEEK_BAR_LOOK.key, Settings.FEED_SEEK_BAR_LOOK);
+        if (PatchFamily.FEED_SEEK_BAR.inBuild()) {
+            settings.put(Settings.FEED_SEEK_BAR_LOOK.key, Settings.FEED_SEEK_BAR_LOOK);
+            settings.put(Settings.SEEK_BAR_SHAPE.key, Settings.SEEK_BAR_SHAPE);
+        }
         if (PatchFamily.STORY_SEEK_BAR.inBuild()) settings.put(Settings.STORY_SEEK_BAR_LOOK.key, Settings.STORY_SEEK_BAR_LOOK);
         if (PatchFamily.FRIENDSHIP_STATUS.inBuild()) settings.put(Settings.FOLLOW_LABEL_PLACE.key, Settings.FOLLOW_LABEL_PLACE);
         if (PatchFamily.FULL_SCREEN_BARS.inBuild()) settings.put(Settings.FULL_SCREEN_HIDES.key, Settings.FULL_SCREEN_HIDES);
         if (PatchFamily.TAB_BAR_LAYOUT.inBuild()) settings.put(Settings.TAB_BAR_LAYOUT.key, Settings.TAB_BAR_LAYOUT);
+        if (PatchFamily.SWIPE_TO_CREATE.inBuild()) settings.put(Settings.HOME_SWIPE_OPENS.key, Settings.HOME_SWIPE_OPENS);
         if (PatchFamily.REELS_TAB.inBuild()) {
             settings.put(Settings.START_TAB.key, Settings.START_TAB);
             settings.put(Settings.TAB_ORDER.key, Settings.TAB_ORDER);
+            settings.put(Settings.TAB_ICON_SIZE.key, Settings.TAB_ICON_SIZE);
         }
         if (PatchFamily.GLASS_TAB_BAR.inBuild()) {
             settings.put(Settings.GLASS_TAB_BAR_HAPTIC_STYLE.key, Settings.GLASS_TAB_BAR_HAPTIC_STYLE);
@@ -217,7 +231,10 @@ public final class ConfigurationBackup {
         if (PatchFamily.SHARE_SHEET.inBuild()) {
             settings.put(Settings.HIDDEN_SHARE_SHEET_BUTTONS.key, Settings.HIDDEN_SHARE_SHEET_BUTTONS);
         }
-        if (PatchFamily.ACCENT_COLOR.inBuild()) settings.put(Settings.ACCENT_HUE.key, Settings.ACCENT_HUE);
+        if (PatchFamily.ACCENT_COLOR.inBuild()) {
+            settings.put(Settings.ACCENT_HUE.key, Settings.ACCENT_HUE);
+            settings.put(Settings.ACCENT_CUSTOM.key, Settings.ACCENT_CUSTOM);
+        }
         if (PatchFamily.FONT.inBuild()) settings.put(Settings.FONT.key, Settings.FONT);
         if (PatchFamily.EMOJI_STYLE.inBuild()) settings.put(Settings.EMOJI_FONT.key, Settings.EMOJI_FONT);
         if (PatchFamily.APP_ICON.inBuild()) settings.put(Settings.APP_ICON.key, Settings.APP_ICON);
@@ -226,15 +243,21 @@ public final class ConfigurationBackup {
             settings.put(Settings.DOWNLOAD_REEL_COVER.key, Settings.DOWNLOAD_REEL_COVER);
             settings.put(Settings.DOWNLOAD_REEL_AUDIO.key, Settings.DOWNLOAD_REEL_AUDIO);
             settings.put(Settings.REEL_DOWNLOAD_BUTTON.key, Settings.REEL_DOWNLOAD_BUTTON);
+            settings.put(Settings.REEL_DOWNLOAD_BUTTON_ASKS.key, Settings.REEL_DOWNLOAD_BUTTON_ASKS);
             settings.put(Settings.REEL_NOT_INTERESTED_BUTTON.key, Settings.REEL_NOT_INTERESTED_BUTTON);
             settings.put(Settings.REEL_BLOCK_BUTTON.key, Settings.REEL_BLOCK_BUTTON);
             settings.put(Settings.HIDE_SOUND_REELS.key, Settings.HIDE_SOUND_REELS);
             settings.put(Settings.TEXT_BUTTON_ON_REELS.key, Settings.TEXT_BUTTON_ON_REELS);
             if (PatchFamily.KEEP_REEL_SPEED.inBuild()) {
                 settings.put(Settings.SPEED_BUTTON_ON_REELS.key, Settings.SPEED_BUTTON_ON_REELS);
+                settings.put(Settings.SPEED_IN_REEL_MENU.key, Settings.SPEED_IN_REEL_MENU);
             }
             if (PatchFamily.REEL_DECLUTTER.inBuild()) {
                 settings.put(Settings.FULL_SCREEN_BUTTON_ON_REELS.key, Settings.FULL_SCREEN_BUTTON_ON_REELS);
+            }
+            if (PatchFamily.REEL_TAP_AND_VOLUME.inBuild()) {
+                settings.put(Settings.MUTE_BUTTON_ON_REELS.key, Settings.MUTE_BUTTON_ON_REELS);
+                settings.put(Settings.MUTE_BUTTON_IN_CLEAR_MODE.key, Settings.MUTE_BUTTON_IN_CLEAR_MODE);
             }
         }
         if (PatchFamily.REEL_POST_TIME.inBuild()) {
@@ -276,6 +299,7 @@ public final class ConfigurationBackup {
         settings.put(Settings.SETTINGS_SHORTCUT.key, Settings.SETTINGS_SHORTCUT);
         settings.put(Settings.SETTINGS_LOGO_PRESS.key, Settings.SETTINGS_LOGO_PRESS);
         settings.put(Settings.CATEGORY_PAGES.key, Settings.CATEGORY_PAGES);
+        settings.put(Settings.CATEGORY_OWN_PAGE.key, Settings.CATEGORY_OWN_PAGE);
         settings.put(Settings.CATEGORY_GRID.key, Settings.CATEGORY_GRID);
         settings.put(Settings.DESCRIPTIONS_BEHIND_INFO.key, Settings.DESCRIPTIONS_BEHIND_INFO);
         settings.put(Settings.SETTINGS_BLACK_LOOK.key, Settings.SETTINGS_BLACK_LOOK);
@@ -429,7 +453,7 @@ public final class ConfigurationBackup {
         }
         int longest = setting == Settings.REELS_BLOCKED_WORDS || setting == Settings.REELS_KEPT_LANGUAGES
                 || setting == Settings.STORY_PRIORITY_ACCOUNTS || setting == Settings.FRIENDS_TAB_PICKS
-                || setting == Settings.HIDDEN_SETTINGS_ROWS
+                || setting == Settings.CALL_BLOCK_ACCOUNTS || setting == Settings.HIDDEN_SETTINGS_ROWS
                 || setting == Settings.MUTED_NOTIFICATION_CHANNELS ? MAX_WORDS_TEXT : MAX_TEXT;
         if (!(value instanceof String) || ((String) value).length() > longest) return null;
         if (fallback instanceof Enum) {
@@ -487,6 +511,8 @@ public final class ConfigurationBackup {
         if (setting == Settings.SPOOF_LOCATION_PLACE) return text.trim().isEmpty() || SpoofLocation.parse(text) != null;
         // The row saves the server as host:port, so a file holds it that way or blank.
         if (setting == Settings.APP_PROXY_SERVER) return text.equals(AppProxy.normalize(text));
+        // The row saves the custom color as #RRGGBB, so a file holds it that way or blank.
+        if (setting == Settings.ACCENT_CUSTOM) return text.isEmpty() || text.equals(CustomAccent.normalize(text));
         if (setting == Settings.TAB_ORDER) return text.equals(TabOrder.join(TabOrder.parse(text)));
         // The share sheet buttons to leave out, as Instagram's names for them with commas between.
         if (setting == Settings.HIDDEN_SHARE_SHEET_BUTTONS) {
@@ -508,7 +534,8 @@ public final class ConfigurationBackup {
         }
         // The words Hide reels by caption words looks for: any text without control characters but line breaks.
         if (setting == Settings.REELS_BLOCKED_WORDS || setting == Settings.REELS_KEPT_LANGUAGES
-                || setting == Settings.STORY_PRIORITY_ACCOUNTS || setting == Settings.FRIENDS_TAB_PICKS) {
+                || setting == Settings.STORY_PRIORITY_ACCOUNTS || setting == Settings.FRIENDS_TAB_PICKS
+                || setting == Settings.CALL_BLOCK_ACCOUNTS) {
             return blockedWordsAllowed(text);
         }
         // An enum constant name of Instagram's; a name this Instagram lacks keeps its heart.

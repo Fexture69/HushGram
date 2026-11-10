@@ -14,6 +14,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.ContextWrapper;
 import android.content.DialogInterface;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ListView;
 
@@ -237,6 +238,44 @@ public class FriendLanePicksTest {
         assertNull(ShadowAlertDialog.getLatestAlertDialog());
     }
 
+    /** Touches the tab down and lets go without a tap, as a finger starting a hold does. */
+    private static void press(View tab) {
+        MotionEvent down = MotionEvent.obtain(0, 0, MotionEvent.ACTION_DOWN, 1f, 1f, 0);
+        MotionEvent cancel = MotionEvent.obtain(0, 10, MotionEvent.ACTION_CANCEL, 1f, 1f, 0);
+        tab.dispatchTouchEvent(down);
+        tab.dispatchTouchEvent(cancel);
+        down.recycle();
+        cancel.recycle();
+    }
+
+    /** Some builds give the tab a hold of Instagram's own after it's built (#571). */
+    @Test
+    public void aPressTakesTheHoldBackFromInstagramsOwn() {
+        Settings.FRIENDS_TAB_PICKS.save("");
+        View tab = tab();
+        boolean[] instagrams = {false};
+        tab.setOnLongClickListener(held -> {
+            instagrams[0] = true;
+            return false;
+        });
+        press(tab);
+        assertTrue(tab.performLongClick());
+        assertFalse("Instagram's hold didn't run", instagrams[0]);
+        ShadowLooper.idleMainLooper();
+        assertEquals("Open the Friends tab first.", ShadowToast.getTextOfLatestToast());
+
+        Settings.PICK_FRIENDS_TAB.save(false);
+        View off = tab();
+        off.setOnLongClickListener(held -> {
+            instagrams[0] = true;
+            // A tab without a parent has no context menu to fall back on.
+            return true;
+        });
+        press(off);
+        off.performLongClick();
+        assertTrue("off, Instagram keeps its hold", instagrams[0]);
+    }
+
     @Test
     public void holdingWithNobodyToListSaysToOpenTheTab() {
         Settings.FRIENDS_TAB_PICKS.save("");
@@ -244,6 +283,24 @@ public class FriendLanePicksTest {
         assertNull(ShadowAlertDialog.getLatestAlertDialog());
         ShadowLooper.idleMainLooper();
         assertEquals("Open the Friends tab first.", ShadowToast.getTextOfLatestToast());
+    }
+
+    /** #503: the tab open and still nobody named, as an all-caught-up Friends tab is, says so. */
+    @Test
+    public void holdingTheOpenTabWithNobodyToListSaysSo() {
+        Settings.FRIENDS_TAB_PICKS.save("");
+        View tab = tab();
+        tab.setSelected(true);
+        assertTrue(tab.performLongClick());
+        assertNull(ShadowAlertDialog.getLatestAlertDialog());
+        ShadowLooper.idleMainLooper();
+        assertEquals("No friends to pick yet.", ShadowToast.getTextOfLatestToast());
+
+        page(Arrays.asList(new Clip("ana")), LANE);
+        assertTrue(tab.performLongClick());
+        ShadowLooper.idleMainLooper();
+        AlertDialog dialog = ShadowAlertDialog.getLatestAlertDialog();
+        assertTrue("once a friend is named the list opens", dialog != null && dialog.isShowing());
     }
 
     @Test

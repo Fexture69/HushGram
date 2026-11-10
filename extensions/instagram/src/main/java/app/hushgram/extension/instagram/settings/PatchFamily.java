@@ -16,6 +16,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import app.hushgram.extension.instagram.misc.ScreenReport;
 import app.hushgram.extension.instagram.misc.VersionCode;
 import app.hushgram.extension.shared.L10n;
 import app.hushgram.extension.shared.Logger;
@@ -40,6 +41,7 @@ import app.hushgram.extension.shared.settings.preference.LogBufferManager;
  */
 public enum PatchFamily {
     HIDE_ADS(FamilyNames.HIDE_ADS, "hideAds", null, Settings.HIDE_ADS),
+    HIDE_PLUS_UPSELL(FamilyNames.HIDE_PLUS_UPSELL, "hidePlusUpsell", null, Settings.HIDE_PLUS_UPSELL),
     SANITIZE_SHARING_LINKS(FamilyNames.SANITIZE_SHARING_LINKS, "sanitizeSharingLinks", null,
             Settings.SANITIZE_SHARING_LINKS),
     EXTERNAL_BROWSER(FamilyNames.EXTERNAL_BROWSER, "externalBrowser", null, Settings.OPEN_LINKS_EXTERNALLY),
@@ -66,17 +68,20 @@ public enum PatchFamily {
     STORY_SOUND(FamilyNames.STORY_SOUND, "storySound", null, Settings.START_STORIES_WITH_SOUND),
     STORY_SWIPE_REPLY(FamilyNames.STORY_SWIPE_REPLY, "storySwipeReply", null, Settings.STOP_STORY_SWIPE_REPLY),
     STORY_REPLY_BOX(FamilyNames.STORY_REPLY_BOX, "storyReplyBox", null, Settings.HIDE_STORY_REPLY_BOX),
+    STORY_BUTTONS_ROOM(FamilyNames.STORY_BUTTONS_ROOM, "storyButtonsRoom", null, Settings.KEEP_STORY_BUTTONS_BELOW),
     STORY_FONTS(FamilyNames.STORY_FONTS, "storyFonts", null, Settings.STORY_FONTS, Settings.STORY_EMOJI),
     STORY_UPLOAD_QUALITY(FamilyNames.STORY_UPLOAD_QUALITY, "storyUploadQuality", null, Settings.UPLOAD_STORIES_AT_FULL_QUALITY),
     FEED_SOUND(FamilyNames.FEED_SOUND, "feedSound", null, Settings.START_FEED_VIDEOS_WITH_SOUND),
     FEED_TAP_PAUSE(FamilyNames.FEED_TAP_PAUSE, "feedTapPause", null, Settings.TAP_FEED_VIDEO_TO_PAUSE),
-    FEED_SEEK_BAR(FamilyNames.FEED_SEEK_BAR, "feedSeekBar", null, Settings.FEED_SEEK_BAR, Settings.FEED_SEEK_BUTTON),
+    FEED_HOLD_FAST(FamilyNames.FEED_HOLD_FAST, "feedHoldFast", null, Settings.HOLD_FEED_VIDEO_FAST),
+    FEED_SEEK_BAR(FamilyNames.FEED_SEEK_BAR, "feedSeekBar", null, Settings.FEED_SEEK_BAR, Settings.FEED_SEEK_BUTTON,
+            Settings.FEED_DOUBLE_TAP_SKIP),
     LONG_PRESS_ZOOM(FamilyNames.LONG_PRESS_ZOOM, "longPressZoom", null, Settings.LONG_PRESS_TO_ZOOM,
             Settings.LONG_PRESS_ZOOM_STAYS_OPEN, Settings.LONG_PRESS_FULL_SCREEN),
     ROUNDED_POST_CORNERS(FamilyNames.ROUNDED_POST_CORNERS, "roundedPostCorners", null, Settings.ROUNDED_POST_CORNERS,
             Settings.ROUNDED_REEL_CORNERS, Settings.ROUNDED_STORY_CORNERS, Settings.PEEK_CAROUSEL_PAGES),
     CAROUSEL_ARROWS(FamilyNames.CAROUSEL_ARROWS, "carouselArrows", null, Settings.CAROUSEL_ARROWS,
-            Settings.CAROUSEL_DOTS_PILL),
+            Settings.CAROUSEL_DOTS_PILL, Settings.CAROUSEL_HIDE_NUMBER),
     AMBIENT_LIGHT(FamilyNames.AMBIENT_LIGHT, "ambientLight", null, Settings.AMBIENT_LIGHT, Settings.AMBIENT_LIGHT_STORIES),
     STORY_SEEN(FamilyNames.STORY_SEEN, "storySeen", null, Settings.VIEW_STORIES_ANONYMOUSLY,
             Settings.MARK_STORIES_SEEN, Settings.GRAY_OUT_WATCHED_STORIES),
@@ -105,6 +110,8 @@ public enum PatchFamily {
     PREVIEW_CHATS(FamilyNames.PREVIEW_CHATS, "previewChats", null, Settings.PREVIEW_CHATS),
     ASK_BEFORE_CALL(FamilyNames.ASK_BEFORE_CALL, "askBeforeCall", null, Settings.ASK_BEFORE_CALL,
             Settings.HIDE_CALL_BUTTONS),
+    CALL_BLOCKER(FamilyNames.CALL_BLOCKER, "callBlocker", null),
+    KINDNESS_REMINDER(FamilyNames.KINDNESS_REMINDER, "kindnessReminder", null, Settings.HIDE_KINDNESS_REMINDER),
     MESSAGE_BOX(FamilyNames.MESSAGE_BOX, "messageBox", null),
     PLUS_MENU(FamilyNames.PLUS_MENU, "plusMenu", null, Settings.HIDE_PLUS_SAVED, Settings.HIDE_PLUS_AI_IMAGES,
             Settings.HIDE_PLUS_DRAW, Settings.MOVE_TO_PLUS_MENU),
@@ -123,7 +130,7 @@ public enum PatchFamily {
     FEED_REELS(FamilyNames.FEED_REELS, "feedReels", null, Settings.HIDE_FEED_REELS),
     FEED_SUGGESTIONS(FamilyNames.FEED_SUGGESTIONS, "feedSuggestions", null, Settings.HIDE_SUGGESTED_ACCOUNTS,
             Settings.HIDE_SUGGESTED_POSTS, Settings.HIDE_THREADS_POSTS, Settings.HIDE_FEED_SURVEYS,
-            Settings.HIDE_FEED_SHOPPING, Settings.HIDE_FEED_INTEREST, Settings.HIDE_CAUGHT_UP_CARD, Settings.HIDE_FEED_VIDEOS,
+            Settings.HIDE_FEED_STORY_ROWS, Settings.HIDE_FEED_SHOPPING, Settings.HIDE_FEED_INTEREST, Settings.HIDE_CAUGHT_UP_CARD, Settings.HIDE_FEED_VIDEOS,
             Settings.HIDE_FEED_PHOTOS, Settings.HIDE_FEED_CAROUSELS, Settings.HIDE_FEED_LIKED),
     HOME_FEED(FamilyNames.HOME_FEED, "homeFeed", null, Settings.HIDE_HOME_FEED),
     FOLLOWING_FEED(FamilyNames.FOLLOWING_FEED, "followingFeed", null, Settings.START_ON_FOLLOWING,
@@ -143,10 +150,11 @@ public enum PatchFamily {
     EXPLORE_MENU(FamilyNames.EXPLORE_MENU, "exploreMenu", null,
             Settings.EXPLORE_WITHOUT_PERSONALIZATION, Settings.HIDE_EXPLORE_MENU),
     NOTES_ROW(FamilyNames.NOTES_ROW, "notesRow", null, Settings.HIDE_NOTES_ROW, Settings.HIDE_NOTES_MAP),
+    SPLIT_NOTES_ROW(FamilyNames.SPLIT_NOTES_ROW, "splitNotesRow", null, Settings.SPLIT_NOTES_ROW),
     INBOX_SEARCH(FamilyNames.INBOX_SEARCH, "inboxSearch", null, Settings.HIDE_INBOX_SEARCH),
     INBOX_SUGGESTIONS(FamilyNames.INBOX_SUGGESTIONS, "inboxSuggestions", null, Settings.HIDE_INBOX_SUGGESTIONS),
     INSTANTS(FamilyNames.INSTANTS, "instants", null, Settings.HIDE_INSTANTS),
-    SHARE_SHEET(FamilyNames.SHARE_SHEET, "shareSheet", null, Settings.HIDE_SHARE_SHEET_GROUP),
+    SHARE_SHEET(FamilyNames.SHARE_SHEET, "shareSheet", null, Settings.HIDE_SHARE_SHEET_GROUP, Settings.HIDE_SHARE_SHEET_SEARCH),
     REPOST_BUTTON(FamilyNames.REPOST_BUTTON, "repostButton", null, Settings.HIDE_REPOST_BUTTON),
     HIDE_SHARE_BUTTON(FamilyNames.HIDE_SHARE_BUTTON, "hideShareButton", null, Settings.HIDE_SHARE_BUTTON),
     BOTTOM_SPACE(FamilyNames.BOTTOM_SPACE, "bottomSpace", null, Settings.REMOVE_BOTTOM_SPACE),
@@ -161,11 +169,11 @@ public enum PatchFamily {
             Settings.FILL_STORY_SCREEN),
     SAVED_ON_PROFILE(FamilyNames.SAVED_ON_PROFILE, "savedOnProfile", null, Settings.SAVED_ON_PROFILE),
     STOP_HEARTBEAT(FamilyNames.STOP_HEARTBEAT, "stopHeartbeat", null, Settings.STOP_HEARTBEAT,
-            Settings.STOP_UPLOAD_ALARM),
+            Settings.STOP_UPLOAD_ALARM, Settings.STOP_BACKGROUND_FETCH),
     REFRESH_RATE(FamilyNames.REFRESH_RATE, "refreshRate", null, Settings.HIGHEST_REFRESH_RATE),
     EMOJI_STYLE(FamilyNames.EMOJI_STYLE, "emojiStyle", null, Settings.NOTO_EMOJI),
     ACCENT_COLOR(FamilyNames.ACCENT_COLOR, "accentColor", null, Settings.ACCENT_COLOR, Settings.ACCENT_BADGES,
-            Settings.ACCENT_ICONS, Settings.ACCENT_RINGS, Settings.ACCENT_BACKGROUNDS),
+            Settings.ACCENT_ICONS, Settings.ACCENT_RINGS, Settings.ACCENT_RINGS_SOLID, Settings.ACCENT_BACKGROUNDS),
     LAUNCH_SCREEN(FamilyNames.LAUNCH_SCREEN, "launchScreen", null, Settings.LAUNCH_SCREEN),
     HEADER_TEXT(FamilyNames.HEADER_TEXT, "headerText", null),
     APP_ICON(FamilyNames.APP_ICON, "appIcon", "the home screen icon you picked"),
@@ -174,14 +182,17 @@ public enum PatchFamily {
     NOTIFICATION_GROUPS(FamilyNames.NOTIFICATION_GROUPS, "notificationGroups", null, Settings.GROUP_NOTIFICATIONS),
     HDR_BOOST(FamilyNames.HDR_BOOST, "hdrBoost", null, Settings.TURN_OFF_HDR_BOOSTS),
     STOP_LOOPING(FamilyNames.STOP_LOOPING, "stopLooping", null, Settings.STOP_VIDEO_LOOPING),
-    BACKGROUND_PLAY(FamilyNames.BACKGROUND_PLAY, "backgroundPlay", null, Settings.KEEP_PLAYING_IN_BACKGROUND),
+    BACKGROUND_PLAY(FamilyNames.BACKGROUND_PLAY, "backgroundPlay", null, Settings.KEEP_PLAYING_IN_BACKGROUND,
+            Settings.REELS_PICTURE_IN_PICTURE),
     MEDIA_CACHE(FamilyNames.MEDIA_CACHE, "mediaCache", null, Settings.CLEAR_MEDIA_CACHE),
     FRIENDSHIP_STATUS(FamilyNames.FRIENDSHIP_STATUS, "friendshipStatus", null, Settings.SHOW_FRIENDSHIP_STATUS,
-            Settings.MARK_FOLLOWING_LIST, Settings.FRIENDSHIP_STATUS_CHIP, Settings.FOLLOWING_NOT_BACK_FIRST,
+            Settings.MARK_FOLLOWING_LIST, Settings.FOLLOW_MARK_ON_PICTURE, Settings.FRIENDSHIP_STATUS_CHIP,
+            Settings.FOLLOWING_NOT_BACK_FIRST,
             Settings.TRACK_UNFOLLOWERS, Settings.NOTIFY_UNFOLLOWS),
     PROFILE_SUGGESTIONS(FamilyNames.PROFILE_SUGGESTIONS, "profileSuggestions", null, Settings.HIDE_PROFILE_SUGGESTIONS,
             Settings.HIDE_FOLLOW_LIST_SUGGESTIONS, Settings.HIDE_PROFILE_COMPLETION, Settings.HIDE_FOLLOW_BACK_SUGGESTIONS,
-            Settings.HIDE_NOTIFICATION_SUGGESTIONS, Settings.HIDE_NOTIFICATION_FEATURED, Settings.HIDE_FEATURED_DOT),
+            Settings.HIDE_NOTIFICATION_SUGGESTIONS, Settings.HIDE_NOTIFICATION_CHANNEL_INVITES, Settings.HIDE_NOTIFICATION_FEATURED,
+            Settings.HIDE_FEATURED_DOT),
     PROFILE_HIGHLIGHTS(FamilyNames.PROFILE_HIGHLIGHTS, "profileHighlights", null, Settings.HIDE_HIGHLIGHTS),
     PROFILE_TABS(FamilyNames.PROFILE_TABS, "profileTabs", null),
     THREADS_BUTTON(FamilyNames.THREADS_BUTTON, "threadsButton", null, Settings.HIDE_THREADS_BUTTON,
@@ -202,7 +213,11 @@ public enum PatchFamily {
     COMMENT_EMOJI_ROW(FamilyNames.COMMENT_EMOJI_ROW, "commentEmojiRow", null, Settings.HIDE_COMMENT_EMOJI_ROW),
     COMMENT_KEYBOARD(FamilyNames.COMMENT_KEYBOARD, "commentKeyboard", null, Settings.COMMENT_KEYBOARD_DOWN),
     COMMENT_GIFS(FamilyNames.COMMENT_GIFS, "commentGifs", null, Settings.HIDE_COMMENT_GIFS),
+    COMMENT_SEARCH(FamilyNames.COMMENT_SEARCH, "commentSearch", null, Settings.COMMENT_SEARCH),
     FEED_FOLLOW(FamilyNames.FEED_FOLLOW, "feedFollow", null, Settings.HIDE_FEED_FOLLOW),
+    EDITS_LABEL(FamilyNames.EDITS_LABEL, "editsLabel", null, Settings.HIDE_EDITS_LABEL),
+    FEED_SAVE(FamilyNames.FEED_SAVE, "feedSave", null, Settings.SAVE_IN_POST_MENU, Settings.HIDE_FEED_SAVE_BUTTON),
+    WATCH_AGAIN(FamilyNames.WATCH_AGAIN, "watchAgain", null, Settings.WATCH_AGAIN_IN_FEED),
     ACTIVITY_BUBBLES(FamilyNames.ACTIVITY_BUBBLES, "activityBubbles", null, Settings.HIDE_ACTIVITY_BUBBLES),
     HIDE_CAPTIONS(FamilyNames.HIDE_CAPTIONS, "hideCaptions", null, Settings.HIDE_CAPTIONS),
     FEED_AUDIO_ICON(FamilyNames.FEED_AUDIO_ICON, "feedAudioIcon", null, Settings.HIDE_FEED_AUDIO_ICON),
@@ -211,7 +226,8 @@ public enum PatchFamily {
     REEL_DECLUTTER(FamilyNames.REEL_DECLUTTER, "reelDeclutter", null, Settings.HIDE_REEL_FOLLOW_BUTTON,
             Settings.HIDE_REEL_CHIPS, Settings.HIDE_REEL_SEARCH_PILL, Settings.HIDE_REEL_PRODUCT_PILLS,
             Settings.HIDE_REEL_POLL_PILLS, Settings.HIDE_REEL_SOCIAL_FOOTER, Settings.HIDE_REEL_COMMENT_BAR,
-            Settings.HIDE_REEL_COMMENT_BAR_EVERYWHERE, Settings.HIDE_REEL_REPLY_BAR, Settings.HIDE_REELS_TOP_BAR,
+            Settings.HIDE_REEL_COMMENT_BAR_EVERYWHERE, Settings.KEEP_REEL_COMMENT_BAR_SPACE, Settings.HIDE_REEL_REPLY_BAR,
+            Settings.HIDE_REELS_TOP_BAR,
             Settings.HIDE_REELS_CREATE_BUTTON, Settings.HIDE_REELS_YOUR_ALGORITHM, Settings.HIDE_REELS_FRIENDS_TAB,
             Settings.HIDE_REEL_SAVE_BUTTON, Settings.KEEP_REEL_CLEAR_MODE, Settings.QUIET_REEL_CLEAR_MODE,
             Settings.CLEAR_MODE_SEEK_BAR, Settings.SHOW_REELS_FRIENDS_TAB, Settings.PICK_FRIENDS_TAB),
@@ -224,14 +240,15 @@ public enum PatchFamily {
             Settings.GROW_LIKE_HEART),
     REELS_TAB(FamilyNames.REELS_TAB, "reelsTab", null, Settings.HIDE_REELS_TAB, Settings.HIDE_SEARCH_TAB,
             Settings.HIDE_CREATE_TAB, Settings.HIDE_PROFILE_TAB, Settings.HIDE_HOME_CREATE_BUTTON,
-            Settings.HIDE_HOME_NOTIFICATIONS_BUTTON, Settings.SEARCH_BUTTON_ON_HOME, Settings.GHOST_BUTTON_ON_HOME,
+            Settings.HIDE_HOME_NOTIFICATIONS_BUTTON, Settings.HEART_COUNT, Settings.SEARCH_BUTTON_ON_HOME, Settings.GHOST_BUTTON_ON_HOME,
             Settings.CENTER_HOME_LOGO, Settings.CENTER_PROFILE_NAME, Settings.CENTER_SCREEN_TITLES,
             Settings.TITLES_AT_START, Settings.SHOW_REELS_TAB,
-            Settings.SHOW_MESSAGES_TAB, Settings.MESSAGES_BUTTON_ON_HOME, Settings.SETTINGS_BUTTON_ON_HOME, Settings.MENU_BUTTON_ON_HOME, Settings.HIDE_HOME_MESSAGES_BUTTON,
+            Settings.SHOW_MESSAGES_TAB, Settings.MESSAGES_BUTTON_ON_HOME, Settings.SETTINGS_BUTTON_ON_HOME, Settings.MENU_BUTTON_ON_HOME, Settings.HISTORY_BUTTON_ON_HOME, Settings.HIDE_HOME_MESSAGES_BUTTON,
             Settings.SHOW_ACTIVITY_TAB, Settings.HIDE_HOME_TAB, Settings.HIDE_MESSAGES_TAB),
     REELS_SUGGESTIONS(FamilyNames.REELS_SUGGESTIONS, "reelsSuggestions", null, Settings.HIDE_REELS_SUGGESTIONS),
     PAID_PARTNERSHIP_REELS(FamilyNames.PAID_PARTNERSHIP_REELS, "paidPartnershipReels", null,
             Settings.HIDE_PAID_PARTNERSHIP_REELS),
+    LIVE_REELS(FamilyNames.LIVE_REELS, "liveReels", null, Settings.HIDE_LIVE_REELS),
     AI_LABELED_REELS(FamilyNames.AI_LABELED_REELS, "aiLabeledReels", null, Settings.HIDE_AI_LABELED_REELS),
     CAPTION_WORD_REELS(FamilyNames.CAPTION_WORD_REELS, "captionWordReels", null, Settings.HIDE_CAPTION_WORD_REELS,
             Settings.HIDE_OTHER_LANGUAGE_REELS),
@@ -245,12 +262,15 @@ public enum PatchFamily {
     REEL_SOUND(FamilyNames.REEL_SOUND, "reelSound", null, Settings.START_REELS_WITH_SOUND,
             Settings.START_REELS_MUTED),
     REEL_ZOOM(FamilyNames.REEL_ZOOM, "reelZoom", null, Settings.PINCH_ZOOM_REELS),
+    REEL_DOUBLE_TAP_SKIP(FamilyNames.REEL_DOUBLE_TAP_SKIP, "reelDoubleTapSkip", null, Settings.DOUBLE_TAP_SKIP_REELS),
+    HIDE_REEL_2X_POPUP(FamilyNames.HIDE_REEL_2X_POPUP, "reelFastLabel", null, Settings.HIDE_REEL_2X_POPUP),
     REEL_AUTO_SCROLL(FamilyNames.REEL_AUTO_SCROLL, "reelAutoScroll", null, Settings.KEEP_REEL_AUTO_SCROLL,
             Settings.REEL_AUTO_ADVANCE),
     REEL_SCROLLING(FamilyNames.REEL_SCROLLING, "reelScrolling", null, Settings.STOP_REELS_SCROLLING,
             Settings.REEL_SCROLL_FROM_PROFILE, Settings.REEL_SCROLL_FROM_SEARCH, Settings.REEL_SCROLL_FROM_AUDIO,
             Settings.REEL_CAP),
     SWIPE_TO_PROFILE(FamilyNames.SWIPE_TO_PROFILE, "swipeToProfile", null, Settings.REEL_SWIPE_TO_PROFILE),
+    REEL_PROFILE_TAB_BAR(FamilyNames.REEL_PROFILE_TAB_BAR, "reelProfileTabBar", null, Settings.REEL_PROFILE_TAB_BAR),
     REEL_ORIGIN(FamilyNames.REEL_ORIGIN, "reelOrigin", null, Settings.FIND_REEL_ORIGIN,
             Settings.FIND_REEL_ORIGIN_ON_TAP),
     STORY_DOWNLOAD(FamilyNames.STORY_DOWNLOAD, "storyDownload", null, Settings.DOWNLOAD_STORIES,
@@ -704,11 +724,12 @@ public enum PatchFamily {
     }
 
     /**
-     * Registers the [PATCHES] report section, and tells Hook status which families no pause
-     * reaches, so a paused export marks only the ones a switch runs. Registering twice keeps one.
+     * Registers the [PATCHES] and [SCREEN] report sections, and tells Hook status which families no
+     * pause reaches, so a paused export marks only the ones a switch runs. Registering twice keeps one.
      */
     public static void registerDiagnostics() {
         LogBufferManager.registerReportSection(REPORT);
+        LogBufferManager.registerReportSection(ScreenReport.SECTION);
         for (PatchFamily family : values()) {
             if (family.switches.isEmpty() && family.staysWhilePaused != null) HookStatus.runsWhilePaused(family.patchName);
         }

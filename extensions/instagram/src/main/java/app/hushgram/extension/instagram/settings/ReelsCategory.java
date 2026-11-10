@@ -17,6 +17,7 @@ import static app.hushgram.extension.instagram.settings.HushgramPreferenceFragme
 import static app.hushgram.extension.instagram.settings.HushgramPreferenceFragment.likeAnimationRow;
 import static app.hushgram.extension.instagram.settings.HushgramPreferenceFragment.reelCapBreakRow;
 import static app.hushgram.extension.instagram.settings.HushgramPreferenceFragment.reelCapCountRow;
+import static app.hushgram.extension.instagram.settings.HushgramPreferenceFragment.scrollBreakLengthRow;
 import static app.hushgram.extension.instagram.settings.HushgramPreferenceFragment.scrollBreakRow;
 import static app.hushgram.extension.instagram.settings.HushgramPreferenceFragment.slowsOlderPhones;
 import static app.hushgram.extension.instagram.settings.HushgramPreferenceFragment.toggle;
@@ -52,6 +53,11 @@ final class ReelsCategory {
             reels.add(toggle(context, Settings.HIDE_PAID_PARTNERSHIP_REELS, L10n.t("Hide paid partnership Reels"),
                     L10n.t("Leaves out reels with a Paid partnership label, and reels Instagram marks as boosted. "
                             + "Ads have their own switch.")));
+        }
+        if (build.contains(PatchFamily.LIVE_REELS)) {
+            reels.add(toggle(context, Settings.HIDE_LIVE_REELS, L10n.t("Hide lives in Reels"),
+                    L10n.t("Leaves out the live broadcasts Instagram puts between reels in the Reels tab and when "
+                            + "you swipe through reels from Explore.")));
         }
         if (build.contains(PatchFamily.AI_LABELED_REELS)) {
             reels.add(toggle(context, Settings.HIDE_AI_LABELED_REELS, L10n.t("Hide AI-labeled reels"),
@@ -107,6 +113,9 @@ final class ReelsCategory {
             reels.add(toggle(context, Settings.HIDE_REEL_COMMENT_BAR_EVERYWHERE, L10n.t("Hide the comment bar on all reels"),
                     L10n.t("The Add a comment bar under every reel, including the ones in the Reels tab. The comment "
                             + "button still opens the comments.")));
+            reels.add(toggle(context, Settings.KEEP_REEL_COMMENT_BAR_SPACE, L10n.t("Keep the comment bar's space"),
+                    L10n.t("Leaves an empty band where a hidden comment bar was on reels you open from a post or a "
+                            + "profile, so the reel, its buttons and the seek bar don't move down.")));
             reels.add(toggle(context, Settings.HIDE_REEL_REPLY_BAR, L10n.t("Hide the reply bar on reels from chats"),
                     L10n.t("The Reply to box under a reel you open from a chat, with its reactions and plus button. "
                             + "The chat's own message box stays.")));
@@ -250,6 +259,15 @@ final class ReelsCategory {
                     L10n.t("Two fingers zoom into a playing reel, the way a photo zooms. Lift them and it goes back. "
                             + "Restart Instagram to see the change.")));
         }
+        if (build.contains(PatchFamily.REEL_DOUBLE_TAP_SKIP)) {
+            reels.add(toggle(context, Settings.DOUBLE_TAP_SKIP_REELS, L10n.t("Double tap to skip"),
+                    L10n.t("A double tap on the left side of a reel goes back 10 seconds, and on the right side it goes "
+                            + "ahead 10 seconds. A double tap in the middle still likes it. Reels under 10 seconds don't skip.")));
+        }
+        if (build.contains(PatchFamily.HIDE_REEL_2X_POPUP)) {
+            reels.add(toggle(context, Settings.HIDE_REEL_2X_POPUP, L10n.t("Hide the 2x popup"),
+                    L10n.t("Takes the 2x label off a reel while you hold it to play faster. The speed-up still works.")));
+        }
         if (build.contains(PatchFamily.REEL_BLUR_BARS)) {
             reels.add(toggle(context, Settings.BLUR_REEL_BARS, L10n.t("Blur the bars around a reel"),
                     slowsOlderPhones(L10n.t("A reel that doesn't fill the screen shows a blurred copy of itself above and below it "
@@ -286,11 +304,17 @@ final class ReelsCategory {
             reels.add(reelCapCountRow(context));
             reels.add(reelCapBreakRow(context));
             reels.add(scrollBreakRow(context));
+            reels.add(scrollBreakLengthRow(context));
         }
         if (build.contains(PatchFamily.SWIPE_TO_PROFILE)) {
             reels.add(toggle(context, Settings.REEL_SWIPE_TO_PROFILE, L10n.t("Swipe left to open the profile"),
                     L10n.t("A left swipe on a reel opens the creator's profile, like Instagram used to. Tap "
                             + "Friends at the top to reach your friends' reels.")));
+        }
+        if (build.contains(PatchFamily.REEL_PROFILE_TAB_BAR)) {
+            reels.add(toggle(context, Settings.REEL_PROFILE_TAB_BAR, L10n.t("Keep the tab bar on a reel's profile"),
+                    L10n.t("A profile you open from a reel stays on the tab you're on, with the tab bar under it. "
+                            + "Back goes back to the reel.")));
         }
         if (build.contains(PatchFamily.REEL_ORIGIN)) {
             reels.add(toggle(context, Settings.FIND_REEL_ORIGIN, L10n.t("Find the reel you came from"),
@@ -324,6 +348,18 @@ final class ReelsCategory {
                 reels.add(toggle(context, Settings.FULL_SCREEN_BUTTON_ON_REELS, L10n.t("Full screen button on reels"),
                         L10n.t("Puts a Full screen icon beside a reel, so one tap does what Full screen in its menu "
                                 + "does. Start every reel in clear mode opens every reel that way.")));
+            }
+            if (build.contains(PatchFamily.KEEP_REEL_SPEED)) {
+                reels.add(toggle(context, Settings.SPEED_IN_REEL_MENU, L10n.t("Speed in the reel menu"),
+                        L10n.t("Adds Playback speed to the menu a reel's three dots open. Pick a speed there from "
+                                + "0.5x to 3x. With Keep the reel speed on, the next reels play at it too.")));
+            }
+            if (build.contains(PatchFamily.REEL_TAP_AND_VOLUME)) {
+                reels.add(toggle(context, Settings.MUTE_BUTTON_ON_REELS, L10n.t("Mute button on reels"),
+                        L10n.t("Puts a speaker icon beside a reel. Tap it to turn the sound off or on while the reel "
+                                + "keeps playing.")));
+                reels.add(toggle(context, Settings.MUTE_BUTTON_IN_CLEAR_MODE, L10n.t("Mute button in clear mode"),
+                        L10n.t("Keeps the speaker icon next to clear mode's exit button.")));
             }
         }
         if (!reels.isEmpty()) {

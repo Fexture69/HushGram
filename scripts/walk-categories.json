@@ -14,6 +14,7 @@
             "op": "any",
             "patches": [
               "Hide ads",
+              "Hide Instagram Plus prompts",
               "Sanitize sharing links",
               "Open links in external browser",
               "Spoof location",
@@ -90,6 +91,7 @@
           "Keep your place in Home",
           "Start feed videos with sound",
           "Tap a feed video to pause it",
+          "Hold for 2x on feed videos",
           "Seek bar on feed videos",
           "Long press to zoom",
           "Rounded post corners",
@@ -100,7 +102,10 @@
           "Hide captions",
           "Hide the audio icon on posts",
           "Keep Home's top bar",
-          "Hide activity bubbles"
+          "Hide activity bubbles",
+          "Hide Made with Edits",
+          "Save in the post menu",
+          "Watch again in the feed"
         ]
       },
       "anchors": [
@@ -227,6 +232,7 @@
         "op": "any",
         "patches": [
           "Hide the notes row",
+          "Split the notes row",
           "Hide the search bar in Messages",
           "Hide suggested accounts in DMs",
           "Hide Instants",
@@ -246,6 +252,7 @@
           "Chat history tools",
           "Preview chats",
           "Ask before a call",
+          "Call blocker",
           "Message box buttons",
           "Chat plus menu",
           "Glass in chats",
@@ -284,6 +291,7 @@
           "Hide Reels in the feed",
           "Hide suggested accounts in Reels",
           "Hide paid partnership Reels",
+          "Hide lives in Reels",
           "Hide AI-labeled reels",
           "Hide reels by caption words",
           "Hide reels with few views",
@@ -298,10 +306,13 @@
           "Show a reel's exact time",
           "Keep a seek bar on Reels",
           "Pinch to zoom on Reels",
+          "Double tap to skip on Reels",
+          "Hide the 2x popup on Reels",
           "Blur the bars around Reels",
           "Keep Reels auto scroll on",
           "Stop Reels scrolling",
           "Swipe left to open the profile",
+          "Keep the tab bar on a reel's profile",
           "Find the reel you came from"
         ]
       },
@@ -347,6 +358,7 @@
           "Start stories with sound",
           "Stop swipe up to reply",
           "Hide the reply box on stories",
+          "Keep story buttons below the story",
           "Show a story's exact time",
           "See who a story mentions",
           "Hide Follow on stories",
@@ -465,7 +477,8 @@
           "Hide comments",
           "Hide the comment emoji row",
           "Open comments without the keyboard",
-          "Hide GIFs in comments"
+          "Hide GIFs in comments",
+          "Search comments"
         ]
       },
       "anchors": [
@@ -726,6 +739,32 @@
       ]
     },
     {
+      "id": "settings-viewing-history",
+      "title": "Viewing history",
+      "builder": "ViewingHistoryCategory",
+      "page": true,
+      "when": {
+        "op": "any",
+        "patches": [
+          "Download any video"
+        ]
+      },
+      "anchors": [
+        {
+          "title": "Keep a viewing history",
+          "when": {
+            "op": "unconditional"
+          }
+        },
+        {
+          "title": "Clear viewing history",
+          "when": {
+            "op": "unconditional"
+          }
+        }
+      ]
+    },
+    {
       "id": "settings-battery",
       "title": "Battery",
       "builder": "BatteryCategory",
@@ -748,6 +787,15 @@
         },
         {
           "title": "Stop the analytics upload alarm",
+          "when": {
+            "op": "any",
+            "patches": [
+              "Stop background wake-ups"
+            ]
+          }
+        },
+        {
+          "title": "Stop background feed refresh",
           "when": {
             "op": "any",
             "patches": [

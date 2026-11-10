@@ -3,6 +3,17 @@
   "rules": [
     {
       "paths": [
+        "extensions/shared/library/src/main/l10n/th.tsv"
+      ],
+      "origin": "ported",
+      "upstream": "https://github.com/MangaThatsFine/HushGram",
+      "commit": "302a414fca5ff81bb626e67e08ff6261069559c4",
+      "blob": "6f3ba88d2de33bb622db2b2995ac30818cde681b",
+      "license": "GPL-3.0-only",
+      "changes": "MangaThatsFine's Thai table, imported from HushGram PR #593. Three rows whose English has since changed were left out, 41 rows for newer strings were added here, and 10 toasts were shortened to fit two lines."
+    },
+    {
+      "paths": [
         "extensions/shared/library/src/main/l10n/zh-rTW.tsv"
       ],
       "origin": "ported",
@@ -255,6 +266,7 @@
         "extensions/instagram/src/main/java/app/hushgram/extension/instagram/settings/SettingsLock.java",
         "extensions/instagram/src/main/java/app/hushgram/extension/instagram/settings/ShimmerTitle.java",
         "extensions/instagram/src/main/java/app/hushgram/extension/instagram/settings/TypingFocusHold.java",
+        "extensions/instagram/src/main/java/app/hushgram/extension/instagram/settings/ViewingHistoryCategory.java",
         "extensions/instagram/src/main/java/app/hushgram/extension/instagram/settings/DescriptionInfo.java",
         "extensions/instagram/src/main/java/app/hushgram/extension/instagram/settings/DisabledChoices.java",
         "extensions/instagram/src/main/java/app/hushgram/extension/instagram/settings/IconChoices.java",
@@ -323,10 +335,13 @@
         "extensions/instagram/src/test/java/app/hushgram/extension/instagram/settings/SettingsHostRestorationTest.java",
         "extensions/instagram/src/test/java/app/hushgram/extension/instagram/settings/ExportFeedbackTest.java",
         "extensions/instagram/src/test/java/app/hushgram/extension/instagram/reels/ReelSeekThumbTest.java",
+        "extensions/instagram/src/main/java/app/hushgram/extension/instagram/download/SeekSprites.java",
         "extensions/instagram/src/test/java/app/hushgram/extension/instagram/settings/DocumentRequestIdentityTest.java",
         "extensions/shared/library/src/main/java/app/hushgram/extension/shared/settings/preference/ExportStatus.java",
         "patches/src/main/kotlin/app/morphe/patches/instagram/misc/comment/**",
         "patches/src/test/kotlin/app/morphe/patches/instagram/misc/comment/**",
+        "patches/src/main/kotlin/app/morphe/patches/instagram/misc/commentsearch/**",
+        "patches/src/test/kotlin/app/morphe/patches/instagram/misc/commentsearch/**",
         "extensions/instagram/src/main/java/app/hushgram/extension/instagram/comment/**",
         "extensions/instagram/src/test/java/app/hushgram/extension/instagram/comment/**",
         "extensions/instagram/src/test/java/app/hushgram/extension/instagram/settings/CommentCopySettingsTest.java",
@@ -365,6 +380,8 @@
         "extensions/instagram/src/test/java/app/hushgram/extension/instagram/download/ReelSpeedButtonTest.java",
         "extensions/instagram/src/main/java/app/hushgram/extension/instagram/download/ReelFullScreenButton.java",
         "extensions/instagram/src/test/java/app/hushgram/extension/instagram/download/ReelFullScreenButtonTest.java",
+        "extensions/instagram/src/main/java/app/hushgram/extension/instagram/download/ReelMuteButton.java",
+        "extensions/instagram/src/test/java/app/hushgram/extension/instagram/download/ReelMuteButtonTest.java",
         "extensions/instagram/src/main/java/app/hushgram/extension/instagram/download/TextGrab.java",
         "extensions/instagram/src/test/java/app/hushgram/extension/instagram/download/TextGrabTest.java",
         "extensions/instagram/src/main/java/app/hushgram/extension/instagram/download/HoldDownload.java",
@@ -453,6 +470,8 @@
         "extensions/instagram/src/main/java/app/hushgram/extension/instagram/media/BackgroundPlayService.java",
         "extensions/instagram/src/test/java/app/hushgram/extension/instagram/media/BackgroundPlayTest.java",
         "extensions/instagram/src/test/java/app/hushgram/extension/instagram/media/BackgroundPlayNotificationTest.java",
+        "extensions/instagram/src/main/java/app/hushgram/extension/instagram/media/ReelsPip.java",
+        "extensions/instagram/src/test/java/app/hushgram/extension/instagram/media/ReelsPipTest.java",
         "patches/src/test/kotlin/app/morphe/patches/instagram/media/background/**",
         "extensions/instagram/src/test/java/app/hushgram/extension/instagram/profile/GridJumpTest.java",
         "extensions/instagram/src/test/java/app/hushgram/extension/instagram/settings/GridJumpSettingsTest.java",
@@ -487,6 +506,8 @@
         "extensions/instagram/src/test/java/app/hushgram/extension/instagram/misc/GlassLensStrengthTest.java",
         "extensions/instagram/src/main/java/app/hushgram/extension/instagram/settings/HomeMenuButton.java",
         "extensions/instagram/src/test/java/app/hushgram/extension/instagram/settings/HomeMenuButtonTest.java",
+        "extensions/instagram/src/main/java/app/hushgram/extension/instagram/settings/HistoryHeaderButton.java",
+        "extensions/instagram/src/test/java/app/hushgram/extension/instagram/settings/HistoryHeaderButtonTest.java",
         "extensions/instagram/src/main/java/app/hushgram/extension/instagram/settings/ProfileMenuPress.java",
         "extensions/instagram/src/test/java/app/hushgram/extension/instagram/settings/ProfileMenuPressTest.java",
         "patches/src/main/kotlin/app/morphe/patches/instagram/misc/settings/LogoLongPress.kt",
@@ -506,11 +527,42 @@
         "extensions/instagram/src/test/java/app/hushgram/extension/shared/ToastWidthTest.java",
         "patches/src/test/kotlin/app/morphe/patches/instagram/misc/extension/RuntimeFloorTest.kt",
         "extensions/instagram/src/main/java/app/hushgram/extension/instagram/download/VideoMetadata.java",
-        "extensions/instagram/src/test/java/app/hushgram/extension/instagram/download/VideoMetadataTest.java"
+        "extensions/instagram/src/test/java/app/hushgram/extension/instagram/download/VideoMetadataTest.java",
+        "extensions/instagram/src/main/java/app/hushgram/extension/instagram/download/MkvJoin.java",
+        "extensions/instagram/src/test/java/app/hushgram/extension/instagram/download/MkvJoinTest.java",
+        "extensions/instagram/src/main/java/app/hushgram/extension/instagram/download/ReelColumnFit.java",
+        "extensions/instagram/src/test/java/app/hushgram/extension/instagram/download/ReelColumnFitTest.java",
+        "extensions/instagram/src/main/java/app/hushgram/extension/instagram/misc/TabIconSize.java",
+        "extensions/instagram/src/main/java/app/hushgram/extension/instagram/misc/TabIcons.java",
+        "extensions/instagram/src/test/java/app/hushgram/extension/instagram/misc/TabIconsTest.java",
+        "extensions/instagram/src/main/java/app/hushgram/extension/instagram/misc/CustomAccent.java",
+        "extensions/instagram/src/test/java/app/hushgram/extension/instagram/misc/CustomAccentTest.java",
+        "extensions/instagram/src/main/java/app/hushgram/extension/instagram/reels/HeartCount.java",
+        "extensions/instagram/src/test/java/app/hushgram/extension/instagram/reels/HeartCountTest.java",
+        "patches/src/main/kotlin/app/morphe/patches/instagram/misc/theme/LikedHeart.kt",
+        "patches/src/test/kotlin/app/morphe/patches/instagram/misc/theme/LikedHeartTest.kt",
+        "extensions/instagram/src/main/java/app/hushgram/extension/instagram/misc/LikedHeart.java",
+        "extensions/instagram/src/test/java/app/hushgram/extension/instagram/misc/LikedHeartTest.java",
+        "patches/src/main/kotlin/app/morphe/patches/instagram/direct/reminder/HideKindnessReminderPatch.kt",
+        "patches/src/test/kotlin/app/morphe/patches/instagram/direct/reminder/HideKindnessReminderHookTest.kt",
+        "extensions/instagram/src/main/java/app/hushgram/extension/instagram/direct/KindnessReminder.java",
+        "extensions/instagram/src/test/java/app/hushgram/extension/instagram/direct/KindnessReminderTest.java",
+        "extensions/instagram/src/test/java/app/hushgram/extension/instagram/misc/ScreenReportTest.java",
+        "scripts/gen-readme-patches.py"
       ],
       "origin": "original",
       "upstream": "https://github.com/SysAdminDoc/HushGram",
       "license": "GPL-3.0-only"
+    },
+    {
+      "paths": [
+        "extensions/instagram/src/main/java/app/hushgram/extension/instagram/misc/ColourTable.java"
+      ],
+      "origin": "ported",
+      "upstream": "https://github.com/SysAdminDoc/Hushfacebook",
+      "commit": "95bbb4f132076321d03a8b615580a30ec502c61e",
+      "license": "GPL-3.0-only",
+      "changes": "Hushfacebook's colour table writer, package moved to app.hushgram.extension.instagram. It writes the default configuration alone, since HushGram's accent colors have no other. The file says it was modified for HushGram."
     },
     {
       "paths": [

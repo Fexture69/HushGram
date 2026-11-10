@@ -6,6 +6,8 @@
  */
 package app.hushgram.extension.instagram.settings;
 
+import static app.hushgram.extension.instagram.settings.HushgramPreferenceFragment.callBlockAccountsRow;
+import static app.hushgram.extension.instagram.settings.HushgramPreferenceFragment.callBlockModeRow;
 import static app.hushgram.extension.instagram.settings.HushgramPreferenceFragment.category;
 import static app.hushgram.extension.instagram.settings.HushgramPreferenceFragment.changePinRow;
 import static app.hushgram.extension.instagram.settings.HushgramPreferenceFragment.lockDelayRow;
@@ -26,7 +28,8 @@ final class MessagesCategory {
     private MessagesCategory() { }
 
     static void add(HushgramPreferenceFragment page, PreferenceScreen screen, Context context, Set<PatchFamily> build) {
-        if (build.contains(PatchFamily.NOTES_ROW) || build.contains(PatchFamily.INBOX_SEARCH)
+        if (build.contains(PatchFamily.NOTES_ROW) || build.contains(PatchFamily.SPLIT_NOTES_ROW)
+                || build.contains(PatchFamily.INBOX_SEARCH)
                 || build.contains(PatchFamily.INBOX_SUGGESTIONS) || build.contains(PatchFamily.INSTANTS)
                 || build.contains(PatchFamily.THREAD_SEEN) || build.contains(PatchFamily.TYPING)
                 || build.contains(PatchFamily.DM_MEDIA_SEEN)
@@ -43,6 +46,8 @@ final class MessagesCategory {
                 || build.contains(PatchFamily.CHAT_HISTORY)
                 || build.contains(PatchFamily.PREVIEW_CHATS)
                 || build.contains(PatchFamily.ASK_BEFORE_CALL)
+                || build.contains(PatchFamily.CALL_BLOCKER)
+                || build.contains(PatchFamily.KINDNESS_REMINDER)
                 || build.contains(PatchFamily.MESSAGE_BOX)
                 || build.contains(PatchFamily.PLUS_MENU)
                 || build.contains(PatchFamily.GLASS_CHAT)
@@ -55,6 +60,11 @@ final class MessagesCategory {
                                 + "Your chats, search and requests stay.")));
                 messages.addPreference(toggle(context, Settings.HIDE_NOTES_MAP, L10n.t("Hide the Map bubble"),
                         L10n.t("Takes only the Map bubble out of the row of notes. Your notes stay.")));
+            }
+            if (build.contains(PatchFamily.SPLIT_NOTES_ROW)) {
+                messages.addPreference(toggle(context, Settings.SPLIT_NOTES_ROW, L10n.t("Split the notes row"),
+                        L10n.t("Splits the row of notes into three stacks, Instants, Notes and Stories, the layout "
+                                + "Instagram is trying out. Restart Instagram to see the change.")));
             }
             if (build.contains(PatchFamily.INBOX_SEARCH)) {
                 messages.addPreference(toggle(context, Settings.HIDE_INBOX_SEARCH,
@@ -190,6 +200,14 @@ final class MessagesCategory {
                 messages.addPreference(toggle(context, Settings.HIDE_CALL_BUTTONS, L10n.t("Hide the call buttons in chats"),
                         L10n.t("Takes the voice and video call buttons off the top of a chat. The name keeps its room. "
                                 + "Turn it off and they're back the next time a chat opens.")));
+            }
+            if (build.contains(PatchFamily.CALL_BLOCKER)) {
+                messages.addPreference(callBlockModeRow(context));
+                messages.addPreference(callBlockAccountsRow(context));
+            }
+            if (build.contains(PatchFamily.KINDNESS_REMINDER)) {
+                messages.addPreference(toggle(context, Settings.HIDE_KINDNESS_REMINDER, L10n.t("Hide the Community Standards reminder"),
+                        L10n.t("Takes the banner reminding you to be respectful off the bottom of a chat.")));
             }
             if (build.contains(PatchFamily.MESSAGE_BOX)) {
                 messages.addPreference(page.messageBoxRow(context));

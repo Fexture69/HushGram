@@ -17,6 +17,7 @@ import com.android.tools.smali.dexlib2.iface.ClassDef
 import com.android.tools.smali.dexlib2.iface.Method
 import com.android.tools.smali.dexlib2.iface.instruction.FiveRegisterInstruction
 import com.android.tools.smali.dexlib2.iface.instruction.Instruction
+import com.android.tools.smali.dexlib2.iface.instruction.OffsetInstruction
 import com.android.tools.smali.dexlib2.iface.instruction.OneRegisterInstruction
 import com.android.tools.smali.dexlib2.iface.instruction.ReferenceInstruction
 import com.android.tools.smali.dexlib2.iface.instruction.RegisterRangeInstruction
@@ -101,20 +102,21 @@ class StoryTrayOrderHookTest {
                 }
                 assertEquals("${bundle.name}: one call of the hook per list", 2, context.calls(TRAY_ORDER))
 
-                // A tray response is told once, right after the store's call taking the request,
-                // with the very register that call was handed the request in (#377).
+                // A tray response is told once, right before the store's call taking the request, with
+                // the very register that call is handed the request in (#377). Before it, since the store
+                // hands Home the new tray on its way through (#241).
                 val response = found.response!!
                 fun ofTheResponse(method: Method) = method.name == response.method && method.parameterTypes.map(Any::toString) == response.parameters
                 val responseBefore = classes.single { it.type == response.manager }.methods.single(::ofTheResponse).code()
                 val responseAfter = context.mutableClassDefBy(response.manager).methods.single(::ofTheResponse).code()
                 val told = responseAfter.indexOfFirst { it.referenceText() == TRAY_RESPONDED }
                 assertEquals("${bundle.name}: a response is told once", 1, context.calls(TRAY_RESPONDED))
-                assertEquals("${bundle.name}: told where it was found", response.after, told)
+                assertEquals("${bundle.name}: told where it was found", response.at, told)
                 val tell = responseAfter[told] as RegisterRangeInstruction
                 assertEquals("${bundle.name}: told the request alone", listOf(response.request, 1), listOf(tell.startRegister, tell.registerCount))
-                val stored = responseAfter.subList(0, told).last { (it as? ReferenceInstruction)?.reference is MethodReference }
+                val stored = responseAfter[told + 1]
                 val storedCall = (stored as ReferenceInstruction).reference as MethodReference
-                assertEquals("${bundle.name}: it follows the store's call", found.store, storedCall.definingClass)
+                assertEquals("${bundle.name}: the store's call comes right after", found.store, storedCall.definingClass)
                 val requestAt = storedCall.parameterTypes.map(Any::toString).indexOf(response.parameters.first())
                 assertTrue("${bundle.name}: the store's call takes the request", requestAt >= 0)
                 (stored as? RegisterRangeInstruction)?.let {
@@ -139,6 +141,16 @@ class StoryTrayOrderHookTest {
                         stub.indexOfFirst { it.referenceText() == read.toString() } in 0 until nativeSeen
                     })
                 assertEquals("${bundle.name}: native seen is read once", 1, stub.count { it.referenceText() == "${found.reelClass}->${found.seenCheck}(${USER_SESSION})Z" })
+
+                // A highlight rewind's tile never has a seen time, and counted as new it jumps the watched stories (#241).
+                val rewindPrefix = stub.indexOfFirst { it.referenceText() == "highlightRewind:" }
+                assertTrue("${bundle.name}: a rewind is told apart before native seen", rewindPrefix in 0 until nativeSeen)
+                assertEquals("${bundle.name}: by its id's prefix", "Ljava/lang/String;->startsWith(Ljava/lang/String;)Z", stub[rewindPrefix + 1].referenceText())
+                val rewindBranch = stub[rewindPrefix + 3] as OffsetInstruction
+                val specialAt = stub.indexOfFirst { it.referenceText() == "add_to_story" }
+                val specialBranch = stub[specialAt + 3] as OffsetInstruction
+                assertEquals("${bundle.name}: a rewind is left in its slot like the other special tiles",
+                        branchTarget(stub, specialAt + 3, specialBranch), branchTarget(stub, rewindPrefix + 3, rewindBranch))
 
                 checked += version
                 builds++
@@ -309,6 +321,10 @@ class StoryTrayOrderHookTest {
         listOf(registerC, registerD, registerE, registerF, registerG).take(registerCount)
 
     private fun Method.key() = "$definingClass->$name(${parameterTypes.joinToString("")})$returnType"
+
+    /** The code address the [branch] at [index] of [code] lands on. */
+    private fun branchTarget(code: List<Instruction>, index: Int, branch: OffsetInstruction): Int =
+        code.take(index).sumOf { it.codeUnits } + branch.codeOffset
 
     internal fun Method.code(): List<Instruction> = implementation?.instructions?.toList().orEmpty()
 

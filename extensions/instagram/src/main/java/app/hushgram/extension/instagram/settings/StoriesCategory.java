@@ -16,6 +16,9 @@ import static app.hushgram.extension.instagram.settings.HushgramPreferenceFragme
 import static app.hushgram.extension.instagram.settings.HushgramPreferenceFragment.storySeekBarLookRow;
 import static app.hushgram.extension.instagram.settings.HushgramPreferenceFragment.storyTimeModeRow;
 import static app.hushgram.extension.instagram.settings.HushgramPreferenceFragment.uploadBitrateRow;
+import static app.hushgram.extension.instagram.settings.HushgramPreferenceFragment.uploadFrameRateRow;
+import static app.hushgram.extension.instagram.settings.HushgramPreferenceFragment.uploadPhotoQualityRow;
+import static app.hushgram.extension.instagram.settings.HushgramPreferenceFragment.uploadResolutionRow;
 import static app.hushgram.extension.instagram.settings.HushgramPreferenceFragment.uploadScopeRow;
 import static app.hushgram.extension.instagram.settings.HushgramPreferenceFragment.slowsOlderPhones;
 import static app.hushgram.extension.instagram.settings.HushgramPreferenceFragment.toggle;
@@ -152,6 +155,11 @@ final class StoriesCategory {
                     L10n.t("Takes the Send message box off the bottom of other people's stories. The like and "
                             + "share buttons next to it stay where they are.")));
         }
+        if (build.contains(PatchFamily.STORY_BUTTONS_ROOM)) {
+            stories.add(toggle(context, Settings.KEEP_STORY_BUTTONS_BELOW, L10n.t("Keep story buttons below the story"),
+                    L10n.t("With a large font or display size, the reply box and buttons at the bottom of a story "
+                            + "sit in the space under it instead of covering the story.")));
+        }
         if (build.contains(PatchFamily.STORY_TIME)) {
             stories.add(toggle(context, Settings.SHOW_STORY_TIME, L10n.t("Show a story's exact time"),
                     L10n.t("A story's header shows its time the way the choice below says, instead of how long ago. "
@@ -207,6 +215,9 @@ final class StoriesCategory {
                             + "difference viewers see is small. Photo stories already go up larger than Instagram keeps.")));
             stories.add(uploadScopeRow(context));
             stories.add(uploadBitrateRow(context));
+            stories.add(uploadResolutionRow(context));
+            stories.add(uploadFrameRateRow(context));
+            stories.add(uploadPhotoQualityRow(context));
         }
         if (build.contains(PatchFamily.STORY_FONTS)) {
             stories.add(toggle(context, Settings.STORY_FONTS, L10n.t("Your fonts in story text"),

@@ -6,6 +6,7 @@ package app.hushgram.extension.instagram.reels;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.view.MotionEvent;
 import android.view.View;
 
 import java.util.ArrayList;
@@ -204,9 +205,26 @@ public final class FriendLanePicks {
         }
     }
 
-    /** Has holding the Friends tab, as Instagram builds it, open the list. */
+    private static final View.OnLongClickListener HOLD = FriendLanePicks::held;
+
+    /**
+     * Has holding the Friends tab, as Instagram builds it, open the list. Some builds of the strip
+     * give each tab a hold of Instagram's own once it's built, which only clears the tab's tooltip,
+     * so a press on the tab puts this one back while the switch is on (#571).
+     */
     static void watch(View tab) {
-        tab.setOnLongClickListener(FriendLanePicks::held);
+        tab.setOnLongClickListener(HOLD);
+        tab.setOnTouchListener(FriendLanePicks::pressed);
+    }
+
+    /** A touch on the tab. A press puts the hold back. Never takes the touch. */
+    static boolean pressed(View tab, MotionEvent event) {
+        try {
+            if (event.getActionMasked() == MotionEvent.ACTION_DOWN && on()) tab.setOnLongClickListener(HOLD);
+        } catch (Throwable failure) {
+            HookStatus.threw(FamilyNames.REEL_DECLUTTER, "Friends tab press", failure);
+        }
+        return false;
     }
 
     /**
@@ -220,7 +238,11 @@ public final class FriendLanePicks {
             if (activity == null) return false;
             List<String> roster = roster();
             if (roster.isEmpty()) {
-                Utils.showToastShort(L10n.t("Open the Friends tab first."));
+                // Instagram marks the open tab selected. Open with nobody named means its reels haven't
+                // named a friend yet, or it's all caught up (#503).
+                Utils.showToastShort(tab.isSelected()
+                        ? L10n.t("No friends to pick yet.")
+                        : L10n.t("Open the Friends tab first."));
                 return true;
             }
             ask(activity, roster);

@@ -113,6 +113,9 @@ public final class AmbientLight {
     /** How many parents of a picture are asked whether they're its stage. */
     static final int STAGE_DEPTH = 16;
 
+    /** A parent no more than this many pixels bigger than a picture is rounding, with no room for a glow (#580). */
+    static final int ROUNDING = 2;
+
     /** The copy of a picture is SAMPLE pixels square; the glow's face adds RING cells around it. */
     static final int SAMPLE = 16, RING = 8, SIDE = SAMPLE + 2 * RING;
 
@@ -186,6 +189,7 @@ public final class AmbientLight {
     private static final Map<Class<?>, Boolean> frames = new WeakHashMap<>();
     private static final Runnable TICK = AmbientLight::tick;
     private static final Rect scratch = new Rect(), aim = new Rect();
+    private static final RectF mapped = new RectF();
     private static final int[] where = new int[2];
     private static boolean ticking;
     private static volatile boolean registered;
@@ -286,27 +290,46 @@ public final class AmbientLight {
         return frame;
     }
 
-    /** A post's stage: the nearest of [media]'s first {@link #STAGE_DEPTH} parents that is bigger than it either way. */
+    /**
+     * A post's stage: the nearest of [media]'s first {@link #STAGE_DEPTH} parents that is bigger than
+     * it either way by more than {@link #ROUNDING}. Instagram's zoom container comes out a pixel
+     * taller than the picture on many posts, and a glow on that has nowhere to show.
+     */
     @Nullable
     static ViewGroup stageOf(View media) {
         ViewParent parent = media.getParent();
         for (int i = 0; i < STAGE_DEPTH && parent instanceof ViewGroup; i++, parent = parent.getParent()) {
             ViewGroup group = (ViewGroup) parent;
-            if (group.getWidth() > media.getWidth() || group.getHeight() > media.getHeight()) return group;
+            if (group.getWidth() > media.getWidth() + ROUNDING || group.getHeight() > media.getHeight() + ROUNDING) return group;
         }
         return null;
     }
 
-    /** A reel's stage: the nearest view from [video]'s parent up to [frame] that spans at least nine tenths of the frame. */
+    /**
+     * A reel's stage: the nearest view from [video]'s parent up to [frame] that spans at least nine
+     * tenths of the frame. Rounded corners on Reels clips the frame to the video, and a glow inside
+     * the frame with it, so a parent of the frame's own size takes the stage when there is one (#580).
+     */
     @Nullable
     static ViewGroup reelStageOf(View video, View frame) {
         ViewParent parent = video.getParent();
         for (int i = 0; i < STAGE_DEPTH && parent instanceof ViewGroup; i++, parent = parent.getParent()) {
             ViewGroup group = (ViewGroup) parent;
-            if (group.getWidth() >= frame.getWidth() * 0.9f && group.getHeight() >= frame.getHeight() * 0.9f) return group;
+            if (group.getWidth() >= frame.getWidth() * 0.9f && group.getHeight() >= frame.getHeight() * 0.9f) {
+                return outsideFrame(group, frame);
+            }
             if (group == frame) return null;
         }
         return null;
+    }
+
+    /** [frame]'s parent when it's no bigger than the frame, else [stage]. */
+    private static ViewGroup outsideFrame(ViewGroup stage, View frame) {
+        ViewParent above = frame.getParent();
+        if (!(above instanceof ViewGroup)) return stage;
+        ViewGroup parent = (ViewGroup) above;
+        boolean sameSize = parent.getWidth() <= frame.getWidth() + ROUNDING && parent.getHeight() <= frame.getHeight() + ROUNDING;
+        return sameSize ? parent : stage;
     }
 
     /**
@@ -567,6 +590,27 @@ public final class AmbientLight {
             if (parent == ancestor) return true;
         }
         return false;
+    }
+
+    /**
+     * Moves [rect] from [view]'s coordinates onto [ancestor]'s, through the scale and translation
+     * of each view on the way. offsetDescendantRectToMyCoords leaves those out, so a carousel page
+     * that Peek at the next carousel page shrinks lit as if it still filled its row, and the glow
+     * left the whole row dark around it (#585).
+     */
+    static void onto(View view, ViewGroup ancestor, Rect rect) {
+        mapped.set(rect);
+        View at = view;
+        while (at != ancestor) {
+            Matrix matrix = at.getMatrix();
+            if (!matrix.isIdentity()) matrix.mapRect(mapped);
+            mapped.offset(at.getLeft(), at.getTop());
+            ViewParent parent = at.getParent();
+            if (!(parent instanceof View)) break;
+            at = (View) parent;
+            mapped.offset(-at.getScrollX(), -at.getScrollY());
+        }
+        mapped.round(rect);
     }
 
     /**
@@ -1012,8 +1056,8 @@ public final class AmbientLight {
                 } else {
                     at.set(0, 0, media.getWidth(), media.getHeight());
                 }
-                stage.offsetDescendantRectToMyCoords(media, at);
-                fills = at.width() >= stage.getWidth() * FILLS && at.height() >= stage.getHeight() * FILLS;
+                onto(media, stage, at);
+                fills =at.width() >= stage.getWidth() * FILLS && at.height() >= stage.getHeight() * FILLS;
             } else {
                 // The search above may have left the part that shows.
                 at.setEmpty();
@@ -1023,9 +1067,9 @@ public final class AmbientLight {
             ViewGroup band = host();
             if (band != null && !at.isEmpty() && band.isAttachedToWindow() && under(stage, band)) {
                 stageOnHost.set(0, 0, stage.getWidth(), stage.getHeight());
-                band.offsetDescendantRectToMyCoords(stage, stageOnHost);
+                onto(stage, band, stageOnHost);
                 onHost.set(at);
-                onHost.offset(stageOnHost.left, stageOnHost.top);
+                onto(stage, band, onHost);
             }
             if (fills) at.setEmpty();
             int reach = Math.round(Settings.AMBIENT_LIGHT_SPREAD.get().dp * stage.getResources().getDisplayMetrics().density);

@@ -43,6 +43,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.view.Window;
+import android.view.WindowInsets;
 import android.view.animation.AnimationUtils;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.FrameLayout;
@@ -155,6 +156,14 @@ public final class GlassTabBar {
 
     private static final java.util.HashMap<String, Integer> IDS = new java.util.HashMap<>();
 
+    /** Names an id for a test, whose app has none of Instagram's; null forgets it again. */
+    static void idForTests(String name, @Nullable Integer id) {
+        synchronized (IDS) {
+            if (id == null) IDS.remove(name);
+            else IDS.put(name, id);
+        }
+    }
+
     /** The number of the id called [name] in [context]'s app, or 0 when there isn't one. */
     static int id(Context context, String name) {
         synchronized (IDS) {
@@ -169,25 +178,39 @@ public final class GlassTabBar {
 
     /**
      * Each child of [content], and the sibling of [content] whose id is [pager] (0 for none), whose
-     * bottom margin is [barHeight] gets [wanted] in its place. Any other margin is left alone.
+     * bottom margin is [barHeight] gets [wanted] in its place. Any other margin is left alone. Returns
+     * how many changed.
      */
-    static void screensAboveTheBar(ViewGroup content, int pager, int barHeight, int wanted) {
-        for (int i = 0; i < content.getChildCount(); i++) aboveTheBar(content.getChildAt(i), barHeight, wanted);
-        if (pager == 0 || !(content.getParent() instanceof ViewGroup)) return;
+    static int screensAboveTheBar(ViewGroup content, int pager, int barHeight, int wanted) {
+        int changed = 0;
+        for (int i = 0; i < content.getChildCount(); i++) changed += aboveTheBar(content.getChildAt(i), barHeight, wanted);
+        if (pager == 0 || !(content.getParent() instanceof ViewGroup)) return changed;
         ViewGroup holder = (ViewGroup) content.getParent();
         for (int i = 0; i < holder.getChildCount(); i++) {
             View sibling = holder.getChildAt(i);
-            if (sibling.getId() == pager) aboveTheBar(sibling, barHeight, wanted);
+            if (sibling.getId() == pager) changed += aboveTheBar(sibling, barHeight, wanted);
         }
+        return changed;
     }
 
-    private static void aboveTheBar(View screen, int barHeight, int wanted) {
-        if (!(screen.getLayoutParams() instanceof ViewGroup.MarginLayoutParams)) return;
+    private static int aboveTheBar(View screen, int barHeight, int wanted) {
+        if (!(screen.getLayoutParams() instanceof ViewGroup.MarginLayoutParams)) return 0;
         ViewGroup.MarginLayoutParams margins = (ViewGroup.MarginLayoutParams) screen.getLayoutParams();
-        if (margins.bottomMargin == barHeight) {
-            margins.bottomMargin = wanted;
-            screen.setLayoutParams(margins);
-        }
+        if (margins.bottomMargin != barHeight) return 0;
+        margins.bottomMargin = wanted;
+        screen.setLayoutParams(margins);
+        return 1;
+    }
+
+    /**
+     * Writes a debug line naming a margin HushGram just changed under Instagram's screens. Each change lays
+     * the Reels viewer out again in the next frame, and a reel laid out twice in a row can stop on its
+     * cover while its sound plays on (#222, #509), so a diagnostic taken right after a frozen reel shows
+     * which change came just before it.
+     */
+    static void movedForReels(String what, int changed, int margin) {
+        if (changed <= 0) return;
+        Logger.printDebug(() -> "Glass tab bar: " + what + " (" + changed + " moved, bottom margin " + margin + ")");
     }
 
     /**
@@ -245,10 +268,24 @@ public final class GlassTabBar {
 
     /**
      * How far a reel's caption, buttons and seek bar are raised so nothing touchable sits under the pill
-     * when the reel runs behind it: the slot, while the slot is kept. Otherwise 0 (#372).
+     * when the reel runs behind it: the slot, while the slot is kept (#372). With no slot kept, as over a
+     * reel opened from a feed post where Instagram hides its bar (#347), the viewer can run down over the
+     * navigation bar, where nothing pads it, so the band clears [nav], how far the viewer reaches into
+     * that bar ({@link #intoTheNavigationBar}), and the seek bar stays off the gesture handle (#450). A
+     * viewer that stops at the slot needs no lift.
      */
-    static int reelsBandLift(boolean keep, boolean behind, int slot) {
-        return keep && behind ? Math.max(0, slot) : 0;
+    static int reelsBandLift(boolean keep, boolean behind, int slot, int nav) {
+        if (!keep) return Math.max(0, nav);
+        return behind ? Math.max(0, slot) : 0;
+    }
+
+    /**
+     * How far a view whose bottom is at [bottom] in a window [window] tall reaches into the navigation bar
+     * [nav] tall at the window's foot: 0 for one that stops above it, never more than [nav].
+     */
+    static int intoTheNavigationBar(int bottom, int window, int nav) {
+        if (nav <= 0 || window <= 0) return 0;
+        return Math.max(0, Math.min(nav, bottom - (window - nav)));
     }
 
     private static int liftReels(View view, View bar, int id, int wanted, java.util.Map<View, Integer> given,
@@ -366,9 +403,17 @@ public final class GlassTabBar {
     }
 
     /**
+     * How far Instagram's touch strip for a reel's seek bar runs on past the bottom of the seek bar, over
+     * the top of the tab bar, so a drag that starts just under the line still seeks (#526). Read off 454
+     * with HushGram paused: 28 px on a 2.8 density phone, as tall as the seek bar itself.
+     */
+    static final int STRIP_BELOW_DP = 10;
+
+    /**
      * Moves [strip], the strip Instagram lays over a reel's seek bar ({@link #TOUCH_STRIP}), so its bottom
-     * edge is the bottom edge of the seek bar ([scrubber]) showing in the one of [viewers] it lies across,
-     * or of that viewer when no seek bar shows. Returns whether it moved.
+     * edge is [below] pixels past the bottom edge of the seek bar ([scrubber]) showing in the one of
+     * [viewers] it lies across, or of that viewer when no seek bar shows. That's where Instagram puts it
+     * over its own bar. Returns whether it moved.
      *
      * <p>Instagram places the strip by how far the reel stops above the bottom of the screens, measured
      * as it lays them out. Back from another screen (HushGram's settings, say) it measures while its own
@@ -377,7 +422,7 @@ public final class GlassTabBar {
      * their taps. Measured before a viewer was kept above the pill, it sits over the pill's top instead.
      * A strip anchored from the top, or not laid out yet, is left alone.
      */
-    static boolean stripOnTheReel(View strip, Iterable<View> viewers, int scrubber, Rect scratch) {
+    static boolean stripOnTheReel(View strip, Iterable<View> viewers, int scrubber, int below, Rect scratch) {
         if (strip == null || !strip.isShown() || !strip.isLaidOut() || strip.isLayoutRequested()) return false;
         if (!(strip.getLayoutParams() instanceof FrameLayout.LayoutParams)) return false;
         FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) strip.getLayoutParams();
@@ -400,11 +445,26 @@ public final class GlassTabBar {
         View seekBar = scrubber == 0 ? null : shownWithId(viewer, scrubber, scratch, 0);
         View anchor = seekBar != null ? seekBar : viewer;
         anchor.getLocationOnScreen(at);
-        int off = bottom - (at[1] + anchor.getHeight());
+        int off = bottom - (at[1] + anchor.getHeight() + Math.max(0, below));
         if (off == 0 || params.bottomMargin + off < 0) return false;
         params.bottomMargin += off;
         strip.setLayoutParams(params);
         return true;
+    }
+
+    /**
+     * Whether [x], [y], in [bar]'s own pixels, lie on [strip], Instagram's touch strip for a reel's seek
+     * bar, while it shows. The strip runs over the pill's top edge, and a drag started there is the seek
+     * bar's, never a slide across the tabs (#526).
+     */
+    static boolean onTheStrip(@Nullable View strip, View bar, float x, float y) {
+        if (strip == null || !strip.isShown() || strip.getWidth() <= 0 || strip.getHeight() <= 0) return false;
+        int[] at = new int[2];
+        strip.getLocationOnScreen(at);
+        float left = at[0], top = at[1];
+        bar.getLocationOnScreen(at);
+        float sx = x + at[0] - left, sy = y + at[1] - top;
+        return sx >= 0 && sx < strip.getWidth() && sy >= 0 && sy < strip.getHeight();
     }
 
     /**
@@ -544,7 +604,17 @@ public final class GlassTabBar {
     /** {@link #drawLeavingOutSurfaces}, drawing the frame [frames] has for a SurfaceView in its place, when it has one ({@link SurfaceFrames}). */
     static void drawLeavingOutSurfaces(Canvas canvas, View view, java.util.Set<View> paths, java.util.Set<View> skipped,
             @Nullable java.util.function.Function<View, android.graphics.Bitmap> frames, int depth) {
-        if (view.getVisibility() != View.VISIBLE || view.getAlpha() <= 0f || skipped.contains(view)) return;
+        drawLeavingOutSurfaces(canvas, view, paths, skipped, frames, null, depth);
+    }
+
+    /** {@link #drawLeavingOutSurfaces}, with [reels] painting the place of each view in [skipped] ({@link ReelFrames}, #583). */
+    static void drawLeavingOutSurfaces(Canvas canvas, View view, java.util.Set<View> paths, java.util.Set<View> skipped,
+            @Nullable java.util.function.Function<View, android.graphics.Bitmap> frames, @Nullable ReelFrames reels, int depth) {
+        if (view.getVisibility() != View.VISIBLE || view.getAlpha() <= 0f) return;
+        if (skipped.contains(view)) {
+            if (reels != null) reels.draw(canvas, view);
+            return;
+        }
         if (view instanceof android.view.SurfaceView) {
             drawSurfacePlace(canvas, view, frames == null ? null : frames.apply(view));
             return;
@@ -562,10 +632,28 @@ public final class GlassTabBar {
             if (background != null) background.draw(canvas);
             canvas.translate(-view.getScrollX(), -view.getScrollY());
             for (int i = 0, n = group.getChildCount(); i < n; i++) {
-                drawLeavingOutSurfaces(canvas, group.getChildAt(i), paths, skipped, frames, depth + 1);
+                drawLeavingOutSurfaces(canvas, group.getChildAt(i), paths, skipped, frames, reels, depth + 1);
             }
         }
         canvas.restoreToCount(saved);
+    }
+
+    /**
+     * Draws what the glass blurs into [recording]: the bar's colour [base], and over it the views before
+     * [barIndex] in [parent] that cross the strip from [top], [tall] high. Instagram's screens leave most
+     * of their background to the window, so those rows record nothing. Where the blur came out see-through
+     * like that, the sharp screen underneath showed through a clear pill (#583). The colour fills what they
+     * leave, and a SurfaceView's place is still cleared over it.
+     */
+    static void drawUnderBar(Canvas recording, int base, ViewGroup parent, int barIndex, float top, float tall,
+            java.util.Set<View> paths, java.util.Set<View> skipped,
+            @Nullable java.util.function.Function<View, android.graphics.Bitmap> frames, @Nullable ReelFrames reels) {
+        recording.drawColor(base);
+        for (int i = 0; i < barIndex; i++) {
+            View sibling = parent.getChildAt(i);
+            if (sibling.getWidth() <= 0 || sibling.getBottom() <= top || sibling.getTop() >= top + tall) continue;
+            drawLeavingOutSurfaces(recording, sibling, paths, skipped, frames, reels, 0);
+        }
     }
 
     private static final Paint SURFACE_CLEAR = new Paint();
@@ -590,6 +678,31 @@ public final class GlassTabBar {
     static View find(View root, String name) {
         int id = id(root.getContext(), name);
         return id == 0 ? null : root.findViewById(id);
+    }
+
+    /** The first shown view called [name] under [root], or null ({@link #shownById}). */
+    @Nullable
+    static View findShown(View root, String name) {
+        int id = id(root.getContext(), name);
+        return id == 0 ? null : shownById(root, id);
+    }
+
+    /**
+     * The first view with [id] under [root] whose branch is all visible, or null. findViewById stops at
+     * the first match, and Instagram keeps hidden copies of some views ahead of the one on screen, like
+     * the gone account chevron in the top bar other screens share (#431). Hidden branches aren't walked.
+     */
+    @Nullable
+    public static View shownById(View root, int id) {
+        if (id == 0 || root.getVisibility() != View.VISIBLE) return null;
+        if (root.getId() == id) return root;
+        if (!(root instanceof ViewGroup)) return null;
+        ViewGroup group = (ViewGroup) root;
+        for (int i = 0; i < group.getChildCount(); i++) {
+            View found = shownById(group.getChildAt(i), id);
+            if (found != null) return found;
+        }
+        return null;
     }
 
     /**
@@ -728,6 +841,7 @@ public final class GlassTabBar {
     static final String COUNT_TAB_BACKGROUND = "Tab's own capsule taken off";
     /** Counted each time Instagram's touch strip for a reel's seek bar is moved back onto the seek bar. */
     static final String COUNT_STRIP_KEPT = "Seek bar's touch strip kept on the reel";
+    static final String COUNT_STRIP_WATCHED = "seek bar strip watching";
     /** Counted each time the navigation bar's height is answered 0 so the screens run behind the gesture handle (#144). */
     static final String COUNT_NAV_BEHIND = "Screens run behind the gesture handle";
     /** Counted each time the pill shows or hides and the window's insets are asked for again. */
@@ -1010,7 +1124,12 @@ public final class GlassTabBar {
      * up, under a sheet, or with its bar hidden for a paused reel (#222).
      */
     static int reelsMargin(int slot) {
-        return Math.max(0, slot) + Math.max(0, navTaken - navGiven);
+        return Math.max(0, slot) + navUnpadded();
+    }
+
+    /** The navigation bar's height Instagram was answered 0 for and doesn't pad its screens by itself. */
+    static int navUnpadded() {
+        return Math.max(0, navTaken - navGiven);
     }
 
     /** {@link #sheetRoom} for a pill that floats, 0 for one that doesn't. */
@@ -1337,8 +1456,14 @@ public final class GlassTabBar {
          * for it (#170). Null with the switch off and the wait on Never.
          */
         @Nullable private final GlassScrollHide scrollHide;
-        /** Carries the capsule along with a finger slid across the pill, with that switch on (#136). Null with it off. */
-        @Nullable private final GlassTabSlide slide;
+        /**
+         * Carries the capsule along with a finger slid across the pill, with that switch on (#136), and hands a
+         * drag on a reel's seek bar strip to the strip either way (#526).
+         */
+        private final GlassTabSlide slide;
+        /** The window the slide watches once a reel's strip turns up, kept while Slide across the tabs is off. */
+        @Nullable private WeakReference<Window> stripWindow;
+        private boolean stripWatched;
         /** Where a sliding finger holds the capsule's middle, in the bar's pixels, or NaN while none does. */
         private float dragX = Float.NaN;
         private final RectF touchArea = new RectF();
@@ -1372,8 +1497,14 @@ public final class GlassTabBar {
         private long reelsLookedAt = Long.MIN_VALUE / 2;
         /** The margin the last look gave the Reels viewers, or -1 before the first. */
         private int reelsWanted = -1;
-        /** How far the last look raised each reel's caption, buttons and seek bar for a reel run behind the pill (#372). */
-        private int reelsBandLift;
+        /** Whether the last look kept the pill's slot under the Reels viewers ({@link #reelsKeepTheSlot}). */
+        private boolean reelsKept;
+        /** Whether the last look had the reels run behind the pill ({@link #reelsRunBehind}, #372). */
+        private boolean reelsBehind;
+        /** The pill's slot at the last look ({@link #reelsMargin}). */
+        private int reelsSlot;
+        /** Where {@link #navUnder} reads a viewer's place in its window. */
+        private final int[] viewerAt = new int[2];
         /** Every Reels viewer the last look met. */
         private final java.util.Set<View> viewers = java.util.Collections.newSetFromMap(new WeakHashMap<>());
         /** The views raised over a reel to clear the pill (#221), each with the translation it was given. */
@@ -1409,7 +1540,7 @@ public final class GlassTabBar {
         private final Rect reelsRect = new Rect();
         /** The liquid look (#65): a round pill and highlight, Search in a circle of its own, and the compact row on a scroll. */
         private final boolean liquid;
-        /** Whether the liquid pill's rim bends what's behind it (#369). */
+        /** Whether the pill's rim bends what's behind it (#369), the liquid pill's or the standard one's (#391). */
         private final boolean refract;
         /** How far the liquid bar has shrunk to its compact row: 0 is the whole bar, 1 the tab you're on and Search. */
         private float compact;
@@ -1439,7 +1570,7 @@ public final class GlassTabBar {
             this.lift = liftPx(Settings.GLASS_TAB_BAR_LIFT.get(), floating, density);
             this.room = lift;
             this.liquid = Settings.GLASS_TAB_BAR_LIQUID.get();
-            this.refract = liquid && Settings.GLASS_TAB_BAR_REFRACT.get();
+            this.refract = Settings.GLASS_TAB_BAR_REFRACT.get();
             boolean hideOnScroll = Settings.GLASS_TAB_BAR_HIDE_ON_SCROLL.get();
             // The liquid look shrinks the bar as a list scrolls down, unless a scroll is to take it away altogether
             // or the pill is to keep its full size (#256).
@@ -1449,8 +1580,7 @@ public final class GlassTabBar {
             this.scrollHide = hideOnScroll || shrinkOnScroll || reelsMillis > 0
                     ? new GlassScrollHide(bar, () -> !HushgramPause.isPaused(), hideOnScroll || shrinkOnScroll, reelsMillis,
                             shrinkOnScroll ? this : null) : null;
-            this.slide = Settings.GLASS_TAB_BAR_SLIDE.get()
-                    ? new GlassTabSlide(bar, this, () -> !HushgramPause.isPaused()) : null;
+            this.slide = new GlassTabSlide(bar, this, () -> !HushgramPause.isPaused(), Settings.GLASS_TAB_BAR_SLIDE.get());
             this.base = baseColor(bar.getBackground());
             this.originalLeft = bar.getPaddingLeft();
             this.originalRight = bar.getPaddingRight();
@@ -1485,8 +1615,15 @@ public final class GlassTabBar {
             if (scrollHide != null) scrollHide.restoreNow();
         }
 
+        /**
+         * With Slide across the tabs on, [window]'s touches go through the slide from now on. With it off, only
+         * once a reel's seek bar strip turns up ({@link #watchTheStrip}), so a screen without one stays as it was.
+         */
         void watchSlides(Window window) {
-            if (slide == null) return;
+            if (!slide.slides()) {
+                stripWindow = new WeakReference<>(window);
+                return;
+            }
             try {
                 GlassTabSlide.install(window, slide);
                 HookStatus.counted(FamilyNames.GLASS_TAB_BAR, GlassTabSlide.COUNT_WATCHING);
@@ -1495,9 +1632,29 @@ public final class GlassTabBar {
             }
         }
 
+        /** Has the window's touches go through the slide once a reel's strip shows, with Slide across the tabs off (#526). */
+        private void watchTheStrip() {
+            if (stripWatched || slide.slides()) return;
+            Window window = stripWindow == null ? null : stripWindow.get();
+            if (window == null) return;
+            stripWatched = true;
+            try {
+                GlassTabSlide.install(window, slide);
+                HookStatus.counted(FamilyNames.GLASS_TAB_BAR, COUNT_STRIP_WATCHED);
+            } catch (Throwable failure) {
+                HookStatus.threw(FamilyNames.GLASS_TAB_BAR, "seek bar strip", failure);
+            }
+        }
+
         @Override public boolean onPill(float x, float y) {
-            // The compact row has no tabs to slide across.
-            return compact <= 0f && pill.pillBounds(touchArea) && touchArea.contains(x, y);
+            // The compact row has no tabs to slide across, and a drag on a reel's seek bar strip is the seek bar's.
+            return compact <= 0f && pill.pillBounds(touchArea) && touchArea.contains(x, y) && stripAt(x, y) == null;
+        }
+
+        @Nullable
+        @Override public View stripAt(float x, float y) {
+            View strip = stripRef == null ? null : stripRef.get();
+            return onTheStrip(strip, bar, x, y) ? strip : null;
         }
 
         /**
@@ -1720,8 +1877,10 @@ public final class GlassTabBar {
             if (holder == null || !(holder.getParent() instanceof ViewGroup)) return false;
             int wanted = HushgramPause.isPaused() ? 0 : sheetRoom(floating);
             int dimmer = id(holder.getContext(), SHEET_DIMMER);
-            if (sheetsAboveTheNavigationBar((ViewGroup) holder.getParent(), dimmer, wanted, sheetLifts) == 0) return false;
+            int moved = sheetsAboveTheNavigationBar((ViewGroup) holder.getParent(), dimmer, wanted, sheetLifts);
+            if (moved == 0) return false;
             HookStatus.counted(FamilyNames.GLASS_TAB_BAR, COUNT_SHEETS_LIFTED);
+            movedForReels("lifted the sheets", moved, wanted);
             return true;
         }
 
@@ -1952,15 +2111,21 @@ public final class GlassTabBar {
             boolean behind = reelsRunBehind(Settings.GLASS_TAB_BAR_REELS_BEHIND.get(),
                     Settings.GLASS_TAB_BAR_REELS_HIDE.get());
             int wanted = reelsViewerMargin(keep, behind, slot);
-            int bandLift = reelsBandLift(keep, behind, slot);
-            if (wanted == reelsWanted && bandLift == reelsBandLift && now - reelsLookedAt < REELS_LOOK_MS) return;
+            if (wanted == reelsWanted && keep == reelsKept && behind == reelsBehind && slot == reelsSlot
+                    && now - reelsLookedAt < REELS_LOOK_MS) {
+                return;
+            }
             reelsLookedAt = now;
             reelsWanted = wanted;
-            reelsBandLift = bandLift;
+            reelsKept = keep;
+            reelsBehind = behind;
+            reelsSlot = slot;
             viewers.clear();
-            if (reelsAboveTheBar(holder, bar, id(holder.getContext(), REELS_ROOT), wanted, lifted, viewers) > 0) {
+            int moved = reelsAboveTheBar(holder, bar, id(holder.getContext(), REELS_ROOT), wanted, lifted, viewers);
+            if (moved > 0) {
                 reelsMoved = true;
                 HookStatus.counted(FamilyNames.GLASS_TAB_BAR, COUNT_REELS_LIFTED);
+                movedForReels("lifted the Reels viewer", moved, wanted);
             }
         }
 
@@ -1991,7 +2156,7 @@ public final class GlassTabBar {
                 reelAnchors(viewer, info, scrubber, footers, anchors, footerViews, 0);
                 int footer = 0;
                 for (View view : footerViews) footer += overlapFooter(view);
-                footer += reelsBandLift;
+                footer += reelsBandLift(reelsKept, reelsBehind, reelsSlot, reelsKept ? 0 : navUnder(viewer));
                 for (View anchor : anchors) {
                     View band = bands.get(anchor);
                     if (band == null || !holds(band, anchor)) {
@@ -2014,6 +2179,24 @@ public final class GlassTabBar {
                 }
             }
             raisedNow.clear();
+        }
+
+        /**
+         * How far [viewer] reaches into the navigation bar at its window's foot ({@link #intoTheNavigationBar}).
+         * The bar counts at its full height whether it shows or Full screen Reels hides it, since a swipe up
+         * from that strip still leaves the app. Measured on the viewer, since what Instagram was last told
+         * about the bar says nothing once Full screen Reels hides it as the reel opens (#450). Without the
+         * window's insets, the height Instagram was answered 0 for ({@link #navUnpadded}).
+         */
+        private int navUnder(View viewer) {
+            WindowInsets insets = viewer.getRootWindowInsets();
+            View root = viewer.getRootView();
+            if (insets == null || root == null) return navUnpadded();
+            int nav = Build.VERSION.SDK_INT >= Build.VERSION_CODES.R
+                    ? insets.getInsetsIgnoringVisibility(WindowInsets.Type.navigationBars()).bottom
+                    : insets.getStableInsetBottom();
+            viewer.getLocationInWindow(viewerAt);
+            return intoTheNavigationBar(viewerAt[1] + viewer.getHeight(), root.getHeight(), nav);
         }
 
         /**
@@ -2087,6 +2270,7 @@ public final class GlassTabBar {
                 footer.setLayoutParams(margins);
                 footerMoved = true;
                 if (height > 0) HookStatus.counted(FamilyNames.GLASS_TAB_BAR, COUNT_FOOTER_OVERLAID);
+                Logger.printDebug(() -> "Glass tab bar: laid the Reels footer over the reel (top margin " + -height + ")");
             }
             if (height == 0) overlapped.remove(footer);
             else overlapped.put(footer, -height);
@@ -2165,7 +2349,8 @@ public final class GlassTabBar {
                 strip = find(holder, TOUCH_STRIP);
                 stripRef = strip == null ? null : new WeakReference<>(strip);
             }
-            if (strip != null && stripOnTheReel(strip, viewers, id(holder.getContext(), SCRUBBER), reelsRect)) {
+            if (strip != null) watchTheStrip();
+            if (strip != null && stripOnTheReel(strip, viewers, id(holder.getContext(), SCRUBBER), dp(STRIP_BELOW_DP), reelsRect)) {
                 HookStatus.counted(FamilyNames.GLASS_TAB_BAR, COUNT_STRIP_KEPT);
             }
         }
@@ -2182,7 +2367,8 @@ public final class GlassTabBar {
             if (originalBarHeight <= 0 || params == null || params.height <= 0) return;
             int wanted = floating ? 0 : params.height;
             if (wanted == originalBarHeight) return;
-            screensAboveTheBar(content, id(content.getContext(), SWIPE_PAGER), originalBarHeight, wanted);
+            movedForReels("put the screens above the bar",
+                    screensAboveTheBar(content, id(content.getContext(), SWIPE_PAGER), originalBarHeight, wanted), wanted);
         }
 
         @Override public boolean onPreDraw() {
@@ -2383,6 +2569,8 @@ public final class GlassTabBar {
                 // Light glass has nothing under it to stand out against, so it gets a soft shadow.
                 if (!dark) shadow(canvas, rect, radius);
                 boolean blurred = blurWanted && !tries.resting(SystemClock.uptimeMillis()) && drawBackdrop(canvas);
+                // The standard pill's rim bends too, round its own corners (#391). Paused, it's the plain pill.
+                if (blurred && refract && !HushgramPause.isPaused()) paintRim(canvas, rect, radius);
                 fill.setColor(tint(base, blurred, opacityScale()));
                 canvas.drawRoundRect(rect, radius, radius, fill);
 
@@ -2578,13 +2766,7 @@ public final class GlassTabBar {
              */
             private void paintRims(Canvas canvas, boolean apart) {
                 if (!GlassLens.supported()) return;
-                GlassLens pillRim = rimLens;
-                if (pillRim == null) {
-                    pillRim = new GlassLens(true);
-                    rimLens = pillRim;
-                }
-                pillRim.paint(canvas, node, nodeLeft, nodeTop, DOWNSAMPLE, bar.getWidth(), bar.getHeight(), shrunk,
-                        shrunk.height() / 2f);
+                paintRim(canvas, shrunk, shrunk.height() / 2f);
                 if (!apart) return;
                 GlassLens searchRim = circleRim;
                 if (searchRim == null) {
@@ -2593,6 +2775,17 @@ public final class GlassTabBar {
                 }
                 searchRim.paint(canvas, node, nodeLeft, nodeTop, DOWNSAMPLE, bar.getWidth(), bar.getHeight(), circle,
                         circle.height() / 2f);
+            }
+
+            /** The pill's rim over [box] with [corner] corners, the liquid pill's or the standard one's (#391). */
+            private void paintRim(Canvas canvas, RectF box, float corner) {
+                if (!GlassLens.supported()) return;
+                GlassLens pillRim = rimLens;
+                if (pillRim == null) {
+                    pillRim = new GlassLens(true);
+                    rimLens = pillRim;
+                }
+                pillRim.paint(canvas, node, nodeLeft, nodeTop, DOWNSAMPLE, bar.getWidth(), bar.getHeight(), box, corner);
             }
 
             /**
@@ -2709,12 +2902,18 @@ public final class GlassTabBar {
                 surfaces.clear();
                 skipped.clear();
                 frames.clear();
+                reelFrames.clear();
                 hadSurfaces = false;
                 videoCopied = false;
             }
 
             /** Copies of the frames playing in the SurfaceViews under the bar, drawn in their places (#144). */
             private final SurfaceFrames frames = new SurfaceFrames(DOWNSAMPLE);
+            /** Copies of the reels playing behind a floating pill, drawn where the viewers were left out (#583). */
+            private final ReelFrames reelFrames = new ReelFrames();
+            /** Where the last recording's strip started and how tall it was, in the bar's parent. */
+            private float stripTop;
+            private float stripTall;
             /** Whether a frame has been copied since a SurfaceView last came under the bar, for the report's count. */
             private boolean videoCopied;
             private final Runnable frameLanded = () -> {
@@ -2763,10 +2962,22 @@ public final class GlassTabBar {
                 if (shouldRecord(recorded, since, inFrame) || surfaceAppeared()) {
                     lastRecorded = now;
                     recordBackdrop();
+                    copyReels(now);
                 } else if (!catchUpPending) {
                     catchUpPending = true;
                     bar.postDelayed(catchUp, Math.max(RECORD_EVERY_MS - since, 0) + 4);
                 }
+            }
+
+            /**
+             * Copies the reel behind a floating pill for the next recording ({@link ReelFrames}). A playing
+             * reel draws a frame of its own every time, so this runs off those and never asks for one. It's
+             * not done while drawing, which a TextureView's copy doesn't allow.
+             */
+            private void copyReels(long now) {
+                if (!floating || !recorded || skipped.isEmpty() || !(bar.getParent() instanceof ViewGroup)) return;
+                ViewGroup parent = (ViewGroup) bar.getParent();
+                for (View viewer : skipped) reelFrames.copy(viewer, parent, stripTop, stripTall, now);
             }
 
             /** Each SurfaceView under the bar, and the views down to it, that the last recording left out. */
@@ -2883,11 +3094,10 @@ public final class GlassTabBar {
                             if (viewer != null) leaveOut(viewer, parent, leftOut, skipped);
                         }
                         frames.keepOnly(leftOut);
-                        for (int i = 0; i < barIndex; i++) {
-                            View sibling = parent.getChildAt(i);
-                            if (sibling.getWidth() <= 0 || sibling.getBottom() <= top || sibling.getTop() >= top + tall) continue;
-                            drawLeavingOutSurfaces(recording, sibling, leftOut, skipped, frames::frameOf, 0);
-                        }
+                        reelFrames.keepOnly(skipped);
+                        stripTop = top;
+                        stripTall = tall;
+                        drawUnderBar(recording, base, parent, barIndex, top, tall, leftOut, skipped, frames::frameOf, reelFrames);
                     } finally {
                         backdrop.endRecording();
                     }

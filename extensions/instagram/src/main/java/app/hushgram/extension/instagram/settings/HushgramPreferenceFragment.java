@@ -93,6 +93,7 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.regex.Pattern;
 
+import app.hushgram.extension.instagram.direct.CallBlockMode;
 import app.hushgram.extension.instagram.direct.ChatAccounts;
 import app.hushgram.extension.instagram.direct.ChatLocks;
 import app.hushgram.extension.instagram.direct.HiddenChats;
@@ -112,6 +113,7 @@ import app.hushgram.extension.instagram.feed.AmbientSpread;
 import app.hushgram.extension.instagram.feed.CornerSize;
 import app.hushgram.extension.instagram.feed.LikeAnimation;
 import app.hushgram.extension.instagram.feed.OverlayLook;
+import app.hushgram.extension.instagram.feed.SeekShape;
 import app.hushgram.extension.instagram.misc.CustomIcon;
 import app.hushgram.extension.instagram.misc.HeaderPicture;
 import app.hushgram.extension.instagram.misc.HeaderText;
@@ -142,8 +144,10 @@ import app.hushgram.extension.instagram.misc.GlassCorners;
 import app.hushgram.extension.instagram.misc.GlassHeight;
 import app.hushgram.extension.instagram.misc.GlassLift;
 import app.hushgram.extension.instagram.misc.GlassReelsHide;
+import app.hushgram.extension.instagram.misc.TabIconSize;
 import app.hushgram.extension.instagram.misc.AccentHue;
 import app.hushgram.extension.instagram.misc.AppProxy;
+import app.hushgram.extension.instagram.misc.CustomAccent;
 import app.hushgram.extension.instagram.misc.MaterialYou;
 import app.hushgram.extension.instagram.misc.AppIconChoice;
 import app.hushgram.extension.instagram.misc.EmojiChoice;
@@ -159,6 +163,7 @@ import app.hushgram.extension.instagram.reels.HiddenBars;
 import app.hushgram.extension.instagram.reels.HiddenSounds;
 import app.hushgram.extension.instagram.reels.ReelTapChoice;
 import app.hushgram.extension.instagram.reels.ScrollBreakTime;
+import app.hushgram.extension.instagram.feed.HomeSwipe;
 import app.hushgram.extension.instagram.reels.StartTab;
 import app.hushgram.extension.instagram.reels.TabBarLayoutChoice;
 import app.hushgram.extension.instagram.reels.TabOrder;
@@ -321,6 +326,11 @@ public final class HushgramPreferenceFragment extends AbstractPreferenceFragment
     private final Set<String> expandedCategories = new java.util.LinkedHashSet<>();
     /** The last expanded section, used to return to it after a restart. */
     @Nullable private String lastCategory;
+    /** The category on its own page while Categories on their own page is on (#525), else null. */
+    @Nullable private String pageCategory;
+    /** Where the list of categories was when a page opened, for Back to put it there again. */
+    private int overviewPosition = -1;
+    private int overviewTop;
     /** The button at the top that switches between the list of categories and one long list. */
     @Nullable private Row viewToggle;
     /** Under it, while the categories are listed: switches them between rows and a grid of tiles (#494). */
@@ -463,7 +473,7 @@ public final class HushgramPreferenceFragment extends AbstractPreferenceFragment
             list.post(() -> {
                 if (list == listView()) list.setSelectionFromTop(position, top);
             });
-        } else if (list != null && categoryPages() && lastCategory != null) {
+        } else if (list != null && categoryPages() && lastCategory != null && shownPage() == null) {
             String category = lastCategory;
             list.post(() -> {
                 if (list != listView()) return;
@@ -636,6 +646,7 @@ public final class HushgramPreferenceFragment extends AbstractPreferenceFragment
         NotificationsCategory.add(this, screen, context, build);
         StorageCategory.add(this, screen, context, build);
         DownloadsCategory.add(this, screen, context, build);
+        ViewingHistoryCategory.add(this, screen, context, build);
         BatteryCategory.add(this, screen, context, build);
         UpdatesCategory.add(this, screen, context, build);
         DeveloperCategory.add(this, screen, context, build);
@@ -707,6 +718,11 @@ public final class HushgramPreferenceFragment extends AbstractPreferenceFragment
                     aliases.append(' ').append(L10n.t("Reels"));
                 }
                 if (Settings.VIEW_DM_MEDIA_ANONYMOUSLY.key.equals(key)) aliases.append(' ').append(L10n.t("Ads and privacy"));
+                // These sat under Ads and privacy until they got a category of their own (#228).
+                if (Settings.VIEWING_HISTORY.key.equals(key) || VIEWING_HISTORY_ROW.equals(key)
+                        || CLEAR_VIEWING_HISTORY.equals(key)) {
+                    aliases.append(' ').append(L10n.t("Ads and privacy"));
+                }
                 if (Settings.REMOVE_BUILD_EXPIRED_POPUP.key.equals(key)) aliases.append(' ').append(L10n.t("Updates"));
                 // Instagram's menu calls clear mode Full screen (#480).
                 if (Settings.KEEP_REEL_CLEAR_MODE.key.equals(key) || Settings.START_REEL_CLEAR_MODE.key.equals(key)
@@ -729,6 +745,7 @@ public final class HushgramPreferenceFragment extends AbstractPreferenceFragment
                             || Settings.BURN_IN_STORIES.key.equals(key)
                             || Settings.START_REEL_CLEAR_MODE.key.equals(key));
                     belongs |= family == PatchFamily.REEL_SCROLLING && (Settings.SCROLL_BREAK.key.equals(key)
+                            || Settings.SCROLL_BREAK_LENGTH.key.equals(key)
                             || Settings.REEL_CAP_COUNT.key.equals(key) || Settings.REEL_CAP_BREAK.key.equals(key));
                     belongs |= family == PatchFamily.PLAYBACK_QUALITY && Settings.PLAYBACK_QUALITY.key.equals(key);
                     belongs |= family == PatchFamily.PLAYBACK_QUALITY && Settings.QUALITY_TAB_TARGET.key.equals(key);
@@ -737,7 +754,8 @@ public final class HushgramPreferenceFragment extends AbstractPreferenceFragment
                     belongs |= family == PatchFamily.STORY_TIME && Settings.STORY_TIME_MODE.key.equals(key);
                     belongs |= family == PatchFamily.STORY_MENTIONS && Settings.STORY_MENTIONS_LOOK.key.equals(key);
                     belongs |= family == PatchFamily.CAROUSEL_ARROWS && Settings.CAROUSEL_PILL_LOOK.key.equals(key);
-                    belongs |= family == PatchFamily.FEED_SEEK_BAR && Settings.FEED_SEEK_BAR_LOOK.key.equals(key);
+                    belongs |= family == PatchFamily.FEED_SEEK_BAR && (Settings.FEED_SEEK_BAR_LOOK.key.equals(key)
+                            || Settings.SEEK_BAR_SHAPE.key.equals(key));
                     belongs |= family == PatchFamily.STORY_SEEK_BAR && Settings.STORY_SEEK_BAR_LOOK.key.equals(key);
                     belongs |= family == PatchFamily.REEL_POST_TIME && (Settings.REEL_POST_TIME_SECONDS.key.equals(key)
                             || Settings.REEL_POST_TIME_AGO.key.equals(key));
@@ -753,16 +771,21 @@ public final class HushgramPreferenceFragment extends AbstractPreferenceFragment
                             || Settings.FEED_DOWNLOAD_BUTTON.key.equals(key) || Settings.FEED_DOWNLOAD_ALL_PAGES.key.equals(key)
                             || Settings.DOWNLOAD_CHOOSE_PAGES.key.equals(key));
                     belongs |= family == PatchFamily.REEL_DOWNLOAD && Settings.REEL_DOWNLOAD_BUTTON.key.equals(key);
+                    belongs |= family == PatchFamily.REEL_DOWNLOAD && Settings.FEED_DOWNLOAD_ALL_PAGES.key.equals(key);
+                    belongs |= family == PatchFamily.REEL_DOWNLOAD && Settings.REEL_DOWNLOAD_BUTTON_ASKS.key.equals(key);
                     belongs |= family == PatchFamily.REEL_DOWNLOAD && Settings.REEL_NOT_INTERESTED_BUTTON.key.equals(key);
                     belongs |= family == PatchFamily.REEL_DOWNLOAD && Settings.REEL_BLOCK_BUTTON.key.equals(key);
                     belongs |= family == PatchFamily.REEL_DOWNLOAD && Settings.TEXT_BUTTON_ON_REELS.key.equals(key);
                     belongs |= (family == PatchFamily.REEL_DOWNLOAD || family == PatchFamily.KEEP_REEL_SPEED)
-                            && Settings.SPEED_BUTTON_ON_REELS.key.equals(key);
+                            && (Settings.SPEED_BUTTON_ON_REELS.key.equals(key) || Settings.SPEED_IN_REEL_MENU.key.equals(key));
                     belongs |= (family == PatchFamily.REEL_DOWNLOAD || family == PatchFamily.REEL_DECLUTTER)
                             && Settings.FULL_SCREEN_BUTTON_ON_REELS.key.equals(key);
+                    belongs |= (family == PatchFamily.REEL_DOWNLOAD || family == PatchFamily.REEL_TAP_AND_VOLUME)
+                            && (Settings.MUTE_BUTTON_ON_REELS.key.equals(key) || Settings.MUTE_BUTTON_IN_CLEAR_MODE.key.equals(key));
                     belongs |= family == PatchFamily.REEL_DOWNLOAD && (Settings.HIDE_SOUND_REELS.key.equals(key)
                             || HIDDEN_SOUNDS_ROW.equals(key));
-                    belongs |= family == PatchFamily.ACCENT_COLOR && Settings.ACCENT_HUE.key.equals(key);
+                    belongs |= family == PatchFamily.ACCENT_COLOR && (Settings.ACCENT_HUE.key.equals(key)
+                            || Settings.ACCENT_CUSTOM.key.equals(key));
                     belongs |= family == PatchFamily.FONT && Settings.FONT.key.equals(key);
                     belongs |= family == PatchFamily.EMOJI_STYLE && Settings.EMOJI_FONT.key.equals(key);
                     belongs |= family == PatchFamily.STORY_FONTS && STORY_FONTS_ROW.equals(key);
@@ -774,8 +797,10 @@ public final class HushgramPreferenceFragment extends AbstractPreferenceFragment
                             || Settings.HIDDEN_OWN_PROFILE_TABS.key.equals(key));
                     belongs |= family == PatchFamily.MESSAGE_BOX && Settings.HIDDEN_MESSAGE_BOX_BUTTONS.key.equals(key);
                     belongs |= family == PatchFamily.REELS_TAB
-                            && (Settings.START_TAB.key.equals(key) || Settings.TAB_ORDER.key.equals(key));
+                            && (Settings.START_TAB.key.equals(key) || Settings.TAB_ORDER.key.equals(key)
+                            || Settings.TAB_ICON_SIZE.key.equals(key));
                     belongs |= family == PatchFamily.TAB_BAR_LAYOUT && Settings.TAB_BAR_LAYOUT.key.equals(key);
+                    belongs |= family == PatchFamily.SWIPE_TO_CREATE && Settings.HOME_SWIPE_OPENS.key.equals(key);
                     belongs |= family == PatchFamily.LIKE_ANIMATION && Settings.LIKE_ANIMATION.key.equals(key);
                     belongs |= family == PatchFamily.CAPTION_WORD_REELS && (Settings.REELS_BLOCKED_WORDS.key.equals(key)
                             || Settings.HIDE_CAPTION_WORD_HOME.key.equals(key)
@@ -783,8 +808,11 @@ public final class HushgramPreferenceFragment extends AbstractPreferenceFragment
                     belongs |= family == PatchFamily.LOW_VIEW_REELS
                             && (Settings.MIN_REEL_VIEWS.key.equals(key) || Settings.MIN_REEL_LIKES.key.equals(key));
                     belongs |= family == PatchFamily.STORY_UPLOAD_QUALITY && (Settings.UPLOAD_QUALITY_APPLIES_TO.key.equals(key)
-                            || Settings.UPLOAD_VIDEO_BITRATE.key.equals(key));
+                            || Settings.UPLOAD_VIDEO_BITRATE.key.equals(key) || Settings.UPLOAD_VIDEO_RESOLUTION.key.equals(key)
+                            || Settings.UPLOAD_FRAME_RATE.key.equals(key) || Settings.UPLOAD_PHOTO_QUALITY.key.equals(key));
                     belongs |= family == PatchFamily.STORY_PRIORITY && Settings.STORY_PRIORITY_ACCOUNTS.key.equals(key);
+                    belongs |= family == PatchFamily.CALL_BLOCKER
+                            && (Settings.CALL_BLOCK_MODE.key.equals(key) || Settings.CALL_BLOCK_ACCOUNTS.key.equals(key));
                     belongs |= family == PatchFamily.MESSAGES_LOCK
                             && (Settings.LOCK_AGAIN.key.equals(key) || LOCKED_CHATS_ROW.equals(key)
                             || HIDDEN_CHATS_ROW.equals(key) || PINNED_CHATS_ROW.equals(key) || Settings.UNLOCK_WITH.key.equals(key)
@@ -840,7 +868,9 @@ public final class HushgramPreferenceFragment extends AbstractPreferenceFragment
         }
         expandedCategories.retainAll(available);
         if (restoredCategory != null && available.contains(restoredCategory)) {
-            expandedCategories.add(restoredCategory);
+            // On their own pages, the category comes back as the page it was.
+            if (ownPages()) pageCategory = restoredCategory;
+            else expandedCategories.add(restoredCategory);
             lastCategory = restoredCategory;
         } else if (restoredCategory != null) restoredPosition = -1;
         restoredCategory = null;
@@ -856,9 +886,95 @@ public final class HushgramPreferenceFragment extends AbstractPreferenceFragment
         return Settings.CATEGORY_PAGES.savedValue();
     }
 
+    /** Whether a tapped category opens on a page of its own (#525). */
+    private static boolean ownPages() {
+        return categoryPages() && Settings.CATEGORY_OWN_PAGE.savedValue();
+    }
+
+    /** The category showing on its own page, or null while the list (or a search) shows. */
+    @Nullable private PreferenceCategory shownPage() {
+        if (pageCategory == null || !ownPages()) return null;
+        for (PreferenceCategory group : searchableRows.keySet()) {
+            if (pageCategory.equals(group.getKey())) return group;
+        }
+        return null;
+    }
+
+    /** Opens [group] alone, remembering where the list was for Back. */
+    private void openPage(PreferenceCategory group) {
+        ListView list = listView();
+        View first = list == null ? null : list.getChildAt(0);
+        overviewPosition = list == null ? -1 : list.getFirstVisiblePosition();
+        overviewTop = first == null ? 0 : first.getTop() - list.getPaddingTop();
+        pageCategory = group.getKey();
+        lastCategory = pageCategory;
+        focusPage();
+        filterSettings();
+        if (list != null) list.post(() -> {
+            if (list == listView()) list.setSelection(0);
+        });
+    }
+
+    /** Back from a category's own page: the list again, where it was. False when no page shows. */
+    private boolean closePage() {
+        PreferenceCategory group = shownPage();
+        if (group == null) return false;
+        pageCategory = null;
+        if (group.getKey().equals(lastCategory)) lastCategory = null;
+        NewRowDots.left(group);
+        focusPage();
+        filterSettings();
+        if (categoryGrid != null) categoryGrid.refresh();
+        ListView list = listView();
+        int position = overviewPosition, top = overviewTop;
+        overviewPosition = -1;
+        if (list != null) list.post(() -> {
+            if (list != listView()) return;
+            if (position >= 0) {
+                list.setSelectionFromTop(position, top);
+                return;
+            }
+            for (int i = 0; i < list.getCount(); i++) {
+                if (list.getItemAtPosition(i) == group) {
+                    list.setSelectionFromTop(i, 0);
+                    return;
+                }
+            }
+        });
+        return true;
+    }
+
+    /**
+     * Categories on their own page was flipped from [entry], the Settings entry section. Turned on,
+     * that section becomes the page the switch is on. Turned off, it stays open where it was.
+     */
+    void ownPagesChanged(PreferenceCategory entry) {
+        boolean listing = categoryPages() && searchQuery.trim().isEmpty();
+        if (Settings.CATEGORY_OWN_PAGE.savedValue()) {
+            if (listing && expandedCategories.contains(entry.getKey())) {
+                pageCategory = entry.getKey();
+                lastCategory = pageCategory;
+            } else {
+                pageCategory = null;
+                lastCategory = null;
+            }
+            overviewPosition = -1;
+        } else if (pageCategory != null) {
+            expandedCategories.add(pageCategory);
+            lastCategory = pageCategory;
+            pageCategory = null;
+        }
+        filterSettings();
+        if (categoryGrid != null) categoryGrid.refresh();
+    }
+
     /** Expand in place. Keep the visible anchor instead of scrolling to the top of settings. */
     private void toggleCategory(PreferenceCategory group) {
         if (!categoryPages() || !searchQuery.trim().isEmpty()) return;
+        if (ownPages()) {
+            openPage(group);
+            return;
+        }
         ListView list = listView();
         int position = list == null ? -1 : list.getFirstVisiblePosition();
         Object anchor = list == null || position < 0 || position >= list.getCount()
@@ -924,6 +1040,10 @@ public final class HushgramPreferenceFragment extends AbstractPreferenceFragment
      */
     private void openFromGrid(Heading section) {
         if (!categoryPages() || !Settings.CATEGORY_GRID.savedValue() || !searchQuery.trim().isEmpty()) return;
+        if (ownPages()) {
+            openPage(section);
+            return;
+        }
         String key = section.getKey();
         if (!expandedCategories.contains(key)) {
             for (PreferenceCategory other : searchableRows.keySet()) {
@@ -950,9 +1070,12 @@ public final class HushgramPreferenceFragment extends AbstractPreferenceFragment
         });
     }
 
-    /** Back clears a search first. Expanded sections do not add a navigation level. */
+    /**
+     * Back clears a search first, then leaves a category's own page. Expanded sections do not add a
+     * navigation level.
+     */
     boolean closeCategory() {
-        return endSearch();
+        return endSearch() || closePage();
     }
 
     /**
@@ -1004,12 +1127,16 @@ public final class HushgramPreferenceFragment extends AbstractPreferenceFragment
         body.requestFocus();
     }
 
-    /** The bar's title: the search while there is one, else HushGram unless the header shows it. */
+    /**
+     * The bar's title: the search while there is one, a category's name on its own page, else
+     * HushGram unless the header shows it.
+     */
     private void showTitle() {
         if (!(getParentFragment() instanceof SettingsDialog)) return;
         boolean searching = !searchText(searchQuery).trim().isEmpty();
-        ((SettingsDialog) getParentFragment()).showTitle(
-                searching ? L10n.t("Search settings") : null, headerNameShown());
+        PreferenceCategory page = searching ? null : shownPage();
+        ((SettingsDialog) getParentFragment()).showTitle(searching ? L10n.t("Search settings")
+                : page != null ? page.getTitle() : null, headerNameShown());
     }
 
     /**
@@ -1443,6 +1570,11 @@ public final class HushgramPreferenceFragment extends AbstractPreferenceFragment
         rankForSearch(terms);
         // Search reveals matching rows without changing the sections the person expanded.
         boolean listing = pages && terms.length == 0;
+        // A category on its own page shows Search and its own rows, nothing of the home page (#525).
+        // A search from there keeps the home page's rows off too, so the field stays put as it starts.
+        PreferenceCategory under = pages ? shownPage() : null;
+        PreferenceCategory page = listing ? under : null;
+        boolean own = listing && ownPages();
         boolean black = Settings.SETTINGS_BLACK_LOOK.savedValue();
         for (Preference top : new Preference[]{header, statusCard, beforeSignIn, viewToggle, gridToggle, search}) {
             if (top == null) continue;
@@ -1450,8 +1582,8 @@ public final class HushgramPreferenceFragment extends AbstractPreferenceFragment
             if (top == beforeSignIn && Settings.SIGN_IN_NOTICE_HIDDEN.savedValue()) continue;
             // The header stays while searching. Taking a row off above the field moved the field's
             // place in the list mid-word, and a hardware keyboard's next key was dropped.
-            boolean hidden = top == statusCard ? !HushgramPause.isPaused()
-                    : top == gridToggle ? !listing : top == header && !black;
+            boolean hidden = under != null && top != search || (top == statusCard ? !HushgramPause.isPaused()
+                    : top == gridToggle ? !listing : top == header && !black);
             if (hidden) {
                 if (top.getParent() == screen) screen.removePreference(top);
             } else if (top.getParent() != screen) screen.addPreference(top);
@@ -1475,16 +1607,19 @@ public final class HushgramPreferenceFragment extends AbstractPreferenceFragment
             }
         }
         // Tiles stand in for the folded sections' headings, so those headings stay off the page.
-        boolean gridOn = listing && Settings.CATEGORY_GRID.savedValue();
+        boolean gridOn = listing && page == null && Settings.CATEGORY_GRID.savedValue();
         List<Heading> tiles = new ArrayList<>();
         int matches = 0;
         for (Map.Entry<PreferenceCategory, List<Preference>> section : searchableRows.entrySet()) {
             PreferenceCategory group = section.getKey();
             // Pause, the lock and an interrupted save stay in reach: their section opens and can't fold,
             // and stays open after, so unlocking doesn't fold the row just tapped.
-            boolean held = listing && group == recovery && recoveryHeldOpen();
+            boolean held = listing && page == null && group == recovery && recoveryHeldOpen();
             if (held) expandedCategories.add(group.getKey());
-            boolean expanded = !listing || expandedCategories.contains(group.getKey());
+            // On their own pages the list keeps every category folded, and the inline choices wait
+            // for the switch to go off again.
+            boolean expanded = page != null ? group == page
+                    : !listing || held || !own && expandedCategories.contains(group.getKey());
             boolean filled = false;
             for (Preference row : section.getValue()) {
                 String text = searchText(group.getTitle()) + " " + searchText(row.getTitle()) + " "
@@ -1510,10 +1645,10 @@ public final class HushgramPreferenceFragment extends AbstractPreferenceFragment
                     else if (!expanded && lastCarouselSave.getParent() == group) group.removePreference(lastCarouselSave);
                 }
             }
-            if (group instanceof Heading) ((Heading) group).display(listing && !held, expanded, black);
+            if (group instanceof Heading) ((Heading) group).display(listing && !held && page == null, expanded, black);
             boolean tile = gridOn && filled && group instanceof Heading;
             if (tile) tiles.add((Heading) group);
-            if (filled && !(tile && !expanded)) {
+            if (filled && !(tile && !expanded) && (page == null || group == page)) {
                 if (group.getParent() != screen) screen.addPreference(group);
             } else if (group.getParent() == screen) screen.removePreference(group);
         }
@@ -1532,7 +1667,7 @@ public final class HushgramPreferenceFragment extends AbstractPreferenceFragment
             String text = searchText(row.getTitle()) + " " + searchText(row.getSummary()) + looseAliases[i];
             boolean match = true;
             for (String term : terms) if (!text.contains(term)) { match = false; break; }
-            boolean shown = match;
+            boolean shown = match && page == null;
             if (terms.length > 0 && match) matches++;
             if (shown) {
                 if (row.getParent() != screen) screen.addPreference(row);
@@ -1641,6 +1776,11 @@ public final class HushgramPreferenceFragment extends AbstractPreferenceFragment
         sayLocked();
         Utils.runOnMainThread(() -> { if (getView() != null) showLock(); });
         return false;
+    }
+
+    /** Whether the viewing history page may take a row off its list now. The settings lock holds it, as it holds Clear. */
+    static boolean viewingHistoryChangeAllowed(Preference row) {
+        return allowMutation(row, false);
     }
 
     /** Read-only policy for the final worker transaction, after every provider stream closed. */
@@ -3367,6 +3507,7 @@ public final class HushgramPreferenceFragment extends AbstractPreferenceFragment
 
     /** The last expanded section to reveal after restarting, or the top of the main list. */
     String currentPage() {
+        if (ownPages()) return shownPage() != null ? pageCategory : "";
         return categoryPages() && expandedCategories.contains(lastCategory) ? lastCategory : "";
     }
 
@@ -4496,7 +4637,8 @@ public final class HushgramPreferenceFragment extends AbstractPreferenceFragment
         Row row = new Row(context);
         row.setKey(VIEWING_HISTORY_ROW);
         row.setPersistent(false);
-        row.setTitle(L10n.t("Viewing history"));
+        // Its category is Viewing history, so the row says what it holds.
+        row.setTitle(L10n.t("Recently seen"));
         row.setSummary(L10n.t("Reading the list…"));
         row.setOnPreferenceClickListener(tapped -> {
             ViewingHistoryPage.open(tapped.getContext(), tapped);
@@ -4558,6 +4700,7 @@ public final class HushgramPreferenceFragment extends AbstractPreferenceFragment
             }
             boolean cleared = ViewingHistory.clear(context);
             Utils.runOnMainThread(() -> {
+                ViewingHistoryPage.forgetPictures();
                 if (cleared) {
                     Utils.showToastShort(L10n.t("Viewing history cleared."));
                     list.setSummary(viewingHistorySummary(java.util.Collections.emptyList(), System.currentTimeMillis()));
@@ -4629,6 +4772,59 @@ public final class HushgramPreferenceFragment extends AbstractPreferenceFragment
         row.setEntries(entries);
         row.setEntryValues(values);
         row.setValue(Settings.UPLOAD_VIDEO_BITRATE.savedValue().name());
+        row.setSummary(row.getEntry());
+        return row;
+    }
+
+    /** The least video width an upload asks for (#37). */
+    static UploadChoiceRow uploadResolutionRow(Context context) {
+        app.hushgram.extension.instagram.stories.UploadResolution[] widths = app.hushgram.extension.instagram.stories.UploadResolution.values();
+        CharSequence[] entries = new CharSequence[widths.length];
+        CharSequence[] values = new CharSequence[widths.length];
+        for (int i = 0; i < widths.length; i++) {
+            entries[i] = widths[i].width == 0 ? L10n.t("Instagram's own") : widths[i].width + "p";
+            values[i] = widths[i].name();
+        }
+        return uploadChoiceRow(context, Settings.UPLOAD_VIDEO_RESOLUTION.key, L10n.t("Video resolution"), entries, values,
+                Settings.UPLOAD_VIDEO_RESOLUTION.savedValue().name());
+    }
+
+    /** The least frame rate an upload is encoded at (#37). */
+    static UploadChoiceRow uploadFrameRateRow(Context context) {
+        app.hushgram.extension.instagram.stories.UploadFrameRate[] rates = app.hushgram.extension.instagram.stories.UploadFrameRate.values();
+        CharSequence[] entries = new CharSequence[rates.length];
+        CharSequence[] values = new CharSequence[rates.length];
+        for (int i = 0; i < rates.length; i++) {
+            entries[i] = rates[i].fps == 0 ? L10n.t("Instagram's own") : rates[i].fps + " fps";
+            values[i] = rates[i].name();
+        }
+        return uploadChoiceRow(context, Settings.UPLOAD_FRAME_RATE.key, L10n.t("Video frame rate"), entries, values,
+                Settings.UPLOAD_FRAME_RATE.savedValue().name());
+    }
+
+    /** The least JPEG quality a photo being prepared gets (#37). */
+    static UploadChoiceRow uploadPhotoQualityRow(Context context) {
+        app.hushgram.extension.instagram.stories.UploadPhotoQuality[] qualities = app.hushgram.extension.instagram.stories.UploadPhotoQuality.values();
+        CharSequence[] entries = new CharSequence[qualities.length];
+        CharSequence[] values = new CharSequence[qualities.length];
+        for (int i = 0; i < qualities.length; i++) {
+            entries[i] = qualities[i].percent == 0 ? L10n.t("Instagram's own")
+                    : java.text.NumberFormat.getPercentInstance(L10n.locale()).format(qualities[i].percent / 100.0);
+            values[i] = qualities[i].name();
+        }
+        return uploadChoiceRow(context, Settings.UPLOAD_PHOTO_QUALITY.key, L10n.t("Photo quality"), entries, values,
+                Settings.UPLOAD_PHOTO_QUALITY.savedValue().name());
+    }
+
+    private static UploadChoiceRow uploadChoiceRow(Context context, String key, String title, CharSequence[] entries, CharSequence[] values, String value) {
+        UploadChoiceRow row = new UploadChoiceRow(context);
+        row.setKey(key);
+        row.setTitle(title);
+        row.setDialogTitle(title);
+        row.setNegativeButtonText(L10n.t("Cancel"));
+        row.setEntries(entries);
+        row.setEntryValues(values);
+        row.setValue(value);
         row.setSummary(row.getEntry());
         return row;
     }
@@ -4782,14 +4978,23 @@ public final class HushgramPreferenceFragment extends AbstractPreferenceFragment
         return time == ScrollBreakTime.OFF ? L10n.t("Off") : L10n.f("After %1$d minutes", time.minutes);
     }
 
-    /** [time], then what it does, for the row's summary. */
+    /** [time], then what it does for the break length on the slider under it (#297), for the row's summary. */
     static String scrollBreakSummary(ScrollBreakTime time) {
         if (time == ScrollBreakTime.OFF) {
-            return L10n.t("Off. It can cover the Home, Reels and Explore tabs for 5 minutes after you've spent a "
+            return L10n.t("Off. It can cover the Home, Reels and Explore tabs for a break after you've spent a "
                     + "while on them.");
         }
-        return L10n.f("After %1$d minutes on the Home, Reels and Explore tabs, a break screen covers them for 5 "
-                + "minutes. Messages, your profile and the tab bar still work.", time.minutes);
+        return L10n.f("After %1$d minutes on the Home, Reels and Explore tabs, a break screen covers them for %2$d "
+                + "minutes. Messages, your profile and the tab bar still work.", time.minutes,
+                Settings.SCROLL_BREAK_LENGTH.savedValue());
+    }
+
+    /** How long the scroll break lasts, from a slider under Take a scroll break (#297). */
+    static SliderRow scrollBreakLengthRow(Context context) {
+        SliderRow row = new SliderRow(context, Settings.SCROLL_BREAK_LENGTH, 5, L10n.t("%1$d minutes"));
+        row.setTitle(L10n.t("Break length"));
+        row.setText(String.valueOf(Settings.SCROLL_BREAK_LENGTH.savedValue()));
+        return row;
     }
 
     /** The home screen icon (#284). Its summary says the choice. */
@@ -4863,6 +5068,8 @@ public final class HushgramPreferenceFragment extends AbstractPreferenceFragment
                 return L10n.t("Pause");
             case MUTE:
                 return L10n.t("Mute");
+            case KEEP_PLAYING:
+                return L10n.t("Keep playing");
             default:
                 return L10n.t("Instagram's default");
         }
@@ -4875,6 +5082,9 @@ public final class HushgramPreferenceFragment extends AbstractPreferenceFragment
                 return L10n.t("A tap on a reel pauses it, and another tap plays it again.");
             case MUTE:
                 return L10n.t("A tap on a playing reel turns its sound off or on and keeps it playing. "
+                        + "A reel that's paused still plays on a tap.");
+            case KEEP_PLAYING:
+                return L10n.t("A tap on a playing reel does nothing, so a stray touch doesn't stop it. "
                         + "A reel that's paused still plays on a tap.");
             default:
                 return L10n.t("A tap on a reel does what Instagram does.");
@@ -4917,7 +5127,7 @@ public final class HushgramPreferenceFragment extends AbstractPreferenceFragment
         return row;
     }
 
-    /** How hard the liquid pill bends what's behind its edge, from a slider in percent of the standard bend (#391). */
+    /** How hard the pill bends what's behind its edge, liquid or not, from a slider in percent of the standard bend (#391). */
     static SliderRow glassRefractRow(Context context) {
         SliderRow row = new SliderRow(context, Settings.GLASS_TAB_BAR_REFRACT_STRENGTH, 10, L10n.t("%1$d%%"));
         row.setTitle(L10n.t("Refraction intensity"));
@@ -5137,6 +5347,38 @@ public final class HushgramPreferenceFragment extends AbstractPreferenceFragment
         return row;
     }
 
+    /**
+     * The color typed for Custom (#520), saved as #RRGGBB. What isn't a color is refused under the
+     * field. Saving one picks Custom in the Color list too, so it takes one step.
+     */
+    static AccentCustomRow accentCustomRow(Context context) {
+        AccentCustomRow row = new AccentCustomRow(context);
+        row.setKey(Settings.ACCENT_CUSTOM.key);
+        row.setTitle(L10n.t("Custom color"));
+        row.setDialogTitle(L10n.t("Custom color"));
+        row.setDialogMessage(L10n.t("A color as six hex digits, like #4A6B82. HushGram makes it darker or "
+                + "lighter where text needs it. Restart Instagram to see it."));
+        row.setPositiveButtonText(L10n.t("Save"));
+        row.setNegativeButtonText(L10n.t("Cancel"));
+        EditText field = row.getEditText();
+        field.setSingleLine(true);
+        field.setLayoutDirection(View.LAYOUT_DIRECTION_LTR);
+        field.setTextDirection(View.TEXT_DIRECTION_LTR);
+        field.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS | InputType.TYPE_TEXT_FLAG_CAP_CHARACTERS);
+        field.setHint("#4A6B82");
+        row.setText(Settings.ACCENT_CUSTOM.savedValue());
+        row.setOnPreferenceChangeListener((preference, typed) -> {
+            String color = CustomAccent.normalize(typed == null ? "" : typed.toString());
+            if (color == null) return false;
+            Preference hue = preference.getPreferenceManager() == null ? null
+                    : preference.getPreferenceManager().findPreference(Settings.ACCENT_HUE.key);
+            if (hue instanceof AccentHueRow) ((AccentHueRow) hue).setValue(AccentHue.CUSTOM.name());
+            else Settings.ACCENT_HUE.save(AccentHue.CUSTOM);
+            return true;
+        });
+        return row;
+    }
+
     /** How tall the glass tab bar's pill is. Its summary is the step chosen. */
     static GlassHeightRow glassHeightRow(Context context) {
         GlassHeightRow row = new GlassHeightRow(context);
@@ -5175,6 +5417,39 @@ public final class HushgramPreferenceFragment extends AbstractPreferenceFragment
         row.setEntryValues(values);
         row.setValue(Settings.GLASS_TAB_BAR_CORNERS.savedValue().name());
         return row;
+    }
+
+    /** How big the tab bar's icons are drawn (#541). Its summary says what the choice does. */
+    static TabIconSizeRow tabIconSizeRow(Context context) {
+        TabIconSizeRow row = new TabIconSizeRow(context);
+        row.setKey(Settings.TAB_ICON_SIZE.key);
+        row.setTitle(L10n.t("Tab icon size"));
+        row.setDialogTitle(L10n.t("Tab icon size"));
+        row.setNegativeButtonText(L10n.t("Cancel"));
+        TabIconSize[] sizes = TabIconSize.values();
+        CharSequence[] entries = new CharSequence[sizes.length];
+        CharSequence[] values = new CharSequence[sizes.length];
+        for (int i = 0; i < sizes.length; i++) {
+            entries[i] = tabIconSizeLabel(sizes[i]);
+            values[i] = sizes[i].name();
+        }
+        row.setEntries(entries);
+        row.setEntryValues(values);
+        row.setValue(Settings.TAB_ICON_SIZE.savedValue().name());
+        return row;
+    }
+
+    /** What the list calls [size]: its share in Instagram's language's percent format, or Instagram's size. */
+    static String tabIconSizeLabel(TabIconSize size) {
+        if (size == TabIconSize.INSTAGRAM) return L10n.t("Instagram's size");
+        return NumberFormat.getPercentInstance(L10n.locale()).format(size.percent() / 100.0);
+    }
+
+    /** What the icons look like at [size], for the row's summary. */
+    static String tabIconSizeSummary(TabIconSize size) {
+        if (size == TabIconSize.INSTAGRAM) return L10n.t("The icons on the tab bar are the size Instagram gives them.");
+        return L10n.f("The icons on the tab bar are %1$s of the size Instagram gives them.",
+                L10n.isolate(NumberFormat.getPercentInstance(L10n.locale()).format(size.percent() / 100.0)));
     }
 
     /** How much room a floating glass pill leaves under itself. Its summary is the step chosen. */
@@ -5238,6 +5513,13 @@ public final class HushgramPreferenceFragment extends AbstractPreferenceFragment
         return toggle(context, Settings.REEL_DOWNLOAD_BUTTON, L10n.t("Download button on reels"),
                 L10n.t("Puts a download icon under Save beside a reel, so one tap saves it the way Download in its "
                         + "menu does. Needs Download on reels."));
+    }
+
+    /** Whether a tap on that icon asks what to save first (#524), right under it. */
+    static SwitchPreference reelDownloadAsksRow(Context context) {
+        return toggle(context, Settings.REEL_DOWNLOAD_BUTTON_ASKS, L10n.t("Ask what to save"),
+                L10n.t("A tap on the download icon beside a reel lets you pick the reel, its cover or its sound, "
+                        + "whichever it has."));
     }
 
     /** How many fingers Hold to download waits for. Its summary is the count chosen. */
@@ -5748,6 +6030,50 @@ public final class HushgramPreferenceFragment extends AbstractPreferenceFragment
         });
     }
 
+    /** What a swipe right on Home opens (#589). Its summary says what the choice does. */
+    static HomeSwipeRow homeSwipeRow(Context context) {
+        HomeSwipeRow row = new HomeSwipeRow(context);
+        row.setKey(Settings.HOME_SWIPE_OPENS.key);
+        row.setTitle(L10n.t("Swipe right on Home opens"));
+        row.setDialogTitle(L10n.t("Swipe right on Home opens"));
+        row.setNegativeButtonText(L10n.t("Cancel"));
+        HomeSwipe[] choices = HomeSwipe.values();
+        CharSequence[] entries = new CharSequence[choices.length];
+        CharSequence[] values = new CharSequence[choices.length];
+        for (int i = 0; i < choices.length; i++) {
+            entries[i] = homeSwipeLabel(choices[i]);
+            values[i] = choices[i].name();
+        }
+        row.setEntries(entries);
+        row.setEntryValues(values);
+        row.setValue(Settings.HOME_SWIPE_OPENS.savedValue().name());
+        return row;
+    }
+
+    /** What the list calls [choice]. */
+    static String homeSwipeLabel(HomeSwipe choice) {
+        switch (choice) {
+            case SEARCH:
+                return L10n.t("Search");
+            case REELS:
+                return L10n.t("Reels");
+            case MESSAGES:
+                return L10n.t("Messages");
+            case PROFILE:
+                return L10n.t("Profile");
+            default:
+                return L10n.t("Camera");
+        }
+    }
+
+    /** What [choice] does, for the row's summary. */
+    static String homeSwipeSummary(HomeSwipe choice) {
+        if (choice == HomeSwipe.CAMERA) {
+            return L10n.t("The camera, as Instagram has it. Pick a tab and the same swipe opens that tab instead.");
+        }
+        return L10n.f("A swipe right on Home opens %1$s. The + button still opens the camera.", homeSwipeLabel(choice));
+    }
+
     /** The tab Instagram opens on when it's started from its icon. Its summary says what the choice does. */
     static StartTabRow startTabRow(Context context) {
         StartTabRow row = new StartTabRow(context);
@@ -5861,8 +6187,16 @@ public final class HushgramPreferenceFragment extends AbstractPreferenceFragment
                 return L10n.t("Green");
             case TEAL:
                 return L10n.t("Teal");
+            case DUSK:
+                return L10n.t("Dusk blue");
+            case PINE:
+                return L10n.t("Pine");
+            case SLATE:
+                return L10n.t("Slate");
             case WALLPAPER:
                 return L10n.t("Material You");
+            case CUSTOM:
+                return L10n.t("Custom");
             default:
                 return L10n.t("Instagram blue");
         }
@@ -6019,21 +6353,44 @@ public final class HushgramPreferenceFragment extends AbstractPreferenceFragment
     static OverlayLookRow overlayLookRow(Context context, EnumSetting<OverlayLook> setting, String title,
             String[] summaries, String needs) {
         OverlayLookRow row = new OverlayLookRow(context, setting, summaries, needs);
+        OverlayLook[] looks = OverlayLook.values();
+        String[] labels = new String[looks.length];
+        for (int i = 0; i < looks.length; i++) labels[i] = overlayLookLabel(looks[i]);
+        fill(row, setting, looks, labels, title);
+        return row;
+    }
+
+    /** The shape every seek bar takes (#586, #592). Its values are the shapes' own names. */
+    static ChoiceRow<SeekShape> seekShapeRow(Context context) {
+        String title = L10n.t("Seek bar shape");
+        ChoiceRow<SeekShape> row = new ChoiceRow<>(context, Settings.SEEK_BAR_SHAPE, SeekShape.values(), new String[] {
+                L10n.t("The bar and round handle you know."),
+                L10n.t("A thin line with no handle that grows while you drag it. On feed videos it sits on the bottom edge."),
+                L10n.t("A thicker rounded bar with no handle."),
+                L10n.t("A rounded bar split by a tall handle."),
+                L10n.t("A wavy line for the part played, with a tall handle."),
+        }, L10n.t("Turn on a seek bar on feed videos, stories or reels to use this choice."));
+        fill(row, Settings.SEEK_BAR_SHAPE, SeekShape.values(), new String[] {
+                L10n.t("Standard"),
+                L10n.t("Thin line"),
+                L10n.t("Rounded"),
+                L10n.t("Expressive"),
+                L10n.t("Wave"),
+        }, title);
+        return row;
+    }
+
+    /** Sets [row] up to choose among [choices], called [labels] in the list, with their own names as its values. */
+    private static <E extends Enum<E>> void fill(ChoiceRow<E> row, EnumSetting<E> setting, E[] choices, String[] labels, String title) {
         row.setKey(setting.key);
         row.setTitle(title);
         row.setDialogTitle(title);
         row.setNegativeButtonText(L10n.t("Cancel"));
-        OverlayLook[] looks = OverlayLook.values();
-        CharSequence[] entries = new CharSequence[looks.length];
-        CharSequence[] values = new CharSequence[looks.length];
-        for (int i = 0; i < looks.length; i++) {
-            entries[i] = overlayLookLabel(looks[i]);
-            values[i] = looks[i].name();
-        }
-        row.setEntries(entries);
+        CharSequence[] values = new CharSequence[choices.length];
+        for (int i = 0; i < choices.length; i++) values[i] = choices[i].name();
+        row.setEntries(labels);
         row.setEntryValues(values);
         row.setValue(setting.savedValue().name());
-        return row;
     }
 
     /** What the list calls [look]. */
@@ -6297,6 +6654,8 @@ public final class HushgramPreferenceFragment extends AbstractPreferenceFragment
             ((PlaybackQualityRow) preference).showSummary();
         } else if (preference instanceof TapToPlayScopeRow) {
             ((TapToPlayScopeRow) preference).showSummary();
+        } else if (preference instanceof CallBlockModeRow) {
+            ((CallBlockModeRow) preference).showSummary();
         } else if (preference instanceof ReelTapChoiceRow) {
             ((ReelTapChoiceRow) preference).showSummary();
         } else if (preference instanceof BurnInGuardRow) {
@@ -6309,14 +6668,16 @@ public final class HushgramPreferenceFragment extends AbstractPreferenceFragment
             ((StoryTimeModeRow) preference).showSummary();
         } else if (preference instanceof StoryMentionsLookRow) {
             ((StoryMentionsLookRow) preference).showSummary();
-        } else if (preference instanceof OverlayLookRow) {
-            ((OverlayLookRow) preference).showSummary();
+        } else if (preference instanceof ChoiceRow) {
+            ((ChoiceRow<?>) preference).showSummary();
         } else if (preference instanceof FollowLabelPlaceRow) {
             ((FollowLabelPlaceRow) preference).showSummary();
         } else if (preference instanceof HiddenBarsRow) {
             ((HiddenBarsRow) preference).showSummary();
         } else if (preference instanceof StartTabRow) {
             ((StartTabRow) preference).showSummary();
+        } else if (preference instanceof HomeSwipeRow) {
+            ((HomeSwipeRow) preference).showSummary();
         } else if (preference instanceof TabBarLayoutRow) {
             ((TabBarLayoutRow) preference).showSummary();
         } else if (preference instanceof FontRow) {
@@ -6352,20 +6713,24 @@ public final class HushgramPreferenceFragment extends AbstractPreferenceFragment
             ((PlaybackQualityRow) listPreference).showSummary();
         } else if (listPreference instanceof TapToPlayScopeRow) {
             ((TapToPlayScopeRow) listPreference).showSummary();
+        } else if (listPreference instanceof CallBlockModeRow) {
+            ((CallBlockModeRow) listPreference).showSummary();
         } else if (listPreference instanceof ReelTapChoiceRow) {
             ((ReelTapChoiceRow) listPreference).showSummary();
         } else if (listPreference instanceof StoryTimeModeRow) {
             ((StoryTimeModeRow) listPreference).showSummary();
         } else if (listPreference instanceof StoryMentionsLookRow) {
             ((StoryMentionsLookRow) listPreference).showSummary();
-        } else if (listPreference instanceof OverlayLookRow) {
-            ((OverlayLookRow) listPreference).showSummary();
+        } else if (listPreference instanceof ChoiceRow) {
+            ((ChoiceRow<?>) listPreference).showSummary();
         } else if (listPreference instanceof FollowLabelPlaceRow) {
             ((FollowLabelPlaceRow) listPreference).showSummary();
         } else if (listPreference instanceof HiddenBarsRow) {
             ((HiddenBarsRow) listPreference).showSummary();
         } else if (listPreference instanceof StartTabRow) {
             ((StartTabRow) listPreference).showSummary();
+        } else if (listPreference instanceof HomeSwipeRow) {
+            ((HomeSwipeRow) listPreference).showSummary();
         } else if (listPreference instanceof TabBarLayoutRow) {
             ((TabBarLayoutRow) listPreference).showSummary();
         } else if (listPreference instanceof FontRow) {
@@ -7101,6 +7466,107 @@ public final class HushgramPreferenceFragment extends AbstractPreferenceFragment
         return row;
     }
 
+    /** The people Call blocker's list reads, one to a line (#578). */
+    static AccountsRow callBlockAccountsRow(Context context) {
+        AccountsRow row = new AccountsRow(context);
+        row.setKey(Settings.CALL_BLOCK_ACCOUNTS.key);
+        row.setTitle(L10n.t("Your call list"));
+        row.setDialogTitle(L10n.t("Your call list"));
+        row.setDialogMessage(L10n.t("Usernames, one on each line. A leading @ and capital letters don't matter."));
+        row.setPositiveButtonText(L10n.t("Save"));
+        row.setNegativeButtonText(L10n.t("Cancel"));
+        EditText field = row.getEditText();
+        field.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_MULTI_LINE | InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
+        field.setMaxLines(8);
+        field.setFilters(new InputFilter[]{new InputFilter.LengthFilter(ConfigurationBackup.MAX_WORDS_TEXT)});
+        row.setText(Settings.CALL_BLOCK_ACCOUNTS.savedValue());
+        return row;
+    }
+
+    /** Who can ring your phone with a call (#578). Its summary says what the choice does. */
+    static CallBlockModeRow callBlockModeRow(Context context) {
+        CallBlockModeRow row = new CallBlockModeRow(context);
+        row.setKey(Settings.CALL_BLOCK_MODE.key);
+        row.setTitle(L10n.t("Who can call you"));
+        row.setDialogTitle(L10n.t("Who can call you"));
+        row.setNegativeButtonText(L10n.t("Cancel"));
+        CallBlockMode[] modes = CallBlockMode.values();
+        CharSequence[] entries = new CharSequence[modes.length];
+        CharSequence[] values = new CharSequence[modes.length];
+        for (int i = 0; i < modes.length; i++) {
+            entries[i] = callBlockModeLabel(modes[i]);
+            values[i] = modes[i].name();
+        }
+        row.setEntries(entries);
+        row.setEntryValues(values);
+        row.setValue(Settings.CALL_BLOCK_MODE.savedValue().name());
+        return row;
+    }
+
+    /** What the list calls [mode]. */
+    static String callBlockModeLabel(CallBlockMode mode) {
+        switch (mode) {
+            case NOBODY:
+                return L10n.t("Nobody");
+            case ONLY_LIST:
+                return L10n.t("Only people on your list");
+            case EXCEPT_LIST:
+                return L10n.t("Everyone except your list");
+            default:
+                return L10n.t("Everyone");
+        }
+    }
+
+    /** What [mode] does, for the row's summary. */
+    static String callBlockModeSummary(CallBlockMode mode) {
+        switch (mode) {
+            case NOBODY:
+                return L10n.t("No call rings your phone. Callers just get no answer.");
+            case ONLY_LIST:
+                return L10n.t("Only people on your list ring your phone. Anyone else gets no answer.");
+            case EXCEPT_LIST:
+                return L10n.t("People on your list don't ring your phone. Everyone else still does.");
+            default:
+                return L10n.t("Everyone can ring your phone, as usual.");
+        }
+    }
+
+    /** Call blocker's choice. Its summary follows the value, whoever sets it. */
+    static final class CallBlockModeRow extends ListPreference {
+        CallBlockModeRow(Context context) {
+            super(context);
+        }
+
+        @Override
+        public void setValue(String value) {
+            super.setValue(value);
+            showSummary();
+        }
+
+        void showSummary() {
+            CallBlockMode mode = CallBlockMode.EVERYONE;
+            for (CallBlockMode candidate : CallBlockMode.values()) {
+                if (candidate.name().equals(getValue())) mode = candidate;
+            }
+            setSummary(callBlockModeSummary(mode));
+        }
+
+        @Override
+        protected void onBindView(View view) {
+            super.onBindView(view);
+            showAllText(view);
+            ScreenColors.row(view, this);
+            view.setAccessibilityDelegate(new RowSemantics(this, Button.class));
+        }
+
+        /** Its list takes the screen's colours, as the other rows' dialogs do. */
+        @Override
+        protected void showDialog(Bundle state) {
+            super.showDialog(state);
+            if (getDialog() instanceof AlertDialog) ScreenColors.dialog((AlertDialog) getDialog());
+        }
+    }
+
     /** What the priority accounts row says under its title: how many accounts it holds, or that it has none. */
     static String priorityAccountsSummary(String stored) {
         int count = StoryPriority.accounts(stored).size();
@@ -7531,6 +7997,36 @@ public final class HushgramPreferenceFragment extends AbstractPreferenceFragment
             if (!callChangeListener(value)) return;
             setText(value);
             dialog.dismiss();
+        }
+    }
+
+    static final class AccentCustomRow extends ValidatedEditRow {
+        AccentCustomRow(Context context) {
+            super(context);
+        }
+
+        /** The summary is the color saved, or that none is yet. */
+        @Override
+        public void setText(String text) {
+            super.setText(text);
+            String color = CustomAccent.normalize(text);
+            setSummary(color == null ? L10n.t("None yet. Custom stays Instagram's blue until you type one.") : color);
+        }
+
+        @Override
+        protected void onBindView(View view) {
+            super.onBindView(view);
+            showAllText(view);
+            ScreenColors.row(view, this);
+            view.setAccessibilityDelegate(new RowSemantics(this, Button.class));
+        }
+
+        @Override String validatedValue(String typed) {
+            return CustomAccent.normalize(typed);
+        }
+
+        @Override String validationError() {
+            return L10n.t("That isn't a color. Try #4A6B82.");
         }
     }
 
@@ -8378,6 +8874,41 @@ public final class HushgramPreferenceFragment extends AbstractPreferenceFragment
     }
 
     /** Hide the tab bar on Reels' choice of how long (#170). Its summary says what the choice does, as Burn-in guard's does. */
+    static final class HomeSwipeRow extends ListPreference {
+        HomeSwipeRow(Context context) {
+            super(context);
+        }
+
+        @Override
+        public void setValue(String value) {
+            super.setValue(value);
+            showSummary();
+        }
+
+        void showSummary() {
+            HomeSwipe choice = HomeSwipe.CAMERA;
+            for (HomeSwipe candidate : HomeSwipe.values()) {
+                if (candidate.name().equals(getValue())) choice = candidate;
+            }
+            setSummary(homeSwipeSummary(choice));
+        }
+
+        @Override
+        protected void onBindView(View view) {
+            super.onBindView(view);
+            showAllText(view);
+            ScreenColors.row(view, this);
+            view.setAccessibilityDelegate(new RowSemantics(this, Button.class));
+        }
+
+        /** Its list takes the screen's colours, as the other rows' dialogs do. */
+        @Override
+        protected void showDialog(Bundle state) {
+            super.showDialog(state);
+            if (getDialog() instanceof AlertDialog) ScreenColors.dialog((AlertDialog) getDialog());
+        }
+    }
+
     static final class GlassReelsHideRow extends ListPreference {
         GlassReelsHideRow(Context context) {
             super(context);
@@ -8459,6 +8990,50 @@ public final class HushgramPreferenceFragment extends AbstractPreferenceFragment
                 if (candidate.name().equals(value)) step = candidate;
             }
             setSummary(glassHeightLabel(step));
+        }
+
+        @Override
+        protected void onBindView(View view) {
+            super.onBindView(view);
+            showAllText(view);
+            ScreenColors.row(view, this);
+            view.setAccessibilityDelegate(new RowSemantics(this, Button.class));
+        }
+
+        /** Its list takes the screen's colours, as the other rows' dialogs do. */
+        @Override
+        protected void showDialog(Bundle state) {
+            super.showDialog(state);
+            if (getDialog() instanceof AlertDialog) ScreenColors.dialog((AlertDialog) getDialog());
+        }
+    }
+
+    /**
+     * The tab icon size's row (#541). Like the ring size's, it answers its summary itself, since
+     * ListPreference runs a summary through String.format and a share such as "120%" is no format.
+     */
+    static final class TabIconSizeRow extends ListPreference {
+        @Nullable
+        private String summary;
+
+        TabIconSizeRow(Context context) {
+            super(context);
+        }
+
+        @Override
+        public void setValue(String value) {
+            super.setValue(value);
+            TabIconSize size = TabIconSize.INSTAGRAM;
+            for (TabIconSize candidate : TabIconSize.values()) {
+                if (candidate.name().equals(value)) size = candidate;
+            }
+            summary = tabIconSizeSummary(size);
+            setSummary(summary);
+        }
+
+        @Override
+        public CharSequence getSummary() {
+            return summary != null ? summary : super.getSummary();
         }
 
         @Override
@@ -8951,14 +9526,23 @@ public final class HushgramPreferenceFragment extends AbstractPreferenceFragment
         }
     }
 
-    static final class OverlayLookRow extends ListPreference {
-        private final EnumSetting<OverlayLook> setting;
+    static final class OverlayLookRow extends ChoiceRow<OverlayLook> {
+        OverlayLookRow(Context context, EnumSetting<OverlayLook> setting, String[] summaries, String needs) {
+            super(context, setting, OverlayLook.values(), summaries, needs);
+        }
+    }
+
+    /** A list of [choices] for an enum [setting], [summaries] saying what each one is, and [needs] while its switch is off. */
+    static class ChoiceRow<E extends Enum<E>> extends ListPreference {
+        private final EnumSetting<E> setting;
+        private final E[] choices;
         private final String[] summaries;
         private final String needs;
 
-        OverlayLookRow(Context context, EnumSetting<OverlayLook> setting, String[] summaries, String needs) {
+        ChoiceRow(Context context, EnumSetting<E> setting, E[] choices, String[] summaries, String needs) {
             super(context);
             this.setting = setting;
+            this.choices = choices;
             this.summaries = summaries;
             this.needs = needs;
         }
@@ -8971,11 +9555,11 @@ public final class HushgramPreferenceFragment extends AbstractPreferenceFragment
 
         void showSummary() {
             if (setting == null) return;
-            OverlayLook look = OverlayLook.SOLID;
-            for (OverlayLook candidate : OverlayLook.values()) {
-                if (candidate.name().equals(getValue())) look = candidate;
+            E chosen = choices[0];
+            for (E candidate : choices) {
+                if (candidate.name().equals(getValue())) chosen = candidate;
             }
-            setSummary(setting.isAvailable() ? summaries[look.ordinal()] : needs);
+            setSummary(setting.isAvailable() ? summaries[chosen.ordinal()] : needs);
         }
 
         @Override

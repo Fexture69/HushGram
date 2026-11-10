@@ -17,6 +17,7 @@ import static app.hushgram.extension.instagram.settings.HushgramPreferenceFragme
 import static app.hushgram.extension.instagram.settings.HushgramPreferenceFragment.hapticStyleRow;
 import static app.hushgram.extension.instagram.settings.HushgramPreferenceFragment.startTabRow;
 import static app.hushgram.extension.instagram.settings.HushgramPreferenceFragment.tabBarLayoutRow;
+import static app.hushgram.extension.instagram.settings.HushgramPreferenceFragment.tabIconSizeRow;
 import static app.hushgram.extension.instagram.settings.HushgramPreferenceFragment.slowsOlderPhones;
 import static app.hushgram.extension.instagram.settings.HushgramPreferenceFragment.toggle;
 
@@ -75,6 +76,9 @@ final class TabBarCategory {
                 glass.addPreference(toggle(context, Settings.HIDE_HOME_NOTIFICATIONS_BUTTON, L10n.t("Hide notifications on Home's header"),
                         L10n.t("Takes the heart off the top of Home and closes up the gap. Alerts still arrive. "
                                 + "Restart Instagram to see the change.")));
+                glass.addPreference(toggle(context, Settings.HEART_COUNT, L10n.t("Count on the heart"),
+                        L10n.t("The heart at the top of Home shows how many notifications are waiting, like the "
+                                + "number on Messages, in place of the red dot. Restart Instagram to see the change.")));
                 glass.addPreference(toggle(context, Settings.SEARCH_BUTTON_ON_HOME, L10n.t("Search button on Home's header"),
                         L10n.t("Adds a magnifier at the top of Home that opens Search, like the Search tab does. It works "
                                 + "with the Search tab hidden too. Restart Instagram "
@@ -97,6 +101,9 @@ final class TabBarCategory {
                 glass.addPreference(toggle(context, Settings.MENU_BUTTON_ON_HOME, L10n.t("Menu button on Home's header"),
                         L10n.t("Adds a menu button at the top of Home with your viewing history, Ghost mode and "
                                 + "HushGram settings. Restart Instagram to see the change.")));
+                glass.addPreference(toggle(context, Settings.HISTORY_BUTTON_ON_HOME, L10n.t("History button on Home's header"),
+                        L10n.t("Adds a clock at the top of Home that opens your viewing history in one tap. Restart "
+                                + "Instagram to see the change.")));
                 glass.addPreference(toggle(context, Settings.CENTER_HOME_LOGO, L10n.t("Center the logo on Home's header"),
                         L10n.t("Puts Instagram's logo in the middle of the top of Home, even with header buttons hidden "
                                 + "or added. A feed's name shown there is centered too. Restart Instagram to see the change.")));
@@ -112,6 +119,7 @@ final class TabBarCategory {
                                 + "switches above. Restart Instagram to see the change on Home.")));
                 glass.addPreference(page.tabOrderRow(context));
                 glass.addPreference(startTabRow(context));
+                glass.addPreference(tabIconSizeRow(context));
             }
             if (build.contains(PatchFamily.GLASS_TAB_BAR)) {
                 // Before Glass tab bar, since it works on Instagram's own bar too (#201).
@@ -137,7 +145,7 @@ final class TabBarCategory {
                                 + "a list down shrinks the bar to the tab you're on and Search, unless Hide the tab bar as "
                                 + "you scroll is on. Restart Instagram after changing it."))));
                 glass.addPreference(toggle(context, Settings.GLASS_TAB_BAR_REFRACT, L10n.t("Bend light at the edges"),
-                        slowsOlderPhones(L10n.t("The liquid pill's rim bends what's behind it like real glass, so what passes under the "
+                        slowsOlderPhones(L10n.t("The pill's rim bends what's behind it like real glass, so what passes under the "
                                 + "edge shows upside down. Android 13 and newer. Restart Instagram after changing it."))));
                 SliderRow refractRow = glassRefractRow(context);
                 preview.follow(refractRow, GlassPreview.BEND);

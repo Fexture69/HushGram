@@ -158,31 +158,20 @@ def resolve_cleanup_reels_conflicts():
     with open(path, "r", encoding="utf-8") as f:
         content = f.read()
     if "<<<<<<<" in content:
-        pattern = re.compile(r'<<<<<<< [^\n]*\n(.*?)\n=======\n(.*?)\n>>>>>>> [^\n]*\n', re.DOTALL)
-        def repl(m):
-            head_part = m.group(1)
-            up_part = m.group(2)
-            if "findFriendsTab" in head_part or "findFriendsTab" in up_part:
-                resolved = [
-                    "        val friendsTab = findFriendsTabWhereItFits()",
-                    "        val friendsRow = findFriendsRow()",
-                    "        val friendPicks = findFriendPicks()",
-                    "        val reelsPage = findReelsPage(PATCH)",
-                    "        hideReelParts()",
-                    "        if (friendsTab != null) {",
-                    "            markFriendsTab(friendsTab)",
-                    "        }",
-                    "        keepFriendsRow(friendsRow)",
-                    "        pickFriends(reelsPage, friendPicks)",
-                ]
-                return "\n".join(resolved) + "\n"
-            return up_part + "\n"
-
-        new_content = pattern.sub(repl, content)
-        with open(path, "w", encoding="utf-8") as f:
-            f.write(new_content)
+        subprocess.run(["git", "checkout", "--theirs", path], check=True)
         subprocess.run(["git", "add", path], check=True)
-        print("Resolved conflicts in CleanUpReelsPatch.kt")
+        print("Resolved conflicts in CleanUpReelsPatch.kt by taking upstream implementation")
+
+def resolve_friends_tab_conflicts():
+    path = "patches/src/main/kotlin/app/morphe/patches/instagram/reels/cleanup/FriendsTab.kt"
+    if not os.path.exists(path):
+        return
+    with open(path, "r", encoding="utf-8") as f:
+        content = f.read()
+    if "<<<<<<<" in content:
+        subprocess.run(["git", "checkout", "--theirs", path], check=True)
+        subprocess.run(["git", "add", path], check=True)
+        print("Resolved conflicts in FriendsTab.kt by taking upstream implementation")
 
 def resolve_obfuscated_identity_test_conflicts():
     path = "patches/src/test/kotlin/app/morphe/ObfuscatedIdentityTest.kt"
@@ -252,10 +241,16 @@ def main():
     resolve_readme_conflicts()
     resolve_catalog_test_conflicts()
     resolve_cleanup_reels_conflicts()
+    resolve_friends_tab_conflicts()
     resolve_obfuscated_identity_test_conflicts()
     resolve_generic_conflicts()
 
     try:
+        if os.name != "nt" and os.path.exists("gradlew"):
+            try:
+                os.chmod("gradlew", 0o755)
+            except Exception:
+                pass
         gradle_cmd = "./gradlew" if os.name != "nt" else "gradlew.bat"
         subprocess.run([gradle_cmd, ":patches:generatePatchesList", "--no-daemon", "--dependency-verification=lenient"], check=False)
         if os.path.exists("patches-list.json"):

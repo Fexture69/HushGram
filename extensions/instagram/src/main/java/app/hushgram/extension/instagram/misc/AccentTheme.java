@@ -43,9 +43,14 @@ import app.hushgram.extension.shared.diagnostics.HookStatus;
  * system color another alpha, so the patch gives it opaque shades only, and a blue with alpha is left
  * for the color hooks.
  *
+ * <p>A typed color's styles (#520) point at colors the patch added with stand-in values, which
+ * {@link CustomAccent} gives the typed color's shades before the styles go on. On Android 10 and
+ * older it can't, so the theme is left alone there.
+ *
  * <p>With {@link Settings#ACCENT_BADGES} on, the picked color's badge style goes on too (#315). It
  * points {@code igds_color_icon_badge}, the red of the dots and counts on Instagram's icons, at the
- * picked fill. The like heart and the red delete buttons read other attributes, so they stay red. The
+ * picked fill. The red delete buttons read other attributes, so they stay red. The feed's liked heart
+ * reads this one through the tint list its binder builds, so it takes the picked fill too (#519). The
  * tab bar's badges come from a theme wrapper Instagram builds off the main thread and styles with its
  * theme util, so they take the color through that hook rather than the activity's.
  *
@@ -56,12 +61,14 @@ import app.hushgram.extension.shared.diagnostics.HookStatus;
  * the same shade: {@code glyphColorPrimary} (the top bar's heart, the back and overflow buttons, the
  * post buttons), {@code glyphColorSecondaryActive} (the selected profile tab) and
  * {@code feedSaveActiveColor} (the saved bookmark). Text keeps its own color, the unselected tabs stay
- * gray and the liked heart stays red. The wordmark is tinted with the primary text color, so it stays
+ * gray and the liked heart keeps the badge color. The wordmark is tinted with the primary text color, so it stays
  * too.
  *
  * <p>With {@link Settings#ACCENT_RINGS} on, the picked color's ring style goes on (#187). It points the
  * {@code igds_color_gradient_*} attributes Instagram's story rings read at the picked shades. Other
  * things read those gradient colors too, a few pink highlights among them, and change with the rings.
+ * With {@link Settings#ACCENT_RINGS_SOLID} on too, the solid ring style goes on in its place, every
+ * stop at the picked fill, so a ring is one color (#519).
  *
  * <p>With {@link Settings#ACCENT_BACKGROUNDS} on, the picked color's background style goes on as well
  * (#187): the theme's screens, panels, cards and menus take a very dark or very light shade of it, for
@@ -83,6 +90,12 @@ public final class AccentTheme {
 
     /** What's counted when the patch's styles or its list of attributes aren't in the app, so the theme is left alone. */
     static final String MISSING = "themes left blue, the accent styles are missing";
+
+    /**
+     * What's counted when Custom is picked but its colors can't take the typed color here (Android 10
+     * and older, or the patch listed none), so the theme stays Instagram's and only the hooks recolor.
+     */
+    static final String CUSTOM_KEPT = "themes left blue, the custom color can't load";
 
     /** What's counted when a theme holds none of the blues the patch made styles for. */
     static final String NO_BLUE = "themes with no accent blue";
@@ -123,6 +136,18 @@ public final class AccentTheme {
     /** The theme attribute Instagram's screens paint themselves with, the patch's BACKGROUND_ATTRIBUTE. */
     static final String BACKGROUND_ATTRIBUTE = "igds_color_primary_background";
 
+    /** What's counted each time one of the Compose palettes' dark grays takes an accent background's shade. */
+    static final String SURFACES = "Compose surfaces given accent backgrounds";
+
+    /** The theme attributes holding the page, raised and top background shades, the patch's BACKGROUND_ATTRIBUTES steps. */
+    private static final String[] SURFACE_ATTRIBUTES = {
+            BACKGROUND_ATTRIBUTE, "igds_color_elevated_background", "igds_color_secondary_background",
+    };
+
+    /** The shades {@link #SURFACE_ATTRIBUTES} last held on a dark theme given the accent backgrounds, or null for none yet. */
+    @Nullable
+    private static volatile int[] darkSurfaces;
+
     /** Resource numbers by type and name, 0 for none. They don't change while the app runs. */
     private static final Map<String, Integer> IDS = new HashMap<>();
 
@@ -135,7 +160,7 @@ public final class AccentTheme {
      * Never throws.
      */
     public static void apply(Context context) {
-        apply(context, attributes());
+        apply(context, attributes(), customColors());
     }
 
     /**
@@ -148,8 +173,22 @@ public final class AccentTheme {
         return null;
     }
 
-    /** {@link #apply(Context)} with the attributes the patch listed. */
+    /**
+     * Filled in by the patch: the names of the colors it added for {@link AccentHue#CUSTOM}, space
+     * separated, or null. {@link CustomAccent} gives them the typed color's shades.
+     */
+    @Nullable
+    public static String customColors() {
+        return null;
+    }
+
+    /** {@link #apply(Context)} with the attributes the patch listed, and no custom colors. */
     static void apply(Context context, @Nullable String listed) {
+        apply(context, listed, null);
+    }
+
+    /** {@link #apply(Context)} with the attributes and the custom colors the patch listed. */
+    static void apply(Context context, @Nullable String listed, @Nullable String customNames) {
         try {
             AccentHue hue = AccentColor.picked();
             if (hue == null || context == null) return;
@@ -160,6 +199,12 @@ public final class AccentTheme {
             int palette = id(resources, paletteStyle(hue), "style", app);
             if (palette == 0 || listed == null || listed.isEmpty()) {
                 HookStatus.counted(FamilyNames.ACCENT_COLOR, MISSING);
+                return;
+            }
+            // The custom styles hold stand-ins until the typed color's table is in the assets, so
+            // without it (Android 10 and older, or no names) the theme stays and the hooks do the rest.
+            if (hue == AccentHue.CUSTOM && !CustomAccent.load(context, customNames)) {
+                HookStatus.counted(FamilyNames.ACCENT_COLOR, CUSTOM_KEPT);
                 return;
             }
             boolean wallpaper = hue == AccentHue.WALLPAPER;
@@ -208,7 +253,7 @@ public final class AccentTheme {
                 }
             }
             if (Settings.ACCENT_RINGS.get()) {
-                int rings = id(resources, ringStyle(hue), "style", app);
+                int rings = id(resources, Settings.ACCENT_RINGS_SOLID.get() ? solidRingStyle(hue) : ringStyle(hue), "style", app);
                 if (rings == 0) {
                     HookStatus.counted(FamilyNames.ACCENT_COLOR, RINGS_MISSING);
                 } else {
@@ -219,7 +264,8 @@ public final class AccentTheme {
             if (Settings.ACCENT_BACKGROUNDS.get()) {
                 int attr = id(resources, BACKGROUND_ATTRIBUTE, "attr", app);
                 int icon = id(resources, ICON_ATTRIBUTE, "attr", app);
-                int backgrounds = attr == 0 || icon == 0 ? 0 : id(resources, backgroundStyle(hue, dark(context, theme, icon)), "style", app);
+                boolean dark = icon != 0 && dark(context, theme, icon);
+                int backgrounds = attr == 0 || icon == 0 ? 0 : id(resources, backgroundStyle(hue, dark), "style", app);
                 if (backgrounds == 0) {
                     HookStatus.counted(FamilyNames.ACCENT_COLOR, BACKGROUNDS_MISSING);
                 } else if (!paintsItsOwnBackground(theme, attr)) {
@@ -227,10 +273,95 @@ public final class AccentTheme {
                 } else {
                     theme.applyStyle(backgrounds, true);
                     HookStatus.counted(FamilyNames.ACCENT_COLOR, BACKGROUNDS);
+                    if (dark) rememberSurfaces(resources, theme, app);
                 }
             }
         } catch (Throwable failure) {
             HookStatus.threw(FamilyNames.ACCENT_COLOR, "theme", failure);
+        }
+    }
+
+    /** Keeps the shades [theme] now holds for {@link #SURFACE_ATTRIBUTES}, leaving the last ones if any can't be read. */
+    private static void rememberSurfaces(Resources resources, Resources.Theme theme, String app) {
+        int[] surfaces = new int[SURFACE_ATTRIBUTES.length];
+        TypedValue value = new TypedValue();
+        for (int step = 0; step < surfaces.length; step++) {
+            int attr = id(resources, SURFACE_ATTRIBUTES[step], "attr", app);
+            if (attr == 0 || !theme.resolveAttribute(attr, value, true)
+                    || value.type < TypedValue.TYPE_FIRST_COLOR_INT || value.type > TypedValue.TYPE_LAST_COLOR_INT) {
+                return;
+            }
+            surfaces[step] = value.data;
+        }
+        darkSurfaces = surfaces;
+    }
+
+    /** Sets what {@link #rememberSurfaces} keeps, for tests. */
+    static void darkSurfacesForTests(@Nullable int[] surfaces) {
+        darkSurfaces = surfaces;
+    }
+
+    /**
+     * Injected at the end of the set-up of Instagram's Compose palettes, once for each gray a dark
+     * screen paints itself with (#577). Compose screens such as the message list take those from the
+     * code, not the theme, so {@link #apply} alone leaves their rows and search field near-black under
+     * a colored page. With Backgrounds in the accent color on and a dark theme seen, answers [value] as
+     * the same shade the theme's own backgrounds hold, keeping the alpha, and [value] itself for any
+     * other color. Light themes stay, since those grays are their text. Never throws.
+     */
+    public static long composeSurface(long value) {
+        try {
+            HookStatus.invoked(FamilyNames.ACCENT_COLOR);
+            if ((value & 0xffffffffL) != 0) return value;
+            int[] surfaces = paintedSurfaces();
+            if (surfaces == null) return value;
+            int argb = (int) (value >>> 32);
+            int step = surfaceStep(argb & 0xffffff);
+            if (step < 0) return value;
+            HookStatus.counted(FamilyNames.ACCENT_COLOR, SURFACES);
+            return (long) (argb & 0xff000000 | surfaces[step] & 0xffffff) << 32;
+        } catch (Throwable failure) {
+            HookStatus.threw(FamilyNames.ACCENT_COLOR, "Compose surface", failure);
+            return value;
+        }
+    }
+
+    /** The shades {@link #rememberSurfaces} kept, while Backgrounds in the accent color is painting with them, or null. */
+    @Nullable
+    private static int[] paintedSurfaces() {
+        int[] surfaces = darkSurfaces;
+        return surfaces == null || AccentColor.picked() == null || !Settings.ACCENT_BACKGROUNDS.get() ? null : surfaces;
+    }
+
+    /**
+     * Whether Backgrounds in the accent color is painting a dark theme's surfaces. Pure black's fills ask
+     * first: Material You's neutral shades are gray enough to pass for Instagram's own dark gray, and
+     * would otherwise go black on a colored page (#577).
+     */
+    static boolean paintsSurfaces() {
+        return paintedSurfaces() != null;
+    }
+
+    /** The opaque shade a raised sheet has while the accent's backgrounds are painting, or [otherwise]. */
+    static int raisedSurface(int otherwise) {
+        int[] surfaces = paintedSurfaces();
+        return surfaces == null ? otherwise : 0xff000000 | surfaces[1];
+    }
+
+    /** Which of {@link #SURFACE_ATTRIBUTES} a dark gray of Instagram's stands for, or -1. Black is Pure black's page. */
+    private static int surfaceStep(int rgb) {
+        switch (rgb) {
+            case 0x000000:
+            case 0x0c1014:
+                return 0;
+            case 0x191c1f:
+                return 1;
+            case 0x212328:
+            case 0x25292e:
+            case 0x2b3036:
+                return 2;
+            default:
+                return -1;
         }
     }
 
@@ -347,6 +478,11 @@ public final class AccentTheme {
     /** The style pointing the gradient Instagram's story rings read at [hue]'s shades (#187). */
     static String ringStyle(AccentHue hue) {
         return "HushGramAccentRings_" + hue.name();
+    }
+
+    /** The style pointing every stop of that gradient at [hue]'s fill, for Solid story rings (#519). */
+    static String solidRingStyle(AccentHue hue) {
+        return "HushGramAccentRingsSolid_" + hue.name();
     }
 
     /** The style pointing Instagram's background attributes at [hue]'s shades for a dark theme or a light one (#187). */

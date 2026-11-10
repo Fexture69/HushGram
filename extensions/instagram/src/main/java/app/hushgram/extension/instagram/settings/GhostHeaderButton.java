@@ -30,6 +30,7 @@ import java.util.List;
 import java.util.function.BooleanSupplier;
 
 import app.hushgram.extension.instagram.download.FeedDownloadButton;
+import app.hushgram.extension.instagram.reels.HeartCount;
 import app.hushgram.extension.instagram.reels.HomeHeader;
 import app.hushgram.extension.instagram.reels.HomeLogo;
 import app.hushgram.extension.instagram.reels.MessagesHeaderButton;
@@ -107,6 +108,9 @@ public final class GhostHeaderButton {
         place(header);
         SettingsHeaderButton.place(header);
         HomeMenuButton.place(header);
+        // After the menu button, so it can go in right before it.
+        HistoryHeaderButton.place(header);
+        HeartCount.show(header);
         HomeLogo.center(header);
     }
 

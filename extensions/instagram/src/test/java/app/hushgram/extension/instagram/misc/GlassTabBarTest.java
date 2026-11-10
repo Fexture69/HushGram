@@ -59,6 +59,7 @@ import org.robolectric.annotation.GraphicsMode;
 import org.robolectric.shadows.ShadowLooper;
 import org.robolectric.util.ReflectionHelpers;
 
+import app.hushgram.extension.instagram.reels.ReelBlurBars;
 import app.hushgram.extension.instagram.settings.Settings;
 import app.hushgram.extension.shared.SettingsContextRule;
 import app.hushgram.extension.shared.diagnostics.HookStatus;
@@ -1869,6 +1870,49 @@ public class GlassTabBarTest {
         }
     }
 
+    /**
+     * #391: with the liquid look off, Bend light at the edges paints the rim over the standard pill too, round
+     * its own corners, and there's no Search circle to give a rim of its own. Off, no rim is made. Paused, the
+     * bar is the plain pill and no rim is asked for.
+     */
+    @Test
+    @GraphicsMode(GraphicsMode.Mode.NATIVE)
+    @Config(sdk = 33, qualifiers = "en-rUS-w411dp-h891dp-xhdpi")
+    public void theStandardPillBendsLightAtItsEdgesToo() {
+        GlassTabBar.animationsOnForTests = false;
+        for (boolean refract : new boolean[]{true, false}) {
+            try (GlassHost host = new GlassHost(Color.BLACK, true, GlassHeight.STANDARD, false, true)) {
+                FrameLayout feed = new FrameLayout(host.activity);
+                feed.setBackgroundColor(Color.RED);
+                host.root.addView(feed, 0, new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+                Settings.GLASS_TAB_BAR_LIQUID.save(false);
+                Settings.GLASS_TAB_BAR_REFRACT.save(refract);
+                GlassTabBar.apply(host.activity);
+                host.frame();
+                host.frame();
+                Object pill = host.bar.getBackground();
+                assertTrue("no backdrop recorded", (boolean) ReflectionHelpers.getField(pill, "recorded"));
+                host.recordBackground();
+                GlassLens rim = ReflectionHelpers.getField(pill, "rimLens");
+                assertNull("no circle beside the standard pill", ReflectionHelpers.getField(pill, "circleRim"));
+                if (!refract) {
+                    assertNull("off, no rim", rim);
+                    continue;
+                }
+                assertNotNull("the standard pill gets the rim", rim);
+                assertEquals(1, rim.asked);
+
+                PauseForTests.pause(HushgramPause.Reason.SWITCH);
+                try {
+                    host.recordBackground();
+                    assertEquals("paused, the plain pill", 1, rim.asked);
+                } finally {
+                    PauseForTests.resume();
+                }
+            }
+        }
+    }
+
     @Test
     public void theCapsuleSlideIsTimedNotCountedAndEasesOut() {
         assertEquals(0f, GlassTabBar.slideProgress(0), 0f);
@@ -2016,23 +2060,27 @@ public class GlassTabBarTest {
         holder.addView(pager);
         holder.addView(other);
 
-        GlassTabBar.screensAboveTheBar(content, 0x7f0b0001, 126, 0);
+        // The count is what the debug line reports (#509), so a pass that moves nothing writes nothing.
+        assertEquals("the content's screen and the pager moved", 2,
+                GlassTabBar.screensAboveTheBar(content, 0x7f0b0001, 126, 0));
 
         assertEquals("the content's screen", 0, margin(screen));
         assertEquals("a screen Instagram already let run down", 0, margin(hiddenBar));
         assertEquals("Home's swipe pager", 0, margin(pager));
         assertEquals("another sibling", 126, margin(other));
+        assertEquals("the same pass again moves nothing", 0,
+                GlassTabBar.screensAboveTheBar(content, 0x7f0b0001, 126, 0));
 
         View tallerPager = withMargin(new View(context), 126);
         tallerPager.setId(0x7f0b0003);
         holder.addView(tallerPager);
-        GlassTabBar.screensAboveTheBar(content, 0x7f0b0003, 126, 150);
+        assertEquals("only the new pager moved", 1, GlassTabBar.screensAboveTheBar(content, 0x7f0b0003, 126, 150));
         assertEquals("not floating, the pager stops at a taller pill's top", 150, margin(tallerPager));
         assertEquals("a margin already changed stays", 0, margin(pager));
 
         View noPager = withMargin(new View(context), 126);
         holder.addView(noPager);
-        GlassTabBar.screensAboveTheBar(content, 0, 126, 0);
+        assertEquals(0, GlassTabBar.screensAboveTheBar(content, 0, 126, 0));
         assertEquals("no pager id, no sibling touched", 126, margin(noPager));
     }
 
@@ -2197,6 +2245,116 @@ public class GlassTabBarTest {
         assertEquals("the viewer is left out", 0, drawn.get());
         assertEquals("what's behind it still shows", Color.RED, glass.getPixel(50, 30));
         assertEquals("and so does what's round it", Color.GREEN, glass.getPixel(50, 80));
+    }
+
+    /**
+     * #583: Instagram's rows leave their background to the window, so what the glass recorded there was
+     * empty and the sharp screen under the pill showed through. The bar's colour goes under everything now,
+     * and what's drawn still goes over it, with a SurfaceView's place still cleared.
+     */
+    @Test
+    @GraphicsMode(GraphicsMode.Mode.NATIVE)
+    public void theGlassFillsWhatTheScreensLeaveEmptyWithTheBarsColour() {
+        Context context = RuntimeEnvironment.getApplication();
+        FrameLayout parent = new FrameLayout(context);
+        FrameLayout feed = new FrameLayout(context);
+        View row = new View(context);
+        row.setBackground(new ColorDrawable(Color.GREEN));
+        CountingSurface video = new CountingSurface(context);
+        feed.addView(row);
+        feed.addView(video);
+        View bar = new View(context);
+        parent.addView(feed);
+        parent.addView(bar);
+        parent.layout(0, 0, 100, 100);
+        feed.layout(0, 0, 100, 100);
+        row.layout(0, 10, 100, 30);
+        video.layout(0, 50, 100, 70);
+        bar.layout(0, 80, 100, 100);
+        Set<View> paths = new HashSet<>();
+        assertTrue(GlassTabBar.surfacePaths(parent, 1, paths));
+
+        Bitmap glass = Bitmap.createBitmap(100, 100, Bitmap.Config.ARGB_8888);
+        GlassTabBar.drawUnderBar(new Canvas(glass), Color.WHITE, parent, 1, 0, 100, paths, new HashSet<>(), null, null);
+
+        assertEquals("nothing drawn there, so the bar's colour fills it", Color.WHITE, glass.getPixel(50, 5));
+        assertEquals("and under the last row", Color.WHITE, glass.getPixel(50, 40));
+        assertEquals("a row draws over it", Color.GREEN, glass.getPixel(50, 20));
+        assertEquals("a SurfaceView's place stays cleared", 0, glass.getPixel(50, 60));
+    }
+
+    /**
+     * #583: the viewer stays out of the glass (#222), and a copy of its reel goes in its place, through
+     * the video's own crop, so a floating pill blurs the reel behind it. Before a copy, the place is clear.
+     */
+    @Test
+    @GraphicsMode(GraphicsMode.Mode.NATIVE)
+    public void aFloatingPillBlursACopyOfTheReelInTheLeftOutViewersPlace() {
+        Context context = RuntimeEnvironment.getApplication();
+        FrameLayout parent = new FrameLayout(context);
+        parent.setBackground(new ColorDrawable(Color.RED));
+        AtomicInteger drawn = new AtomicInteger();
+        FrameLayout viewer = new FrameLayout(context) {
+            @Override public void draw(Canvas canvas) {
+                drawn.incrementAndGet();
+                super.draw(canvas);
+            }
+        };
+        TextureView video = new TextureView(context);
+        View elsewhere = new TextureView(context);
+        viewer.addView(video);
+        viewer.addView(elsewhere);
+        parent.addView(viewer);
+        parent.addView(new View(context));
+        parent.layout(0, 0, 100, 200);
+        viewer.layout(0, 0, 100, 200);
+        video.layout(0, 80, 100, 200);
+        elsewhere.layout(0, 0, 100, 60);
+        Matrix shiftedDown = new Matrix();
+        shiftedDown.setTranslate(0, 20);
+        video.setTransform(shiftedDown);
+
+        Set<View> paths = new HashSet<>();
+        Set<View> skipped = new HashSet<>();
+        assertTrue(GlassTabBar.leaveOut(viewer, parent, paths, skipped));
+        ReelFrames reels = new ReelFrames();
+
+        Bitmap before = Bitmap.createBitmap(100, 200, Bitmap.Config.ARGB_8888);
+        GlassTabBar.drawUnderBar(new Canvas(before), Color.BLACK, parent, 1, 150, 50, paths, skipped, null, reels);
+        assertEquals("no copy yet: the place stays clear, not the bar's colour", 0, before.getPixel(50, 170));
+
+        ReelBlurBars.FrameSource original = ReelFrames.source;
+        Map<View, Integer> asked = new HashMap<>();
+        ReelFrames.source = (from, reuse, width, height) -> {
+            asked.merge(from, 1, Integer::sum);
+            assertEquals(100 / ReelFrames.SCALE, width);
+            assertEquals(120 / ReelFrames.SCALE, height);
+            Bitmap frame = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+            frame.eraseColor(Color.YELLOW);
+            return frame;
+        };
+        try {
+            assertTrue(reels.copy(viewer, parent, 150, 50, 1000L));
+            assertNull("only the video behind the strip is copied", asked.get(elsewhere));
+            assertEquals(Integer.valueOf(1), asked.get(video));
+            reels.copy(viewer, parent, 150, 50, 1000L + ReelFrames.COPY_EVERY_MS - 1);
+            assertEquals("a copy too soon isn't taken", Integer.valueOf(1), asked.get(video));
+            reels.copy(viewer, parent, 150, 50, 1000L + ReelFrames.COPY_EVERY_MS);
+            assertEquals(Integer.valueOf(2), asked.get(video));
+
+            Bitmap glass = Bitmap.createBitmap(100, 200, Bitmap.Config.ARGB_8888);
+            GlassTabBar.drawUnderBar(new Canvas(glass), Color.BLACK, parent, 1, 150, 50, paths, skipped, null, reels);
+            assertEquals("the reel's copy fills the video's place", Color.YELLOW, glass.getPixel(50, 170));
+            assertEquals("through the video's crop", 0, glass.getPixel(50, 90));
+            assertEquals("and the viewer's other place stays clear", 0, glass.getPixel(50, 40));
+            assertEquals("the viewer itself is never drawn again (#222)", 0, drawn.get());
+
+            viewer.setTranslationY(-100);
+            assertFalse("moved off the strip, the reel isn't copied", reels.copy(viewer, parent, 150, 50, 5000L));
+            viewer.setTranslationY(0);
+        } finally {
+            ReelFrames.source = original;
+        }
     }
 
     private static final class CountingSurface extends SurfaceView {
@@ -2588,19 +2746,42 @@ public class GlassTabBarTest {
 
     /**
      * #372: with the switch on, the viewer fills the screen behind the pill and its caption, buttons and
-     * seek bar are raised by the slot; off, today's layout. A slot not kept (bar hidden) changes nothing.
+     * seek bar are raised by the slot; off, today's layout. A slot not kept (bar hidden) has the viewer
+     * run to the window's bottom, so only the navigation bar's height is cleared (#450).
      */
     @Test
     public void reelsBehindThePillRaiseTheControlsInsteadOfStoppingTheViewer() {
         assertFalse("off by default", Settings.GLASS_TAB_BAR_REELS_BEHIND.defaultValue);
         assertEquals(126, GlassTabBar.reelsViewerMargin(true, false, 126));
-        assertEquals(0, GlassTabBar.reelsBandLift(true, false, 126));
+        assertEquals(0, GlassTabBar.reelsBandLift(true, false, 126, 48));
         assertEquals(0, GlassTabBar.reelsViewerMargin(true, true, 126));
-        assertEquals(126, GlassTabBar.reelsBandLift(true, true, 126));
-        assertEquals("no slot kept, nothing raised", 0, GlassTabBar.reelsBandLift(false, true, 126));
+        assertEquals(126, GlassTabBar.reelsBandLift(true, true, 126, 48));
+        assertEquals("no slot kept, only the navigation bar cleared", 48, GlassTabBar.reelsBandLift(false, true, 126, 48));
+        assertEquals(48, GlassTabBar.reelsBandLift(false, false, 126, 48));
+        assertEquals("Instagram pads for the navigation bar itself", 0, GlassTabBar.reelsBandLift(false, false, 126, 0));
         assertEquals(0, GlassTabBar.reelsViewerMargin(false, true, 126));
         assertEquals(0, GlassTabBar.reelsViewerMargin(false, false, 126));
-        assertEquals(0, GlassTabBar.reelsBandLift(true, true, -5));
+        assertEquals(0, GlassTabBar.reelsBandLift(true, true, -5, 48));
+        assertEquals(0, GlassTabBar.reelsBandLift(false, true, 126, -5));
+    }
+
+    /**
+     * #450: a reel opened from a feed post on a 1600 pixel window with a 48 pixel navigation bar. Run down
+     * to the window's foot, as with Instagram answered 0 or Full screen Reels hiding the bar, it reaches all
+     * 48 into the bar; stopped above the bar, as where Instagram pads for it, not at all; part way, only
+     * that part. Nothing past the bar's own height, and nothing without a bar.
+     */
+    @Test
+    public void aReelOverTheNavigationBarClearsOnlyThePartInsideIt() {
+        assertEquals("runs to the foot", 48, GlassTabBar.intoTheNavigationBar(1600, 1600, 48));
+        assertEquals("stops above the bar", 0, GlassTabBar.intoTheNavigationBar(1552, 1600, 48));
+        assertEquals("well above it", 0, GlassTabBar.intoTheNavigationBar(1400, 1600, 48));
+        assertEquals("part way in", 20, GlassTabBar.intoTheNavigationBar(1572, 1600, 48));
+        assertEquals("past the foot counts the bar only", 48, GlassTabBar.intoTheNavigationBar(1700, 1600, 48));
+        assertEquals("no bar", 0, GlassTabBar.intoTheNavigationBar(1600, 1600, 0));
+        assertEquals("no window yet", 0, GlassTabBar.intoTheNavigationBar(1600, 0, 48));
+        assertEquals(48, GlassTabBar.reelsBandLift(false, false, 126, GlassTabBar.intoTheNavigationBar(1600, 1600, 48)));
+        assertEquals(0, GlassTabBar.reelsBandLift(false, false, 126, GlassTabBar.intoTheNavigationBar(1552, 1600, 48)));
     }
 
     /**
@@ -2704,12 +2885,14 @@ public class GlassTabBarTest {
      * Instagram's touch strip for a reel's seek bar is placed by how far the reel stops above the screens'
      * bottom. Measured with its own margin back on for a frame and the pill's counted too (back from
      * HushGram's settings on the S22), it sat a bar's height too high, over the reel's More button, and
-     * took its taps. It goes back so its bottom edge is the seek bar's, or the viewer's with no seek bar
-     * showing. A strip hung from the top, or a reel off the screen, is left alone.
+     * took its taps. It goes back so it runs a seek bar's height past the seek bar's bottom edge, or the
+     * viewer's with no seek bar showing, where Instagram keeps it over its own bar (#526). A strip hung
+     * from the top, or a reel off the screen, is left alone.
      */
     @Test
     @Config(qualifiers = "en-rUS-w411dp-h891dp-xhdpi")
     public void theSeekBarsTouchStripStaysOnTheReelAboveThePill() {
+        final int BELOW = 28;
         ActivityController<Activity> controller = Robolectric.buildActivity(Activity.class).setup();
         try {
             Activity activity = controller.get();
@@ -2738,44 +2921,79 @@ public class GlassTabBarTest {
             Rect scratch = new Rect();
             layOut(root);
 
-            assertTrue("a bar's height too high", GlassTabBar.stripOnTheReel(strip, viewers, scrubberId, scratch));
+            assertTrue("a bar's height too high", GlassTabBar.stripOnTheReel(strip, viewers, scrubberId, BELOW, scratch));
             layOut(root);
-            assertEquals("on the seek bar of the reel on screen", bottomOnScreen(seekBar), bottomOnScreen(strip));
-            assertEquals(180, stripParams.bottomMargin);
-            assertFalse("settled, nothing moves", GlassTabBar.stripOnTheReel(strip, viewers, scrubberId, scratch));
+            assertEquals("on the seek bar of the reel on screen, running on past it as over Instagram's own bar",
+                    bottomOnScreen(seekBar) + BELOW, bottomOnScreen(strip));
+            assertEquals(180 - BELOW, stripParams.bottomMargin);
+            assertFalse("settled, nothing moves", GlassTabBar.stripOnTheReel(strip, viewers, scrubberId, BELOW, scratch));
 
             stripParams.bottomMargin = 107;
             strip.setLayoutParams(stripParams);
-            assertFalse("not laid out again yet", GlassTabBar.stripOnTheReel(strip, viewers, scrubberId, scratch));
+            assertFalse("not laid out again yet", GlassTabBar.stripOnTheReel(strip, viewers, scrubberId, BELOW, scratch));
             layOut(root);
-            assertTrue("measured before the reel was kept above the pill", GlassTabBar.stripOnTheReel(strip, viewers, scrubberId, scratch));
-            assertEquals(180, stripParams.bottomMargin);
+            assertTrue("measured before the reel was kept above the pill", GlassTabBar.stripOnTheReel(strip, viewers, scrubberId, BELOW, scratch));
+            assertEquals(180 - BELOW, stripParams.bottomMargin);
 
             seekParams.bottomMargin = 300;
             seekBar.setLayoutParams(seekParams);
             layOut(root);
-            assertTrue("a seek bar higher up", GlassTabBar.stripOnTheReel(strip, viewers, scrubberId, scratch));
+            assertTrue("a seek bar higher up", GlassTabBar.stripOnTheReel(strip, viewers, scrubberId, BELOW, scratch));
             layOut(root);
-            assertEquals(bottomOnScreen(seekBar), bottomOnScreen(strip));
+            assertEquals(bottomOnScreen(seekBar) + BELOW, bottomOnScreen(strip));
 
             seekBar.setVisibility(View.GONE);
             layOut(root);
-            assertTrue("no seek bar showing", GlassTabBar.stripOnTheReel(strip, viewers, scrubberId, scratch));
+            assertTrue("no seek bar showing", GlassTabBar.stripOnTheReel(strip, viewers, scrubberId, BELOW, scratch));
             layOut(root);
-            assertEquals("the viewer's bottom edge", bottomOnScreen(viewer), bottomOnScreen(strip));
+            assertEquals("past the viewer's bottom edge", bottomOnScreen(viewer) + BELOW, bottomOnScreen(strip));
 
             stripParams.gravity = Gravity.TOP;
             stripParams.topMargin = 40;
             strip.setLayoutParams(stripParams);
             layOut(root);
-            assertFalse("hung from the top", GlassTabBar.stripOnTheReel(strip, viewers, scrubberId, scratch));
+            assertFalse("hung from the top", GlassTabBar.stripOnTheReel(strip, viewers, scrubberId, BELOW, scratch));
             stripParams.gravity = Gravity.BOTTOM;
             stripParams.bottomMargin = 287;
             strip.setLayoutParams(stripParams);
             viewer.setTranslationX(-10000);
             layOut(root);
-            assertFalse("no reel on the screen", GlassTabBar.stripOnTheReel(strip, viewers, scrubberId, scratch));
+            assertFalse("no reel on the screen", GlassTabBar.stripOnTheReel(strip, viewers, scrubberId, BELOW, scratch));
             assertEquals(287, stripParams.bottomMargin);
+        } finally {
+            controller.pause().stop().destroy();
+        }
+    }
+
+    /**
+     * #526: the seek bar's touch strip runs over the pill's top edge, and a sideways drag that starts
+     * there seeks the reel. It used to start a slide across the tabs instead. Below the strip, or with no
+     * strip showing, the pill is the pill.
+     */
+    @Test
+    @Config(qualifiers = "en-rUS-w411dp-h891dp-xhdpi")
+    public void aDragOnTheSeekBarsStripIsNeverATabSlide() {
+        ActivityController<Activity> controller = Robolectric.buildActivity(Activity.class).setup();
+        try {
+            Activity activity = controller.get();
+            FrameLayout root = new FrameLayout(activity);
+            View bar = new View(activity);
+            root.addView(bar, new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 177, Gravity.BOTTOM));
+            View strip = new View(activity);
+            FrameLayout.LayoutParams stripParams = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 112, Gravity.BOTTOM);
+            stripParams.bottomMargin = 177 - 28;
+            root.addView(strip, stripParams);
+            activity.setContentView(root);
+            layOut(root);
+
+            assertTrue("the pill's top edge, under the strip", GlassTabBar.onTheStrip(strip, bar, 300, 10));
+            assertTrue(GlassTabBar.onTheStrip(strip, bar, 0, 27));
+            assertFalse("past the strip's bottom edge", GlassTabBar.onTheStrip(strip, bar, 300, 28));
+            assertFalse("the tabs' row", GlassTabBar.onTheStrip(strip, bar, 300, 90));
+            assertFalse("no strip found", GlassTabBar.onTheStrip(null, bar, 300, 10));
+            strip.setVisibility(View.GONE);
+            layOut(root);
+            assertFalse("a strip that doesn't show", GlassTabBar.onTheStrip(strip, bar, 300, 10));
         } finally {
             controller.pause().stop().destroy();
         }
