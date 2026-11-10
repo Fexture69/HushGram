@@ -13,10 +13,13 @@ import static app.hushgram.extension.shared.StringRef.str;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -28,6 +31,7 @@ import android.preference.PreferenceGroup;
 import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
 import android.preference.SwitchPreference;
+import android.util.Log;
 import android.util.Pair;
 import android.view.View;
 import android.view.accessibility.AccessibilityNodeInfo;
@@ -56,6 +60,8 @@ import app.hushgram.extension.shared.ui.CustomDialog;
 
 @SuppressWarnings("deprecation")
 public abstract class AbstractPreferenceFragment extends PreferenceFragment {
+
+    public static volatile Throwable lastInitializationError;
 
     private static final String INITIALIZATION_ERROR_KEY = "morphe_settings_error_message";
     private static final String INITIALIZATION_BACK_KEY = "morphe_settings_error_back";
@@ -461,20 +467,25 @@ public abstract class AbstractPreferenceFragment extends PreferenceFragment {
      * @return If the preference is currently set to the default value of the Setting.
      */
     protected boolean prefIsSetToDefault(Preference pref, Setting<?> setting) {
+        if (setting == null || setting.defaultValue == null) return true;
         Object defaultValue = setting.defaultValue;
         if (pref instanceof SwitchPreference switchPref) {
-            return switchPref.isChecked() == (Boolean) defaultValue;
+            return defaultValue instanceof Boolean && switchPref.isChecked() == (Boolean) defaultValue;
+        }
+        if (pref instanceof android.preference.TwoStatePreference twoState) {
+            return defaultValue instanceof Boolean && twoState.isChecked() == (Boolean) defaultValue;
         }
         String defaultValueString = defaultValue.toString();
         if (pref instanceof EditTextPreference editPreference) {
-            return editPreference.getText().equals(defaultValueString);
+            String text = editPreference.getText();
+            return text != null && text.equals(defaultValueString);
         }
         if (pref instanceof ListPreference listPref) {
-            return listPref.getValue().equals(defaultValueString);
+            String val = listPref.getValue();
+            return val != null && val.equals(defaultValueString);
         }
 
-        throw new IllegalStateException("Must override method to handle "
-                + "preference type: " + pref.getClass());
+        return true;
     }
 
     /**
@@ -488,19 +499,26 @@ public abstract class AbstractPreferenceFragment extends PreferenceFragment {
         // the Preferences.
         for (int i = 0, prefCount = group.getPreferenceCount(); i < prefCount; i++) {
             Preference pref = group.getPreference(i);
-            if (pref instanceof PreferenceGroup subGroup) {
-                updatePreferenceScreen(subGroup, syncSettingValue, applySettingToPreference);
-            } else if (pref.hasKey()) {
-                String key = pref.getKey();
-                Setting<?> setting = Setting.getSettingFromPath(key);
+            if (pref == null) continue;
+            try {
+                if (pref instanceof PreferenceGroup subGroup) {
+                    updatePreferenceScreen(subGroup, syncSettingValue, applySettingToPreference);
+                } else if (pref.hasKey()) {
+                    String key = pref.getKey();
+                    if (key != null) {
+                        Setting<?> setting = Setting.getSettingFromPath(key);
 
-                if (setting != null) {
-                    updatePreference(pref, setting, syncSettingValue, applySettingToPreference);
-                } else if (BaseSettings.DEBUG.savedValue() && (pref instanceof SwitchPreference
-                        || pref instanceof EditTextPreference || pref instanceof ListPreference)) {
-                    // Probably a typo in the patches preference declaration.
-                    Logger.printException(() -> "Preference key has no setting: " + key);
+                        if (setting != null) {
+                            updatePreference(pref, setting, syncSettingValue, applySettingToPreference);
+                        } else if (BaseSettings.DEBUG.savedValue() && (pref instanceof SwitchPreference
+                                || pref instanceof EditTextPreference || pref instanceof ListPreference)) {
+                            // Probably a typo in the patches preference declaration.
+                            Logger.printException(() -> "Preference key has no setting: " + key);
+                        }
+                    }
                 }
+            } catch (Throwable prefError) {
+                Logger.printException(() -> "Error syncing preference: " + pref, prefError);
             }
         }
     }
@@ -548,21 +566,24 @@ public abstract class AbstractPreferenceFragment extends PreferenceFragment {
                                               @NonNull Setting<?> setting,
                                               boolean applySettingToPreference) {
         if (pref instanceof SwitchPreference switchPref) {
-            BooleanSetting boolSetting = (BooleanSetting) setting;
-            if (applySettingToPreference) {
-                switchPref.setChecked(boolSetting.savedValue());
-            } else {
-                BooleanSetting.privateSetValue(boolSetting, switchPref.isChecked());
+            if (setting instanceof BooleanSetting boolSetting) {
+                if (applySettingToPreference) {
+                    switchPref.setChecked(boolSetting.savedValue());
+                } else {
+                    BooleanSetting.privateSetValue(boolSetting, switchPref.isChecked());
+                }
             }
         } else if (pref instanceof EditTextPreference editPreference) {
             if (applySettingToPreference) {
-                editPreference.setText(setting.savedValue().toString());
+                Object val = setting.savedValue();
+                editPreference.setText(val != null ? val.toString() : "");
             } else {
                 Setting.privateSetValueFromString(setting, editPreference.getText());
             }
         } else if (pref instanceof ListPreference listPref) {
             if (applySettingToPreference) {
-                listPref.setValue(setting.savedValue().toString());
+                Object val = setting.savedValue();
+                listPref.setValue(val != null ? val.toString() : "");
             } else {
                 Setting.privateSetValueFromString(setting, listPref.getValue());
             }
@@ -598,10 +619,12 @@ public abstract class AbstractPreferenceFragment extends PreferenceFragment {
     }
 
     protected void updateListPreferenceSummary(ListPreference listPreference, Setting<?> setting) {
-        String objectStringValue = setting.savedValue().toString();
+        Object val = setting.savedValue();
+        String objectStringValue = val != null ? val.toString() : "";
         final int entryIndex = listPreference.findIndexOfValue(objectStringValue);
-        if (entryIndex >= 0) {
-            listPreference.setSummary(listPreference.getEntries()[entryIndex]);
+        CharSequence[] entries = listPreference.getEntries();
+        if (entryIndex >= 0 && entries != null && entryIndex < entries.length) {
+            listPreference.setSummary(entries[entryIndex]);
         } else {
             // Value is not an available option.
             // User manually edited import data, or options changed and current selection is no longer available.
@@ -726,15 +749,23 @@ public abstract class AbstractPreferenceFragment extends PreferenceFragment {
 
             preferenceManager.getSharedPreferences().registerOnSharedPreferenceChangeListener(listener);
             listenerRegistered = true;
-        } catch (Exception ex) {
-            // The error page is the user-facing outcome; keep the diagnostic logger toast quiet.
-            Logger.printInfo(() -> "onCreate() failure", ex);
+        } catch (Throwable ex) {
+            // Keep full stack in logs, record it, toast the error, and render detailed UI.
+            Logger.printException(() -> "onCreate() failure", ex);
+            lastInitializationError = ex;
+            Utils.showToastLong("HushGram settings error: " + ex.getClass().getSimpleName()
+                    + (ex.getMessage() != null && !ex.getMessage().trim().isEmpty() ? ": " + ex.getMessage().trim() : ""));
             unregisterPreferenceListener();
-            renderInitializationError();
+            renderInitializationError(ex);
         }
     }
 
     private void renderInitializationError() {
+        renderInitializationError(lastInitializationError);
+    }
+
+    private void renderInitializationError(@Nullable Throwable ex) {
+        lastInitializationError = ex;
         Activity activity = getActivity();
         if (activity == null) {
             Logger.printException(() -> "Cannot render settings initialization error without an Activity");
@@ -754,12 +785,65 @@ public abstract class AbstractPreferenceFragment extends PreferenceFragment {
             };
             message.setKey(INITIALIZATION_ERROR_KEY);
             message.setTitle(initializationErrorTitle(activity));
-            message.setSummary(initializationErrorSummary(activity));
+
+            StringBuilder summaryText = new StringBuilder();
+            CharSequence baseSummary = initializationErrorSummary(activity);
+            if (baseSummary != null) {
+                summaryText.append(baseSummary);
+            }
+            if (ex != null) {
+                summaryText.append("\n\n").append(ex.getClass().getSimpleName());
+                if (ex.getMessage() != null && !ex.getMessage().trim().isEmpty()) {
+                    summaryText.append(": ").append(ex.getMessage().trim());
+                }
+                StackTraceElement[] traces = ex.getStackTrace();
+                if (traces != null && traces.length > 0) {
+                    for (StackTraceElement elem : traces) {
+                        String s = elem.toString();
+                        if (s.contains("hushgram") || s.contains("morphe")) {
+                            summaryText.append("\nat ").append(s);
+                            break;
+                        }
+                    }
+                }
+                Throwable cause = ex.getCause();
+                if (cause != null) {
+                    summaryText.append("\nCaused by: ").append(cause.getClass().getSimpleName());
+                    if (cause.getMessage() != null && !cause.getMessage().trim().isEmpty()) {
+                        summaryText.append(": ").append(cause.getMessage().trim());
+                    }
+                }
+                summaryText.append("\n\n(Tap to view & copy full error trace)");
+            }
+            message.setSummary(summaryText.toString());
             message.setPersistent(false);
-            message.setSelectable(false);
+            message.setSelectable(true);
             // A translated title, or any title at a large text size, would otherwise be cut to
             // one line.
             message.setSingleLineTitle(false);
+            if (ex != null) {
+                message.setOnPreferenceClickListener(ignored -> {
+                    try {
+                        String fullTrace = Log.getStackTraceString(ex);
+                        new AlertDialog.Builder(activity)
+                                .setTitle("Settings Error Details")
+                                .setMessage(fullTrace)
+                                .setPositiveButton(L10n.t("OK"), null)
+                                .setNeutralButton(L10n.t("Copy"), (dialog, which) -> {
+                                    ClipboardManager clipboard = (ClipboardManager)
+                                            activity.getSystemService(Context.CLIPBOARD_SERVICE);
+                                    if (clipboard != null) {
+                                        clipboard.setPrimaryClip(ClipData.newPlainText("HushGram Error", fullTrace));
+                                        Utils.showToastShort("Copied stack trace");
+                                    }
+                                })
+                                .show();
+                    } catch (Throwable logFailure) {
+                        Logger.printException(() -> "Could not display error dialog", logFailure);
+                    }
+                    return true;
+                });
+            }
             screen.addPreference(message);
 
             ErrorActionStyler styler = errorActionStyler();

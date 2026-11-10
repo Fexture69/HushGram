@@ -550,6 +550,14 @@ public final class HushgramPreferenceFragment extends AbstractPreferenceFragment
         super.onDestroy();
     }
 
+    private void safeAddCategory(String name, Runnable addAction) {
+        try {
+            addAction.run();
+        } catch (Throwable t) {
+            Logger.printException(() -> "Error adding settings category: " + name, t);
+        }
+    }
+
     @Override
     protected void initialize() {
         // Loads the switches before the shared fragment syncs them to the screen.
@@ -630,31 +638,31 @@ public final class HushgramPreferenceFragment extends AbstractPreferenceFragment
         PatchFamily.registerDiagnostics();
         Set<PatchFamily> build = PatchFamily.inThisBuild();
         // Everyday controls first; settings access and upkeep follow them.
-        PrivacyCategory.add(this, screen, context, build);
-        FeedCategory.add(this, screen, context, build);
-        MetaAiCategory.add(this, screen, context, build);
-        ExploreCategory.add(this, screen, context, build);
-        MessagesCategory.add(this, screen, context, build);
-        ReelsCategory.add(this, screen, context, build);
-        StoriesCategory.add(this, screen, context, build);
-        PlaybackCategory.add(this, screen, context, build);
-        SharingCategory.add(this, screen, context, build);
-        CommentsCategory.add(this, screen, context, build);
-        ProfilesCategory.add(this, screen, context, build);
-        LayoutCategory.add(this, screen, context, build);
-        TabBarCategory.add(this, screen, context, build);
-        NotificationsCategory.add(this, screen, context, build);
-        StorageCategory.add(this, screen, context, build);
-        DownloadsCategory.add(this, screen, context, build);
-        ViewingHistoryCategory.add(this, screen, context, build);
-        BatteryCategory.add(this, screen, context, build);
-        UpdatesCategory.add(this, screen, context, build);
-        DeveloperCategory.add(this, screen, context, build);
-        EntryCategory.add(this, screen, context, build);
-        PatchTimeCategory.add(this, screen, context, build);
-        BackupCategory.add(this, screen, context, build);
-        PauseCategory.add(this, screen, context, build);
-        AboutCategory.add(this, screen, context, build);
+        safeAddCategory("Privacy", () -> PrivacyCategory.add(this, screen, context, build));
+        safeAddCategory("Feed", () -> FeedCategory.add(this, screen, context, build));
+        safeAddCategory("MetaAi", () -> MetaAiCategory.add(this, screen, context, build));
+        safeAddCategory("Explore", () -> ExploreCategory.add(this, screen, context, build));
+        safeAddCategory("Messages", () -> MessagesCategory.add(this, screen, context, build));
+        safeAddCategory("Reels", () -> ReelsCategory.add(this, screen, context, build));
+        safeAddCategory("Stories", () -> StoriesCategory.add(this, screen, context, build));
+        safeAddCategory("Playback", () -> PlaybackCategory.add(this, screen, context, build));
+        safeAddCategory("Sharing", () -> SharingCategory.add(this, screen, context, build));
+        safeAddCategory("Comments", () -> CommentsCategory.add(this, screen, context, build));
+        safeAddCategory("Profiles", () -> ProfilesCategory.add(this, screen, context, build));
+        safeAddCategory("Layout", () -> LayoutCategory.add(this, screen, context, build));
+        safeAddCategory("TabBar", () -> TabBarCategory.add(this, screen, context, build));
+        safeAddCategory("Notifications", () -> NotificationsCategory.add(this, screen, context, build));
+        safeAddCategory("Storage", () -> StorageCategory.add(this, screen, context, build));
+        safeAddCategory("Downloads", () -> DownloadsCategory.add(this, screen, context, build));
+        safeAddCategory("ViewingHistory", () -> ViewingHistoryCategory.add(this, screen, context, build));
+        safeAddCategory("Battery", () -> BatteryCategory.add(this, screen, context, build));
+        safeAddCategory("Updates", () -> UpdatesCategory.add(this, screen, context, build));
+        safeAddCategory("Developer", () -> DeveloperCategory.add(this, screen, context, build));
+        safeAddCategory("Entry", () -> EntryCategory.add(this, screen, context, build));
+        safeAddCategory("PatchTime", () -> PatchTimeCategory.add(this, screen, context, build));
+        safeAddCategory("Backup", () -> BackupCategory.add(this, screen, context, build));
+        safeAddCategory("Pause", () -> PauseCategory.add(this, screen, context, build));
+        safeAddCategory("About", () -> AboutCategory.add(this, screen, context, build));
 
         // Outside every category, like Support HushGram below it. Every row counts toward the
         // switches it lists, the ones a folded category or a search keeps off the screen too.
@@ -684,7 +692,8 @@ public final class HushgramPreferenceFragment extends AbstractPreferenceFragment
             return true;
         });
         mark(donate, SettingsIcons.OPENING);
-        for (int i = 0; i < screen.getPreferenceCount(); i++) {
+        try {
+            for (int i = 0; i < screen.getPreferenceCount(); i++) {
             Preference section = screen.getPreference(i);
             if (!(section instanceof PreferenceCategory)) continue;
             PreferenceCategory group = (PreferenceCategory) section;
@@ -859,22 +868,33 @@ public final class HushgramPreferenceFragment extends AbstractPreferenceFragment
                 return true;
             });
         }
-        // After every row is known: a first open counts them all as seen, so a fresh install has no dots.
-        NewRowDots.start(context, searchableRows);
-        Set<String> available = new HashSet<>();
-        for (PreferenceCategory group : searchableRows.keySet()) {
-            available.add(group.getKey());
-            NewRowDots.opens(group, group);
+        } catch (Throwable loopError) {
+            Logger.printException(() -> "Error in preference category loop", loopError);
         }
-        expandedCategories.retainAll(available);
-        if (restoredCategory != null && available.contains(restoredCategory)) {
-            // On their own pages, the category comes back as the page it was.
-            if (ownPages()) pageCategory = restoredCategory;
-            else expandedCategories.add(restoredCategory);
-            lastCategory = restoredCategory;
-        } else if (restoredCategory != null) restoredPosition = -1;
-        restoredCategory = null;
-        filterSettings();
+        // After every row is known: a first open counts them all as seen, so a fresh install has no dots.
+        try {
+            NewRowDots.start(context, searchableRows);
+            Set<String> available = new HashSet<>();
+            for (PreferenceCategory group : searchableRows.keySet()) {
+                available.add(group.getKey());
+                NewRowDots.opens(group, group);
+            }
+            expandedCategories.retainAll(available);
+            if (restoredCategory != null && available.contains(restoredCategory)) {
+                // On their own pages, the category comes back as the page it was.
+                if (ownPages()) pageCategory = restoredCategory;
+                else expandedCategories.add(restoredCategory);
+                lastCategory = restoredCategory;
+            } else if (restoredCategory != null) restoredPosition = -1;
+            restoredCategory = null;
+        } catch (Throwable dotsError) {
+            Logger.printException(() -> "Error in NewRowDots / restoredCategory", dotsError);
+        }
+        try {
+            filterSettings();
+        } catch (Throwable filterError) {
+            Logger.printException(() -> "Error in initial filterSettings()", filterError);
+        }
     }
 
     private static String iconOf(PreferenceCategory group) {
@@ -1189,13 +1209,21 @@ public final class HushgramPreferenceFragment extends AbstractPreferenceFragment
     }
 
     @Override protected void updateUIToSettingValues() {
-        restoreSearchRows();
-        try { super.updateUIToSettingValues(); } finally { showGhostMode(); filterSettings(); }
+        try { restoreSearchRows(); } catch (Throwable t) { Logger.printException(() -> "restoreSearchRows failed", t); }
+        try { super.updateUIToSettingValues(); } catch (Throwable t) { Logger.printException(() -> "super.updateUIToSettingValues failed", t); }
+        finally {
+            try { showGhostMode(); } catch (Throwable t) { Logger.printException(() -> "showGhostMode failed", t); }
+            try { filterSettings(); } catch (Throwable t) { Logger.printException(() -> "filterSettings failed", t); }
+        }
     }
 
     @Override protected void updateUIAvailability() {
-        restoreSearchRows();
-        try { super.updateUIAvailability(); } finally { showGhostMode(); filterSettings(); }
+        try { restoreSearchRows(); } catch (Throwable t) { Logger.printException(() -> "restoreSearchRows failed", t); }
+        try { super.updateUIAvailability(); } catch (Throwable t) { Logger.printException(() -> "super.updateUIAvailability failed", t); }
+        finally {
+            try { showGhostMode(); } catch (Throwable t) { Logger.printException(() -> "showGhostMode failed", t); }
+            try { filterSettings(); } catch (Throwable t) { Logger.printException(() -> "filterSettings failed", t); }
+        }
     }
 
     /**
@@ -1203,21 +1231,26 @@ public final class HushgramPreferenceFragment extends AbstractPreferenceFragment
      * the row under it names the ones it turns.
      */
     private void showGhostMode() {
-        List<BooleanSetting> picked = GhostMode.picked(ghostSwitches);
-        SwitchPreference row = ghostMode;
-        if (row != null) row.setChecked(GhostMode.on(picked));
-        Row picks = ghostPicks;
-        if (picks == null) return;
-        if (picked.size() == ghostSwitches.size()) {
-            picks.setSummary(L10n.t("All of them. Tap to leave some out, and Ghost mode leaves those as you set them."));
-            return;
+        try {
+            List<BooleanSetting> picked = GhostMode.picked(ghostSwitches);
+            SwitchPreference row = ghostMode;
+            if (row != null) row.setChecked(GhostMode.on(picked));
+            Row picks = ghostPicks;
+            if (picks == null) return;
+            if (picked.size() == ghostSwitches.size()) {
+                picks.setSummary(L10n.t("All of them. Tap to leave some out, and Ghost mode leaves those as you set them."));
+                return;
+            }
+            StringBuilder names = new StringBuilder();
+            for (BooleanSetting setting : picked) {
+                if (setting == null) continue;
+                if (names.length() > 0) names.append(", ");
+                names.append(ghostName(setting));
+            }
+            picks.setSummary(L10n.f("%1$s. The others stay as you set them.", names.toString()));
+        } catch (Throwable t) {
+            Logger.printException(() -> "showGhostMode failed", t);
         }
-        StringBuilder names = new StringBuilder();
-        for (BooleanSetting setting : picked) {
-            if (names.length() > 0) names.append(", ");
-            names.append(ghostName(setting));
-        }
-        picks.setSummary(L10n.f("%1$s. The others stay as you set them.", names.toString()));
     }
 
     /** [setting]'s title as its own row shows it. */
