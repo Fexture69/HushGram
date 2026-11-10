@@ -361,7 +361,7 @@ public class Logger {
     /**
      * Logs information messages using the outer class name of the code calling this method.
      */
-    public static void printInfo(LogMessage message, @Nullable Exception ex) {
+    public static void printInfo(LogMessage message, @Nullable Throwable ex) {
         logInternal(LogLevel.INFO, null, null, message, ex, false);
     }
 
