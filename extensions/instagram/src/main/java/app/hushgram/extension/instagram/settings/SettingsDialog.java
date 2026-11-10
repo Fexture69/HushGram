@@ -81,7 +81,7 @@ public final class SettingsDialog extends DialogFragment {
         try {
             super.show(manager, tag);
         } catch (Throwable failure) {
-            Logger.printInfo(() -> "super.show failed, committing with state loss", failure);
+            Logger.printException(() -> "super.show failed, committing with state loss", failure);
             try {
                 FragmentTransaction ft = manager.beginTransaction();
                 ft.add(this, tag);
@@ -377,7 +377,7 @@ public final class SettingsDialog extends DialogFragment {
         try {
             ft.commitNowAllowingStateLoss();
         } catch (Throwable t) {
-            Logger.printInfo(() -> "commitNowAllowingStateLoss failed, falling back to commitAllowingStateLoss", t);
+            Logger.printException(() -> "commitNowAllowingStateLoss failed, falling back to commitAllowingStateLoss", t);
             try {
                 ft.commitAllowingStateLoss();
             } catch (Throwable fatal) {

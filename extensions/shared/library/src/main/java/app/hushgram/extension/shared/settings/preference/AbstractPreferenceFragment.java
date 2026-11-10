@@ -926,7 +926,7 @@ public abstract class AbstractPreferenceFragment extends PreferenceFragment {
                     .commitAllowingStateLoss();
         } catch (Throwable retryFailure) {
             retryScheduled = false;
-            Logger.printInfo(() -> "Settings retry failure", retryFailure);
+            Logger.printException(() -> "Settings retry failure", retryFailure);
             initializePreferencePage();
         }
     }
