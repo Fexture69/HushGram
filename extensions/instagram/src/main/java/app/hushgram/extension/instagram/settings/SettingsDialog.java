@@ -7,15 +7,21 @@
 package app.hushgram.extension.instagram.settings;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.app.FragmentTransaction;
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -32,9 +38,12 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
+
 import app.hushgram.extension.instagram.direct.MessagesLock;
 import app.hushgram.extension.shared.L10n;
 import app.hushgram.extension.shared.Logger;
+import app.hushgram.extension.shared.Utils;
 
 /**
  * The HushGram screen: a full screen, black dialog with a title bar and the preference list. It is
@@ -55,6 +64,7 @@ public final class SettingsDialog extends DialogFragment {
     static final String START_PAGE = "hushgram_start_page";
     private boolean failed;
     private boolean loading;
+    @Nullable private Throwable lastFailure;
     /** Put back over a screen that can't draw text yet, so closing without building anything. */
     private boolean closing;
     private Button retry;
@@ -64,6 +74,23 @@ public final class SettingsDialog extends DialogFragment {
     private Window lockWindow;
     private ViewTreeObserver.OnPreDrawListener lockDraw;
     private ViewTreeObserver.OnWindowFocusChangeListener lockFocus;
+
+    @Override
+    public void show(FragmentManager manager, String tag) {
+        if (manager == null || manager.isDestroyed()) return;
+        try {
+            super.show(manager, tag);
+        } catch (Throwable failure) {
+            Logger.printInfo(() -> "super.show failed, committing with state loss", failure);
+            try {
+                FragmentTransaction ft = manager.beginTransaction();
+                ft.add(this, tag);
+                ft.commitAllowingStateLoss();
+            } catch (Throwable fatal) {
+                Logger.printException(() -> "Could not show SettingsDialog", fatal);
+            }
+        }
+    }
 
     /**
      * The screen, expanding the section whose row has the key [page]. Null or a key no row
@@ -94,120 +121,143 @@ public final class SettingsDialog extends DialogFragment {
         } catch (Throwable failure) {
             // Fragment.onCreate restores child constructors before our view exists.
             // Finish the dialog's own initialization without retrying the failed saved child.
-            super.onCreate(null);
+            try {
+                super.onCreate(null);
+            } catch (Throwable ignored) {
+            }
             failed = true;
             Logger.printException(() -> "Could not restore the preference list", failure);
         }
-        setStyle(STYLE_NO_TITLE, android.R.style.Theme_Material_NoActionBar);
+        try {
+            setStyle(STYLE_NO_TITLE, android.R.style.Theme_Material_NoActionBar);
+        } catch (Throwable ignored) {
+        }
     }
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        Dialog dialog = new Dialog(getActivity(), getTheme()) {
+        Activity activity = getActivity();
+        Context baseContext = activity != null ? activity : Utils.getContext();
+        Dialog dialog = new Dialog(baseContext, getTheme()) {
             // Back clears an active search before dismissing settings. Android 13 and up
             // route the gesture here too, through the dialog's own back callback.
             @Override
             @SuppressWarnings("deprecation")
             public void onBackPressed() {
-                if (closeCategory()) return;
+                try {
+                    if (closeCategory()) return;
+                } catch (Throwable ignored) {
+                }
                 super.onBackPressed();
             }
         };
         Window window = dialog.getWindow();
         if (window != null) {
-            window.setBackgroundDrawable(new android.graphics.drawable.ColorDrawable(ScreenColors.current().background));
-            window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-            // With three-button navigation Android lays a grey scrim under the buttons; the
-            // screen is black edge to edge, so the scrim only shows as a grey band. Android 9 has
-            // no scrim to turn off.
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) window.setNavigationBarContrastEnforced(false);
-            window.setSoftInputMode(android.view.WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+            try {
+                window.setBackgroundDrawable(new android.graphics.drawable.ColorDrawable(ScreenColors.current().background));
+                window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+                // With three-button navigation Android lays a grey scrim under the buttons; the
+                // screen is black edge to edge, so the scrim only shows as a grey band. Android 9 has
+                // no scrim to turn off.
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) window.setNavigationBarContrastEnforced(false);
+                window.setSoftInputMode(android.view.WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+            } catch (Throwable t) {
+                Logger.printException(() -> "SettingsDialog window setup failed", t);
+            }
         }
         return dialog;
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
+        Context context = getContext() != null ? getContext() : (inflater != null ? inflater.getContext() : (getActivity() != null ? getActivity() : Utils.getContext()));
         // Put back over a screen that still has Instagram's launcher theme (a relaunch), the
         // first TextView would throw. Build nothing, close in onActivityCreated, and open again
         // once a screen can draw it.
-        if (!SettingsEntry.drawsText.test(getContext())) {
+        if (!SettingsEntry.drawsText.test(context)) {
             Logger.printInfo(() -> "Settings closed over a screen whose theme can't draw text yet");
             closing = true;
-            return new FrameLayout(getContext());
+            return new FrameLayout(context);
         }
-        ScreenColors palette = ScreenColors.DEFAULT;
-        LinearLayout root = new LinearLayout(getContext()) {
-            /**
-             * Focus that arrives from nowhere (the first key press, a field giving its focus up) goes
-             * to the page's rows before the Back arrow above them.
-             */
-            @Override
-            protected boolean onRequestFocusInDescendants(int direction, android.graphics.Rect previous) {
-                View page = findViewById(CONTAINER_ID);
-                if (previous == null && page != null && page.requestFocus(direction)) return true;
-                return super.onRequestFocusInDescendants(direction, previous);
-            }
-        };
-        root.setOrientation(LinearLayout.VERTICAL);
-        root.setBackgroundColor(palette.background);
+        try {
+            ScreenColors palette = ScreenColors.DEFAULT;
+            LinearLayout root = new LinearLayout(context) {
+                /**
+                 * Focus that arrives from nowhere (the first key press, a field giving its focus up) goes
+                 * to the page's rows before the Back arrow above them.
+                 */
+                @Override
+                protected boolean onRequestFocusInDescendants(int direction, android.graphics.Rect previous) {
+                    View page = findViewById(CONTAINER_ID);
+                    if (previous == null && page != null && page.requestFocus(direction)) return true;
+                    return super.onRequestFocusInDescendants(direction, previous);
+                }
+            };
+            root.setOrientation(LinearLayout.VERTICAL);
+            root.setBackgroundColor(palette.background);
 
-        LinearLayout bar = new LinearLayout(getContext());
-        bar.setOrientation(LinearLayout.HORIZONTAL);
-        bar.setGravity(Gravity.CENTER_VERTICAL);
-        // Start and end, not left and right: in a right-to-left language the bar is mirrored.
-        bar.setPaddingRelative(dp(4), dp(4), dp(18), dp(4));
+            LinearLayout bar = new LinearLayout(context);
+            bar.setOrientation(LinearLayout.HORIZONTAL);
+            bar.setGravity(Gravity.CENTER_VERTICAL);
+            // Start and end, not left and right: in a right-to-left language the bar is mirrored.
+            bar.setPaddingRelative(dp(4), dp(4), dp(18), dp(4));
 
-        ImageButton back = new ImageButton(getContext());
-        android.graphics.drawable.Drawable arrow = SettingsIcons.icon(getContext(), SettingsIcons.BACK, palette.title);
-        arrow.setBounds(0, 0, dp(24), dp(24));
-        arrow.setLayoutDirection(rightToLeft() ? View.LAYOUT_DIRECTION_RTL : View.LAYOUT_DIRECTION_LTR);
-        back.setImageDrawable(arrow);
-        back.setPadding(dp(12), dp(12), dp(12), dp(12));
-        back.setBackground(new android.graphics.drawable.RippleDrawable(
-                android.content.res.ColorStateList.valueOf(ScreenColors.half(palette.heading)), null,
-                new android.graphics.drawable.ColorDrawable(Color.WHITE)));
-        back.setMinimumWidth(dp(48));
-        back.setMinimumHeight(dp(48));
-        back.setContentDescription(L10n.t(getContext(), "Back"));
-        // A screen reader calls it a button, as it would the back arrow of any other screen.
-        back.setAccessibilityDelegate(new View.AccessibilityDelegate() {
-            @Override
-            public void onInitializeAccessibilityNodeInfo(View host, AccessibilityNodeInfo info) {
-                super.onInitializeAccessibilityNodeInfo(host, info);
-                info.setClassName(Button.class.getName());
-            }
-        });
-        back.setOnClickListener(v -> {
-            if (closeCategory()) return;
-            SettingsEntry.onClosedByUser();
-            dismissAllowingStateLoss();
-        });
-        bar.addView(back, new LinearLayout.LayoutParams(dp(48), dp(48)));
+            ImageButton back = new ImageButton(context);
+            android.graphics.drawable.Drawable arrow = SettingsIcons.icon(context, SettingsIcons.BACK, palette.title);
+            arrow.setBounds(0, 0, dp(24), dp(24));
+            arrow.setLayoutDirection(rightToLeft() ? View.LAYOUT_DIRECTION_RTL : View.LAYOUT_DIRECTION_LTR);
+            back.setImageDrawable(arrow);
+            back.setPadding(dp(12), dp(12), dp(12), dp(12));
+            back.setBackground(new android.graphics.drawable.RippleDrawable(
+                    android.content.res.ColorStateList.valueOf(ScreenColors.half(palette.heading)), null,
+                    new android.graphics.drawable.ColorDrawable(Color.WHITE)));
+            back.setMinimumWidth(dp(48));
+            back.setMinimumHeight(dp(48));
+            back.setContentDescription(L10n.t(context, "Back"));
+            // A screen reader calls it a button, as it would the back arrow of any other screen.
+            back.setAccessibilityDelegate(new View.AccessibilityDelegate() {
+                @Override
+                public void onInitializeAccessibilityNodeInfo(View host, AccessibilityNodeInfo info) {
+                    super.onInitializeAccessibilityNodeInfo(host, info);
+                    info.setClassName(Button.class.getName());
+                }
+            });
+            back.setOnClickListener(v -> {
+                if (closeCategory()) return;
+                SettingsEntry.onClosedByUser();
+                dismissAllowingStateLoss();
+            });
+            bar.addView(back, new LinearLayout.LayoutParams(dp(48), dp(48)));
 
-        TextView title = new TextView(getContext());
-        heading = title;
-        title.setText("HushGram");
-        ShimmerTitle.wear(title);
-        title.setTypeface(Typeface.create("sans-serif", Typeface.BOLD));
-        title.setTextSize(TypedValue.COMPLEX_UNIT_SP, 22);
-        title.setPaddingRelative(dp(8), 0, 0, 0);
-        // Next to the back arrow in a right-to-left layout too, not at the bar's far end.
-        title.setTextAlignment(View.TEXT_ALIGNMENT_VIEW_START);
-        title.setAccessibilityHeading(true);
-        bar.addView(title, new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1));
-        root.addView(bar);
+            TextView title = new TextView(context);
+            heading = title;
+            title.setText("HushGram");
+            ShimmerTitle.wear(title);
+            title.setTypeface(Typeface.create("sans-serif", Typeface.BOLD));
+            title.setTextSize(TypedValue.COMPLEX_UNIT_SP, 22);
+            title.setPaddingRelative(dp(8), 0, 0, 0);
+            // Next to the back arrow in a right-to-left layout too, not at the bar's far end.
+            title.setTextAlignment(View.TEXT_ALIGNMENT_VIEW_START);
+            title.setAccessibilityHeading(true);
+            bar.addView(title, new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1));
+            root.addView(bar);
 
-        FrameLayout container = new FrameLayout(getContext());
-        container.setId(CONTAINER_ID);
-        root.addView(container, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 0, 1f));
-        root.addView(restartBar(palette), restartBarSpace());
+            FrameLayout container = new FrameLayout(context);
+            container.setId(CONTAINER_ID);
+            root.addView(container, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 0, 1f));
+            root.addView(restartBar(palette), restartBarSpace());
 
-        keepOffTheBars(root);
-        // A newly opened screen must not steal focus and raise the keyboard.
-        FocusRest.on(root);
-        root.requestFocus();
-        return root;
+            keepOffTheBars(root);
+            // A newly opened screen must not steal focus and raise the keyboard.
+            FocusRest.on(root);
+            root.requestFocus();
+            return root;
+        } catch (Throwable t) {
+            Logger.printException(() -> "SettingsDialog.onCreateView failed", t);
+            FrameLayout fallback = new FrameLayout(context);
+            fallback.setId(CONTAINER_ID);
+            return fallback;
+        }
     }
 
     /**
@@ -323,17 +373,37 @@ public final class SettingsDialog extends DialogFragment {
         GhostHeaderButton.settingsClosed();
     }
 
+    private void safeCommit(FragmentTransaction ft) {
+        try {
+            ft.commitNowAllowingStateLoss();
+        } catch (Throwable t) {
+            Logger.printInfo(() -> "commitNowAllowingStateLoss failed, falling back to commitAllowingStateLoss", t);
+            try {
+                ft.commitAllowingStateLoss();
+            } catch (Throwable fatal) {
+                Logger.printException(() -> "commitAllowingStateLoss failed", fatal);
+                throw fatal;
+            }
+        }
+    }
+
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         // Keep the restored child's identity and pending activity result, but defer its view
         // until openPage can catch construction failures. Framework restoration would otherwise
         // build that view after this callback and before onResume, outside the recovery boundary.
-        FragmentManager manager = getChildFragmentManager();
-        Fragment restored = manager.findFragmentById(CONTAINER_ID);
-        if (restored != null && !restored.isDetached()) manager.beginTransaction().detach(restored).commitNow();
-        // Closing over an unthemed screen: the failure page's text would throw the same way.
-        if (failed && !closing) showFailure(view);
+        try {
+            FragmentManager manager = getChildFragmentManager();
+            Fragment restored = manager.findFragmentById(CONTAINER_ID);
+            if (restored != null && !restored.isDetached()) {
+                safeCommit(manager.beginTransaction().detach(restored));
+            }
+            // Closing over an unthemed screen: the failure page's text would throw the same way.
+            if (failed && !closing) showFailure(view, lastFailure);
+        } catch (Throwable t) {
+            Logger.printException(() -> "SettingsDialog.onViewCreated failed", t);
+        }
     }
 
     @Override
@@ -471,23 +541,27 @@ public final class SettingsDialog extends DialogFragment {
         if (loading || !canOpenPage(owner)) return;
         loading = true;
         boolean recovering = failed;
-        FrameLayout container = owner.findViewById(CONTAINER_ID);
+        FrameLayout container = owner != null ? owner.findViewById(CONTAINER_ID) : null;
+        if (container == null) {
+            loading = false;
+            return;
+        }
         FragmentManager manager = getChildFragmentManager();
         try {
             Fragment child = manager.findFragmentById(CONTAINER_ID);
             if (failed && child != null) {
-                manager.beginTransaction().remove(child).commitNow();
+                safeCommit(manager.beginTransaction().remove(child));
                 child = null;
             }
             if (child == null) {
                 container.removeAllViews();
-                manager.beginTransaction()
-                        .replace(CONTAINER_ID, new HushgramPreferenceFragment())
-                        .commitNow();
+                safeCommit(manager.beginTransaction()
+                        .replace(CONTAINER_ID, new HushgramPreferenceFragment()));
             } else if (child.isDetached()) {
-                manager.beginTransaction().attach(child).commitNow();
+                safeCommit(manager.beginTransaction().attach(child));
             }
             failed = false;
+            lastFailure = null;
             retry = null;
             if (recovering) {
                 View list = container.findViewById(android.R.id.list);
@@ -506,79 +580,154 @@ public final class SettingsDialog extends DialogFragment {
             }
         } catch (Throwable ex) {
             failed = true;
+            lastFailure = ex;
             Logger.printException(() -> "Could not show the preference list", ex);
             try {
+                Utils.showToastLong("Settings error: " + ex.getClass().getSimpleName()
+                        + (ex.getMessage() != null && !ex.getMessage().trim().isEmpty() ? ": " + ex.getMessage().trim() : ""));
+            } catch (Throwable ignored) {
+            }
+            try {
                 Fragment partial = manager.findFragmentById(CONTAINER_ID);
-                if (partial != null) manager.beginTransaction().remove(partial).commitNow();
+                if (partial != null) safeCommit(manager.beginTransaction().remove(partial));
             } catch (Throwable cleanup) {
                 Logger.printException(() -> "Could not remove the failed preference list", cleanup);
             }
             // A throw from onViewCreated can leave a view attached before the fragment has
             // reached ACTIVITY_CREATED, so removal alone doesn't necessarily remove that view.
-            container.removeAllViews();
-            showFailure(owner);
+            try {
+                container.removeAllViews();
+            } catch (Throwable cleanup) {
+                Logger.printException(() -> "Could not clear container views", cleanup);
+            }
+            showFailure(owner, ex);
         } finally {
             loading = false;
         }
     }
 
     private void showFailure(View owner) {
-        // No page, so no header: the bar names the screen again.
-        showTitle(null, false);
-        ScreenColors palette = ScreenColors.DEFAULT;
-        ScrollView scroll = new ScrollView(getContext());
-        LinearLayout content = new LinearLayout(getContext());
-        content.setOrientation(LinearLayout.VERTICAL);
-        content.setGravity(Gravity.CENTER_HORIZONTAL);
-        content.setPaddingRelative(dp(32), dp(64), dp(32), dp(24));
-        android.widget.ImageView icon = new android.widget.ImageView(getContext());
-        icon.setImageDrawable(SettingsIcons.icon(getContext(), SettingsIcons.PRIVACY, palette.heading));
-        icon.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
-        LinearLayout.LayoutParams iconSize = new LinearLayout.LayoutParams(dp(64), dp(64));
-        iconSize.bottomMargin = dp(24);
-        content.addView(icon, iconSize);
-        TextView title = new TextView(getContext());
-        title.setText(L10n.t(getContext(), "Settings couldn't open"));
-        ShimmerTitle.wear(title);
-        title.setTextSize(TypedValue.COMPLEX_UNIT_SP, 22);
-        title.setTypeface(Typeface.create("sans-serif-medium", Typeface.NORMAL));
-        title.setGravity(Gravity.CENTER);
-        title.setAccessibilityHeading(true);
-        content.addView(title);
-        TextView explanation = new TextView(getContext());
-        explanation.setText(L10n.t(getContext(), "Try again, or go back to Instagram."));
-        explanation.setTextColor(palette.summary);
-        explanation.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
-        explanation.setGravity(Gravity.CENTER);
-        explanation.setPaddingRelative(0, dp(16), 0, dp(16));
-        content.addView(explanation);
-        Button button = new Button(getContext());
-        button.setText(L10n.t(getContext(), "Retry"));
-        ScreenColors.styleAction(button, true);
-        button.setEnabled(canOpenPage(owner));
-        button.setOnClickListener(v -> {
-            if (retry == button && failed) openPage(owner);
-        });
-        retry = button;
-        content.addView(button, new LinearLayout.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-        Button back = new Button(getContext());
-        back.setText(L10n.t(getContext(), "Back"));
-        ScreenColors.styleAction(back, false);
-        back.setOnClickListener(v -> {
-            SettingsEntry.onClosedByUser();
-            dismissAllowingStateLoss();
-        });
-        LinearLayout.LayoutParams backSize = new LinearLayout.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        backSize.topMargin = dp(8);
-        content.addView(back, backSize);
-        scroll.addView(content);
-        scroll.setAccessibilityPaneTitle(title.getText());
-        ((FrameLayout) owner.findViewById(CONTAINER_ID)).addView(scroll,
-                new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-                        ViewGroup.LayoutParams.MATCH_PARENT));
-        button.requestFocus();
+        showFailure(owner, lastFailure);
+    }
+
+    private void showFailure(View owner, @Nullable Throwable ex) {
+        try {
+            // No page, so no header: the bar names the screen again.
+            showTitle(null, false);
+            ScreenColors palette = ScreenColors.DEFAULT;
+            Context context = getContext() != null ? getContext() : (owner != null ? owner.getContext() : (getActivity() != null ? getActivity() : Utils.getContext()));
+            ScrollView scroll = new ScrollView(context);
+            LinearLayout content = new LinearLayout(context);
+            content.setOrientation(LinearLayout.VERTICAL);
+            content.setGravity(Gravity.CENTER_HORIZONTAL);
+            content.setPaddingRelative(dp(32), dp(64), dp(32), dp(24));
+            android.widget.ImageView icon = new android.widget.ImageView(context);
+            icon.setImageDrawable(SettingsIcons.icon(context, SettingsIcons.PRIVACY, palette.heading));
+            icon.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
+            LinearLayout.LayoutParams iconSize = new LinearLayout.LayoutParams(dp(64), dp(64));
+            iconSize.bottomMargin = dp(24);
+            content.addView(icon, iconSize);
+            TextView title = new TextView(context);
+            title.setText(L10n.t(context, "Settings couldn't open"));
+            ShimmerTitle.wear(title);
+            title.setTextSize(TypedValue.COMPLEX_UNIT_SP, 22);
+            title.setTypeface(Typeface.create("sans-serif-medium", Typeface.NORMAL));
+            title.setGravity(Gravity.CENTER);
+            title.setAccessibilityHeading(true);
+            content.addView(title);
+            TextView explanation = new TextView(context);
+            StringBuilder sb = new StringBuilder(L10n.t(context, "Try again, or go back to Instagram."));
+            if (ex != null) {
+                sb.append("\n\n").append(ex.getClass().getSimpleName());
+                if (ex.getMessage() != null && !ex.getMessage().trim().isEmpty()) {
+                    sb.append(": ").append(ex.getMessage().trim());
+                }
+                StackTraceElement[] traces = ex.getStackTrace();
+                if (traces != null && traces.length > 0) {
+                    for (StackTraceElement elem : traces) {
+                        String s = elem.toString();
+                        if (s.contains("hushgram") || s.contains("morphe")) {
+                            sb.append("\nat ").append(s);
+                            break;
+                        }
+                    }
+                }
+                Throwable cause = ex.getCause();
+                if (cause != null) {
+                    sb.append("\nCaused by: ").append(cause.getClass().getSimpleName());
+                    if (cause.getMessage() != null && !cause.getMessage().trim().isEmpty()) {
+                        sb.append(": ").append(cause.getMessage().trim());
+                    }
+                }
+                sb.append("\n\n(Tap to view & copy full error trace)");
+                explanation.setFocusable(true);
+                explanation.setClickable(true);
+                explanation.setOnClickListener(v -> {
+                    try {
+                        String fullTrace = Log.getStackTraceString(ex);
+                        Activity act = getActivity();
+                        if (act != null) {
+                            new AlertDialog.Builder(act)
+                                    .setTitle("Settings Error Details")
+                                    .setMessage(fullTrace)
+                                    .setPositiveButton(L10n.t("OK"), null)
+                                    .setNeutralButton(L10n.t("Copy"), (d, which) -> {
+                                        ClipboardManager clipboard = (ClipboardManager)
+                                                act.getSystemService(Context.CLIPBOARD_SERVICE);
+                                        if (clipboard != null) {
+                                            clipboard.setPrimaryClip(ClipData.newPlainText("HushGram Error", fullTrace));
+                                            Utils.showToastShort("Copied stack trace");
+                                        }
+                                    })
+                                    .show();
+                        }
+                    } catch (Throwable logFailure) {
+                        Logger.printException(() -> "Could not display error dialog", logFailure);
+                    }
+                });
+            }
+            explanation.setText(sb.toString());
+            explanation.setTextColor(palette.summary);
+            explanation.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
+            explanation.setGravity(Gravity.CENTER);
+            explanation.setPaddingRelative(0, dp(16), 0, dp(16));
+            content.addView(explanation);
+            Button button = new Button(context);
+            button.setText(L10n.t(context, "Retry"));
+            ScreenColors.styleAction(button, true);
+            button.setEnabled(canOpenPage(owner));
+            button.setOnClickListener(v -> {
+                if (retry == button && failed) openPage(owner);
+            });
+            retry = button;
+            content.addView(button, new LinearLayout.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+            Button back = new Button(context);
+            back.setText(L10n.t(context, "Back"));
+            ScreenColors.styleAction(back, false);
+            back.setOnClickListener(v -> {
+                SettingsEntry.onClosedByUser();
+                dismissAllowingStateLoss();
+            });
+            LinearLayout.LayoutParams backSize = new LinearLayout.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            backSize.topMargin = dp(8);
+            content.addView(back, backSize);
+            scroll.addView(content);
+            scroll.setAccessibilityPaneTitle(title.getText());
+            if (owner != null) {
+                FrameLayout container = owner.findViewById(CONTAINER_ID);
+                if (container != null) {
+                    container.removeAllViews();
+                    container.addView(scroll,
+                            new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                                    ViewGroup.LayoutParams.MATCH_PARENT));
+                }
+            }
+            button.requestFocus();
+        } catch (Throwable t) {
+            Logger.printException(() -> "SettingsDialog.showFailure failed", t);
+        }
     }
 
     private int dp(int value) {

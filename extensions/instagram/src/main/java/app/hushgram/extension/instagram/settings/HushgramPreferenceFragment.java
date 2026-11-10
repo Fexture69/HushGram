@@ -371,37 +371,41 @@ public final class HushgramPreferenceFragment extends AbstractPreferenceFragment
 
     @Override
     public void onCreate(Bundle state) {
-        if (state != null) {
-            restoredCategory = state.getString("hushgram_open_category");
-            List<String> expanded = state.getStringArrayList("hushgram_expanded_categories");
-            if (expanded != null) expandedCategories.addAll(expanded);
-            restoredPosition = state.getInt("hushgram_category_position", -1);
-            restoredTop = state.getInt("hushgram_category_top", 0);
-            documentRequest = state.getInt("hushgram_document_request", 0);
-            // Older saved pages used the operation itself as their Android request code.
-            documentCode = state.getInt("hushgram_document_code", documentRequest);
-            fontRequestRevision = state.getLong("hushgram_font_revision", -1);
-            if (isFontRequest(documentRequest) && !Fonts.importProcess().equals(state.getString("hushgram_font_process"))) {
-                fontRequestRevision = fontSetting(documentRequest).savedRevision();
-            }
-            documentSequence = Math.max(documentSequence,
-                    Math.max(documentCode, state.getInt("hushgram_document_sequence", 0)));
-            configurationExportToken = state.getString("hushgram_configuration_export");
-            if (documentRequest == EXPORT_CONFIGURATION) {
-                ExportStatus.State current = ExportStatus.CONFIGURATION.state();
-                if (current == null) {
-                    // The process restarted with a still-pending Android picker, not export history.
-                    configurationExportToken = ExportStatus.CONFIGURATION.begin(
-                            L10n.t("Choose a file for the settings export."), true);
-                } else if (!current.active || !current.choosing || !current.token.equals(configurationExportToken)) {
-                    // This saved bundle predates a result already claimed by the original page.
-                    documentRequest = 0;
-                    documentCode = 0;
+        try {
+            if (state != null) {
+                restoredCategory = state.getString("hushgram_open_category");
+                List<String> expanded = state.getStringArrayList("hushgram_expanded_categories");
+                if (expanded != null) expandedCategories.addAll(expanded);
+                restoredPosition = state.getInt("hushgram_category_position", -1);
+                restoredTop = state.getInt("hushgram_category_top", 0);
+                documentRequest = state.getInt("hushgram_document_request", 0);
+                // Older saved pages used the operation itself as their Android request code.
+                documentCode = state.getInt("hushgram_document_code", documentRequest);
+                fontRequestRevision = state.getLong("hushgram_font_revision", -1);
+                if (isFontRequest(documentRequest) && !Fonts.importProcess().equals(state.getString("hushgram_font_process"))) {
+                    fontRequestRevision = fontSetting(documentRequest).savedRevision();
                 }
+                documentSequence = Math.max(documentSequence,
+                        Math.max(documentCode, state.getInt("hushgram_document_sequence", 0)));
+                configurationExportToken = state.getString("hushgram_configuration_export");
+                if (documentRequest == EXPORT_CONFIGURATION) {
+                    ExportStatus.State current = ExportStatus.CONFIGURATION.state();
+                    if (current == null) {
+                        // The process restarted with a still-pending Android picker, not export history.
+                        configurationExportToken = ExportStatus.CONFIGURATION.begin(
+                                L10n.t("Choose a file for the settings export."), true);
+                    } else if (!current.active || !current.choosing || !current.token.equals(configurationExportToken)) {
+                        // This saved bundle predates a result already claimed by the original page.
+                        documentRequest = 0;
+                        documentCode = 0;
+                    }
+                }
+            } else if (getParentFragment() instanceof SettingsDialog) {
+                // Keep the old restart marker compatible by expanding its section on the main page.
+                restoredCategory = ((SettingsDialog) getParentFragment()).startPage();
             }
-        } else if (getParentFragment() instanceof SettingsDialog) {
-            // Keep the old restart marker compatible by expanding its section on the main page.
-            restoredCategory = ((SettingsDialog) getParentFragment()).startPage();
+        } catch (Throwable t) {
+            Logger.printException(() -> "HushgramPreferenceFragment.onCreate state restore failed", t);
         }
         super.onCreate(state);
     }
@@ -409,99 +413,130 @@ public final class HushgramPreferenceFragment extends AbstractPreferenceFragment
     @Override
     public void onSaveInstanceState(Bundle state) {
         super.onSaveInstanceState(state);
-        state.putInt("hushgram_document_request", documentRequest);
-        state.putInt("hushgram_document_code", documentCode);
-        state.putLong("hushgram_font_revision", fontRequestRevision);
-        state.putString("hushgram_font_process", Fonts.importProcess());
-        state.putInt("hushgram_document_sequence", documentSequence);
-        state.putString("hushgram_configuration_export", configurationExportToken);
-        state.putStringArrayList("hushgram_expanded_categories", new ArrayList<>(expandedCategories));
-        if (lastCategory != null) state.putString("hushgram_open_category", lastCategory);
-        ListView list = listView();
-        boolean searching = !searchQuery.trim().isEmpty();
-        View first = list == null ? null : list.getChildAt(0);
-        state.putInt("hushgram_category_position", searching || list == null ? 0 : list.getFirstVisiblePosition());
-        state.putInt("hushgram_category_top", searching || first == null ? 0 : first.getTop() - list.getPaddingTop());
+        try {
+            state.putInt("hushgram_document_request", documentRequest);
+            state.putInt("hushgram_document_code", documentCode);
+            state.putLong("hushgram_font_revision", fontRequestRevision);
+            state.putString("hushgram_font_process", Fonts.importProcess());
+            state.putInt("hushgram_document_sequence", documentSequence);
+            state.putString("hushgram_configuration_export", configurationExportToken);
+            state.putStringArrayList("hushgram_expanded_categories", new ArrayList<>(expandedCategories));
+            if (lastCategory != null) state.putString("hushgram_open_category", lastCategory);
+            ListView list = listView();
+            boolean searching = !searchQuery.trim().isEmpty();
+            View first = list == null ? null : list.getChildAt(0);
+            state.putInt("hushgram_category_position", searching || list == null ? 0 : list.getFirstVisiblePosition());
+            state.putInt("hushgram_category_top", searching || first == null ? 0 : first.getTop() - list.getPaddingTop());
+        } catch (Throwable t) {
+            Logger.printException(() -> "onSaveInstanceState failed", t);
+        }
     }
 
     @Override
     public View onCreateView(android.view.LayoutInflater inflater, android.view.ViewGroup container,
                              Bundle savedInstanceState) {
-        View root = super.onCreateView(inflater, container, savedInstanceState);
-        ListView list = root == null ? null : root.findViewById(android.R.id.list);
-        // The search field keeps the focus while its typing filters the rows (TypingFocusHold).
-        if (list != null) TypingFocusHold.around(list);
-        return root;
+        try {
+            View root = super.onCreateView(inflater, container, savedInstanceState);
+            ListView list = root == null ? null : root.findViewById(android.R.id.list);
+            // The search field keeps the focus while its typing filters the rows (TypingFocusHold).
+            if (list != null) TypingFocusHold.around(list);
+            return root;
+        } catch (Throwable t) {
+            Logger.printException(() -> "HushgramPreferenceFragment.onCreateView failed", t);
+            return super.onCreateView(inflater, container, savedInstanceState);
+        }
     }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        ListView list = view.findViewById(android.R.id.list);
-        if (list != null) {
-            // Our saved position belongs to the restored page, not the previous search results.
-            list.setSaveEnabled(false);
-            list.setItemsCanFocus(true);
-            list.setDivider(null);
-            list.setDividerHeight(0);
-            list.setBackgroundColor(ScreenColors.current().background);
-            // The last row ends with room under it instead of on the gesture bar, and the room
-            // scrolls with the rows.
-            list.setClipToPadding(false);
-            list.setPaddingRelative(list.getPaddingStart(), list.getPaddingTop(), list.getPaddingEnd(),
-                    Math.round(24 * list.getResources().getDisplayMetrics().density));
-            // A layout calls this too, so the bar learns when the header comes and goes as well as scrolls.
-            list.setOnScrollListener(new android.widget.AbsListView.OnScrollListener() {
-                @Override public void onScrollStateChanged(android.widget.AbsListView view, int state) {
-                }
+        try {
+            super.onViewCreated(view, savedInstanceState);
+            if (view != null) {
+                ListView list = view.findViewById(android.R.id.list);
+                if (list != null) {
+                    // Our saved position belongs to the restored page, not the previous search results.
+                    list.setSaveEnabled(false);
+                    list.setItemsCanFocus(true);
+                    list.setDivider(null);
+                    list.setDividerHeight(0);
+                    list.setBackgroundColor(ScreenColors.current().background);
+                    // The last row ends with room under it instead of on the gesture bar, and the room
+                    // scrolls with the rows.
+                    list.setClipToPadding(false);
+                    list.setPaddingRelative(list.getPaddingStart(), list.getPaddingTop(), list.getPaddingEnd(),
+                            Math.round(24 * list.getResources().getDisplayMetrics().density));
+                    // A layout calls this too, so the bar learns when the header comes and goes as well as scrolls.
+                    list.setOnScrollListener(new android.widget.AbsListView.OnScrollListener() {
+                        @Override public void onScrollStateChanged(android.widget.AbsListView view, int state) {
+                        }
 
-                @Override public void onScroll(android.widget.AbsListView view, int first, int count, int total) {
-                    showTitle();
+                        @Override public void onScroll(android.widget.AbsListView view, int first, int count, int total) {
+                            try { showTitle(); } catch (Throwable ignored) {}
+                        }
+                    });
                 }
-            });
+            }
+            showTitle();
+        } catch (Throwable t) {
+            Logger.printException(() -> "HushgramPreferenceFragment.onViewCreated failed", t);
         }
-        showTitle();
     }
 
     @Override public void onViewStateRestored(Bundle state) {
-        super.onViewStateRestored(state);
-        focusPage();
-        ListView list = listView();
-        if (list != null && restoredPosition >= 0) {
-            int position = restoredPosition, top = restoredTop;
-            restoredPosition = -1;
-            list.post(() -> {
-                if (list == listView()) list.setSelectionFromTop(position, top);
-            });
-        } else if (list != null && categoryPages() && lastCategory != null && shownPage() == null) {
-            String category = lastCategory;
-            list.post(() -> {
-                if (list != listView()) return;
-                for (int i = 0; i < list.getCount(); i++) {
-                    Object item = list.getItemAtPosition(i);
-                    if (item instanceof Heading && category.equals(((Heading) item).getKey())) {
-                        list.setSelectionFromTop(i, 0);
-                        break;
-                    }
-                }
-            });
+        try {
+            super.onViewStateRestored(state);
+            focusPage();
+            ListView list = listView();
+            if (list != null && restoredPosition >= 0) {
+                int position = restoredPosition, top = restoredTop;
+                restoredPosition = -1;
+                list.post(() -> {
+                    try {
+                        if (list == listView()) list.setSelectionFromTop(position, top);
+                    } catch (Throwable ignored) {}
+                });
+            } else if (list != null && categoryPages() && lastCategory != null && shownPage() == null) {
+                String category = lastCategory;
+                list.post(() -> {
+                    try {
+                        if (list != listView()) return;
+                        for (int i = 0; i < list.getCount(); i++) {
+                            Object item = list.getItemAtPosition(i);
+                            if (item instanceof Heading && category.equals(((Heading) item).getKey())) {
+                                list.setSelectionFromTop(i, 0);
+                                break;
+                            }
+                        }
+                    } catch (Throwable ignored) {}
+                });
+            }
+        } catch (Throwable t) {
+            Logger.printException(() -> "onViewStateRestored failed", t);
         }
     }
 
     @Override
     public void onResume() {
-        super.onResume();
-        AbstractPreferenceFragment.setRestartFeedbackPresenter(restartFeedback);
-        showRestart();
-        ExportStatus.CONFIGURATION.watch(exportChanges);
-        ExportStatus.DIAGNOSTICS.watch(exportChanges);
-        Fonts.watchImports(fontChanges);
-        SaveControl.watch(saves);
-        SaveLeftovers.showInterrupted(getContext());
-        showSaves();
-        showClearPositions();
-        showConfiguration();
-        showLock();
+        try {
+            super.onResume();
+        } catch (Throwable t) {
+            Logger.printException(() -> "super.onResume() failed", t);
+        }
+        try {
+            AbstractPreferenceFragment.setRestartFeedbackPresenter(restartFeedback);
+            showRestart();
+            ExportStatus.CONFIGURATION.watch(exportChanges);
+            ExportStatus.DIAGNOSTICS.watch(exportChanges);
+            Fonts.watchImports(fontChanges);
+            SaveControl.watch(saves);
+            SaveLeftovers.showInterrupted(getContext());
+            showSaves();
+            showClearPositions();
+            showConfiguration();
+            showLock();
+        } catch (Throwable t) {
+            Logger.printException(() -> "HushgramPreferenceFragment.onResume() failed", t);
+        }
     }
 
     @Override
@@ -561,12 +596,19 @@ public final class HushgramPreferenceFragment extends AbstractPreferenceFragment
     @Override
     protected void initialize() {
         // Loads the switches before the shared fragment syncs them to the screen.
-        Settings.HIDE_ADS.get();
+        try {
+            Settings.HIDE_ADS.get();
+        } catch (Throwable t) {
+            Logger.printException(() -> "Settings.HIDE_ADS.get() failed", t);
+        }
 
         // Every row inflates with the theme of the context it was built with. Instagram's activity
         // theme can be light, and its near-black text would vanish on this screen's black page.
         ScreenColors.shown = null;
-        Context context = themed(getContext());
+        Context base = getContext();
+        if (base == null) base = getActivity();
+        if (base == null) base = Utils.getContext();
+        Context context = themed(base);
         PreferenceScreen screen = getPreferenceManager().createPreferenceScreen(context);
         screen.setKey(SCREEN_KEY);
         setPreferenceScreen(screen);
@@ -575,94 +617,106 @@ public final class HushgramPreferenceFragment extends AbstractPreferenceFragment
         // The rows are built again, so the old ones' greying is no longer anyone's to undo.
         lockedRows.clear();
 
-        viewToggle = new Row(context);
-        viewToggle.setKey("hushgram_view_toggle");
-        viewToggle.setPersistent(false);
-        viewToggle.setOnPreferenceClickListener(tapped -> {
-            Preference own = findPreference(Settings.CATEGORY_PAGES.key);
-            if (own == null ? !allowMutation() : !allowMutation(own, true)) return true;
-            if (own instanceof TwoStatePreference) {
-                ((TwoStatePreference) own).setChecked(!Settings.CATEGORY_PAGES.savedValue());
-            } else {
-                Settings.CATEGORY_PAGES.save(!Settings.CATEGORY_PAGES.savedValue());
-                filterSettings();
+        try {
+            viewToggle = new Row(context);
+            viewToggle.setKey("hushgram_view_toggle");
+            viewToggle.setPersistent(false);
+            viewToggle.setOnPreferenceClickListener(tapped -> {
+                Preference own = findPreference(Settings.CATEGORY_PAGES.key);
+                if (own == null ? !allowMutation() : !allowMutation(own, true)) return true;
+                if (own instanceof TwoStatePreference) {
+                    ((TwoStatePreference) own).setChecked(!Settings.CATEGORY_PAGES.savedValue());
+                } else {
+                    Settings.CATEGORY_PAGES.save(!Settings.CATEGORY_PAGES.savedValue());
+                    filterSettings();
+                }
+                return true;
+            });
+            gridToggle = new Row(context);
+            gridToggle.setKey("hushgram_grid_toggle");
+            gridToggle.setPersistent(false);
+            gridToggle.setOnPreferenceClickListener(tapped -> {
+                if (!allowMutation()) return true;
+                keepingScroll(() -> {
+                    Settings.CATEGORY_GRID.save(!Settings.CATEGORY_GRID.savedValue());
+                    filterSettings();
+                }, gridToggle);
+                return true;
+            });
+            categoryGrid = new CategoryGrid(context, this::openFromGrid);
+            // Before the first section, after the notice and recovery notes above it.
+            categoryGrid.setOrder(-10);
+            header = new SettingsHeader(context);
+            header.setOrder(-60);
+            Preference status = statusCard(context);
+            status.setOrder(-40);
+            screen.addPreference(status);
+            // Search and the list switch lead the page; notices and recovery follow them.
+            beforeSignIn = null;
+            if (!Settings.SIGN_IN_NOTICE_HIDDEN.savedValue()) {
+                Preference notice = beforeSignIn = signInNotice(context, screen);
+                notice.setOrder(-30);
+                screen.addPreference(notice);
             }
-            return true;
-        });
-        gridToggle = new Row(context);
-        gridToggle.setKey("hushgram_grid_toggle");
-        gridToggle.setPersistent(false);
-        gridToggle.setOnPreferenceClickListener(tapped -> {
-            if (!allowMutation()) return true;
-            keepingScroll(() -> {
-                Settings.CATEGORY_GRID.save(!Settings.CATEGORY_GRID.savedValue());
-                filterSettings();
-            }, gridToggle);
-            return true;
-        });
-        categoryGrid = new CategoryGrid(context, this::openFromGrid);
-        // Before the first section, after the notice and recovery notes above it.
-        categoryGrid.setOrder(-10);
-        header = new SettingsHeader(context);
-        header.setOrder(-60);
-        Preference status = statusCard(context);
-        status.setOrder(-40);
-        screen.addPreference(status);
-        // Search and the list switch lead the page; notices and recovery follow them.
-        beforeSignIn = null;
-        if (!Settings.SIGN_IN_NOTICE_HIDDEN.savedValue()) {
-            Preference notice = beforeSignIn = signInNotice(context, screen);
-            notice.setOrder(-30);
-            screen.addPreference(notice);
+            viewToggle.setOrder(-45);
+            screen.addPreference(viewToggle);
+            gridToggle.setOrder(-29);
+            search = new SearchRow(context);
+            search.setOrder(-50);
+            search.setKey("hushgram_settings_search");
+            search.setTitle(L10n.t("Search settings"));
+            search.setPersistent(false);
+            // ListView skips non-selectable rows when restoring or resetting its position outside
+            // touch mode. Search contains real controls, so it must remain a selectable row.
+            screen.addPreference(search);
+            noSearchResults = new Row(context);
+            noSearchResults.setPersistent(false);
+            noSearchResults.setSelectable(false);
+            noSearchResults.setKey("hushgram_settings_search_empty");
+            noSearchResults.setOrder(-1);
+            noSearchResults.setTitle(L10n.t("No matching settings"));
+            noSearchResults.setSummary(L10n.t("Try another word. Settings only appear for patches included in this install."));
+            mark(noSearchResults, SettingsIcons.SEARCH);
+        } catch (Throwable t) {
+            Logger.printException(() -> "Error building header/search rows", t);
         }
-        viewToggle.setOrder(-45);
-        screen.addPreference(viewToggle);
-        gridToggle.setOrder(-29);
-        search = new SearchRow(context);
-        search.setOrder(-50);
-        search.setKey("hushgram_settings_search");
-        search.setTitle(L10n.t("Search settings"));
-        search.setPersistent(false);
-        // ListView skips non-selectable rows when restoring or resetting its position outside
-        // touch mode. Search contains real controls, so it must remain a selectable row.
-        screen.addPreference(search);
-        noSearchResults = new Row(context);
-        noSearchResults.setPersistent(false);
-        noSearchResults.setSelectable(false);
-        noSearchResults.setKey("hushgram_settings_search_empty");
-        noSearchResults.setOrder(-1);
-        noSearchResults.setTitle(L10n.t("No matching settings"));
-        noSearchResults.setSummary(L10n.t("Try another word. Settings only appear for patches included in this install."));
-        mark(noSearchResults, SettingsIcons.SEARCH);
+
         // The export row below reads this; registering twice keeps one.
-        PatchFamily.registerDiagnostics();
-        Set<PatchFamily> build = PatchFamily.inThisBuild();
+        Set<PatchFamily> build = Collections.emptySet();
+        try {
+            PatchFamily.registerDiagnostics();
+            build = PatchFamily.inThisBuild();
+        } catch (Throwable t) {
+            Logger.printException(() -> "PatchFamily initialization failed", t);
+        }
+        final Set<PatchFamily> currentBuild = build;
+
         // Everyday controls first; settings access and upkeep follow them.
-        safeAddCategory("Privacy", () -> PrivacyCategory.add(this, screen, context, build));
-        safeAddCategory("Feed", () -> FeedCategory.add(this, screen, context, build));
-        safeAddCategory("MetaAi", () -> MetaAiCategory.add(this, screen, context, build));
-        safeAddCategory("Explore", () -> ExploreCategory.add(this, screen, context, build));
-        safeAddCategory("Messages", () -> MessagesCategory.add(this, screen, context, build));
-        safeAddCategory("Reels", () -> ReelsCategory.add(this, screen, context, build));
-        safeAddCategory("Stories", () -> StoriesCategory.add(this, screen, context, build));
-        safeAddCategory("Playback", () -> PlaybackCategory.add(this, screen, context, build));
-        safeAddCategory("Sharing", () -> SharingCategory.add(this, screen, context, build));
-        safeAddCategory("Comments", () -> CommentsCategory.add(this, screen, context, build));
-        safeAddCategory("Profiles", () -> ProfilesCategory.add(this, screen, context, build));
-        safeAddCategory("Layout", () -> LayoutCategory.add(this, screen, context, build));
-        safeAddCategory("TabBar", () -> TabBarCategory.add(this, screen, context, build));
-        safeAddCategory("Notifications", () -> NotificationsCategory.add(this, screen, context, build));
-        safeAddCategory("Storage", () -> StorageCategory.add(this, screen, context, build));
-        safeAddCategory("Downloads", () -> DownloadsCategory.add(this, screen, context, build));
-        safeAddCategory("ViewingHistory", () -> ViewingHistoryCategory.add(this, screen, context, build));
-        safeAddCategory("Battery", () -> BatteryCategory.add(this, screen, context, build));
-        safeAddCategory("Updates", () -> UpdatesCategory.add(this, screen, context, build));
-        safeAddCategory("Developer", () -> DeveloperCategory.add(this, screen, context, build));
-        safeAddCategory("Entry", () -> EntryCategory.add(this, screen, context, build));
-        safeAddCategory("PatchTime", () -> PatchTimeCategory.add(this, screen, context, build));
-        safeAddCategory("Backup", () -> BackupCategory.add(this, screen, context, build));
-        safeAddCategory("Pause", () -> PauseCategory.add(this, screen, context, build));
-        safeAddCategory("About", () -> AboutCategory.add(this, screen, context, build));
+        safeAddCategory("Privacy", () -> PrivacyCategory.add(this, screen, context, currentBuild));
+        safeAddCategory("Feed", () -> FeedCategory.add(this, screen, context, currentBuild));
+        safeAddCategory("MetaAi", () -> MetaAiCategory.add(this, screen, context, currentBuild));
+        safeAddCategory("Explore", () -> ExploreCategory.add(this, screen, context, currentBuild));
+        safeAddCategory("Messages", () -> MessagesCategory.add(this, screen, context, currentBuild));
+        safeAddCategory("Reels", () -> ReelsCategory.add(this, screen, context, currentBuild));
+        safeAddCategory("Stories", () -> StoriesCategory.add(this, screen, context, currentBuild));
+        safeAddCategory("Playback", () -> PlaybackCategory.add(this, screen, context, currentBuild));
+        safeAddCategory("Sharing", () -> SharingCategory.add(this, screen, context, currentBuild));
+        safeAddCategory("Comments", () -> CommentsCategory.add(this, screen, context, currentBuild));
+        safeAddCategory("Profiles", () -> ProfilesCategory.add(this, screen, context, currentBuild));
+        safeAddCategory("Layout", () -> LayoutCategory.add(this, screen, context, currentBuild));
+        safeAddCategory("TabBar", () -> TabBarCategory.add(this, screen, context, currentBuild));
+        safeAddCategory("Notifications", () -> NotificationsCategory.add(this, screen, context, currentBuild));
+        safeAddCategory("Storage", () -> StorageCategory.add(this, screen, context, currentBuild));
+        safeAddCategory("Downloads", () -> DownloadsCategory.add(this, screen, context, currentBuild));
+        safeAddCategory("ViewingHistory", () -> ViewingHistoryCategory.add(this, screen, context, currentBuild));
+        safeAddCategory("Battery", () -> BatteryCategory.add(this, screen, context, currentBuild));
+        safeAddCategory("Updates", () -> UpdatesCategory.add(this, screen, context, currentBuild));
+        safeAddCategory("Developer", () -> DeveloperCategory.add(this, screen, context, currentBuild));
+        safeAddCategory("Entry", () -> EntryCategory.add(this, screen, context, currentBuild));
+        safeAddCategory("PatchTime", () -> PatchTimeCategory.add(this, screen, context, currentBuild));
+        safeAddCategory("Backup", () -> BackupCategory.add(this, screen, context, currentBuild));
+        safeAddCategory("Pause", () -> PauseCategory.add(this, screen, context, currentBuild));
+        safeAddCategory("About", () -> AboutCategory.add(this, screen, context, currentBuild));
 
         // Outside every category, like Support HushGram below it. Every row counts toward the
         // switches it lists, the ones a folded category or a search keeps off the screen too.
@@ -1179,12 +1233,20 @@ public final class HushgramPreferenceFragment extends AbstractPreferenceFragment
 
     /** Hidden rows still participate in the shared preference synchronization contract. */
     @Override public Preference findPreference(CharSequence key) {
-        Preference visible = super.findPreference(key);
-        if (visible != null || key == null) return visible;
-        for (List<Preference> rows : searchableRows.values()) {
-            for (Preference row : rows) if (key.toString().equals(row.getKey())) return row;
+        try {
+            Preference visible = super.findPreference(key);
+            if (visible != null || key == null) return visible;
+            for (List<Preference> rows : searchableRows.values()) {
+                if (rows == null) continue;
+                for (Preference row : rows) {
+                    if (row != null && key.toString().equals(row.getKey())) return row;
+                }
+            }
+            return null;
+        } catch (Throwable t) {
+            Logger.printException(() -> "findPreference failed for key=" + key, t);
+            return null;
         }
-        return null;
     }
 
     /**
@@ -3610,13 +3672,15 @@ public final class HushgramPreferenceFragment extends AbstractPreferenceFragment
 
     /** The dark Material theme every row and dialog on this screen is built with. */
     static Context themed(Context base) {
+        if (base == null) base = Utils.getContext();
         return new ContextThemeWrapper(base, ScreenColors.themeFor(base));
     }
 
     /** The recovery page draws on the same page as the rows, so it gets the same theme. */
     @Override
     protected Context pageContext(Activity activity) {
-        return themed(activity);
+        Context base = activity != null ? activity : (getContext() != null ? getContext() : Utils.getContext());
+        return themed(base);
     }
 
     @Override

@@ -768,6 +768,9 @@ public abstract class AbstractPreferenceFragment extends PreferenceFragment {
         lastInitializationError = ex;
         Activity activity = getActivity();
         if (activity == null) {
+            activity = Utils.getActivity();
+        }
+        if (activity == null) {
             Logger.printException(() -> "Cannot render settings initialization error without an Activity");
             return;
         }
@@ -870,7 +873,7 @@ public abstract class AbstractPreferenceFragment extends PreferenceFragment {
                 return true;
             });
             screen.addPreference(back);
-        } catch (Exception renderFailure) {
+        } catch (Throwable renderFailure) {
             Logger.printException(() -> "Settings initialization error UI failure", renderFailure);
         }
     }
@@ -920,8 +923,8 @@ public abstract class AbstractPreferenceFragment extends PreferenceFragment {
             Fragment replacement = Fragment.instantiate(activity, getClass().getName(), arguments);
             manager.beginTransaction()
                     .replace(containerId, replacement)
-                    .commit();
-        } catch (Exception retryFailure) {
+                    .commitAllowingStateLoss();
+        } catch (Throwable retryFailure) {
             retryScheduled = false;
             Logger.printInfo(() -> "Settings retry failure", retryFailure);
             initializePreferencePage();

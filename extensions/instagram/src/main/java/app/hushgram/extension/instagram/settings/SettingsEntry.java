@@ -623,6 +623,7 @@ public final class SettingsEntry {
 
     @SuppressWarnings("deprecation") // Framework fragments are what the shared preference code builds on.
     private static boolean open(Activity activity, String page) {
+        if (activity == null) return false;
         final String name = activity.getClass().getSimpleName();
         try {
             if (activity.isFinishing() || activity.isDestroyed()) {
@@ -630,6 +631,7 @@ public final class SettingsEntry {
                 return false;
             }
             FragmentManager fragments = activity.getFragmentManager();
+            if (fragments == null || fragments.isDestroyed()) return false;
             if (fragments.findFragmentByTag(DIALOG_TAG) != null) {
                 host = new WeakReference<>(activity);
                 closedByUser = false;
@@ -656,7 +658,7 @@ public final class SettingsEntry {
             host = new WeakReference<>(activity);
             Logger.printInfo(() -> "Settings opened over " + name);
             return true;
-        } catch (Exception ex) {
+        } catch (Throwable ex) {
             Logger.printException(() -> "Could not open the HushGram settings over " + name, ex);
             return false;
         }
@@ -733,8 +735,17 @@ public final class SettingsEntry {
             // The logo's long press is the way into HushGram, so Instagram's app icon sheet can't
             // take it first. Instagram's listener gets the press only when this screen can't open,
             // or with the switch off.
-            if (logoPressOn() && openFromLogo(title)) return true;
-            return instagrams != null && instagrams.onLongClick(title);
+            try {
+                if (logoPressOn() && openFromLogo(title)) return true;
+            } catch (Throwable t) {
+                Logger.printException(() -> "Settings entry: logo long press open failed", t);
+            }
+            try {
+                return instagrams != null && instagrams.onLongClick(title);
+            } catch (Throwable t) {
+                Logger.printException(() -> "Settings entry: Instagram's own long click listener failed", t);
+                return false;
+            }
         }
     }
 
