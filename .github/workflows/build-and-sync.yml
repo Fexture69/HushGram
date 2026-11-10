@@ -9,14 +9,25 @@ on:
       - main
       - perf/s24-plus-exynos
       - hi
+      - Hi
     paths-ignore:
       - 'README.md'
       - '.github/ISSUE_TEMPLATE/**'
       - 'FUNDING.yml'
   workflow_dispatch:
     inputs:
+      target_branch:
+        description: 'Branch to checkout and build (or keep current)'
+        type: choice
+        options:
+          - current
+          - Hi
+          - hi
+          - main
+          - perf/s24-plus-exynos
+        default: current
       sync_upstream:
-        description: 'Sync with upstream repository before building'
+        description: 'Sync with upstream repository before building (main branch only)'
         type: boolean
         default: true
       publish_release:
@@ -41,6 +52,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
+          ref: ${{ (github.event_name == 'workflow_dispatch' && inputs.target_branch != '' && inputs.target_branch != 'current') && inputs.target_branch || github.ref }}
           fetch-depth: 0
           token: ${{ secrets.GITHUB_TOKEN }}
 
@@ -60,7 +72,10 @@ jobs:
         run: chmod +x gradlew
 
       - name: Sync with Upstream
-        if: github.ref == 'refs/heads/main' && (github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && inputs.sync_upstream == true))
+        if: |
+          github.ref == 'refs/heads/main' &&
+          (github.event_name != 'workflow_dispatch' || (inputs.target_branch == 'current' || inputs.target_branch == 'main' || inputs.target_branch == '')) &&
+          (github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && inputs.sync_upstream == true))
         run: |
           echo "Configuring git identity..."
           git config user.name "github-actions[bot]"
@@ -144,7 +159,7 @@ jobs:
           if-no-files-found: error
 
       - name: Create or Update GitHub Release
-        if: (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/perf/s24-plus-exynos') && (github.event_name == 'push' || github.event_name == 'schedule' || inputs.publish_release == true)
+        if: (github.event_name == 'push' || github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && inputs.publish_release == true))
         uses: softprops/action-gh-release@v2
         with:
           tag_name: v${{ steps.version.outputs.VERSION }}-build${{ github.run_number }}
@@ -152,7 +167,7 @@ jobs:
           body: |
             ## HushGram Patches Bundle v${{ steps.version.outputs.VERSION }}
             
-            Automated build from commit `${{ github.sha }}`.
+            Automated build from commit `${{ github.sha }}` (${{ github.ref_name }}).
 
             ### Features included:
             - **Developer Options Unlocked:** Full MetaConfig flags editor & settings menu.
