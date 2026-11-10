@@ -8,6 +8,7 @@ on:
     branches:
       - main
       - perf/s24-plus-exynos
+      - hi
     paths-ignore:
       - 'README.md'
       - '.github/ISSUE_TEMPLATE/**'
