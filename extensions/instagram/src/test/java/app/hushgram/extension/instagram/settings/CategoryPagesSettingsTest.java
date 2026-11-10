@@ -452,7 +452,7 @@ public class CategoryPagesSettingsTest {
         openDialog();
         touchMode(page.getView(), false);
         List<String> categories = shown(Preference.class);
-        assertEquals(24, categories.size());
+        assertEquals(25, categories.size());
         HushgramPreferenceFragment.Heading header = categoryRow(categories.get(categories.size() / 2));
         ListView list = page.getView().findViewById(android.R.id.list);
         list.setSelectionFromTop(positionOf(header), -8);

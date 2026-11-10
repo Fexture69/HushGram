@@ -199,6 +199,31 @@ def resolve_obfuscated_identity_test_conflicts():
         subprocess.run(["git", "add", path], check=True)
         print("Resolved conflicts in ObfuscatedIdentityTest.kt")
 
+def resolve_patch_family_and_status_conflicts():
+    for path in [
+        "extensions/instagram/src/main/java/app/hushgram/extension/instagram/settings/PatchFamily.java",
+        "extensions/instagram/src/main/java/app/hushgram/extension/instagram/settings/SettingsStatus.java",
+    ]:
+        if not os.path.exists(path):
+            continue
+        with open(path, "r", encoding="utf-8") as f:
+            content = f.read()
+        if "<<<<<<<" in content:
+            pattern = re.compile(r'<<<<<<< [^\n]*\n(.*?)\n=======\n(.*?)\n>>>>>>> [^\n]*\n', re.DOTALL)
+            def repl(m):
+                head_part = m.group(1)
+                up_part = m.group(2)
+                if head_part.strip() in up_part:
+                    return up_part + "\n"
+                if up_part.strip() in head_part:
+                    return head_part + "\n"
+                return head_part + "\n" + up_part + "\n"
+            new_content = pattern.sub(repl, content)
+            with open(path, "w", encoding="utf-8") as f:
+                f.write(new_content)
+            subprocess.run(["git", "add", path], check=True)
+            print(f"Resolved conflicts in {path}")
+
 def resolve_generic_conflicts():
     unmerged = get_unmerged_files()
     if not unmerged:
@@ -243,6 +268,7 @@ def main():
     resolve_cleanup_reels_conflicts()
     resolve_friends_tab_conflicts()
     resolve_obfuscated_identity_test_conflicts()
+    resolve_patch_family_and_status_conflicts()
     resolve_generic_conflicts()
 
     try:

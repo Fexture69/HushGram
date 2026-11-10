@@ -25,7 +25,6 @@ import app.morphe.patches.instagram.misc.extension.jumpTargets
 import app.morphe.patches.instagram.misc.extension.loadsString
 import app.morphe.patches.instagram.misc.extension.localRegisterCount
 import app.morphe.patches.instagram.misc.extension.parameterRegister
-import app.morphe.patches.instagram.misc.extension.patchLog
 import app.morphe.patches.instagram.misc.extension.requireStatusMethod
 import app.morphe.patches.instagram.misc.settings.settingsPatch
 import app.morphe.patches.shared.compat.AppCompatibilities
@@ -102,11 +101,9 @@ val downloadVoiceMessagesPatch = bytecodePatch(
     compatibleWith(*AppCompatibilities.instagram())
     execute {
         requireStatusMethod("voiceMessage")
-        val found = findVoiceMessagesWhereItFits()
-        if (found != null) {
-            applyVoiceMessages(found)
-            enableStatus("voiceMessage")
-        }
+        val found = findVoiceMessages()
+        applyVoiceMessages(found)
+        enableStatus("voiceMessage")
     }
 }
 
@@ -147,17 +144,6 @@ internal class VoiceReads(
 )
 
 internal class VoiceMessages(val offer: VoiceOffer, val saver: VoiceSaver, val reads: VoiceReads)
-
-/**
- * What [findVoiceMessages] finds, or null with a warning in the patch log when the build differs,
- * so other patches still apply cleanly without failing the patch session.
- */
-internal fun BytecodePatchContext.findVoiceMessagesWhereItFits(): VoiceMessages? = try {
-    findVoiceMessages()
-} catch (unknown: PatchException) {
-    patchLog.warning("${unknown.message}. Download voice messages goes in without saving voice messages.")
-    null
-}
 
 /** Finds every place the patch changes, and every read its bridges make, before anything changes. */
 internal fun BytecodePatchContext.findVoiceMessages(): VoiceMessages {
@@ -230,7 +216,7 @@ internal fun BytecodePatchContext.findSaveFlag(): Pair<String, FieldReference> {
             refuse("Save at instruction ${sites[index]} isn't added only when ${flag} is true")
         }
     }
-    return message to flag!!
+    return message!! to flag!!
 }
 
 /**
@@ -344,134 +330,38 @@ internal fun BytecodePatchContext.findVoiceReads(message: String): VoiceReads {
     val from = code.indexOfFirst { (it.reference() as? StringReference)?.string == AUDIO_SOURCE }
 
     fun next(after: Int, what: String, test: (Instruction) -> Boolean): Int =
-        (after + 1..minOf(after + 20, code.lastIndex)).firstOrNull { test(code[it]) } ?: refuse("the player doesn't read $what")
+        (after + 1..minOf(after + 6, code.lastIndex)).firstOrNull { test(code[it]) } ?: refuse("the player doesn't read $what")
 
     val voiceAt = next(from, "the message's voice media") {
         it.opcode == Opcode.IGET_OBJECT && it.field()?.definingClass == message && it.field()!!.type.startsWith("L")
     }
     val voice = code[voiceAt].field()!!
     val voiceHeld = (code[voiceAt] as TwoRegisterInstruction).registerA
+    val reach = voiceAt + 1..minOf(voiceAt + PLAYER_REACH, code.lastIndex)
+    val mediaAt = reach.filter {
+        code[it].opcode == Opcode.IGET_OBJECT && (code[it] as TwoRegisterInstruction).registerB == voiceHeld &&
+            code[it].field()?.let { field -> field.definingClass == voice.type && field.type == MEDIA } == true
+    }.singleOrNull() ?: refuse("the player doesn't read the voice media's media")
 
-    val voiceRegisters = mutableSetOf(voiceHeld)
-    for (i in voiceAt + 1..code.lastIndex) {
-        val it = code[i]
-        if (it.opcode in COPIES && it is TwoRegisterInstruction && it.registerB in voiceRegisters) {
-            voiceRegisters.add(it.registerA)
+    fun step(after: Int, from: Int, what: String): Int {
+        val at = next(after, what) {
+            it.opcode == Opcode.INVOKE_STATIC && it.arguments() == listOf(from) && it.call()!!.returnType.startsWith("L")
         }
+        if (code.getOrNull(at + 1)?.opcode != Opcode.MOVE_RESULT_OBJECT) refuse("the player doesn't keep $what")
+        return at
     }
-
-    val allMediaReads = (voiceAt + 1..code.lastIndex).filter {
-        val it = code[it]
-        it.opcode == Opcode.IGET_OBJECT && it.field()?.let { field ->
-            field.type == MEDIA && (
-                field.definingClass == voice.type ||
-                classDefByOrNull(voice.type)?.fields?.any { vf -> vf.name == field.name && vf.type == MEDIA } == true
-            )
-        } == true
-    }
-    val preferredMediaReads = allMediaReads.filter { (code[it] as TwoRegisterInstruction).registerB in voiceRegisters }
-    val candidateMediaReads = if (preferredMediaReads.isNotEmpty()) preferredMediaReads else allMediaReads.ifEmpty {
-        (voiceAt + 1..code.lastIndex).filter {
-            val it = code[it]
-            it.opcode == Opcode.IGET_OBJECT && it.field()?.type == MEDIA
-        }
-    }
-    val mediaAt = candidateMediaReads.firstOrNull() ?: refuse("the player doesn't read the voice media's media")
-    val mediaHeld = (code[mediaAt] as TwoRegisterInstruction).registerA
-
-    val mediaRegisters = mutableSetOf(mediaHeld)
-    for (i in mediaAt + 1..code.lastIndex) {
-        val it = code[i]
-        if (it.opcode in COPIES && it is TwoRegisterInstruction && it.registerB in mediaRegisters) {
-            mediaRegisters.add(it.registerA)
-        }
-    }
-
-    val treeWindow = mediaAt + 1..minOf(mediaAt + 40, code.lastIndex)
-    val treeAt = treeWindow.firstOrNull {
-        val it = code[it]
-        it.opcode == Opcode.INVOKE_STATIC && it.arguments().any { arg -> arg in mediaRegisters } &&
-            it.call()?.let { call -> call.parameters() == listOf(MEDIA) && call.returnType.startsWith("L") } == true
-    } ?: treeWindow.firstOrNull {
-        val it = code[it]
-        it.opcode == Opcode.INVOKE_STATIC && it.arguments().any { arg -> arg in mediaRegisters } &&
-            it.call()?.returnType?.startsWith("L") == true
-    } ?: treeWindow.firstOrNull {
-        val it = code[it]
-        it.opcode == Opcode.INVOKE_STATIC &&
-            it.call()?.let { call -> call.parameters() == listOf(MEDIA) && call.returnType.startsWith("L") } == true
-    } ?: refuse("the player doesn't read the media's audio model")
-
-    val treeMove = (treeAt + 1..minOf(treeAt + 2, code.lastIndex)).firstOrNull { code[it].opcode == Opcode.MOVE_RESULT_OBJECT }
-        ?: refuse("the player doesn't keep the media's audio model")
-    val treeType = code[treeAt].call()!!.returnType
-    val treeHeld = (code[treeMove] as OneRegisterInstruction).registerA
-
-    val treeRegisters = mutableSetOf(treeHeld)
-    for (i in treeMove + 1..code.lastIndex) {
-        val it = code[i]
-        if (it.opcode in COPIES && it is TwoRegisterInstruction && it.registerB in treeRegisters) {
-            treeRegisters.add(it.registerA)
-        }
-    }
-
-    val audioWindow = treeMove + 1..minOf(treeMove + 40, code.lastIndex)
-    val audioAt = audioWindow.firstOrNull {
-        val it = code[it]
-        it.opcode == Opcode.INVOKE_STATIC && it.arguments().any { arg -> arg in treeRegisters } &&
-            it.call()?.let { call -> call.parameters() == listOf(treeType) && call.returnType.startsWith("L") } == true
-    } ?: audioWindow.firstOrNull {
-        val it = code[it]
-        it.opcode == Opcode.INVOKE_STATIC && it.arguments().any { arg -> arg in treeRegisters } &&
-            it.call()?.returnType?.startsWith("L") == true
-    } ?: audioWindow.firstOrNull {
-        val it = code[it]
-        it.opcode == Opcode.INVOKE_STATIC &&
-            it.call()?.let { call -> call.parameters() == listOf(treeType) && call.returnType.startsWith("L") } == true
-    } ?: refuse("the player doesn't read the media's audio")
-
-    val audioMove = (audioAt + 1..minOf(audioAt + 2, code.lastIndex)).firstOrNull { code[it].opcode == Opcode.MOVE_RESULT_OBJECT }
-        ?: refuse("the player doesn't keep the media's audio")
+    val treeAt = step(mediaAt, (code[mediaAt] as TwoRegisterInstruction).registerA, "the media's audio model")
+    val audioAt = step(treeAt + 1, (code[treeAt + 1] as OneRegisterInstruction).registerA, "the media's audio")
     val audio = code[audioAt].call()!!.returnType
-    val audioHeld = (code[audioMove] as OneRegisterInstruction).registerA
-
-    val audioRegisters = mutableSetOf(audioHeld)
-    for (i in audioMove + 1..code.lastIndex) {
-        val it = code[i]
-        if (it.opcode in COPIES && it is TwoRegisterInstruction && it.registerB in audioRegisters) {
-            audioRegisters.add(it.registerA)
-        }
-    }
-
-    val candidateSources = (voiceAt + 1..code.lastIndex).filter {
-        val it = code[it]
-        it.opcode == Opcode.IGET_OBJECT &&
-            it.field()?.let { field -> field.definingClass == audio && field.type.startsWith("L") } == true
-    }
-    val sourceAt = candidateSources.firstOrNull { (code[it] as TwoRegisterInstruction).registerB in audioRegisters }
-        ?: candidateSources.firstOrNull()
-        ?: refuse("the player doesn't read the audio's source")
+    val audioHeld = (code[audioAt + 1] as OneRegisterInstruction).registerA
+    // The pending clip's path and the media's audio meet at one read of the audio's source, before the media is read.
+    val sourceAt = (voiceAt + 1..audioAt).filter {
+        code[it].opcode == Opcode.IGET_OBJECT && code[it].field()?.definingClass == audio && (code[it] as TwoRegisterInstruction).registerB == audioHeld
+    }.singleOrNull() ?: refuse("the player doesn't read the audio's source")
     val source = code[sourceAt].field()!!
-
-    val sourceHeld = (code[sourceAt] as TwoRegisterInstruction).registerA
-    val sourceRegisters = mutableSetOf(sourceHeld)
-    for (i in sourceAt + 1..minOf(sourceAt + 30, code.lastIndex)) {
-        val it = code[i]
-        if (it.opcode in COPIES && it is TwoRegisterInstruction && it.registerB in sourceRegisters) {
-            sourceRegisters.add(it.registerA)
-        }
+    val addressAt = next(sourceAt, "the recording's address") {
+        it.isGetter(source.type) && it.call()!!.returnType == STRING && it.arguments() == listOf((code[sourceAt] as TwoRegisterInstruction).registerA)
     }
-    val addressWindow = sourceAt + 1..minOf(sourceAt + 30, code.lastIndex)
-    val addressAt = addressWindow.firstOrNull {
-        val it = code[it]
-        it.isGetter(source.type) && it.call()!!.returnType == STRING &&
-            (it.arguments().isEmpty() || it.arguments().any { arg -> arg in sourceRegisters })
-    } ?: addressWindow.firstOrNull {
-        val it = code[it]
-        (it.opcode == Opcode.INVOKE_VIRTUAL || it.opcode == Opcode.INVOKE_INTERFACE) &&
-            it.call()?.let { call -> call.returnType == STRING && call.parameterTypes.isEmpty() } == true &&
-            it.arguments().any { arg -> arg in sourceRegisters }
-    } ?: refuse("the player doesn't read the recording's address")
 
     val parsers = classesHolding(VIEW_MODE_KEY, WAVEFORM_KEY).flatMap { host ->
         host.methods.filter { method ->
@@ -481,7 +371,7 @@ internal fun BytecodePatchContext.findVoiceReads(message: String): VoiceReads {
     val parser = parsers.singleOrNull() ?: refuse("expected one parser of the voice media ${voice.type}, found ${parsers.size}")
     val parsed = parser.code()
     val key = parsed.indexOfFirst { (it.reference() as? StringReference)?.string == VIEW_MODE_KEY }
-    val readAt = (key + 1..minOf(key + 20, parsed.lastIndex)).firstOrNull { parsed[it].opcode == Opcode.MOVE_RESULT_OBJECT }
+    val readAt = (key + 1..minOf(key + 6, parsed.lastIndex)).firstOrNull { parsed[it].opcode == Opcode.MOVE_RESULT_OBJECT }
         ?: refuse("the parser doesn't read a value for \"$VIEW_MODE_KEY\"")
     val value = (parsed[readAt] as OneRegisterInstruction).registerA
     val kept = parsed.filter {

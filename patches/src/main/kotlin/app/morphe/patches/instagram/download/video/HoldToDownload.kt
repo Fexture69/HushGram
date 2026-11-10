@@ -14,7 +14,6 @@ import app.morphe.patches.instagram.misc.extension.EXTENSION_PACKAGE
 import app.morphe.patches.instagram.misc.extension.classesCalling
 import app.morphe.patches.instagram.misc.extension.jumpTargets
 import app.morphe.patches.instagram.misc.extension.markers
-import app.morphe.patches.instagram.misc.extension.patchLog
 import app.morphe.patches.instagram.misc.extension.typesMarked
 import com.android.tools.smali.dexlib2.AccessFlags
 import com.android.tools.smali.dexlib2.Opcode
@@ -67,16 +66,6 @@ private fun refuse(detail: String): Nothing = throw PatchException("$PATCH: $det
 private fun ClassDef.instanceFields(): List<Field> = fields.filter { !AccessFlags.STATIC.isSet(it.accessFlags) }
 
 private fun Method.takes(vararg types: String) = parameterTypes.map(Any::toString) == types.toList()
-
-/**
- * What [findHoldSites] finds, or null with a warning in the patch log when the build differs.
- */
-internal fun BytecodePatchContext.findHoldSitesWhereItFits(stateType: String): HoldSites? = try {
-    findHoldSites(stateType)
-} catch (unknown: PatchException) {
-    patchLog.warning("${unknown.message}. Download any video goes in without Hold to download.")
-    null
-}
 
 /**
  * Finds [HoldSites] without changing anything, every piece by structure, so a build that differs

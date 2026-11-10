@@ -20,6 +20,7 @@ import java.util.Set;
 import app.hushgram.extension.instagram.misc.DeveloperOptions;
 import app.hushgram.extension.instagram.settings.HushgramPreferenceFragment.Row;
 import app.hushgram.extension.shared.L10n;
+import app.hushgram.extension.shared.Logger;
 import app.hushgram.extension.shared.Utils;
 
 /** Builds the Developer category of HushGram settings. */
@@ -28,7 +29,9 @@ final class DeveloperCategory {
 
     static void add(HushgramPreferenceFragment page, PreferenceScreen screen, Context context, Set<PatchFamily> build) {
         if (build.contains(PatchFamily.DEVELOPER_OPTIONS)) {
-            PreferenceCategory developer = category(screen, L10n.t("Developer"), SettingsIcons.CODE,
+            PreferenceCategory developer = null;
+            try {
+            developer = category(screen, L10n.t("Developer"), SettingsIcons.CODE,
                     L10n.t("Instagram's own testing tools. Change them only if you know what they do."));
             developer.addPreference(toggle(context, Settings.OPEN_DEVELOPER_OPTIONS,
                     L10n.t("Developer options on a long press of Home"),
@@ -177,6 +180,12 @@ final class DeveloperCategory {
                     return true;
                 });
                 developer.addPreference(mark(resetOverrides, SettingsIcons.CODE));
+            }
+            } catch (Throwable failure) {
+                Logger.printException(() -> "DeveloperCategory.add failure", failure);
+                if (developer != null) {
+                    try { screen.removePreference(developer); } catch (Throwable ignored) { }
+                }
             }
         }
     }

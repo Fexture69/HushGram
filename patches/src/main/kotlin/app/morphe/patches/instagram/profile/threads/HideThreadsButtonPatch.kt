@@ -64,15 +64,6 @@ internal const val USER_DETAIL = "Lcom/instagram/profile/fragment/UserDetailFrag
  */
 internal const val CREATE_BUTTON_ID = 0x7f0b3054
 
-/** Known candidate create button ids across various Instagram versions/splits. */
-internal val CANDIDATE_CREATE_BUTTON_IDS = listOf(
-    CREATE_BUTTON_ID, // 0x7f0b3054
-    0x7f0b3077,       // 453
-    0x7f0b3055,
-    0x7f0b3053,
-    0x7f0b3078,
-)
-
 /** The events only the Threads chip under a profile's bio logs, loaded by its constructor. */
 internal const val BANNER_TAP = "tap_threads_banner"
 internal const val BANNER_IMPRESSION = "impression_threads_banner"
@@ -134,14 +125,14 @@ val hideThreadsButtonPatch = bytecodePatch(
 
     execute {
         requireStatusMethod("threadsButton")
-        val button = findThreadsButtonWhereItFits()
-        val banner = findThreadsBannerWhereItFits()
-        val create = findCreateInBarWhereItFits()
-        val share = findShareButtonWhereItFits()
-        if (button != null) hideThreadsButton(button)
-        if (banner != null) hideThreadsBanner(banner)
-        if (create != null) hideCreateInBar(create)
-        if (share != null) hideShareButton(share)
+        val button = findThreadsButton()
+        val banner = findThreadsBanner()
+        val create = findCreateInBar()
+        val share = findShareButton()
+        hideThreadsButton(button)
+        hideThreadsBanner(banner)
+        hideCreateInBar(create)
+        hideShareButton(share)
         enableStatus("threadsButton")
     }
 }
@@ -241,14 +232,6 @@ internal fun BytecodePatchContext.findThreadsButton(): ThreadsButtonSite {
     return ThreadsButtonSite(binder.name, binder.parameters(), binder.returnType, read + 1, register, button, "$button->${icon.name}:I")
 }
 
-/** What [findThreadsButton] finds, or null with a warning in the patch log when the build differs. */
-internal fun BytecodePatchContext.findThreadsButtonWhereItFits(): ThreadsButtonSite? = try {
-    findThreadsButton()
-} catch (unknown: PatchException) {
-    app.morphe.patches.instagram.misc.extension.patchLog.warning("${unknown.message}. Hide the Threads button goes in without action bar button.")
-    null
-}
-
 /**
  * Writes the stub that reads a button's icon, then hands the list of buttons to [BUTTONS] right
  * after it's read, keeping the answer in the same register. Only called once [findThreadsButton]
@@ -304,14 +287,6 @@ internal fun BytecodePatchContext.findThreadsBanner(): ThreadsBannerSite {
     return ThreadsBannerSite(owner.type, adder.name, adder.parameters(), banner)
 }
 
-/** What [findThreadsBanner] finds, or null with a warning in the patch log when the build differs. */
-internal fun BytecodePatchContext.findThreadsBannerWhereItFits(): ThreadsBannerSite? = try {
-    findThreadsBanner()
-} catch (unknown: PatchException) {
-    app.morphe.patches.instagram.misc.extension.patchLog.warning("${unknown.message}. Hide the Threads button goes in without profile banner.")
-    null
-}
-
 /**
  * Asks [HIDE_BANNER] first thing in the method adding the Threads chip, and returns before the chip
  * is made when it says so. The other chips close up, and a profile whose only chip was Threads gets
@@ -357,18 +332,14 @@ internal class CreateInBarSite(
  * and the id, so every way to the button goes past the hook.
  */
 internal fun BytecodePatchContext.findCreateInBar(): CreateInBarSite {
-    val candidateId = CANDIDATE_CREATE_BUTTON_IDS.firstOrNull { id ->
-        classesLoading(id.toLong()).isNotEmpty()
-    } ?: CREATE_BUTTON_ID
-
-    val stores = classesLoading(candidateId.toLong()).flatMap { owner ->
+    val stores = classesLoading(CREATE_BUTTON_ID.toLong()).flatMap { owner ->
         owner.methods.flatMap { method ->
             val code = method.code()
             code.indices.filter { code[it].storesId(code.getOrNull(it + 1)) }.map { Triple(owner, method, it) }
         }
     }
     val (owner, adder, load) = stores.singleOrNull()
-        ?: refuse("expected one Create button stored with its id 0x${candidateId.toString(16)}, found ${stores.size}")
+        ?: refuse("expected one Create button stored with its id 0x${CREATE_BUTTON_ID.toString(16)}, found ${stores.size}")
     val where = "${owner.type}->${adder.name}"
     val code = adder.code()
     val guard = (load - 1 downTo 1).firstOrNull { code[it].opcode in BRANCHES || !code[it].opcode.canContinue() }
@@ -398,14 +369,6 @@ internal fun BytecodePatchContext.findCreateInBar(): CreateInBarSite {
     val extension = classDefByOrNull(THREADS_BUTTON) ?: refuse("the extension has no $THREADS_BUTTON")
     if (extension.methods.none { it.signature() == HIDE_CREATE && it.publicStatic() }) refuse("the extension has no public static $HIDE_CREATE")
     return CreateInBarSite(owner.type, adder.name, adder.parameters(), adder.returnType, guard, skip, register)
-}
-
-/** What [findCreateInBar] finds, or null with a warning in the patch log when the build differs. */
-internal fun BytecodePatchContext.findCreateInBarWhereItFits(): CreateInBarSite? = try {
-    findCreateInBar()
-} catch (unknown: PatchException) {
-    app.morphe.patches.instagram.misc.extension.patchLog.warning("${unknown.message}. Hide the Threads button goes in without hiding Create in bar.")
-    null
 }
 
 /**
@@ -497,14 +460,6 @@ internal fun BytecodePatchContext.findShareButton(): ShareButtonSite {
         if (extension.methods.none { it.isRowStub(stub) }) refuse("$SHARE_BUTTON has no public static Z $stub($OBJECT)")
     }
     return ShareButtonSite(model.type, subscribe, overflow, listOfNotNull(text, icon?.second, menu).map { shareBuilder(owner.type, it) })
-}
-
-/** What [findShareButton] finds, or null with a warning in the patch log when the build differs. */
-internal fun BytecodePatchContext.findShareButtonWhereItFits(): ShareButtonSite? = try {
-    findShareButton()
-} catch (unknown: PatchException) {
-    app.morphe.patches.instagram.misc.extension.patchLog.warning("${unknown.message}. Hide the Threads button goes in without share button.")
-    null
 }
 
 /** The one public action button of [kind] whose onClick loads [tap] and [PROFILE_HEADER]: the model of [what]'s button. */

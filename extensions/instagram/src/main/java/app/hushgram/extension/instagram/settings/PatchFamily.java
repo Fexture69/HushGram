@@ -425,7 +425,6 @@ public enum PatchFamily {
         return FEED_SUGGESTIONS.inBuild() && SettingsStatus.feedTypes();
     }
 
-<<<<<<< HEAD
     /** Whether a test says this build reads, or writes, MetaConfig overrides, instead of asking {@link SettingsStatus}. */
     @Nullable
     static volatile Boolean overrideExchangeForTests, overrideImportForTests;
@@ -464,7 +463,8 @@ public enum PatchFamily {
         Set<PatchFamily> families = inBuildForTests;
         if (families != null) return families.contains(DEVELOPER_OPTIONS);
         return DEVELOPER_OPTIONS.inBuild() && SettingsStatus.flagNames();
-=======
+    }
+
     /** Whether a test says this build tells which feed Home asks for, instead of asking {@link SettingsStatus}. */
     @Nullable
     static volatile Boolean favoritesSourceForTests;
@@ -497,7 +497,6 @@ public enum PatchFamily {
         Set<PatchFamily> families = inBuildForTests;
         if (families != null) return families.contains(FEED_SUGGESTIONS);
         return feedTypesInBuild() && SettingsStatus.feedProfessional();
->>>>>>> upstream/main
     }
 
     /** Whether a test says this build mixes Following into For you, instead of asking {@link SettingsStatus}. */

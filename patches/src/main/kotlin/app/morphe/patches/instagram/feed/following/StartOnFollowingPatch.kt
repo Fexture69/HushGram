@@ -19,7 +19,6 @@ import app.morphe.patches.instagram.misc.extension.freeLocalsAt
 import app.morphe.patches.instagram.misc.extension.instagramExtensionPatch
 import app.morphe.patches.instagram.misc.extension.jumpTargets
 import app.morphe.patches.instagram.misc.extension.localRegisterCount
-import app.morphe.patches.instagram.misc.extension.patchLog
 import app.morphe.patches.instagram.misc.extension.requireStatusMethod
 import app.morphe.patches.instagram.misc.flags.FlagRead
 import app.morphe.patches.instagram.misc.flags.answerFlagReads
@@ -77,12 +76,6 @@ internal const val FOR_YOU_PICKER_FLAG = 0x810dfb00004e43L
 /** The flags the patch answers on: together they're Instagram's own For you and Following picker. */
 internal val FEED_PICKER_FLAGS = listOf(REMEMBERED_FEED_FLAG, FOR_YOU_PICKER_FLAG)
 
-internal val CANDIDATE_FEED_PICKER_FLAGS = listOf(
-    FEED_PICKER_FLAGS, // 454 (386014758)
-    listOf(0x810e3300064e36L, 0x810e3300004e30L), // 453
-    listOf(0x810e5f00064f24L, 0x810e5f00004f1eL), // 451
-)
-
 /**
  * Opens Home on the Following feed. In the default selection with its switch off: which feed Home
  * starts on is the user's pick, and For you stays one tap away at the top of Home.
@@ -104,42 +97,24 @@ val startOnFollowingPatch = bytecodePatch(
     execute {
         requireStatusMethod("followingFeed")
         requireStatusMethod("followingMix")
-        if (applyStartOnFollowingWhereItFits()) {
-            enableStatus("followingFeed")
-            if (mixInFollowingOrWarn()) enableStatus("followingMix")
-        }
+        val reads = findFlagReads(PATCH, FEED_PICKER_FLAGS)
+        val saved = findSavedFeedReturn()
+        val title = findTitleLabel()
+        val switches = findFeedSwitches(reads)
+        // The getter reads its flag before it returns, so its return is hooked first, while the
+        // reads' indexes still hold.
+        defaultSavedFeed(saved)
+        answerFlagReads(reads, FEED_FLAG)
+        // Found after the flags are answered, since the picker reads them in the same method.
+        limitPicker(findPickerFreeze(saved))
+        keepLogoInTitle(title)
+        // Hooked at their starts once the reads in them are answered, so the reads' indexes held.
+        keepFeedLinksInPlace(switches)
+        enableStatus("followingFeed")
+        // Last, so nothing above moves the indexes it finds; a build without Home's paging as it
+        // knows it keeps every other switch.
+        if (mixInFollowingOrWarn()) enableStatus("followingMix")
     }
-}
-
-internal fun BytecodePatchContext.applyStartOnFollowingWhereItFits(): Boolean = try {
-    applyStartOnFollowing()
-    true
-} catch (unknown: PatchException) {
-    patchLog.warning("${unknown.message}. Start Home on Following goes in without following feed hooks.")
-    false
-}
-
-internal fun BytecodePatchContext.applyStartOnFollowing() {
-    val reads = CANDIDATE_FEED_PICKER_FLAGS.mapNotNull { flags ->
-        try {
-            findFlagReads(PATCH, flags).takeIf { it.size == flags.size }
-        } catch (_: PatchException) {
-            null
-        }
-    }.firstOrNull() ?: findFlagReads(PATCH, FEED_PICKER_FLAGS)
-
-    val saved = findSavedFeedReturn()
-    val title = findTitleLabel()
-    val switches = findFeedSwitches(reads)
-    // The getter reads its flag before it returns, so its return is hooked first, while the
-    // reads' indexes still hold.
-    defaultSavedFeed(saved)
-    answerFlagReads(reads, FEED_FLAG)
-    // Found after the flags are answered, since the picker reads them in the same method.
-    limitPicker(findPickerFreeze(saved))
-    keepLogoInTitle(title)
-    // Hooked at their starts once the reads in them are answered, so the reads' indexes held.
-    keepFeedLinksInPlace(switches)
 }
 
 /** Where the saved feed's getter hands back the name it read: the class, the method, and the return's index and register. */

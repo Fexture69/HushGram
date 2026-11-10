@@ -17,7 +17,6 @@ import app.morphe.patches.instagram.misc.extension.enableStatus
 import app.morphe.patches.instagram.misc.extension.instagramExtensionPatch
 import app.morphe.patches.instagram.misc.extension.jumpTargets
 import app.morphe.patches.instagram.misc.extension.localRegisterCount
-import app.morphe.patches.instagram.misc.extension.patchLog
 import app.morphe.patches.instagram.misc.extension.requireStatusMethod
 import app.morphe.patches.instagram.misc.settings.settingsPatch
 import app.morphe.patches.shared.compat.AppCompatibilities
@@ -52,14 +51,6 @@ internal val BOX_BUTTON_NAMES = listOf("GALLERY", "STICKER", "VOICE_MESSAGE")
  */
 internal val BOX_BUTTON_IDS = listOf(0x7f0b3833, 0x7f0b383d, 0x7f0b3857)
 
-/** Known candidate button ID sets across various Instagram versions/splits. */
-internal val CANDIDATE_BOX_BUTTON_ID_SETS = listOf(
-    BOX_BUTTON_IDS, // listOf(0x7f0b3833, 0x7f0b383d, 0x7f0b3857)
-    listOf(0x7f0b384d, 0x7f0b3857, 0x7f0b3871), // 453
-    listOf(0x7f0b3834, 0x7f0b383e, 0x7f0b3858),
-    listOf(0x7f0b3832, 0x7f0b383c, 0x7f0b3856),
-)
-
 /**
  * Leaves the gallery, sticker and voice message buttons off the message box of a chat, as the user
  * picks. Included in the default selection with nothing picked, so every button stays until the user
@@ -85,10 +76,8 @@ val messageBoxPatch = bytecodePatch(
 
     execute {
         requireStatusMethod("messageBox")
-        val site = findMessageBoxWhereItFits()
-        if (site != null) {
-            hideMessageBoxButtons(site)
-        }
+        val site = findMessageBox()
+        hideMessageBoxButtons(site)
         enableStatus("messageBox")
     }
 }
@@ -107,16 +96,6 @@ internal class MessageBoxSite(
 )
 
 /**
- * What [findMessageBox] finds, or null with a warning in the patch log when the build differs.
- */
-internal fun BytecodePatchContext.findMessageBoxWhereItFits(): MessageBoxSite? = try {
-    findMessageBox()
-} catch (unknown: PatchException) {
-    patchLog.warning("${unknown.message}. Message box buttons goes in without hiding buttons.")
-    null
-}
-
-/**
  * Finds the composer view holder: the one class whose constructor looks up all three of
  * [BOX_BUTTON_IDS], each stored straight into a plain View field of the holder. Its show-or-hide
  * method is the one non-static (location, button enum, boolean) method, where the enum is the one
@@ -131,27 +110,13 @@ internal fun BytecodePatchContext.findMessageBox(): MessageBoxSite {
         }
     }
     val buttons = enums.singleOrNull() ?: refuse("${enums.size} message box button enums, not one")
-    
-    var foundHolder: com.android.tools.smali.dexlib2.iface.ClassDef? = null
-    var foundConstructor: Method? = null
-    var foundLookups: Triple<FieldReference, FieldReference, FieldReference>? = null
-
-    for (candidateIds in CANDIDATE_BOX_BUTTON_ID_SETS) {
-        val loading = candidateIds.map { id -> classesLoading(id.toLong()).mapTo(HashSet()) { it.type } }
-        val holders = classesLoading(candidateIds.first().toLong()).filter { candidate -> loading.all { candidate.type in it } }
-            .filter { candidate -> candidate.methods.any { it.name == "<init>" && boxLookups(candidate.type, it, candidateIds) != null } }
-        val holder = holders.singleOrNull() ?: continue
-        val constructors = holder.methods.filter { it.name == "<init>" && boxLookups(holder.type, it, candidateIds) != null }
-        val constructor = constructors.singleOrNull() ?: continue
-        foundHolder = holder
-        foundConstructor = constructor
-        foundLookups = boxLookups(holder.type, constructor, candidateIds)
-        break
-    }
-
-    val holder = foundHolder ?: refuse("no message box holder found")
-    val constructor = foundConstructor!!
-    val (gallery, sticker, voice) = foundLookups!!
+    val loading = BOX_BUTTON_IDS.map { id -> classesLoading(id.toLong()).mapTo(HashSet()) { it.type } }
+    val holders = classesLoading(BOX_BUTTON_IDS.first().toLong()).filter { candidate -> loading.all { candidate.type in it } }
+        .filter { candidate -> candidate.methods.any { it.name == "<init>" && boxLookups(candidate.type, it) != null } }
+    val holder = holders.singleOrNull() ?: refuse("${holders.size} message box holders, not one")
+    val constructors = holder.methods.filter { it.name == "<init>" && boxLookups(holder.type, it) != null }
+    val constructor = constructors.singleOrNull() ?: refuse("${constructors.size} holder constructors, not one")
+    val (gallery, sticker, voice) = boxLookups(holder.type, constructor)!!
 
     val code = boxCode(constructor)
     val returns = code.indices.filter { code[it].opcode == Opcode.RETURN_VOID }
@@ -211,15 +176,11 @@ internal fun BytecodePatchContext.hideMessageBoxButtons(site: MessageBoxSite) {
  * constructor isn't that. Each id is loaded once, handed to the view lookup, and the result stored
  * straight into a View field of [owner] on the holder itself.
  */
-private fun boxLookups(
-    owner: String,
-    constructor: Method,
-    buttonIds: List<Int> = BOX_BUTTON_IDS,
-): Triple<FieldReference, FieldReference, FieldReference>? {
+private fun boxLookups(owner: String, constructor: Method): Triple<FieldReference, FieldReference, FieldReference>? {
     val code = boxCode(constructor)
     val self = (constructor.implementation?.registerCount ?: return null) -
         constructor.parameterTypes.sumOf { if (it == "J" || it == "D") 2 else 1 } - 1
-    val fields = buttonIds.map { id ->
+    val fields = BOX_BUTTON_IDS.map { id ->
         val loads = code.indices.filter { (code[it] as? NarrowLiteralInstruction)?.narrowLiteral == id }
         val load = loads.singleOrNull() ?: return null
         val call = (code.getOrNull(load + 1) as? ReferenceInstruction)?.reference as? MethodReference

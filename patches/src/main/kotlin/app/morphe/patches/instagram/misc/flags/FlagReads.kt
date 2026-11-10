@@ -46,8 +46,8 @@ internal class FlagRead(
 internal fun BytecodePatchContext.findFlagReads(patch: String, flags: List<Long>): List<FlagRead> {
     val reads = mutableListOf<FlagRead>()
     val loading = flags.flatMapTo(HashSet()) { flag -> classesLoading(flag).map { it.type } }
-
-    fun inspectClass(classDef: com.android.tools.smali.dexlib2.iface.ClassDef) {
+    classDefForEach { classDef ->
+        if (classDef.type !in loading) return@classDefForEach
         classDef.methods.forEach { method ->
             val code = method.implementation?.instructions?.toList() ?: return@forEach
             code.forEachIndexed { index, instruction ->
@@ -76,20 +76,6 @@ internal fun BytecodePatchContext.findFlagReads(patch: String, flags: List<Long>
             }
         }
     }
-
-    if (loading.isNotEmpty()) {
-        classDefForEach { classDef ->
-            if (classDef.type in loading) inspectClass(classDef)
-        }
-    }
-
-    val unreadInitial = flags.filter { flag -> reads.none { it.flag == flag } }
-    if (unreadInitial.isNotEmpty()) {
-        classDefForEach { classDef ->
-            if (classDef.type !in loading) inspectClass(classDef)
-        }
-    }
-
     val unread = flags.filter { flag -> reads.none { it.flag == flag } }
     if (unread.isNotEmpty()) refuse(patch, "nothing reads ${unread.joinToString { it.toString(16) }}")
     return reads
@@ -169,8 +155,8 @@ internal fun BytecodePatchContext.findFlagLoads(patch: String, flag: Long, answe
     require(answers.isNotEmpty() && answers.all { it in READ_AS }) { "a flag is read as one of $READ_AS, not $answers" }
     val loads = mutableListOf<FlagLoad>()
     val loading = classesLoading(flag).mapTo(HashSet()) { it.type }
-
-    fun inspectClass(classDef: com.android.tools.smali.dexlib2.iface.ClassDef) {
+    classDefForEach { classDef ->
+        if (classDef.type !in loading) return@classDefForEach
         classDef.methods.forEach { method ->
             val code = method.implementation?.instructions?.toList() ?: return@forEach
             val at = code.indices.filter {
@@ -187,19 +173,6 @@ internal fun BytecodePatchContext.findFlagLoads(patch: String, flag: Long, answe
             }
         }
     }
-
-    if (loading.isNotEmpty()) {
-        classDefForEach { classDef ->
-            if (classDef.type in loading) inspectClass(classDef)
-        }
-    }
-
-    if (loads.isEmpty()) {
-        classDefForEach { classDef ->
-            if (classDef.type !in loading) inspectClass(classDef)
-        }
-    }
-
     return loads
 }
 

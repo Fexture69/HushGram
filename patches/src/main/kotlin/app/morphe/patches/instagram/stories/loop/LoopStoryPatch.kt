@@ -11,12 +11,8 @@ import app.morphe.patcher.patch.bytecodePatch
 import app.morphe.patches.instagram.misc.extension.EXTENSION_PACKAGE
 import app.morphe.patches.instagram.misc.extension.enableStatus
 import app.morphe.patches.instagram.misc.extension.instagramExtensionPatch
-<<<<<<< HEAD
-import app.morphe.patches.instagram.misc.extension.patchLog
-=======
 import app.morphe.patches.instagram.misc.extension.jumpTargets
 import app.morphe.patches.instagram.misc.extension.parameterRegister
->>>>>>> upstream/main
 import app.morphe.patches.instagram.misc.extension.requireStatusMethod
 import app.morphe.patches.instagram.misc.extension.uniqueMethod
 import app.morphe.patches.instagram.misc.flags.FlagLoad
@@ -47,13 +43,6 @@ private const val STORY_ITEM = "Lcom/instagram/model/reels/ReelItem;"
  */
 internal const val STORY_LOOP_FLAG = 0x810f9f00015620L
 
-internal val CANDIDATE_STORY_LOOP_FLAGS = listOf(
-    STORY_LOOP_FLAG,    // 454 (386014758)
-    0x810fdd000155ffL,  // 453
-    0x810ff8000155deL,  // 452
-    0x81100c000156bdL,  // 451
-)
-
 /**
  * Plays a story again when it ends instead of moving on. In the default selection with its switch
  * off, since moving on is how stories work. It answers Instagram's own loop test rather than rewinding
@@ -73,32 +62,16 @@ val loopStoryPatch = bytecodePatch(
 
     execute {
         requireStatusMethod("storyLoop")
-        if (loopStoriesWhereItFits()) {
-            enableStatus("storyLoop")
-        }
+        loopStories()
+        enableStatus("storyLoop")
     }
 }
 
 /**
-<<<<<<< HEAD
- * What [loopStories] applies, or false with a warning in the patch log when the build differs,
- * so other patches still apply cleanly without failing the patch session.
- */
-internal fun BytecodePatchContext.loopStoriesWhereItFits(): Boolean = try {
-    loopStories()
-    true
-} catch (unknown: PatchException) {
-    patchLog.warning("${unknown.message}. Loop a story goes in without story loop hook.")
-    false
-}
-
-/** Finds the loop test's read with [findStoryLoop] and has the extension answer it through [LOOP]. */
-=======
  * Finds the loop test's read with [findStoryLoop] and has the extension answer it through [LOOP].
  * The check tells [ASKING] its story item first thing, so a story looped from its menu (#610) gets
  * its yes. Nothing jumps back to the check's start, or this fails before anything changes.
  */
->>>>>>> upstream/main
 internal fun BytecodePatchContext.loopStories() {
     val read = findStoryLoop()
     val check = mutableClassDefBy(read.type).methods.single {
@@ -123,10 +96,8 @@ private fun refuse(detail: String): Nothing = throw PatchException("$PATCH: $det
 internal fun BytecodePatchContext.findStoryLoop(): FlagLoad {
     val done = uniqueMethod(PATCH, "finished story handler", StoryItemDoneFingerprint)
     val flag = STORY_LOOP_FLAG.toString(16)
-    val reads = CANDIDATE_STORY_LOOP_FLAGS.map { findFlagLoads(PATCH, it, "Z") }
-        .firstOrNull { it.size == 1 }
-        ?: refuse("expected one read of the story loop flag $flag, found ${findFlagLoads(PATCH, STORY_LOOP_FLAG, "Z").size}")
-    val read = reads.single()
+    val reads = findFlagLoads(PATCH, STORY_LOOP_FLAG, "Z")
+    val read = reads.singleOrNull() ?: refuse("expected one read of the story loop flag $flag, found ${reads.size}")
     val where = "${read.type}->${read.name}"
     if (read.shared) refuse("the read of $flag in $where is shared with another flag")
     if (read.type != STORY_VIEWER || read.parameters != listOf(STORY_ITEM) || read.returnType != "Z") {

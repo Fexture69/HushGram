@@ -51,14 +51,6 @@ internal const val BIND_LIVE_SEEN_BUTTON = "$LIVE_SEEN_BUTTON->bind(Landroid/vie
  */
 internal const val LIVE_HEADER_OPTIONS = 0x7f0b1f45
 internal const val LIVE_HEADER_CLOSE = 0x7f0b1f3d
-
-/** Known candidate live header (options, close) id pairs across Instagram versions/splits. */
-internal val CANDIDATE_LIVE_HEADER_PAIRS = listOf(
-    LIVE_HEADER_OPTIONS to LIVE_HEADER_CLOSE, // 0x7f0b1f45 to 0x7f0b1f3d
-    0x7f0b1f5f to 0x7f0b1f57,                 // 453
-    0x7f0b1f46 to 0x7f0b1f3e,
-    0x7f0b1f44 to 0x7f0b1f3c,
-)
 internal const val VIEW = "Landroid/view/View;"
 
 /**
@@ -100,9 +92,9 @@ val viewLiveAnonymouslyPatch = bytecodePatch(
     execute {
         requireStatusMethod("liveSeen")
         val heartbeat = findViewerHeartbeat()
-        val header = findLiveHeaderWhereItFits()
+        val header = findLiveHeader()
         holdViewerHeartbeat(heartbeat)
-        if (header != null) bindLiveSeenButton(header)
+        bindLiveSeenButton(header)
         enableStatus("liveSeen")
     }
 }
@@ -166,15 +158,11 @@ private fun broadcastRegister(call: Instruction): Int = when (call) {
  * still in its parameter register there.
  */
 internal fun BytecodePatchContext.findLiveHeader(): LiveHeaderSite {
-    val (optionsId, closeId) = CANDIDATE_LIVE_HEADER_PAIRS.firstOrNull { (opt, _) ->
-        classesLoading(opt.toLong()).isNotEmpty()
-    } ?: (LIVE_HEADER_OPTIONS to LIVE_HEADER_CLOSE)
-
-    val holders = classesLoading(optionsId.toLong()).flatMap { classDef ->
+    val holders = classesLoading(LIVE_HEADER_OPTIONS.toLong()).flatMap { classDef ->
         classDef.methods.filter { method ->
             method.name == "<init>" && method.parameterTypes.firstOrNull()?.toString() == VIEW && method.implementation != null &&
                 method.implementation!!.instructions.mapNotNull { (it as? NarrowLiteralInstruction)?.narrowLiteral }
-                    .containsAll(listOf(optionsId, closeId))
+                    .containsAll(listOf(LIVE_HEADER_OPTIONS, LIVE_HEADER_CLOSE))
         }.map { classDef to it }
     }
     val (owner, found) = holders.singleOrNull()
@@ -187,14 +175,6 @@ internal fun BytecodePatchContext.findLiveHeader(): LiveHeaderSite {
     val end = ends.singleOrNull() ?: refuse("expected one return in the live header constructor, found ${ends.size}")
     constructor.requireParameterIntact(LIVE_SEEN_PATCH, 0, listOf(end))
     return LiveHeaderSite(constructor, end)
-}
-
-/** What [findLiveHeader] finds, or null with a warning in the patch log when the build differs. */
-internal fun BytecodePatchContext.findLiveHeaderWhereItFits(): LiveHeaderSite? = try {
-    findLiveHeader()
-} catch (unknown: PatchException) {
-    app.morphe.patches.instagram.misc.extension.patchLog.warning("${unknown.message}. View live anonymously goes in without live seen button binding.")
-    null
 }
 
 /** While the switch is on, the tick returns as if the heartbeat were done, before it's asked for, unless the live is marked. */

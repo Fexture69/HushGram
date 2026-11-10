@@ -104,16 +104,12 @@ final class SettingsScreenRow {
         row.addView(chevron, new LinearLayout.LayoutParams(dp(context, 16), dp(context, 24)));
 
         row.setOnClickListener(tapped -> {
-            try {
-                Activity activity = activityOf(tapped.getContext());
-                if (activity == null) {
-                    Logger.printInfo(() -> "Settings row: no activity behind the row's context");
-                    return;
-                }
-                SettingsEntry.open(activity);
-            } catch (Throwable t) {
-                Logger.printException(() -> "Settings row tap failed", t);
+            Activity activity = activityOf(tapped.getContext());
+            if (activity == null) {
+                Logger.printInfo(() -> "Settings row: no activity behind the row's context");
+                return;
             }
+            SettingsEntry.open(activity);
         });
         return row;
     }
