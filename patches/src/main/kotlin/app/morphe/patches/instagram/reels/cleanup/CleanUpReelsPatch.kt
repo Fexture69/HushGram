@@ -92,14 +92,12 @@ val cleanUpReelsPatch = bytecodePatch(
         requireStatusMethod("reelDeclutter")
         val clearMode = findClearModeWhereItFits()
         val clearModeStubs = clearModeStubs()
-        val friendsTab = findFriendsTabWhereItFits()
+        val friendsTab = findFriendsTab()
         val friendsRow = findFriendsRow()
         val friendPicks = findFriendPicks()
         val reelsPage = findReelsPage(PATCH)
         hideReelParts()
-        if (friendsTab != null) {
-            markFriendsTab(friendsTab)
-        }
+        markFriendsTab(friendsTab)
         keepFriendsRow(friendsRow)
         pickFriends(reelsPage, friendPicks)
         if (clearMode != null) {
