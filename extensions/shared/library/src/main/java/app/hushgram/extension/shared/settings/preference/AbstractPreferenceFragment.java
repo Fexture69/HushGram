@@ -766,14 +766,12 @@ public abstract class AbstractPreferenceFragment extends PreferenceFragment {
 
     private void renderInitializationError(@Nullable Throwable ex) {
         lastInitializationError = ex;
-        Activity activity = getActivity();
-        if (activity == null) {
-            activity = Utils.getActivity();
-        }
-        if (activity == null) {
+        Activity hostActivity = getActivity() != null ? getActivity() : Utils.getActivity();
+        if (hostActivity == null) {
             Logger.printException(() -> "Cannot render settings initialization error without an Activity");
             return;
         }
+        final Activity activity = hostActivity;
 
         try {
             Context context = pageContext(activity);
