@@ -803,6 +803,11 @@ once-call Lapp/hushgram/extension/instagram/direct/LastActive;->exact(J)Ljava/la
 # on 452, A1U on 454). Left out, a finished story moves on; twice or elsewhere, it isn't the answer the patch
 # wrote.
 once-call Lapp/hushgram/extension/instagram/stories/StoryLoop;->loop(I)Z in instance (Lcom/instagram/model/reels/ReelItem;)Z holding const:0x810f9f00015620
+# Loop this story (#610) has the same check tell asking() which story item it's about, first thing,
+# so loop() can say yes for one story looped from its menu. Left out, Loop this story loops nothing;
+# twice or elsewhere, it isn't the item the patch handed on.
+start-call Lapp/hushgram/extension/instagram/stories/StoryLoop;->asking(Ljava/lang/Object;)V in instance (Lcom/instagram/model/reels/ReelItem;)Z holding const:0x810f9f00015620
+once-call Lapp/hushgram/extension/instagram/stories/StoryLoop;->asking(Ljava/lang/Object;)V in instance (Lcom/instagram/model/reels/ReelItem;)Z holding const:0x810f9f00015620
 # Smooth story opening passes the story viewer animator's spring stiffness and damping ratio
 # through stiffness() and damping() right before its constructor sets them (#409). The constructor
 # holds no string, so the rules name the class by the reveal it logs and pick the constructor by
@@ -1020,6 +1025,14 @@ once-call Lapp/hushgram/extension/instagram/feed/HiddenAccounts;->homeSession(Lj
 # the list stays the last new account's after switching back to an earlier one.
 start-call Lapp/hushgram/extension/instagram/feed/HiddenAccounts;->homeSession(Ljava/lang/Object;)V in instance (L*;)V holding MainFeedCacheDataSource.start feed_schedule_initial_cache_load
 once-call Lapp/hushgram/extension/instagram/feed/HiddenAccounts;->homeSession(Ljava/lang/Object;)V in instance (L*;)V holding MainFeedCacheDataSource.start feed_schedule_initial_cache_load
+# Keep hidden accounts in Favorites (#601) reads which feed each request for a page of Home is for. Every feed/timeline
+# request, For you, Following and Favorites alike, is built in one static method holding both strings below, which puts
+# the paging source in a map and then copies that map into the request; the map goes to homeRequest right before the
+# copy, branches onto it included. Left out, Favorites leaves hidden accounts' posts out like the other feeds.
+once-call Lapp/hushgram/extension/instagram/feed/HiddenAccounts;->homeRequest(Ljava/util/Map;)V in static (Landroid/content/Context;LX/*;LX/*;Lcom/instagram/common/session/UserSession;LX/*;LX/*;)V pooled holding pagination_source is_feed_eager_refresh
+# On 454 Favorites' paging source rides in the request config's extra parameters instead, which the same builder reads
+# later; they go to homeRequestExtras right after that read.
+once-call Lapp/hushgram/extension/instagram/feed/HiddenAccounts;->homeRequestExtras(Ljava/util/Map;)V in static (Landroid/content/Context;LX/*;LX/*;Lcom/instagram/common/session/UserSession;LX/*;LX/*;)V pooled holding pagination_source is_feed_eager_refresh
 #
 # Hide suggested posts answers the home feed adapter's "no next page" flag through feedEnded() at
 # each of its two reads: the method adding the loading row, and the adapter's empty check. 452

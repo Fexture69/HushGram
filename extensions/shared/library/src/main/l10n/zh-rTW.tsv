@@ -602,6 +602,7 @@ Puts every notification from Instagram in one group that shows how many it holds
 Right away	立即
 Set a phone screen lock so HushGram can lock Instagram.	請先在手機上設定螢幕鎖定，HushGram 才能鎖定 Instagram。
 Set a phone screen lock so HushGram can lock messages.	請先在手機上設定螢幕鎖定，HushGram 才能鎖定私訊。
+Set a phone screen lock so HushGram can lock Saved.	請先在手機上設定螢幕鎖定，HushGram 才能鎖定「已儲存」。
 Hides the cards between posts that ask you to rate what you saw.	隱藏貼文之間請你評價所看內容的卡片。
 Hides the rows of products to shop and live shopping that Instagram puts between posts, and the shop tiles in Explore. Posts with tagged products don't show the shopping bag.	隱藏 Instagram 在貼文之間插入的商品與直播購物橫列，以及探索中的商店方塊。標註商品的貼文也不會顯示購物袋。
 Unlock	解鎖
@@ -1977,6 +1978,36 @@ Sound didn't change	聲音未變更
 # context: Stories switch that moves the row along a story's bottom (Send message box, like, share) off the story at a large font (#598)
 Keep story buttons below the story	將限時動態按鈕留在限時動態下方
 With a large font or display size, the reply box and buttons at the bottom of a story sit in the space under it instead of covering the story.	字型或顯示大小較大時，限時動態底部的回覆框和按鈕會放在下方的空白處，而不會遮住限時動態。
+# context: switch under Hidden accounts; Favorites, For you and Following are Instagram's Home feed choices (#601)
+Keep hidden accounts in Favorites	在「最愛」保留隱藏的帳號
+Posts from your hidden accounts still show in Favorites. For you and Following leave them out. Pull down on Home to refresh after changing it.	隱藏帳號的貼文仍會出現在「最愛」。「為你推薦」與「追蹤中」不會顯示這些貼文。變更後請下拉重新整理首頁。
+# context: switch next to Lock your messages; Saved is Instagram's page of your saved posts and collections (#597)
+Lock Saved	鎖定「已儲存」
+Saved and everything in it stay covered until your fingerprint, face or screen lock says it's you.	「已儲存」及其中的所有內容都會被遮住，直到透過指紋、臉部或螢幕鎖定驗證身分。
+Saved is locked	「已儲存」已鎖定
+Unlock Saved	解鎖「已儲存」
+# context: three-dot menu row on a reel or feed video with Stop videos looping on; makes only the video on screen play again and again (#610)
+Loop this video	重複播放這部影片
+Stop looping this video	停止重複播放這部影片
+# context: toasts after tapping Loop this video or Stop looping this video (#610)
+Looping this video	正在重複播放這部影片
+This video plays once	這部影片只播放一次
+Loop didn't change	重複播放未變更
+# context: second sentence of the Stop videos looping summary in HushGram settings > Playback; names the menu row Loop this video (#610)
+To loop one video anyway, tap Loop this video in its menu.	若仍想重複播放某一部影片，請在它的選單中點選「重複播放這部影片」。
+# context: row in a story's three-dot menu while Loop a story is off; makes only the story on screen play again from the start when it ends (#610)
+Loop this story	重複播放這則限時動態
+Stop looping this story	停止重複播放這則限時動態
+# context: toasts after tapping Loop this story or Stop looping this story (#610)
+Looping this story	正在重複播放這則限時動態
+This story plays once	這則限時動態只播放一次
+# context: last sentence of the Loop a story summary in HushGram settings > Stories; names the menu row Loop this story (#610)
+To loop one story, tap Loop this story in its menu.	若要重複播放某一則限時動態，請在它的選單中點選「重複播放這則限時動態」。
+# context: switch in HushGram settings > Feed; removes posts whose author is a business or creator (professional) Instagram account from Home (#579)
+Hide posts from business and creator accounts	隱藏商業和創作者帳號的貼文
+Removes posts by business and creator accounts from Home and Following, friends who use one included. Pull down on Home to refresh after changing it.	從首頁與追蹤中移除商業和創作者帳號的貼文，包括使用這類帳號的朋友。變更後請下拉重新整理首頁。
+# context: added after the summary of Hide posts from business and creator accounts; Favorites is the feed of accounts you picked at the top of Home (#579)
+Favorites still shows them.	「最愛」仍會顯示這些貼文。
 2x speed for videos in the feed	2x speed for videos in the feed
 Adds a shortcut to your saved posts in the Explore tab.	Adds a shortcut to your saved posts in the Explore tab.
 Adds a speed choice to the menu on a reel.	Adds a speed choice to the menu on a reel.
@@ -2094,3 +2125,4 @@ Discard saved overrides	Discard saved overrides
 Forgets the saved overrides from an earlier import or reset, unblocking new imports.	Forgets the saved overrides from an earlier import or reset, unblocking new imports.
 No saved overrides to discard.	No saved overrides to discard.
 Saved overrides discarded. You can now import overrides.	Saved overrides discarded. You can now import overrides.
+Copy	Copy

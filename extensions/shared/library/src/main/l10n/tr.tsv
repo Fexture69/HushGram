@@ -597,6 +597,7 @@ Puts every notification from Instagram in one group that shows how many it holds
 Right away	Hemen
 Set a phone screen lock so HushGram can lock Instagram.	Instagram'ı kilitlemek için ekran kilidi kur.
 Set a phone screen lock so HushGram can lock messages.	Mesajları kilitlemek için ekran kilidi kur.
+Set a phone screen lock so HushGram can lock Saved.	Kaydedilenler'i kilitlemek için ekran kilidi kur.
 Hides the cards between posts that ask you to rate what you saw.	Gönderiler arasında gördüklerini puanlamanı isteyen kartları gizler.
 Hides the rows of products to shop and live shopping that Instagram puts between posts, and the shop tiles in Explore. Posts with tagged products don't show the shopping bag.	Instagram'ın gönderiler arasına koyduğu alışveriş ürünü satırlarını ve canlı alışverişi, ayrıca Keşfet'teki mağaza kutucuklarını gizler. Ürün etiketli gönderilerde alışveriş çantası görünmez.
 Unlock	Kilidi aç
@@ -1974,6 +1975,36 @@ Sound didn't change	Ses değişmedi
 # context: Stories switch that moves the row along a story's bottom (Send message box, like, share) off the story at a large font (#598)
 Keep story buttons below the story	Hikaye düğmelerini hikayenin altında tut
 With a large font or display size, the reply box and buttons at the bottom of a story sit in the space under it instead of covering the story.	Yazı tipi veya ekran boyutu büyükken, bir hikayenin altındaki yanıt kutusu ve düğmeler hikayeyi kapatmak yerine altındaki boşlukta durur.
+# context: switch under Hidden accounts; Favorites, For you and Following are Instagram's Home feed choices (#601)
+Keep hidden accounts in Favorites	Gizli hesapları Favoriler'de tut
+Posts from your hidden accounts still show in Favorites. For you and Following leave them out. Pull down on Home to refresh after changing it.	Gizli hesaplarının gönderileri Favoriler'de görünmeye devam eder. Senin için ve Takip Edilenler onları göstermez. Değiştirdikten sonra yenilemek için Ana Sayfa'yı aşağı çek.
+# context: switch next to Lock your messages; Saved is Instagram's page of your saved posts and collections (#597)
+Lock Saved	Kaydedilenler'i kilitle
+Saved and everything in it stay covered until your fingerprint, face or screen lock says it's you.	Parmak izin, yüzün veya ekran kilidin sen olduğunu doğrulayana kadar Kaydedilenler ve içindeki her şey kapalı kalır.
+Saved is locked	Kaydedilenler kilitli
+Unlock Saved	Kaydedilenler'in kilidini aç
+# context: three-dot menu row on a reel or feed video with Stop videos looping on; makes only the video on screen play again and again (#610)
+Loop this video	Bu videoyu tekrarla
+Stop looping this video	Bu videoyu tekrarlamayı durdur
+# context: toasts after tapping Loop this video or Stop looping this video (#610)
+Looping this video	Bu video tekrarlanıyor
+This video plays once	Bu video bir kez oynatılır
+Loop didn't change	Tekrar değişmedi
+# context: second sentence of the Stop videos looping summary in HushGram settings > Playback; names the menu row Loop this video (#610)
+To loop one video anyway, tap Loop this video in its menu.	Yine de tek bir videoyu tekrarlamak için menüsünde Bu videoyu tekrarla'ya dokun.
+# context: row in a story's three-dot menu while Loop a story is off; makes only the story on screen play again from the start when it ends (#610)
+Loop this story	Bu hikayeyi tekrarla
+Stop looping this story	Bu hikayeyi tekrarlamayı durdur
+# context: toasts after tapping Loop this story or Stop looping this story (#610)
+Looping this story	Bu hikaye tekrarlanıyor
+This story plays once	Bu hikaye bir kez oynatılır
+# context: last sentence of the Loop a story summary in HushGram settings > Stories; names the menu row Loop this story (#610)
+To loop one story, tap Loop this story in its menu.	Tek bir hikayeyi tekrarlamak için menüsünde Bu hikayeyi tekrarla'ya dokun.
+# context: switch in HushGram settings > Feed; removes posts whose author is a business or creator (professional) Instagram account from Home (#579)
+Hide posts from business and creator accounts	İşletme ve içerik üreticisi hesaplarının gönderilerini gizle
+Removes posts by business and creator accounts from Home and Following, friends who use one included. Pull down on Home to refresh after changing it.	İşletme ve içerik üreticisi hesaplarının gönderilerini, bu hesaplardan birini kullanan arkadaşların dahil, Ana Sayfa'dan ve Takip Edilenler'den kaldırır. Değiştirdikten sonra yenilemek için Ana Sayfa'yı aşağı çek.
+# context: added after the summary of Hide posts from business and creator accounts; Favorites is the feed of accounts you picked at the top of Home (#579)
+Favorites still shows them.	Favoriler onları göstermeye devam eder.
 2x speed for videos in the feed	2x speed for videos in the feed
 Adds a shortcut to your saved posts in the Explore tab.	Adds a shortcut to your saved posts in the Explore tab.
 Adds a speed choice to the menu on a reel.	Adds a speed choice to the menu on a reel.
@@ -2091,3 +2122,4 @@ Discard saved overrides	Discard saved overrides
 Forgets the saved overrides from an earlier import or reset, unblocking new imports.	Forgets the saved overrides from an earlier import or reset, unblocking new imports.
 No saved overrides to discard.	No saved overrides to discard.
 Saved overrides discarded. You can now import overrides.	Saved overrides discarded. You can now import overrides.
+Copy	Copy

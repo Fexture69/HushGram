@@ -595,6 +595,7 @@ Puts every notification from Instagram in one group that shows how many it holds
 Right away	ทันที
 Set a phone screen lock so HushGram can lock Instagram.	ตั้งล็อกหน้าจอก่อน HushGram จึงจะล็อก Instagram ได้
 Set a phone screen lock so HushGram can lock messages.	ตั้งค่าการล็อกหน้าจอโทรศัพท์เพื่อให้ HushGram สามารถล็อกข้อความได้
+Set a phone screen lock so HushGram can lock Saved.	ตั้งล็อกหน้าจอก่อน HushGram จึงจะล็อก "บันทึกแล้ว" ได้
 Hides the cards between posts that ask you to rate what you saw.	ซ่อนการ์ดระหว่างโพสต์ที่ขอให้คุณให้คะแนนสิ่งที่คุณเห็น
 Hides the rows of products to shop and live shopping that Instagram puts between posts, and the shop tiles in Explore. Posts with tagged products don't show the shopping bag.	ซ่อนแถวสินค้าสำหรับเลือกซื้อและการช็อปปิ้งแบบสดที่ Instagram แทรกไว้ระหว่างโพสต์ รวมถึงไทล์ร้านค้าในหน้าสำรวจ โพสต์ที่มีการแท็กสินค้าจะไม่แสดงไอคอนถุงช็อปปิ้ง
 Unlock	ปลดล็อก
@@ -1971,6 +1972,36 @@ Sound didn't change	ไม่ได้เปลี่ยนเสียง
 # context: Stories switch that moves the row along a story's bottom (Send message box, like, share) off the story at a large font (#598)
 Keep story buttons below the story	ให้ปุ่มสตอรี่อยู่ใต้สตอรี่
 With a large font or display size, the reply box and buttons at the bottom of a story sit in the space under it instead of covering the story.	เมื่อใช้ฟอนต์หรือขนาดการแสดงผลใหญ่ ช่องตอบกลับและปุ่มด้านล่างสตอรี่จะอยู่ในพื้นที่ว่างใต้สตอรี่ แทนที่จะบังสตอรี่
+# context: switch under Hidden accounts; Favorites, For you and Following are Instagram's Home feed choices (#601)
+Keep hidden accounts in Favorites	แสดงบัญชีที่ซ่อนไว้ใน "รายการโปรด"
+Posts from your hidden accounts still show in Favorites. For you and Following leave them out. Pull down on Home to refresh after changing it.	โพสต์จากบัญชีที่คุณซ่อนไว้จะยังแสดงใน "รายการโปรด" ส่วน "สำหรับคุณ" และ "กำลังติดตาม" จะไม่แสดงโพสต์เหล่านั้น ให้ดึงหน้าหลักลงเพื่อรีเฟรชหลังจากเปลี่ยนการตั้งค่านี้
+# context: switch next to Lock your messages; Saved is Instagram's page of your saved posts and collections (#597)
+Lock Saved	ล็อก "บันทึกแล้ว"
+Saved and everything in it stay covered until your fingerprint, face or screen lock says it's you.	"บันทึกแล้ว" และทุกอย่างในนั้นจะถูกปิดกั้นไว้จนกว่าลายนิ้วมือ ใบหน้า หรือการล็อกหน้าจอจะยืนยันตัวตนของคุณ
+Saved is locked	"บันทึกแล้ว" ถูกล็อกอยู่
+Unlock Saved	ปลดล็อก "บันทึกแล้ว"
+# context: three-dot menu row on a reel or feed video with Stop videos looping on; makes only the video on screen play again and again (#610)
+Loop this video	เล่นวิดีโอนี้ซ้ำ
+Stop looping this video	หยุดเล่นวิดีโอนี้ซ้ำ
+# context: toasts after tapping Loop this video or Stop looping this video (#610)
+Looping this video	กำลังเล่นวิดีโอนี้ซ้ำ
+This video plays once	วิดีโอนี้จะเล่นครั้งเดียว
+Loop didn't change	ไม่ได้เปลี่ยนการเล่นซ้ำ
+# context: second sentence of the Stop videos looping summary in HushGram settings > Playback; names the menu row Loop this video (#610)
+To loop one video anyway, tap Loop this video in its menu.	หากต้องการเล่นวิดีโอเดียวซ้ำ ให้แตะ เล่นวิดีโอนี้ซ้ำ ในเมนูของวิดีโอนั้น
+# context: row in a story's three-dot menu while Loop a story is off; makes only the story on screen play again from the start when it ends (#610)
+Loop this story	เล่นสตอรี่นี้ซ้ำ
+Stop looping this story	หยุดเล่นสตอรี่นี้ซ้ำ
+# context: toasts after tapping Loop this story or Stop looping this story (#610)
+Looping this story	กำลังเล่นสตอรี่นี้ซ้ำ
+This story plays once	สตอรี่นี้จะเล่นครั้งเดียว
+# context: last sentence of the Loop a story summary in HushGram settings > Stories; names the menu row Loop this story (#610)
+To loop one story, tap Loop this story in its menu.	หากต้องการเล่นสตอรี่เดียวซ้ำ ให้แตะ เล่นสตอรี่นี้ซ้ำ ในเมนูของสตอรี่นั้น
+# context: switch in HushGram settings > Feed; removes posts whose author is a business or creator (professional) Instagram account from Home (#579)
+Hide posts from business and creator accounts	ซ่อนโพสต์จากบัญชีธุรกิจและบัญชีครีเอเตอร์
+Removes posts by business and creator accounts from Home and Following, friends who use one included. Pull down on Home to refresh after changing it.	ลบโพสต์จากบัญชีธุรกิจและบัญชีครีเอเตอร์ออกจากหน้าหลักและ "กำลังติดตาม" รวมถึงเพื่อนที่ใช้บัญชีประเภทนี้ ให้ดึงหน้าหลักลงเพื่อรีเฟรชหลังจากเปลี่ยนการตั้งค่านี้
+# context: added after the summary of Hide posts from business and creator accounts; Favorites is the feed of accounts you picked at the top of Home (#579)
+Favorites still shows them.	"รายการโปรด" ยังคงแสดงโพสต์เหล่านี้
 %1$d entries left out because they repeat or don't fit.	%1$d entries left out because they repeat or don't fit.
 %1$d overrides from a different Instagram version don't fit this one and were left out.	%1$d overrides from a different Instagram version don't fit this one and were left out.
 2x speed for videos in the feed	2x speed for videos in the feed
@@ -2088,3 +2119,4 @@ Upload stories at higher quality	Upload stories at higher quality
 Use HushGram's setting names	Use HushGram's setting names
 Usernames in Messages and notifications	Usernames in Messages and notifications
 Whitehat settings are unavailable on this screen. Open HushGram settings from Home while signed in.	Whitehat settings are unavailable on this screen. Open HushGram settings from Home while signed in.
+Copy	Copy

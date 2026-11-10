@@ -7,8 +7,12 @@ Every HushGram release, newest first.
 ### Features
 
 * HushGram's settings are now in Thai, thanks to MangaThatsFine in #593.
+* `Keep hidden accounts in Favorites` sits under `Hidden accounts` in Feed. Turn it on and posts from accounts you've hidden still show when Home is on Favorites, while For you and Following leave them out. Starts off. Asked for in #601.
+* `Hide posts from business and creator accounts` under Feed takes posts by business and creator accounts out of Home and Following, friends who use one included. A collab post goes too when one of its authors is a business or creator account. Favorites still shows them. Starts off. Asked for in #579.
+* `Lock Saved` sits with the message locks in Messages. Saved, your collections and the search inside Saved stay covered until your fingerprint, face or screen lock says it's you, and your messages stay as they were. Starts off. Asked for in #597.
 * `Mute button on reels` under Reels puts a speaker icon in the column beside a reel. Tap it to turn the sound off or on while the reel keeps playing. `Mute button in clear mode` keeps it next to clear mode's exit button too. Both start off. Asked for in #608.
 * `Upload stories at full quality` adds `Video resolution` up to 1440p, `Video frame rate` up to 60 fps and `Photo quality` up to 100. Instagram still re-encodes on its servers, so these set what leaves your phone. Asked for in #37.
+* `Loop this video` in the menu of a feed video or a reel loops just that one while `Stop videos looping` keeps the rest playing once. Tap it again to let the video stop at its last frame. A video that already stopped at its end plays again from the start. `Loop this story` in a story's menu does the same for one story while `Loop a story` is off. Asked for in #610.
 * `Seek bar shape` under Feed gives the seek bars on feed videos, stories and reels a new look: a thin line, a thicker rounded bar, a bar split by a tall handle, or a wave. They grow while you drag. Asked for in #586 and #592.
 * `Preview while you drag a seek bar` under Feed shows the time above your finger on feed videos, stories and reels, with a small picture of that moment when Instagram has one. Most feed videos don't come with those pictures, so there the paused video itself follows your finger. A reel or story playing faster or slower shows its speed on the card too. Asked for in #567 and #592.
 * `Keep the tab bar on a reel's profile` keeps the tab bar on a profile you open from a reel, and Back goes back to the reel. It starts off, in the Reels section of HushGram settings.
@@ -75,6 +79,9 @@ Every HushGram release, newest first.
 
 ### Bug Fixes
 
+* Picking `Download` or `Loop this story` in a story's menu plays the story on once the menu closes. It used to stay paused until you tapped it. Reported in #610.
+* Home stops asking for more pages after a few short ones in a row again, with `Hide suggested posts` or another Feed switch taking most of each page out. Instagram loaded a page of its own right behind each one HushGram asked for, and that page started the count over, so Home kept loading page after page. Reported in #579.
+* The `See who a story mentions` list opens again when you come back to the story after opening a post on a profile you picked from it. Before, it only came back if you didn't tap anything on that profile. Reported in #403.
 * With `Peek at the next carousel page` on, Instagram no longer crashes while you scroll Home past carousels. When Instagram reused a carousel for another post, it could look for a page slot the carousel no longer had.
 * With `Peek at the next carousel page` on, `Ambient light` glows around the smaller page you see instead of leaving a square behind it, where the full-size page would have been. Reported in #585.
 * With `Full size covers` on, Explore scrolls smoothly again. Each grid picture was decoded at full size for a tile a third of the screen wide, so the grid stuttered and used a lot more memory. Pictures are now decoded just big enough to stay sharp in their tile, and an opened post still shows them at full size. Reported in #595.
@@ -127,6 +134,7 @@ Every HushGram release, newest first.
 * `Rounded post corners` now rounds the top corners of a reel in the feed too. The shadow behind its name row stayed square over them, which showed with `Ambient light` on. Reported in #571.
 * New `Keep the comment bar's space` switch under the comment bar switches in Reels. A reel opened from a post or profile used to slide into the hidden bar's space. This keeps that space empty so nothing moves. Reported in #523.
 * With `Seek bar on feed videos` on, a swipe up or down that starts on a video's seek bar scrolls Home instead of doing nothing. Dragging along the bar still moves through the video.
+* The Saved bookmark on your profile opens Saved again. Instagram now ignores its own Saved link unless Instagram itself sent it, so tapping the bookmark did nothing. Reported in #492.
 
 ## 0.0.19 (2026-11-06)
 

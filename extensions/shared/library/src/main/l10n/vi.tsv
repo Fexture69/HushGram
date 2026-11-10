@@ -597,6 +597,7 @@ Puts every notification from Instagram in one group that shows how many it holds
 Right away	Ngay lập tức
 Set a phone screen lock so HushGram can lock Instagram.	Hãy đặt khóa màn hình để HushGram khóa Instagram.
 Set a phone screen lock so HushGram can lock messages.	Hãy đặt khóa màn hình để HushGram khóa tin nhắn.
+Set a phone screen lock so HushGram can lock Saved.	Hãy đặt khóa màn hình để HushGram khóa mục Đã lưu.
 Hides the cards between posts that ask you to rate what you saw.	Ẩn các thẻ giữa bài viết hỏi bạn đánh giá những gì vừa xem.
 Hides the rows of products to shop and live shopping that Instagram puts between posts, and the shop tiles in Explore. Posts with tagged products don't show the shopping bag.	Ẩn các hàng sản phẩm để mua sắm và mua sắm trực tiếp mà Instagram chèn giữa bài viết, cùng ô cửa hàng trong Khám phá. Bài viết có gắn thẻ sản phẩm không hiện túi mua sắm.
 Unlock	Mở khóa
@@ -1891,6 +1892,36 @@ Sound didn't change	Không đổi được âm thanh
 # context: Stories switch that moves the row along a story's bottom (Send message box, like, share) off the story at a large font (#598)
 Keep story buttons below the story	Giữ nút tin bên dưới tin
 With a large font or display size, the reply box and buttons at the bottom of a story sit in the space under it instead of covering the story.	Khi phông chữ hoặc kích thước hiển thị lớn, ô trả lời và các nút ở cuối tin nằm trong khoảng trống bên dưới thay vì che tin.
+# context: switch under Hidden accounts; Favorites, For you and Following are Instagram's Home feed choices (#601)
+Keep hidden accounts in Favorites	Giữ tài khoản bị ẩn trong Yêu thích
+Posts from your hidden accounts still show in Favorites. For you and Following leave them out. Pull down on Home to refresh after changing it.	Bài viết từ các tài khoản bạn đã ẩn vẫn hiện trong Yêu thích. Dành cho bạn và Đang theo dõi sẽ bỏ chúng ra. Hãy kéo xuống trên trang chủ để làm mới sau khi thay đổi.
+# context: switch next to Lock your messages; Saved is Instagram's page of your saved posts and collections (#597)
+Lock Saved	Khóa mục Đã lưu
+Saved and everything in it stay covered until your fingerprint, face or screen lock says it's you.	Mục Đã lưu và mọi thứ trong đó vẫn bị che cho đến khi vân tay, khuôn mặt hoặc khóa màn hình xác nhận là bạn.
+Saved is locked	Mục Đã lưu đã khóa
+Unlock Saved	Mở khóa mục Đã lưu
+# context: three-dot menu row on a reel or feed video with Stop videos looping on; makes only the video on screen play again and again (#610)
+Loop this video	Lặp lại video này
+Stop looping this video	Dừng lặp lại video này
+# context: toasts after tapping Loop this video or Stop looping this video (#610)
+Looping this video	Đang lặp lại video này
+This video plays once	Video này chỉ phát một lần
+Loop didn't change	Không đổi được chế độ lặp
+# context: second sentence of the Stop videos looping summary in HushGram settings > Playback; names the menu row Loop this video (#610)
+To loop one video anyway, tap Loop this video in its menu.	Để vẫn lặp lại riêng một video, nhấn Lặp lại video này trong menu của video đó.
+# context: row in a story's three-dot menu while Loop a story is off; makes only the story on screen play again from the start when it ends (#610)
+Loop this story	Lặp lại tin này
+Stop looping this story	Dừng lặp lại tin này
+# context: toasts after tapping Loop this story or Stop looping this story (#610)
+Looping this story	Đang lặp lại tin này
+This story plays once	Tin này chỉ phát một lần
+# context: last sentence of the Loop a story summary in HushGram settings > Stories; names the menu row Loop this story (#610)
+To loop one story, tap Loop this story in its menu.	Để lặp lại riêng một tin, nhấn Lặp lại tin này trong menu của tin đó.
+# context: switch in HushGram settings > Feed; removes posts whose author is a business or creator (professional) Instagram account from Home (#579)
+Hide posts from business and creator accounts	Ẩn bài viết từ tài khoản doanh nghiệp và nhà sáng tạo
+Removes posts by business and creator accounts from Home and Following, friends who use one included. Pull down on Home to refresh after changing it.	Gỡ bài viết của tài khoản doanh nghiệp và nhà sáng tạo khỏi trang chủ và Đang theo dõi, kể cả bạn bè dùng loại tài khoản này. Hãy kéo xuống trên trang chủ để làm mới sau khi thay đổi.
+# context: added after the summary of Hide posts from business and creator accounts; Favorites is the feed of accounts you picked at the top of Home (#579)
+Favorites still shows them.	Yêu thích vẫn hiển thị chúng.
 2x speed for videos in the feed	2x speed for videos in the feed
 Adds a shortcut to your saved posts in the Explore tab.	Adds a shortcut to your saved posts in the Explore tab.
 Adds a speed choice to the menu on a reel.	Adds a speed choice to the menu on a reel.
@@ -2008,3 +2039,4 @@ Discard saved overrides	Discard saved overrides
 Forgets the saved overrides from an earlier import or reset, unblocking new imports.	Forgets the saved overrides from an earlier import or reset, unblocking new imports.
 No saved overrides to discard.	No saved overrides to discard.
 Saved overrides discarded. You can now import overrides.	Saved overrides discarded. You can now import overrides.
+Copy	Copy

@@ -2571,7 +2571,7 @@
     },
     {
       "name": "Hide suggested posts",
-      "description": "Removes posts from accounts you don't follow, suggested accounts, surveys and shopping rows from Home. It also takes shop tiles out of Explore and the shopping bag off posts with tagged products. Posts from accounts you follow stay. Extra switches can also hide the 'Are you interested in this post?' question on Home and Reels, the caught up card, rows of stories about to expire, all videos, photos, carousels, posts you've liked or posts from accounts you pick. A post's menu has Hide posts from this account to add one to that list, and those posts leave Home on the next refresh. On by default. Turn it off in HushGram settings > Feed.",
+      "description": "Removes posts from accounts you don't follow, suggested accounts, surveys and shopping rows from Home. It also takes shop tiles out of Explore and the shopping bag off posts with tagged products. Posts from accounts you follow stay. Extra switches can also hide the 'Are you interested in this post?' question on Home and Reels, the caught up card, rows of stories about to expire, all videos, photos, carousels, posts you've liked, posts from business and creator accounts or posts from accounts you pick. A post's menu has Hide posts from this account to add one to that list, and those posts leave Home on the next refresh. On by default. Turn it off in HushGram settings > Feed.",
       "category": "Feed",
       "use": true,
       "dependencies": [
@@ -4040,7 +4040,7 @@
     },
     {
       "name": "Loop a story",
-      "description": "Plays a story again from the start when it ends, instead of moving on to the next one. Tap or swipe to move on. Starts off. Turn it on in HushGram settings > Stories.",
+      "description": "Plays a story again from the start when it ends, instead of moving on to the next one. Tap or swipe to move on. With it off, Loop this story in a story's menu loops just that one. Starts off. Turn it on in HushGram settings > Stories.",
       "category": "Stories",
       "use": true,
       "dependencies": [
@@ -6164,7 +6164,7 @@
     },
     {
       "name": "Stop videos looping",
-      "description": "Feed videos and reels stop at their last frame instead of playing again. Reels still loop while auto scroll is on, so it can move on. Starts off. Turn it on in HushGram settings > Playback.",
+      "description": "Feed videos and reels stop at their last frame instead of playing again. Reels still loop while auto scroll is on, so it can move on. Loop this video in a video's menu loops that one anyway. Starts off. Turn it on in HushGram settings > Playback.",
       "category": "Playback",
       "use": true,
       "dependencies": [

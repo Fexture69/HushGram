@@ -761,8 +761,15 @@ public class Settings extends BaseSettings {
     public static final BooleanSetting LOCK_APP = new BooleanSetting("hushgram_lock_app", FALSE);
 
     /**
-     * How long after you leave Instagram the two locks above lock again. It starts at right away,
-     * which is what they did before the choice. It isn't a switch: the two above are.
+     * Saved, its collections and its search stay covered until the phone's lock says it's you,
+     * while the messages stay as Lock your messages leaves them
+     * ({@link app.hushgram.extension.instagram.direct.MessagesLock}). Off to start.
+     */
+    public static final BooleanSetting LOCK_SAVED = new BooleanSetting("hushgram_lock_saved", FALSE);
+
+    /**
+     * How long after you leave Instagram the locks above lock again. It starts at right away,
+     * which is what they did before the choice. It isn't a switch: the ones above are.
      */
     public static final EnumSetting<app.hushgram.extension.instagram.direct.LockDelay> LOCK_AGAIN =
             new EnumSetting<>("hushgram_lock_again", app.hushgram.extension.instagram.direct.LockDelay.RIGHT_AWAY);
@@ -828,7 +835,7 @@ public class Settings extends BaseSettings {
     static {
         // The locks keep answering what you chose while HushGram is paused or in safe mode, so
         // neither one, nor the marker file that pauses it from outside, gets around them.
-        Setting.keepWhenPaused(LOCK_MESSAGES, LOCK_APP, LOCK_AGAIN, LOCKED_CHATS,
+        Setting.keepWhenPaused(LOCK_MESSAGES, LOCK_APP, LOCK_SAVED, LOCK_AGAIN, LOCKED_CHATS,
                 UNLOCK_WITH, LOCK_PIN, LOCK_PIN_MISSES, LOCK_PIN_WAIT_UNTIL);
     }
 
@@ -1138,6 +1145,10 @@ public class Settings extends BaseSettings {
     public static final BooleanSetting HIDE_FEED_LIKED =
             new BooleanSetting("hushgram_hide_feed_liked", FALSE);
 
+    /** Posts in Home from business and creator accounts, by the author's account type (#579). Off until enabled. */
+    public static final BooleanSetting HIDE_FEED_PROFESSIONAL =
+            new BooleanSetting("hushgram_hide_feed_professional", FALSE);
+
     /**
      * The accounts whose posts Home leaves out ({@link app.hushgram.extension.instagram.feed.HiddenAccounts}),
      * a line for each: the id of the signed-in account it was hidden for, a tab, and the username.
@@ -1146,6 +1157,13 @@ public class Settings extends BaseSettings {
      */
     public static final StringSetting HIDDEN_ACCOUNTS =
             new StringSetting("hushgram_hidden_accounts", "", false, false);
+
+    /**
+     * Posts from {@link #HIDDEN_ACCOUNTS} still show in the Favorites feed, read from the paging
+     * source of Home's request (#601). Off to start.
+     */
+    public static final BooleanSetting HIDDEN_IN_FAVORITES =
+            new BooleanSetting("hushgram_hidden_in_favorites", FALSE);
 
     /**
      * The id of the account Home was last set up for, so a restart that opens settings before Home
