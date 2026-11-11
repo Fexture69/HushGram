@@ -725,6 +725,9 @@ Open comments without the keyboard	Mở bình luận mà không bật bàn phím
 Comments open with the keyboard down. A tap in the comment box, or on Reply, still brings it up.	Bình luận mở với bàn phím thu xuống. Nhấn vào ô bình luận hoặc Trả lời vẫn gọi bàn phím lên.
 Hide Follow on posts	Ẩn Theo dõi trên bài viết
 Takes the Follow and Subscribe buttons off the top of posts in your feed. The name, time and menu stay.	Gỡ các nút Theo dõi và Đăng ký khỏi đầu bài viết trong bảng feed. Tên, thời gian và menu vẫn giữ.
+# context: Feed: the switch that hides only the Subscribe button beside the author's name on a post, leaving Follow where it is (#622). Subscribe and Follow are the labels Instagram uses on those buttons.
+Hide Subscribe on posts	Ẩn Đăng ký trên bài viết
+Takes only the Subscribe button off the top of posts in your feed. Follow stays.	Chỉ gỡ nút Đăng ký khỏi đầu bài viết trong bảng feed. Theo dõi vẫn giữ.
 Takes the memories, recaps, follow anniversaries and birthday cards Instagram makes out of the row of stories at the top of Home. Stories people post stay.	Gỡ các thẻ kỷ niệm, tổng kết, kỷ niệm theo dõi và sinh nhật mà Instagram tạo trong hàng tin ở đầu trang chủ. Tin mọi người đăng vẫn giữ.
 Hides the rewind cards, which bring back old highlights, from the row of stories at the top of Home.	Ẩn các thẻ xem lại, vốn đưa tin nổi bật cũ trở lại, khỏi hàng tin ở đầu trang chủ.
 A double tap on a comment doesn't like it. Starts off, so comments keep double tap to like until you turn this on.	Nhấn đúp vào bình luận không thích bình luận. Mặc định tắt, nên bình luận vẫn nhấn đúp để thích cho đến khi bạn bật mục này.
@@ -1888,7 +1891,6 @@ A thin line with no handle that grows while you drag it. On feed videos it sits 
 A thicker rounded bar with no handle.	Một thanh bo tròn dày hơn, không có nút.
 A rounded bar split by a tall handle.	Một thanh bo tròn được chia bởi một nút cao.
 A wavy line for the part played, with a tall handle.	Một đường lượn sóng cho phần đã phát, kèm một nút cao.
-Turn on a seek bar on feed videos, stories or reels to use this choice.	Hãy bật thanh tua trên video bảng feed, tin hoặc Reels để dùng lựa chọn này.
 Preview while you drag a seek bar	Xem trước khi kéo thanh tua
 Shows the time above your finger while you drag a seek bar on a feed video, story or reel, and a small picture of that moment when Instagram has one for the video.	Hiện thời gian phía trên ngón tay khi bạn kéo thanh tua trên video bảng feed, tin hoặc Reels, cùng một ảnh nhỏ của khoảnh khắc đó khi Instagram có ảnh cho video.
 Swipe right on Home opens	Vuốt sang phải trên Trang chủ sẽ mở
@@ -1994,6 +1996,28 @@ Save profile	Lưu trang cá nhân
 Saved @%s	Đã lưu @%s
 # context: toast after Remove from saved takes an account off the Saved profiles list; %s is its username (#629)
 Removed @%s from saved	Đã gỡ @%s khỏi mục đã lưu
+# context: row in the long press menu on an account on the Saved profiles page, and title of the folder list it opens (#629)
+Move to folder	Chuyển vào thư mục
+# context: title of the folder list Save profile opens on a profile's menu once the user has made a folder (#629)
+Save to folder	Lưu vào thư mục
+# context: first choice in that folder list; the saved account sits in no folder (#629)
+No folder	Không có thư mục
+# context: last choice in that folder list, and title of the dialog asking the new folder's name (#629)
+New folder	Thư mục mới
+# context: row in the long press menu on a folder's chip on the Saved profiles page, and title of the dialog for its new name (#629)
+Rename folder	Đổi tên thư mục
+# context: row in the long press menu on a folder's chip; the folder goes away and its accounts stay saved (#629)
+Remove folder	Gỡ thư mục
+# context: toast after Save profile puts an account in a folder; %1$s is its username, %2$s the folder's name (#629)
+Saved @%1$s to %2$s	Đã lưu @%1$s vào %2$s
+# context: toast after Move to folder; %1$s is the account's username, %2$s the folder's name (#629)
+Moved @%1$s to %2$s	Đã chuyển @%1$s vào %2$s
+# context: toast after Move to folder > No folder; %s is the account's username, which stays saved (#629)
+Moved @%s out of its folder	Đã đưa @%s ra khỏi thư mục
+# context: toast after Remove folder; %s is the folder's name, and its accounts stay saved (#629)
+Removed the folder %s	Đã gỡ thư mục %s
+# context: toast after Rename folder; %s is the folder's new name (#629)
+Renamed the folder to %s	Đã đổi tên thư mục thành %s
 # context: toast when the Saved profiles list already holds 2,000 accounts (#629)
 Saved profiles is full.	Danh sách trang cá nhân đã lưu đã đầy.
 # context: Profiles > title of the switch that adds Save profile to the menu on profiles, and title of the page listing the saved accounts (#629)
@@ -2006,6 +2030,10 @@ Your saved profiles	Trang cá nhân bạn đã lưu
 Nothing saved yet. With Saved profiles on, tap Save profile in the menu on someone's profile and it shows up here.	Chưa lưu gì cả. Khi bật Trang cá nhân đã lưu, hãy chạm Lưu trang cá nhân trong menu trên trang cá nhân của ai đó và trang đó sẽ hiện ở đây.
 # context: spoken label of the cross at the end of a row on the Saved profiles page; %s is the account's username (#629)
 Remove @%s from saved	Gỡ @%s khỏi mục đã lưu
+# context: sentence an import of a settings file adds to its receipt; %d is how many saved profiles it put on the list (#629)
+Saved profiles added: %d.	Đã thêm %d trang cá nhân đã lưu.
+# context: summary under Export HushGram settings in a build with Saved profiles; the file holds the settings and the saved list, never the Instagram sign-in or any history (#629)
+Choose a file for your installed patches' settings and saved profiles. Your login and history stay on this device.	Chọn một tệp cho cài đặt của các bản vá đã cài và các trang cá nhân đã lưu. Thông tin đăng nhập và lịch sử vẫn ở trên thiết bị này.
 # context: Profiles > title of the switch that asks before a Follow or Follow back button follows someone (#631)
 Ask before a follow	Hỏi trước khi theo dõi
 # context: Profiles > summary of Ask before a follow; Follow, Follow back, Followers and Following are Instagram's own button and list names (#631)
@@ -2016,6 +2044,17 @@ Follow @%1$s?	Theo dõi @%1$s?
 Follow this account?	Theo dõi tài khoản này?
 # context: The question's confirm button; Instagram's own Follow button label (#631)
 Follow	Theo dõi
+# context: switch in HushGram settings > Reels; a reel link opened from outside Instagram plays the linked reel first instead of a reel Instagram kept on the phone (#606)
+Open reel links on that reel	Mở liên kết reel đúng reel đó
+A reel link opens on the reel it points to. Instagram doesn't play another reel it kept on your phone while that one loads.	Liên kết reel mở đúng reel mà nó trỏ đến. Instagram không phát một reel khác đã lưu trên điện thoại của bạn trong lúc reel đó tải.
+# context: Stories settings: moves the story speed button into a video story's three-dot menu as a Playback speed row (#621)
+Speed in the story menu	Tốc độ trong menu tin
+# context: Summary of Speed in the story menu; Playback speed is the row's own label (#621)
+Adds Playback speed to the menu a video story's three dots open, with the same 1x, 1.5x and 2x, and keeps the speed button off the story. Later video stories keep the speed you pick until you change it or restart Instagram.	Thêm Tốc độ phát vào menu mở ra từ ba dấu chấm của tin video, với cùng các mức 1x, 1,5x và 2x, và bỏ nút tốc độ khỏi tin. Các tin video tiếp theo giữ tốc độ bạn chọn cho đến khi bạn đổi hoặc khởi động lại Instagram.
+# context: Reels settings: hides the Create (+) button only on reels opened from Saved or a saved collection (#620)
+Hide the Create button on saved reels	Ẩn nút Tạo trên reel đã lưu
+# context: Summary of Hide the Create button on saved reels; Saved is Instagram's own Saved page (#620)
+Takes the plus button off the top of reels you open from Saved or a collection and closes up the gap. The Reels tab and other reels keep theirs.	Gỡ nút dấu cộng khỏi đầu các reel bạn mở từ mục Đã lưu hoặc một bộ sưu tập, và thu hẹp khoảng trống. Tab Reels và các reel khác vẫn giữ nút này.
 2x speed for videos in the feed	2x speed for videos in the feed
 Adds a shortcut to your saved posts in the Explore tab.	Adds a shortcut to your saved posts in the Explore tab.
 Adds a speed choice to the menu on a reel.	Adds a speed choice to the menu on a reel.

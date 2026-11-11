@@ -126,6 +126,9 @@ final class ReelsCategory {
             reels.add(toggle(context, Settings.HIDE_REELS_CREATE_BUTTON, L10n.t("Hide the Create button on reels"),
                     L10n.t("Takes the plus button that opens the camera off the top of reels, on the Reels tab and "
                             + "everywhere else, and closes up the gap. The rest of the bar stays.")));
+            reels.add(toggle(context, Settings.HIDE_SAVED_REELS_CREATE_BUTTON, L10n.t("Hide the Create button on saved reels"),
+                    L10n.t("Takes the plus button off the top of reels you open from Saved or a collection and "
+                            + "closes up the gap. The Reels tab and other reels keep theirs.")));
             reels.add(toggle(context, Settings.HIDE_REELS_YOUR_ALGORITHM, L10n.t("Hide Your algorithm on reels"),
                     L10n.t("Takes the Your algorithm button off the top of the Reels tab and closes up the gap. The "
                             + "rest of the bar stays.")));
@@ -227,6 +230,11 @@ final class ReelsCategory {
             reels.add(toggle(context, Settings.KEEP_REEL_SPEED, L10n.t("Keep the reel speed"),
                     L10n.t("Lock a reel at 2x (hold its edge, then slide down) and the next reels play at 2x too. "
                             + "Slide the lock off, or hold the edge and let go, to go back to normal speed.")));
+        }
+        if (build.contains(PatchFamily.REEL_LINKS)) {
+            reels.add(toggle(context, Settings.OPEN_REEL_LINKS_FIRST, L10n.t("Open reel links on that reel"),
+                    L10n.t("A reel link opens on the reel it points to. Instagram doesn't play another reel "
+                            + "it kept on your phone while that one loads.")));
         }
         if (build.contains(PatchFamily.REEL_POST_TIME)) {
             reels.add(toggle(context, Settings.SHOW_REEL_POST_TIME, L10n.t("Show a reel's exact time"),

@@ -734,6 +734,9 @@ Comments open with the keyboard down. A tap in the comment box, or on Reply, sti
 # context: Feed: the switch that hides the Follow and Subscribe buttons beside the author's name on a post (#248). Follow and Subscribe are the labels Instagram uses on those buttons.
 Hide Follow on posts	隱藏貼文上的追蹤按鈕
 Takes the Follow and Subscribe buttons off the top of posts in your feed. The name, time and menu stay.	移除動態首頁貼文頂端的「追蹤」與「訂閱」按鈕。名稱、時間與選單仍會保留。
+# context: Feed: the switch that hides only the Subscribe button beside the author's name on a post, leaving Follow where it is (#622). Subscribe and Follow are the labels Instagram uses on those buttons.
+Hide Subscribe on posts	隱藏貼文上的訂閱按鈕
+Takes only the Subscribe button off the top of posts in your feed. Follow stays.	只移除動態首頁貼文頂端的「訂閱」按鈕。「追蹤」仍會保留。
 Takes the memories, recaps, follow anniversaries and birthday cards Instagram makes out of the row of stories at the top of Home. Stories people post stay.	移除首頁頂端限時動態橫列中，Instagram 產生的回憶、回顧、追蹤週年紀念與生日卡片。使用者發佈的限時動態仍會保留。
 Hides the rewind cards, which bring back old highlights, from the row of stories at the top of Home.	隱藏首頁頂端限時動態橫列中，重新呈現舊精選的往事回顧卡片。
 A double tap on a comment doesn't like it. Starts off, so comments keep double tap to like until you turn this on.	雙擊留言不會按讚。預設關閉，因此留言會保留雙擊按讚功能，直到你啟用此選項。
@@ -1976,7 +1979,6 @@ A thin line with no handle that grows while you drag it. On feed videos it sits 
 A thicker rounded bar with no handle.	較粗的圓角拖曳列，沒有拖曳鈕。
 A rounded bar split by a tall handle.	由高拖曳鈕分隔的圓角拖曳列。
 A wavy line for the part played, with a tall handle.	已播放部分為波浪線，並附高拖曳鈕。
-Turn on a seek bar on feed videos, stories or reels to use this choice.	請啟用動態影片、限時動態或 Reels 的拖曳列以使用此選項。
 Preview while you drag a seek bar	拖曳拖曳列時預覽
 Shows the time above your finger while you drag a seek bar on a feed video, story or reel, and a small picture of that moment when Instagram has one for the video.	在動態影片、限時動態或 Reels 上拖曳拖曳列時，於手指上方顯示時間，若 Instagram 有該影片的圖片，也會顯示該時刻的小圖。
 Swipe right on Home opens	在首頁向右滑動會開啟
@@ -2082,6 +2084,28 @@ Save profile	儲存個人檔案
 Saved @%s	已儲存 @%s
 # context: toast after Remove from saved takes an account off the Saved profiles list; %s is its username (#629)
 Removed @%s from saved	已將 @%s 從已儲存移除
+# context: row in the long press menu on an account on the Saved profiles page, and title of the folder list it opens (#629)
+Move to folder	移至資料夾
+# context: title of the folder list Save profile opens on a profile's menu once the user has made a folder (#629)
+Save to folder	儲存至資料夾
+# context: first choice in that folder list; the saved account sits in no folder (#629)
+No folder	不放入資料夾
+# context: last choice in that folder list, and title of the dialog asking the new folder's name (#629)
+New folder	新增資料夾
+# context: row in the long press menu on a folder's chip on the Saved profiles page, and title of the dialog for its new name (#629)
+Rename folder	重新命名資料夾
+# context: row in the long press menu on a folder's chip; the folder goes away and its accounts stay saved (#629)
+Remove folder	移除資料夾
+# context: toast after Save profile puts an account in a folder; %1$s is its username, %2$s the folder's name (#629)
+Saved @%1$s to %2$s	已將 @%1$s 儲存至 %2$s
+# context: toast after Move to folder; %1$s is the account's username, %2$s the folder's name (#629)
+Moved @%1$s to %2$s	已將 @%1$s 移至 %2$s
+# context: toast after Move to folder > No folder; %s is the account's username, which stays saved (#629)
+Moved @%s out of its folder	已將 @%s 移出資料夾
+# context: toast after Remove folder; %s is the folder's name, and its accounts stay saved (#629)
+Removed the folder %s	已移除資料夾 %s
+# context: toast after Rename folder; %s is the folder's new name (#629)
+Renamed the folder to %s	已將資料夾重新命名為 %s
 # context: toast when the Saved profiles list already holds 2,000 accounts (#629)
 Saved profiles is full.	已儲存的個人檔案已達上限。
 # context: Profiles > title of the switch that adds Save profile to the menu on profiles, and title of the page listing the saved accounts (#629)
@@ -2094,6 +2118,10 @@ Your saved profiles	你儲存的個人檔案
 Nothing saved yet. With Saved profiles on, tap Save profile in the menu on someone's profile and it shows up here.	尚未儲存任何內容。開啟「已儲存的個人檔案」後，在他人個人檔案的選單中點按「儲存個人檔案」，該檔案就會顯示在這裡。
 # context: spoken label of the cross at the end of a row on the Saved profiles page; %s is the account's username (#629)
 Remove @%s from saved	將 @%s 從已儲存移除
+# context: sentence an import of a settings file adds to its receipt; %d is how many saved profiles it put on the list (#629)
+Saved profiles added: %d.	已新增 %d 個儲存的個人檔案。
+# context: summary under Export HushGram settings in a build with Saved profiles; the file holds the settings and the saved list, never the Instagram sign-in or any history (#629)
+Choose a file for your installed patches' settings and saved profiles. Your login and history stay on this device.	選擇檔案以儲存已安裝修補程式的設定與儲存的個人檔案。登入資訊與記錄仍留在此裝置上。
 # context: Profiles > title of the switch that asks before a Follow or Follow back button follows someone (#631)
 Ask before a follow	追蹤前詢問
 # context: Profiles > summary of Ask before a follow; Follow, Follow back, Followers and Following are Instagram's own button and list names (#631)
@@ -2104,6 +2132,17 @@ Follow @%1$s?	要追蹤 @%1$s 嗎？
 Follow this account?	要追蹤這個帳號嗎？
 # context: The question's confirm button; Instagram's own Follow button label (#631)
 Follow	追蹤
+# context: switch in HushGram settings > Reels; a reel link opened from outside Instagram plays the linked reel first instead of a reel Instagram kept on the phone (#606)
+Open reel links on that reel	在連結指向的 Reel 開啟 Reels 連結
+A reel link opens on the reel it points to. Instagram doesn't play another reel it kept on your phone while that one loads.	Reels 連結會開啟它指向的 Reel。該 Reel 載入時，Instagram 不會先播放存在你手機上的其他 Reel。
+# context: Stories settings: moves the story speed button into a video story's three-dot menu as a Playback speed row (#621)
+Speed in the story menu	限時動態選單中的速度
+# context: Summary of Speed in the story menu; Playback speed is the row's own label (#621)
+Adds Playback speed to the menu a video story's three dots open, with the same 1x, 1.5x and 2x, and keeps the speed button off the story. Later video stories keep the speed you pick until you change it or restart Instagram.	在影片限時動態三個點開啟的選單中加入「播放速度」，提供相同的 1x、1.5x 和 2x，並移除限時動態上的速度按鈕。之後的影片限時動態會沿用你選擇的速度，直到你更改或重新啟動 Instagram。
+# context: Reels settings: hides the Create (+) button only on reels opened from Saved or a saved collection (#620)
+Hide the Create button on saved reels	隱藏已儲存 Reels 上的建立按鈕
+# context: Summary of Hide the Create button on saved reels; Saved is Instagram's own Saved page (#620)
+Takes the plus button off the top of reels you open from Saved or a collection and closes up the gap. The Reels tab and other reels keep theirs.	移除從「已儲存」或收藏集開啟的 Reels 頂端的加號按鈕並收起空白。Reels 分頁與其他 Reels 仍會保留。
 2x speed for videos in the feed	2x speed for videos in the feed
 Adds a shortcut to your saved posts in the Explore tab.	Adds a shortcut to your saved posts in the Explore tab.
 Adds a speed choice to the menu on a reel.	Adds a speed choice to the menu on a reel.

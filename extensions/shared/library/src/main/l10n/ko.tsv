@@ -729,6 +729,9 @@ Comments open with the keyboard down. A tap in the comment box, or on Reply, sti
 # context: Feed: the switch that hides the Follow and Subscribe buttons beside the author's name on a post (#248). Follow and Subscribe are the labels Instagram uses on those buttons.
 Hide Follow on posts	게시물의 팔로우 숨기기
 Takes the Follow and Subscribe buttons off the top of posts in your feed. The name, time and menu stay.	피드 게시물 상단의 팔로우 버튼과 구독 버튼을 없앱니다. 이름, 시간, 메뉴는 그대로 표시됩니다
+# context: Feed: the switch that hides only the Subscribe button beside the author's name on a post, leaving Follow where it is (#622). Subscribe and Follow are the labels Instagram uses on those buttons.
+Hide Subscribe on posts	게시물의 구독 숨기기
+Takes only the Subscribe button off the top of posts in your feed. Follow stays.	피드 게시물 상단의 구독 버튼만 없앱니다. 팔로우는 그대로 표시됩니다.
 Takes the memories, recaps, follow anniversaries and birthday cards Instagram makes out of the row of stories at the top of Home. Stories people post stay.	Instagram이 만드는 추억, 요약, 팔로우 기념일, 생일 카드를 홈 상단의 스토리 줄에서 없앱니다. 사람들이 올린 스토리는 그대로 남습니다.
 Hides the rewind cards, which bring back old highlights, from the row of stories at the top of Home.	홈 상단 스토리 목록에서 예전 하이라이트를 다시 보여주는 되감기 카드를 숨깁니다.
 A double tap on a comment doesn't like it. Starts off, so comments keep double tap to like until you turn this on.	댓글을 두 번 탭해도 좋아요가 눌리지 않습니다. 처음에는 꺼져 있으므로 이 스위치를 켜기 전까지 댓글은 두 번 탭으로 좋아요가 눌립니다.
@@ -1972,7 +1975,6 @@ A thin line with no handle that grows while you drag it. On feed videos it sits 
 A thicker rounded bar with no handle.	핸들 없는 더 두꺼운 둥근 막대입니다.
 A rounded bar split by a tall handle.	긴 핸들로 나뉜 둥근 막대입니다.
 A wavy line for the part played, with a tall handle.	재생된 부분은 물결선으로 표시되고 긴 핸들이 있습니다.
-Turn on a seek bar on feed videos, stories or reels to use this choice.	이 옵션을 사용하려면 피드 동영상, 스토리 또는 Reels의 탐색 막대를 켜세요
 Preview while you drag a seek bar	탐색 막대를 드래그할 때 미리 보기
 Shows the time above your finger while you drag a seek bar on a feed video, story or reel, and a small picture of that moment when Instagram has one for the video.	피드 동영상, 스토리 또는 Reels에서 탐색 막대를 드래그할 때 손가락 위에 시간을 표시하고, Instagram에 해당 동영상의 이미지가 있으면 그 순간의 작은 그림도 함께 표시합니다.
 Swipe right on Home opens	홈에서 오른쪽으로 스와이프하면 열기
@@ -2078,6 +2080,28 @@ Save profile	프로필 저장
 Saved @%s	@%s 님을 저장했습니다
 # context: toast after Remove from saved takes an account off the Saved profiles list; %s is its username (#629)
 Removed @%s from saved	@%s 님을 저장됨에서 삭제했습니다
+# context: row in the long press menu on an account on the Saved profiles page, and title of the folder list it opens (#629)
+Move to folder	폴더로 이동
+# context: title of the folder list Save profile opens on a profile's menu once the user has made a folder (#629)
+Save to folder	폴더에 저장
+# context: first choice in that folder list; the saved account sits in no folder (#629)
+No folder	폴더 없음
+# context: last choice in that folder list, and title of the dialog asking the new folder's name (#629)
+New folder	새 폴더
+# context: row in the long press menu on a folder's chip on the Saved profiles page, and title of the dialog for its new name (#629)
+Rename folder	폴더 이름 변경
+# context: row in the long press menu on a folder's chip; the folder goes away and its accounts stay saved (#629)
+Remove folder	폴더 삭제
+# context: toast after Save profile puts an account in a folder; %1$s is its username, %2$s the folder's name (#629)
+Saved @%1$s to %2$s	@%1$s 님을 %2$s에 저장했습니다
+# context: toast after Move to folder; %1$s is the account's username, %2$s the folder's name (#629)
+Moved @%1$s to %2$s	@%1$s 님을 %2$s(으)로 이동했습니다
+# context: toast after Move to folder > No folder; %s is the account's username, which stays saved (#629)
+Moved @%s out of its folder	@%s 님을 폴더에서 뺐습니다
+# context: toast after Remove folder; %s is the folder's name, and its accounts stay saved (#629)
+Removed the folder %s	%s 폴더를 삭제했습니다
+# context: toast after Rename folder; %s is the folder's new name (#629)
+Renamed the folder to %s	폴더 이름을 %s(으)로 변경했습니다
 # context: toast when the Saved profiles list already holds 2,000 accounts (#629)
 Saved profiles is full.	저장한 프로필 목록이 가득 찼습니다.
 # context: Profiles > title of the switch that adds Save profile to the menu on profiles, and title of the page listing the saved accounts (#629)
@@ -2090,6 +2114,10 @@ Your saved profiles	내가 저장한 프로필
 Nothing saved yet. With Saved profiles on, tap Save profile in the menu on someone's profile and it shows up here.	아직 저장한 프로필이 없습니다. ‘저장한 프로필’을 켜고 다른 사람 프로필의 메뉴에서 ‘프로필 저장’을 누르면 여기에 표시됩니다.
 # context: spoken label of the cross at the end of a row on the Saved profiles page; %s is the account's username (#629)
 Remove @%s from saved	저장됨에서 @%s 님 삭제
+# context: sentence an import of a settings file adds to its receipt; %d is how many saved profiles it put on the list (#629)
+Saved profiles added: %d.	저장한 프로필 %d개를 추가했습니다.
+# context: summary under Export HushGram settings in a build with Saved profiles; the file holds the settings and the saved list, never the Instagram sign-in or any history (#629)
+Choose a file for your installed patches' settings and saved profiles. Your login and history stay on this device.	설치된 패치의 설정과 저장한 프로필이 들어 있는 파일을 선택하세요. 로그인 정보와 기록은 이 기기에 그대로 유지됩니다.
 # context: Profiles > title of the switch that asks before a Follow or Follow back button follows someone (#631)
 Ask before a follow	팔로우 전에 묻기
 # context: Profiles > summary of Ask before a follow; Follow, Follow back, Followers and Following are Instagram's own button and list names (#631)
@@ -2100,6 +2128,17 @@ Follow @%1$s?	@%1$s님을 팔로우할까요?
 Follow this account?	이 계정을 팔로우할까요?
 # context: The question's confirm button; Instagram's own Follow button label (#631)
 Follow	팔로우
+# context: switch in HushGram settings > Reels; a reel link opened from outside Instagram plays the linked reel first instead of a reel Instagram kept on the phone (#606)
+Open reel links on that reel	릴스 링크를 해당 릴스로 열기
+A reel link opens on the reel it points to. Instagram doesn't play another reel it kept on your phone while that one loads.	릴스 링크를 열면 링크가 가리키는 릴스가 열립니다. 그 릴스를 불러오는 동안 Instagram이 휴대폰에 저장해 둔 다른 릴스를 재생하지 않습니다.
+# context: Stories settings: moves the story speed button into a video story's three-dot menu as a Playback speed row (#621)
+Speed in the story menu	스토리 메뉴에 속도 추가
+# context: Summary of Speed in the story menu; Playback speed is the row's own label (#621)
+Adds Playback speed to the menu a video story's three dots open, with the same 1x, 1.5x and 2x, and keeps the speed button off the story. Later video stories keep the speed you pick until you change it or restart Instagram.	동영상 스토리의 점 세 개를 누르면 열리는 메뉴에 같은 1x, 1.5x, 2x를 고르는 재생 속도를 추가하고, 스토리에서 속도 버튼을 숨깁니다. 이후 동영상 스토리도 속도를 바꾸거나 Instagram을 다시 시작할 때까지 고른 속도를 유지합니다.
+# context: Reels settings: hides the Create (+) button only on reels opened from Saved or a saved collection (#620)
+Hide the Create button on saved reels	저장한 릴스의 만들기 버튼 숨기기
+# context: Summary of Hide the Create button on saved reels; Saved is Instagram's own Saved page (#620)
+Takes the plus button off the top of reels you open from Saved or a collection and closes up the gap. The Reels tab and other reels keep theirs.	저장됨이나 컬렉션에서 연 릴스 맨 위의 더하기 버튼을 숨기고 빈자리를 없앱니다. 릴스 탭과 다른 릴스는 그대로 둡니다.
 2x speed for videos in the feed	2x speed for videos in the feed
 Adds a shortcut to your saved posts in the Explore tab.	Adds a shortcut to your saved posts in the Explore tab.
 Adds a speed choice to the menu on a reel.	Adds a speed choice to the menu on a reel.

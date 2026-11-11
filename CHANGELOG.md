@@ -6,6 +6,9 @@ Every HushGram release, newest first.
 
 ### Features
 
+* `Hide Subscribe on posts` sits under `Hide Follow on posts` in Feed. It takes just the Subscribe button off the top of posts in your feed, so Follow stays where it is. Starts off. Asked for in #622.
+* `Hide the Create button on saved reels` sits under `Hide the Create button on reels` in Reels. It takes the plus button off the top of reels you open from Saved or a collection and leaves it on the Reels tab and everywhere else. Starts off. Asked for in #620.
+* `Speed in the story menu` sits under `Speed button on stories` in Stories. It puts Playback speed in the menu a video story's three dots open, with the same 1x, 1.5x and 2x, and takes the speed button off the story. The story waits while you pick. It needs `Download any story` in your build. Starts off. Asked for in #621.
 * `Keep photo locations from Instagram` under Ads and privacy stops Instagram reading where the photos and videos in your gallery were taken. Starts off. Asked for in #628.
 * `Keep profile history` under Profiles remembers each profile's username, bio and picture, on your phone only. A toast says when one changed, and `Profile changes` lists every old one with a search box. Asked for in #590 and #611.
 * HushGram's settings are now in Thai, thanks to MangaThatsFine in #593.
@@ -13,7 +16,7 @@ Every HushGram release, newest first.
 * New switches under Profiles take the Threads badge, Facebook and WhatsApp links, the profile song, interests, channel invites and the other banners from under the bio on other people's profiles. Yours keeps them. Each starts off. Asked for in #627.
 * `Hide Reply on comments` sits under `Hide comments` in Comments. It takes Reply off each comment on posts and reels, and View more replies still opens a thread. Starts off. Asked for in #619.
 * `Ask before a follow` under Profiles asks "Follow @username?" before a Follow or Follow back button follows anyone, on a profile or in a Followers or Following list. Other Follow buttons, like the one on stories, ask too. Starts off. Asked for in #631.
-* `Saved profiles` under Profiles adds Save profile to the menu on someone's profile, even one you don't follow. The list stays on your phone, apart from Instagram's Favorites and Following, and `Your saved profiles` opens it with a search box. Tap one to open the profile. Starts off. Asked for in #629.
+* `Saved profiles` under Profiles adds Save profile to the menu on someone's profile, even one you don't follow. The list stays on your phone, apart from Instagram's Favorites and Following. `Your saved profiles`, in the settings or in that same menu, opens it with a search box. Tap one to open the profile. Long press an account to move it to a folder you name, and once you have folders, Save profile asks which one. Chips under the search box show one folder at a time, and a long press on a chip renames that folder or removes it while its accounts stay saved. A settings export carries the list and its folders too, and importing it adds back the ones missing. Starts off. Asked for in #629.
 * `Hide the Like button on stories`, `Hide the Comment button on stories` and `Hide the Share button on stories` under Stories take those buttons off other people's stories, leaving no gap. Each starts off. Asked for in #618.
 * `Keep hidden accounts in Favorites` sits under `Hidden accounts` in Feed. Turn it on and posts from accounts you've hidden still show when Home is on Favorites, while For you and Following leave them out. Starts off. Asked for in #601.
 * `Hide posts from business and creator accounts` under Feed takes their posts out of Home and Following, friends who use one included, and collabs with one of them too. Favorites still shows them. Starts off. Asked for in #579.
@@ -68,6 +71,7 @@ Every HushGram release, newest first.
 
 ### Improvements
 
+* `Seek bar shape` now also shapes the progress segments on stories and the seek bar on a video opened from a chat, and it works without a seek bar switch on. With `Ambient light in stories` on, the corners of a story card show the glow instead of black wedges, whether or not `Rounded corners on stories` is on. The strip above a story glows too, without the thin dark line that used to sit over it, and the progress bar and header stay on top. `Ambient light` on its own no longer lights stories the way it lights posts, since stories have their own switch. Requested in #630.
 * `Save comment photo` now saves a comment's GIF sticker too. Press and hold the comment and pick Save. A sticker that's only on Giphy still has no Save row. Asked for in #623.
 * The diagnostic report has a `[SCREEN]` part now. It names the screen you were on, which tabs show, and the views covering most of it, so a report sent right after a blank screen shows what was in front. Asked for in #535.
 * Dusk blue, Pine and Slate are now full color sets. Story rings and Instagram's other gradients run through three colors, likes and badges get the set's own color, and backgrounds start from its screen color.
@@ -89,6 +93,9 @@ Every HushGram release, newest first.
 
 ### Bug Fixes
 
+* With `Glass tab bar` and `Show content behind the tab bar` on, the floating tab bar now steps aside while a chat is open, so it no longer covers the reply box. On Android 17 Instagram left its bar showing over chats, the way it did over stories. Reported in #632.
+* `Hide the Create button on reels` now also takes the plus button off reels you open from Saved, a profile or a post. On 454 those reels get a different top bar, and the switch only reached the Reels tab's. Found while building #620.
+* A reel link opened from outside Instagram, like one shared in another app, now plays the reel it points to first. Instagram used to start a reel it had saved on your phone, or one it had fetched ahead when it was already open, while the linked one loaded, so you had to swipe to find it. The new `Open reel links on that reel` switch is on to start and sits under Reels in HushGram settings. Reported in #606.
 * `Recent unfollowers` now keeps your Followers list when Instagram lists a few fewer accounts than your follower count, like 547 of 550. The count includes accounts the list never shows and can lag behind someone leaving, so nothing was saved. A list may now be short by one in every 50 followers. Reported in #624.
 * With `Stories fill the screen` on, a reel shared to a story fills the screen right away, without the rounded card and reply bar showing first, and its sides no longer get cut off. Reported in #618.
 * With `Tab bar layout` set to a bar Instagram didn't pick, a tab like Home no longer opens blank after Android closes Instagram in the background. HushGram builds the missing page again. Reported in #535.
@@ -109,6 +116,7 @@ Every HushGram release, newest first.
 * `Ambient light` glows around a reel that doesn't fill the screen when `Rounded corners on Reels` is on. The rounding was cutting the glow off with the empty space around the video. Reported in #580.
 * `Save every page without asking` works on the download icon beside a reel too, so a carousel opened from Explore, Search or Reels saves all its pages with no popup. Reported in #190.
 * A reel's seek bar no longer ends up in the strip at the bottom of the screen when the tab bar has moved out of the way, so scrubbing can't swipe you home. Reported in #450.
+* A reel's seek bar keeps clear of the bottom edge on Samsung phones with the gesture hint hidden too, and the caption and buttons move up with it instead of ending up under the bar. Dragging a raised bar seeks now instead of opening the reel's long-press menu. Reported in #633.
 * `Glass tab bar` now works on tablets and a foldable's inner screen. It keeps Instagram's phone layout there, since the glass needs the tab bar along the bottom and the big screen layout only has the rail down the side.
 * With `Hide the Create button` on, a long press on your profile's menu opens the HushGram settings again. With the button gone, the long press couldn't tell it was on your own profile. Reported in #431.
 * On the `Install next to Instagram` copy, the long press on your profile's menu opens the HushGram settings too, and so does every other feature that finds a part of Instagram's screen by name. The copy's new package name was used to look those parts up, but they're still filed under Instagram's, so nothing was found. Reported in #431.

@@ -123,7 +123,7 @@ public final class GlassTabBar {
     /** The root of the Reels viewer, in the Reels tab and wherever a reel opens over another tab. */
     static final String REELS_ROOT = "root_clips_layout";
     /** The strip Instagram lays over a reel's seek bar to widen it for touches, and the seek bar. */
-    static final String TOUCH_STRIP = "clips_expanded_touch_view";
+    public static final String TOUCH_STRIP = "clips_expanded_touch_view";
     static final String SCRUBBER = "scrubber";
     /** A reel's author, caption and the buttons beside them, which share a layer over the video with the seek bar. */
     static final String REEL_INFO = "clips_media_info_component";
@@ -153,6 +153,12 @@ public final class GlassTabBar {
      * navigation bar answered 0 under it (#224). It's looked for as often as the sheet holder.
      */
     static final String STORY_ROOT = "reel_viewer_root";
+    /**
+     * An open chat's root, which Instagram puts in the Messages tab's screen. Instagram hides its bar
+     * while a chat is open, but on Android 17 the floating pill stayed over the chat's reply box (#632),
+     * as it had over a story's. It's looked for as often as the story viewer.
+     */
+    static final String CHAT_ROOT = "thread_fragment_container";
 
     private static final java.util.HashMap<String, Integer> IDS = new java.util.HashMap<>();
 
@@ -381,7 +387,7 @@ public final class GlassTabBar {
      * How far [band]'s content can scroll up before a shown child of it is cut off at the band's top: the
      * top of the highest one, or 0 with none.
      */
-    static int roomAbove(ViewGroup band) {
+    public static int roomAbove(ViewGroup band) {
         int room = Integer.MAX_VALUE;
         for (int i = 0; i < band.getChildCount(); i++) {
             View child = band.getChildAt(i);
@@ -421,13 +427,14 @@ public final class GlassTabBar {
      * the top of the tab bar, so a drag that starts just under the line still seeks (#526). Read off 454
      * with HushGram paused: 28 px on a 2.8 density phone, as tall as the seek bar itself.
      */
-    static final int STRIP_BELOW_DP = 10;
+    public static final int STRIP_BELOW_DP = 10;
 
     /**
      * Moves [strip], the strip Instagram lays over a reel's seek bar ({@link #TOUCH_STRIP}), so its bottom
      * edge is [below] pixels past the bottom edge of the seek bar ([scrubber]) showing in the one of
      * [viewers] it lies across, or of that viewer when no seek bar shows. That's where Instagram puts it
-     * over its own bar. Returns whether it moved.
+     * over its own bar. It never runs on past [floor], where the strip at the window's foot starts and a
+     * drag is the system's (#633). Returns whether it moved.
      *
      * <p>Instagram places the strip by how far the reel stops above the bottom of the screens, measured
      * as it lays them out. Back from another screen (HushGram's settings, say) it measures while its own
@@ -436,7 +443,8 @@ public final class GlassTabBar {
      * their taps. Measured before a viewer was kept above the pill, it sits over the pill's top instead.
      * A strip anchored from the top, or not laid out yet, is left alone.
      */
-    static boolean stripOnTheReel(View strip, Iterable<View> viewers, int scrubber, int below, Rect scratch) {
+    public static boolean stripOnTheReel(View strip, Iterable<View> viewers, int scrubber, int below, int floor,
+                                         Rect scratch) {
         if (strip == null || !strip.isShown() || !strip.isLaidOut() || strip.isLayoutRequested()) return false;
         if (!(strip.getLayoutParams() instanceof FrameLayout.LayoutParams)) return false;
         FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) strip.getLayoutParams();
@@ -459,7 +467,8 @@ public final class GlassTabBar {
         View seekBar = scrubber == 0 ? null : shownWithId(viewer, scrubber, scratch, 0);
         View anchor = seekBar != null ? seekBar : viewer;
         anchor.getLocationOnScreen(at);
-        int off = bottom - (at[1] + anchor.getHeight() + Math.max(0, below));
+        int anchorBottom = at[1] + anchor.getHeight();
+        int off = bottom - Math.max(anchorBottom, Math.min(anchorBottom + Math.max(0, below), floor));
         if (off == 0 || params.bottomMargin + off < 0) return false;
         params.bottomMargin += off;
         strip.setLayoutParams(params);
@@ -720,41 +729,74 @@ public final class GlassTabBar {
     }
 
     /**
-     * Whether [story] is a story viewer that shows, laid out, with no screen showing after it in its
-     * container. A screen opened from the story, such as a profile, goes after it there and has the bar.
+     * Whether [screen], a story viewer or a chat, shows, laid out, with no screen showing after it in its
+     * container. A screen opened from it, such as a profile, goes after it there and has the bar.
      */
-    static boolean storyOnTop(@Nullable View story) {
-        if (story == null || !story.isShown() || story.getHeight() <= 0) return false;
-        if (!(story.getParent() instanceof ViewGroup)) return true;
-        ViewGroup container = (ViewGroup) story.getParent();
-        for (int i = container.indexOfChild(story) + 1, n = container.getChildCount(); i < n; i++) {
+    static boolean onTop(@Nullable View screen) {
+        if (screen == null || !screen.isShown() || screen.getHeight() <= 0) return false;
+        if (!(screen.getParent() instanceof ViewGroup)) return true;
+        ViewGroup container = (ViewGroup) screen.getParent();
+        for (int i = container.indexOfChild(screen) + 1, n = container.getChildCount(); i < n; i++) {
             View later = container.getChildAt(i);
             if (later.getVisibility() == View.VISIBLE && later.getHeight() > 0) return false;
         }
         return true;
     }
 
-    /**
-     * The story viewer under [root] that {@link #storyOnTop shows on top}, or null. Every viewer in the
-     * tree is looked at, not just the first one with the id, since Instagram can keep an old viewer there,
-     * hidden, ahead of the one that shows (#450).
-     */
+    /** The story viewer under [root] that {@link #onTop shows on top}, or null. */
     @Nullable
     static View storyShownOnTop(View root) {
-        int id = id(root.getContext(), STORY_ROOT);
+        return shownOnTop(root, STORY_ROOT);
+    }
+
+    /**
+     * The view named [name] under [root] that {@link #onTop shows on top}, or null. Every one in the tree
+     * is looked at, not just the first one with the id, since Instagram can keep an old story viewer
+     * there, hidden, ahead of the one that shows (#450).
+     */
+    @Nullable
+    static View shownOnTop(View root, String name) {
+        int id = id(root.getContext(), name);
         if (id == 0) return null;
         ArrayDeque<View> todo = new ArrayDeque<>();
         todo.add(root);
         while (!todo.isEmpty()) {
             View view = todo.poll();
             if (view.getVisibility() != View.VISIBLE) continue;
-            if (view.getId() == id && storyOnTop(view)) return view;
+            if (view.getId() == id && onTop(view)) return view;
             if (view instanceof ViewGroup) {
                 ViewGroup group = (ViewGroup) view;
                 for (int i = 0, n = group.getChildCount(); i < n; i++) todo.add(group.getChildAt(i));
             }
         }
         return null;
+    }
+
+    /** A screen the bar steps aside for, by its root's id name: the one last found, and when it was looked for. */
+    static final class ShownOnTop {
+        private final String name;
+        private WeakReference<View> last = new WeakReference<>(null);
+        private long lookedAt = -SHEET_LOOK_MS;
+
+        ShownOnTop(String name) {
+            this.name = name;
+        }
+
+        /** Whether the screen shows {@link #onTop on top} in [root]'s window. */
+        boolean in(View root) {
+            View screen = last.get();
+            boolean here = screen != null && screen.getRootView() == root;
+            if (here && onTop(screen)) return true;
+            // One that left the window is looked for again at once. One still here but not on top may
+            // be an old one Instagram kept, hidden, while a new one shows (#450), so that's looked past
+            // as often as a missing one is.
+            long now = SystemClock.uptimeMillis();
+            if ((screen == null || here) && now - lookedAt < SHEET_LOOK_MS) return false;
+            lookedAt = now;
+            View shown = shownOnTop(root, name);
+            if (shown != null || !here) last = new WeakReference<>(shown);
+            return shown != null;
+        }
     }
 
     /**
@@ -864,6 +906,8 @@ public final class GlassTabBar {
     static final String COUNT_SHEETS_LIFTED = "Sheets kept above the navigation bar";
     /** Counted each time the bar, left showing by Instagram over a story, is hidden for it (#224). */
     static final String COUNT_STORY_ASIDE = "Bar hidden over a story";
+    /** Counted each time the floating pill, left showing by Instagram over a chat, is hidden for it (#632). */
+    static final String COUNT_CHAT_ASIDE = "Bar hidden over a chat";
     /** Counted once for each bar whose Search tab the liquid look puts in a circle of its own (#65). */
     static final String COUNT_SEARCH_APART = "Search put in its own circle";
     /** Counted each time a tab badge's ring, new to the glass, is made clear (#315). */
@@ -1460,11 +1504,11 @@ public final class GlassTabBar {
         private long sheetLookedAt = -SHEET_LOOK_MS;
         /** The bottom margin {@link #liftSheets} gave the sheet holder and each of its neighbours. */
         private final WeakHashMap<View, Integer> sheetLifts = new WeakHashMap<>();
-        /** Instagram's story viewer in the bar's window, as last found, and when it was last looked for (#224). */
-        private WeakReference<View> storyRoot = new WeakReference<>(null);
-        private long storyLookedAt = -SHEET_LOOK_MS;
-        /** Whether this hid the bar over a story, so this shows it again, and only then (#224). */
-        private boolean hidOverAStory;
+        /** Instagram's story viewer (#224) and open chat (#632) in the bar's window, as last found. */
+        private final ShownOnTop story = new ShownOnTop(STORY_ROOT);
+        private final ShownOnTop chat = new ShownOnTop(CHAT_ROOT);
+        /** Whether this hid the bar over a story or a chat, so this shows it again, and only then (#224). */
+        private boolean steppedAside;
         /**
          * Hides the bar while a list scrolls down, with that switch on, and on Reels after the wait picked
          * for it (#170). Null with the switch off and the wait on Never.
@@ -1898,44 +1942,40 @@ public final class GlassTabBar {
             return true;
         }
 
-        /** Whether Instagram's story viewer shows on top in the bar's window ({@link #storyOnTop}, #224). */
+        /** Whether Instagram's story viewer shows on top in the bar's window ({@link #onTop}, #224). */
         boolean overAStory() {
-            View root = bar.getRootView();
-            View story = storyRoot.get();
-            boolean here = story != null && story.getRootView() == root;
-            if (here && storyOnTop(story)) return true;
-            // A viewer that left the window is looked for again at once. One still here but not on top
-            // may be an old one Instagram kept, hidden, while a new one shows (#450), so that's looked
-            // past as often as a missing one is.
-            long now = SystemClock.uptimeMillis();
-            if ((story == null || here) && now - storyLookedAt < SHEET_LOOK_MS) return false;
-            storyLookedAt = now;
-            View shown = storyShownOnTop(root);
-            if (shown != null || !here) storyRoot = new WeakReference<>(shown);
-            return shown != null;
+            return story.in(bar.getRootView());
+        }
+
+        /** Whether a chat shows on top in the bar's window ({@link #onTop}, #632). */
+        boolean overAChat() {
+            return chat.in(bar.getRootView());
         }
 
         /**
-         * Hides the bar while a story shows on top in its window, when Instagram left the bar showing, so
-         * the pill is off the story's reply box and Instagram is told the navigation bar's real height
-         * again (#224). The bar shows again once the story goes, if it's still as this left it.
+         * Hides the bar while a story shows on top in its window, or a chat under a floating pill, when
+         * Instagram left the bar showing, so the pill is off the reply box and Instagram is told the
+         * navigation bar's real height again (#224, #632). A docked bar keeps its place under a chat,
+         * whose box Instagram lays out above it. The bar shows again once the screen goes, if it's still
+         * as this left it.
          */
-        private void stepAsideForStories() {
-            if (!HushgramPause.isPaused() && overAStory()) {
+        private void stepAside() {
+            boolean overAStory = !HushgramPause.isPaused() && overAStory();
+            if (overAStory || (floating && !HushgramPause.isPaused() && overAChat())) {
                 if (bar.getVisibility() == View.VISIBLE) {
                     bar.setVisibility(View.INVISIBLE);
-                    hidOverAStory = true;
-                    HookStatus.counted(FamilyNames.GLASS_TAB_BAR, COUNT_STORY_ASIDE);
+                    steppedAside = true;
+                    HookStatus.counted(FamilyNames.GLASS_TAB_BAR, overAStory ? COUNT_STORY_ASIDE : COUNT_CHAT_ASIDE);
                 }
             } else {
-                showAfterAStory();
+                showAgain();
             }
         }
 
-        /** Shows the bar again if this hid it over a story and nothing changed it since. */
-        private void showAfterAStory() {
-            if (!hidOverAStory) return;
-            hidOverAStory = false;
+        /** Shows the bar again if this hid it over a story or a chat and nothing changed it since. */
+        private void showAgain() {
+            if (!steppedAside) return;
+            steppedAside = false;
             if (bar.getVisibility() == View.INVISIBLE) bar.setVisibility(View.VISIBLE);
         }
 
@@ -2200,7 +2240,9 @@ public final class GlassTabBar {
          * The bar counts at its full height whether it shows or Full screen Reels hides it, since a swipe up
          * from that strip still leaves the app. Measured on the viewer, since what Instagram was last told
          * about the bar says nothing once Full screen Reels hides it as the reel opens (#450). Without the
-         * window's insets, the height Instagram was answered 0 for ({@link #navUnpadded}).
+         * window's insets, the height Instagram was answered 0 for ({@link #navUnpadded}), and where the phone
+         * reports no bar, as a Samsung with its gesture hint hidden does, the height it's taken to have
+         * ({@link FullScreenBars#unreportedNavHeight}, #633).
          */
         private int navUnder(View viewer) {
             WindowInsets insets = viewer.getRootWindowInsets();
@@ -2209,6 +2251,7 @@ public final class GlassTabBar {
             int nav = Build.VERSION.SDK_INT >= Build.VERSION_CODES.R
                     ? insets.getInsetsIgnoringVisibility(WindowInsets.Type.navigationBars()).bottom
                     : insets.getStableInsetBottom();
+            if (nav <= 0) nav = FullScreenBars.unreportedNavHeight();
             viewer.getLocationInWindow(viewerAt);
             return intoTheNavigationBar(viewerAt[1] + viewer.getHeight(), root.getHeight(), nav);
         }
@@ -2364,7 +2407,8 @@ public final class GlassTabBar {
                 stripRef = strip == null ? null : new WeakReference<>(strip);
             }
             if (strip != null) watchTheStrip();
-            if (strip != null && stripOnTheReel(strip, viewers, id(holder.getContext(), SCRUBBER), dp(STRIP_BELOW_DP), reelsRect)) {
+            if (strip != null && stripOnTheReel(strip, viewers, id(holder.getContext(), SCRUBBER), dp(STRIP_BELOW_DP),
+                    FullScreenBars.systemStripTop(holder), reelsRect)) {
                 HookStatus.counted(FamilyNames.GLASS_TAB_BAR, COUNT_STRIP_KEPT);
             }
         }
@@ -2390,7 +2434,7 @@ public final class GlassTabBar {
             boolean layOutAgain = false;
             long now = SystemClock.uptimeMillis();
             try {
-                stepAsideForStories();
+                stepAside();
                 footerMoved = false;
                 reelsMoved = false;
                 keep();
@@ -2481,7 +2525,7 @@ public final class GlassTabBar {
 
         @Override public void onViewDetachedFromWindow(@NonNull View view) {
             if (scrollHide != null) scrollHide.restoreNow();
-            showAfterAStory();
+            showAgain();
             bar.getViewTreeObserver().removeOnPreDrawListener(this);
             // A catch-up waiting in the queue would hold this bar after it's gone; the next frame
             // after it comes back arranges another.

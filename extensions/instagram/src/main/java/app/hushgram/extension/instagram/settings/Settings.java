@@ -1361,6 +1361,15 @@ public class Settings extends BaseSettings {
             new BooleanSetting("hushgram_story_speed_button", FALSE);
 
     /**
+     * Playback speed in a video story's three-dot menu instead of the speed button (#621): the same
+     * 1x, 1.5x and 2x, picked from a list and kept for the next video stories like the button's
+     * ({@link app.hushgram.extension.instagram.stories.StorySpeed}). On, the button stays hidden. The
+     * row rides on Download any story's menu hooks. Off to start.
+     */
+    public static final BooleanSetting STORY_SPEED_IN_MENU =
+            new BooleanSetting("hushgram_story_speed_in_menu", FALSE);
+
+    /**
      * Home opening on the Following feed, with Instagram's For you and Following picker at its top,
      * while you haven't picked a feed there. Instagram remembers a pick from then on. Off to start.
      */
@@ -2638,6 +2647,14 @@ public class Settings extends BaseSettings {
             new BooleanSetting("hushgram_hide_feed_follow", FALSE);
 
     /**
+     * Only the Subscribe button beside the author's name on a feed post, so Follow stays (#622,
+     * {@link app.hushgram.extension.instagram.feed.FeedFollowButton}). Read before each frame of a
+     * resumed screen, so it needs no restart. Off to start.
+     */
+    public static final BooleanSetting HIDE_FEED_SUBSCRIBE =
+            new BooleanSetting("hushgram_hide_feed_subscribe", FALSE);
+
+    /**
      * "Made with Edits" in the line under a feed post's author (#570,
      * {@link app.hushgram.extension.instagram.feed.EditsLabel}). Read as each post's header is built,
      * so it needs no restart. Off to start.
@@ -2784,6 +2801,14 @@ public class Settings extends BaseSettings {
      */
     public static final BooleanSetting HIDE_REELS_CREATE_BUTTON =
             new BooleanSetting("hushgram_hide_reels_create_button", FALSE);
+
+    /**
+     * The Create (+) button in the top bar of reels opened from Saved, the Reels grid and any
+     * collection (#620), leaving it on the Reels tab and everywhere else
+     * ({@link app.hushgram.extension.instagram.reels.ReelsTopBar}). Off to start.
+     */
+    public static final BooleanSetting HIDE_SAVED_REELS_CREATE_BUTTON =
+            new BooleanSetting("hushgram_hide_saved_reels_create_button", FALSE);
 
     /**
      * The Your algorithm button in the top bar of the Reels tab (#217). The rest of the bar stays
@@ -3219,6 +3244,14 @@ public class Settings extends BaseSettings {
             new BooleanSetting("hushgram_keep_reel_speed", TRUE);
 
     /**
+     * A Reels viewer opened from a link skips the reels Instagram kept on the phone, so the linked
+     * reel is the first one it shows (#606, {@link app.hushgram.extension.instagram.reels.ReelLinks}).
+     * Read as each viewer sets up. Starts on.
+     */
+    public static final BooleanSetting OPEN_REEL_LINKS_FIRST =
+            new BooleanSetting("hushgram_open_reel_links_first", TRUE);
+
+    /**
      * Instagram's seek bar stays under every ordinary reel, short ones too, with the time played
      * and the reel's length above it
      * ({@link app.hushgram.extension.instagram.reels.ReelSeekBar}). The bar is decided as each reel
@@ -3261,11 +3294,12 @@ public class Settings extends BaseSettings {
 
     /**
      * The shape of the seek bars on feed videos, stories and reels (#586, #592), one choice for all
-     * of them. {@link SeekShape#STANDARD} to start, which leaves each bar as it's always been.
+     * of them, and of Instagram's own story progress segments and the seek bar of a video opened
+     * from a chat (#630). Those two are always there, so the choice needs no seek bar switch on.
+     * {@link SeekShape#STANDARD} to start, which leaves each bar as it's always been.
      */
     public static final EnumSetting<SeekShape> SEEK_BAR_SHAPE =
-            new EnumSetting<>("hushgram_seek_bar_shape", SeekShape.STANDARD,
-                    parentsAny(FEED_SEEK_BAR, FEED_SEEK_BUTTON, STORY_SEEK_BAR, REEL_SEEK_BAR, BIG_REEL_SEEK_BAR, DM_REEL_SEEK_BAR));
+            new EnumSetting<>("hushgram_seek_bar_shape", SeekShape.STANDARD);
 
     /**
      * A card above the finger while a seek bar on a feed video, story or reel is dragged (#567, #592):

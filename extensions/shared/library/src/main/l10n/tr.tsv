@@ -730,6 +730,9 @@ Comments open with the keyboard down. A tap in the comment box, or on Reply, sti
 # context: Feed: the switch that hides the Follow and Subscribe buttons beside the author's name on a post (#248). Follow and Subscribe are the labels Instagram uses on those buttons.
 Hide Follow on posts	Gönderilerde Takip Et'i gizle
 Takes the Follow and Subscribe buttons off the top of posts in your feed. The name, time and menu stay.	Akışındaki gönderilerin üstünden Takip Et ve Abone Ol düğmelerini kaldırır. Ad, saat ve menü kalır.
+# context: Feed: the switch that hides only the Subscribe button beside the author's name on a post, leaving Follow where it is (#622). Subscribe and Follow are the labels Instagram uses on those buttons.
+Hide Subscribe on posts	Gönderilerde Abone Ol'u gizle
+Takes only the Subscribe button off the top of posts in your feed. Follow stays.	Akışındaki gönderilerin üstünden yalnızca Abone Ol düğmesini kaldırır. Takip Et kalır.
 Takes the memories, recaps, follow anniversaries and birthday cards Instagram makes out of the row of stories at the top of Home. Stories people post stay.	Instagram'ın oluşturduğu anıları, özetleri, takip yıl dönümlerini ve doğum günü kartlarını Ana Sayfa'nın üstündeki hikaye satırından kaldırır. İnsanların paylaştığı hikayeler kalır.
 Hides the rewind cards, which bring back old highlights, from the row of stories at the top of Home.	Eski öne çıkanları geri getiren geri sarma kartlarını Ana Sayfa'nın üstündeki hikâye satırından gizler.
 A double tap on a comment doesn't like it. Starts off, so comments keep double tap to like until you turn this on.	Bir yoruma iki kez dokunmak onu beğenmez. Kapalı başlar, yani sen bunu açana kadar yorumlar iki kez dokunarak beğenmeyi korur.
@@ -1973,7 +1976,6 @@ A thin line with no handle that grows while you drag it. On feed videos it sits 
 A thicker rounded bar with no handle.	Tutamaçsız, daha kalın yuvarlatılmış bir çubuk.
 A rounded bar split by a tall handle.	Uzun bir tutamaçla bölünmüş yuvarlatılmış bir çubuk.
 A wavy line for the part played, with a tall handle.	Oynatılan kısım için dalgalı bir çizgi ve uzun bir tutamaç.
-Turn on a seek bar on feed videos, stories or reels to use this choice.	Bu seçimi kullanmak için akış videolarında, hikayelerde veya Reels'te bir arama çubuğunu açın.
 Preview while you drag a seek bar	Arama çubuğunu sürüklerken önizleme
 Shows the time above your finger while you drag a seek bar on a feed video, story or reel, and a small picture of that moment when Instagram has one for the video.	Bir akış videosunda, hikayede veya Reels videosunda arama çubuğunu sürüklerken parmağınızın üstünde süreyi ve Instagram'da o video için varsa o anın küçük bir resmini gösterir.
 Swipe right on Home opens	Ana sayfada sağa kaydırınca açılan
@@ -2079,6 +2081,28 @@ Save profile	Profili kaydet
 Saved @%s	@%s kaydedildi
 # context: toast after Remove from saved takes an account off the Saved profiles list; %s is its username (#629)
 Removed @%s from saved	@%s kaydedilenlerden kaldırıldı
+# context: row in the long press menu on an account on the Saved profiles page, and title of the folder list it opens (#629)
+Move to folder	Klasöre taşı
+# context: title of the folder list Save profile opens on a profile's menu once the user has made a folder (#629)
+Save to folder	Klasöre kaydet
+# context: first choice in that folder list; the saved account sits in no folder (#629)
+No folder	Klasör yok
+# context: last choice in that folder list, and title of the dialog asking the new folder's name (#629)
+New folder	Yeni klasör
+# context: row in the long press menu on a folder's chip on the Saved profiles page, and title of the dialog for its new name (#629)
+Rename folder	Klasörü yeniden adlandır
+# context: row in the long press menu on a folder's chip; the folder goes away and its accounts stay saved (#629)
+Remove folder	Klasörü kaldır
+# context: toast after Save profile puts an account in a folder; %1$s is its username, %2$s the folder's name (#629)
+Saved @%1$s to %2$s	@%1$s, %2$s klasörüne kaydedildi
+# context: toast after Move to folder; %1$s is the account's username, %2$s the folder's name (#629)
+Moved @%1$s to %2$s	@%1$s, %2$s klasörüne taşındı
+# context: toast after Move to folder > No folder; %s is the account's username, which stays saved (#629)
+Moved @%s out of its folder	@%s klasörden çıkarıldı
+# context: toast after Remove folder; %s is the folder's name, and its accounts stay saved (#629)
+Removed the folder %s	%s klasörü kaldırıldı
+# context: toast after Rename folder; %s is the folder's new name (#629)
+Renamed the folder to %s	Klasörün adı %s olarak değiştirildi
 # context: toast when the Saved profiles list already holds 2,000 accounts (#629)
 Saved profiles is full.	Kaydedilen profiller listesi dolu.
 # context: Profiles > title of the switch that adds Save profile to the menu on profiles, and title of the page listing the saved accounts (#629)
@@ -2091,6 +2115,10 @@ Your saved profiles	Kaydettiğin profiller
 Nothing saved yet. With Saved profiles on, tap Save profile in the menu on someone's profile and it shows up here.	Henüz kaydedilen bir şey yok. Kaydedilen profiller açıkken birinin profilindeki menüde Profili kaydet'e dokun, burada görünür.
 # context: spoken label of the cross at the end of a row on the Saved profiles page; %s is the account's username (#629)
 Remove @%s from saved	@%s hesabını kaydedilenlerden kaldır
+# context: sentence an import of a settings file adds to its receipt; %d is how many saved profiles it put on the list (#629)
+Saved profiles added: %d.	Kaydedilen profiller eklendi: %d.
+# context: summary under Export HushGram settings in a build with Saved profiles; the file holds the settings and the saved list, never the Instagram sign-in or any history (#629)
+Choose a file for your installed patches' settings and saved profiles. Your login and history stay on this device.	Yüklü yamaların ayarları ve kaydedilen profiller için bir dosya seçin. Oturum bilgileriniz ve geçmiş bu cihazda kalır.
 # context: Profiles > title of the switch that asks before a Follow or Follow back button follows someone (#631)
 Ask before a follow	Takip etmeden önce sor
 # context: Profiles > summary of Ask before a follow; Follow, Follow back, Followers and Following are Instagram's own button and list names (#631)
@@ -2101,6 +2129,17 @@ Follow @%1$s?	@%1$s takip edilsin mi?
 Follow this account?	Bu hesap takip edilsin mi?
 # context: The question's confirm button; Instagram's own Follow button label (#631)
 Follow	Takip Et
+# context: switch in HushGram settings > Reels; a reel link opened from outside Instagram plays the linked reel first instead of a reel Instagram kept on the phone (#606)
+Open reel links on that reel	Reel bağlantılarını o reel'de aç
+A reel link opens on the reel it points to. Instagram doesn't play another reel it kept on your phone while that one loads.	Bir reel bağlantısı, gösterdiği reel'i açar. O reel yüklenirken Instagram telefonunda sakladığı başka bir reel'i oynatmaz.
+# context: Stories settings: moves the story speed button into a video story's three-dot menu as a Playback speed row (#621)
+Speed in the story menu	Hikaye menüsünde hız
+# context: Summary of Speed in the story menu; Playback speed is the row's own label (#621)
+Adds Playback speed to the menu a video story's three dots open, with the same 1x, 1.5x and 2x, and keeps the speed button off the story. Later video stories keep the speed you pick until you change it or restart Instagram.	Bir video hikayesinin üç noktasının açtığı menüye aynı 1x, 1,5x ve 2x ile Oynatma hızı ekler ve hız düğmesini hikayeden kaldırır. Sonraki video hikayeleri, sen değiştirene veya Instagram'ı yeniden başlatana kadar seçtiğin hızı korur.
+# context: Reels settings: hides the Create (+) button only on reels opened from Saved or a saved collection (#620)
+Hide the Create button on saved reels	Kaydedilen reels'te Oluştur düğmesini gizle
+# context: Summary of Hide the Create button on saved reels; Saved is Instagram's own Saved page (#620)
+Takes the plus button off the top of reels you open from Saved or a collection and closes up the gap. The Reels tab and other reels keep theirs.	Kaydedilenler'den veya bir koleksiyondan açtığın reels'in üstündeki artı düğmesini kaldırır ve boşluğu kapatır. Reels sekmesi ve diğer reels'ler kendininkini korur.
 2x speed for videos in the feed	2x speed for videos in the feed
 Adds a shortcut to your saved posts in the Explore tab.	Adds a shortcut to your saved posts in the Explore tab.
 Adds a speed choice to the menu on a reel.	Adds a speed choice to the menu on a reel.

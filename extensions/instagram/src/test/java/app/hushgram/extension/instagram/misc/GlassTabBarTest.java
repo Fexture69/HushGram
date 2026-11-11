@@ -616,6 +616,69 @@ public class GlassTabBarTest {
     }
 
     /**
+     * #632: on Android 17 the floating pill stayed over an open chat's reply box. While a chat shows on
+     * top in the bar's window the floating pill steps aside, as over a story, and shows again once the
+     * chat goes. A docked bar keeps its place, since Instagram lays the chat's box out above it.
+     */
+    @Test
+    @Config(sdk = 29, qualifiers = "en-rUS-w411dp-h891dp-xhdpi")
+    public void aChatOnTopHidesTheFloatingPillOnly() {
+        int chatId = 0x7f0b0124;
+        Map<String, Integer> ids = ReflectionHelpers.getStaticField(GlassTabBar.class, "IDS");
+        Integer previous;
+        synchronized (ids) { previous = ids.put(GlassTabBar.CHAT_ROOT, chatId); }
+        try {
+            for (boolean floating : new boolean[] {true, false}) {
+                GlassTabBar.resetForTests();
+                HookStatus.clear();
+                try (GlassHost host = new GlassHost(Color.BLACK, floating, GlassHeight.STANDARD, false, false)) {
+                    int nav = host.dp(24);
+                    int full = ViewGroup.LayoutParams.MATCH_PARENT;
+                    host.controller.pause().resume();
+                    host.frame();
+
+                    // The Messages tab's screen under the bar, with a chat opened in it.
+                    FrameLayout content = new FrameLayout(host.activity);
+                    host.root.addView(content, 0, new FrameLayout.LayoutParams(full, full));
+                    FrameLayout chat = new FrameLayout(host.activity);
+                    chat.setId(chatId);
+                    content.addView(chat, new FrameLayout.LayoutParams(full, full));
+                    for (int i = 0; i < 4; i++) host.frame();
+                    if (!floating) {
+                        assertEquals("a docked bar stays under a chat", View.VISIBLE, host.bar.getVisibility());
+                        continue;
+                    }
+                    assertEquals("hidden over the chat", View.INVISIBLE, host.bar.getVisibility());
+                    assertEquals("the chat's reply box stops above the navigation bar", nav, GlassTabBar.navBarHeight(nav));
+
+                    // A profile opened from the chat goes after it in the container, and has the bar.
+                    View profile = new View(host.activity);
+                    content.addView(profile, new FrameLayout.LayoutParams(full, full));
+                    host.frame();
+                    assertEquals("a screen over the chat", View.VISIBLE, host.bar.getVisibility());
+                    content.removeView(profile);
+                    host.frame();
+                    assertEquals("back on the chat", View.INVISIBLE, host.bar.getVisibility());
+
+                    content.removeView(chat);
+                    host.frame();
+                    assertEquals("the chat went", View.VISIBLE, host.bar.getVisibility());
+                    assertEquals(0, GlassTabBar.navBarHeight(nav));
+
+                    String report = String.join("\n", HookStatus.report());
+                    assertTrue(report, report.contains(GlassTabBar.COUNT_CHAT_ASIDE));
+                    assertFalse(report, report.contains(GlassTabBar.COUNT_STORY_ASIDE));
+                }
+            }
+        } finally {
+            synchronized (ids) {
+                if (previous == null) ids.remove(GlassTabBar.CHAT_ROOT);
+                else ids.put(GlassTabBar.CHAT_ROOT, previous);
+            }
+        }
+    }
+
+    /**
      * #450: the pill stayed over a story at random until Instagram restarted. A story viewer Instagram
      * keeps in the tree, hidden, isn't the one to watch once a new viewer shows, wherever the new one sits.
      */
@@ -2928,6 +2991,7 @@ public class GlassTabBarTest {
     @Config(qualifiers = "en-rUS-w411dp-h891dp-xhdpi")
     public void theSeekBarsTouchStripStaysOnTheReelAboveThePill() {
         final int BELOW = 28;
+        final int NO_FLOOR = Integer.MAX_VALUE;
         ActivityController<Activity> controller = Robolectric.buildActivity(Activity.class).setup();
         try {
             Activity activity = controller.get();
@@ -2956,30 +3020,30 @@ public class GlassTabBarTest {
             Rect scratch = new Rect();
             layOut(root);
 
-            assertTrue("a bar's height too high", GlassTabBar.stripOnTheReel(strip, viewers, scrubberId, BELOW, scratch));
+            assertTrue("a bar's height too high", GlassTabBar.stripOnTheReel(strip, viewers, scrubberId, BELOW, NO_FLOOR, scratch));
             layOut(root);
             assertEquals("on the seek bar of the reel on screen, running on past it as over Instagram's own bar",
                     bottomOnScreen(seekBar) + BELOW, bottomOnScreen(strip));
             assertEquals(180 - BELOW, stripParams.bottomMargin);
-            assertFalse("settled, nothing moves", GlassTabBar.stripOnTheReel(strip, viewers, scrubberId, BELOW, scratch));
+            assertFalse("settled, nothing moves", GlassTabBar.stripOnTheReel(strip, viewers, scrubberId, BELOW, NO_FLOOR, scratch));
 
             stripParams.bottomMargin = 107;
             strip.setLayoutParams(stripParams);
-            assertFalse("not laid out again yet", GlassTabBar.stripOnTheReel(strip, viewers, scrubberId, BELOW, scratch));
+            assertFalse("not laid out again yet", GlassTabBar.stripOnTheReel(strip, viewers, scrubberId, BELOW, NO_FLOOR, scratch));
             layOut(root);
-            assertTrue("measured before the reel was kept above the pill", GlassTabBar.stripOnTheReel(strip, viewers, scrubberId, BELOW, scratch));
+            assertTrue("measured before the reel was kept above the pill", GlassTabBar.stripOnTheReel(strip, viewers, scrubberId, BELOW, NO_FLOOR, scratch));
             assertEquals(180 - BELOW, stripParams.bottomMargin);
 
             seekParams.bottomMargin = 300;
             seekBar.setLayoutParams(seekParams);
             layOut(root);
-            assertTrue("a seek bar higher up", GlassTabBar.stripOnTheReel(strip, viewers, scrubberId, BELOW, scratch));
+            assertTrue("a seek bar higher up", GlassTabBar.stripOnTheReel(strip, viewers, scrubberId, BELOW, NO_FLOOR, scratch));
             layOut(root);
             assertEquals(bottomOnScreen(seekBar) + BELOW, bottomOnScreen(strip));
 
             seekBar.setVisibility(View.GONE);
             layOut(root);
-            assertTrue("no seek bar showing", GlassTabBar.stripOnTheReel(strip, viewers, scrubberId, BELOW, scratch));
+            assertTrue("no seek bar showing", GlassTabBar.stripOnTheReel(strip, viewers, scrubberId, BELOW, NO_FLOOR, scratch));
             layOut(root);
             assertEquals("past the viewer's bottom edge", bottomOnScreen(viewer) + BELOW, bottomOnScreen(strip));
 
@@ -2987,14 +3051,60 @@ public class GlassTabBarTest {
             stripParams.topMargin = 40;
             strip.setLayoutParams(stripParams);
             layOut(root);
-            assertFalse("hung from the top", GlassTabBar.stripOnTheReel(strip, viewers, scrubberId, BELOW, scratch));
+            assertFalse("hung from the top", GlassTabBar.stripOnTheReel(strip, viewers, scrubberId, BELOW, NO_FLOOR, scratch));
             stripParams.gravity = Gravity.BOTTOM;
             stripParams.bottomMargin = 287;
             strip.setLayoutParams(stripParams);
             viewer.setTranslationX(-10000);
             layOut(root);
-            assertFalse("no reel on the screen", GlassTabBar.stripOnTheReel(strip, viewers, scrubberId, BELOW, scratch));
+            assertFalse("no reel on the screen", GlassTabBar.stripOnTheReel(strip, viewers, scrubberId, BELOW, NO_FLOOR, scratch));
             assertEquals(287, stripParams.bottomMargin);
+        } finally {
+            controller.pause().stop().destroy();
+        }
+    }
+
+    /**
+     * Past the top of the strip at the window's foot a drag is the system's, so Instagram's touch strip stops
+     * there, short of its usual run past the seek bar, and on the bar's own edge when the bar reaches it (#633).
+     */
+    @Test
+    @Config(qualifiers = "en-rUS-w411dp-h891dp-xhdpi")
+    public void theSeekBarsTouchStripStopsWhereTheSystemsStripStarts() {
+        final int BELOW = 28;
+        ActivityController<Activity> controller = Robolectric.buildActivity(Activity.class).setup();
+        try {
+            Activity activity = controller.get();
+            FrameLayout root = new FrameLayout(activity);
+            View strip = new View(activity);
+            FrameLayout.LayoutParams stripParams = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 112, Gravity.BOTTOM);
+            stripParams.bottomMargin = 287;
+            root.addView(strip, stripParams);
+            FrameLayout viewer = new FrameLayout(activity);
+            root.addView(viewer, new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+            int scrubberId = 0x7f0b0011;
+            View seekBar = new View(activity);
+            seekBar.setId(scrubberId);
+            FrameLayout.LayoutParams seekParams = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 28, Gravity.BOTTOM);
+            seekParams.bottomMargin = 100;
+            viewer.addView(seekBar, seekParams);
+            activity.setContentView(root);
+            java.util.List<View> viewers = java.util.Collections.singletonList(viewer);
+            Rect scratch = new Rect();
+            layOut(root);
+            int barBottom = bottomOnScreen(seekBar);
+
+            assertTrue(GlassTabBar.stripOnTheReel(strip, viewers, scrubberId, BELOW, barBottom + 10, scratch));
+            layOut(root);
+            assertEquals("short of its run, at the system's strip", barBottom + 10, bottomOnScreen(strip));
+
+            assertTrue(GlassTabBar.stripOnTheReel(strip, viewers, scrubberId, BELOW, barBottom - 40, scratch));
+            layOut(root);
+            assertEquals("a bar already in it keeps the strip on its own edge", barBottom, bottomOnScreen(strip));
+
+            assertTrue(GlassTabBar.stripOnTheReel(strip, viewers, scrubberId, BELOW, barBottom + 500, scratch));
+            layOut(root);
+            assertEquals("well clear, the usual run", barBottom + BELOW, bottomOnScreen(strip));
         } finally {
             controller.pause().stop().destroy();
         }

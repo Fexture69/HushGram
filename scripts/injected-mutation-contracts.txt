@@ -1904,6 +1904,21 @@ once-call Lapp/hushgram/extension/instagram/reels/ReelSpeed;->resetSpeed(F)F in 
 once-call Lapp/hushgram/extension/instagram/reels/ReelSpeed;->item(Ljava/lang/Object;)V in instance (*)V holding android_purge_26_q3_ClipsVideoPlayerController_maybeResumePlayer
 once-call Lapp/hushgram/extension/instagram/reels/ReelSpeed;->resuming(Ljava/lang/Object;)V in instance (*)V holding android_purge_26_q3_ClipsVideoPlayerController_maybeResumePlayer
 #
+# Open reel links on that reel (#606) asks the extension with the viewer's source right before the
+# config's check that skips the Reels viewer's kept-reels controller, in the one method building it,
+# which holds the controller's flag name and the sync flow's. Left out, a reel link opens on a reel
+# Instagram kept; twice or elsewhere, it isn't the hook the patch wrote. OpenReelLinksHookTest checks
+# where it lands on every declared build.
+once-call Lapp/hushgram/extension/instagram/reels/ReelLinks;->skipsCachedReels(Ljava/lang/Object;)I in instance (*)V pooled holding android_purge_26_q3_ClipsFlashMediaUseCase_getUiState android_purge_26_q2_ClipsFlashCacheExperimentUtil_shouldDisableFlashCacheCompletelyForSyncFlow
+#
+# The same patch asks the extension whether to hold each chunk of reels from the network right before
+# the viewer adds it, in the one static method logging the chunk and its add to the UI, and tells the
+# extension when the viewer inserts reels at a position, at the start of the one adapter method named
+# for that insert. Left out, a warm reel link plays a prefetched reel ahead of the linked one; twice or
+# elsewhere, it isn't the hook the patch wrote. OpenReelLinksHookTest checks both on every declared build.
+once-call Lapp/hushgram/extension/instagram/reels/ReelLinks;->holdsReels(Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;IIIII)I in static (LX/*;LX/*;)V pooled holding Network\sChunk\sReceived Add\sto\sUI
+once-call Lapp/hushgram/extension/instagram/reels/ReelLinks;->linkedReelIn(Ljava/lang/Object;)V in instance (Ljava/util/List;I)V pooled holding android_purge_26_q2_ClipsViewerAdapter_insertClipsItemsAtPosition
+#
 # Open links in external browser asks the extension right after the in-app browser's own super
 # call, in onCreate and in onNewIntent. Both call the one redirect, so each rule is shared-call:
 # once in its method and in no other method holding its strings. On 449 only the browser's
@@ -3145,6 +3160,11 @@ once-call Lapp/hushgram/extension/instagram/reels/ReelFill;->storyBound(Ljava/la
 # Left out, a shared reel loses its sides on a tall phone; twice or elsewhere, it isn't the call the
 # patch wrote.
 once-call Lapp/hushgram/extension/instagram/reels/ReelFill;->storyFrame(Ljava/lang/Object;Ljava/lang/Object;)V in static (L*;)V calling instance Lcom/instagram/ui/widget/roundedcornerlayout/RoundedCornerFrameLayout;->setCornerRadius(I)V pooled class-holding ReelViewerMediaAspectRatioUtil.maybeAdjustLayoutBasedOnAspectRatio
+# Ambient light tells AmbientLight.cornerRadius the layout and the radius first in that rounded
+# layout's own setCornerRadius, since the story card's layout paints its corners solid black at it
+# and the glow covers them (#630). Left out, a lit story keeps black corner wedges; twice or
+# elsewhere, it isn't the call the patch wrote. AmbientLightHookTest checks where it lands.
+single-call Lapp/hushgram/extension/instagram/feed/AmbientLight;->cornerRadius(Landroid/view/View;I)V in setCornerRadius
 # Fill the screen on a screen wider than 9:16 (#491): the reel item layout (05DP.A0o on 453, the one
 # method opening the purge flag below) asks ReelFill.wide with the item's shape in front of its
 # compare with a bit over 9:16, and on a yes lays the reel out over the whole item as on a phone. Left
@@ -3209,6 +3229,26 @@ first-call Lapp/hushgram/extension/instagram/feed/FeedSeekReader;->view(Ljava/la
 first-call Lapp/hushgram/extension/instagram/feed/FeedSeekReader;->sheet(Ljava/lang/Object;)Ljava/util/Map; outside Lapp/hushgram/extension/
 first-call Lapp/hushgram/extension/instagram/feed/FeedSeekReader;->scrubberSheet(Ljava/lang/Object;)Ljava/util/Map; outside Lapp/hushgram/extension/
 first-call Lapp/hushgram/extension/instagram/feed/FeedSeekReader;->seekTo(Ljava/lang/Object;IZ)Z outside Lapp/hushgram/extension/
+# The seek bar shape on story progress segments (#630): the story bar's onDraw, the one (Canvas)
+# void method of SegmentedProgressBar that calls another of its (Canvas) methods, asks
+# SeekShapes.storyBar first thing, and each of the bar's ten Canvas.drawRoundRect calls on 454 is
+# SeekShapes.storySegment on the same registers: four in onDraw, three in A0A (the (Canvas) one
+# calling none), two in A0B and one in A00. Its class is told by the call to its own
+# getEllipsisWidth, which Redex leaves named. Left out, the segments keep Instagram's look whatever
+# the shape; twice or elsewhere, it isn't the call the patch wrote. SeekShapeSitesTest checks every
+# call and its registers on every build.
+start-call Lapp/hushgram/extension/instagram/feed/SeekShapes;->storyBar(Landroid/view/View;)V in instance (Landroid/graphics/Canvas;)V calling instance Lcom/instagram/ui/widget/segmentedprogressbar/SegmentedProgressBar;->*(Landroid/graphics/Canvas;)V class-holding Lcom/instagram/ui/widget/segmentedprogressbar/SegmentedProgressBar;->getEllipsisWidth()F
+once-call Lapp/hushgram/extension/instagram/feed/SeekShapes;->storyBar(Landroid/view/View;)V in instance (Landroid/graphics/Canvas;)V calling instance Lcom/instagram/ui/widget/segmentedprogressbar/SegmentedProgressBar;->*(Landroid/graphics/Canvas;)V class-holding Lcom/instagram/ui/widget/segmentedprogressbar/SegmentedProgressBar;->getEllipsisWidth()F
+once-call Lapp/hushgram/extension/instagram/feed/SeekShapes;->storySegment(Landroid/graphics/Canvas;Landroid/graphics/RectF;FFLandroid/graphics/Paint;)V in instance (Landroid/graphics/Canvas;)V calling instance Lcom/instagram/ui/widget/segmentedprogressbar/SegmentedProgressBar;->*(Landroid/graphics/Canvas;)V sites 4 class-holding Lcom/instagram/ui/widget/segmentedprogressbar/SegmentedProgressBar;->getEllipsisWidth()F
+once-call Lapp/hushgram/extension/instagram/feed/SeekShapes;->storySegment(Landroid/graphics/Canvas;Landroid/graphics/RectF;FFLandroid/graphics/Paint;)V in instance (Landroid/graphics/Canvas;)V lacking instance Lcom/instagram/ui/widget/segmentedprogressbar/SegmentedProgressBar;->*(Landroid/graphics/Canvas;)V sites 3 class-holding Lcom/instagram/ui/widget/segmentedprogressbar/SegmentedProgressBar;->getEllipsisWidth()F
+once-call Lapp/hushgram/extension/instagram/feed/SeekShapes;->storySegment(Landroid/graphics/Canvas;Landroid/graphics/RectF;FFLandroid/graphics/Paint;)V in instance (Landroid/graphics/Canvas;F)V sites 2 class-holding Lcom/instagram/ui/widget/segmentedprogressbar/SegmentedProgressBar;->getEllipsisWidth()F
+once-call Lapp/hushgram/extension/instagram/feed/SeekShapes;->storySegment(Landroid/graphics/Canvas;Landroid/graphics/RectF;FFLandroid/graphics/Paint;)V in instance (Landroid/graphics/Canvas;FFZ)F class-holding Lcom/instagram/ui/widget/segmentedprogressbar/SegmentedProgressBar;->getEllipsisWidth()F
+# The seek bar shape on a video opened from a chat (#630) hands the seek bar the chat media
+# viewer's onCreateView builds to SeekShapes.chatVideo right after it keeps it in a field, the one
+# onCreateView loading the viewer's reply thread key (0GOB on 454's 386014758, keeping it in
+# 0NHs.A0C). Left out, that seek bar keeps Instagram's look whatever the shape; twice or elsewhere,
+# it isn't the call the patch wrote. SeekShapeSitesTest checks the call and its register.
+once-call Lapp/hushgram/extension/instagram/feed/SeekShapes;->chatVideo(Landroid/widget/SeekBar;)V in instance (Landroid/view/LayoutInflater;Landroid/view/ViewGroup;Landroid/os/Bundle;)Landroid/view/View; pooled holding sparse_media_viewer_reply_thread_key
 # Double tap to skip on feed videos (#562) asks FeedDoubleTapSkip.doubleTap first thing in the
 # onDoubleTap of the media frame's gesture listener, the one Long press to zoom finds, with the
 # holder's MediaFrameLayout and the event. Left out, a double tap only likes the post; twice or in

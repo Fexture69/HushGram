@@ -730,6 +730,9 @@ Comments open with the keyboard down. A tap in the comment box, or on Reply, sti
 # context: Feed: the switch that hides the Follow and Subscribe buttons beside the author's name on a post (#248). Follow and Subscribe are the labels Instagram uses on those buttons.
 Hide Follow on posts	Nascondi Segui sui post
 Takes the Follow and Subscribe buttons off the top of posts in your feed. The name, time and menu stay.	Toglie i pulsanti Segui e Iscriviti dalla parte alta dei post nel tuo feed. Nome, ora e menu restano.
+# context: Feed: the switch that hides only the Subscribe button beside the author's name on a post, leaving Follow where it is (#622). Subscribe and Follow are the labels Instagram uses on those buttons.
+Hide Subscribe on posts	Nascondi Iscriviti sui post
+Takes only the Subscribe button off the top of posts in your feed. Follow stays.	Toglie solo il pulsante Iscriviti dalla parte alta dei post nel tuo feed. Segui resta.
 Takes the memories, recaps, follow anniversaries and birthday cards Instagram makes out of the row of stories at the top of Home. Stories people post stay.	Toglie dalla riga delle storie in alto nella Home i ricordi, i riepiloghi, gli anniversari dei follower e le schede dei compleanni che Instagram crea. Le storie pubblicate dalle persone restano.
 Hides the rewind cards, which bring back old highlights, from the row of stories at the top of Home.	Nasconde dalla riga delle storie in alto nella Home le schede di riavvolgimento, che riportano vecchi contenuti in evidenza.
 A double tap on a comment doesn't like it. Starts off, so comments keep double tap to like until you turn this on.	Un doppio tocco su un commento non mette Mi piace. Parte off, quindi i commenti mantengono il doppio tocco per il Mi piace finché non lo attivi.
@@ -1973,7 +1976,6 @@ A thin line with no handle that grows while you drag it. On feed videos it sits 
 A thicker rounded bar with no handle.	Una barra arrotondata più spessa, senza maniglia.
 A rounded bar split by a tall handle.	Una barra arrotondata divisa da una maniglia alta.
 A wavy line for the part played, with a tall handle.	Una linea ondulata per la parte riprodotta, con una maniglia alta.
-Turn on a seek bar on feed videos, stories or reels to use this choice.	Attiva una barra di scorrimento nei video del feed, nelle storie o nei reel per usare questa scelta.
 Preview while you drag a seek bar	Anteprima mentre trascini una barra di scorrimento
 Shows the time above your finger while you drag a seek bar on a feed video, story or reel, and a small picture of that moment when Instagram has one for the video.	Mostra il tempo sopra il dito mentre trascini una barra di scorrimento in un video del feed, una storia o un reel, e una piccola immagine di quel momento quando Instagram ne ha una per il video.
 Swipe right on Home opens	Scorrere a destra su Home apre
@@ -2079,6 +2081,28 @@ Save profile	Salva profilo
 Saved @%s	Hai salvato @%s
 # context: toast after Remove from saved takes an account off the Saved profiles list; %s is its username (#629)
 Removed @%s from saved	Hai rimosso @%s dai salvati
+# context: row in the long press menu on an account on the Saved profiles page, and title of the folder list it opens (#629)
+Move to folder	Sposta nella cartella
+# context: title of the folder list Save profile opens on a profile's menu once the user has made a folder (#629)
+Save to folder	Salva nella cartella
+# context: first choice in that folder list; the saved account sits in no folder (#629)
+No folder	Nessuna cartella
+# context: last choice in that folder list, and title of the dialog asking the new folder's name (#629)
+New folder	Nuova cartella
+# context: row in the long press menu on a folder's chip on the Saved profiles page, and title of the dialog for its new name (#629)
+Rename folder	Rinomina cartella
+# context: row in the long press menu on a folder's chip; the folder goes away and its accounts stay saved (#629)
+Remove folder	Rimuovi cartella
+# context: toast after Save profile puts an account in a folder; %1$s is its username, %2$s the folder's name (#629)
+Saved @%1$s to %2$s	Hai salvato @%1$s in %2$s
+# context: toast after Move to folder; %1$s is the account's username, %2$s the folder's name (#629)
+Moved @%1$s to %2$s	Hai spostato @%1$s in %2$s
+# context: toast after Move to folder > No folder; %s is the account's username, which stays saved (#629)
+Moved @%s out of its folder	Hai tolto @%s dalla cartella
+# context: toast after Remove folder; %s is the folder's name, and its accounts stay saved (#629)
+Removed the folder %s	Hai rimosso la cartella %s
+# context: toast after Rename folder; %s is the folder's new name (#629)
+Renamed the folder to %s	Hai rinominato la cartella in %s
 # context: toast when the Saved profiles list already holds 2,000 accounts (#629)
 Saved profiles is full.	L'elenco dei profili salvati è pieno.
 # context: Profiles > title of the switch that adds Save profile to the menu on profiles, and title of the page listing the saved accounts (#629)
@@ -2091,6 +2115,10 @@ Your saved profiles	I tuoi profili salvati
 Nothing saved yet. With Saved profiles on, tap Save profile in the menu on someone's profile and it shows up here.	Ancora niente di salvato. Con Profili salvati attivo, tocca Salva profilo nel menu sul profilo di qualcuno e comparirà qui.
 # context: spoken label of the cross at the end of a row on the Saved profiles page; %s is the account's username (#629)
 Remove @%s from saved	Rimuovi @%s dai salvati
+# context: sentence an import of a settings file adds to its receipt; %d is how many saved profiles it put on the list (#629)
+Saved profiles added: %d.	Profili salvati aggiunti: %d.
+# context: summary under Export HushGram settings in a build with Saved profiles; the file holds the settings and the saved list, never the Instagram sign-in or any history (#629)
+Choose a file for your installed patches' settings and saved profiles. Your login and history stay on this device.	Scegli un file per le impostazioni delle patch installate e i profili salvati. Accesso e cronologia restano su questo dispositivo.
 # context: Profiles > title of the switch that asks before a Follow or Follow back button follows someone (#631)
 Ask before a follow	Chiedi prima di seguire
 # context: Profiles > summary of Ask before a follow; Follow, Follow back, Followers and Following are Instagram's own button and list names (#631)
@@ -2101,6 +2129,17 @@ Follow @%1$s?	Seguire @%1$s?
 Follow this account?	Seguire questo account?
 # context: The question's confirm button; Instagram's own Follow button label (#631)
 Follow	Segui
+# context: switch in HushGram settings > Reels; a reel link opened from outside Instagram plays the linked reel first instead of a reel Instagram kept on the phone (#606)
+Open reel links on that reel	Apri i link dei reel su quel reel
+A reel link opens on the reel it points to. Instagram doesn't play another reel it kept on your phone while that one loads.	Un link a un reel apre il reel a cui punta. Instagram non riproduce un altro reel salvato sul telefono mentre quello si carica.
+# context: Stories settings: moves the story speed button into a video story's three-dot menu as a Playback speed row (#621)
+Speed in the story menu	Velocità nel menu della storia
+# context: Summary of Speed in the story menu; Playback speed is the row's own label (#621)
+Adds Playback speed to the menu a video story's three dots open, with the same 1x, 1.5x and 2x, and keeps the speed button off the story. Later video stories keep the speed you pick until you change it or restart Instagram.	Aggiunge Velocità di riproduzione al menu che si apre dai tre puntini di una storia video, con gli stessi 1x, 1,5x e 2x, e toglie il pulsante velocità dalla storia. Le storie video successive mantengono la velocità che scegli finché non la cambi o riavvii Instagram.
+# context: Reels settings: hides the Create (+) button only on reels opened from Saved or a saved collection (#620)
+Hide the Create button on saved reels	Nascondi il pulsante Crea sui reel salvati
+# context: Summary of Hide the Create button on saved reels; Saved is Instagram's own Saved page (#620)
+Takes the plus button off the top of reels you open from Saved or a collection and closes up the gap. The Reels tab and other reels keep theirs.	Toglie il pulsante più dalla parte alta dei reel che apri da Elementi salvati o da una raccolta e chiude lo spazio vuoto. La scheda Reel e gli altri reel tengono il loro.
 2x speed for videos in the feed	2x speed for videos in the feed
 Adds a shortcut to your saved posts in the Explore tab.	Adds a shortcut to your saved posts in the Explore tab.
 Adds a speed choice to the menu on a reel.	Adds a speed choice to the menu on a reel.

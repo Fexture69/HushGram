@@ -851,7 +851,8 @@ public final class HushgramPreferenceFragment extends AbstractPreferenceFragment
                     }
                     if (family == PatchFamily.REEL_DECLUTTER || family == PatchFamily.REEL_DOWNLOAD
                             || family == PatchFamily.REEL_WATCH_HISTORY || family == PatchFamily.REELS_TAB
-                            || family == PatchFamily.KEEP_REEL_SPEED || family == PatchFamily.TAP_TO_PLAY
+                            || family == PatchFamily.KEEP_REEL_SPEED || family == PatchFamily.REEL_LINKS
+                            || family == PatchFamily.TAP_TO_PLAY
                             || family == PatchFamily.PLAYBACK_QUALITY || family == PatchFamily.RESUME_LONG_VIDEOS
                             || family == PatchFamily.REEL_TAP_AND_VOLUME || family == PatchFamily.BACKGROUND_PLAY
                             || Settings.TURN_OFF_DOUBLE_TAP_LIKE_ON_REELS.key.equals(key)) aliases.append(" reels");
@@ -1791,7 +1792,7 @@ public final class HushgramPreferenceFragment extends AbstractPreferenceFragment
         return allowMutation(row, false);
     }
 
-    /** Whether the Saved profiles page may take an account off its list now. The settings lock holds it too. */
+    /** Whether the Saved profiles page may change its list now, an account or a folder. The settings lock holds it too. */
     static boolean savedProfilesChangeAllowed(Preference row) {
         return allowMutation(row, false);
     }
@@ -2985,6 +2986,9 @@ public final class HushgramPreferenceFragment extends AbstractPreferenceFragment
                         boolean owed = false;
                         for (var changed : result.before.entrySet()) owed |= noteRestartPending(changed.getKey(), changed.getValue());
                         showImportFeedback(owed ? message + " " + L10n.t("Restart Instagram to apply these choices.") : message);
+                        // The list's row read the accounts when the page opened.
+                        Preference saved = result.profiles > 0 && isAdded() ? findPreference(SAVED_PROFILES_ROW) : null;
+                        if (saved != null) readSavedProfiles(saved);
                     });
                 }
             } catch (ConfigurationBackup.Held held) {
@@ -3006,13 +3010,14 @@ public final class HushgramPreferenceFragment extends AbstractPreferenceFragment
      * What an import or an Undo reports, before any restart note. Lock switches a HushGram PIN (or a
      * lock that came back) kept as they are get their own sentence: they're known settings, and
      * counting them as ones this version doesn't know hid why they didn't change. Skipped settings
-     * are only mentioned when there are some.
+     * are only mentioned when there are some, and saved profiles a file added when it added some.
      */
     static String configurationReceipt(boolean undo, ConfigurationBackup.Result result) {
         String message = undo ? result.skipped == 0 ? L10n.t("Settings restored.")
                 : L10n.f("Restored %1$d settings. Kept %2$d newer choices.", result.applied, result.skipped)
                 : result.skipped == 0 ? L10n.f("Imported %1$d settings.", result.applied)
                 : L10n.f("Imported %1$d settings. Skipped %2$d that this version doesn't know.", result.applied, result.skipped);
+        if (!undo && result.profiles > 0) message += " " + L10n.f("Saved profiles added: %d.", result.profiles);
         return result.held == 0 ? message
                 : message + " " + L10n.t("Lock switches stay as they are until you change them here.");
     }
@@ -4799,6 +4804,13 @@ public final class HushgramPreferenceFragment extends AbstractPreferenceFragment
             SavedProfilesPage.open(tapped.getContext(), tapped);
             return true;
         });
+        readSavedProfiles(row);
+        return mark(row, SettingsIcons.PERSON);
+    }
+
+    /** Names the newest saved accounts on [row], read off the main thread. */
+    static void readSavedProfiles(Preference row) {
+        Context context = row.getContext();
         Context application = context.getApplicationContext() != null ? context.getApplicationContext() : context;
         if (!Utils.runOnBackgroundThread(() -> {
             String summary = savedProfilesSummary(SavedProfiles.all(application));
@@ -4806,7 +4818,6 @@ public final class HushgramPreferenceFragment extends AbstractPreferenceFragment
         })) {
             row.setSummary(savedProfilesSummary(SavedProfiles.all(application)));
         }
-        return mark(row, SettingsIcons.PERSON);
     }
 
     /** What the Saved profiles row says for [profiles], newest first. */
@@ -6502,7 +6513,10 @@ public final class HushgramPreferenceFragment extends AbstractPreferenceFragment
         return row;
     }
 
-    /** The shape every seek bar takes (#586, #592). Its values are the shapes' own names. */
+    /**
+     * The shape every seek bar takes (#586, #592), story progress segments and a chat video's bar
+     * included (#630), so it's there with no seek bar switch on. Its values are the shapes' own names.
+     */
     static ChoiceRow<SeekShape> seekShapeRow(Context context) {
         String title = L10n.t("Seek bar shape");
         ChoiceRow<SeekShape> row = new ChoiceRow<>(context, Settings.SEEK_BAR_SHAPE, SeekShape.values(), new String[] {
@@ -6511,7 +6525,7 @@ public final class HushgramPreferenceFragment extends AbstractPreferenceFragment
                 L10n.t("A thicker rounded bar with no handle."),
                 L10n.t("A rounded bar split by a tall handle."),
                 L10n.t("A wavy line for the part played, with a tall handle."),
-        }, L10n.t("Turn on a seek bar on feed videos, stories or reels to use this choice."));
+        }, null);
         fill(row, Settings.SEEK_BAR_SHAPE, SeekShape.values(), new String[] {
                 L10n.t("Standard"),
                 L10n.t("Thin line"),
