@@ -23,6 +23,7 @@ import app.hushgram.extension.instagram.media.TapToPlayScope;
 import app.hushgram.extension.instagram.profile.ProfileTabs;
 import app.hushgram.extension.instagram.stories.StoryBarThickness;
 import app.hushgram.extension.instagram.stories.StoryMentionsLook;
+import app.hushgram.extension.instagram.stories.StorySeekBarPosition;
 import app.hushgram.extension.instagram.stories.StoryRingColor;
 import app.hushgram.extension.instagram.stories.StoryRingSize;
 import app.hushgram.extension.instagram.stories.StoryTimeMode;
@@ -1000,6 +1001,8 @@ public class Settings extends BaseSettings {
      * ({@link app.hushgram.extension.instagram.direct.GlassChat}, #449). Off to start.
      */
     public static final BooleanSetting GLASS_CHAT = new BooleanSetting("hushgram_glass_chat", FALSE);
+    /** The Send message box on other people's stories takes the same glass, as a pill (#391). Off to start. */
+    public static final BooleanSetting GLASS_STORY_REPLY_BOX = new BooleanSetting("hushgram_glass_story_reply_box", FALSE);
 
     /** The message bar's gallery and microphone buttons move into the plus menu. Off to start. */
     public static final BooleanSetting MOVE_TO_PLUS_MENU = new BooleanSetting("hushgram_move_to_plus_menu", FALSE);
@@ -1350,6 +1353,13 @@ public class Settings extends BaseSettings {
      */
     public static final EnumSetting<OverlayLook> STORY_SEEK_BAR_LOOK =
             new EnumSetting<>("hushgram_story_seek_bar_look", OverlayLook.SOLID, parent(STORY_SEEK_BAR));
+
+    /**
+     * Where {@link #STORY_SEEK_BAR}'s bar sits (#636): just above the Send message box, as it always did,
+     * or in the space under it, where there's room. Starts above. Read as the bar updates.
+     */
+    public static final EnumSetting<StorySeekBarPosition> STORY_SEEK_BAR_POSITION =
+            new EnumSetting<>("hushgram_story_seek_bar_position", StorySeekBarPosition.ABOVE, parent(STORY_SEEK_BAR));
 
     /**
      * A speed button in a video story's header that plays it at 1x, 1.5x or 2x, kept for the next
@@ -1998,6 +2008,14 @@ public class Settings extends BaseSettings {
      */
     public static final BooleanSetting LAUNCH_SCREEN =
             new BooleanSetting("hushgram_launch_screen", FALSE, true);
+
+    /**
+     * That screen filled with the accent color, or Instagram's blue while Accent color is off (#528).
+     * A typed color shows as the nearest fixed one, since Android draws the screen from the theme
+     * alone. Shows from the next start. Off to start.
+     */
+    public static final BooleanSetting LAUNCH_SCREEN_ACCENT =
+            new BooleanSetting("hushgram_launch_screen_accent", FALSE, true, parent(LAUNCH_SCREEN));
 
     /**
      * Words of your own at the top of Home in place of Instagram's logo, with the Home header text
@@ -2719,7 +2737,8 @@ public class Settings extends BaseSettings {
     /**
      * Home's header showing the feed blurred under it, like frosted glass (#418,
      * {@link app.hushgram.extension.instagram.feed.GlassTopBar}). It takes the header as Home hands
-     * it over, so the restart card comes up. Off to start.
+     * it over, so the restart card comes up. With {@link #GLASS_TAB_BAR} on it takes the pill's sheen and
+     * rim too (#513). Off to start.
      */
     public static final BooleanSetting SEE_THROUGH_HOME_TOP_BAR =
             new BooleanSetting("hushgram_see_through_home_top_bar", FALSE, true);

@@ -6,6 +6,10 @@ Every HushGram release, newest first.
 
 ### Features
 
+* `Glass in chats` now frosts the message bar at the bottom of a chat too, so messages blur as they scroll under it. A new switch, `Glass reply box on stories` under Stories, gives the Send message box on other people's stories the same glass so it's easy to read over any story. Starts off. Asked for in #391.
+* `Launch screen in the accent color` sits under `HushGram launch screen` in Layout. It fills the screen you see while Instagram starts with your accent color, or Instagram's blue while `Accent color` is off. A color you typed shows as the closest one in the list, since Android draws that screen before HushGram can. Starts off. Asked for in #528.
+* `Seek bar position` sits under the look choice of `Seek bar on stories`. Picking `Below the Send message box` moves the bar into the space under the reply box at the bottom of a story, and it stays above the box where there's no room under it. Asked for in #636.
+* With `Glass tab bar` on, Home's `See-through top bar` takes on the same look. The header gets the pill's soft shine, and with `Bend light at the edges` on, its bottom edge bends what's under it the way the pill's rim does. Asked for in #513.
 * `Hide Subscribe on posts` sits under `Hide Follow on posts` in Feed. It takes just the Subscribe button off the top of posts in your feed, so Follow stays where it is. Starts off. Asked for in #622.
 * `Hide the Create button on saved reels` sits under `Hide the Create button on reels` in Reels. It takes the plus button off the top of reels you open from Saved or a collection and leaves it on the Reels tab and everywhere else. Starts off. Asked for in #620.
 * `Speed in the story menu` sits under `Speed button on stories` in Stories. It puts Playback speed in the menu a video story's three dots open, with the same 1x, 1.5x and 2x, and takes the speed button off the story. The story waits while you pick. It needs `Download any story` in your build. Starts off. Asked for in #621.
@@ -22,7 +26,7 @@ Every HushGram release, newest first.
 * `Hide posts from business and creator accounts` under Feed takes their posts out of Home and Following, friends who use one included, and collabs with one of them too. Favorites still shows them. Starts off. Asked for in #579.
 * `Lock Saved` sits with the message locks in Messages. Saved, your collections and the search inside Saved stay covered until your fingerprint, face or screen lock says it's you, and your messages stay as they were. Starts off. Asked for in #597.
 * `Mute button on reels` under Reels puts a speaker icon beside a reel. Tap it to turn sound off or on. `Mute button in clear mode` keeps it in clear mode too. Both start off. Asked for in #608.
-* `Upload stories at full quality` adds `Video resolution` up to 1440p, `Video frame rate` up to 60 fps and `Photo quality` up to 100. Instagram still re-encodes on its servers, so these set what leaves your phone. Asked for in #37.
+* `Upload stories at full quality` adds `Video resolution` up to 2160p, `Video frame rate` up to 120 fps and `Photo quality` up to 100. Past 1440p and 60 fps they're only asked for when your phone's video encoder can take them, and a size it can't take drops back to 1440p or 1080p. Instagram still re-encodes on its servers, so these set what leaves your phone. Asked for in #37.
 * `Loop this video` in a feed video's or reel's menu loops just that one while `Stop videos looping` is on. `Loop this story` does the same for a story while `Loop a story` is off. Asked for in #610.
 * `Seek bar shape` under Feed gives the seek bars on feed videos, stories and reels a new look: a thin line, a thicker rounded bar, a bar split by a tall handle, or a wave. They grow while you drag. Asked for in #586 and #592.
 * `Preview while you drag a seek bar` under Feed shows the time above your finger on feed videos, stories and reels, plus a picture of that moment or the paused video itself. Asked for in #567 and #592.
@@ -83,7 +87,7 @@ Every HushGram release, newest first.
 * With `Keep a seek bar on Reels` on, Instagram's own track now glides between position updates too, and a round handle stays on the line's end. Reported in #10.
 * `Bend light at the edges` works on the standard glass pill too, not just the liquid one, round whatever corners you picked. It sits under `Blur behind the tab bar` now, since the bend needs the blur. Asked for in #391.
 * The `Instagram gradient on dark` app icon is bigger on the home screen, about as big as the other icons. Reported in #327.
-* `Pure black dark mode` now turns the menu you get by holding a message, or a chat in your inbox, black too, along with the Instagram Plus card over that menu and the notes above your chats. Asked for in #543.
+* `Pure black dark mode` now turns the menu you get by holding a message, or a chat in your inbox, black too, along with the Instagram Plus card over that menu, the menu the + in a chat's message box opens and the notes above your chats. Asked for in #543 and #635.
 * With `Full screen Reels` hiding the status bar, the Reels and Friends tabs and the buttons at the top of a reel now sit just below a punch hole camera instead of under it. Asked for in #525.
 * `Select text` opens a comment, caption or bio in HushGram's own dark window now, black with `Pure black dark mode`, instead of the phone's gray one. Asked for in #525.
 * The story mentions sheet from the top bar floats over the story as glass now, with the story blurred behind it on Android 12 and up. Phones that can't blur get a nearly solid tint so names stay readable. Asked for in #525.
@@ -94,6 +98,7 @@ Every HushGram release, newest first.
 ### Bug Fixes
 
 * With `Glass tab bar` and `Show content behind the tab bar` on, the floating tab bar now steps aside while a chat is open, so it no longer covers the reply box. On Android 17 Instagram left its bar showing over chats, the way it did over stories. Reported in #632.
+* With `Full screen Reels`, `Full screen Home` or `Full screen Messages` hiding the bars, the comment box no longer slips below the bottom of the screen. On some Samsung phones Instagram worked out a bit too much of the comments sheet as showing, so HushGram now pads the sheet's content up until the box sits at the bottom edge. Reported in #626.
 * `Hide the Create button on reels` now also takes the plus button off reels you open from Saved, a profile or a post. On 454 those reels get a different top bar, and the switch only reached the Reels tab's. Found while building #620.
 * A reel link opened from outside Instagram, like one shared in another app, now plays the reel it points to first. Instagram used to start a reel it had saved on your phone, or one it had fetched ahead when it was already open, while the linked one loaded, so you had to swipe to find it. The new `Open reel links on that reel` switch is on to start and sits under Reels in HushGram settings. Reported in #606.
 * `Recent unfollowers` now keeps your Followers list when Instagram lists a few fewer accounts than your follower count, like 547 of 550. The count includes accounts the list never shows and can lag behind someone leaving, so nothing was saved. A list may now be short by one in every 50 followers. Reported in #624.

@@ -1491,7 +1491,7 @@
     },
     {
       "name": "Glass in chats",
-      "description": "Gives a chat's top bar frosted glass that blurs the messages under it (Android 12 and newer) and puts the back, call and video buttons on round glass circles. Starts off. Turn it on in HushGram settings > Messages.",
+      "description": "Gives a chat's top bar and message bar frosted glass that blurs the messages under them (Android 12 and newer) and puts the back, call and video buttons on round glass circles. A second switch gives the reply box on other people's stories the same glass. Starts off. Turn them on in HushGram settings > Messages and Stories.",
       "category": "Messages",
       "use": true,
       "dependencies": [
@@ -3411,7 +3411,7 @@
     },
     {
       "name": "HushGram launch screen",
-      "description": "Shows HushGram's logo instead of Instagram's on the screen you see while Instagram starts, on Android 13 and newer. Starts off. Turn it on in HushGram settings > Layout.",
+      "description": "Shows HushGram's logo instead of Instagram's on the screen you see while Instagram starts, on Android 13 and newer, and can fill that screen with your accent color. Starts off. Turn it on in HushGram settings > Layout.",
       "category": "Interface",
       "use": true,
       "dependencies": [
@@ -4641,7 +4641,7 @@
     },
     {
       "name": "Pure black dark mode",
-      "description": "Makes Instagram's dark mode pure black instead of dark gray, on the menus that slide up from the bottom, the one you get by holding a message or a chat, and the notes above your chats too. It looks deeper and can save battery on an OLED screen. Buttons keep their grays so they stay easy to see. Works as soon as you patch it in, with no switch.",
+      "description": "Makes Instagram's dark mode pure black instead of dark gray, on the menus that slide up from the bottom, the one you get by holding a message or a chat, the one the + in a chat opens, and the notes above your chats too. It looks deeper and can save battery on an OLED screen. Buttons keep their grays so they stay easy to see. Works as soon as you patch it in, with no switch.",
       "category": "Interface",
       "use": false,
       "dependencies": [
@@ -5284,7 +5284,7 @@
     },
     {
       "name": "Seek bar on stories",
-      "description": "Shows a bar near the bottom of a video story that you can drag to jump to any point in the video. Photos don't get one. A choice under it makes the bar see-through or puts it on frosted glass. Starts off. Turn it on in HushGram settings > Stories.",
+      "description": "Shows a bar near the bottom of a video story that you can drag to jump to any point in the video. Photos don't get one. A choice under it makes the bar see-through or puts it on frosted glass, and another moves it into the space under the Send message box. Starts off. Turn it on in HushGram settings > Stories.",
       "category": "Stories",
       "use": true,
       "dependencies": [
@@ -6844,7 +6844,7 @@
     },
     {
       "name": "Upload stories at full quality",
-      "description": "Sends the video stories you post at 1080p and a higher bitrate, as Instagram does with its own Upload at highest quality setting on. Choices under it can cover posts and reels too and ask for a bitrate up to 50 Mbps, 1440p, 60 fps or a higher photo quality. Instagram still shrinks story videos to 720p on its servers, so viewers see a small difference. Starts off. Turn it on in HushGram settings > Stories.",
+      "description": "Sends the video stories you post at 1080p and a higher bitrate, as Instagram does with its own Upload at highest quality setting on. Choices under it can cover posts and reels too and ask for a bitrate up to 50 Mbps, up to 2160p and 120 fps where your phone's video encoder can take them, or a higher photo quality. Instagram still shrinks story videos to 720p on its servers, so viewers see a small difference. Starts off. Turn it on in HushGram settings > Stories.",
       "category": "Stories",
       "use": true,
       "dependencies": [

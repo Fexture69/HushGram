@@ -14,6 +14,7 @@ import static app.hushgram.extension.instagram.settings.HushgramPreferenceFragme
 import static app.hushgram.extension.instagram.settings.HushgramPreferenceFragment.storyRingColorRow;
 import static app.hushgram.extension.instagram.settings.HushgramPreferenceFragment.storyRingRow;
 import static app.hushgram.extension.instagram.settings.HushgramPreferenceFragment.storySeekBarLookRow;
+import static app.hushgram.extension.instagram.settings.HushgramPreferenceFragment.storySeekBarPositionRow;
 import static app.hushgram.extension.instagram.settings.HushgramPreferenceFragment.storyTimeModeRow;
 import static app.hushgram.extension.instagram.settings.HushgramPreferenceFragment.uploadBitrateRow;
 import static app.hushgram.extension.instagram.settings.HushgramPreferenceFragment.uploadFrameRateRow;
@@ -113,6 +114,7 @@ final class StoriesCategory {
                     L10n.t("Shows a bar near the bottom of a video story. Drag it to jump to any point in the "
                             + "video. Photos don't get one.")));
             stories.add(storySeekBarLookRow(context));
+            stories.add(storySeekBarPositionRow(context));
         }
         if (build.contains(PatchFamily.STORY_SPEED)) {
             stories.add(toggle(context, Settings.STORY_SPEED_BUTTON, L10n.t("Speed button on stories"),
@@ -171,6 +173,11 @@ final class StoriesCategory {
             stories.add(toggle(context, Settings.HIDE_STORY_SHARE_BUTTON, L10n.t("Hide the Share button on stories"),
                     L10n.t("Takes the paper plane off the bottom of other people's stories. No empty space is "
                             + "left behind.")));
+        }
+        if (build.contains(PatchFamily.GLASS_CHAT)) {
+            stories.add(toggle(context, Settings.GLASS_STORY_REPLY_BOX, L10n.t("Glass reply box on stories"),
+                    L10n.t("Gives the Send message box on other people's stories frosted glass, so it's easy to read "
+                            + "over any story. Needs Android 12 or newer for the blur.")));
         }
         if (build.contains(PatchFamily.STORY_BUTTONS_ROOM)) {
             stories.add(toggle(context, Settings.KEEP_STORY_BUTTONS_BELOW, L10n.t("Keep story buttons below the story"),
