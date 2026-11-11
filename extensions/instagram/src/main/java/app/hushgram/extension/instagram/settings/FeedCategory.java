@@ -123,6 +123,8 @@ final class FeedCategory {
                     L10n.t("Hides the card after the posts from accounts you follow that says you've seen the latest "
                             + "ones, and its Older posts link. When Home has no new posts at all, only that line goes "
                             + "and the link stays. Pull down on Home to refresh after changing it.")));
+            feed.addPreference(toggle(context, Settings.HIDE_CHANNEL_JOIN_BAR, L10n.t("Hide the Join bar on channel posts"),
+                    L10n.t("Hides the bar under a post that asks you to join the account's channel. The post stays.")));
             if (PatchFamily.feedTypesInBuild()) {
                 feed.addPreference(toggle(context, Settings.HIDE_FEED_VIDEOS, L10n.t("Hide videos"),
                         L10n.t("Removes every single-video post and reel from Home, even from accounts you follow. "
@@ -181,8 +183,8 @@ final class FeedCategory {
         }
         if (askLike) {
             feed.addPreference(toggle(context, Settings.ASK_BEFORE_LIKE, L10n.t("Ask before a like"),
-                    L10n.t("Asks before the Like button under a post or on a reel likes or unlikes it, so a stray tap "
-                            + "doesn't do it for you. Double taps aren't asked about.")));
+                    L10n.t("Asks before the Like button under a post, on a reel or on a comment likes or unlikes it, so a "
+                            + "stray tap doesn't do it for you. Double taps aren't asked about.")));
         }
         if (askRefresh) {
             feed.addPreference(toggle(context, Settings.ASK_BEFORE_REFRESH, L10n.t("Ask before a refresh"),

@@ -379,6 +379,30 @@ public class Settings extends BaseSettings {
             new BooleanSetting("hushgram_hide_story_reply_box", FALSE);
 
     /**
+     * The Like button, the heart, stays off the bottom of other people's stories, and the buttons
+     * beside it close up ({@link app.hushgram.extension.instagram.stories.StoryReplyBox}). Nothing is
+     * liked or unliked. Read before each frame. Off to start.
+     */
+    public static final BooleanSetting HIDE_STORY_LIKE_BUTTON =
+            new BooleanSetting("hushgram_hide_story_like_button", FALSE);
+
+    /**
+     * The Comment button stays off the bottom of other people's stories that show one
+     * ({@link app.hushgram.extension.instagram.stories.StoryReplyBox}). Read before each frame. Off
+     * to start.
+     */
+    public static final BooleanSetting HIDE_STORY_COMMENT_BUTTON =
+            new BooleanSetting("hushgram_hide_story_comment_button", FALSE);
+
+    /**
+     * The Share button, the paper plane, stays off the bottom of other people's stories
+     * ({@link app.hushgram.extension.instagram.stories.StoryReplyBox}). Read before each frame. Off
+     * to start.
+     */
+    public static final BooleanSetting HIDE_STORY_SHARE_BUTTON =
+            new BooleanSetting("hushgram_hide_story_share_button", FALSE);
+
+    /**
      * The row along a story's bottom moves down off the story when a large font or display size makes
      * it cover the story ({@link app.hushgram.extension.instagram.stories.StoryButtonsRoom}). Read before
      * each frame, and the row goes back the frame after it turns off. On to start.
@@ -678,6 +702,14 @@ public class Settings extends BaseSettings {
      */
     public static final BooleanSetting SKIP_AD_DATA_REMINDER =
             new BooleanSetting("hushgram_skip_ad_data_reminder", FALSE);
+
+    /**
+     * Instagram can't read where the photos and videos in your gallery were taken: its image loader
+     * gets them with the location taken out, and a gallery item or a file's EXIF answers no place
+     * (#628, {@link app.hushgram.extension.instagram.misc.PhotoLocations}). Read each time. Off to start.
+     */
+    public static final BooleanSetting KEEP_PHOTO_LOCATIONS =
+            new BooleanSetting("hushgram_keep_photo_locations", FALSE);
 
     /**
      * The seen receipt a chat sends when you open it, the one that puts Seen under the other
@@ -1017,7 +1049,7 @@ public class Settings extends BaseSettings {
             });
 
     /**
-     * The Like button under a post asks before it likes or unlikes the post
+     * The Like button under a post, on a reel or beside a comment asks before it likes or unlikes
      * ({@link app.hushgram.extension.instagram.feed.LikeConfirm}). A double tap isn't asked about.
      * Off to start.
      */
@@ -1028,6 +1060,12 @@ public class Settings extends BaseSettings {
      * ({@link app.hushgram.extension.instagram.feed.RefreshConfirm}). Off to start.
      */
     public static final BooleanSetting ASK_BEFORE_REFRESH = new BooleanSetting("hushgram_ask_before_refresh", FALSE);
+
+    /**
+     * A Follow or Follow back button asks before it follows someone or sends them a request
+     * ({@link app.hushgram.extension.instagram.profile.FollowConfirm}). Off to start (#631).
+     */
+    public static final BooleanSetting ASK_BEFORE_FOLLOW = new BooleanSetting("hushgram_ask_before_follow", FALSE);
 
     /**
      * Saving a post or reel shows the Saved message instead of the tray that asks you to start a
@@ -1128,6 +1166,13 @@ public class Settings extends BaseSettings {
      */
     public static final BooleanSetting HIDE_CAUGHT_UP_CARD =
             new BooleanSetting("hushgram_hide_caught_up_card", FALSE);
+
+    /**
+     * The bar under a post asking you to join its account's broadcast channel
+     * ({@link app.hushgram.extension.instagram.feed.ChannelJoinBar}, #625). The post stays. Off to start.
+     */
+    public static final BooleanSetting HIDE_CHANNEL_JOIN_BAR =
+            new BooleanSetting("hushgram_hide_channel_join_bar", FALSE);
 
     /** Posts in Home that are one video, reels among them. Off until enabled. */
     public static final BooleanSetting HIDE_FEED_VIDEOS =
@@ -1605,8 +1650,9 @@ public class Settings extends BaseSettings {
 
     /**
      * Stories over the whole screen (#436): on a screen taller than 9:16 a story shows behind the
-     * reply bar, the way it does on a shorter phone, instead of as a rounded card above it. Off to
-     * start.
+     * reply bar, the way it does on a shorter phone, instead of as a rounded card above it. It's laid
+     * out that way as the story opens, and a reel shared to a story keeps its whole 9:16 frame across
+     * the screen's width (#618). Off to start.
      */
     public static final BooleanSetting FILL_STORY_SCREEN =
             new BooleanSetting("hushgram_fill_story_screen", FALSE);
@@ -2248,6 +2294,63 @@ public class Settings extends BaseSettings {
             new BooleanSetting("hushgram_hide_profile_notes", FALSE);
 
     /**
+     * The Threads badge in the row of banners under the bio on other people's profiles, yours kept
+     * ({@link app.hushgram.extension.instagram.profile.ProfileBanners}, #627). Read each time
+     * Instagram builds a profile's header, so a change shows on the next profile opened. Off to start.
+     */
+    public static final BooleanSetting HIDE_PROFILE_THREADS_BADGE =
+            new BooleanSetting("hushgram_hide_profile_threads_badge", FALSE);
+
+    /**
+     * The links to a Facebook profile, page or group in the row of banners under the bio on other
+     * people's profiles, yours kept ({@link app.hushgram.extension.instagram.profile.ProfileBanners},
+     * #627). Read each time Instagram builds a profile's header. Off to start.
+     */
+    public static final BooleanSetting HIDE_PROFILE_FACEBOOK_LINKS =
+            new BooleanSetting("hushgram_hide_profile_facebook_links", FALSE);
+
+    /**
+     * The WhatsApp link in the row of banners under the bio on other people's profiles, yours kept
+     * ({@link app.hushgram.extension.instagram.profile.ProfileBanners}, #627). Read each time
+     * Instagram builds a profile's header. Off to start.
+     */
+    public static final BooleanSetting HIDE_PROFILE_WHATSAPP_LINK =
+            new BooleanSetting("hushgram_hide_profile_whatsapp_link", FALSE);
+
+    /**
+     * The song someone picked for their profile, in the row of banners under the bio on other
+     * people's profiles, yours kept ({@link app.hushgram.extension.instagram.profile.ProfileBanners},
+     * #627). Read each time Instagram builds a profile's header. Off to start.
+     */
+    public static final BooleanSetting HIDE_PROFILE_SONG =
+            new BooleanSetting("hushgram_hide_profile_song", FALSE);
+
+    /**
+     * The interests someone added to their profile, in the row of banners under the bio on other
+     * people's profiles, yours kept ({@link app.hushgram.extension.instagram.profile.ProfileBanners},
+     * #627). Read each time Instagram builds a profile's header. Off to start.
+     */
+    public static final BooleanSetting HIDE_PROFILE_INTERESTS =
+            new BooleanSetting("hushgram_hide_profile_interests", FALSE);
+
+    /**
+     * The invite to someone's broadcast channel in the row of banners under the bio on other
+     * people's profiles, yours kept ({@link app.hushgram.extension.instagram.profile.ProfileBanners},
+     * #627). Read each time Instagram builds a profile's header. Off to start.
+     */
+    public static final BooleanSetting HIDE_PROFILE_CHANNEL_BANNER =
+            new BooleanSetting("hushgram_hide_profile_channel_banner", FALSE);
+
+    /**
+     * Every other kind in the row of banners under the bio on other people's profiles (events,
+     * fundraisers, schools, business hours and kinds Instagram adds later), yours kept and the Muse
+     * banner left to Hide Meta AI ({@link app.hushgram.extension.instagram.profile.ProfileBanners},
+     * #627). Read each time Instagram builds a profile's header. Off to start.
+     */
+    public static final BooleanSetting HIDE_OTHER_PROFILE_BANNERS =
+            new BooleanSetting("hushgram_hide_other_profile_banners", FALSE);
+
+    /**
      * Opening someone's profile goes on to their posts as a scrolling list, the one Instagram opens for a
      * tapped post, with the grid one Back away ({@link app.hushgram.extension.instagram.profile.PostsList}).
      * Read each time a posts tab comes up, so a change shows on the next profile opened. Off to start.
@@ -2411,7 +2514,7 @@ public class Settings extends BaseSettings {
     public static final BooleanSetting SELECT_TEXT =
             new BooleanSetting("hushgram_select_text", FALSE);
 
-    /** An explicit Save action for a photo the comment itself carries. Off until enabled. */
+    /** An explicit Save action for a photo, GIF or sticker the comment itself carries. Off until enabled. */
     public static final BooleanSetting SAVE_COMMENT_PHOTOS =
             new BooleanSetting("hushgram_save_comment_photos", FALSE);
 
@@ -2445,13 +2548,22 @@ public class Settings extends BaseSettings {
             new BooleanSetting("hushgram_copy_profile_text", FALSE);
 
     /**
+     * The menu on someone's profile gets Save profile, or Remove from saved once it's saved, and
+     * the Saved profiles page lists those accounts to open again (#629). The list stays on this
+     * phone, apart from Instagram's Favorites and Following, and out of settings backups and the
+     * diagnostic report ({@link app.hushgram.extension.instagram.download.SavedProfiles}). Starts off.
+     */
+    public static final BooleanSetting SAVED_PROFILES =
+            new BooleanSetting("hushgram_saved_profiles", FALSE);
+
+    /**
      * A button next to the three dots on a profile opens a menu of the profile actions switched on
      * above ({@link app.hushgram.extension.instagram.download.ProfileExtras}). The three-dot menu
      * keeps its rows. Off until enabled, and greyed until one of those actions is on.
      */
     public static final BooleanSetting PROFILE_EXTRAS_BUTTON =
             new BooleanSetting("hushgram_profile_extras_button", FALSE,
-                    parentsAny(SAVE_PROFILE_PICTURES, VIEW_PROFILE_PICTURES, COPY_PROFILE_TEXT));
+                    parentsAny(SAVE_PROFILE_PICTURES, VIEW_PROFILE_PICTURES, COPY_PROFILE_TEXT, SAVED_PROFILES));
 
     /**
      * An (i) on a profile, next to the three dots, opens Instagram's About this account for that
@@ -2475,6 +2587,15 @@ public class Settings extends BaseSettings {
      */
     public static final BooleanSetting HIDE_COMMENTS =
             new BooleanSetting("hushgram_hide_comments", FALSE);
+
+    /**
+     * A comment in a post's or reel's comments leaves Reply out of the line under its text, while
+     * View more replies stays (#619, {@link app.hushgram.extension.instagram.feed.CommentReply}).
+     * Read as each comment is drawn, so comments already on screen change the next time they're
+     * drawn. Off to start.
+     */
+    public static final BooleanSetting HIDE_COMMENT_REPLY =
+            new BooleanSetting("hushgram_hide_comment_reply", FALSE);
 
     /**
      * The comment sheet leaves out the row of quick emoji above the comment box
@@ -3830,6 +3951,16 @@ public class Settings extends BaseSettings {
      */
     public static final BooleanSetting VIEWING_HISTORY =
             new BooleanSetting("hushgram_viewing_history", FALSE);
+
+    /**
+     * Remembers, only on this phone, the username, bio and profile picture of each profile opened,
+     * and says so when one changed since the last visit (#590, #611). It reads what Instagram
+     * already loaded for the profile screen and fetches nothing but the picture shown. Old values
+     * stay listed on the Profile changes page until Clear profile history. The list stays out of
+     * settings backups and the diagnostic report. Starts off.
+     */
+    public static final BooleanSetting PROFILE_HISTORY =
+            new BooleanSetting("hushgram_profile_history", FALSE);
 
     /**
      * The name a saved video gets: {date}, {video_id}, {owner} and {posted} fill in per save, the

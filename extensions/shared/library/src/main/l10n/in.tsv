@@ -507,7 +507,7 @@ Adds Copy username to a selected comment's menu, for the account that wrote it.	
 Comment copied	Komentar disalin
 Couldn't copy comment	Tidak dapat menyalin komentar
 Save comment photo	Simpan foto komentar
-Adds Save to a selected comment's menu when the comment has its own photo or GIF. Saves the largest size Instagram sent.	Menambahkan Simpan ke menu komentar yang dipilih jika komentar memiliki foto atau GIF sendiri. Menyimpan ukuran terbesar yang dikirim Instagram.
+Press and hold a comment that has its own photo, GIF or sticker, and its menu gets Save. Saves the largest size Instagram sent.	Tekan dan tahan komentar yang memiliki foto, GIF, atau stiker sendiri, dan menunya akan berisi Simpan. Menyimpan ukuran terbesar yang dikirim Instagram.
 Reply with a comment's GIF	Balas dengan GIF komentar
 When a comment has a GIF, its menu gets a GIF reply that sends that same GIF back as your reply, animated.	Jika komentar memiliki GIF, menunya mendapat balasan GIF yang mengirim GIF yang sama sebagai balasanmu, tetap beranimasi.
 Show a comment GIF's name	Tampilkan nama GIF komentar
@@ -585,6 +585,8 @@ Hide story rows	Sembunyikan baris cerita
 Hides the rows of stories that Instagram puts between posts, like stories that are about to expire. Pull down on Home to refresh after changing it.	Menyembunyikan baris cerita yang diselipkan Instagram di antara postingan, seperti cerita yang akan segera berakhir. Tarik Beranda ke bawah untuk menyegarkan setelah mengubahnya.
 Hide the caught up card	Sembunyikan kartu sudah melihat semua
 Hides the card after the posts from accounts you follow that says you've seen the latest ones, and its Older posts link. When Home has no new posts at all, only that line goes and the link stays. Pull down on Home to refresh after changing it.	Menyembunyikan kartu setelah postingan dari akun yang kamu ikuti yang bilang kamu sudah melihat yang terbaru, beserta tautan Postingan lama. Kalau Beranda sama sekali tidak punya postingan baru, hanya kalimat itu yang hilang dan tautannya tetap ada. Tarik Beranda ke bawah untuk menyegarkan setelah mengubahnya.
+Hide the Join bar on channel posts	Sembunyikan bilah Gabung di postingan saluran
+Hides the bar under a post that asks you to join the account's channel. The post stays.	Menyembunyikan bilah di bawah postingan yang memintamu bergabung ke saluran akun tersebut. Postingannya tetap ada.
 Instagram is locked	Instagram terkunci
 Instagram locks as soon as you leave it or the screen turns off.	Instagram terkunci begitu Anda meninggalkannya atau layar mati.
 Instagram locks once you've been away from it for %1$s.	Instagram terkunci setelah Anda meninggalkannya selama %1$s.
@@ -707,6 +709,9 @@ No other way into HushGram is on, so the row stays in Instagram's menu.	Tidak ad
 Instagram's Settings and activity screen leaves out the HushGram row while another way here opens HushGram. With every other way off, the row comes back.	Selama cara lain ke sini membuka HushGram, layar Pengaturan dan aktivitas Instagram tidak menampilkan baris HushGram. Jika semua cara lain dimatikan, barisnya kembali.
 Stop loading stories and highlights	Berhenti memuat cerita dan sorotan
 Takes the Comment button and the comment count off the posts in your feed.	Menghapus tombol Komentar dan jumlah komentar dari postingan di feed Anda.
+# context: Comments: a second Hide comments switch that takes the Reply button off each comment in a comment sheet (#619). Reply and View more replies are Instagram's own labels under a comment; use this language's Instagram words for them.
+Hide Reply on comments	Sembunyikan Balas di komentar
+Takes Reply off each comment in a post's or reel's comments. View more replies stays, so you can still open them.	Menghapus Balas dari setiap komentar di postingan atau reel. Lihat balasan lainnya tetap ada, jadi Anda masih bisa membukanya.
 # context: Comments: the switch that hides the row of quick emoji above the comment box (#248). Comment box is the field where you type a comment.
 Hide the emoji row	Sembunyikan baris emoji
 Takes the row of quick emoji off above the comment box. The box itself stays.	Menghapus baris emoji cepat di atas kotak komentar. Kotaknya tetap ada.
@@ -756,12 +761,13 @@ Ask before a like	Tanya sebelum menyukai
 Ask before a refresh	Tanya sebelum memuat ulang
 Continue	Lanjutkan
 Like or unlike this post?	Suka atau batal suka postingan ini?
+Like or unlike this comment?	Suka atau batal suka komentar ini?
 Asks before pulling down refreshes Home, Reels or another list. Cancel keeps what's on screen.	Bertanya dulu sebelum tarik ke bawah menyegarkan Beranda, Reels, atau daftar lain. Batal mempertahankan apa yang ada di layar.
 Skip the collections tray	Lewati panel koleksi
 Saving a post or reel shows Instagram's Saved message instead of the tray that asks you to start a collection.	Saat menyimpan postingan atau reel, Instagram hanya menampilkan pesan bahwa itu sudah disimpan, bukan panel yang memintamu membuat koleksi.
 Refresh	Muat ulang
 Refresh this list?	Muat ulang daftar ini?
-Asks before the Like button under a post or on a reel likes or unlikes it, so a stray tap doesn't do it for you. Double taps aren't asked about.	Bertanya dulu sebelum tombol Suka di bawah postingan atau di reel menyukai atau membatalkan suka, jadi ketukan tidak sengaja tidak melakukannya. Ketuk dua kali tidak ditanyakan.
+Asks before the Like button under a post, on a reel or on a comment likes or unlikes it, so a stray tap doesn't do it for you. Double taps aren't asked about.	Bertanya dulu sebelum tombol Suka di bawah postingan, di reel, atau di komentar menyukai atau membatalkan suka, jadi ketukan tidak sengaja tidak melakukannya. Ketuk dua kali tidak ditanyakan.
 Adds a row next to Download on a reel and a feed video that plays it in an app you pick, such as VLC. The player streams it from Instagram's servers.	Menambahkan baris di sebelah Unduh pada reel dan video di feed yang memutarnya di aplikasi pilihan Anda, seperti VLC. Pemutar mengalirkannya dari server Instagram.
 Couldn't open another player	Tidak dapat membuka pemutar lain
 No app on this phone can play this video	Tidak ada aplikasi di ponsel ini yang dapat memutar video ini
@@ -1045,6 +1051,13 @@ A swipe up on someone's story no longer opens the reply box and its reactions. T
 # context: Stories switch; Send message is Instagram's reply field at the bottom of someone else's story, beside its heart (like) and share buttons. Use Instagram's own label for it.
 Hide the reply box on stories	Sembunyikan kotak balasan di cerita
 Takes the Send message box off the bottom of other people's stories. The like and share buttons next to it stay where they are.	Menghapus kotak Kirim pesan dari bagian bawah cerita orang lain. Tombol suka dan bagikan di sebelahnya tetap di tempatnya.
+# context: Stories switches; Like (the heart), Comment (the speech bubble) and Share (the paper plane) are Instagram's buttons at the bottom of someone else's story, beside the Send message box. Use Instagram's own labels for them.
+Hide the Like button on stories	Sembunyikan tombol Suka di cerita
+Takes the heart off the bottom of other people's stories, so nothing gets liked by mistake. No empty space is left behind.	Menghapus ikon hati dari bagian bawah cerita orang lain, jadi tidak ada yang tersukai tanpa sengaja. Tidak ada ruang kosong yang tersisa.
+Hide the Comment button on stories	Sembunyikan tombol Komentari di cerita
+Takes the Comment button off the bottom of other people's stories that have one. No empty space is left behind.	Menghapus tombol Komentari dari bagian bawah cerita orang lain yang memilikinya. Tidak ada ruang kosong yang tersisa.
+Hide the Share button on stories	Sembunyikan tombol Bagikan di cerita
+Takes the paper plane off the bottom of other people's stories. No empty space is left behind.	Menghapus ikon pesawat kertas dari bagian bawah cerita orang lain. Tidak ada ruang kosong yang tersisa.
 # context: toast when Download all is tapped while another post is still saving; it waits its turn
 Queued. It starts once the post before it is saved.	Dalam antrean. Dimulai setelah postingan sebelumnya tersimpan.
 # context: toast when Download all is tapped but the waiting line is already full; %1$d is the number waiting
@@ -1623,6 +1636,10 @@ The screens asking you to sync your contacts and turn on location services stop 
 Skip the ad data reminder	Lewati pengingat data iklan
 # context: summary under that switch
 Instagram's reminder to review whether it can process your data for ads stops opening by itself. Your ad choice doesn't change, and nothing is answered for you.	Pengingat Instagram untuk meninjau apakah ia boleh memproses datamu untuk iklan tidak lagi terbuka sendiri. Pilihan iklanmu tidak berubah, dan tidak ada yang dijawab untukmu.
+# context: Ads and privacy settings: switch that stops Instagram reading where the photos and videos in your gallery were taken, from the files and their EXIF (#628)
+Keep photo locations from Instagram	Sembunyikan lokasi foto dari Instagram
+# context: summary under that switch
+Instagram can't read where the photos and videos in your gallery were taken.	Instagram tidak bisa membaca tempat foto dan video di galerimu diambil.
 # context: Playback settings: switch that stops feed videos and reels from playing again from the start when they end (#248, #175)
 Stop videos looping	Jangan ulangi video
 # context: summary under that switch; auto scroll is Instagram's own Reels setting, worded as in Keep auto scroll on
@@ -1918,7 +1935,7 @@ Save in the post menu	Simpan di menu postingan
 Adds Save to the menu behind a post's three dots, or Remove from saved when you saved it already.	Menambahkan Simpan ke menu di balik tiga titik postingan, atau Hapus dari tersimpan jika kamu sudah menyimpannya.
 Hide the Save button	Sembunyikan tombol Simpan
 Takes the Save button off the bottom of posts in your feed, so a stray tap can't save one.	Menghapus tombol Simpan dari bagian bawah postingan di feed kamu, agar ketukan tak sengaja tidak menyimpannya.
-# context: the row in a feed post's three-dot menu for a post you already saved
+# context: the row in a feed post's three-dot menu for a post you already saved, and the row that takes an account off Saved profiles, on its profile's menu and on the Saved profiles page (#629)
 Remove from saved	Hapus dari tersimpan
 # context: a switch on the Reels page
 Hide lives in Reels	Sembunyikan siaran langsung di Reels
@@ -2005,6 +2022,85 @@ Hide posts from business and creator accounts	Sembunyikan postingan dari akun bi
 Removes posts by business and creator accounts from Home and Following, friends who use one included. Pull down on Home to refresh after changing it.	Menghapus postingan dari akun bisnis dan kreator dari Beranda dan Mengikuti, termasuk teman yang memakainya. Tarik Beranda ke bawah untuk menyegarkan setelah mengubahnya.
 # context: added after the summary of Hide posts from business and creator accounts; Favorites is the feed of accounts you picked at the top of Home (#579)
 Favorites still shows them.	Favorit tetap menampilkannya.
+# context: switch in HushGram settings > Profiles; keeps the username, bio and profile picture of each profile opened, on the phone, and says when one changed (#611)
+Keep profile history	Simpan riwayat profil
+Remembers the username, bio and profile picture of each profile you open, on this phone only, and tells you when one changed since your last visit. Pictures are copied from Instagram's image servers. Turn it off and it stops at once.	Mengingat nama pengguna, bio, dan foto profil setiap profil yang kamu buka, hanya di ponsel ini, dan memberi tahu saat ada yang berubah sejak kunjungan terakhirmu. Foto disalin dari server gambar Instagram. Matikan dan pencatatan langsung berhenti.
+# context: row and page title in HushGram settings > Profiles listing the old usernames, bios and profile pictures Keep profile history saw replaced (#611)
+Profile changes	Perubahan profil
+Nothing here yet. With Keep profile history on, the old usernames, bios and pictures of profiles you open show up here.	Belum ada apa pun. Dengan Simpan riwayat profil aktif, nama pengguna, bio, dan foto lama dari profil yang kamu buka muncul di sini.
+# context: last line of the Profile changes row; %1$d is how many old values are listed (#611)
+Tap to see all %1$d, or search them.	Ketuk untuk melihat semua %1$d atau mencarinya.
+# context: a row on the Profile changes page; %1$s is the account's old username, %2$s Android's relative time of the change, like 2 days ago (#611)
+Was @%1$s, %2$s	Dulu @%1$s, %2$s
+# context: a row on the Profile changes page; %s is Android's relative time of the change, like 2 days ago (#611)
+Old profile picture, %s	Foto profil lama, %s
+Old bio, %s	Bio lama, %s
+Clear profile history	Hapus riwayat profil
+Forgets every username, bio and picture on the list, for all your accounts. The switch stays as it is.	Melupakan semua nama pengguna, bio, dan foto di daftar, untuk semua akunmu. Pengaturan sakelar tidak berubah.
+Profile history cleared.	Riwayat profil dihapus.
+Couldn't clear the profile history. Try again.	Riwayat profil tidak bisa dihapus. Coba lagi.
+# context: toast when a profile opened has a different username than last time; %s is the old username (#611)
+Used to be @%s	Dulunya @%s
+# context: toast when a profile opened has a new profile picture and bio since last time (#611)
+New profile picture and bio	Foto profil dan bio baru
+New profile picture	Foto profil baru
+Their bio changed	Bionya berubah
+# context: Profiles > title of the switch that hides the Threads badge under the bio on other people's profiles (#627)
+Hide the Threads badge	Sembunyikan lencana Threads
+# context: Profiles > summary of Hide the Threads badge (#627)
+Takes the Threads badge from under the bio on other people's profiles. Yours keeps it.	Menghapus lencana Threads dari bawah bio di profil orang lain. Profilmu tetap memilikinya.
+# context: Profiles > title of the switch that hides links to someone's Facebook profile, page or group under their bio (#627)
+Hide Facebook links	Sembunyikan tautan Facebook
+# context: Profiles > summary of Hide Facebook links (#627)
+Takes the links to someone's Facebook profile, page or group from under their bio. Yours keeps them.	Menghapus tautan ke profil, halaman, atau grup Facebook seseorang dari bawah bio mereka. Profilmu tetap memilikinya.
+# context: Profiles > title of the switch that hides the WhatsApp link under someone's bio (#627)
+Hide the WhatsApp link	Sembunyikan tautan WhatsApp
+# context: Profiles > summary of Hide the WhatsApp link (#627)
+Takes the link to someone's WhatsApp from under their bio. Yours keeps it.	Menghapus tautan ke WhatsApp seseorang dari bawah bio mereka. Profilmu tetap memilikinya.
+# context: Profiles > title of the switch that hides the song someone picked for their profile (#627)
+Hide the profile song	Sembunyikan lagu profil
+# context: Profiles > summary of Hide the profile song (#627)
+Takes the song someone picked for their profile from under their bio. Yours keeps it.	Menghapus lagu yang dipilih seseorang untuk profilnya dari bawah bio mereka. Profilmu tetap memilikinya.
+# context: Profiles > title of the switch that hides the interests (activities) someone lists under their bio (#627)
+Hide interests	Sembunyikan minat
+# context: Profiles > summary of Hide interests (#627)
+Takes the interests someone added, like reading or hiking, from under their bio. Yours keeps them.	Menghapus minat yang ditambahkan seseorang, seperti membaca atau mendaki, dari bawah bio mereka. Profilmu tetap memilikinya.
+# context: Profiles > title of the switch that hides the invite to someone's broadcast channel under their bio (#627)
+Hide channel invites	Sembunyikan undangan saluran
+# context: Profiles > summary of Hide channel invites (#627)
+Takes the invite to someone's broadcast channel from under their bio. Yours keeps it.	Menghapus undangan ke saluran siaran seseorang dari bawah bio mereka. Profilmu tetap memilikinya.
+# context: Profiles > title of the switch that hides every other banner under the bio on other people's profiles (#627)
+Hide the other profile banners	Sembunyikan banner profil lainnya
+# context: Profiles > summary of Hide the other profile banners (#627)
+Takes the rest of the banners under the bio off other people's profiles, like events, fundraisers, schools and business hours. Yours keeps them.	Menghapus banner lain di bawah bio dari profil orang lain, seperti acara, penggalangan dana, sekolah, dan jam buka. Profilmu tetap memilikinya.
+# context: the row HushGram adds to the menu on someone's profile; it puts the account on the Saved profiles list (#629)
+Save profile	Simpan profil
+# context: toast after Save profile; %s is the account's username (#629)
+Saved @%s	@%s disimpan
+# context: toast after Remove from saved takes an account off the Saved profiles list; %s is its username (#629)
+Removed @%s from saved	@%s dihapus dari tersimpan
+# context: toast when the Saved profiles list already holds 2,000 accounts (#629)
+Saved profiles is full.	Daftar profil tersimpan sudah penuh.
+# context: Profiles > title of the switch that adds Save profile to the menu on profiles, and title of the page listing the saved accounts (#629)
+Saved profiles	Profil tersimpan
+# context: Profiles > summary of Saved profiles; Favorites and Following are Instagram's own lists of accounts (#629)
+Adds Save profile to the menu on someone's profile, even one you don't follow. The list stays on this phone, apart from Instagram's Favorites and Following.	Menambahkan Simpan profil ke menu di profil orang lain, bahkan akun yang tidak kamu ikuti. Daftarnya tetap di ponsel ini, terpisah dari Favorit dan Mengikuti di Instagram.
+# context: row in HushGram settings > Profiles that opens the page of saved accounts (#629)
+Your saved profiles	Profil tersimpanmu
+# context: summary of Your saved profiles, and the Saved profiles page's text, when nothing is saved (#629)
+Nothing saved yet. With Saved profiles on, tap Save profile in the menu on someone's profile and it shows up here.	Belum ada yang disimpan. Dengan Profil tersimpan aktif, ketuk Simpan profil di menu pada profil seseorang dan profil itu muncul di sini.
+# context: spoken label of the cross at the end of a row on the Saved profiles page; %s is the account's username (#629)
+Remove @%s from saved	Hapus @%s dari tersimpan
+# context: Profiles > title of the switch that asks before a Follow or Follow back button follows someone (#631)
+Ask before a follow	Tanya sebelum mengikuti
+# context: Profiles > summary of Ask before a follow; Follow, Follow back, Followers and Following are Instagram's own button and list names (#631)
+Asks before a Follow or Follow back button follows someone or sends them a request, so a stray tap on a profile or in a Followers or Following list doesn't do it for you.	Bertanya dulu sebelum tombol Ikuti atau Ikuti Balik mengikuti seseorang atau mengirim permintaan, agar ketukan tak sengaja di profil atau di daftar Pengikut atau Mengikuti tidak melakukannya untukmu.
+# context: Title of the question Ask before a follow puts up; %1$s is the account's username (#631)
+Follow @%1$s?	Ikuti @%1$s?
+# context: Title of the question Ask before a follow puts up when the username can't be read (#631)
+Follow this account?	Ikuti akun ini?
+# context: The question's confirm button; Instagram's own Follow button label (#631)
+Follow	Ikuti
 2x speed for videos in the feed	2x speed for videos in the feed
 Adds a shortcut to your saved posts in the Explore tab.	Adds a shortcut to your saved posts in the Explore tab.
 Adds a speed choice to the menu on a reel.	Adds a speed choice to the menu on a reel.
