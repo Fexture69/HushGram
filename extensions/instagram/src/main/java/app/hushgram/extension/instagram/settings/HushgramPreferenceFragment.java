@@ -4984,8 +4984,23 @@ public final class HushgramPreferenceFragment extends AbstractPreferenceFragment
 
     /** A plain choice row for the upload quality settings. Its summary is the chosen entry, set by the base class. */
     static final class UploadChoiceRow extends ListPreference {
+        @Nullable
+        private CharSequence summary;
+
         UploadChoiceRow(Context context) {
             super(context);
+        }
+
+        /** Entries such as "100%" are display text, not String.format templates. */
+        @Override
+        public void setSummary(CharSequence summary) {
+            this.summary = summary;
+            super.setSummary(summary);
+        }
+
+        @Override
+        public CharSequence getSummary() {
+            return summary;
         }
 
         @Override
