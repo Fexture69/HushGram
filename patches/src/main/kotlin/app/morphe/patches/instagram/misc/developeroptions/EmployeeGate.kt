@@ -94,7 +94,7 @@ private fun BytecodePatchContext.findTier1EmployeeGates(): List<String> {
                 directCallees += target.key()
             }
         }
-        if (candidates.size in 1..4 && (clazz.type.startsWith("LX/") || candidates.any { it.callsUnsafeBooleanGate() })) {
+        if (candidates.size in 1..4 && candidates.any { it.callsUnsafeBooleanGate() }) {
             candidates.forEach { classGates += it.key() }
         }
     }
