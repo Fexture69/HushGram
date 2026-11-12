@@ -35,7 +35,7 @@ def resolve_tsv_conflicts():
                 return '\n'.join(result) + '\n'
 
             new_content = pattern.sub(repl, content)
-            with open(tsv, "w", encoding="utf-8") as f:
+            with open(tsv, "w", encoding="utf-8", newline="\n") as f:
                 f.write(new_content)
             subprocess.run(["git", "add", tsv], check=True)
             print(f"Resolved conflicts in {tsv}")
@@ -76,7 +76,7 @@ def sync_missing_translation_keys():
                 modified = True
 
             if modified:
-                with open(tsv, "w", encoding="utf-8") as f:
+                with open(tsv, "w", encoding="utf-8", newline="\n") as f:
                     f.writelines(lines)
                 subprocess.run(["git", "add", tsv], check=True)
                 print(f"Synchronized translation keys in {tsv} (added {len(missing)}, removed {len(unknown)})")
@@ -91,6 +91,19 @@ def resolve_l10n_translations():
     if os.path.exists(target):
         subprocess.run(["git", "add", target], check=True)
 
+def resolve_bundle_conflicts():
+    """Keep fork release/source URLs in patches-bundle.json if upstream modified it."""
+    path = "patches-bundle.json"
+    if not os.path.exists(path):
+        return
+    with open(path, "r", encoding="utf-8") as f:
+        content = f.read()
+    if "<<<<<<<" in content:
+        subprocess.run(["git", "checkout", "--ours", path], check=True)
+        subprocess.run(["git", "add", path], check=True)
+        print("Resolved conflicts in patches-bundle.json by keeping fork bundle manifest")
+
+
 def resolve_readme_conflicts():
     readme_path = "README.md"
     if not os.path.exists(readme_path):
@@ -102,6 +115,8 @@ def resolve_readme_conflicts():
         def repl(m):
             head_part = m.group(1)
             up_part = m.group(2)
+            if "Fexture69" in head_part and "SysAdminDoc/HushGram" in up_part:
+                return head_part + "\n"
             if "| `Open developer options`" in head_part or "| `Open developer options`" in up_part:
                 dev_line = [l for l in head_part.splitlines() if "Open developer options" in l]
                 dev_str = dev_line[0] + "\n" if dev_line else ""
@@ -113,11 +128,16 @@ def resolve_readme_conflicts():
                     count = int(match.group(1)) + 1
                     return f"There are {count} patches"
                 up_updated = re.sub(r'There are (\d+) patches', inc_count, up_part)
+                up_updated = re.sub(
+                    r'simple mode includes (\d+) of them',
+                    lambda match: f"simple mode includes {int(match.group(1)) + 1} of them",
+                    up_updated,
+                )
                 return up_updated + "\n"
             return up_part + "\n"
 
         new_content = pattern.sub(repl, content)
-        with open(readme_path, "w", encoding="utf-8") as f:
+        with open(readme_path, "w", encoding="utf-8", newline="\n") as f:
             f.write(new_content)
         subprocess.run(["git", "add", readme_path], check=True)
         print("Resolved conflicts in README.md")
@@ -146,7 +166,7 @@ def resolve_catalog_test_conflicts():
             return up_part + "\n"
 
         new_content = pattern.sub(repl, content)
-        with open(catalog_path, "w", encoding="utf-8") as f:
+        with open(catalog_path, "w", encoding="utf-8", newline="\n") as f:
             f.write(new_content)
         subprocess.run(["git", "add", catalog_path], check=True)
         print("Resolved conflicts in DefaultCatalogTest.kt")
@@ -263,6 +283,7 @@ def main():
 
     resolve_tsv_conflicts()
     resolve_l10n_translations()
+    resolve_bundle_conflicts()
     resolve_readme_conflicts()
     resolve_catalog_test_conflicts()
     resolve_cleanup_reels_conflicts()
@@ -278,9 +299,12 @@ def main():
             except Exception:
                 pass
         gradle_cmd = "./gradlew" if os.name != "nt" else "gradlew.bat"
-        subprocess.run([gradle_cmd, ":patches:generatePatchesList", "--no-daemon", "--dependency-verification=lenient"], check=False)
-        if os.path.exists("patches-list.json"):
-            subprocess.run(["git", "add", "patches-list.json"], check=False)
+        res = subprocess.run([gradle_cmd, ":patches:generatePatchesList", "--no-daemon", "--dependency-verification=lenient"], check=False)
+        if res.returncode == 0 and os.path.exists("scripts/gen-readme-patches.py"):
+            subprocess.run([sys.executable, "scripts/gen-readme-patches.py"], check=False)
+        for generated_path in ("patches-list.json", "README.md"):
+            if os.path.exists(generated_path):
+                subprocess.run(["git", "add", generated_path], check=False)
     except Exception as e:
         print(f"Notice: generatePatchesList skipped or failed: {e}")
 

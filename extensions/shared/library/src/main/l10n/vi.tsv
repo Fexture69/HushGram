@@ -233,6 +233,7 @@ Video bitrate	Tốc độ bit video
 Video resolution	Độ phân giải video
 Video frame rate	Tốc độ khung hình video
 Photo quality	Chất lượng ảnh
+Photo size	Kích thước ảnh
 %1$s Mbps	%1$s Mbps
 Download feed videos	Tải video trên bảng feed
 Adds Download to the menu of a post in your feed with a video. Uses the quality below. Off or paused, Instagram's own menu returns.	Thêm Tải xuống vào menu của bài viết có video trong bảng feed. Dùng chất lượng bên dưới. Khi tắt hoặc tạm dừng, menu của Instagram trở lại.
@@ -507,7 +508,7 @@ Adds Copy username to a selected comment's menu, for the account that wrote it.	
 Comment copied	Đã sao chép bình luận
 Couldn't copy comment	Không sao chép được bình luận
 Save comment photo	Lưu ảnh trong bình luận
-Adds Save to a selected comment's menu when the comment has its own photo or GIF. Saves the largest size Instagram sent.	Thêm Lưu vào menu của bình luận đã chọn khi bình luận có ảnh hoặc GIF riêng. Lưu kích thước lớn nhất mà Instagram gửi.
+Press and hold a comment that has its own photo, GIF or sticker, and its menu gets Save. Saves the largest size Instagram sent.	Nhấn giữ bình luận có ảnh, GIF hoặc nhãn dán riêng, menu của bình luận sẽ có Lưu. Lưu kích thước lớn nhất mà Instagram gửi.
 Reply with a comment's GIF	Trả lời bằng GIF của bình luận
 When a comment has a GIF, its menu gets a GIF reply that sends that same GIF back as your reply, animated.	Khi bình luận có GIF, menu của nó có mục trả lời bằng GIF, gửi lại đúng GIF đó làm câu trả lời của bạn, vẫn chuyển động.
 Show a comment GIF's name	Hiện tên GIF của bình luận
@@ -585,6 +586,8 @@ Hide story rows	Ẩn hàng tin
 Hides the rows of stories that Instagram puts between posts, like stories that are about to expire. Pull down on Home to refresh after changing it.	Ẩn các hàng tin mà Instagram chèn giữa các bài viết, như tin sắp hết hạn. Hãy kéo xuống trên trang chủ để làm mới sau khi thay đổi.
 Hide the caught up card	Ẩn thẻ đã xem hết
 Hides the card after the posts from accounts you follow that says you've seen the latest ones, and its Older posts link. When Home has no new posts at all, only that line goes and the link stays. Pull down on Home to refresh after changing it.	Ẩn thẻ hiện sau các bài viết từ tài khoản bạn theo dõi, cho biết bạn đã xem hết bài mới, cùng liên kết Bài viết cũ hơn. Khi trang chủ không có bài mới nào, chỉ dòng đó biến mất còn liên kết vẫn ở lại. Hãy kéo xuống trên trang chủ để làm mới sau khi thay đổi.
+Hide the Join bar on channel posts	Ẩn thanh Tham gia trên bài viết của kênh
+Hides the bar under a post that asks you to join the account's channel. The post stays.	Ẩn thanh dưới bài viết mời bạn tham gia kênh của tài khoản. Bài viết vẫn ở lại.
 Instagram is locked	Instagram đã khóa
 Instagram locks as soon as you leave it or the screen turns off.	Instagram khóa ngay khi bạn rời đi hoặc màn hình tắt.
 Instagram locks once you've been away from it for %1$s.	Instagram khóa khi bạn rời đi được %1$s.
@@ -704,6 +707,9 @@ No other way into HushGram is on, so the row stays in Instagram's menu.	Không c
 Instagram's Settings and activity screen leaves out the HushGram row while another way here opens HushGram. With every other way off, the row comes back.	Màn hình Cài đặt và hoạt động của Instagram bỏ hàng HushGram khi có lối khác mở HushGram. Khi mọi lối khác đều tắt, hàng này quay lại.
 Stop loading stories and highlights	Ngừng tải tin và tin nổi bật
 Takes the Comment button and the comment count off the posts in your feed.	Gỡ nút Bình luận và số bình luận khỏi các bài viết trong bảng feed.
+# context: Comments: a second Hide comments switch that takes the Reply button off each comment in a comment sheet (#619). Reply and View more replies are Instagram's own labels under a comment; use this language's Instagram words for them.
+Hide Reply on comments	Ẩn Trả lời trên bình luận
+Takes Reply off each comment in a post's or reel's comments. View more replies stays, so you can still open them.	Gỡ Trả lời khỏi từng bình luận của bài viết hoặc reel. Xem thêm câu trả lời vẫn còn, nên bạn vẫn mở được các câu trả lời.
 Hide the emoji row	Ẩn hàng biểu tượng cảm xúc
 Takes the row of quick emoji off above the comment box. The box itself stays.	Gỡ hàng biểu tượng cảm xúc nhanh phía trên ô bình luận. Bản thân ô vẫn giữ.
 # context: Comments: the switch that takes GIFs and stickers out of a post's comments (#511). A comment that has words keeps its words and loses only the picture. A comment that's only a GIF disappears, and its replies with it. Comment box is the field where you type a comment.
@@ -720,6 +726,9 @@ Open comments without the keyboard	Mở bình luận mà không bật bàn phím
 Comments open with the keyboard down. A tap in the comment box, or on Reply, still brings it up.	Bình luận mở với bàn phím thu xuống. Nhấn vào ô bình luận hoặc Trả lời vẫn gọi bàn phím lên.
 Hide Follow on posts	Ẩn Theo dõi trên bài viết
 Takes the Follow and Subscribe buttons off the top of posts in your feed. The name, time and menu stay.	Gỡ các nút Theo dõi và Đăng ký khỏi đầu bài viết trong bảng feed. Tên, thời gian và menu vẫn giữ.
+# context: Feed: the switch that hides only the Subscribe button beside the author's name on a post, leaving Follow where it is (#622). Subscribe and Follow are the labels Instagram uses on those buttons.
+Hide Subscribe on posts	Ẩn Đăng ký trên bài viết
+Takes only the Subscribe button off the top of posts in your feed. Follow stays.	Chỉ gỡ nút Đăng ký khỏi đầu bài viết trong bảng feed. Theo dõi vẫn giữ.
 Takes the memories, recaps, follow anniversaries and birthday cards Instagram makes out of the row of stories at the top of Home. Stories people post stay.	Gỡ các thẻ kỷ niệm, tổng kết, kỷ niệm theo dõi và sinh nhật mà Instagram tạo trong hàng tin ở đầu trang chủ. Tin mọi người đăng vẫn giữ.
 Hides the rewind cards, which bring back old highlights, from the row of stories at the top of Home.	Ẩn các thẻ xem lại, vốn đưa tin nổi bật cũ trở lại, khỏi hàng tin ở đầu trang chủ.
 A double tap on a comment doesn't like it. Starts off, so comments keep double tap to like until you turn this on.	Nhấn đúp vào bình luận không thích bình luận. Mặc định tắt, nên bình luận vẫn nhấn đúp để thích cho đến khi bạn bật mục này.
@@ -751,12 +760,13 @@ Ask before a like	Hỏi trước khi thích
 Ask before a refresh	Hỏi trước khi làm mới
 Continue	Tiếp tục
 Like or unlike this post?	Thích hay bỏ thích bài viết này?
+Like or unlike this comment?	Thích hay bỏ thích bình luận này?
 Asks before pulling down refreshes Home, Reels or another list. Cancel keeps what's on screen.	Hỏi trước khi kéo xuống làm mới trang chủ, Reels hoặc danh sách khác. Hủy giữ nguyên nội dung trên màn hình.
 Skip the collections tray	Bỏ qua khay bộ sưu tập
 Saving a post or reel shows Instagram's Saved message instead of the tray that asks you to start a collection.	Lưu bài viết hoặc reel sẽ hiện thông báo Đã lưu của Instagram thay vì khay hỏi bạn tạo bộ sưu tập.
 Refresh	Làm mới
 Refresh this list?	Làm mới danh sách này?
-Asks before the Like button under a post or on a reel likes or unlikes it, so a stray tap doesn't do it for you. Double taps aren't asked about.	Hỏi trước khi nút Thích dưới bài viết hoặc trên reel thích hoặc bỏ thích, để lỡ chạm không làm thay bạn. Nhấn đúp không bị hỏi.
+Asks before the Like button under a post, on a reel or on a comment likes or unlikes it, so a stray tap doesn't do it for you. Double taps aren't asked about.	Hỏi trước khi nút Thích dưới bài viết, trên reel hoặc trên bình luận thích hoặc bỏ thích, để lỡ chạm không làm thay bạn. Nhấn đúp không bị hỏi.
 Adds a row next to Download on a reel and a feed video that plays it in an app you pick, such as VLC. The player streams it from Instagram's servers.	Thêm một hàng cạnh Tải xuống trên reel và video bảng feed để phát trong ứng dụng bạn chọn, như VLC. Trình phát phát trực tuyến từ máy chủ của Instagram.
 Couldn't open another player	Không mở được trình phát khác
 No app on this phone can play this video	Không ứng dụng nào trên điện thoại phát được video này
@@ -925,6 +935,10 @@ Tab bar	Thanh tab
 Saved	Đã lưu
 Saved tab on your profile	Tab Đã lưu trên trang cá nhân
 Adds a bookmark to the tabs on your own profile that opens Saved. Restart Instagram after changing it.	Thêm dấu trang vào các tab trên trang cá nhân của bạn để mở Đã lưu. Hãy khởi động lại Instagram sau khi thay đổi.
+# context: Profiles > title of the switch that shows a drag handle at the right edge of Saved and saved collections while they scroll; Saved is Instagram's own Saved page (#644)
+Fast scroll in Saved	Cuộn nhanh trong Đã lưu
+# context: Profiles > summary of Fast scroll in Saved; collections are Instagram's saved collections (#644)
+Shows a handle at the right edge of Saved and your collections while they scroll. Drag it to jump through them.	Hiện tay nắm ở cạnh phải của Đã lưu và bộ sưu tập của bạn khi cuộn. Kéo tay nắm để nhảy nhanh qua danh sách.
 Battery	Pin
 Stop the background heartbeat	Ngừng nhịp nền
 Instagram wakes your phone every minute or two, screen off included, only to note that it is still running. This stops that. Messages, notifications and everything you see are unaffected.	Instagram đánh thức điện thoại mỗi một hai phút, kể cả khi tắt màn hình, chỉ để ghi nhận là nó vẫn đang chạy. Mục này ngăn điều đó. Tin nhắn, thông báo và mọi thứ bạn thấy không bị ảnh hưởng.
@@ -1027,6 +1041,16 @@ A swipe up on someone's story no longer opens the reply box and its reactions. T
 # context: Stories switch; Send message is Instagram's reply field at the bottom of someone else's story, beside its heart (like) and share buttons. Use Instagram's own label for it.
 Hide the reply box on stories	Ẩn ô trả lời trên tin
 Takes the Send message box off the bottom of other people's stories. The like and share buttons next to it stay where they are.	Bỏ ô Gửi tin nhắn ở cuối tin của người khác. Nút thích và chia sẻ bên cạnh vẫn ở nguyên chỗ cũ.
+# context: Stories switch (#391); Send message is Instagram's reply field at the bottom of someone else's story. Use Instagram's own label for it.
+Glass reply box on stories	Kính cho ô trả lời trên tin
+Gives the Send message box on other people's stories frosted glass, so it's easy to read over any story. Needs Android 12 or newer for the blur.	Làm ô Gửi tin nhắn trên tin của người khác có hiệu ứng kính mờ, để dễ đọc trên mọi tin. Hiệu ứng làm mờ cần Android 12 trở lên.
+# context: Stories switches; Like (the heart), Comment (the speech bubble) and Share (the paper plane) are Instagram's buttons at the bottom of someone else's story, beside the Send message box. Use Instagram's own labels for them.
+Hide the Like button on stories	Ẩn nút Thích trên tin
+Takes the heart off the bottom of other people's stories, so nothing gets liked by mistake. No empty space is left behind.	Bỏ biểu tượng trái tim ở cuối tin của người khác để không lỡ tay thích. Không để lại khoảng trống.
+Hide the Comment button on stories	Ẩn nút Bình luận trên tin
+Takes the Comment button off the bottom of other people's stories that have one. No empty space is left behind.	Bỏ nút Bình luận ở cuối tin của người khác khi tin có nút này. Không để lại khoảng trống.
+Hide the Share button on stories	Ẩn nút Chia sẻ trên tin
+Takes the paper plane off the bottom of other people's stories. No empty space is left behind.	Bỏ biểu tượng máy bay giấy ở cuối tin của người khác. Không để lại khoảng trống.
 Queued. It starts once the post before it is saved.	Đã xếp hàng. Bắt đầu khi bài viết trước đó lưu xong.
 Not saved: %1$d posts are already waiting	Chưa lưu: đã có %1$d bài viết đang chờ
 Show all settings as a list	Hiện mọi cài đặt dạng danh sách
@@ -1305,6 +1329,17 @@ Ghost mode needs at least one switch to turn.	Chế độ ẩn cần ít nhất 
 Turn Ghost mode on or off with a tab long press	Bật hoặc tắt Chế độ ẩn bằng cách nhấn giữ tab
 Tab long presses keep Instagram's own action. Choose one to turn Ghost mode on or off instead.	Nhấn giữ tab vẫn dùng thao tác riêng của Instagram. Hãy chọn một tab để bật hoặc tắt Chế độ ẩn.
 Long press %1$s to turn Ghost mode on or off instead of that tab's usual action, and a toast says which way it went. Normal taps and other tabs stay the same. If the same tab opens HushGram or picks the playback quality, that comes first.	Nhấn giữ %1$s để bật hoặc tắt Chế độ ẩn thay cho thao tác thường của tab đó, và một thông báo cho biết đã chuyển sang bên nào. Nhấn bình thường và các tab khác không đổi. Nếu cùng tab mở HushGram hoặc chọn chất lượng phát thì mục đó được ưu tiên.
+# context: Profiles: opening Your saved profiles with a long press on a tab (#629). %1$s is a tab's name; Saved profiles is HushGram's switch of that name
+Open Saved profiles with a tab long press	Mở Trang cá nhân đã lưu bằng cách nhấn giữ tab
+Tab long presses keep Instagram's own action. Choose one to open Saved profiles instead.	Nhấn giữ tab vẫn dùng thao tác riêng của Instagram. Hãy chọn một tab để mở Trang cá nhân đã lưu.
+Long press %1$s to open Your saved profiles instead of that tab's usual action. Normal taps and other tabs stay the same. Needs Saved profiles on. If the same tab opens HushGram, picks the playback quality or turns Ghost mode, that comes first.	Nhấn giữ %1$s để mở Trang cá nhân bạn đã lưu thay cho thao tác thường của tab đó. Nhấn bình thường và các tab khác không đổi. Cần bật Trang cá nhân đã lưu. Nếu cùng tab mở HushGram, chọn chất lượng phát hoặc bật tắt Chế độ ẩn thì mục đó được ưu tiên.
+# context: Feed > switch and its summary under Start Home on Following; Favorites is Instagram's Home feed choice of that name, Search and Messages are Instagram's tabs (#643)
+Keep the tab bar on Favorites	Giữ thanh tab trong Yêu thích
+Instagram hides the tab bar when Favorites opens from the top of Home. This keeps it, so Search and Messages stay a tap away.	Instagram ẩn thanh tab khi mở Yêu thích từ đầu trang chủ. Tùy chọn này giữ lại thanh tab, nên Tìm kiếm và Tin nhắn vẫn chỉ cách một lần nhấn.
+# context: Feed: opening Instagram's Favorites feed with a long press on a tab (#643). %1$s is a tab's name; Saved profiles is HushGram's switch of that name
+Open Favorites with a tab long press	Mở Yêu thích bằng cách nhấn giữ tab
+Tab long presses keep Instagram's own action. Choose one to open Favorites instead.	Nhấn giữ tab vẫn dùng thao tác riêng của Instagram. Hãy chọn một tab để mở Yêu thích.
+Long press %1$s to open Favorites instead of that tab's usual action. Normal taps and other tabs stay the same. If the same tab opens HushGram, picks the playback quality, turns Ghost mode or opens Saved profiles, that comes first.	Nhấn giữ %1$s để mở Yêu thích thay cho thao tác thường của tab đó. Nhấn bình thường và các tab khác không đổi. Nếu cùng tab mở HushGram, chọn chất lượng phát, bật tắt Chế độ ẩn hoặc mở Trang cá nhân đã lưu thì mục đó được ưu tiên.
 Buttons on the share sheet	Nút trên bảng chia sẻ
 Every button under the people on the share sheet shows. Untick the ones you don't use.	Mọi nút bên dưới danh sách người trên bảng chia sẻ đều hiện. Bỏ tích những nút bạn không dùng.
 Left off the share sheet: %1$s.	Đã bỏ khỏi bảng chia sẻ: %1$s.
@@ -1440,7 +1475,7 @@ Only accounts that aren't verified	Chỉ tài khoản chưa xác minh
 Pinch to zoom	Chụm để thu phóng
 Two fingers zoom into a playing reel, the way a photo zooms. Lift them and it goes back. Restart Instagram to see the change.	Hai ngón tay phóng to reel đang phát, như cách ảnh phóng to. Nhấc ra thì trở lại. Hãy khởi động lại Instagram để thấy thay đổi.
 Double tap to skip	Nhấn đúp để tua
-A double tap on the left side of a reel goes back 10 seconds, and on the right side it goes ahead 10 seconds. A double tap in the middle still likes it. Reels under 10 seconds don't skip.	Nhấn đúp vào bên trái reel để lùi 10 giây, và bên phải để tới 10 giây. Nhấn đúp ở giữa vẫn thích reel. Reel dưới 10 giây không tua.
+A double tap on the left side of a reel goes back, and on the right side it goes ahead, as far as Skip length says. A double tap in the middle still likes it. Reels no longer than that don't skip.	Nhấn đúp vào bên trái reel để lùi, và bên phải để tới, theo Độ dài tua. Nhấn đúp ở giữa vẫn thích reel. Reel không dài hơn mức đó thì không tua.
 Hide the 2x popup	Ẩn thông báo 2x
 Takes the 2x label off a reel while you hold it to play faster. The speed-up still works.	Bỏ nhãn 2x khỏi reel khi bạn giữ để phát nhanh hơn. Tính năng tăng tốc vẫn hoạt động.
 Mute notification types	Tắt tiếng loại thông báo
@@ -1542,6 +1577,8 @@ Skip the contacts and location popups	Bỏ qua cửa sổ danh bạ và vị tr�
 The screens asking you to sync your contacts and turn on location services stop opening each time Instagram starts. Nothing else is skipped.	Các màn hình yêu cầu đồng bộ danh bạ và bật dịch vụ vị trí ngừng mở mỗi lần Instagram khởi động. Không bỏ qua gì khác.
 Skip the ad data reminder	Bỏ qua lời nhắc dữ liệu quảng cáo
 Instagram's reminder to review whether it can process your data for ads stops opening by itself. Your ad choice doesn't change, and nothing is answered for you.	Lời nhắc của Instagram về việc xem lại có được xử lý dữ liệu của bạn cho quảng cáo ngừng tự mở. Lựa chọn quảng cáo của bạn không đổi và không có gì được trả lời thay bạn.
+Keep photo locations from Instagram	Ẩn vị trí ảnh khỏi Instagram
+Instagram can't read where the photos and videos in your gallery were taken.	Instagram không đọc được nơi chụp ảnh và quay video trong thư viện của bạn.
 Stop videos looping	Ngừng lặp video
 Feed videos and reels stop at their last frame instead of playing again. Reels still loop while auto scroll is on, so it can move on.	Video bảng feed và reel dừng ở khung hình cuối thay vì phát lại. Reel vẫn lặp khi tự động cuộn bật, để nó chuyển tiếp được.
 Not used while you've picked a folder. Saves go there.	Không dùng khi bạn đã chọn thư mục. Bản lưu vào đó.
@@ -1589,7 +1626,7 @@ Add to home screen	Thêm vào màn hình chính
 Couldn't read that picture.	Không đọc được ảnh đó.
 This launcher can't add it.	Launcher này không thêm được.
 Glass in chats	Kính trong trò chuyện
-Gives a chat's top bar frosted glass and puts the back, call and video buttons on round glass circles. It shows the next time you open a chat. Needs Android 12 or newer for the blur.	Làm thanh trên cùng của cuộc trò chuyện có hiệu ứng kính mờ và đặt các nút quay lại, gọi và video lên những vòng tròn kính. Hiện ở lần mở cuộc trò chuyện tiếp theo. Hiệu ứng làm mờ cần Android 12 trở lên.
+Gives a chat's top bar and message bar frosted glass and puts the back, call and video buttons on round glass circles. It shows the next time you open a chat. Needs Android 12 or newer for the blur.	Làm thanh trên cùng và thanh tin nhắn của cuộc trò chuyện có hiệu ứng kính mờ và đặt các nút quay lại, gọi và video lên những vòng tròn kính. Hiện ở lần mở cuộc trò chuyện tiếp theo. Hiệu ứng làm mờ cần Android 12 trở lên.
 # context: Reels switch Hide reels with few views, its summary, the Minimum views row, its dialog message and the row's summary, then the Minimum likes row, its dialog message, its summary and its summary at 0; %1$s is a number with thousands separators (#444)
 Hide reels with few views	Ẩn reel có ít lượt xem
 Leaves out reels in the Reels tab with fewer views or likes than the numbers below. Reels from accounts you follow, reels sent to you and reels with no count still play.	Bỏ qua các reel trong tab Reels có lượt xem hoặc lượt thích ít hơn các con số bên dưới. Reel của tài khoản bạn theo dõi, reel được gửi cho bạn và reel không có con số vẫn phát bình thường.
@@ -1600,6 +1637,15 @@ Minimum likes	Số lượt thích tối thiểu
 Reels with fewer likes than this are left out. Type a whole number, or 0 to not look at likes.	Reel có ít lượt thích hơn số này sẽ bị bỏ qua. Nhập một số nguyên, hoặc 0 để không xét lượt thích.
 Fewer than %1$s likes	Dưới %1$s lượt thích
 Likes aren't looked at	Không xét lượt thích
+# context: rows in a story's three-dot menu; put the story's account on the Stories priority list, or take it off it (#641)
+Add to Stories priority	Thêm vào Ưu tiên tin
+Remove from Stories priority	Xóa khỏi Ưu tiên tin
+# context: toasts after tapping Add to Stories priority or Remove from Stories priority; the last one when the list couldn't change (#641)
+Added to Stories priority	Đã thêm vào Ưu tiên tin
+Removed from Stories priority	Đã xóa khỏi Ưu tiên tin
+Stories priority didn't change	Ưu tiên tin không thay đổi
+# context: last sentence of the Stories priority summary in HushGram settings > Stories; names the menu row Add to Stories priority (#641)
+To add someone, tap Add to Stories priority in their story's menu.	Để thêm ai đó, nhấn Thêm vào Ưu tiên tin trong menu tin của họ.
 # context: Stories switch Stories priority, its summary, the Priority accounts row, its dialog message and the row's summaries (none, one account, several accounts) (#451)
 Stories priority	Ưu tiên tin
 Puts the accounts on your list first in the stories row at the top of Home while they have a story you haven't watched, in the order of the list. Once you've watched it, Instagram's own placement applies again. Your own story stays first.	Đưa các tài khoản trong danh sách của bạn lên đầu hàng tin ở đầu Trang chủ khi họ có tin bạn chưa xem, theo thứ tự trong danh sách. Xem xong thì vị trí mặc định của Instagram được áp dụng lại. Tin của chính bạn vẫn ở đầu.
@@ -1679,7 +1725,9 @@ Pill look	Kiểu viên thuốc
 Seek bar look	Kiểu thanh tua
 # context: Feed settings: a double tap on the left or right third of a feed video jumps 10 seconds (#562)
 Double tap to skip on feed videos	Nhấn đúp để tua video bảng feed
-Double tap the left side of the video playing in a feed to go back 10 seconds, or the right side to go ahead 10. A double tap in the middle works as before.	Nhấn đúp vào bên trái video đang phát trong bảng feed để lùi 10 giây, hoặc bên phải để tua tới 10 giây. Nhấn đúp ở giữa vẫn hoạt động như trước.
+Double tap the left side of the video playing in a feed to go back, or the right side to go ahead, as far as Skip length says. A double tap in the middle works as before.	Nhấn đúp vào bên trái video đang phát trong bảng feed để lùi, hoặc bên phải để tua tới, theo Độ dài tua. Nhấn đúp ở giữa vẫn hoạt động như trước.
+Skip length	Độ dài tua
+%1$d seconds	%1$d giây
 # context: a look for the page-dots pill and the seek bars: opaque, as before
 Solid	Đặc
 # context: a look for the page-dots pill and the seek bars: partly transparent
@@ -1835,7 +1883,7 @@ Save in the post menu	Lưu trong menu bài viết
 Adds Save to the menu behind a post's three dots, or Remove from saved when you saved it already.	Thêm Lưu vào menu ba dấu chấm của bài viết, hoặc Gỡ khỏi mục đã lưu khi bạn đã lưu nó.
 Hide the Save button	Ẩn nút Lưu
 Takes the Save button off the bottom of posts in your feed, so a stray tap can't save one.	Bỏ nút Lưu khỏi cuối các bài viết trong bảng feed, để chạm nhầm không lưu bài nào.
-# context: the row in a feed post's three-dot menu for a post you already saved
+# context: the row in a feed post's three-dot menu for a post you already saved, and the row that takes an account off Saved profiles, on its profile's menu and on the Saved profiles page (#629)
 Remove from saved	Gỡ khỏi mục đã lưu
 # context: a switch on the Reels page
 Hide lives in Reels	Ẩn video trực tiếp trong Reels
@@ -1846,6 +1894,9 @@ When a reel in your feed ends, Watch again plays it over right there instead of 
 # context: a switch on the Playback page under Keep playing in the background; Android's own name for picture in picture
 Picture in picture for reels	Hình trong hình cho reel
 Leaving Instagram while a reel plays shrinks it into a small window over your other apps. Works in Reels and on reels opened from the feed, on Android 15 or newer.	Khi bạn rời Instagram lúc một reel đang phát, nó thu nhỏ thành một cửa sổ nhỏ nằm trên các ứng dụng khác. Hoạt động trong Reels và với reel mở từ bảng feed, trên Android 15 trở lên.
+# context: a switch on the Playback page under Picture in picture for reels; Android's own name for picture in picture, and it keeps moving on to the next stories inside the small window
+Picture in picture for stories	Hình trong hình cho tin
+Leaving Instagram while a story plays shrinks it into a small window over your other apps, where it keeps going through the stories.	Khi bạn rời Instagram lúc một tin đang phát, nó thu nhỏ thành một cửa sổ nhỏ nằm trên các ứng dụng khác và tiếp tục chuyển qua các tin.
 # context: a switch on the Profiles page under Mark who doesn't follow you back; it means the mark goes on each profile picture of your own Following list
 Show it on the profile picture	Hiển thị trên ảnh đại diện
 Puts a green check on the picture of each account that follows you back and a red cross on each one that doesn't, instead of the words.	Đặt dấu tích xanh lá trên ảnh của mỗi tài khoản theo dõi lại bạn và dấu X đỏ trên mỗi tài khoản không theo dõi lại, thay cho dòng chữ.
@@ -1873,7 +1924,6 @@ A thin line with no handle that grows while you drag it. On feed videos it sits 
 A thicker rounded bar with no handle.	Một thanh bo tròn dày hơn, không có nút.
 A rounded bar split by a tall handle.	Một thanh bo tròn được chia bởi một nút cao.
 A wavy line for the part played, with a tall handle.	Một đường lượn sóng cho phần đã phát, kèm một nút cao.
-Turn on a seek bar on feed videos, stories or reels to use this choice.	Hãy bật thanh tua trên video bảng feed, tin hoặc Reels để dùng lựa chọn này.
 Preview while you drag a seek bar	Xem trước khi kéo thanh tua
 Shows the time above your finger while you drag a seek bar on a feed video, story or reel, and a small picture of that moment when Instagram has one for the video.	Hiện thời gian phía trên ngón tay khi bạn kéo thanh tua trên video bảng feed, tin hoặc Reels, cùng một ảnh nhỏ của khoảnh khắc đó khi Instagram có ảnh cho video.
 Swipe right on Home opens	Vuốt sang phải trên Trang chủ sẽ mở
@@ -1898,6 +1948,9 @@ Posts from your hidden accounts still show in Favorites. For you and Following l
 # context: switch next to Lock your messages; Saved is Instagram's page of your saved posts and collections (#597)
 Lock Saved	Khóa mục Đã lưu
 Saved and everything in it stay covered until your fingerprint, face or screen lock says it's you.	Mục Đã lưu và mọi thứ trong đó vẫn bị che cho đến khi vân tay, khuôn mặt hoặc khóa màn hình xác nhận là bạn.
+# context: switch under Lock your messages; on, an unlock opens only the chat it was asked in, so the next chat, or going back to the inbox, asks for the fingerprint, face, screen lock or PIN again (#649)
+Ask for each chat	Hỏi cho từng đoạn chat
+Every chat you open asks again, and so does your inbox when you go back to it. Off, one unlock opens everything until you leave Instagram.	Mỗi đoạn chat bạn mở sẽ hỏi lại, hộp thư cũng vậy khi bạn quay lại. Khi tắt, một lần mở khóa sẽ mở mọi thứ cho đến khi bạn rời Instagram.
 Saved is locked	Mục Đã lưu đã khóa
 Unlock Saved	Mở khóa mục Đã lưu
 # context: three-dot menu row on a reel or feed video with Stop videos looping on; makes only the video on screen play again and again (#610)
@@ -1922,6 +1975,138 @@ Hide posts from business and creator accounts	Ẩn bài viết từ tài khoản
 Removes posts by business and creator accounts from Home and Following, friends who use one included. Pull down on Home to refresh after changing it.	Gỡ bài viết của tài khoản doanh nghiệp và nhà sáng tạo khỏi trang chủ và Đang theo dõi, kể cả bạn bè dùng loại tài khoản này. Hãy kéo xuống trên trang chủ để làm mới sau khi thay đổi.
 # context: added after the summary of Hide posts from business and creator accounts; Favorites is the feed of accounts you picked at the top of Home (#579)
 Favorites still shows them.	Yêu thích vẫn hiển thị chúng.
+# context: switch in HushGram settings > Profiles; keeps the username, bio and profile picture of each profile opened, on the phone, and says when one changed (#611)
+Keep profile history	Giữ lịch sử trang cá nhân
+Remembers the username, bio and profile picture of each profile you open, on this phone only, and tells you when one changed since your last visit. Pictures are copied from Instagram's image servers. Turn it off and it stops at once.	Ghi nhớ tên người dùng, tiểu sử và ảnh đại diện của từng trang cá nhân bạn mở, chỉ trên điện thoại này, và cho bạn biết khi có gì thay đổi kể từ lần ghé trước. Ảnh được sao chép từ máy chủ hình ảnh của Instagram. Tắt đi là dừng ngay.
+# context: row and page title in HushGram settings > Profiles listing the old usernames, bios and profile pictures Keep profile history saw replaced (#611)
+Profile changes	Thay đổi trang cá nhân
+Nothing here yet. With Keep profile history on, the old usernames, bios and pictures of profiles you open show up here.	Chưa có gì. Khi bật Giữ lịch sử trang cá nhân, tên người dùng, tiểu sử và ảnh cũ của các trang cá nhân bạn mở sẽ hiện ở đây.
+# context: last line of the Profile changes row; %1$d is how many old values are listed (#611)
+Tap to see all %1$d, or search them.	Nhấn để xem cả %1$d mục hoặc tìm kiếm.
+# context: a row on the Profile changes page; %1$s is the account's old username, %2$s Android's relative time of the change, like 2 days ago (#611)
+Was @%1$s, %2$s	Từng là @%1$s, %2$s
+# context: a row on the Profile changes page; %s is Android's relative time of the change, like 2 days ago (#611)
+Old profile picture, %s	Ảnh đại diện cũ, %s
+Old bio, %s	Tiểu sử cũ, %s
+Clear profile history	Xóa lịch sử trang cá nhân
+Forgets every username, bio and picture on the list, for all your accounts. The switch stays as it is.	Quên mọi tên người dùng, tiểu sử và ảnh trong danh sách, cho mọi tài khoản của bạn. Công tắc giữ nguyên.
+Profile history cleared.	Đã xóa lịch sử trang cá nhân.
+Couldn't clear the profile history. Try again.	Không xóa được lịch sử trang cá nhân. Hãy thử lại.
+# context: toast when a profile opened has a different username than last time; %s is the old username (#611)
+Used to be @%s	Từng là @%s
+# context: toast when a profile opened has a new profile picture and bio since last time (#611)
+New profile picture and bio	Ảnh đại diện và tiểu sử mới
+New profile picture	Ảnh đại diện mới
+Their bio changed	Tiểu sử đã thay đổi
+# context: Profiles > title of the switch that hides the Threads badge under the bio on other people's profiles (#627)
+Hide the Threads badge	Ẩn huy hiệu Threads
+# context: Profiles > summary of Hide the Threads badge (#627)
+Takes the Threads badge from under the bio on other people's profiles. Yours keeps it.	Gỡ huy hiệu Threads bên dưới tiểu sử trên trang cá nhân của người khác. Trang của bạn vẫn giữ.
+# context: Profiles > title of the switch that hides links to someone's Facebook profile, page or group under their bio (#627)
+Hide Facebook links	Ẩn liên kết Facebook
+# context: Profiles > summary of Hide Facebook links (#627)
+Takes the links to someone's Facebook profile, page or group from under their bio. Yours keeps them.	Gỡ liên kết đến trang cá nhân, Trang hoặc nhóm Facebook của người khác bên dưới tiểu sử. Trang của bạn vẫn giữ.
+# context: Profiles > title of the switch that hides the WhatsApp link under someone's bio (#627)
+Hide the WhatsApp link	Ẩn liên kết WhatsApp
+# context: Profiles > summary of Hide the WhatsApp link (#627)
+Takes the link to someone's WhatsApp from under their bio. Yours keeps it.	Gỡ liên kết đến WhatsApp của người khác bên dưới tiểu sử. Trang của bạn vẫn giữ.
+# context: Profiles > title of the switch that hides the song someone picked for their profile (#627)
+Hide the profile song	Ẩn bài hát trên trang cá nhân
+# context: Profiles > summary of Hide the profile song (#627)
+Takes the song someone picked for their profile from under their bio. Yours keeps it.	Gỡ bài hát mà người khác chọn cho trang cá nhân bên dưới tiểu sử. Trang của bạn vẫn giữ.
+# context: Profiles > title of the switch that hides the interests (activities) someone lists under their bio (#627)
+Hide interests	Ẩn sở thích
+# context: Profiles > summary of Hide interests (#627)
+Takes the interests someone added, like reading or hiking, from under their bio. Yours keeps them.	Gỡ các sở thích người khác đã thêm, như đọc sách hay đi bộ đường dài, bên dưới tiểu sử. Trang của bạn vẫn giữ.
+# context: Profiles > title of the switch that hides the invite to someone's broadcast channel under their bio (#627)
+Hide channel invites	Ẩn lời mời tham gia kênh
+# context: Profiles > summary of Hide channel invites (#627)
+Takes the invite to someone's broadcast channel from under their bio. Yours keeps it.	Gỡ lời mời tham gia kênh phát sóng của người khác bên dưới tiểu sử. Trang của bạn vẫn giữ.
+# context: Profiles > title of the switch that hides every other banner under the bio on other people's profiles (#627)
+Hide the other profile banners	Ẩn các biểu ngữ khác trên trang cá nhân
+# context: Profiles > summary of Hide the other profile banners (#627)
+Takes the rest of the banners under the bio off other people's profiles, like events, fundraisers, schools and business hours. Yours keeps them.	Gỡ các biểu ngữ còn lại bên dưới tiểu sử trên trang cá nhân của người khác, như sự kiện, gây quỹ, trường học và giờ mở cửa. Trang của bạn vẫn giữ.
+# context: the row HushGram adds to the menu on someone's profile; it puts the account on the Saved profiles list (#629)
+Save profile	Lưu trang cá nhân
+# context: toast after Save profile; %s is the account's username (#629)
+Saved @%s	Đã lưu @%s
+# context: toast after Remove from saved takes an account off the Saved profiles list; %s is its username (#629)
+Removed @%s from saved	Đã gỡ @%s khỏi mục đã lưu
+# context: row in the long press menu on an account on the Saved profiles page, and title of the folder list it opens (#629)
+Move to folder	Chuyển vào thư mục
+# context: title of the folder list Save profile opens on a profile's menu once the user has made a folder (#629)
+Save to folder	Lưu vào thư mục
+# context: first choice in that folder list; the saved account sits in no folder (#629)
+No folder	Không có thư mục
+# context: last choice in that folder list, and title of the dialog asking the new folder's name (#629)
+New folder	Thư mục mới
+# context: row in the long press menu on a folder's chip on the Saved profiles page, and title of the dialog for its new name (#629)
+Rename folder	Đổi tên thư mục
+# context: row in the long press menu on a folder's chip; the folder goes away and its accounts stay saved (#629)
+Remove folder	Gỡ thư mục
+# context: toast after Save profile puts an account in a folder; %1$s is its username, %2$s the folder's name (#629)
+Saved @%1$s to %2$s	Đã lưu @%1$s vào %2$s
+# context: toast after Move to folder; %1$s is the account's username, %2$s the folder's name (#629)
+Moved @%1$s to %2$s	Đã chuyển @%1$s vào %2$s
+# context: toast after Move to folder > No folder; %s is the account's username, which stays saved (#629)
+Moved @%s out of its folder	Đã đưa @%s ra khỏi thư mục
+# context: toast after Remove folder; %s is the folder's name, and its accounts stay saved (#629)
+Removed the folder %s	Đã gỡ thư mục %s
+# context: toast after Rename folder; %s is the folder's new name (#629)
+Renamed the folder to %s	Đã đổi tên thư mục thành %s
+# context: toast when the Saved profiles list already holds 2,000 accounts (#629)
+Saved profiles is full.	Danh sách trang cá nhân đã lưu đã đầy.
+# context: Profiles > title of the switch that adds Save profile to the menu on profiles, and title of the page listing the saved accounts (#629)
+Saved profiles	Trang cá nhân đã lưu
+# context: Profiles > summary of Saved profiles; Favorites and Following are Instagram's own lists of accounts (#629)
+Adds Save profile to the menu on someone's profile, even one you don't follow. The list stays on this phone, apart from Instagram's Favorites and Following.	Thêm Lưu trang cá nhân vào menu trên trang cá nhân của người khác, kể cả tài khoản bạn không theo dõi. Danh sách chỉ nằm trên điện thoại này, tách riêng khỏi Yêu thích và Đang theo dõi của Instagram.
+# context: row in HushGram settings > Profiles that opens the page of saved accounts (#629)
+Your saved profiles	Trang cá nhân bạn đã lưu
+# context: summary of Your saved profiles, and the Saved profiles page's text, when nothing is saved (#629)
+Nothing saved yet. With Saved profiles on, tap Save profile in the menu on someone's profile and it shows up here.	Chưa lưu gì cả. Khi bật Trang cá nhân đã lưu, hãy chạm Lưu trang cá nhân trong menu trên trang cá nhân của ai đó và trang đó sẽ hiện ở đây.
+# context: spoken label of the cross at the end of a row on the Saved profiles page; %s is the account's username (#629)
+Remove @%s from saved	Gỡ @%s khỏi mục đã lưu
+# context: sentence an import of a settings file adds to its receipt; %d is how many saved profiles it put on the list (#629)
+Saved profiles added: %d.	Đã thêm %d trang cá nhân đã lưu.
+# context: summary under Export HushGram settings in a build with Saved profiles; the file holds the settings and the saved list, never the Instagram sign-in or any history (#629)
+Choose a file for your installed patches' settings and saved profiles. Your login and history stay on this device.	Chọn một tệp cho cài đặt của các bản vá đã cài và các trang cá nhân đã lưu. Thông tin đăng nhập và lịch sử vẫn ở trên thiết bị này.
+# context: Profiles > title of the switch that asks before a Follow or Follow back button follows someone (#631)
+Ask before a follow	Hỏi trước khi theo dõi
+# context: Profiles > summary of Ask before a follow; Follow, Follow back, Followers and Following are Instagram's own button and list names (#631)
+Asks before a Follow or Follow back button follows someone or sends them a request, so a stray tap on a profile or in a Followers or Following list doesn't do it for you.	Hỏi trước khi nút Theo dõi hoặc Theo dõi lại theo dõi ai đó hay gửi yêu cầu cho họ, để một lần chạm nhầm trên trang cá nhân hoặc trong danh sách Người theo dõi hay Đang theo dõi không làm điều đó thay bạn.
+# context: Title of the question Ask before a follow puts up; %1$s is the account's username (#631)
+Follow @%1$s?	Theo dõi @%1$s?
+# context: Title of the question Ask before a follow puts up when the username can't be read (#631)
+Follow this account?	Theo dõi tài khoản này?
+# context: The question's confirm button; Instagram's own Follow button label (#631)
+Follow	Theo dõi
+# context: switch in HushGram settings > Reels; a reel link opened from outside Instagram plays the linked reel first instead of a reel Instagram kept on the phone (#606)
+Open reel links on that reel	Mở liên kết reel đúng reel đó
+A reel link opens on the reel it points to. Instagram doesn't play another reel it kept on your phone while that one loads.	Liên kết reel mở đúng reel mà nó trỏ đến. Instagram không phát một reel khác đã lưu trên điện thoại của bạn trong lúc reel đó tải.
+# context: Stories settings: moves the story speed button into a video story's three-dot menu as a Playback speed row (#621)
+Speed in the story menu	Tốc độ trong menu tin
+# context: Summary of Speed in the story menu; Playback speed is the row's own label (#621)
+Adds Playback speed to the menu a video story's three dots open, with the same 1x, 1.5x and 2x, and keeps the speed button off the story. Later video stories keep the speed you pick until you change it or restart Instagram.	Thêm Tốc độ phát vào menu mở ra từ ba dấu chấm của tin video, với cùng các mức 1x, 1,5x và 2x, và bỏ nút tốc độ khỏi tin. Các tin video tiếp theo giữ tốc độ bạn chọn cho đến khi bạn đổi hoặc khởi động lại Instagram.
+# context: Reels settings: hides the Create (+) button only on reels opened from Saved or a saved collection (#620)
+Hide the Create button on saved reels	Ẩn nút Tạo trên reel đã lưu
+# context: Summary of Hide the Create button on saved reels; Saved is Instagram's own Saved page (#620)
+Takes the plus button off the top of reels you open from Saved or a collection and closes up the gap. The Reels tab and other reels keep theirs.	Gỡ nút dấu cộng khỏi đầu các reel bạn mở từ mục Đã lưu hoặc một bộ sưu tập, và thu hẹp khoảng trống. Tab Reels và các reel khác vẫn giữ nút này.
+# context: Stories settings: picks where the story seek bar sits, above or below Instagram's Send message box at the bottom of a story (#636)
+Seek bar position	Vị trí thanh tua
+# context: Choice of Seek bar position; Send message is Instagram's reply field at the bottom of someone else's story. Use Instagram's own label for it (#636)
+Above the Send message box	Phía trên ô Gửi tin nhắn
+Below the Send message box	Phía dưới ô Gửi tin nhắn
+# context: Summary of the Above choice of Seek bar position (#636)
+The bar sits just above the Send message box at the bottom of a story.	Thanh nằm ngay phía trên ô Gửi tin nhắn ở cuối tin.
+# context: Summary of the Below choice of Seek bar position; when there's too little space under the box, the bar stays above it (#636)
+The bar sits in the space under the Send message box. Where there's no room under it, the bar stays above it.	Thanh nằm trong khoảng trống bên dưới ô Gửi tin nhắn. Nếu bên dưới không đủ chỗ, thanh vẫn ở phía trên ô.
+# context: Layout switch right under HushGram launch screen; it fills the screen Android shows while Instagram starts with the accent color. Accent color is that Layout switch's own label, Custom the accent list's choice for a typed color (#528)
+Launch screen in the accent color	Màn hình khởi động theo màu nhấn
+Fills that screen with the accent color, or Instagram's blue while Accent color is off. A custom color shows as the closest one in the list. It shows from the next start.	Tô màn hình đó bằng màu nhấn, hoặc màu xanh của Instagram khi Màu nhấn đang tắt. Màu tùy chỉnh hiện thành màu gần nhất trong danh sách. Hiện từ lần khởi động sau.
+Haptic strength	Độ mạnh của rung
+Tap sound on the tab bar	Âm thanh chạm trên thanh tab
+A click each time the highlight moves to another tab, even with the phone's touch sounds off. Silent and vibrate mode keep it quiet.	Một tiếng tách mỗi khi phần đánh dấu chuyển sang tab khác, kể cả khi âm thanh chạm của điện thoại đang tắt. Chế độ im lặng và rung sẽ giữ yên lặng.
+Tap sound volume	Âm lượng âm thanh chạm
 2x speed for videos in the feed	2x speed for videos in the feed
 Adds a shortcut to your saved posts in the Explore tab.	Adds a shortcut to your saved posts in the Explore tab.
 Adds a speed choice to the menu on a reel.	Adds a speed choice to the menu on a reel.

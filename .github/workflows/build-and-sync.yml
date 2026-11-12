@@ -12,6 +12,8 @@ on:
       - Hi
     paths-ignore:
       - 'README.md'
+      - 'patches-bundle.json'
+      - 'patches-list.json'
       - '.github/ISSUE_TEMPLATE/**'
       - 'FUNDING.yml'
   workflow_dispatch:
@@ -45,6 +47,7 @@ permissions:
 
 jobs:
   sync-and-build:
+    if: github.event_name != 'push' || !contains(github.event.head_commit.message, '[skip ci]')
     name: Sync, Build & Release
     runs-on: ubuntu-latest
 
@@ -73,9 +76,21 @@ jobs:
 
       - name: Sync with Upstream
         if: |
-          (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/Hi' || github.ref == 'refs/heads/hi') &&
-          (github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && inputs.sync_upstream == true))
+          github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && inputs.sync_upstream == true)
+        env:
+          ANDROID_HOME: /usr/local/lib/android/sdk
+          GITHUB_ACTOR: ${{ github.actor }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
+          CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
+          case "$CURRENT_BRANCH" in
+            main|Hi|hi) ;;
+            *)
+              echo "Skipping upstream sync on branch $CURRENT_BRANCH"
+              exit 0
+              ;;
+          esac
+
           echo "Configuring git identity..."
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
@@ -84,16 +99,15 @@ jobs:
           git remote add upstream https://github.com/SysAdminDoc/HushGram.git || git remote set-url upstream https://github.com/SysAdminDoc/HushGram.git
           git fetch upstream main
 
-          CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
           BEHIND_COUNT=$(git rev-list --count HEAD..upstream/main)
           echo "Commits behind upstream on $CURRENT_BRANCH: $BEHIND_COUNT"
 
           if [ "$BEHIND_COUNT" -gt 0 ]; then
             echo "Merging upstream/main into $CURRENT_BRANCH branch..."
-            if ! git merge upstream/main --no-edit -m "chore(sync): sync with upstream/main"; then
+            if ! git merge upstream/main --no-edit -m "chore(sync): sync with upstream/main [skip ci]"; then
               echo "Merge encountered conflicts. Invoking automated conflict resolver..."
               if python3 scripts/resolve-sync-conflicts.py; then
-                git commit -m "chore(sync): sync with upstream/main and auto-resolve sync conflicts"
+                git commit -m "chore(sync): sync with upstream/main and auto-resolve sync conflicts [skip ci]"
                 echo "All conflicts resolved and committed successfully."
                 echo "Pushing merged changes to origin/$CURRENT_BRANCH..."
                 git push origin "$CURRENT_BRANCH" || (git pull --rebase origin "$CURRENT_BRANCH" && git push origin "$CURRENT_BRANCH")
@@ -103,6 +117,12 @@ jobs:
                 git merge --abort
               fi
             else
+              ./gradlew :patches:generatePatchesList --no-daemon --dependency-verification=lenient || true
+              python3 scripts/gen-readme-patches.py || true
+              if ! git diff --quiet patches-list.json README.md; then
+                git add patches-list.json README.md
+                git commit --amend --no-edit
+              fi
               echo "Pushing merged changes to origin/$CURRENT_BRANCH..."
               git push origin "$CURRENT_BRANCH" || (git pull --rebase origin "$CURRENT_BRANCH" && git push origin "$CURRENT_BRANCH")
               echo "Successfully synced with upstream!"
@@ -111,12 +131,13 @@ jobs:
             echo "Repository is already up to date with upstream."
           fi
 
-      - name: Verify Settings Initialization & Category Tests
+      - name: Verify Patches, Settings & Category Tests
         env:
           ANDROID_HOME: /usr/local/lib/android/sdk
           GITHUB_ACTOR: ${{ github.actor }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
+          ./gradlew :patches:test --no-daemon --dependency-verification=lenient
           ./gradlew :extensions:instagram:testDebugUnitTest \
             --tests app.hushgram.extension.instagram.settings.SettingsDialogBoundaryTest \
             --tests app.hushgram.extension.instagram.settings.SettingsCardsTest \
@@ -208,3 +229,36 @@ jobs:
           make_latest: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Update patches-bundle.json for Morphe Manager
+        if: (github.event_name == 'push' || github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && inputs.publish_release == true))
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          BRANCH="$(git rev-parse --abbrev-ref HEAD)"
+          if [ "$BRANCH" = "HEAD" ]; then
+            BRANCH="${{ (github.event_name == 'workflow_dispatch' && inputs.target_branch != '' && inputs.target_branch != 'current') && inputs.target_branch || github.ref_name }}"
+          fi
+          TAG="v${{ steps.version.outputs.VERSION }}-build${{ github.run_number }}"
+
+          python3 scripts/update-bundle-manifest.py \
+            --repo "${{ github.repository }}" \
+            --tag "$TAG" \
+            --version "${{ steps.version.outputs.VERSION }}"
+
+          if ! git diff --quiet patches-bundle.json; then
+            git add patches-bundle.json
+            git commit -m "chore(release): update patches-bundle.json for ${TAG} [skip ci]"
+            if ! git push origin "HEAD:${BRANCH}"; then
+              git fetch origin "$BRANCH"
+              git reset --hard "origin/${BRANCH}"
+              python3 scripts/update-bundle-manifest.py \
+                --repo "${{ github.repository }}" \
+                --tag "$TAG" \
+                --version "${{ steps.version.outputs.VERSION }}"
+              git add patches-bundle.json
+              git commit -m "chore(release): update patches-bundle.json for ${TAG} [skip ci]"
+              git push origin "HEAD:${BRANCH}"
+            fi
+          fi

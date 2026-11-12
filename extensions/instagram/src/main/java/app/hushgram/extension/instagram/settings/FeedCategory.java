@@ -11,7 +11,9 @@ import static app.hushgram.extension.instagram.settings.HushgramPreferenceFragme
 import static app.hushgram.extension.instagram.settings.HushgramPreferenceFragment.carouselPillLookRow;
 import static app.hushgram.extension.instagram.settings.HushgramPreferenceFragment.category;
 import static app.hushgram.extension.instagram.settings.HushgramPreferenceFragment.cornerSizeRow;
+import static app.hushgram.extension.instagram.settings.HushgramPreferenceFragment.favoritesTabRow;
 import static app.hushgram.extension.instagram.settings.HushgramPreferenceFragment.feedSeekBarLookRow;
+import static app.hushgram.extension.instagram.settings.HushgramPreferenceFragment.feedSkipLengthRow;
 import static app.hushgram.extension.instagram.settings.HushgramPreferenceFragment.homeSwipeRow;
 import static app.hushgram.extension.instagram.settings.HushgramPreferenceFragment.onFlip;
 import static app.hushgram.extension.instagram.settings.HushgramPreferenceFragment.seekShapeRow;
@@ -97,6 +99,12 @@ final class FeedCategory {
                                 + "until you've seen them all. Pull down on Home to start both over. Restart Instagram "
                                 + "to see the change.")));
             }
+            if (PatchFamily.favoritesFeedInBuild()) {
+                feed.addPreference(toggle(context, Settings.FAVORITES_TAB_BAR, L10n.t("Keep the tab bar on Favorites"),
+                        L10n.t("Instagram hides the tab bar when Favorites opens from the top of Home. This keeps it, "
+                                + "so Search and Messages stay a tap away.")));
+                feed.addPreference(favoritesTabRow(context));
+            }
         }
         if (suggestions) {
             feed.addPreference(toggle(context, Settings.HIDE_SUGGESTED_ACCOUNTS, L10n.t("Hide suggested accounts"),
@@ -123,6 +131,8 @@ final class FeedCategory {
                     L10n.t("Hides the card after the posts from accounts you follow that says you've seen the latest "
                             + "ones, and its Older posts link. When Home has no new posts at all, only that line goes "
                             + "and the link stays. Pull down on Home to refresh after changing it.")));
+            feed.addPreference(toggle(context, Settings.HIDE_CHANNEL_JOIN_BAR, L10n.t("Hide the Join bar on channel posts"),
+                    L10n.t("Hides the bar under a post that asks you to join the account's channel. The post stays.")));
             if (PatchFamily.feedTypesInBuild()) {
                 feed.addPreference(toggle(context, Settings.HIDE_FEED_VIDEOS, L10n.t("Hide videos"),
                         L10n.t("Removes every single-video post and reel from Home, even from accounts you follow. "
@@ -181,8 +191,8 @@ final class FeedCategory {
         }
         if (askLike) {
             feed.addPreference(toggle(context, Settings.ASK_BEFORE_LIKE, L10n.t("Ask before a like"),
-                    L10n.t("Asks before the Like button under a post or on a reel likes or unlikes it, so a stray tap "
-                            + "doesn't do it for you. Double taps aren't asked about.")));
+                    L10n.t("Asks before the Like button under a post, on a reel or on a comment likes or unlikes it, so a "
+                            + "stray tap doesn't do it for you. Double taps aren't asked about.")));
         }
         if (askRefresh) {
             feed.addPreference(toggle(context, Settings.ASK_BEFORE_REFRESH, L10n.t("Ask before a refresh"),
@@ -250,8 +260,9 @@ final class FeedCategory {
                     L10n.t("Puts the seek bar right on the bottom edge of the video, so it's harder to touch by "
                             + "accident while you scroll.")));
             feed.addPreference(toggle(context, Settings.FEED_DOUBLE_TAP_SKIP, L10n.t("Double tap to skip on feed videos"),
-                    L10n.t("Double tap the left side of the video playing in a feed to go back 10 seconds, or the "
-                            + "right side to go ahead 10. A double tap in the middle works as before.")));
+                    L10n.t("Double tap the left side of the video playing in a feed to go back, or the right side to go "
+                            + "ahead, as far as Skip length says. A double tap in the middle works as before.")));
+            feed.addPreference(feedSkipLengthRow(context));
         }
         if (longPressZoom) {
             feed.addPreference(toggle(context, Settings.LONG_PRESS_TO_ZOOM, L10n.t("Long press a photo to zoom"),
@@ -313,6 +324,9 @@ final class FeedCategory {
         if (feedFollow) {
             feed.addPreference(onFlip(toggle(context, Settings.HIDE_FEED_FOLLOW, L10n.t("Hide Follow on posts"),
                     L10n.t("Takes the Follow and Subscribe buttons off the top of posts in your feed. The name, time and menu stay.")),
+                    FeedFollowButton::switchChanged));
+            feed.addPreference(onFlip(toggle(context, Settings.HIDE_FEED_SUBSCRIBE, L10n.t("Hide Subscribe on posts"),
+                    L10n.t("Takes only the Subscribe button off the top of posts in your feed. Follow stays.")),
                     FeedFollowButton::switchChanged));
         }
         if (editsLabel) {

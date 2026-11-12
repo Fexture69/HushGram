@@ -20,7 +20,8 @@
               "Spoof location",
               "App-only proxy",
               "Skip the contacts and location popups",
-              "Skip the ad data reminder"
+              "Skip the ad data reminder",
+              "Keep photo locations from Instagram"
             ]
           },
           {
@@ -313,7 +314,8 @@
           "Stop Reels scrolling",
           "Swipe left to open the profile",
           "Keep the tab bar on a reel's profile",
-          "Find the reel you came from"
+          "Find the reel you came from",
+          "Open reel links on that reel"
         ]
       },
       "anchors": [
@@ -518,7 +520,8 @@
           "Hide profile tabs",
           "Saved on your profile",
           "Profile posts as a list",
-          "Jump a profile's posts to a date"
+          "Jump a profile's posts to a date",
+          "Ask before a follow"
         ]
       },
       "anchors": [
