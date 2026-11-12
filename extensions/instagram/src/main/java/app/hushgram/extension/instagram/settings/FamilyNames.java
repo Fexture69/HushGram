@@ -53,6 +53,7 @@ public final class FamilyNames {
     public static final String STORY_SEEN = "View stories anonymously";
     public static final String DM_MEDIA_SEEN = "View DM photos and videos anonymously";
     public static final String SPOOF_LOCATION = "Spoof location";
+    public static final String SPOOF_DEVICE = "Spoof device";
     public static final String APP_PROXY = "App-only proxy";
     public static final String SETUP_POPUPS = "Skip the contacts and location popups";
     public static final String AD_DATA_REMINDER = "Skip the ad data reminder";

@@ -157,6 +157,7 @@ public final class ConfigurationBackup {
         if (PatchFamily.STORY_PROGRESS_BAR.inBuild()) settings.put(Settings.STORY_BAR_THICKNESS.key, Settings.STORY_BAR_THICKNESS);
         if (PatchFamily.STORIES_TRAY.inBuild()) settings.put(Settings.TRAY_BADGE.key, Settings.TRAY_BADGE);
         if (PatchFamily.SPOOF_LOCATION.inBuild()) settings.put(Settings.SPOOF_LOCATION_PLACE.key, Settings.SPOOF_LOCATION_PLACE);
+        if (PatchFamily.SPOOF_DEVICE.inBuild()) settings.put(Settings.SPOOF_DEVICE_PROFILE.key, Settings.SPOOF_DEVICE_PROFILE);
         if (PatchFamily.APP_PROXY.inBuild()) settings.put(Settings.APP_PROXY_SERVER.key, Settings.APP_PROXY_SERVER);
         if (PatchFamily.CAPTION_WORD_REELS.inBuild()) {
             settings.put(Settings.REELS_BLOCKED_WORDS.key, Settings.REELS_BLOCKED_WORDS);

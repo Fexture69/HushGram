@@ -704,6 +704,23 @@ public class Settings extends BaseSettings {
             new StringSetting("hushgram_spoof_location_place", "", parent(SPOOF_LOCATION));
 
     /**
+     * Instagram sees {@link #SPOOF_DEVICE_PROFILE} across {@link android.os.Build},
+     * {@code SystemProperties}, Pixel system-feature checks and the HDR MobileConfig overrides
+     * ({@link app.hushgram.extension.instagram.misc.DeviceSpoof}). Off to start; changes wait
+     * for a restart.
+     */
+    public static final BooleanSetting SPOOF_DEVICE =
+            new BooleanSetting("hushgram_spoof_device", FALSE, true);
+
+    /**
+     * Which phone {@link #SPOOF_DEVICE} tells Instagram you have, while {@link #SPOOF_DEVICE} is
+     * on. Needs a restart to take effect.
+     */
+    public static final EnumSetting<app.hushgram.extension.instagram.misc.DeviceSpoof.Profile> SPOOF_DEVICE_PROFILE =
+            new EnumSetting<>("hushgram_spoof_device_profile",
+                    app.hushgram.extension.instagram.misc.DeviceSpoof.Profile.PIXEL, true, parent(SPOOF_DEVICE));
+
+    /**
      * Instagram's requests go through {@link #APP_PROXY_SERVER}, inside Instagram only
      * ({@link app.hushgram.extension.instagram.misc.AppProxy}). Its network stack reads the proxy
      * as it starts, so a change waits for a restart. Off to start.

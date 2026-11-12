@@ -571,12 +571,25 @@
         "patches/src/test/kotlin/app/morphe/patches/instagram/misc/photolocation/KeepPhotoLocationsHookTest.kt",
         "extensions/instagram/src/main/java/app/hushgram/extension/instagram/misc/PhotoLocations.java",
         "extensions/instagram/src/test/java/app/hushgram/extension/instagram/misc/PhotoLocationsTest.java",
+        "patches/src/main/kotlin/app/morphe/patches/instagram/misc/device/SpoofDevicePatch.kt",
+        "patches/src/test/kotlin/app/morphe/patches/instagram/misc/device/SpoofDeviceHookTest.kt",
+        "extensions/instagram/src/test/java/app/hushgram/extension/instagram/misc/DeviceSpoofTest.java",
+        "extensions/instagram/src/test/java/app/hushgram/extension/instagram/settings/SpoofDeviceSettingsTest.java",
         "patches/src/test/kotlin/app/morphe/patches/instagram/feed/seekbar/SeekShapeSitesTest.kt",
         "scripts/gen-readme-patches.py"
       ],
       "origin": "original",
       "upstream": "https://github.com/SysAdminDoc/HushGram",
       "license": "GPL-3.0-only"
+    },
+    {
+      "files": [
+        "extensions/instagram/src/main/java/app/hushgram/extension/instagram/misc/DeviceSpoof.java"
+      ],
+      "origin": "ported",
+      "upstream": "https://github.com/ReSo7200/InstaEclipse",
+      "commit": "3298e7edadc8bf33b11239cc3d4437ab555cdd7f",
+      "license": "GPL-3.0"
     },
     {
       "paths": [

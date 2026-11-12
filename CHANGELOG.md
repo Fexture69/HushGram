@@ -6,6 +6,7 @@ Every HushGram release, newest first.
 
 ### Features
 
+* `Spoof device` under Ads and privacy lets Instagram see a Google Pixel 11 Pro XL or Samsung Galaxy S26 Ultra instead of your phone, unlocking HDR video downloads and other device-gated features along with the matching HDR developer options. Starts off. Adapted from [ReSo7200/InstaEclipse](https://github.com/ReSo7200/InstaEclipse).
 * `Burn-in guard` fades the Add comment bar under a reel too, along with the other buttons, and tapping it brings them all back. Asked for in #648.
 * `Open Saved profiles with a tab long press` sits under `Your saved profiles` in Profiles. Pick a tab, Profile included, and holding it opens your saved list right away while a normal tap does what it always did. Needs `Saved profiles` on. Starts off. Asked for in #629.
 * `Fast scroll in Saved` sits under `Saved tab on your profile` in Profiles. Scroll Saved or one of your collections and a handle shows at the right edge. Drag it to jump anywhere in a long list, and it fades once you stop. It takes no restart. Starts off. Asked for in #644.

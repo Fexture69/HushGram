@@ -7,6 +7,7 @@
 package app.hushgram.extension.instagram.settings;
 
 import static app.hushgram.extension.instagram.settings.HushgramPreferenceFragment.category;
+import static app.hushgram.extension.instagram.settings.HushgramPreferenceFragment.deviceSpoofProfileRow;
 import static app.hushgram.extension.instagram.settings.HushgramPreferenceFragment.ghostTabRow;
 import static app.hushgram.extension.instagram.settings.HushgramPreferenceFragment.placeRow;
 import static app.hushgram.extension.instagram.settings.HushgramPreferenceFragment.proxyServerRow;
@@ -67,6 +68,13 @@ final class PrivacyCategory {
                     L10n.t("Tells Instagram your phone is at the place set below, for the location sticker, nearby "
                             + "places and maps. Photos keep their own places.")));
             privacy.add(placeRow(context));
+        }
+        if (build.contains(PatchFamily.SPOOF_DEVICE)) {
+            privacy.add(toggle(context, Settings.SPOOF_DEVICE, L10n.t("Spoof device"),
+                    L10n.t("Makes Instagram see the phone chosen below, unlocking HDR video downloads and "
+                            + "other features limited to those phones, and adds the matching developer options. "
+                            + "Restart Instagram to see the change.")));
+            privacy.add(deviceSpoofProfileRow(context));
         }
         if (build.contains(PatchFamily.APP_PROXY)) {
             privacy.add(toggle(context, Settings.APP_PROXY, L10n.t("App-only proxy"),

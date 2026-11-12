@@ -117,20 +117,24 @@ def resolve_readme_conflicts():
             up_part = m.group(2)
             if "Fexture69" in head_part and "SysAdminDoc/HushGram" in up_part:
                 return head_part + "\n"
-            if "| `Open developer options`" in head_part or "| `Open developer options`" in up_part:
-                dev_line = [l for l in head_part.splitlines() if "Open developer options" in l]
-                dev_str = dev_line[0] + "\n" if dev_line else ""
-                if dev_str.strip() and dev_str.strip() not in up_part:
-                    return dev_str + up_part + "\n"
+            fork_markers = ("| `Open developer options`", "| `Spoof device`")
+            if any(m in head_part or m in up_part for m in fork_markers):
+                kept = [
+                    l for l in head_part.splitlines()
+                    if "`Open developer options`" in l or "`Spoof device`" in l
+                ]
+                prefix = "\n".join(l for l in kept if l.strip() not in up_part)
+                if prefix:
+                    return prefix + "\n" + up_part + "\n"
                 return up_part + "\n"
             if "patches for `com.instagram.android`" in up_part:
                 def inc_count(match):
-                    count = int(match.group(1)) + 1
+                    count = int(match.group(1)) + 2
                     return f"There are {count} patches"
                 up_updated = re.sub(r'There are (\d+) patches', inc_count, up_part)
                 up_updated = re.sub(
                     r'simple mode includes (\d+) of them',
-                    lambda match: f"simple mode includes {int(match.group(1)) + 1} of them",
+                    lambda match: f"simple mode includes {int(match.group(1)) + 2} of them",
                     up_updated,
                 )
                 return up_updated + "\n"
@@ -155,12 +159,12 @@ def resolve_catalog_test_conflicts():
             up_part = m.group(2)
             if "neutral.size" in up_part:
                 def inc_val(match):
-                    val = int(match.group(1)) + 1
+                    val = int(match.group(1)) + 2
                     return f"assertEquals({val}, neutral.size)"
                 return re.sub(r'assertEquals\((\d+),\s*neutral\.size\)', inc_val, up_part) + "\n"
             if "all.size" in up_part:
                 def inc_val(match):
-                    val = int(match.group(1)) + 1
+                    val = int(match.group(1)) + 2
                     return f'assertEquals("every named patch needs one reviewed decision", {val}, all.size)'
                 return re.sub(r'assertEquals\(\s*"every named patch needs one reviewed decision",\s*(\d+),\s*all\.size\s*\)', inc_val, up_part) + "\n"
             return up_part + "\n"

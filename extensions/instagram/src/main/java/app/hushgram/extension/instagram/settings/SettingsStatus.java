@@ -129,6 +129,10 @@ public final class SettingsStatus {
         return false;
     }
 
+    public static boolean spoofDevice() {
+        return false;
+    }
+
     public static boolean appProxy() {
         return false;
     }

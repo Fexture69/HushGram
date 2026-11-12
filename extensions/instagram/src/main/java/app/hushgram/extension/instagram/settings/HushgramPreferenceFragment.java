@@ -123,6 +123,7 @@ import app.hushgram.extension.instagram.misc.FlagNames;
 import app.hushgram.extension.instagram.misc.OverrideExchange;
 import app.hushgram.extension.instagram.misc.OverrideImport;
 import app.hushgram.extension.instagram.misc.SettingsRows;
+import app.hushgram.extension.instagram.misc.DeviceSpoof;
 import app.hushgram.extension.instagram.misc.SpoofLocation;
 import app.hushgram.extension.instagram.share.ShareSheetActions;
 import app.hushgram.extension.instagram.share.SharingDomain;
@@ -7102,6 +7103,20 @@ public final class HushgramPreferenceFragment extends AbstractPreferenceFragment
             Utils.showToastShort(L10n.t("That isn't a place. Type latitude, longitude."));
             return false;
         });
+        return row;
+    }
+
+    /** Which device Spoof device reports, from {@link DeviceSpoof.Profile}. */
+    static ChoiceRow<DeviceSpoof.Profile> deviceSpoofProfileRow(Context context) {
+        ChoiceRow<DeviceSpoof.Profile> row = new ChoiceRow<>(context, Settings.SPOOF_DEVICE_PROFILE,
+                DeviceSpoof.Profile.values(), new String[] {
+                        L10n.t("Instagram sees a Google Pixel 11 Pro XL with HDR developer options enabled. Restart Instagram to see a change."),
+                        L10n.t("Instagram sees a Samsung Galaxy S26 Ultra with HDR developer options enabled. Restart Instagram to see a change."),
+                }, L10n.t("Turn on Spoof device to use this choice."));
+        fill(row, Settings.SPOOF_DEVICE_PROFILE, DeviceSpoof.Profile.values(), new String[] {
+                L10n.t("Pixel 11 Pro XL"),
+                L10n.t("Galaxy S26 Ultra"),
+        }, L10n.t("Device"));
         return row;
     }
 

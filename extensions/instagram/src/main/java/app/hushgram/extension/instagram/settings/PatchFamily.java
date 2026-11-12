@@ -89,6 +89,7 @@ public enum PatchFamily {
     LIVE_SEEN(FamilyNames.LIVE_SEEN, "liveSeen", null, Settings.VIEW_LIVE_ANONYMOUSLY, Settings.MARK_LIVE_SEEN),
     DM_MEDIA_SEEN(FamilyNames.DM_MEDIA_SEEN, "visualSeen", null, Settings.VIEW_DM_MEDIA_ANONYMOUSLY),
     SPOOF_LOCATION(FamilyNames.SPOOF_LOCATION, "spoofLocation", null, Settings.SPOOF_LOCATION),
+    SPOOF_DEVICE(FamilyNames.SPOOF_DEVICE, "spoofDevice", null, Settings.SPOOF_DEVICE),
     APP_PROXY(FamilyNames.APP_PROXY, "appProxy", null, Settings.APP_PROXY),
     SETUP_POPUPS(FamilyNames.SETUP_POPUPS, "setupPopups", null, Settings.SKIP_SETUP_POPUPS),
     AD_DATA_REMINDER(FamilyNames.AD_DATA_REMINDER, "adDataReminder", null, Settings.SKIP_AD_DATA_REMINDER),

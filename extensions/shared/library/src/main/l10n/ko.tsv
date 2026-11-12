@@ -2308,3 +2308,11 @@ Discard saved overrides	Discard saved overrides
 Forgets the saved overrides from an earlier import or reset, unblocking new imports.	Forgets the saved overrides from an earlier import or reset, unblocking new imports.
 No saved overrides to discard.	No saved overrides to discard.
 Saved overrides discarded. You can now import overrides.	Saved overrides discarded. You can now import overrides.
+Spoof device	기기 위장
+Makes Instagram see the phone chosen below, unlocking HDR video downloads and other features limited to those phones, and adds the matching developer options. Restart Instagram to see the change.	Instagram이 아래에서 선택한 휴대폰으로 인식하게 하여 HDR 동영상 다운로드 및 해당 기기 전용 기능을 해제하고 관련 개발자 옵션을 추가합니다. 변경 사항을 적용하려면 Instagram을 다시 시작하세요.
+Device	기기
+Pixel 11 Pro XL	Pixel 11 Pro XL
+Galaxy S26 Ultra	Galaxy S26 Ultra
+Instagram sees a Google Pixel 11 Pro XL with HDR developer options enabled. Restart Instagram to see a change.	Instagram이 HDR 개발자 옵션이 활성화된 Google Pixel 11 Pro XL로 인식합니다. 변경 사항을 적용하려면 Instagram을 다시 시작하세요.
+Instagram sees a Samsung Galaxy S26 Ultra with HDR developer options enabled. Restart Instagram to see a change.	Instagram이 HDR 개발자 옵션이 활성화된 Samsung Galaxy S26 Ultra로 인식합니다. 변경 사항을 적용하려면 Instagram을 다시 시작하세요.
+Turn on Spoof device to use this choice.	이 선택을 사용하려면 기기 위장을 켜세요.

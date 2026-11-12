@@ -2312,3 +2312,11 @@ Discard saved overrides	Discard saved overrides
 Forgets the saved overrides from an earlier import or reset, unblocking new imports.	Forgets the saved overrides from an earlier import or reset, unblocking new imports.
 No saved overrides to discard.	No saved overrides to discard.
 Saved overrides discarded. You can now import overrides.	Saved overrides discarded. You can now import overrides.
+Spoof device	偽裝裝置
+Makes Instagram see the phone chosen below, unlocking HDR video downloads and other features limited to those phones, and adds the matching developer options. Restart Instagram to see the change.	讓 Instagram 識別為下方選擇的手機，解鎖 HDR 影片下載與其他僅限這些機型的功能，並加入對應的開發人員選項。重新啟動 Instagram 以套用變更。
+Device	裝置
+Pixel 11 Pro XL	Pixel 11 Pro XL
+Galaxy S26 Ultra	Galaxy S26 Ultra
+Instagram sees a Google Pixel 11 Pro XL with HDR developer options enabled. Restart Instagram to see a change.	Instagram 會識別為已啟用 HDR 開發人員選項的 Google Pixel 11 Pro XL。重新啟動 Instagram 以套用變更。
+Instagram sees a Samsung Galaxy S26 Ultra with HDR developer options enabled. Restart Instagram to see a change.	Instagram 會識別為已啟用 HDR 開發人員選項的 Samsung Galaxy S26 Ultra。重新啟動 Instagram 以套用變更。
+Turn on Spoof device to use this choice.	開啟「偽裝裝置」即可使用此選項。
