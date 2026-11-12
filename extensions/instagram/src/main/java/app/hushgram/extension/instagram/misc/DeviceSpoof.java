@@ -7,9 +7,13 @@
  */
 package app.hushgram.extension.instagram.misc;
 
+import android.app.Application;
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.os.Build;
+import android.os.Process;
 
 import androidx.annotation.Nullable;
 
@@ -17,11 +21,13 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
@@ -39,6 +45,8 @@ import app.hushgram.extension.instagram.settings.FamilyNames;
 import app.hushgram.extension.instagram.settings.Settings;
 import app.hushgram.extension.shared.Utils;
 import app.hushgram.extension.shared.diagnostics.HookStatus;
+import app.hushgram.extension.shared.settings.HushgramPause;
+import app.hushgram.extension.shared.settings.Setting;
 
 /**
  * Helper for the "Spoof device" patch.
@@ -150,15 +158,48 @@ public final class DeviceSpoof {
     private static final Pattern PROP_FINGERPRINT =
             Pattern.compile("^ro\\.(?:[a-z_]+\\.)?build\\.fingerprint$");
 
-    @Nullable private static final Method SYS_PROP_GET_1 = findSystemPropertiesMethod(String.class);
-    @Nullable private static final Method SYS_PROP_GET_2 = findSystemPropertiesMethod(String.class, String.class);
+    private static final String KEY_SPOOF_DEVICE = "hushgram_spoof_device";
+    private static final String KEY_SPOOF_DEVICE_PROFILE = "hushgram_spoof_device_profile";
+    private static final String KEY_PAUSED = "hushgram_paused";
+    private static final String KEY_SAFE_MODE = "hushgram_safe_mode";
+
+    private static volatile boolean earlyActive;
+    @Nullable private static volatile Profile earlyProfile;
+
+    @Nullable private static volatile Method sysPropGet1 = findSystemPropertiesMethod(String.class);
+    @Nullable private static volatile Method sysPropGet2 = findSystemPropertiesMethod(String.class, String.class);
 
     private DeviceSpoof() {
     }
 
     /**
-     * Runs at application startup right after {@link Utils#setContext(Context)}: syncs the HDR
-     * MobileConfig overrides and reflectively sets {@link Build} fields when spoofing is active.
+     * Runs as early as {@code Application.attachBaseContext(Context)} — before ContentProviders,
+     * native libraries and MobileConfig bootstrap — reading the stored spoof preference directly
+     * without triggering {@link Settings} static initialization before {@link Utils#setContext}.
+     */
+    public static void onAttachBaseContext(@Nullable Context context) {
+        if (context == null) return;
+        try {
+            HookStatus.invoked(FamilyNames.SPOOF_DEVICE);
+            Profile early = readEarlyProfile(context);
+            earlyProfile = early;
+            earlyActive = true;
+            if (isMainProcess(context)) {
+                syncOverrides(context, early != null);
+            }
+            if (early != null) {
+                applyBuildFields(early);
+                HookStatus.counted(FamilyNames.SPOOF_DEVICE, SPOOFED);
+            }
+        } catch (Throwable failure) {
+            HookStatus.threw(FamilyNames.SPOOF_DEVICE, STEP, failure);
+        }
+    }
+
+    /**
+     * Runs at application startup right after {@link Utils#setContext(Context)}: clears any early
+     * attachBaseContext cache, reconciles HDR MobileConfig overrides with final settings/pause
+     * state, and sets {@link Build} fields when spoofing is active.
      */
     public static void onAppStart(@Nullable Context context) {
         onAppStart(context, DeviceSpoof::activeProfile);
@@ -167,8 +208,10 @@ public final class DeviceSpoof {
     static void onAppStart(@Nullable Context context, Supplier<Profile> profileSupplier) {
         try {
             HookStatus.invoked(FamilyNames.SPOOF_DEVICE);
+            earlyActive = false;
+            earlyProfile = null;
             Profile active = profileSupplier.get();
-            if (context != null && Utils.isMainProcess()) {
+            if (context != null && isMainProcess(context)) {
                 syncOverrides(context, active != null);
             }
             if (active != null) {
@@ -178,6 +221,11 @@ public final class DeviceSpoof {
         } catch (Throwable failure) {
             HookStatus.threw(FamilyNames.SPOOF_DEVICE, STEP, failure);
         }
+    }
+
+    static void clearEarlyStateForTests() {
+        earlyActive = false;
+        earlyProfile = null;
     }
 
     // ---- Build field stand-ins --------------------------------------------------------------
@@ -202,11 +250,23 @@ public final class DeviceSpoof {
         return readBuildField(real, p -> p.product);
     }
 
+    public static String buildHardware(String real) {
+        return readBuildField(real, p -> p.device);
+    }
+
+    public static String buildBoard(String real) {
+        return readBuildField(real, p -> p.device);
+    }
+
     public static String buildFingerprint(String real) {
         return readBuildField(real, p -> p.fingerprint);
     }
 
     public static String buildId(String real) {
+        return readBuildField(real, p -> p.buildId);
+    }
+
+    public static String buildDisplay(String real) {
         return readBuildField(real, p -> p.buildId);
     }
 
@@ -293,7 +353,13 @@ public final class DeviceSpoof {
             case "ro.board.platform":
                 return profile.platform;
             case "ro.build.id":
+            case "ro.build.display.id":
                 return profile.buildId;
+            case "ro.hardware":
+            case "ro.product.board":
+                return profile.device;
+            case "ro.build.product":
+                return profile.product;
             default:
                 return null;
         }
@@ -301,12 +367,12 @@ public final class DeviceSpoof {
 
     // ---- PackageManager.hasSystemFeature stand-ins ------------------------------------------
 
-    public static boolean hasSystemFeature(PackageManager pm, String name) {
-        return readFeature(name, DeviceSpoof::activeProfile) || pm.hasSystemFeature(name);
+    public static boolean hasSystemFeature(@Nullable PackageManager pm, String name) {
+        return readFeature(name, DeviceSpoof::activeProfile) || (pm != null && pm.hasSystemFeature(name));
     }
 
-    public static boolean hasSystemFeature(PackageManager pm, String name, int version) {
-        return readFeature(name, DeviceSpoof::activeProfile) || pm.hasSystemFeature(name, version);
+    public static boolean hasSystemFeature(@Nullable PackageManager pm, String name, int version) {
+        return readFeature(name, DeviceSpoof::activeProfile) || (pm != null && pm.hasSystemFeature(name, version));
     }
 
     static boolean readFeature(@Nullable String name, Supplier<Profile> profileSupplier) {
@@ -327,8 +393,79 @@ public final class DeviceSpoof {
 
     @Nullable
     private static Profile activeProfile() {
-        if (!Utils.settingsReady() || !Settings.SPOOF_DEVICE.get()) return null;
+        if (!Utils.settingsReady()) return earlyActive ? earlyProfile : null;
+        if (!Settings.SPOOF_DEVICE.get()) return null;
         return Settings.SPOOF_DEVICE_PROFILE.get();
+    }
+
+    @Nullable
+    static Profile readEarlyProfile(Context context) {
+        try {
+            File filesDir = context.getFilesDir();
+            if (filesDir != null && new File(filesDir, HushgramPause.MARKER_FILE_NAME).exists()) {
+                return null;
+            }
+            SharedPreferences prefs = context.getSharedPreferences(Setting.PREFERENCES_NAME, Context.MODE_PRIVATE);
+            if (prefs == null) return null;
+            if (safeBoolean(prefs, KEY_SAFE_MODE) || safeBoolean(prefs, KEY_PAUSED)) return null;
+            if (!safeBoolean(prefs, KEY_SPOOF_DEVICE)) return null;
+            String savedProfile = safeString(prefs, KEY_SPOOF_DEVICE_PROFILE);
+            if (savedProfile != null) {
+                for (Profile candidate : Profile.values()) {
+                    if (candidate.name().equalsIgnoreCase(savedProfile)) return candidate;
+                }
+            }
+            return Profile.PIXEL;
+        } catch (Throwable ignored) {
+            return null;
+        }
+    }
+
+    private static boolean safeBoolean(SharedPreferences prefs, String key) {
+        try {
+            return prefs.getBoolean(key, false);
+        } catch (ClassCastException ignored) {
+            return false;
+        }
+    }
+
+    @Nullable
+    private static String safeString(SharedPreferences prefs, String key) {
+        try {
+            return prefs.getString(key, null);
+        } catch (ClassCastException ignored) {
+            return null;
+        }
+    }
+
+    private static boolean isMainProcess(@Nullable Context context) {
+        if (context == null) return Utils.isMainProcess();
+        String packageName = context.getPackageName();
+        ApplicationInfo info = context.getApplicationInfo();
+        String declared = info != null ? info.processName : null;
+        if (declared != null && declared.startsWith(packageName + ":")) return false;
+        String actual = processName();
+        if (actual == null || actual.isEmpty() || packageName.equals(actual)) return true;
+        return !actual.startsWith(packageName + ":");
+    }
+
+    @Nullable
+    private static String processName() {
+        if (Build.VERSION.SDK_INT >= 28) {
+            try {
+                String name = Application.getProcessName();
+                if (name != null && !name.isEmpty()) return name;
+            } catch (Throwable ignored) {
+            }
+        }
+        StringBuilder name = new StringBuilder();
+        try (FileInputStream input = new FileInputStream("/proc/" + Process.myPid() + "/cmdline")) {
+            int value;
+            while ((value = input.read()) > 0) name.append((char) value);
+            return name.toString();
+        } catch (Throwable ignored) {
+            return null;
+        }
     }
 
     private static void applyBuildFields(Profile profile) {
@@ -337,8 +474,11 @@ public final class DeviceSpoof {
         setStaticBuildField("MODEL", profile.model);
         setStaticBuildField("DEVICE", profile.device);
         setStaticBuildField("PRODUCT", profile.product);
+        setStaticBuildField("HARDWARE", profile.device);
+        setStaticBuildField("BOARD", profile.device);
         setStaticBuildField("FINGERPRINT", profile.fingerprint);
         setStaticBuildField("ID", profile.buildId);
+        setStaticBuildField("DISPLAY", profile.buildId);
         setStaticBuildField("SOC_MANUFACTURER", profile.socManufacturer);
         setStaticBuildField("SOC_MODEL", profile.socModel);
     }
@@ -347,6 +487,7 @@ public final class DeviceSpoof {
         if (value == null) return;
         try {
             Field field = Build.class.getField(name);
+            if (setViaUnsafe(field, value)) return;
             if (Modifier.isFinal(field.getModifiers())) {
                 try {
                     Field accessFlags = Field.class.getDeclaredField("accessFlags");
@@ -363,19 +504,60 @@ public final class DeviceSpoof {
         }
     }
 
+    private static boolean setViaUnsafe(Field field, String value) {
+        try {
+            Class<?> unsafeClass = Class.forName("sun.misc.Unsafe");
+            Object unsafe = null;
+            for (String holder : new String[] { "theUnsafe", "THE_ONE" }) {
+                try {
+                    Field f = unsafeClass.getDeclaredField(holder);
+                    f.setAccessible(true);
+                    unsafe = f.get(null);
+                    if (unsafe != null) break;
+                } catch (Throwable ignored) {
+                }
+            }
+            if (unsafe == null) return false;
+            Method staticFieldBase = unsafeClass.getMethod("staticFieldBase", Field.class);
+            Method staticFieldOffset = unsafeClass.getMethod("staticFieldOffset", Field.class);
+            Method putObject = unsafeClass.getMethod("putObject", Object.class, long.class, Object.class);
+            Object base = staticFieldBase.invoke(unsafe, field);
+            Object offset = staticFieldOffset.invoke(unsafe, field);
+            if (!(offset instanceof Long)) return false;
+            putObject.invoke(unsafe, base, (Long) offset, value);
+            return true;
+        } catch (Throwable ignored) {
+            return false;
+        }
+    }
+
     @Nullable
     private static Method findSystemPropertiesMethod(Class<?>... parameterTypes) {
         try {
-            return Class.forName("android.os.SystemProperties").getMethod("get", parameterTypes);
+            Class<?> sp = Class.forName("android.os.SystemProperties");
+            try {
+                Method m = sp.getMethod("get", parameterTypes);
+                m.setAccessible(true);
+                return m;
+            } catch (Throwable ignored) {
+                Method m = sp.getDeclaredMethod("get", parameterTypes);
+                m.setAccessible(true);
+                return m;
+            }
         } catch (Throwable ignored) {
             return null;
         }
     }
 
     private static String realSystemProperty(String key) {
-        if (SYS_PROP_GET_1 == null) return "";
+        Method m = sysPropGet1;
+        if (m == null) {
+            m = findSystemPropertiesMethod(String.class);
+            if (m != null) sysPropGet1 = m;
+        }
+        if (m == null) return "";
         try {
-            Object value = SYS_PROP_GET_1.invoke(null, key);
+            Object value = m.invoke(null, key);
             return value instanceof String ? (String) value : "";
         } catch (Throwable ignored) {
             return "";
@@ -383,9 +565,14 @@ public final class DeviceSpoof {
     }
 
     private static String realSystemProperty(String key, String def) {
-        if (SYS_PROP_GET_2 == null) return def;
+        Method m = sysPropGet2;
+        if (m == null) {
+            m = findSystemPropertiesMethod(String.class, String.class);
+            if (m != null) sysPropGet2 = m;
+        }
+        if (m == null) return def;
         try {
-            Object value = SYS_PROP_GET_2.invoke(null, key, def);
+            Object value = m.invoke(null, key, def);
             return value instanceof String ? (String) value : def;
         } catch (Throwable ignored) {
             return def;
@@ -402,28 +589,89 @@ public final class DeviceSpoof {
             removeOverrides(mcFile, marker);
             return;
         }
-        if (marker.exists() && mcFile.exists()) return;
         try {
             if (!mcDir.exists() && !mcDir.mkdirs()) return;
             JSONObject root = readJsonObject(mcFile);
             JSONObject hdr = new JSONObject(HDR_OVERRIDES_JSON);
+            boolean changed = !mcFile.exists();
             Iterator<String> keys = hdr.keys();
             while (keys.hasNext()) {
-                String configKey = keys.next();
-                JSONArray desired = hdr.getJSONArray(configKey);
-                JSONArray existing = root.optJSONArray(configKey);
-                if (existing == null) existing = new JSONArray();
-                Set<String> present = toSet(existing);
-                for (int i = 0; i < desired.length(); i++) {
-                    String item = desired.getString(i);
-                    if (present.add(item)) existing.put(item);
+                String configPrefix = keys.next();
+                String targetKey = findMatchingConfigKey(root, configPrefix);
+                JSONArray desired = hdr.getJSONArray(configPrefix);
+                JSONArray existing = root.optJSONArray(targetKey);
+                if (mergeConfigArray(root, targetKey, existing, desired)) {
+                    changed = true;
                 }
-                root.put(configKey, existing);
             }
-            Files.write(mcFile.toPath(), root.toString().getBytes(StandardCharsets.UTF_8));
-            if (!marker.exists()) Files.write(marker.toPath(), new byte[0]);
+            if (changed) {
+                writeAtomic(mcFile, root.toString().getBytes(StandardCharsets.UTF_8));
+            }
+            if (!marker.exists()) {
+                writeAtomic(marker, "1".getBytes(StandardCharsets.UTF_8));
+            }
         } catch (Throwable ignored) {
         }
+    }
+
+    private static boolean mergeConfigArray(
+            JSONObject root,
+            String targetKey,
+            @Nullable JSONArray existing,
+            JSONArray desired
+    ) throws Exception {
+        Set<String> replacedIndexes = new HashSet<>();
+        Set<String> desiredSet = new HashSet<>();
+        for (int i = 0; i < desired.length(); i++) {
+            String item = desired.getString(i);
+            replacedIndexes.add(entryIndex(item));
+            desiredSet.add(item);
+        }
+        JSONArray merged = new JSONArray();
+        boolean changed = existing == null;
+        if (existing != null) {
+            for (int i = 0; i < existing.length(); i++) {
+                String item = existing.optString(i, null);
+                if (item == null) {
+                    changed = true;
+                    continue;
+                }
+                if (replacedIndexes.contains(entryIndex(item))) {
+                    if (!desiredSet.contains(item)) {
+                        changed = true;
+                    }
+                    continue;
+                }
+                merged.put(item);
+            }
+        }
+        Set<String> existingSet = existing != null ? toSet(existing) : Collections.emptySet();
+        for (int i = 0; i < desired.length(); i++) {
+            String item = desired.getString(i);
+            if (!existingSet.contains(item)) {
+                changed = true;
+            }
+            merged.put(item);
+        }
+        if (changed) {
+            root.put(targetKey, merged);
+        }
+        return changed;
+    }
+
+    private static String findMatchingConfigKey(JSONObject root, String configPrefix) {
+        if (root.has(configPrefix)) return configPrefix;
+        Iterator<String> keys = root.keys();
+        while (keys.hasNext()) {
+            String candidate = keys.next();
+            if (candidate.startsWith(configPrefix)) return candidate;
+        }
+        return configPrefix;
+    }
+
+    private static String entryIndex(String entry) {
+        int colon = entry.indexOf(':');
+        return colon < 0 ? entry : entry.substring(0, colon);
     }
 
     private static void removeOverrides(File mcFile, File marker) {
@@ -433,28 +681,48 @@ public final class DeviceSpoof {
                 JSONObject root = readJsonObject(mcFile);
                 Map<String, List<String>> hdr = parseHdrMap();
                 for (Map.Entry<String, List<String>> entry : hdr.entrySet()) {
-                    JSONArray existing = root.optJSONArray(entry.getKey());
-                    if (existing == null) continue;
                     Set<String> remove = new HashSet<>(entry.getValue());
-                    JSONArray kept = new JSONArray();
-                    for (int i = 0; i < existing.length(); i++) {
-                        String value = existing.optString(i, null);
-                        if (value != null && !remove.contains(value)) kept.put(value);
+                    Iterator<String> existingKeys = root.keys();
+                    Set<String> matchingKeys = new HashSet<>();
+                    while (existingKeys.hasNext()) {
+                        String candidate = existingKeys.next();
+                        if (candidate.startsWith(entry.getKey())) matchingKeys.add(candidate);
                     }
-                    if (kept.length() > 0) {
-                        root.put(entry.getKey(), kept);
-                    } else {
-                        root.remove(entry.getKey());
+                    for (String targetKey : matchingKeys) {
+                        JSONArray existing = root.optJSONArray(targetKey);
+                        if (existing == null) continue;
+                        JSONArray kept = new JSONArray();
+                        for (int i = 0; i < existing.length(); i++) {
+                            String value = existing.optString(i, null);
+                            if (value != null && !remove.contains(value)) kept.put(value);
+                        }
+                        if (kept.length() > 0) {
+                            root.put(targetKey, kept);
+                        } else {
+                            root.remove(targetKey);
+                        }
                     }
                 }
                 if (root.length() > 0) {
-                    Files.write(mcFile.toPath(), root.toString().getBytes(StandardCharsets.UTF_8));
+                    writeAtomic(mcFile, root.toString().getBytes(StandardCharsets.UTF_8));
                 } else {
                     mcFile.delete();
                 }
             }
             marker.delete();
         } catch (Throwable ignored) {
+        }
+    }
+
+    private static void writeAtomic(File target, byte[] bytes) throws Exception {
+        File parent = target.getParentFile();
+        if (parent != null && !parent.exists()) parent.mkdirs();
+        File tmp = new File(parent, target.getName() + ".tmp");
+        Files.write(tmp.toPath(), bytes);
+        try {
+            Files.move(tmp.toPath(), target.toPath(), StandardCopyOption.REPLACE_EXISTING, StandardCopyOption.ATOMIC_MOVE);
+        } catch (Throwable ignored) {
+            Files.move(tmp.toPath(), target.toPath(), StandardCopyOption.REPLACE_EXISTING);
         }
     }
 

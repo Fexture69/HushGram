@@ -8,6 +8,8 @@ import app.morphe.patcher.extensions.InstructionExtensions.addInstructions
 import app.morphe.patcher.patch.BytecodePatchContext
 import app.morphe.patcher.patch.PatchException
 import app.morphe.patcher.patch.bytecodePatch
+import app.morphe.patcher.util.proxy.mutableTypes.MutableMethod
+import app.morphe.patches.instagram.misc.device.DEVICE_SPOOF
 import app.morphe.patches.instagram.misc.extension.EXTENSION_PACKAGE
 import app.morphe.patches.instagram.misc.extension.classesCalling
 import app.morphe.patches.instagram.misc.extension.classesLoadingString
@@ -166,7 +168,8 @@ internal fun BytecodePatchContext.findHingeCheck(width: WidthClass): HingeCheck 
     val code = check.instructions()
     val calls = code.indices.filter { at ->
         val called = (code[at] as? ReferenceInstruction)?.reference as? MethodReference
-        called != null && called.definingClass == PACKAGE_MANAGER && called.name == "hasSystemFeature"
+        called != null && (called.definingClass == PACKAGE_MANAGER || called.definingClass == DEVICE_SPOOF) &&
+            called.name == "hasSystemFeature"
     }
     val call = calls.singleOrNull() ?: refuse("expected one hasSystemFeature call in $where, found ${calls.size}")
     val result = code.getOrNull(call + 1)

@@ -7,6 +7,9 @@ package app.morphe.patches.instagram.misc.device
 import app.morphe.ExtensionDex
 import app.morphe.PatchContexts
 import app.morphe.patches.instagram.misc.extension.INSTAGRAM_APPLICATION
+import app.morphe.patches.instagram.misc.phonelayout.HINGE_FEATURE
+import app.morphe.patches.instagram.misc.phonelayout.WidthClass
+import app.morphe.patches.instagram.misc.phonelayout.findHingeCheck
 import app.morphe.patches.shared.misc.extension.EXTENSION_CLASS_DESCRIPTOR
 import com.android.tools.smali.dexlib2.AccessFlags
 import com.android.tools.smali.dexlib2.Opcode
@@ -25,6 +28,7 @@ import com.android.tools.smali.dexlib2.immutable.instruction.ImmutableInstructio
 import com.android.tools.smali.dexlib2.immutable.instruction.ImmutableInstruction3rc
 import com.android.tools.smali.dexlib2.immutable.reference.ImmutableFieldReference
 import com.android.tools.smali.dexlib2.immutable.reference.ImmutableMethodReference
+import com.android.tools.smali.dexlib2.immutable.reference.ImmutableStringReference
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test
@@ -69,6 +73,18 @@ class SpoofDeviceHookTest {
             ),
             ImmutableInstruction21c(
                 Opcode.SGET_OBJECT, 4,
+                ImmutableFieldReference(BUILD, "HARDWARE", "Ljava/lang/String;"),
+            ),
+            ImmutableInstruction21c(
+                Opcode.SGET_OBJECT, 3,
+                ImmutableFieldReference(BUILD, "BOARD", "Ljava/lang/String;"),
+            ),
+            ImmutableInstruction21c(
+                Opcode.SGET_OBJECT, 4,
+                ImmutableFieldReference(BUILD, "DISPLAY", "Ljava/lang/String;"),
+            ),
+            ImmutableInstruction21c(
+                Opcode.SGET_OBJECT, 4,
                 ImmutableFieldReference(BUILD, "SOC_MODEL", "Ljava/lang/String;"),
             ),
             ImmutableInstruction10x(Opcode.RETURN_VOID),
@@ -95,7 +111,7 @@ class SpoofDeviceHookTest {
         val context = PatchContexts.of(listOf(deviceReader(instagram), deviceReader(extension)))
 
         val counts = context.applyDeviceSpoofHooks()
-        assertEquals(DeviceSpoofCounts(systemProperties = 2, systemFeatures = 2, buildFields = 2), counts)
+        assertEquals(DeviceSpoofCounts(systemProperties = 2, systemFeatures = 2, buildFields = 5), counts)
 
         val code = context.mutableClassDefBy(instagram).methods.single().instructions()
         assertEquals(Opcode.INVOKE_STATIC, code[0].opcode)
@@ -127,16 +143,32 @@ class SpoofDeviceHookTest {
         assertEquals(Opcode.MOVE_RESULT_OBJECT, code[10].opcode)
 
         assertEquals(Opcode.SGET_OBJECT, code[11].opcode)
-        assertEquals(Opcode.INVOKE_STATIC_RANGE, code[12].opcode)
         assertEquals(
-            "$DEVICE_SPOOF->buildSocModel(Ljava/lang/String;)Ljava/lang/String;",
+            "$DEVICE_SPOOF->buildHardware(Ljava/lang/String;)Ljava/lang/String;",
             (code[12] as ReferenceInstruction).reference.toString(),
         )
-        assertEquals(Opcode.MOVE_RESULT_OBJECT, code[13].opcode)
+        assertEquals(Opcode.SGET_OBJECT, code[14].opcode)
+        assertEquals(
+            "$DEVICE_SPOOF->buildBoard(Ljava/lang/String;)Ljava/lang/String;",
+            (code[15] as ReferenceInstruction).reference.toString(),
+        )
+        assertEquals(Opcode.SGET_OBJECT, code[17].opcode)
+        assertEquals(
+            "$DEVICE_SPOOF->buildDisplay(Ljava/lang/String;)Ljava/lang/String;",
+            (code[18] as ReferenceInstruction).reference.toString(),
+        )
+
+        assertEquals(Opcode.SGET_OBJECT, code[20].opcode)
+        assertEquals(Opcode.INVOKE_STATIC_RANGE, code[21].opcode)
+        assertEquals(
+            "$DEVICE_SPOOF->buildSocModel(Ljava/lang/String;)Ljava/lang/String;",
+            (code[21] as ReferenceInstruction).reference.toString(),
+        )
+        assertEquals(Opcode.MOVE_RESULT_OBJECT, code[22].opcode)
 
         // Extension's own calls stay untouched to avoid self-recursion.
         val kept = context.mutableClassDefBy(extension).methods.single().instructions()
-        assertEquals(11, kept.size)
+        assertEquals(14, kept.size)
         assertEquals(Opcode.INVOKE_STATIC, kept[0].opcode)
         assertEquals(
             "$SYSTEM_PROPERTIES->get(Ljava/lang/String;)Ljava/lang/String;",
@@ -145,11 +177,21 @@ class SpoofDeviceHookTest {
     }
 
     @Test
-    fun appStartHooksImmediatelyAfterSetContext() {
+    fun appStartHooksAttachBaseContextAndOnCreate() {
         val shell = ImmutableClassDef(
             INSTAGRAM_APPLICATION, AccessFlags.PUBLIC.value, "Landroid/app/Application;",
             null, null, null, null,
             listOf(
+                ImmutableMethod(
+                    INSTAGRAM_APPLICATION, "attachBaseContext",
+                    listOf(ImmutableMethodParameter("Landroid/content/Context;", null, null)),
+                    "V", AccessFlags.PROTECTED.value, null, null,
+                    ImmutableMethodImplementation(
+                        2,
+                        listOf(ImmutableInstruction10x(Opcode.RETURN_VOID)),
+                        null, null,
+                    ),
+                ),
                 ImmutableMethod(
                     INSTAGRAM_APPLICATION, "onCreate", emptyList(), "V",
                     AccessFlags.PUBLIC.value, null, null,
@@ -175,7 +217,13 @@ class SpoofDeviceHookTest {
         val context = PatchContexts.of(listOf(shell))
         context.hookApplicationStart()
 
-        val code = context.mutableClassDefBy(INSTAGRAM_APPLICATION).methods.single().instructions()
+        val methods = context.mutableClassDefBy(INSTAGRAM_APPLICATION).methods
+        val attach = methods.single { it.name == "attachBaseContext" }.instructions()
+        assertEquals(2, attach.size)
+        assertEquals(ON_ATTACH_BASE_CONTEXT, (attach[0] as ReferenceInstruction).reference.toString())
+        assertEquals(Opcode.RETURN_VOID, attach[1].opcode)
+
+        val code = methods.single { it.name == "onCreate" }.instructions()
         assertEquals(3, code.size)
         assertEquals(
             "$EXTENSION_CLASS_DESCRIPTOR->setContext(Landroid/content/Context;)V",
@@ -186,12 +234,65 @@ class SpoofDeviceHookTest {
     }
 
     @Test
+    fun phoneLayoutHingeCheckSurvivesAfterDeviceSpoofReroutesFeatures() {
+        val widthClass = ImmutableClassDef(
+            "LX/Width;", AccessFlags.PUBLIC.value, "Ljava/lang/Enum;",
+            null, null, null, null,
+            listOf(
+                ImmutableMethod(
+                    "LX/Width;", "A00",
+                    listOf(ImmutableMethodParameter("I", null, null)),
+                    "LX/Width;", AccessFlags.PUBLIC.value or AccessFlags.STATIC.value, null, null,
+                    ImmutableMethodImplementation(2, listOf(ImmutableInstruction10x(Opcode.RETURN_VOID)), null, null),
+                ),
+            ),
+        )
+        val helper = ImmutableClassDef(
+            "LX/Helper;", AccessFlags.PUBLIC.value, "Ljava/lang/Object;",
+            null, null, null, null,
+            listOf(
+                ImmutableMethod(
+                    "LX/Helper;", "hinge",
+                    listOf(ImmutableMethodParameter("Landroid/content/Context;", null, null)),
+                    "Z", AccessFlags.PUBLIC.value or AccessFlags.STATIC.value, null, null,
+                    ImmutableMethodImplementation(
+                        3,
+                        listOf(
+                            ImmutableInstruction35c(
+                                Opcode.INVOKE_STATIC, 1, 0, 0, 0, 0, 0,
+                                ImmutableMethodReference("LX/Width;", "A00", listOf("I"), "LX/Width;"),
+                            ),
+                            ImmutableInstruction21c(
+                                Opcode.CONST_STRING, 0,
+                                ImmutableStringReference(HINGE_FEATURE),
+                            ),
+                            ImmutableInstruction35c(
+                                Opcode.INVOKE_VIRTUAL, 2, 1, 0, 0, 0, 0,
+                                ImmutableMethodReference(PACKAGE_MANAGER, "hasSystemFeature", listOf("Ljava/lang/String;"), "Z"),
+                            ),
+                            ImmutableInstruction11x(Opcode.MOVE_RESULT, 0),
+                            ImmutableInstruction10x(Opcode.RETURN_VOID),
+                        ),
+                        null, null,
+                    ),
+                ),
+            ),
+        )
+        val context = PatchContexts.of(listOf(widthClass, helper))
+        context.applyDeviceSpoofHooks()
+        val hinge = context.findHingeCheck(WidthClass("LX/Width;", "A00"))
+        assertEquals("LX/Helper;", hinge.type)
+        assertEquals(3, hinge.at)
+    }
+
+    @Test
     fun everyTargetDeclaresItsStandInInExtensionDex() {
         val declared = ExtensionDex.classDef(DEVICE_SPOOF).methods
             .filter { AccessFlags.PUBLIC.isSet(it.accessFlags) && AccessFlags.STATIC.isSet(it.accessFlags) }
             .map { "$DEVICE_SPOOF->${it.name}(${it.parameterTypes.joinToString("")})${it.returnType}" }
             .toSet()
 
+        assertTrue("DeviceSpoof lacks $ON_ATTACH_BASE_CONTEXT: $declared", ON_ATTACH_BASE_CONTEXT in declared)
         assertTrue("DeviceSpoof lacks $ON_APP_START: $declared", ON_APP_START in declared)
         SYSTEM_PROPERTY_CALLS.values.forEach { target ->
             assertTrue("DeviceSpoof lacks $target: $declared", target in declared)

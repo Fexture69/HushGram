@@ -44,6 +44,7 @@ public class DeviceSpoofTest {
 
     @Before
     public void setUp() {
+        DeviceSpoof.clearEarlyStateForTests();
         BaseSettings.PAUSED.save(false);
         PauseForTests.resume();
         Settings.SPOOF_DEVICE.save(true);
@@ -57,6 +58,7 @@ public class DeviceSpoofTest {
 
     @After
     public void tearDown() {
+        DeviceSpoof.clearEarlyStateForTests();
         Settings.SPOOF_DEVICE.resetToDefault();
         Settings.SPOOF_DEVICE_PROFILE.resetToDefault();
         BaseSettings.PAUSED.save(false);
@@ -81,6 +83,10 @@ public class DeviceSpoofTest {
         assertEquals("google", DeviceSpoof.propertyValue(DeviceSpoof.Profile.PIXEL, "ro.product.system_ext.brand"));
         assertEquals("kodiak", DeviceSpoof.propertyValue(DeviceSpoof.Profile.PIXEL, "ro.product.name"));
         assertEquals("CD1A.260714.001.A9", DeviceSpoof.propertyValue(DeviceSpoof.Profile.PIXEL, "ro.build.id"));
+        assertEquals("CD1A.260714.001.A9", DeviceSpoof.propertyValue(DeviceSpoof.Profile.PIXEL, "ro.build.display.id"));
+        assertEquals("kodiak", DeviceSpoof.propertyValue(DeviceSpoof.Profile.PIXEL, "ro.hardware"));
+        assertEquals("kodiak", DeviceSpoof.propertyValue(DeviceSpoof.Profile.PIXEL, "ro.product.board"));
+        assertEquals("kodiak", DeviceSpoof.propertyValue(DeviceSpoof.Profile.PIXEL, "ro.build.product"));
         assertEquals("Tensor G6", DeviceSpoof.propertyValue(DeviceSpoof.Profile.PIXEL, "ro.soc.model"));
         assertEquals("malibu", DeviceSpoof.propertyValue(DeviceSpoof.Profile.PIXEL, "ro.board.platform"));
         assertEquals(
@@ -102,6 +108,9 @@ public class DeviceSpoofTest {
         assertEquals("Google", DeviceSpoof.buildManufacturer("RealOEM"));
         assertEquals("Pixel 11 Pro XL", DeviceSpoof.buildModel("RealModel"));
         assertEquals("kodiak", DeviceSpoof.buildDevice("RealDevice"));
+        assertEquals("kodiak", DeviceSpoof.buildHardware("RealHardware"));
+        assertEquals("kodiak", DeviceSpoof.buildBoard("RealBoard"));
+        assertEquals("CD1A.260714.001.A9", DeviceSpoof.buildDisplay("RealDisplay"));
         assertTrue(DeviceSpoof.readFeature("com.google.android.feature.PIXEL_2026_EXPERIENCE",
                 () -> DeviceSpoof.Profile.PIXEL));
         assertFalse(DeviceSpoof.readFeature("android.hardware.camera", () -> DeviceSpoof.Profile.PIXEL));
@@ -137,7 +146,8 @@ public class DeviceSpoofTest {
         assertTrue(mcDir.mkdirs());
         JSONObject initial = new JSONObject();
         initial.put("99999:", new JSONArray().put("1: : true"));
-        initial.put("66119:", new JSONArray().put("7: : custom"));
+        initial.put("66119:ig_named_config", new JSONArray().put("7: : custom").put("0: : false"));
+        initial.put("74463:", new JSONArray().put("20: : true"));
         Files.write(mcFile.toPath(), initial.toString().getBytes(StandardCharsets.UTF_8));
 
         DeviceSpoof.onAppStart(RuntimeEnvironment.getApplication());
@@ -146,11 +156,23 @@ public class DeviceSpoofTest {
 
         JSONObject enabled = new JSONObject(new String(Files.readAllBytes(mcFile.toPath()), StandardCharsets.UTF_8));
         assertTrue(enabled.has("99999:"));
-        JSONArray c66119 = enabled.getJSONArray("66119:");
+        assertFalse(enabled.has("66119:"));
+        JSONArray c66119 = enabled.getJSONArray("66119:ig_named_config");
         assertEquals(2, c66119.length());
         assertEquals("7: : custom", c66119.getString(0));
         assertEquals("0: : true", c66119.getString(1));
-        assertEquals("true", enabled.getJSONArray("68437:").getString(0).endsWith("false") ? "true" : "false");
+        JSONArray c74463 = enabled.getJSONArray("74463:");
+        assertEquals(2, c74463.length());
+        assertEquals("4: : true", c74463.getString(0));
+        assertEquals("20: : false", c74463.getString(1));
+        assertTrue(enabled.getJSONArray("68437:").getString(0).endsWith("false"));
+
+        // If Instagram drops an override while the marker remains, next start heals mc_overrides.json.
+        enabled.remove("68437:");
+        Files.write(mcFile.toPath(), enabled.toString().getBytes(StandardCharsets.UTF_8));
+        DeviceSpoof.onAppStart(RuntimeEnvironment.getApplication());
+        JSONObject healed = new JSONObject(new String(Files.readAllBytes(mcFile.toPath()), StandardCharsets.UTF_8));
+        assertEquals("5: : false", healed.getJSONArray("68437:").getString(0));
 
         Settings.SPOOF_DEVICE.save(false);
         DeviceSpoof.onAppStart(RuntimeEnvironment.getApplication());
@@ -159,8 +181,31 @@ public class DeviceSpoofTest {
 
         JSONObject disabled = new JSONObject(new String(Files.readAllBytes(mcFile.toPath()), StandardCharsets.UTF_8));
         assertTrue(disabled.has("99999:"));
-        assertEquals(1, disabled.getJSONArray("66119:").length());
-        assertEquals("7: : custom", disabled.getJSONArray("66119:").getString(0));
+        assertEquals(1, disabled.getJSONArray("66119:ig_named_config").length());
+        assertEquals("7: : custom", disabled.getJSONArray("66119:ig_named_config").getString(0));
+        assertFalse(disabled.has("74463:"));
         assertFalse(disabled.has("110796:"));
+    }
+
+    @Test
+    public void attachBaseContextSpoofsBeforeSettingsReadyAndRespectsPause() throws Exception {
+        Settings.SPOOF_DEVICE.save(true);
+        Settings.SPOOF_DEVICE_PROFILE.save(DeviceSpoof.Profile.S26);
+        SettingsContextRule.beforeThePauseIsDecided(() -> {
+            assertEquals("RealModel", DeviceSpoof.buildModel("RealModel"));
+            DeviceSpoof.onAttachBaseContext(RuntimeEnvironment.getApplication());
+            assertEquals("SM-S948B", DeviceSpoof.buildModel("RealModel"));
+            assertTrue(mcFile.exists());
+            assertTrue(markerFile.exists());
+        });
+
+        DeviceSpoof.clearEarlyStateForTests();
+        deleteTree(mcDir);
+        BaseSettings.PAUSED.save(true);
+        SettingsContextRule.beforeThePauseIsDecided(() -> {
+            DeviceSpoof.onAttachBaseContext(RuntimeEnvironment.getApplication());
+            assertEquals("RealModel", DeviceSpoof.buildModel("RealModel"));
+            assertFalse(mcFile.exists());
+        });
     }
 }

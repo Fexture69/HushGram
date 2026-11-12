@@ -23,6 +23,8 @@ import app.morphe.patches.instagram.misc.settings.sendToStandIn
 import app.morphe.patches.instagram.misc.settings.settingsPatch
 import app.morphe.patches.shared.compat.AppCompatibilities
 import app.morphe.patches.shared.misc.extension.EXTENSION_CLASS_DESCRIPTOR
+import app.morphe.util.addInstructionsAtControlFlowLabel
+import app.morphe.util.superclassChain
 import com.android.tools.smali.dexlib2.Opcode
 import com.android.tools.smali.dexlib2.iface.ClassDef
 import com.android.tools.smali.dexlib2.iface.instruction.Instruction
@@ -33,6 +35,7 @@ import com.android.tools.smali.dexlib2.iface.reference.MethodReference
 
 private const val PATCH = "Spoof device"
 internal const val DEVICE_SPOOF = "$EXTENSION_PACKAGE/misc/DeviceSpoof;"
+internal const val ON_ATTACH_BASE_CONTEXT = "$DEVICE_SPOOF->onAttachBaseContext(Landroid/content/Context;)V"
 internal const val ON_APP_START = "$DEVICE_SPOOF->onAppStart(Landroid/content/Context;)V"
 
 internal const val BUILD = "Landroid/os/Build;"
@@ -57,8 +60,11 @@ internal val BUILD_FIELD_STANDINS = mapOf(
     "MODEL" to "$DEVICE_SPOOF->buildModel($STRING)$STRING",
     "DEVICE" to "$DEVICE_SPOOF->buildDevice($STRING)$STRING",
     "PRODUCT" to "$DEVICE_SPOOF->buildProduct($STRING)$STRING",
+    "HARDWARE" to "$DEVICE_SPOOF->buildHardware($STRING)$STRING",
+    "BOARD" to "$DEVICE_SPOOF->buildBoard($STRING)$STRING",
     "FINGERPRINT" to "$DEVICE_SPOOF->buildFingerprint($STRING)$STRING",
     "ID" to "$DEVICE_SPOOF->buildId($STRING)$STRING",
+    "DISPLAY" to "$DEVICE_SPOOF->buildDisplay($STRING)$STRING",
     "SOC_MANUFACTURER" to "$DEVICE_SPOOF->buildSocManufacturer($STRING)$STRING",
     "SOC_MODEL" to "$DEVICE_SPOOF->buildSocModel($STRING)$STRING",
 )
@@ -95,11 +101,26 @@ val spoofDevicePatch = bytecodePatch(
 }
 
 /**
- * Calls {@code DeviceSpoof.onAppStart(Context)} immediately after {@code setContext(Context)} inside
- * the application's {@code onCreate()} so MobileConfig HDR overrides and {@code Build} fields are
- * prepared before Instagram reads them.
+ * Calls {@code DeviceSpoof.onAttachBaseContext(Context)} at the start of {@code attachBaseContext(Context)}
+ * when declared in the application's hierarchy (before ContentProviders and MobileConfig bootstrap) and
+ * {@code DeviceSpoof.onAppStart(Context)} immediately after {@code setContext(Context)} inside
+ * {@code onCreate()} so MobileConfig HDR overrides and {@code Build} fields are prepared early and
+ * reconciled once settings and pause state are ready.
  */
 internal fun BytecodePatchContext.hookApplicationStart() {
+    val attachBaseContext = superclassChain(INSTAGRAM_APPLICATION)
+        .mapNotNull { mutableClassDefByOrNull(it) }
+        .firstNotNullOfOrNull { classDef ->
+            classDef.methods.singleOrNull { method ->
+                method.name == "attachBaseContext" && method.returnType == "V" && method.implementation != null &&
+                    method.parameterTypes.map { it.toString() } == listOf("Landroid/content/Context;")
+            }
+        }
+    attachBaseContext?.addInstructionsAtControlFlowLabel(
+        0,
+        "invoke-static/range { p1 .. p1 }, $ON_ATTACH_BASE_CONTEXT",
+    )
+
     val onCreate = declaredInHierarchy(INSTAGRAM_APPLICATION, "onCreate")
     val instructions = onCreate.implementation?.instructions?.toList().orEmpty()
     val setContextIndex = instructions.indexOfFirst { instruction ->
