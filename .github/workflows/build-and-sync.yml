@@ -159,9 +159,21 @@ jobs:
       - name: Extract Patch Version
         id: version
         run: |
-          VER=$(grep '^version\s*=' gradle.properties | cut -d '=' -f2 | tr -d ' ')
+          BASE_VER=$(grep '^version\s*=' gradle.properties | cut -d '=' -f2 | tr -d ' ' | cut -d '.' -f1-3)
+          VER="${BASE_VER}.${{ github.run_number }}"
           echo "VERSION=$VER" >> $GITHUB_OUTPUT
-          echo "Detected version: $VER"
+          echo "Detected version: $VER (base: $BASE_VER)"
+
+          python3 - "$VER" <<'EOF'
+          from pathlib import Path
+          import re, sys
+
+          ver = sys.argv[1]
+          gp = Path("gradle.properties")
+          gp.write_text(re.sub(r"^version\s*=.*$", f"version = {ver}", gp.read_text(), flags=re.M))
+          pl = Path("patches-list.json")
+          pl.write_text(re.sub(r'("version"\s*:\s*")v?[^"]+(")', rf"\g<1>v{ver}\g<2>", pl.read_text(), count=1))
+          EOF
 
       - name: Build Patch Bundle (.mpp)
         env:
@@ -245,6 +257,7 @@ jobs:
       - name: Update patches-bundle.json for Morphe Manager
         if: (github.event_name == 'push' || github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && inputs.publish_release == true))
         run: |
+          git checkout -- gradle.properties patches-list.json
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
