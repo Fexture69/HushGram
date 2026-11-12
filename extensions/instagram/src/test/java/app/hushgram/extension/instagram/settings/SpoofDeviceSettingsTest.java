@@ -123,7 +123,6 @@ public class SpoofDeviceSettingsTest {
         assertTrue(ConfigurationBackup.eligible().containsKey(Settings.SPOOF_DEVICE_PROFILE.key));
     }
 
-    @Nullable
     private static PreferenceCategory categoryHolding(PreferenceGroup group, Preference target) {
         for (int i = 0; i < group.getPreferenceCount(); i++) {
             Preference item = group.getPreference(i);
