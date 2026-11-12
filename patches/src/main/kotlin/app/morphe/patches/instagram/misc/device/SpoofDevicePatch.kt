@@ -73,7 +73,7 @@ internal data class DeviceSpoofCounts(
 
 @Suppress("unused")
 val spoofDevicePatch = bytecodePatch(
-    name = PATCH,
+    name = "Spoof device",
     description = "Makes Instagram see a Pixel 11 Pro XL or Galaxy S26 Ultra, unlocking HDR video downloads " +
         "and other features limited to those phones, and adds the matching developer options. Restart Instagram " +
         "after changing it. Starts off. Turn it on in HushGram settings > Ads and privacy.",
