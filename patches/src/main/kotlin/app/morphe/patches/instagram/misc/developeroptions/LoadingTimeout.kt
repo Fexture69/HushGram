@@ -30,19 +30,31 @@ internal const val SPINNER_TAG = "progressDialog"
 /** Told the activity right before the long press hands it to the opener. */
 internal const val OPENING = "$EXTENSION_PACKAGE/misc/DeveloperOptions;->opening(Ljava/lang/Object;)V"
 
-/** Asked first in both answers of the opener's callback; 1 drops an answer that came too late. */
+/** Asked first in the success answer of the opener's callback; 1 drops an answer that came too late. */
 internal const val LOADED = "$EXTENSION_PACKAGE/misc/DeveloperOptions;->loaded()I"
+
+/**
+ * Asked first in the failure answer of the opener's callback; 1 suppresses Instagram's error toast
+ * after opening MetaConfig in place of a module that failed to download.
+ */
+internal const val LOAD_FAILED = "$EXTENSION_PACKAGE/misc/DeveloperOptions;->loadFailed()I"
 
 private const val FRAGMENT_ACTIVITY = "Landroidx/fragment/app/FragmentActivity;"
 private const val FRAGMENT = "Landroidx/fragment/app/Fragment;"
+private const val CALLABLE_CALL = "Ljava/util/concurrent/Callable;->call()Ljava/lang/Object;"
 private const val OPENER_STATIC = "(Landroid/content/Context;Landroidx/fragment/app/FragmentActivity;" +
     "Lcom/instagram/common/session/UserSession;Ljava/util/concurrent/Callable;)V"
 
 /**
  * The time limit on the long press's wait (#158): the two answers of the callback the opener hands
- * the module load, as method references, and the dismiss stub, assembled and not yet put in.
+ * the module load, as method references (plus which answer handles failure), and the dismiss stub,
+ * assembled and not yet put in.
  */
-internal class LoadingTimeout(val answers: List<String>, val stubs: PreparedStubs)
+internal class LoadingTimeout(
+    val answers: List<String>,
+    val stubs: PreparedStubs,
+    val failureAnswers: Set<String> = emptySet(),
+)
 
 /**
  * The time limit, or null with a warning in the patch log when this build moved a piece of it. The
@@ -143,22 +155,34 @@ internal fun BytecodePatchContext.findLoadingTimeout(opener: OptionsOpener): Loa
         const/4 v0, 0x0
         return v0
     """.trimIndent()), ::refuse)
-    return LoadingTimeout(answers.map { "$callback->${it.name}()V" }, stubs)
+    val callableCall = answers.filterTo(HashSet()) { method ->
+        method.code().any { instruction ->
+            instruction.call(Opcode.INVOKE_INTERFACE)?.toString() == CALLABLE_CALL ||
+                instruction.call(Opcode.INVOKE_VIRTUAL)?.toString() == CALLABLE_CALL
+        }
+    }
+    val failureAnswers = when {
+        callableCall.isNotEmpty() && callableCall.size < answers.size ->
+            answers.filter { it !in callableCall }.mapTo(HashSet()) { "$callback->${it.name}()V" }
+        else -> answers.filter { it.name == "onFailure" }.mapTo(HashSet()) { "$callback->${it.name}()V" }
+    }
+    return LoadingTimeout(answers.map { "$callback->${it.name}()V" }, stubs, failureAnswers)
 }
 
 /**
- * Puts the dismiss stub in and asks [LOADED] first in both answers. On a 1 the answer returns
- * before Instagram's own code, since the long press already gave up on it and opened the editor.
+ * Puts the dismiss stub in and asks [LOADED] / [LOAD_FAILED] first in the callback's answers. On a 1
+ * the answer returns before Instagram's own code (already timed out, or already failed over to MetaConfig).
  */
 internal fun BytecodePatchContext.answerLoads(timeout: LoadingTimeout) {
     putStubs(timeout.stubs)
     for (answer in timeout.answers) {
         val name = answer.substringAfter("->").substringBefore("(")
         val method = mutableClassDefBy(answer.substringBefore("->")).methods.single { it.name == name && it.shape() == "()V" }
+        val check = if (answer in timeout.failureAnswers) LOAD_FAILED else LOADED
         method.addInstructionsWithLabels(
             0,
             """
-                invoke-static { }, $LOADED
+                invoke-static { }, $check
                 move-result v0
                 if-eqz v0, :answer
                 return-void
