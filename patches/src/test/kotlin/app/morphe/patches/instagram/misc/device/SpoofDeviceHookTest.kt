@@ -17,6 +17,7 @@ import com.android.tools.smali.dexlib2.iface.instruction.ReferenceInstruction
 import com.android.tools.smali.dexlib2.immutable.ImmutableClassDef
 import com.android.tools.smali.dexlib2.immutable.ImmutableMethod
 import com.android.tools.smali.dexlib2.immutable.ImmutableMethodImplementation
+import com.android.tools.smali.dexlib2.immutable.ImmutableMethodParameter
 import com.android.tools.smali.dexlib2.immutable.instruction.ImmutableInstruction10x
 import com.android.tools.smali.dexlib2.immutable.instruction.ImmutableInstruction11x
 import com.android.tools.smali.dexlib2.immutable.instruction.ImmutableInstruction21c
@@ -77,7 +78,7 @@ class SpoofDeviceHookTest {
             listOf(
                 ImmutableMethod(
                     type, "read",
-                    listOf("Ljava/lang/String;", PACKAGE_MANAGER, "I"),
+                    listOf("Ljava/lang/String;", PACKAGE_MANAGER, "I").map { ImmutableMethodParameter(it, null, null) },
                     "V",
                     AccessFlags.PUBLIC.value or AccessFlags.STATIC.value,
                     null, null,
