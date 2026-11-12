@@ -238,8 +238,9 @@ class OpenDeveloperOptionsTest {
         patch.answerLoads(patch.findLoadingTimeout(patch.findOptionsOpener()))
 
         for (answer in listOf("onSuccess", "onFailure")) {
+            val expected = if (answer == "onFailure") LOAD_FAILED else LOADED
             val code = patch.classDefBy(callback).methods.single { it.name == answer }.code()
-            assertEquals(answer, LOADED, code[0].referenceText())
+            assertEquals(answer, expected, code[0].referenceText())
             assertEquals(answer, Opcode.MOVE_RESULT, code[1].opcode)
             assertEquals(answer, Opcode.IF_EQZ, code[2].opcode)
             assertEquals(answer, Opcode.RETURN_VOID, code[3].opcode)
@@ -251,6 +252,34 @@ class OpenDeveloperOptionsTest {
             listOf("$activity->manager()$manager", SPINNER_TAG, "$manager->find(Ljava/lang/String;)$fragment", spinner, "$spinners->hide($manager)V"),
             stub.code().mapNotNull { it.referenceText() }.filter { it != activity },
         )
+    }
+
+    /** When obfuscated, the answer invoking Callable.call() gets loaded() and its sibling gets loadFailed(). */
+    @Test
+    fun obfuscatedCallbackAnswersSplitLoadedAndLoadFailed() {
+        val public = AccessFlags.PUBLIC.value
+        val obfCallback = ImmutableClassDef(
+            callback, public, "Ljava/lang/Object;", null, null, null, null,
+            listOf(
+                method(callback, "<init>", emptyList(), "V", 1, public or AccessFlags.CONSTRUCTOR.value, "return-void"),
+                method(
+                    callback, "A00", emptyList(), "V", 3, public,
+                    """
+                        const/4 v0, 0x0
+                        invoke-interface { v0 }, Ljava/util/concurrent/Callable;->call()Ljava/lang/Object;
+                        return-void
+                    """,
+                ),
+                method(callback, "A01", emptyList(), "V", 2, public, "return-void"),
+            ),
+        )
+        val classes = timeoutClasses().filter { it.type != callback } + obfCallback + extension()
+        val patch = PatchContexts.of(classes)
+
+        patch.answerLoads(patch.findLoadingTimeout(patch.findOptionsOpener()))
+
+        assertEquals(LOADED, patch.classDefBy(callback).methods.single { it.name == "A00" }.code()[0].referenceText())
+        assertEquals(LOAD_FAILED, patch.classDefBy(callback).methods.single { it.name == "A01" }.code()[0].referenceText())
     }
 
     /** A build missing a piece of the time limit, or with two of one, says which, before anything changes. */
@@ -299,7 +328,10 @@ class OpenDeveloperOptionsTest {
             "dismissSpinnerNative(Ljava/lang/Object;)I"), filled)
         val answers = patch.classDefBy(callback).methods.filter { it.name != "<init>" }
         assertEquals(2, answers.size)
-        answers.forEach { assertEquals(it.name, LOADED, it.code()[0].referenceText()) }
+        answers.forEach {
+            val expected = if (it.name == "onFailure") LOAD_FAILED else LOADED
+            assertEquals(it.name, expected, it.code()[0].referenceText())
+        }
     }
 
     /**
@@ -323,10 +355,14 @@ class OpenDeveloperOptionsTest {
                 patch.classDefBy(answer.substringBefore("->")).methods.single { "${it.definingClass}->${it.name}()V" == answer }
             }
             assertEquals(label, 2, answers.size)
-            answers.forEach { assertEquals("$label: ${it.name} asks first", LOADED, it.code()[0].referenceText()) }
-            assertTrue("$label: the success", answers.any { answer ->
+            val success = answers.filter { answer ->
                 answer.code().any { it.referenceText() == "Ljava/util/concurrent/Callable;->call()Ljava/lang/Object;" }
-            })
+            }
+            assertEquals("$label: the success", 1, success.size)
+            answers.forEach { answer ->
+                val expected = if (answer in success) LOADED else LOAD_FAILED
+                assertEquals("$label: ${answer.name} asks first", expected, answer.code()[0].referenceText())
+            }
             val stub = patch.classDefBy(OVERRIDE_BRIDGE).methods.single { it.name == "dismissSpinnerNative" }.code().mapNotNull { it.referenceText() }
             assertTrue("$label: $stub", SPINNER_TAG in stub && stub.any { it.endsWith("(Ljava/lang/String;)$fragment") })
         }

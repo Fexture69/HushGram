@@ -35,10 +35,11 @@ public final class DeveloperOptions {
     }
 
     /** How long a long press waits on the developer options before taking the loading dialog down. */
-    static final long LOAD_TIMEOUT_MS = 12_000L;
+    static final long LOAD_TIMEOUT_MS = 4_000L;
 
     /** The Diagnostics count of presses that gave up on the load. */
     static final String TIMED_OUT = "loading timed out";
+    static final String FAILED_OVER = "loading failed";
 
     /** The latest press's load: nothing waiting, waiting, or given up on with its answer still to come. */
     private static final int IDLE = 0;
@@ -46,9 +47,11 @@ public final class DeveloperOptions {
     private static final int GAVE_UP = 2;
 
     private static final Object PRESS_LOCK = new Object();
-    /** The latest long press, counted from 1, and where its load is. Both under PRESS_LOCK. */
+    /** The latest long press, counted from 1, and its held host/activity. All under PRESS_LOCK. */
     private static int press;
     private static int pressState = IDLE;
+    private static WeakReference<Activity> pressActivity = new WeakReference<>(null);
+    private static Host pressHost = null;
 
     /** What a press's time limit does, through Instagram's own code once the patch fills the stubs. */
     interface Host {
@@ -97,13 +100,15 @@ public final class DeveloperOptions {
     static void opening(Object activity, Host host) {
         try {
             if (!(activity instanceof Activity)) return;
+            // Held weakly: the check mustn't keep a closed activity alive for the wait.
+            WeakReference<Activity> held = new WeakReference<>((Activity) activity);
             int id;
             synchronized (PRESS_LOCK) {
                 id = ++press;
                 pressState = LOADING;
+                pressActivity = held;
+                pressHost = host;
             }
-            // Held weakly: the check mustn't keep a closed activity alive for the wait.
-            WeakReference<Activity> held = new WeakReference<>((Activity) activity);
             host.later(() -> timeUp(id, held.get(), host), LOAD_TIMEOUT_MS);
         } catch (Throwable failure) {
             HookStatus.threw(FamilyNames.DEVELOPER_OPTIONS, "loading time limit", failure);
@@ -111,20 +116,84 @@ public final class DeveloperOptions {
     }
 
     /**
-     * Injected first in both answers of the callback the opener hands the load, its success and its
-     * failure. Answers 1 when the press already gave up on this load and opened the editor, and the
-     * answer returns before Instagram opens the options or toasts over it. Otherwise 0, and the
-     * answer runs as Instagram wrote it. Never throws, and never waits for the settings.
+     * Injected first in the success answer of the callback the opener hands the module load.
+     * Answers 1 when the press already gave up on this load and opened the editor, and the answer
+     * returns before Instagram opens the options or toasts over it. Otherwise 0, and the answer runs
+     * as Instagram wrote it. Never throws, and never waits for the settings.
      */
     public static int loaded() {
         try {
             synchronized (PRESS_LOCK) {
                 boolean late = pressState == GAVE_UP;
                 pressState = IDLE;
+                pressActivity.clear();
+                pressHost = null;
                 return late ? 1 : 0;
             }
         } catch (Throwable failure) {
             HookStatus.threw(FamilyNames.DEVELOPER_OPTIONS, "loading answer", failure);
+            return 0;
+        }
+    }
+
+    /**
+     * Injected first in the failure answer of the callback the opener hands the module load.
+     * When the current long press is still waiting on the module download and the switch is on,
+     * takes the dialog down, opens MetaConfig instead, and returns 1 so Instagram doesn't fail
+     * silently behind an error toast. When the press already gave up, returns 1 to suppress the
+     * late error toast. Otherwise 0 so Instagram keeps its own behavior.
+     */
+    public static int loadFailed() {
+        try {
+            Activity activity;
+            Host host;
+            synchronized (PRESS_LOCK) {
+                if (pressState == GAVE_UP) {
+                    pressState = IDLE;
+                    pressActivity.clear();
+                    pressHost = null;
+                    return 1;
+                }
+                if (pressState != LOADING) return 0;
+                if (!Utils.settingsReady() || !Settings.OPEN_DEVELOPER_OPTIONS.get()) return 0;
+                pressState = IDLE;
+                press++;
+                activity = pressActivity.get();
+                host = pressHost;
+                pressActivity.clear();
+                pressHost = null;
+            }
+            if (activity == null || host == null || activity.isFinishing() || activity.isDestroyed()) return 0;
+            Runnable fallback = () -> {
+                if (activity.isFinishing() || activity.isDestroyed()) return;
+                host.dismissSpinner(activity);
+                Logger.printInfo(() -> "Developer options: module failed to load, opening MetaConfig instead");
+                openEditorFallback(activity, host, FAILED_OVER);
+            };
+            if (host != INSTAGRAM || Looper.myLooper() == Looper.getMainLooper()) {
+                fallback.run();
+            } else {
+                new Handler(Looper.getMainLooper()).post(fallback);
+            }
+            return 1;
+        } catch (Throwable failure) {
+            HookStatus.threw(FamilyNames.DEVELOPER_OPTIONS, "loading answer", failure);
+            return 0;
+        }
+    }
+
+    /**
+     * Injected in Instagram's employee gate checks. Returns 1 while the switch is active so
+     * Instagram's own Settings Developer Options menu and employee-gated screens unlock, or 0
+     * when off or paused so stock behavior stays intact.
+     */
+    public static int unlockEmployee() {
+        try {
+            if (!Utils.settingsReady() || !Settings.OPEN_DEVELOPER_OPTIONS.get()) return 0;
+            HookStatus.invoked(FamilyNames.DEVELOPER_OPTIONS);
+            return 1;
+        } catch (Throwable failure) {
+            HookStatus.threw(FamilyNames.DEVELOPER_OPTIONS, "employee gate", failure);
             return 0;
         }
     }
@@ -144,16 +213,22 @@ public final class DeveloperOptions {
                 // Instagram's dismiss allows state loss, so this works with the activity in the background.
                 if (host.dismissSpinner(activity) != 1) return;
                 pressState = GAVE_UP;
+                pressActivity.clear();
+                pressHost = null;
             }
-            HookStatus.counted(FamilyNames.DEVELOPER_OPTIONS, TIMED_OUT);
             Logger.printInfo(() -> "Developer options: the load didn't answer in " + LOAD_TIMEOUT_MS + " ms");
-            if (host.openEditor(activity)) {
-                host.toast(L10n.t(activity, "Instagram's developer options didn't load, so MetaConfig opened instead."));
-            } else {
-                host.toast(L10n.t(activity, "Instagram's developer options didn't load. Try the long press again later."));
-            }
+            openEditorFallback(activity, host, TIMED_OUT);
         } catch (Throwable failure) {
             HookStatus.threw(FamilyNames.DEVELOPER_OPTIONS, "loading time limit", failure);
+        }
+    }
+
+    private static void openEditorFallback(Activity activity, Host host, String metric) {
+        HookStatus.counted(FamilyNames.DEVELOPER_OPTIONS, metric);
+        if (host.openEditor(activity)) {
+            host.toast(L10n.t(activity, "Instagram's developer options didn't load, so MetaConfig opened instead."));
+        } else {
+            host.toast(L10n.t(activity, "Instagram's developer options didn't load. Try the long press again later."));
         }
     }
 
@@ -162,6 +237,8 @@ public final class DeveloperOptions {
         synchronized (PRESS_LOCK) {
             press = 0;
             pressState = IDLE;
+            pressActivity.clear();
+            pressHost = null;
         }
     }
 
