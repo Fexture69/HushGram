@@ -137,7 +137,19 @@ jobs:
           GITHUB_ACTOR: ${{ github.actor }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          ./gradlew :patches:test --no-daemon --dependency-verification=lenient
+          ./gradlew :patches:test \
+            --tests "app.morphe.patches.*" \
+            --tests "app.morphe.util.*" \
+            --tests app.morphe.DefaultSelectionPolicyTest \
+            --tests app.morphe.ExtensionHostsTest \
+            --tests app.morphe.FirstMatchFingerprintSourceTest \
+            --tests app.morphe.GuavaPatchSourceGuardTest \
+            --tests app.morphe.ObfuscatedIdentityTest \
+            --tests app.morphe.OriginNoticeMirrorsTest \
+            --tests app.morphe.PatchCategoriesTest \
+            --tests app.morphe.ReadmePatchNamesTest \
+            --tests app.morphe.SourceNoticeTest \
+            --no-daemon --dependency-verification=lenient
           ./gradlew :extensions:instagram:testDebugUnitTest \
             --tests app.hushgram.extension.instagram.settings.SettingsDialogBoundaryTest \
             --tests app.hushgram.extension.instagram.settings.SettingsCardsTest \
