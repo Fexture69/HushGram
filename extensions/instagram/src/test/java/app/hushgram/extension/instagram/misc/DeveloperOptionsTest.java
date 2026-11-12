@@ -219,6 +219,56 @@ public class DeveloperOptionsTest {
         assertEquals(0, DeveloperOptions.dismissSpinnerNative(activity));
     }
 
+    /** When Play Core fails before timeout while loading, MetaConfig opens immediately and error toast is suppressed. */
+    @Test
+    public void aLoadFailureWhileWaitingOpensEditorAndSuppressesErrorToast() {
+        DeveloperOptions.opening(activity, host);
+
+        assertEquals(1, DeveloperOptions.loadFailed());
+        assertEquals(1, host.dismissed);
+        assertEquals(1, host.opened);
+        assertEquals(Collections.singletonList("Instagram's developer options didn't load, so MetaConfig opened instead."), host.toasts);
+        assertTrue(HookStatus.report().toString(), HookStatus.report().toString().contains(DeveloperOptions.FAILED_OVER + " 1"));
+
+        host.timeUp(0);
+        assertEquals("cancelled timeout must not re-open editor", 1, host.opened);
+    }
+
+    /** A failure callback arriving after timeout already gave up only suppresses the late error toast. */
+    @Test
+    public void aLateLoadFailureAfterTimeoutIsDroppedQuietly() {
+        DeveloperOptions.opening(activity, host);
+        host.timeUp(0);
+
+        assertEquals(1, DeveloperOptions.loadFailed());
+        assertEquals(0, DeveloperOptions.loadFailed());
+        assertEquals(1, host.opened);
+    }
+
+    /** When idle, off, or paused, failure callbacks and employee unlock leave Instagram untouched. */
+    @Test
+    public void failureAndEmployeeUnlockObeySwitchAndPauseState() {
+        assertEquals(0, DeveloperOptions.loadFailed());
+        assertEquals(1, DeveloperOptions.unlockEmployee());
+
+        Settings.OPEN_DEVELOPER_OPTIONS.save(false);
+        assertEquals(0, DeveloperOptions.unlockEmployee());
+
+        DeveloperOptions.opening(activity, host);
+        assertEquals(0, DeveloperOptions.loadFailed());
+        assertEquals(0, host.opened);
+
+        Settings.OPEN_DEVELOPER_OPTIONS.save(true);
+        PauseForTests.pause(HushgramPause.Reason.SWITCH);
+        try {
+            assertEquals(0, DeveloperOptions.unlockEmployee());
+            assertEquals(0, DeveloperOptions.loadFailed());
+        } finally {
+            PauseForTests.resume();
+        }
+        assertEquals(1, DeveloperOptions.unlockEmployee());
+    }
+
     private static final class FakeHost implements DeveloperOptions.Host {
         final List<Runnable> checks = new ArrayList<>();
         final List<Long> delays = new ArrayList<>();

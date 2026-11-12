@@ -81,6 +81,7 @@ val openDeveloperOptionsPatch = bytecodePatch(
 internal fun BytecodePatchContext.openDeveloperOptions(editor: OverrideEditor, screen: String) {
     val exchange = overrideExchangeOrWarn(editor)
     val names = flagNamesOrWarn()
+    val gates = employeeGatesOrInfo()
     val opener = findOptionsOpener()
     val timeout = loadingTimeoutOrWarn(opener)
     val stubs = listOfNotNull(prepareOverrideEditor(editor), prepareWhitehatScreen(editor, screen), exchange?.reader, exchange?.writer)
@@ -88,6 +89,7 @@ internal fun BytecodePatchContext.openDeveloperOptions(editor: OverrideEditor, s
     stubs.forEach { putStubs(it) }
     if (timeout != null) answerLoads(timeout)
     if (names != null) applyFlagNameList(names)
+    if (gates.isNotEmpty()) applyEmployeeGates(gates)
     enableStatus("developerOptions")
     if (exchange != null) enableStatus(OVERRIDE_EXCHANGE_STATUS)
     if (exchange?.writer != null) enableStatus(OVERRIDE_IMPORT_STATUS)
