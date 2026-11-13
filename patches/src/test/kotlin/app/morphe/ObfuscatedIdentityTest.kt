@@ -45,6 +45,7 @@ class ObfuscatedIdentityTest {
     fun `real names of the same shape are not`() {
         assertTrue(identitiesIn("""category("Ads")""", extensionTree = false).isEmpty())
         assertTrue(identitiesIn("""L10n.t(context, "Bio")""", extensionTree = true).isEmpty())
+        assertTrue(identitiesIn("""L10n.t("App")""", extensionTree = true).isEmpty())
         assertTrue(identitiesIn("""if (name.startsWith("X.")) walk()""", extensionTree = true).isEmpty())
         assertTrue(identitiesIn("""if (mode == BITRATE_MODE_CBR) return "CBR";""", extensionTree = true).isEmpty())
         assertTrue(identitiesIn("""return "this phone has no " + (vp9 ? "VP9" : "AV1");""", extensionTree = true).isEmpty())
@@ -136,8 +137,8 @@ class ObfuscatedIdentityTest {
          * Names that match a shape above and are nobody's invention: the patch category, framework
          * members compared by name, file extensions, the label Copy bio gives the clipboard, the
          * encoder bitrate mode and the AV1 codec the converted-save report names, the first tab
-         * of the viewing history, and the artist tag in a saved MP4's metadata.
+         * of the viewing history, the fallback settings group name, and the artist tag in a saved MP4's metadata.
          */
-        val REAL_NAMES = setOf("Ads", "All", "Bio", "CBR", "AV1", "ART", "add", "get", "put", "run", "id", "raw", "mp3", "mp4", "m4a", "m4v")
+        val REAL_NAMES = setOf("Ads", "All", "App", "Bio", "CBR", "AV1", "ART", "add", "get", "put", "run", "id", "raw", "mp3", "mp4", "m4a", "m4v")
     }
 }
