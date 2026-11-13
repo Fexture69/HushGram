@@ -56,7 +56,7 @@ public final class L10nTranslations {
     }
 
     private static Map<String, String> buildDe() {
-        Map<String, String> table = new HashMap<>(4078);
+        Map<String, String> table = new HashMap<>(4096);
         fillDe0(table);
         fillDe1(table);
         fillDe2(table);
@@ -91,6 +91,7 @@ public final class L10nTranslations {
         fillDe31(table);
         fillDe32(table);
         fillDe33(table);
+        fillDe34(table);
         return table;
     }
 
@@ -290,8 +291,8 @@ public final class L10nTranslations {
                 "Ein Reel-Link \u00f6ffnet das Reel, auf das er zeigt. Instagram spielt kein anderes auf deinem Handy gespeichertes Reel ab, w\u00e4hrend dieses l\u00e4dt.");
         table.put("A reel that doesn't fill the screen shows a blurred copy of itself above and below it instead of black bars, and the strip under the tab bar and the band behind the clock show the reel blurred too. The copy shows only where a reel leaves room, as with Show the whole reel on. Open Reels again after a change.",
                 "Ein Reel, das den Bildschirm nicht ausf\u00fcllt, zeigt \u00fcber und unter sich eine unscharfe Kopie von sich selbst statt schwarzer Balken, und auch der Streifen unter der Tab-Leiste und der Bereich hinter der Uhr zeigen das Reel unscharf. Die Kopie erscheint nur, wo ein Reel Platz l\u00e4sst, etwa mit Ganzes Reel zeigen. \u00d6ffne Reels nach einer \u00c4nderung erneut.");
-        table.put("A reel you open from the Reels tab or a post on Home plays with sound, and Home is muted again when you go back. Your phone's ringer and volume still count.",
-                "Ein Reel, das du im Reels-Tab oder \u00fcber einen Beitrag auf der Startseite \u00f6ffnest, spielt mit Ton, und die Startseite ist wieder stumm, wenn du zur\u00fcckgehst. Klingelmodus und Lautst\u00e4rke deines Telefons z\u00e4hlen weiterhin.");
+        table.put("A reel you open from the Reels tab, a profile or a post on Home plays with sound, and Home is muted again when you go back. Your phone's ringer and volume still count.",
+                "Ein Reel, das du im Reels-Tab, auf einem Profil oder \u00fcber einen Beitrag auf der Startseite \u00f6ffnest, spielt mit Ton, und die Startseite ist wieder stumm, wenn du zur\u00fcckgehst. Klingelmodus und Lautst\u00e4rke deines Telefons z\u00e4hlen weiterhin.");
         table.put("A rounded bar split by a tall handle.",
                 "Eine abgerundete Leiste, die von einem hohen Griff geteilt wird.");
         table.put("A save stopped. Reopen the media and save again.",
@@ -536,6 +537,8 @@ public final class L10nTranslations {
                 "Eine Emoji-Schriftdatei");
         table.put("An eye at the top of each chat holds or sends Seen in that chat alone, whatever Read messages without the seen receipt says. Changing it doesn't send anything by itself.",
                 "Ein Auge oben in jedem Chat h\u00e4lt Gesehen nur in diesem Chat zur\u00fcck oder sendet es, egal was Nachrichten ohne Gesehen-Best\u00e4tigung lesen sagt. Eine \u00c4nderung sendet von selbst nichts.");
+        table.put("App",
+                "App");
         table.put("App icon",
                 "App-Symbol");
         table.put("App-only proxy",
@@ -582,11 +585,11 @@ public final class L10nTranslations {
                 "Zur\u00fcck verl\u00e4sst die Startseite unver\u00e4ndert");
         table.put("Back on Home leaves Instagram without first scrolling the feed to the top and reloading it.",
                 "Zur\u00fcck auf der Startseite verl\u00e4sst Instagram, ohne den Feed vorher nach oben zu scrollen und neu zu laden.");
-        table.put("Background playback",
-                "Wiedergabe im Hintergrund");
     }
 
     private static void fillDe4(Map<String, String> table) {
+        table.put("Background playback",
+                "Wiedergabe im Hintergrund");
         table.put("Backgrounds in the accent color",
                 "Hintergr\u00fcnde in der Akzentfarbe");
         table.put("Badges in the accent color",
@@ -611,8 +614,8 @@ public final class L10nTranslations {
                 "Steckbrief");
         table.put("Bio copied",
                 "Steckbrief kopiert");
-        table.put("Black rows and dialogs, HushGram's name at the top, and each category on one line.",
-                "Schwarze Zeilen und Dialoge, der Name HushGram oben und jede Kategorie in einer Zeile.");
+        table.put("Black rows and dialogs, with HushGram's name at the top.",
+                "Schwarze Zeilen und Dialoge, mit dem Namen HushGram oben.");
         table.put("Black settings page",
                 "Schwarze Einstellungsseite");
         table.put("Blend post edges",
@@ -705,11 +708,11 @@ public final class L10nTranslations {
                 "W\u00e4hle eine Datei f\u00fcr den Einstellungsexport.");
         table.put("Choose a file for your installed patches' settings and saved profiles. Your login and history stay on this device.",
                 "W\u00e4hle eine Datei f\u00fcr die Einstellungen deiner installierten Patches und deine gespeicherten Profile. Anmeldung und Verlauf bleiben auf diesem Ger\u00e4t.");
-        table.put("Choose a file for your installed patches' settings. Accounts and history stay on this device.",
-                "W\u00e4hle eine Datei f\u00fcr die Einstellungen deiner installierten Patches. Konten und Verlauf bleiben auf diesem Ger\u00e4t.");
     }
 
     private static void fillDe5(Map<String, String> table) {
+        table.put("Choose a file for your installed patches' settings. Accounts and history stay on this device.",
+                "W\u00e4hle eine Datei f\u00fcr die Einstellungen deiner installierten Patches. Konten und Verlauf bleiben auf diesem Ger\u00e4t.");
         table.put("Choose a folder",
                 "Ordner ausw\u00e4hlen");
         table.put("Choose a folder name under Movies and Pictures. Invalid characters become underscores. Leave it blank to use the default folder, %1$s. For an SD card or anywhere else, use Choose a folder.",
@@ -766,6 +769,8 @@ public final class L10nTranslations {
                 "Kompakt");
         table.put("Confirm PIN",
                 "PIN best\u00e4tigen");
+        table.put("Content",
+                "Inhalte");
         table.put("Continue",
                 "Weiter");
         table.put("Control where Meta AI appears.",
@@ -826,13 +831,13 @@ public final class L10nTranslations {
                 "Gespeicherte Kopien nicht gel\u00f6scht. Erneut versuchen.");
         table.put("Couldn't clear the unfollower list. Try again.",
                 "Entfolgt-Liste nicht gel\u00f6scht. Erneut versuchen.");
+    }
+
+    private static void fillDe6(Map<String, String> table) {
         table.put("Couldn't clear the viewing history. Try again.",
                 "Verlauf der angesehenen Inhalte nicht gel\u00f6scht.");
         table.put("Couldn't copy comment",
                 "Kommentar konnte nicht kopiert werden");
-    }
-
-    private static void fillDe6(Map<String, String> table) {
         table.put("Couldn't copy the GIF name",
                 "GIF-Name konnte nicht kopiert werden");
         table.put("Couldn't copy the bio",
@@ -949,13 +954,13 @@ public final class L10nTranslations {
                 "Eigene");
         table.put("Custom app icon",
                 "Eigenes App-Symbol");
+    }
+
+    private static void fillDe7(Map<String, String> table) {
         table.put("Custom color",
                 "Eigene Farbe");
         table.put("Custom tab",
                 "Benutzerdefinierter Tab");
-    }
-
-    private static void fillDe7(Map<String, String> table) {
         table.put("Data saver",
                 "Datensparmodus");
         table.put("Date and time",
@@ -1072,13 +1077,13 @@ public final class L10nTranslations {
                 "Wird heruntergeladen");
         table.put("Downloading the emoji...",
                 "Emojis werden heruntergeladen...");
+    }
+
+    private static void fillDe8(Map<String, String> table) {
         table.put("Downloads",
                 "Downloads");
         table.put("Drag to move %1$s",
                 "Ziehen, um %1$s zu verschieben");
-    }
-
-    private static void fillDe8(Map<String, String> table) {
         table.put("Drag to move, pinch to zoom.",
                 "Ziehen zum Verschieben, zwei Finger zum Zoomen.");
         table.put("Draws Instagram's tab bar as a floating, rounded glass pill with a highlight on the tab you're on. Restart Instagram after changing it.",
@@ -1195,13 +1200,13 @@ public final class L10nTranslations {
                 "Schnell scrollen in Gespeichert");
         table.put("Favorites still shows them.",
                 "\u201eFavoriten\u201c zeigt sie weiterhin.");
+    }
+
+    private static void fillDe9(Map<String, String> table) {
         table.put("Feed",
                 "Feed");
         table.put("Feed videos and reels stop at their last frame instead of playing again. Reels still loop while auto scroll is on, so it can move on.",
                 "Videos im Feed und Reels bleiben am letzten Bild stehen, statt noch einmal abzuspielen. Reels laufen weiter in Schleife, solange das automatische Scrollen an ist, damit es weitergehen kann.");
-    }
-
-    private static void fillDe9(Map<String, String> table) {
         table.put("Feed videos and stories wait for your tap. Reels play as you swipe to them.",
                 "Videos im Feed und Stories warten, bis du tippst. Reels spielen, sobald du zu ihnen wischst.");
         table.put("Feed videos, reels and stories all wait for your tap.",
@@ -1318,13 +1323,13 @@ public final class L10nTranslations {
                 "Ganz rund");
         table.put("GIF name",
                 "GIF-Name");
+    }
+
+    private static void fillDe10(Map<String, String> table) {
         table.put("GIF name copied",
                 "GIF-Name kopiert");
         table.put("GIF or sticker",
                 "GIF oder Sticker");
-    }
-
-    private static void fillDe10(Map<String, String> table) {
         table.put("GPL-3.0, with the notices of the projects this is built on",
                 "GPL-3.0, mit den Hinweisen der Projekte, auf denen es aufbaut");
         table.put("Galaxy S26 Ultra",
@@ -1441,13 +1446,13 @@ public final class L10nTranslations {
                 "Bereich \u201eEmpfohlen\u201c in Benachrichtigungen ausblenden");
         table.put("Hide Follow on posts",
                 "Folgen bei Beitr\u00e4gen ausblenden");
+    }
+
+    private static void fillDe11(Map<String, String> table) {
         table.put("Hide Follow on stories",
                 "Folgen-Button in Stories ausblenden");
         table.put("Hide GIFs in comments",
                 "GIFs in Kommentaren ausblenden");
-    }
-
-    private static void fillDe11(Map<String, String> table) {
         table.put("Hide Instagram Plus prompts",
                 "Instagram Plus-Hinweise ausblenden");
         table.put("Hide Instants",
@@ -1484,6 +1489,8 @@ public final class L10nTranslations {
                 "\u201eVorschl\u00e4ge f\u00fcr dich\u201c in Follower-Listen ausblenden");
         table.put("Hide Threads posts",
                 "Threads-Beitr\u00e4ge ausblenden");
+        table.put("Hide Watch more reels",
+                "\u201eMehr Reels ansehen\u201c ausblenden");
         table.put("Hide Your algorithm on reels",
                 "Dein Algorithmus bei Reels ausblenden");
         table.put("Hide activity bubbles",
@@ -1562,15 +1569,15 @@ public final class L10nTranslations {
                 "Vorgeschlagene Beitr\u00e4ge ausblenden");
         table.put("Hide suggested searches on reels",
                 "Vorgeschlagene Suchen auf Reels ausblenden");
+    }
+
+    private static void fillDe12(Map<String, String> table) {
         table.put("Hide suggested stories",
                 "Vorgeschlagene Stories ausblenden");
         table.put("Hide suggestions in notifications",
                 "Vorschl\u00e4ge in Benachrichtigungen ausblenden");
         table.put("Hide surveys",
                 "Umfragen ausblenden");
-    }
-
-    private static void fillDe12(Map<String, String> table) {
         table.put("Hide that you're typing",
                 "Verbergen, dass du schreibst");
         table.put("Hide the 2x popup",
@@ -1685,15 +1692,15 @@ public final class L10nTranslations {
                 "Blendet Beitr\u00e4ge und Reels von Konten aus, denen du nicht folgst und die als \u201eF\u00fcr dich vorgeschlagen\u201c markiert sind. Beitr\u00e4ge von Konten, denen du folgst, bleiben.");
         table.put("Hides sponsored posts, reels, stories and the ad in comments. No empty gap is left where an ad would have been.",
                 "Blendet gesponserte Beitr\u00e4ge, Reels, Stories und die Anzeige in den Kommentaren aus. Dort, wo eine Anzeige gewesen w\u00e4re, bleibt keine L\u00fccke.");
+    }
+
+    private static void fillDe13(Map<String, String> table) {
         table.put("Hides stories from accounts you don't follow, and accounts Instagram suggests, in the row at the top of Home. Stories from accounts you follow stay.",
                 "Blendet Stories von Konten, denen du nicht folgst, und von Instagram vorgeschlagene Konten in der Leiste oben auf der Startseite aus. Stories von Konten, denen du folgst, bleiben.");
         table.put("Hides the bar under a post that asks you to join the account's channel. The post stays.",
                 "Blendet die Leiste unter einem Beitrag aus, die dich auffordert, dem Kanal des Kontos beizutreten. Der Beitrag bleibt.");
         table.put("Hides the bubble under a post that asks 'Are you interested in this post?' with Not interested and Interested buttons. Nothing is answered for you.",
                 "Blendet die Blase unter einem Beitrag aus, die \u201eInteressiert dich dieser Beitrag?\u201c fragt, mit den Schaltfl\u00e4chen \u201eKein Interesse\u201c und \u201eInteressiert\u201c. F\u00fcr dich wird nichts beantwortet.");
-    }
-
-    private static void fillDe13(Map<String, String> table) {
         table.put("Hides the buttons that push Edits, templates, Meta AI and Ray-Ban Meta glasses. Live badges and state-controlled media labels stay.",
                 "Blendet die Buttons aus, die Edits, Vorlagen, Meta AI und Ray-Ban-Meta-Brillen bewerben. Live-Abzeichen und Hinweise auf staatlich kontrollierte Medien bleiben.");
         table.put("Hides the card after the posts from accounts you follow that says you've seen the latest ones, and its Older posts link. When Home has no new posts at all, only that line goes and the link stays. Pull down on Home to refresh after changing it.",
@@ -1808,15 +1815,15 @@ public final class L10nTranslations {
                 "%1$d Einstellungen importiert. %2$d \u00fcbersprungen, die diese Version nicht kennt.");
         table.put("Instagram accepts this build",
                 "Instagram akzeptiert diesen Build");
+    }
+
+    private static void fillDe14(Map<String, String> table) {
         table.put("Instagram blue",
                 "Instagram-Blau");
         table.put("Instagram can't read where the photos and videos in your gallery were taken.",
                 "Instagram kann nicht lesen, wo die Fotos und Videos in deiner Galerie aufgenommen wurden.");
         table.put("Instagram can't read your phone's advertising ID or tell Android's ad services which ads you saw or tapped. The permissions for them are gone from this build.",
                 "Instagram kann die Werbe-ID deines Telefons nicht lesen und den Werbediensten von Android nicht mitteilen, welche Anzeigen du gesehen oder angetippt hast. Die Berechtigungen daf\u00fcr fehlen in diesem Build.");
-    }
-
-    private static void fillDe14(Map<String, String> table) {
         table.put("Instagram crashed or froze within a minute of starting three times in a row, so HushGram paused itself.",
                 "Instagram ist dreimal hintereinander innerhalb einer Minute nach dem Start abgest\u00fcrzt oder h\u00e4ngen geblieben, deshalb hat sich HushGram selbst pausiert.");
         table.put("Instagram didn't keep the change and the overrides couldn't be confirmed. Use Restore previous overrides, then restart Instagram.",
@@ -1931,15 +1938,15 @@ public final class L10nTranslations {
                 "Zur ersten Nachricht oder zu einem Datum springen");
         table.put("KakaoTalk",
                 "KakaoTalk");
+    }
+
+    private static void fillDe15(Map<String, String> table) {
         table.put("Keep Featured off the heart's dot",
                 "Featured nicht auf dem Punkt am Herz zeigen");
         table.put("Keep Home's top bar",
                 "Obere Leiste der Startseite fixieren");
         table.put("Keep Instagram's saved photos and videos from filling your phone.",
                 "Verhindere, dass Instagrams gespeicherte Fotos und Videos dein Handy f\u00fcllen.");
-    }
-
-    private static void fillDe15(Map<String, String> table) {
         table.put("Keep Reels auto scroll between sessions",
                 "Keep Reels auto scroll between sessions");
         table.put("Keep a seek bar",
@@ -2054,15 +2061,15 @@ public final class L10nTranslations {
                 "L\u00e4sst die \u201eDu bist dran\u201c-Karten weg, etwa beliebte oder angesagte Aufrufe zum Mitmachen, die Instagram zwischen die Stories setzt, durch die du tippst. Die Stories selbst bleiben.");
         table.put("Leaves out the Suggested for you cards of accounts to follow that Instagram puts between the stories you tap through. The stories themselves stay.",
                 "L\u00e4sst die Karten \u201eVorschl\u00e4ge f\u00fcr dich\u201c mit Konten zum Folgen weg, die Instagram zwischen die Stories setzt, durch die du tippst. Die Stories selbst bleiben.");
+    }
+
+    private static void fillDe16(Map<String, String> table) {
         table.put("Leaves out the live broadcasts Instagram puts between reels in the Reels tab and when you swipe through reels from Explore.",
                 "L\u00e4sst die Live-\u00dcbertragungen weg, die Instagram im Reels-Tab zwischen Reels zeigt und wenn du Reels aus \u201eEntdecken\u201c durchwischst.");
         table.put("Leaves the Suggested for you accounts out of what shows when you tap the search bar. Recent searches stay.",
                 "L\u00e4sst die Konten unter \u201eVorschl\u00e4ge f\u00fcr dich\u201c aus dem weg, was beim Tippen auf die Suchleiste erscheint. Letzte Suchen bleiben.");
         table.put("Leaves the Suggested for you section off the followers, following and mutual lists and the screen where you approve follow requests, and the Suggested tab off other people's follow lists. Every account in the lists and every real request stays.",
                 "L\u00e4sst den Bereich \u201eVorschl\u00e4ge f\u00fcr dich\u201c in den Listen der Follower, Gefolgten und gemeinsamen Follower weg, ebenso auf dem Bildschirm, auf dem du Folgeanfragen best\u00e4tigst, und den Tab \u201eVorschl\u00e4ge\u201c in den Follower-Listen anderer Personen. Jedes Konto in den Listen und jede echte Anfrage bleibt.");
-    }
-
-    private static void fillDe16(Map<String, String> table) {
         table.put("Leaving Instagram while a reel plays shrinks it into a small window over your other apps. Works in Reels and on reels opened from the feed, on Android 15 or newer.",
                 "Wenn du Instagram verl\u00e4sst, w\u00e4hrend ein Reel l\u00e4uft, schrumpft es zu einem kleinen Fenster \u00fcber deinen anderen Apps. Funktioniert in Reels und bei Reels, die du aus dem Feed \u00f6ffnest, ab Android 15.");
         table.put("Leaving Instagram while a story plays shrinks it into a small window over your other apps, where it keeps going through the stories.",
@@ -2161,6 +2168,8 @@ public final class L10nTranslations {
                 "Foto lange dr\u00fccken zum Zoomen");
         table.put("Long press a post for full screen",
                 "Beitrag gedr\u00fcckt halten f\u00fcr Vollbild");
+        table.put("Look",
+                "Aussehen");
         table.put("Loop a story",
                 "Story in Schleife abspielen");
         table.put("Loop didn't change",
@@ -2175,6 +2184,9 @@ public final class L10nTranslations {
                 "Dieses Video wird wiederholt");
         table.put("Makes Instagram see the phone chosen below, unlocking HDR video downloads and other features limited to those phones, and adds the matching developer options. Restart Instagram to see the change.",
                 "L\u00e4sst Instagram das unten gew\u00e4hlte Smartphone erkennen, schaltet HDR-Video-Downloads und andere auf diese Ger\u00e4te beschr\u00e4nkte Funktionen frei und f\u00fcgt die passenden Entwickleroptionen hinzu. Starte Instagram neu, um die \u00c4nderung zu sehen.");
+    }
+
+    private static void fillDe17(Map<String, String> table) {
         table.put("Makes the seek bar thicker, with a round white handle and the time above it, over a soft dark fade so it shows on any video. Drag it to seek. It also keeps the bar on short reels.",
                 "Macht die Suchleiste dicker, mit rundem wei\u00dfem Griff und der Zeit dar\u00fcber, auf einem weichen dunklen Verlauf, damit sie auf jedem Video sichtbar ist. Zum Spulen ziehen. Die Leiste bleibt auch bei kurzen Reels.");
         table.put("Mapping file removed. Open MetaConfig again to see the change.",
@@ -2183,9 +2195,6 @@ public final class L10nTranslations {
                 "Mapping imported: %1$d names. Open MetaConfig again to see them.");
         table.put("Mark a chat seen when you reply",
                 "Chat als gesehen markieren, wenn du antwortest");
-    }
-
-    private static void fillDe17(Map<String, String> table) {
         table.put("Mark as read",
                 "Als gelesen markieren");
         table.put("Mark as read button in chats",
@@ -2212,6 +2221,8 @@ public final class L10nTranslations {
                 "Material You braucht Android 12 oder neuer, deshalb bleibt das Blau von Instagram.");
         table.put("Media ID %1$s",
                 "Medien-ID %1$s");
+        table.put("Media and storage",
+                "Medien und Speicher");
         table.put("Media link",
                 "Medienlink");
         table.put("Media link copied. It stops working after a few days.",
@@ -2262,8 +2273,8 @@ public final class L10nTranslations {
                 "@%1$s nach %2$s verschoben");
         table.put("Moved @%s out of its folder",
                 "@%s aus dem Ordner genommen");
-        table.put("Moves a carousel post's page dots onto a round pill at the bottom of its photo or video, with the page you're on in blue.",
-                "Verschiebt die Seitenpunkte eines Karussellbeitrags in eine runde Kapsel unten auf dem Foto oder Video. Die Seite, auf der du bist, ist blau.");
+        table.put("Moves a carousel post's page dots onto a round pill at the bottom of its photo or video, with the page you're on in blue. Hold the pill and slide left or right to move through the pages.",
+                "Verschiebt die Seitenpunkte eines Karussellbeitrags in eine runde Kapsel unten auf dem Foto oder Video. Die Seite, auf der du bist, ist blau. Halte die Kapsel gedr\u00fcckt und wische nach links oder rechts, um die Seiten zu wechseln.");
         table.put("Moves the gallery and microphone buttons off the message bar and into the plus menu. They work as before. Turn it off and they're back the next time a chat opens.",
                 "Verschiebt die Buttons f\u00fcr Galerie und Mikrofon aus der Nachrichtenleiste ins Plus-Men\u00fc. Sie funktionieren wie bisher. Schaltest du es aus, sind sie beim n\u00e4chsten \u00d6ffnen eines Chats wieder da.");
         table.put("Mute",
@@ -2296,6 +2307,9 @@ public final class L10nTranslations {
                 "Neuer Ordner");
         table.put("New like animations",
                 "New like animations");
+    }
+
+    private static void fillDe18(Map<String, String> table) {
         table.put("New message",
                 "Neue Nachricht");
         table.put("New message after this reel",
@@ -2306,9 +2320,6 @@ public final class L10nTranslations {
                 "Neues Profilbild und neuer Steckbrief");
         table.put("New story fonts and animations",
                 "New story fonts and animations");
-    }
-
-    private static void fillDe18(Map<String, String> table) {
         table.put("New story timestamp style",
                 "New story timestamp style");
         table.put("Next match",
@@ -2419,6 +2430,9 @@ public final class L10nTranslations {
                 "\u00dcber Entfolgende benachrichtigen");
         table.put("OK",
                 "OK");
+    }
+
+    private static void fillDe19(Map<String, String> table) {
         table.put("Off",
                 "Aus");
         table.put("Off. It can cover the Home, Reels and Explore tabs for a break after you've spent a while on them.",
@@ -2429,9 +2443,6 @@ public final class L10nTranslations {
                 "Alter Steckbrief, %s");
         table.put("Old profile picture, %s",
                 "Altes Profilbild, %s");
-    }
-
-    private static void fillDe19(Map<String, String> table) {
         table.put("On Reels, the tab bar slides away after %1$d seconds without a touch. Tap the bottom edge of the screen, change tab or press Back to bring it back. Restart Instagram after changing it.",
                 "Bei Reels gleitet die Tab-Leiste nach %1$d Sekunden ohne Ber\u00fchrung weg. Tippe auf den unteren Bildschirmrand, wechsle den Tab oder dr\u00fccke Zur\u00fcck, um sie zur\u00fcckzuholen. Starte Instagram nach einer \u00c4nderung neu.");
         table.put("On a carousel, the download icon saves all of its pages at once instead of asking.",
@@ -2542,6 +2553,9 @@ public final class L10nTranslations {
                 "Wenn du einen Chat \u00f6ffnest, erf\u00e4hrt niemand, dass du die Nachrichten gesehen hast, und du siehst weiterhin, wann andere deine gesehen haben. Soll ein Chat es doch erfahren, halte ihn in deinen Nachrichten gedr\u00fcckt und tippe auf Als gelesen markieren.");
         table.put("Opening someone's profile takes you on to their posts as a scrolling list of full posts. Go Back for the grid. Your own profile keeps its grid.",
                 "Wenn du das Profil einer anderen Person \u00f6ffnest, kommst du direkt zu ihren Beitr\u00e4gen als scrollbare Liste ganzer Beitr\u00e4ge. Mit Zur\u00fcck kommst du zum Raster. Dein eigenes Profil beh\u00e4lt sein Raster.");
+    }
+
+    private static void fillDe20(Map<String, String> table) {
         table.put("Opens Home on posts from accounts you follow instead of For you. Tap the top of Home to switch. Restart Instagram to see the change.",
                 "\u00d6ffnet die Startseite mit Beitr\u00e4gen von Konten, denen du folgst, statt mit \u201eF\u00fcr dich\u201c. Tippe oben auf der Startseite, um zu wechseln. Starte Instagram neu, um die \u00c4nderung zu sehen.");
         table.put("Opens Instagram's own Whitehat settings. Its switch lets Instagram trust the certificates installed on this phone for 24 hours, so you can check the app's traffic. Restart Instagram after you turn it on.",
@@ -2552,9 +2566,6 @@ public final class L10nTranslations {
                 "Opens Instagram's own editor for its hidden settings (MetaConfig). A wrong override, which is a changed setting, can break parts of Instagram.");
         table.put("Opens a GitHub report with your versions and settings filled in. Add what happened.",
                 "\u00d6ffnet einen GitHub-Bericht, in dem deine Versionen und Einstellungen schon stehen. Schreib dazu, was passiert ist.");
-    }
-
-    private static void fillDe20(Map<String, String> table) {
         table.put("Orange",
                 "Orange");
         table.put("Overrides cleared. Restart Instagram to apply the change.",
@@ -2665,6 +2676,9 @@ public final class L10nTranslations {
                 "Post a story straight to Highlights");
         table.put("Posted %1$s",
                 "Gepostet am %1$s");
+    }
+
+    private static void fillDe21(Map<String, String> table) {
         table.put("Posts",
                 "Beitr\u00e4ge");
         table.put("Posts from @%1$s are hidden",
@@ -2675,9 +2689,6 @@ public final class L10nTranslations {
                 "Beitr\u00e4ge deiner versteckten Konten erscheinen weiter in \u201eFavoriten\u201c. \u201eF\u00fcr dich\u201c und \u201eGefolgt\u201c lassen sie weg. Ziehe die Startseite nach dem \u00c4ndern nach unten, um sie zu aktualisieren.");
         table.put("Preparing diagnostic report...",
                 "Diagnosebericht wird vorbereitet...");
-    }
-
-    private static void fillDe21(Map<String, String> table) {
         table.put("Press and hold a comment that has its own photo, GIF or sticker, and its menu gets Save. Saves the largest size Instagram sent.",
                 "Halte einen Kommentar mit eigenem Foto, GIF oder Sticker gedr\u00fcckt, und sein Men\u00fc bekommt Speichern. Speichert die gr\u00f6\u00dfte Version, die Instagram gesendet hat.");
         table.put("Press and hold a photo in a feed to see it twice as big around your finger, and slide to look around. Let go to close it. While this is on, it takes the place of Instagram's own long press on a photo.",
@@ -2712,6 +2723,8 @@ public final class L10nTranslations {
                 "Vorherige Seite");
         table.put("Priority accounts",
                 "Vorrangige Konten");
+        table.put("Privacy",
+                "Datenschutz");
         table.put("Privacy and controls for your chats.",
                 "Datenschutz und Optionen f\u00fcr deine Chats.");
         table.put("Profile",
@@ -2786,6 +2799,9 @@ public final class L10nTranslations {
                 "Setzt oben in einer Video-Story neben die drei Punkte eine Geschwindigkeitstaste. Tippe darauf f\u00fcr 1,5x, noch einmal f\u00fcr 2x und ein weiteres Mal f\u00fcr 1x. Sp\u00e4tere Video-Storys behalten die Geschwindigkeit, bis du sie \u00e4nderst oder Instagram neu startest. Werbung l\u00e4uft in normaler Geschwindigkeit.");
         table.put("Puts a speed icon beside a reel. Tap it to pick a speed from 0.5x to 3x. With Keep the reel speed on, the next reels play at it too.",
                 "Setzt ein Geschwindigkeitssymbol neben ein Reel. Tippe darauf, um eine Geschwindigkeit von 0,5x bis 3x zu w\u00e4hlen. Ist Reel-Geschwindigkeit beibehalten an, laufen auch die n\u00e4chsten Reels so.");
+    }
+
+    private static void fillDe22(Map<String, String> table) {
         table.put("Puts an (i) next to the three dots on a profile that opens Instagram's About this account for that account. Instagram took its own away.",
                 "Setzt ein (i) neben die drei Punkte in einem Profil, das Instagrams \u201e\u00dcber dieses Konto\u201c f\u00fcr dieses Konto \u00f6ffnet. Instagram hat sein eigenes entfernt.");
         table.put("Puts back the overrides saved before your last import for this account and Instagram version.",
@@ -2798,9 +2814,6 @@ public final class L10nTranslations {
                 "Zeigt die Antwort stattdessen als Chip unter den Zahlen f\u00fcr Beitr\u00e4ge, Follower und Gefolgt und sagt Ihr folgt euch gegenseitig, wenn du dem Konto auch folgst.");
         table.put("Puts the seek bar right on the bottom edge of the video, so it's harder to touch by accident while you scroll.",
                 "Setzt die Suchleiste direkt an den unteren Rand des Videos, damit du sie beim Scrollen nicht so leicht aus Versehen ber\u00fchrst.");
-    }
-
-    private static void fillDe22(Map<String, String> table) {
         table.put("Puts the title in the middle of the bar at the top of other screens, like notifications, as far as the buttons beside it allow. The buttons stay where they are.",
                 "Setzt den Titel in die Mitte der Leiste oben auf anderen Seiten, etwa den Benachrichtigungen, so weit die Schaltfl\u00e4chen daneben es zulassen. Die Schaltfl\u00e4chen bleiben, wo sie sind.");
         table.put("Puts the username in the middle of the bar at the top of a profile, yours and other people's. The buttons stay where they are.",
@@ -2909,6 +2922,9 @@ public final class L10nTranslations {
                 "Entfernt jeden Beitrag mit einem einzelnen Foto von der Startseite, auch von Konten, denen du folgst. Ziehe die Startseite nach dem \u00c4ndern nach unten, um sie zu aktualisieren.");
         table.put("Removes every single-video post and reel from Home, even from accounts you follow. Pull down on Home to refresh after changing it.",
                 "Entfernt jeden Beitrag mit einem einzelnen Video und jedes Reel von der Startseite, auch von Konten, denen du folgst. Ziehe die Startseite nach dem \u00c4ndern nach unten, um sie zu aktualisieren.");
+    }
+
+    private static void fillDe23(Map<String, String> table) {
         table.put("Removes posts by business and creator accounts from Home and Following, friends who use one included. Pull down on Home to refresh after changing it.",
                 "Entfernt Beitr\u00e4ge von Unternehmens- und Creator-Konten von der Startseite und aus \u201eGefolgt\u201c, auch von Freunden, die so ein Konto nutzen. Ziehe die Startseite nach dem \u00c4ndern nach unten, um sie zu aktualisieren.");
         table.put("Removes posts you've already liked from Home and Following. A post you like now stays until you pull down on Home to refresh.",
@@ -2921,9 +2937,6 @@ public final class L10nTranslations {
                 "Entfernt die Muse-Schaltfl\u00e4che aus der oberen Leiste deines Profils. Dein Benutzername und das Men\u00fc bleiben.");
         table.put("Removes the empty gap under Instagram's tab bar that appears when your phone hides its navigation bar or Instagram is in a pop-up window. Restart Instagram to see the change.",
                 "Entfernt die leere L\u00fccke unter Instagrams Tab-Leiste, die entsteht, wenn dein Handy seine Navigationsleiste ausblendet oder Instagram in einem Pop-up-Fenster l\u00e4uft. Starte Instagram neu, um die \u00c4nderung zu sehen.");
-    }
-
-    private static void fillDe23(Map<String, String> table) {
         table.put("Removes the stack of Instants (quick photos from friends) from your messages. Restart Instagram to see the change.",
                 "Entfernt den Stapel mit Instants (schnelle Fotos von Freunden) aus deinen Nachrichten. Starte Instagram neu, um die \u00c4nderung zu sehen.");
         table.put("Removes the summary, Sources and Ask Meta AI box from a reel's more menu. In your feed the audio row goes too. Other options stay.",
@@ -3032,6 +3045,9 @@ public final class L10nTranslations {
                 "Videos als MKV speichern");
         table.put("Save videos other apps can open",
                 "Videos speichern, die andere Apps \u00f6ffnen k\u00f6nnen");
+    }
+
+    private static void fillDe24(Map<String, String> table) {
         table.put("Save your HushGram choices to a file, or bring them back.",
                 "Speichere deine HushGram-Auswahl in einer Datei oder hol sie zur\u00fcck.");
         table.put("Saved",
@@ -3044,9 +3060,6 @@ public final class L10nTranslations {
                 "@%s gespeichert");
         table.put("Saved and everything in it stay covered until your fingerprint, face or screen lock says it's you.",
                 "\u201eGespeichert\u201c und alles darin bleibt abgedeckt, bis dein Fingerabdruck, dein Gesicht oder deine Displaysperre best\u00e4tigt, dass du es bist.");
-    }
-
-    private static void fillDe24(Map<String, String> table) {
         table.put("Saved button in Explore",
                 "Saved button in Explore");
         table.put("Saved is locked",
@@ -3155,6 +3168,9 @@ public final class L10nTranslations {
                 "Gesehen in diesem Chat zur\u00fcckgehalten");
         table.put("Select text",
                 "Text ausw\u00e4hlen");
+    }
+
+    private static void fillDe25(Map<String, String> table) {
         table.put("Select text to copy",
                 "Text zum Kopieren ausw\u00e4hlen");
         table.put("Send",
@@ -3167,9 +3183,6 @@ public final class L10nTranslations {
                 "Send stories with a long press");
         table.put("Send to",
                 "Senden an");
-    }
-
-    private static void fillDe25(Map<String, String> table) {
         table.put("Sending a message in a chat lets the other person see that you've read what they sent before it. Chats you don't answer stay unseen to them.",
                 "Wenn du in einem Chat eine Nachricht sendest, sieht die andere Person, dass du ihre vorherigen Nachrichten gelesen hast. Chats, auf die du nicht antwortest, bleiben f\u00fcr sie ungesehen.");
         table.put("Sends Instagram through the HTTP proxy set below. Other apps and your phone's own settings aren't changed.",
@@ -3278,6 +3291,9 @@ public final class L10nTranslations {
                 "Zeigt unten in einer Video-Story eine Leiste. Zieh sie, um zu einer beliebigen Stelle im Video zu springen. Fotos bekommen keine.");
         table.put("Shows a blurred preview of a disappearing photo or video in a chat.",
                 "Shows a blurred preview of a disappearing photo or video in a chat.");
+    }
+
+    private static void fillDe26(Map<String, String> table) {
         table.put("Shows a handle at the right edge of Saved and your collections while they scroll. Drag it to jump through them.",
                 "Zeigt beim Scrollen einen Griff am rechten Rand von Gespeichert und deinen Sammlungen. Zieh ihn, um durchzuspringen.");
         table.put("Shows each switch by its name alone. Tap the i next to a name to read what it does.",
@@ -3290,9 +3306,6 @@ public final class L10nTranslations {
                 "Zeigt die Zeilen \u201eImport\u201c und \u201eWiederherstellen\u201c. Ein Import \u00e4ndert Instagrams versteckte Einstellungen f\u00fcr dieses angemeldete Konto.");
         table.put("Shows the date and time a reel was posted under the author's name, like Oct 2, 3:45 PM. A change shows from the next reel.",
                 "Zeigt Datum und Uhrzeit, zu der ein Reel gepostet wurde, unter dem Namen des Autors, z. B. 2. Okt., 15:45. Eine \u00c4nderung gilt ab dem n\u00e4chsten Reel.");
-    }
-
-    private static void fillDe26(Map<String, String> table) {
         table.put("Shows the days, hours and minutes since it went up on a line under the time, like 1d 2h 5m ago.",
                 "Zeigt die Tage, Stunden und Minuten seit der Ver\u00f6ffentlichung in einer Zeile unter der Uhrzeit, z. B. vor 1 T, 2 Std. und 5 Min.");
         table.put("Shows the time above your finger while you drag a seek bar on a feed video, story or reel, and a small picture of that moment when Instagram has one for the video.",
@@ -3303,6 +3316,8 @@ public final class L10nTranslations {
                 "Zeigt, wann ein Beitrag und seine Kommentare ver\u00f6ffentlicht wurden, z. B. 2. Okt., 15:45, statt wie lange es her ist. Beitr\u00e4ge, die du nach einer \u00c4nderung l\u00e4dst, zeigen es.");
         table.put("Shows your feed blurred under Home's top bar, like frosted glass.",
                 "Zeigt deinen Feed verschwommen unter der oberen Leiste der Startseite, wie Milchglas.");
+        table.put("Shrink the pill as you scroll",
+                "Pille beim Scrollen verkleinern");
         table.put("Size %1$d \u00d7 %2$d",
                 "Gr\u00f6\u00dfe %1$d \u00d7 %2$d");
         table.put("Skip length",
@@ -3399,6 +3414,9 @@ public final class L10nTranslations {
                 "Reels aus Suche und Entdecken weiter scrollen");
         table.put("Still scroll reels from a profile",
                 "Reels von einem Profil weiter scrollen");
+    }
+
+    private static void fillDe27(Map<String, String> table) {
         table.put("Still scroll reels from a song page",
                 "Reels von einer Songseite weiter scrollen");
         table.put("Stop",
@@ -3413,9 +3431,6 @@ public final class L10nTranslations {
                 "Nach einer festen Zahl Reels stoppen");
         table.put("Stop after the chat's reels",
                 "Nach den Reels des Chats aufh\u00f6ren");
-    }
-
-    private static void fillDe27(Map<String, String> table) {
         table.put("Stop background feed refresh",
                 "Feed-Aktualisierung im Hintergrund stoppen");
         table.put("Stop background work Instagram doesn't need.",
@@ -3522,6 +3537,9 @@ public final class L10nTranslations {
                 "Langes Dr\u00fccken auf Tabs f\u00fchrt weiter die Instagram-Aktion aus. W\u00e4hle einen Tab, um stattdessen \u201eFavoriten\u201c zu \u00f6ffnen.");
         table.put("Tab long presses keep Instagram's own action. Choose one to open HushGram instead.",
                 "Langes Dr\u00fccken auf Tabs f\u00fchrt weiter die Instagram-Aktion aus. W\u00e4hle einen Tab, um stattdessen HushGram zu \u00f6ffnen.");
+    }
+
+    private static void fillDe28(Map<String, String> table) {
         table.put("Tab long presses keep Instagram's own action. Choose one to open Saved profiles instead.",
                 "Langes Dr\u00fccken auf Tabs f\u00fchrt weiter die Instagram-Aktion aus. W\u00e4hle einen Tab, um stattdessen Gespeicherte Profile zu \u00f6ffnen.");
         table.put("Tab long presses keep Instagram's own action. Choose one to pick the playback quality instead.",
@@ -3536,9 +3554,6 @@ public final class L10nTranslations {
                 "Tabs in anderen Profilen");
         table.put("Tabs on your profile",
                 "Tabs in deinem Profil");
-    }
-
-    private static void fillDe28(Map<String, String> table) {
         table.put("Tagged",
                 "Markiert");
         table.put("Take a scroll break",
@@ -3627,6 +3642,8 @@ public final class L10nTranslations {
                 "Entfernt das Threads-Badge unter dem Steckbrief auf den Profilen anderer. Deins beh\u00e4lt es.");
         table.put("Takes the Threads button off the top of profiles, yours included. The menu and the other buttons stay where they were.",
                 "Entfernt die Threads-Schaltfl\u00e4che oben auf Profilen, auch auf deinem. Das Men\u00fc und die anderen Schaltfl\u00e4chen bleiben, wo sie waren.");
+        table.put("Takes the Watch more reels button off the card a reel in your feed shows when it ends. Watch again stays.",
+                "Entfernt die Schaltfl\u00e4che \u201eMehr Reels ansehen\u201c von der Karte, die erscheint, wenn ein Reel in deinem Feed endet. \u201eErneut ansehen\u201c bleibt.");
         table.put("Takes the Your algorithm button off the top of the Reels tab and closes up the gap. The rest of the bar stays.",
                 "Entfernt den Button Dein Algorithmus oben im Reels-Tab und schlie\u00dft die L\u00fccke. Der Rest der Leiste bleibt.");
         table.put("Takes the accounts Instagram suggests off the bottom of your messages. Your chats and follow requests stay. Restart Instagram to see the change.",
@@ -3643,6 +3660,9 @@ public final class L10nTranslations {
                 "Entfernt das Herz oben auf der Startseite und schlie\u00dft die L\u00fccke. Hinweise kommen weiterhin an. Starte Instagram neu, um die \u00c4nderung zu sehen.");
         table.put("Takes the interests someone added, like reading or hiking, from under their bio. Yours keeps them.",
                 "Entfernt die Interessen, die jemand angegeben hat, etwa Lesen oder Wandern, unter dem Steckbrief. Deins beh\u00e4lt sie.");
+    }
+
+    private static void fillDe29(Map<String, String> table) {
         table.put("Takes the invite to someone's broadcast channel from under their bio. Yours keeps it.",
                 "Entfernt die Einladung zu jemandes Broadcast-Kanal unter dem Steckbrief. Deins beh\u00e4lt sie.");
         table.put("Takes the link to someone's WhatsApp from under their bio. Yours keeps it.",
@@ -3659,9 +3679,6 @@ public final class L10nTranslations {
                 "Blendet den Papierflieger unten in den Stories anderer Personen aus. Es bleibt keine L\u00fccke.");
         table.put("Takes the plus button off the top of Home and closes up the gap. The Create tab and swiping to create are separate. Restart Instagram to see the change.",
                 "Entfernt die Plus-Taste oben auf der Startseite und schlie\u00dft die L\u00fccke. Der Erstellen-Tab und das Wischen zum Erstellen sind davon getrennt. Starte Instagram neu, um die \u00c4nderung zu sehen.");
-    }
-
-    private static void fillDe29(Map<String, String> table) {
         table.put("Takes the plus button off the top of reels you open from Saved or a collection and closes up the gap. The Reels tab and other reels keep theirs.",
                 "Entfernt den Plus-Button oben bei Reels, die du \u00fcber Gespeichert oder eine Sammlung \u00f6ffnest, und schlie\u00dft die L\u00fccke. Der Reels-Tab und andere Reels behalten ihren.");
         table.put("Takes the plus button that opens the camera off the top of reels, on the Reels tab and everywhere else, and closes up the gap. The rest of the bar stays.",
@@ -3766,6 +3783,9 @@ public final class L10nTranslations {
                 "Die gewohnte Leiste mit rundem Griff.");
         table.put("The bar sits in the space under the Send message box. Where there's no room under it, the bar stays above it.",
                 "Die Leiste sitzt im Platz unter dem Feld Nachricht senden. Wo darunter kein Platz ist, bleibt sie dar\u00fcber.");
+    }
+
+    private static void fillDe30(Map<String, String> table) {
         table.put("The bar sits just above the Send message box at the bottom of a story.",
                 "Die Leiste sitzt direkt \u00fcber dem Feld Nachricht senden unten in einer Story.");
         table.put("The bubbles of friends who liked or commented, the Followed by and Liked by lines with their faces, the comment shown under a reel and the row of friends who saw it. Comments are still a tap away.",
@@ -3782,9 +3802,6 @@ public final class L10nTranslations {
                 "Datum und Uhrzeit, zu der die Story gepostet wurde, etwa 2. Okt., 15:45.");
         table.put("The file %1$s couldn't be removed. Delete it from %2$s to turn HushGram back on.",
                 "Die Datei %1$s lie\u00df sich nicht entfernen. L\u00f6sche sie aus %2$s, um HushGram wieder einzuschalten.");
-    }
-
-    private static void fillDe30(Map<String, String> table) {
         table.put("The heart at the top of Home shows how many notifications are waiting, like the number on Messages, in place of the red dot. Restart Instagram to see the change.",
                 "Das Herz oben auf der Startseite zeigt, wie viele Benachrichtigungen warten, wie die Zahl bei Nachrichten, statt des roten Punkts. Starte Instagram neu, um die \u00c4nderung zu sehen.");
         table.put("The heart plays %1$s when you double tap a post.",
@@ -3889,6 +3906,9 @@ public final class L10nTranslations {
                 "Diese Taste braucht die Suche in der Tab-Leiste.");
         table.put("This chat is locked",
                 "Dieser Chat ist gesperrt");
+    }
+
+    private static void fillDe31(Map<String, String> table) {
         table.put("This chat uses the setting",
                 "Dieser Chat folgt der Einstellung");
         table.put("This file matches the current overrides. Nothing changed.",
@@ -3905,9 +3925,6 @@ public final class L10nTranslations {
                 "Diese Story l\u00e4uft einmal");
         table.put("This video has no file another player can open",
                 "Dieses Video hat keine Datei, die ein anderer Player \u00f6ffnen kann");
-    }
-
-    private static void fillDe31(Map<String, String> table) {
         table.put("This video plays once",
                 "Dieses Video l\u00e4uft einmal");
         table.put("Threads",
@@ -4012,6 +4029,9 @@ public final class L10nTranslations {
                 "Unter den Zahlen");
         table.put("Under the name, 1 mention",
                 "Unter dem Namen, 1 Erw\u00e4hnung");
+    }
+
+    private static void fillDe32(Map<String, String> table) {
         table.put("Undo cleared positions",
                 "Gel\u00f6schte Wiedergabepositionen wiederherstellen");
         table.put("Undo couldn't fully restore the settings. Check the shown values. Undo has been used up.",
@@ -4028,9 +4048,6 @@ public final class L10nTranslations {
                 "Entfolgen-Hinweise");
         table.put("Unfollower list cleared.",
                 "Entfolgt-Liste gel\u00f6scht.");
-    }
-
-    private static void fillDe32(Map<String, String> table) {
         table.put("Unlock",
                 "Entsperren");
         table.put("Unlock Instagram",
@@ -4117,8 +4134,8 @@ public final class L10nTranslations {
                 "Videos laufen in der niedrigsten Qualit\u00e4t, die Instagram f\u00fcr sie anbietet.");
         table.put("Videos wait for your tap where the choice below says. Feed videos show a play button, as they do when you use less mobile data.",
                 "Videos warten an den unten gew\u00e4hlten Stellen, bis du tippst. Videos im Feed zeigen eine Wiedergabetaste, wie wenn du weniger mobile Daten nutzt.");
-        table.put("Videos, reels and stories play at the quality below, starting with the next one you open.",
-                "Videos, Reels und Stories laufen in der Qualit\u00e4t unten, ab dem n\u00e4chsten Video, das du \u00f6ffnest.");
+        table.put("Videos, reels and stories play at the quality below, starting with the next one you open. When your connection can't keep up, a video drops to the next lower quality.",
+                "Videos, Reels und Stories laufen in der Qualit\u00e4t unten, ab dem n\u00e4chsten Video, das du \u00f6ffnest. Kommt deine Verbindung nicht mit, schaltet ein Video eine Qualit\u00e4tsstufe herunter.");
         table.put("View DM photos and videos anonymously",
                 "Fotos und Videos in Nachrichten anonym ansehen");
         table.put("View live anonymously",
@@ -4135,6 +4152,9 @@ public final class L10nTranslations {
                 "Verlauf der angesehenen Inhalte gel\u00f6scht.");
         table.put("Viewing, sound and the stories tray.",
                 "Ansicht, Ton und die Story-Leiste.");
+    }
+
+    private static void fillDe33(Map<String, String> table) {
         table.put("Voice message",
                 "Sprachnachricht");
         table.put("Volume up still raises the phone's volume, but a muted reel stays muted until you unmute it.",
@@ -4151,9 +4171,6 @@ public final class L10nTranslations {
                 "Erneut ansehen im Feed");
         table.put("Watch on TV",
                 "Auf dem Fernseher ansehen");
-    }
-
-    private static void fillDe33(Map<String, String> table) {
         table.put("Wave",
                 "Welle");
         table.put("Web links you tap open in your usual browser, without Instagram's click tracker. Ads and Meta's own sites (Instagram, Facebook, Messenger, Threads) still open in the app.",
@@ -4202,6 +4219,8 @@ public final class L10nTranslations {
                 "Breit");
         table.put("With Expandable categories on, a tap opens a category on a page of its own. Back takes you to the list.",
                 "Mit aufklappbaren Kategorien \u00f6ffnet ein Tippen eine Kategorie auf einer eigenen Seite. Zur\u00fcck bringt dich zur Liste.");
+        table.put("With Liquid glass look off, scrolling a list down makes the pill smaller, and scrolling up or changing tab brings it back to full size. Hide the tab bar as you scroll takes over when it's on. Restart Instagram after changing it.",
+                "Ist der Liquid-Glass-Look aus, wird die Pille kleiner, wenn du eine Liste nach unten scrollst, und nach oben scrollen oder ein Tabwechsel bringt sie in voller Gr\u00f6\u00dfe zur\u00fcck. Ist Tab-Leiste beim Scrollen ausblenden an, hat das Vorrang. Starte Instagram nach der \u00c4nderung neu.");
         table.put("With Name saves by account and post time on, only a save that doesn't know who posted or when is named this way.",
                 "Ist \u201eGespeichertes nach Konto und Beitragszeit benennen\u201c an, gilt dieser Name nur f\u00fcr Gespeichertes, bei dem nicht bekannt ist, wer es gepostet hat oder wann.");
         table.put("With Stop Reels scrolling on, reels you open from Search, Explore, a hashtag or a place still move on when you swipe.",
@@ -4256,6 +4275,9 @@ public final class L10nTranslations {
                 "Deine Version, der Quellcode und die Lizenzen.");
         table.put("Your words",
                 "Dein Text");
+    }
+
+    private static void fillDe34(Map<String, String> table) {
         table.put("Zoomed photo",
                 "Vergr\u00f6\u00dfertes Foto");
         table.put("the home screen icon you picked",
@@ -4275,7 +4297,7 @@ public final class L10nTranslations {
     }
 
     private static Map<String, String> buildEs() {
-        Map<String, String> table = new HashMap<>(4078);
+        Map<String, String> table = new HashMap<>(4096);
         fillEs0(table);
         fillEs1(table);
         fillEs2(table);
@@ -4310,6 +4332,7 @@ public final class L10nTranslations {
         fillEs31(table);
         fillEs32(table);
         fillEs33(table);
+        fillEs34(table);
         return table;
     }
 
@@ -4509,8 +4532,8 @@ public final class L10nTranslations {
                 "Un enlace a un reel abre el reel al que apunta. Instagram no reproduce otro reel guardado en tu tel\u00e9fono mientras ese carga.");
         table.put("A reel that doesn't fill the screen shows a blurred copy of itself above and below it instead of black bars, and the strip under the tab bar and the band behind the clock show the reel blurred too. The copy shows only where a reel leaves room, as with Show the whole reel on. Open Reels again after a change.",
                 "Un reel que no llena la pantalla muestra una copia desenfocada de s\u00ed mismo arriba y abajo en lugar de barras negras, y la franja bajo la barra de pesta\u00f1as y la zona detr\u00e1s del reloj tambi\u00e9n muestran el reel desenfocado. La copia solo aparece donde un reel deja espacio, como con Mostrar el reel completo activado. Vuelve a abrir Reels despu\u00e9s de un cambio.");
-        table.put("A reel you open from the Reels tab or a post on Home plays with sound, and Home is muted again when you go back. Your phone's ringer and volume still count.",
-                "Un reel que abres desde la pesta\u00f1a Reels o desde una publicaci\u00f3n en Inicio se reproduce con sonido, e Inicio vuelve a estar silenciado cuando regresas. El modo de timbre y el volumen del tel\u00e9fono siguen contando.");
+        table.put("A reel you open from the Reels tab, a profile or a post on Home plays with sound, and Home is muted again when you go back. Your phone's ringer and volume still count.",
+                "Un reel que abres desde la pesta\u00f1a Reels, un perfil o una publicaci\u00f3n en Inicio se reproduce con sonido, e Inicio vuelve a estar silenciado cuando regresas. El modo de timbre y el volumen del tel\u00e9fono siguen contando.");
         table.put("A rounded bar split by a tall handle.",
                 "Una barra redondeada dividida por un control alto.");
         table.put("A save stopped. Reopen the media and save again.",
@@ -4755,6 +4778,8 @@ public final class L10nTranslations {
                 "Un archivo de fuente de emojis");
         table.put("An eye at the top of each chat holds or sends Seen in that chat alone, whatever Read messages without the seen receipt says. Changing it doesn't send anything by itself.",
                 "Un ojo arriba en cada chat retiene o env\u00eda Visto solo en ese chat, diga lo que diga Leer mensajes sin la confirmaci\u00f3n de visto. Cambiarlo no env\u00eda nada por s\u00ed solo.");
+        table.put("App",
+                "Aplicaci\u00f3n");
         table.put("App icon",
                 "Icono de la app");
         table.put("App-only proxy",
@@ -4801,11 +4826,11 @@ public final class L10nTranslations {
                 "Atr\u00e1s sale de Inicio tal como est\u00e1");
         table.put("Back on Home leaves Instagram without first scrolling the feed to the top and reloading it.",
                 "Atr\u00e1s en Inicio sale de Instagram sin desplazar antes el feed hasta arriba ni recargarlo.");
-        table.put("Background playback",
-                "Reproducci\u00f3n en segundo plano");
     }
 
     private static void fillEs4(Map<String, String> table) {
+        table.put("Background playback",
+                "Reproducci\u00f3n en segundo plano");
         table.put("Backgrounds in the accent color",
                 "Fondos en el color de acento");
         table.put("Badges in the accent color",
@@ -4830,8 +4855,8 @@ public final class L10nTranslations {
                 "Presentaci\u00f3n");
         table.put("Bio copied",
                 "Presentaci\u00f3n copiada");
-        table.put("Black rows and dialogs, HushGram's name at the top, and each category on one line.",
-                "Filas y di\u00e1logos negros, el nombre de HushGram arriba y cada categor\u00eda en una l\u00ednea.");
+        table.put("Black rows and dialogs, with HushGram's name at the top.",
+                "Filas y di\u00e1logos negros, con el nombre de HushGram arriba.");
         table.put("Black settings page",
                 "P\u00e1gina de ajustes negra");
         table.put("Blend post edges",
@@ -4924,11 +4949,11 @@ public final class L10nTranslations {
                 "Elige un archivo para exportar los ajustes.");
         table.put("Choose a file for your installed patches' settings and saved profiles. Your login and history stay on this device.",
                 "Elige un archivo para los ajustes de los parches instalados y tus perfiles guardados. Tu inicio de sesi\u00f3n y el historial se quedan en este dispositivo.");
-        table.put("Choose a file for your installed patches' settings. Accounts and history stay on this device.",
-                "Elige un archivo para los ajustes de los parches instalados. Las cuentas y el historial se quedan en este dispositivo.");
     }
 
     private static void fillEs5(Map<String, String> table) {
+        table.put("Choose a file for your installed patches' settings. Accounts and history stay on this device.",
+                "Elige un archivo para los ajustes de los parches instalados. Las cuentas y el historial se quedan en este dispositivo.");
         table.put("Choose a folder",
                 "Elegir una carpeta");
         table.put("Choose a folder name under Movies and Pictures. Invalid characters become underscores. Leave it blank to use the default folder, %1$s. For an SD card or anywhere else, use Choose a folder.",
@@ -4985,6 +5010,8 @@ public final class L10nTranslations {
                 "Compacta");
         table.put("Confirm PIN",
                 "Confirma el PIN");
+        table.put("Content",
+                "Contenido");
         table.put("Continue",
                 "Continuar");
         table.put("Control where Meta AI appears.",
@@ -5045,13 +5072,13 @@ public final class L10nTranslations {
                 "No se borraron las copias guardadas. Reint\u00e9ntalo.");
         table.put("Couldn't clear the unfollower list. Try again.",
                 "No se pudo borrar la lista. Vuelve a intentarlo.");
+    }
+
+    private static void fillEs6(Map<String, String> table) {
         table.put("Couldn't clear the viewing history. Try again.",
                 "No se borr\u00f3 el historial de lo visto. Reint\u00e9ntalo.");
         table.put("Couldn't copy comment",
                 "No se pudo copiar el comentario");
-    }
-
-    private static void fillEs6(Map<String, String> table) {
         table.put("Couldn't copy the GIF name",
                 "No se pudo copiar el nombre del GIF");
         table.put("Couldn't copy the bio",
@@ -5168,13 +5195,13 @@ public final class L10nTranslations {
                 "Personalizado");
         table.put("Custom app icon",
                 "Icono propio de la app");
+    }
+
+    private static void fillEs7(Map<String, String> table) {
         table.put("Custom color",
                 "Color personalizado");
         table.put("Custom tab",
                 "Pesta\u00f1a personalizada");
-    }
-
-    private static void fillEs7(Map<String, String> table) {
         table.put("Data saver",
                 "Ahorro de datos");
         table.put("Date and time",
@@ -5291,13 +5318,13 @@ public final class L10nTranslations {
                 "Descargando");
         table.put("Downloading the emoji...",
                 "Descargando los emojis...");
+    }
+
+    private static void fillEs8(Map<String, String> table) {
         table.put("Downloads",
                 "Descargas");
         table.put("Drag to move %1$s",
                 "Arrastra para mover %1$s");
-    }
-
-    private static void fillEs8(Map<String, String> table) {
         table.put("Drag to move, pinch to zoom.",
                 "Arrastra para mover, pellizca para ampliar.");
         table.put("Draws Instagram's tab bar as a floating, rounded glass pill with a highlight on the tab you're on. Restart Instagram after changing it.",
@@ -5414,13 +5441,13 @@ public final class L10nTranslations {
                 "Desplazamiento r\u00e1pido en Guardado");
         table.put("Favorites still shows them.",
                 "Favoritos las sigue mostrando.");
+    }
+
+    private static void fillEs9(Map<String, String> table) {
         table.put("Feed",
                 "Feed");
         table.put("Feed videos and reels stop at their last frame instead of playing again. Reels still loop while auto scroll is on, so it can move on.",
                 "Los videos del feed y los reels se detienen en su \u00faltimo fotograma en vez de volver a reproducirse. Los reels se siguen repitiendo mientras el desplazamiento autom\u00e1tico est\u00e1 activado, para que pueda pasar al siguiente.");
-    }
-
-    private static void fillEs9(Map<String, String> table) {
         table.put("Feed videos and stories wait for your tap. Reels play as you swipe to them.",
                 "Los videos del feed y las historias esperan a que toques. Los reels se reproducen al deslizar hasta ellos.");
         table.put("Feed videos, reels and stories all wait for your tap.",
@@ -5537,13 +5564,13 @@ public final class L10nTranslations {
                 "Totalmente redondeadas");
         table.put("GIF name",
                 "Nombre del GIF");
+    }
+
+    private static void fillEs10(Map<String, String> table) {
         table.put("GIF name copied",
                 "Nombre del GIF copiado");
         table.put("GIF or sticker",
                 "GIF o sticker");
-    }
-
-    private static void fillEs10(Map<String, String> table) {
         table.put("GPL-3.0, with the notices of the projects this is built on",
                 "GPL-3.0, con los avisos de los proyectos en los que se basa");
         table.put("Galaxy S26 Ultra",
@@ -5660,13 +5687,13 @@ public final class L10nTranslations {
                 "Ocultar Destacado en las notificaciones");
         table.put("Hide Follow on posts",
                 "Ocultar Seguir en las publicaciones");
+    }
+
+    private static void fillEs11(Map<String, String> table) {
         table.put("Hide Follow on stories",
                 "Ocultar Seguir en las historias");
         table.put("Hide GIFs in comments",
                 "Ocultar GIF en los comentarios");
-    }
-
-    private static void fillEs11(Map<String, String> table) {
         table.put("Hide Instagram Plus prompts",
                 "Ocultar avisos de Instagram Plus");
         table.put("Hide Instants",
@@ -5703,6 +5730,8 @@ public final class L10nTranslations {
                 "Ocultar Sugerencias para ti en las listas de seguidores");
         table.put("Hide Threads posts",
                 "Ocultar publicaciones de Threads");
+        table.put("Hide Watch more reels",
+                "Ocultar Ver m\u00e1s reels");
         table.put("Hide Your algorithm on reels",
                 "Ocultar Tu algoritmo en los reels");
         table.put("Hide activity bubbles",
@@ -5781,15 +5810,15 @@ public final class L10nTranslations {
                 "Ocultar publicaciones sugeridas");
         table.put("Hide suggested searches on reels",
                 "Ocultar b\u00fasquedas sugeridas en Reels");
+    }
+
+    private static void fillEs12(Map<String, String> table) {
         table.put("Hide suggested stories",
                 "Ocultar historias sugeridas");
         table.put("Hide suggestions in notifications",
                 "Ocultar sugerencias en notificaciones");
         table.put("Hide surveys",
                 "Ocultar encuestas");
-    }
-
-    private static void fillEs12(Map<String, String> table) {
         table.put("Hide that you're typing",
                 "Ocultar que est\u00e1s escribiendo");
         table.put("Hide the 2x popup",
@@ -5904,15 +5933,15 @@ public final class L10nTranslations {
                 "Oculta publicaciones y reels de cuentas que no sigues, marcados como Sugerencias para ti. Las publicaciones de cuentas que sigues se quedan.");
         table.put("Hides sponsored posts, reels, stories and the ad in comments. No empty gap is left where an ad would have been.",
                 "Oculta publicaciones, reels e historias patrocinados, y el anuncio de los comentarios. No queda ning\u00fan hueco donde habr\u00eda estado un anuncio.");
+    }
+
+    private static void fillEs13(Map<String, String> table) {
         table.put("Hides stories from accounts you don't follow, and accounts Instagram suggests, in the row at the top of Home. Stories from accounts you follow stay.",
                 "Oculta las historias de cuentas que no sigues y las cuentas que Instagram sugiere en la fila de la parte superior de Inicio. Las historias de cuentas que sigues se quedan.");
         table.put("Hides the bar under a post that asks you to join the account's channel. The post stays.",
                 "Oculta la barra debajo de una publicaci\u00f3n que te pide unirte al canal de la cuenta. La publicaci\u00f3n se queda.");
         table.put("Hides the bubble under a post that asks 'Are you interested in this post?' with Not interested and Interested buttons. Nothing is answered for you.",
                 "Oculta el globo bajo una publicaci\u00f3n que pregunta \u00ab\u00bfTe interesa esta publicaci\u00f3n?\u00bb con los botones No me interesa y Me interesa. No se responde nada por ti.");
-    }
-
-    private static void fillEs13(Map<String, String> table) {
         table.put("Hides the buttons that push Edits, templates, Meta AI and Ray-Ban Meta glasses. Live badges and state-controlled media labels stay.",
                 "Oculta los botones que promocionan Edits, plantillas, Meta AI y las gafas Ray-Ban Meta. La insignia de directo y la etiqueta de medios controlados por el Estado se quedan.");
         table.put("Hides the card after the posts from accounts you follow that says you've seen the latest ones, and its Older posts link. When Home has no new posts at all, only that line goes and the link stays. Pull down on Home to refresh after changing it.",
@@ -6027,15 +6056,15 @@ public final class L10nTranslations {
                 "Se importaron %1$d ajustes. Se omitieron %2$d que esta versi\u00f3n no conoce.");
         table.put("Instagram accepts this build",
                 "Instagram acepta esta versi\u00f3n");
+    }
+
+    private static void fillEs14(Map<String, String> table) {
         table.put("Instagram blue",
                 "Azul de Instagram");
         table.put("Instagram can't read where the photos and videos in your gallery were taken.",
                 "Instagram no puede leer d\u00f3nde se tomaron las fotos y los videos de tu galer\u00eda.");
         table.put("Instagram can't read your phone's advertising ID or tell Android's ad services which ads you saw or tapped. The permissions for them are gone from this build.",
                 "Instagram no puede leer el ID de publicidad de tu tel\u00e9fono ni decir a los servicios de publicidad de Android qu\u00e9 anuncios viste o tocaste. Los permisos para ello ya no est\u00e1n en esta versi\u00f3n.");
-    }
-
-    private static void fillEs14(Map<String, String> table) {
         table.put("Instagram crashed or froze within a minute of starting three times in a row, so HushGram paused itself.",
                 "Tres veces seguidas, Instagram fall\u00f3 o se congel\u00f3 durante el primer minuto tras iniciarse, as\u00ed que HushGram se paus\u00f3 solo.");
         table.put("Instagram didn't keep the change and the overrides couldn't be confirmed. Use Restore previous overrides, then restart Instagram.",
@@ -6150,15 +6179,15 @@ public final class L10nTranslations {
                 "Ir al primer mensaje o a una fecha");
         table.put("KakaoTalk",
                 "KakaoTalk");
+    }
+
+    private static void fillEs15(Map<String, String> table) {
         table.put("Keep Featured off the heart's dot",
                 "Que Destacado no encienda el punto del coraz\u00f3n");
         table.put("Keep Home's top bar",
                 "Fijar la barra superior de Inicio");
         table.put("Keep Instagram's saved photos and videos from filling your phone.",
                 "Evita que las fotos y los videos que guarda Instagram llenen tu tel\u00e9fono.");
-    }
-
-    private static void fillEs15(Map<String, String> table) {
         table.put("Keep Reels auto scroll between sessions",
                 "Keep Reels auto scroll between sessions");
         table.put("Keep a seek bar",
@@ -6273,15 +6302,15 @@ public final class L10nTranslations {
                 "Quita las tarjetas de Te toca, como las populares o las que son tendencia para unirte, que Instagram pone entre las historias que vas pasando. Las historias en s\u00ed se quedan.");
         table.put("Leaves out the Suggested for you cards of accounts to follow that Instagram puts between the stories you tap through. The stories themselves stay.",
                 "Quita las tarjetas de Sugerencias para ti con cuentas para seguir que Instagram pone entre las historias que vas pasando. Las historias en s\u00ed se quedan.");
+    }
+
+    private static void fillEs16(Map<String, String> table) {
         table.put("Leaves out the live broadcasts Instagram puts between reels in the Reels tab and when you swipe through reels from Explore.",
                 "Deja fuera las transmisiones en directo que Instagram pone entre reels en la pesta\u00f1a Reels y cuando deslizas por reels desde Explorar.");
         table.put("Leaves the Suggested for you accounts out of what shows when you tap the search bar. Recent searches stay.",
                 "Quita las cuentas de Sugerencias para ti de lo que aparece al tocar la barra de b\u00fasqueda. Las b\u00fasquedas recientes se quedan.");
         table.put("Leaves the Suggested for you section off the followers, following and mutual lists and the screen where you approve follow requests, and the Suggested tab off other people's follow lists. Every account in the lists and every real request stays.",
                 "Quita la secci\u00f3n Sugerencias para ti de las listas de seguidores, seguidos y en com\u00fan y de la pantalla donde apruebas solicitudes de seguimiento, y la pesta\u00f1a Sugerencias de las listas de otras personas. Todas las cuentas de las listas y todas las solicitudes reales se quedan.");
-    }
-
-    private static void fillEs16(Map<String, String> table) {
         table.put("Leaving Instagram while a reel plays shrinks it into a small window over your other apps. Works in Reels and on reels opened from the feed, on Android 15 or newer.",
                 "Si sales de Instagram mientras se reproduce un reel, se reduce a una ventana peque\u00f1a sobre tus otras apps. Funciona en Reels y en los reels que abres desde el feed, en Android 15 o posterior.");
         table.put("Leaving Instagram while a story plays shrinks it into a small window over your other apps, where it keeps going through the stories.",
@@ -6380,6 +6409,8 @@ public final class L10nTranslations {
                 "Mant\u00e9n pulsada una foto para hacer zoom");
         table.put("Long press a post for full screen",
                 "Mant\u00e9n pulsada una publicaci\u00f3n para verla a pantalla completa");
+        table.put("Look",
+                "Apariencia");
         table.put("Loop a story",
                 "Repetir una historia");
         table.put("Loop didn't change",
@@ -6394,6 +6425,9 @@ public final class L10nTranslations {
                 "Repitiendo este video");
         table.put("Makes Instagram see the phone chosen below, unlocking HDR video downloads and other features limited to those phones, and adds the matching developer options. Restart Instagram to see the change.",
                 "Hace que Instagram vea el tel\u00e9fono elegido abajo, desbloqueando descargas de video HDR y otras funciones limitadas a esos tel\u00e9fonos, y a\u00f1ade las opciones de desarrollador correspondientes. Reinicia Instagram para ver el cambio.");
+    }
+
+    private static void fillEs17(Map<String, String> table) {
         table.put("Makes the seek bar thicker, with a round white handle and the time above it, over a soft dark fade so it shows on any video. Drag it to seek. It also keeps the bar on short reels.",
                 "Hace la barra de progreso m\u00e1s gruesa, con un control redondo blanco y el tiempo encima, sobre un degradado oscuro suave para que se vea en cualquier video. Arr\u00e1strala para avanzar. Tambi\u00e9n mantiene la barra en los Reels cortos.");
         table.put("Mapping file removed. Open MetaConfig again to see the change.",
@@ -6402,9 +6436,6 @@ public final class L10nTranslations {
                 "Mapping imported: %1$d names. Open MetaConfig again to see them.");
         table.put("Mark a chat seen when you reply",
                 "Marcar un chat como visto al responder");
-    }
-
-    private static void fillEs17(Map<String, String> table) {
         table.put("Mark as read",
                 "Marcar como le\u00eddo");
         table.put("Mark as read button in chats",
@@ -6431,6 +6462,8 @@ public final class L10nTranslations {
                 "Material You necesita Android 12 o posterior, as\u00ed que se queda el azul de Instagram.");
         table.put("Media ID %1$s",
                 "ID de contenido %1$s");
+        table.put("Media and storage",
+                "Multimedia y almacenamiento");
         table.put("Media link",
                 "Enlace del contenido");
         table.put("Media link copied. It stops working after a few days.",
@@ -6481,8 +6514,8 @@ public final class L10nTranslations {
                 "Se movi\u00f3 @%1$s a %2$s");
         table.put("Moved @%s out of its folder",
                 "Se sac\u00f3 @%s de su carpeta");
-        table.put("Moves a carousel post's page dots onto a round pill at the bottom of its photo or video, with the page you're on in blue.",
-                "Mueve los puntos de p\u00e1gina de una publicaci\u00f3n en carrusel a una c\u00e1psula redonda en la parte inferior de su foto o video, con la p\u00e1gina en la que est\u00e1s en azul.");
+        table.put("Moves a carousel post's page dots onto a round pill at the bottom of its photo or video, with the page you're on in blue. Hold the pill and slide left or right to move through the pages.",
+                "Mueve los puntos de p\u00e1gina de una publicaci\u00f3n en carrusel a una c\u00e1psula redonda en la parte inferior de su foto o video, con la p\u00e1gina en la que est\u00e1s en azul. Mant\u00e9n presionada la c\u00e1psula y desliza a la izquierda o a la derecha para pasar las p\u00e1ginas.");
         table.put("Moves the gallery and microphone buttons off the message bar and into the plus menu. They work as before. Turn it off and they're back the next time a chat opens.",
                 "Pasa los botones de galer\u00eda y micr\u00f3fono de la barra de mensajes al men\u00fa m\u00e1s. Funcionan igual que antes. Si lo desactivas, vuelven la pr\u00f3xima vez que abras un chat.");
         table.put("Mute",
@@ -6515,6 +6548,9 @@ public final class L10nTranslations {
                 "Nueva carpeta");
         table.put("New like animations",
                 "New like animations");
+    }
+
+    private static void fillEs18(Map<String, String> table) {
         table.put("New message",
                 "Mensaje nuevo");
         table.put("New message after this reel",
@@ -6525,9 +6561,6 @@ public final class L10nTranslations {
                 "Nueva foto del perfil y presentaci\u00f3n");
         table.put("New story fonts and animations",
                 "New story fonts and animations");
-    }
-
-    private static void fillEs18(Map<String, String> table) {
         table.put("New story timestamp style",
                 "New story timestamp style");
         table.put("Next match",
@@ -6638,6 +6671,9 @@ public final class L10nTranslations {
                 "Avisarme de qui\u00e9n deja de seguirme");
         table.put("OK",
                 "Aceptar");
+    }
+
+    private static void fillEs19(Map<String, String> table) {
         table.put("Off",
                 "Desactivado");
         table.put("Off. It can cover the Home, Reels and Explore tabs for a break after you've spent a while on them.",
@@ -6648,9 +6684,6 @@ public final class L10nTranslations {
                 "Presentaci\u00f3n anterior, %s");
         table.put("Old profile picture, %s",
                 "Foto del perfil anterior, %s");
-    }
-
-    private static void fillEs19(Map<String, String> table) {
         table.put("On Reels, the tab bar slides away after %1$d seconds without a touch. Tap the bottom edge of the screen, change tab or press Back to bring it back. Restart Instagram after changing it.",
                 "En Reels, la barra de pesta\u00f1as se desliza fuera de la vista tras %1$d segundos sin tocar. Toca el borde inferior de la pantalla, cambia de pesta\u00f1a o pulsa Atr\u00e1s para que vuelva. Reinicia Instagram despu\u00e9s de cambiarlo.");
         table.put("On a carousel, the download icon saves all of its pages at once instead of asking.",
@@ -6761,6 +6794,9 @@ public final class L10nTranslations {
                 "Abrir un chat no le dice a nadie que viste sus mensajes, y sigues viendo cu\u00e1ndo vieron los tuyos. Para que un chat lo sepa, mantenlo presionado en tus mensajes y toca Marcar como le\u00eddo.");
         table.put("Opening someone's profile takes you on to their posts as a scrolling list of full posts. Go Back for the grid. Your own profile keeps its grid.",
                 "Al abrir el perfil de alguien, pasas directamente a sus publicaciones en una lista desplazable de publicaciones completas. Vuelve atr\u00e1s para ver la cuadr\u00edcula. Tu propio perfil conserva su cuadr\u00edcula.");
+    }
+
+    private static void fillEs20(Map<String, String> table) {
         table.put("Opens Home on posts from accounts you follow instead of For you. Tap the top of Home to switch. Restart Instagram to see the change.",
                 "Abre Inicio con las publicaciones de las cuentas que sigues en lugar de Para ti. Toca la parte de arriba de Inicio para cambiar. Reinicia Instagram para ver el cambio.");
         table.put("Opens Instagram's own Whitehat settings. Its switch lets Instagram trust the certificates installed on this phone for 24 hours, so you can check the app's traffic. Restart Instagram after you turn it on.",
@@ -6771,9 +6807,6 @@ public final class L10nTranslations {
                 "Opens Instagram's own editor for its hidden settings (MetaConfig). A wrong override, which is a changed setting, can break parts of Instagram.");
         table.put("Opens a GitHub report with your versions and settings filled in. Add what happened.",
                 "Abre un informe en GitHub con tus versiones y ajustes ya rellenados. A\u00f1ade lo que pas\u00f3.");
-    }
-
-    private static void fillEs20(Map<String, String> table) {
         table.put("Orange",
                 "Naranja");
         table.put("Overrides cleared. Restart Instagram to apply the change.",
@@ -6884,6 +6917,9 @@ public final class L10nTranslations {
                 "Post a story straight to Highlights");
         table.put("Posted %1$s",
                 "Publicado el %1$s");
+    }
+
+    private static void fillEs21(Map<String, String> table) {
         table.put("Posts",
                 "Publicaciones");
         table.put("Posts from @%1$s are hidden",
@@ -6894,9 +6930,6 @@ public final class L10nTranslations {
                 "Las publicaciones de tus cuentas ocultas siguen apareciendo en Favoritos. Para ti y Seguidos las dejan fuera. Desliza Inicio hacia abajo para actualizar despu\u00e9s de cambiarlo.");
         table.put("Preparing diagnostic report...",
                 "Preparando el informe de diagn\u00f3stico...");
-    }
-
-    private static void fillEs21(Map<String, String> table) {
         table.put("Press and hold a comment that has its own photo, GIF or sticker, and its menu gets Save. Saves the largest size Instagram sent.",
                 "Mant\u00e9n presionado un comentario con su propia foto, GIF o sticker y su men\u00fa tendr\u00e1 Guardar. Guarda el tama\u00f1o m\u00e1s grande que envi\u00f3 Instagram.");
         table.put("Press and hold a photo in a feed to see it twice as big around your finger, and slide to look around. Let go to close it. While this is on, it takes the place of Instagram's own long press on a photo.",
@@ -6931,6 +6964,8 @@ public final class L10nTranslations {
                 "P\u00e1gina anterior");
         table.put("Priority accounts",
                 "Cuentas prioritarias");
+        table.put("Privacy",
+                "Privacidad");
         table.put("Privacy and controls for your chats.",
                 "Privacidad y controles para tus chats.");
         table.put("Profile",
@@ -7005,6 +7040,9 @@ public final class L10nTranslations {
                 "Pone un bot\u00f3n de velocidad en la parte superior de una historia de v\u00eddeo, junto a los tres puntos. T\u00f3calo para 1,5x, otra vez para 2x y una vez m\u00e1s para 1x. Las siguientes historias de v\u00eddeo mantienen la velocidad hasta que la cambies o reinicies Instagram. Los anuncios se reproducen a velocidad normal.");
         table.put("Puts a speed icon beside a reel. Tap it to pick a speed from 0.5x to 3x. With Keep the reel speed on, the next reels play at it too.",
                 "Pone un icono de velocidad junto a un reel. T\u00f3calo para elegir una velocidad de 0,5x a 3x. Con Mantener la velocidad del reel activado, los siguientes reels tambi\u00e9n van a esa velocidad.");
+    }
+
+    private static void fillEs22(Map<String, String> table) {
         table.put("Puts an (i) next to the three dots on a profile that opens Instagram's About this account for that account. Instagram took its own away.",
                 "Pone un (i) junto a los tres puntos de un perfil que abre \u00abAcerca de esta cuenta\u00bb de Instagram para esa cuenta. Instagram quit\u00f3 el suyo.");
         table.put("Puts back the overrides saved before your last import for this account and Instagram version.",
@@ -7017,9 +7055,6 @@ public final class L10nTranslations {
                 "Muestra la respuesta en un chip bajo los n\u00fameros de publicaciones, seguidores y seguidos del perfil, y dice Se siguen mutuamente cuando t\u00fa tambi\u00e9n sigues a esa cuenta.");
         table.put("Puts the seek bar right on the bottom edge of the video, so it's harder to touch by accident while you scroll.",
                 "Coloca la barra de b\u00fasqueda justo en el borde inferior del video, para que sea m\u00e1s dif\u00edcil tocarla sin querer al desplazarte.");
-    }
-
-    private static void fillEs22(Map<String, String> table) {
         table.put("Puts the title in the middle of the bar at the top of other screens, like notifications, as far as the buttons beside it allow. The buttons stay where they are.",
                 "Pone el t\u00edtulo en el centro de la barra de arriba de otras pantallas, como las notificaciones, hasta donde lo permiten los botones de al lado. Los botones se quedan donde est\u00e1n.");
         table.put("Puts the username in the middle of the bar at the top of a profile, yours and other people's. The buttons stay where they are.",
@@ -7128,6 +7163,9 @@ public final class L10nTranslations {
                 "Quita de Inicio todas las publicaciones de una sola foto, incluso de cuentas que sigues. Desliza Inicio hacia abajo para actualizar despu\u00e9s de cambiarlo.");
         table.put("Removes every single-video post and reel from Home, even from accounts you follow. Pull down on Home to refresh after changing it.",
                 "Quita de Inicio todas las publicaciones de un solo video y los reels, incluso de cuentas que sigues. Desliza Inicio hacia abajo para actualizar despu\u00e9s de cambiarlo.");
+    }
+
+    private static void fillEs23(Map<String, String> table) {
         table.put("Removes posts by business and creator accounts from Home and Following, friends who use one included. Pull down on Home to refresh after changing it.",
                 "Quita de Inicio y de Seguidos las publicaciones de cuentas de empresa y de creador, incluidas las de amigos que usan una. Desliza Inicio hacia abajo para actualizar despu\u00e9s de cambiarlo.");
         table.put("Removes posts you've already liked from Home and Following. A post you like now stays until you pull down on Home to refresh.",
@@ -7140,9 +7178,6 @@ public final class L10nTranslations {
                 "Quita el bot\u00f3n de Muse de la barra superior de tu perfil. Tu nombre de usuario y el men\u00fa se quedan.");
         table.put("Removes the empty gap under Instagram's tab bar that appears when your phone hides its navigation bar or Instagram is in a pop-up window. Restart Instagram to see the change.",
                 "Quita el hueco vac\u00edo bajo la barra de pesta\u00f1as de Instagram que aparece cuando tu tel\u00e9fono oculta su barra de navegaci\u00f3n o Instagram est\u00e1 en una ventana emergente. Reinicia Instagram para ver el cambio.");
-    }
-
-    private static void fillEs23(Map<String, String> table) {
         table.put("Removes the stack of Instants (quick photos from friends) from your messages. Restart Instagram to see the change.",
                 "Quita de tus mensajes la pila de Instants (fotos r\u00e1pidas de amigos). Reinicia Instagram para ver el cambio.");
         table.put("Removes the summary, Sources and Ask Meta AI box from a reel's more menu. In your feed the audio row goes too. Other options stay.",
@@ -7251,6 +7286,9 @@ public final class L10nTranslations {
                 "Guardar v\u00eddeos como MKV");
         table.put("Save videos other apps can open",
                 "Guardar videos que otras apps puedan abrir");
+    }
+
+    private static void fillEs24(Map<String, String> table) {
         table.put("Save your HushGram choices to a file, or bring them back.",
                 "Guarda tus opciones de HushGram en un archivo o recup\u00e9ralas.");
         table.put("Saved",
@@ -7263,9 +7301,6 @@ public final class L10nTranslations {
                 "Se guard\u00f3 @%s");
         table.put("Saved and everything in it stay covered until your fingerprint, face or screen lock says it's you.",
                 "Guardado y todo lo que contiene quedan cubiertos hasta que tu huella, tu cara o el bloqueo de pantalla confirmen que eres t\u00fa.");
-    }
-
-    private static void fillEs24(Map<String, String> table) {
         table.put("Saved button in Explore",
                 "Saved button in Explore");
         table.put("Saved is locked",
@@ -7374,6 +7409,9 @@ public final class L10nTranslations {
                 "Visto retenido en este chat");
         table.put("Select text",
                 "Seleccionar texto");
+    }
+
+    private static void fillEs25(Map<String, String> table) {
         table.put("Select text to copy",
                 "Seleccionar texto para copiar");
         table.put("Send",
@@ -7386,9 +7424,6 @@ public final class L10nTranslations {
                 "Send stories with a long press");
         table.put("Send to",
                 "Enviar a");
-    }
-
-    private static void fillEs25(Map<String, String> table) {
         table.put("Sending a message in a chat lets the other person see that you've read what they sent before it. Chats you don't answer stay unseen to them.",
                 "Al enviar un mensaje en un chat, la otra persona ve que le\u00edste lo que te mand\u00f3 antes. Los chats que no respondes siguen sin verse para ella.");
         table.put("Sends Instagram through the HTTP proxy set below. Other apps and your phone's own settings aren't changed.",
@@ -7497,6 +7532,9 @@ public final class L10nTranslations {
                 "Muestra una barra cerca de la parte inferior de una historia de video. Arr\u00e1strala para saltar a cualquier punto del video. Las fotos no la tienen.");
         table.put("Shows a blurred preview of a disappearing photo or video in a chat.",
                 "Shows a blurred preview of a disappearing photo or video in a chat.");
+    }
+
+    private static void fillEs26(Map<String, String> table) {
         table.put("Shows a handle at the right edge of Saved and your collections while they scroll. Drag it to jump through them.",
                 "Muestra un control en el borde derecho de Guardado y tus colecciones mientras se desplazan. Arr\u00e1stralo para saltar por ellas.");
         table.put("Shows each switch by its name alone. Tap the i next to a name to read what it does.",
@@ -7509,9 +7547,6 @@ public final class L10nTranslations {
                 "Muestra las filas Importar y Restaurar. Una importaci\u00f3n cambia los ajustes ocultos de Instagram para esta cuenta con sesi\u00f3n iniciada.");
         table.put("Shows the date and time a reel was posted under the author's name, like Oct 2, 3:45 PM. A change shows from the next reel.",
                 "Muestra la fecha y la hora en que se public\u00f3 un reel bajo el nombre del autor, como 2 oct, 15:45. El cambio se ve a partir del siguiente reel.");
-    }
-
-    private static void fillEs26(Map<String, String> table) {
         table.put("Shows the days, hours and minutes since it went up on a line under the time, like 1d 2h 5m ago.",
                 "Muestra los d\u00edas, horas y minutos desde que se public\u00f3 en una l\u00ednea bajo la hora, como hace 1d 2h 5min.");
         table.put("Shows the time above your finger while you drag a seek bar on a feed video, story or reel, and a small picture of that moment when Instagram has one for the video.",
@@ -7522,6 +7557,8 @@ public final class L10nTranslations {
                 "Muestra cu\u00e1ndo se public\u00f3 una publicaci\u00f3n y sus comentarios, como 2 oct, 15:45, en lugar de hace cu\u00e1nto. Las publicaciones que cargues tras un cambio lo muestran.");
         table.put("Shows your feed blurred under Home's top bar, like frosted glass.",
                 "Muestra tu feed desenfocado bajo la barra superior de Inicio, como un cristal esmerilado.");
+        table.put("Shrink the pill as you scroll",
+                "Encoger la p\u00edldora al desplazarte");
         table.put("Size %1$d \u00d7 %2$d",
                 "Tama\u00f1o %1$d \u00d7 %2$d");
         table.put("Skip length",
@@ -7618,6 +7655,9 @@ public final class L10nTranslations {
                 "Seguir desplazando reels desde Buscar y Explorar");
         table.put("Still scroll reels from a profile",
                 "Seguir desplazando reels desde un perfil");
+    }
+
+    private static void fillEs27(Map<String, String> table) {
         table.put("Still scroll reels from a song page",
                 "Seguir desplazando reels desde la p\u00e1gina de una canci\u00f3n");
         table.put("Stop",
@@ -7632,9 +7672,6 @@ public final class L10nTranslations {
                 "Parar despu\u00e9s de un n\u00famero de reels");
         table.put("Stop after the chat's reels",
                 "Parar despu\u00e9s de los reels del chat");
-    }
-
-    private static void fillEs27(Map<String, String> table) {
         table.put("Stop background feed refresh",
                 "Detener la actualizaci\u00f3n del feed en segundo plano");
         table.put("Stop background work Instagram doesn't need.",
@@ -7741,6 +7778,9 @@ public final class L10nTranslations {
                 "Mantener pulsadas las pesta\u00f1as conserva la acci\u00f3n de Instagram. Elige una para abrir Favoritos en su lugar.");
         table.put("Tab long presses keep Instagram's own action. Choose one to open HushGram instead.",
                 "Mantener pulsadas las pesta\u00f1as conserva la acci\u00f3n de Instagram. Elige una para abrir HushGram en su lugar.");
+    }
+
+    private static void fillEs28(Map<String, String> table) {
         table.put("Tab long presses keep Instagram's own action. Choose one to open Saved profiles instead.",
                 "Mantener pulsadas las pesta\u00f1as conserva la acci\u00f3n de Instagram. Elige una para abrir Perfiles guardados en su lugar.");
         table.put("Tab long presses keep Instagram's own action. Choose one to pick the playback quality instead.",
@@ -7755,9 +7795,6 @@ public final class L10nTranslations {
                 "Pesta\u00f1as en otros perfiles");
         table.put("Tabs on your profile",
                 "Pesta\u00f1as en tu perfil");
-    }
-
-    private static void fillEs28(Map<String, String> table) {
         table.put("Tagged",
                 "Etiquetadas");
         table.put("Take a scroll break",
@@ -7846,6 +7883,8 @@ public final class L10nTranslations {
                 "Quita la insignia de Threads de debajo de la biograf\u00eda en los perfiles de otras personas. El tuyo la conserva.");
         table.put("Takes the Threads button off the top of profiles, yours included. The menu and the other buttons stay where they were.",
                 "Quita el bot\u00f3n de Threads de la parte de arriba de los perfiles, incluido el tuyo. El men\u00fa y los dem\u00e1s botones se quedan donde estaban.");
+        table.put("Takes the Watch more reels button off the card a reel in your feed shows when it ends. Watch again stays.",
+                "Quita el bot\u00f3n Ver m\u00e1s reels de la tarjeta que aparece cuando termina un reel en tu feed. Volver a ver se queda.");
         table.put("Takes the Your algorithm button off the top of the Reels tab and closes up the gap. The rest of the bar stays.",
                 "Quita el bot\u00f3n Tu algoritmo de la parte de arriba de la pesta\u00f1a Reels y cierra el hueco. El resto de la barra se queda.");
         table.put("Takes the accounts Instagram suggests off the bottom of your messages. Your chats and follow requests stay. Restart Instagram to see the change.",
@@ -7862,6 +7901,9 @@ public final class L10nTranslations {
                 "Quita el coraz\u00f3n de la parte superior de Inicio y cierra el hueco. Los avisos siguen llegando. Reinicia Instagram para ver el cambio.");
         table.put("Takes the interests someone added, like reading or hiking, from under their bio. Yours keeps them.",
                 "Quita los intereses que alguien a\u00f1adi\u00f3, como leer o hacer senderismo, de debajo de su biograf\u00eda. El tuyo los conserva.");
+    }
+
+    private static void fillEs29(Map<String, String> table) {
         table.put("Takes the invite to someone's broadcast channel from under their bio. Yours keeps it.",
                 "Quita la invitaci\u00f3n al canal de difusi\u00f3n de alguien de debajo de su biograf\u00eda. El tuyo la conserva.");
         table.put("Takes the link to someone's WhatsApp from under their bio. Yours keeps it.",
@@ -7878,9 +7920,6 @@ public final class L10nTranslations {
                 "Quita el avi\u00f3n de papel de la parte inferior de las historias de otras personas. No queda ning\u00fan hueco.");
         table.put("Takes the plus button off the top of Home and closes up the gap. The Create tab and swiping to create are separate. Restart Instagram to see the change.",
                 "Quita el bot\u00f3n de m\u00e1s de la parte superior de Inicio y cierra el hueco. La pesta\u00f1a de Crear y deslizar para crear son aparte. Reinicia Instagram para ver el cambio.");
-    }
-
-    private static void fillEs29(Map<String, String> table) {
         table.put("Takes the plus button off the top of reels you open from Saved or a collection and closes up the gap. The Reels tab and other reels keep theirs.",
                 "Quita el bot\u00f3n de m\u00e1s de la parte de arriba de los reels que abres desde Guardado o una colecci\u00f3n y cierra el hueco. La pesta\u00f1a Reels y los dem\u00e1s reels conservan el suyo.");
         table.put("Takes the plus button that opens the camera off the top of reels, on the Reels tab and everywhere else, and closes up the gap. The rest of the bar stays.",
@@ -7985,6 +8024,9 @@ public final class L10nTranslations {
                 "La barra y el control redondo de siempre.");
         table.put("The bar sits in the space under the Send message box. Where there's no room under it, the bar stays above it.",
                 "La barra queda en el espacio bajo el cuadro Enviar mensaje. Donde no hay sitio debajo, se queda encima.");
+    }
+
+    private static void fillEs30(Map<String, String> table) {
         table.put("The bar sits just above the Send message box at the bottom of a story.",
                 "La barra queda justo encima del cuadro Enviar mensaje, en la parte inferior de una historia.");
         table.put("The bubbles of friends who liked or commented, the Followed by and Liked by lines with their faces, the comment shown under a reel and the row of friends who saw it. Comments are still a tap away.",
@@ -8001,9 +8043,6 @@ public final class L10nTranslations {
                 "La fecha y la hora en que se public\u00f3 la historia, como 2 oct, 15:45.");
         table.put("The file %1$s couldn't be removed. Delete it from %2$s to turn HushGram back on.",
                 "No se pudo eliminar el archivo %1$s. B\u00f3rralo de %2$s para volver a activar HushGram.");
-    }
-
-    private static void fillEs30(Map<String, String> table) {
         table.put("The heart at the top of Home shows how many notifications are waiting, like the number on Messages, in place of the red dot. Restart Instagram to see the change.",
                 "El coraz\u00f3n de la parte superior de Inicio muestra cu\u00e1ntas notificaciones esperan, como el n\u00famero de Mensajes, en lugar del punto rojo. Reinicia Instagram para ver el cambio.");
         table.put("The heart plays %1$s when you double tap a post.",
@@ -8108,6 +8147,9 @@ public final class L10nTranslations {
                 "Este bot\u00f3n necesita B\u00fasqueda en tu barra de pesta\u00f1as.");
         table.put("This chat is locked",
                 "Este chat est\u00e1 bloqueado");
+    }
+
+    private static void fillEs31(Map<String, String> table) {
         table.put("This chat uses the setting",
                 "Este chat usa el ajuste");
         table.put("This file matches the current overrides. Nothing changed.",
@@ -8124,9 +8166,6 @@ public final class L10nTranslations {
                 "Esta historia ya no se repite");
         table.put("This video has no file another player can open",
                 "Este video no tiene un archivo que otro reproductor pueda abrir");
-    }
-
-    private static void fillEs31(Map<String, String> table) {
         table.put("This video plays once",
                 "Este video ya no se repite");
         table.put("Threads",
@@ -8231,6 +8270,9 @@ public final class L10nTranslations {
                 "Bajo los n\u00fameros");
         table.put("Under the name, 1 mention",
                 "Bajo el nombre, 1 menci\u00f3n");
+    }
+
+    private static void fillEs32(Map<String, String> table) {
         table.put("Undo cleared positions",
                 "Restaurar las posiciones borradas");
         table.put("Undo couldn't fully restore the settings. Check the shown values. Undo has been used up.",
@@ -8247,9 +8289,6 @@ public final class L10nTranslations {
                 "Avisos de dejar de seguir");
         table.put("Unfollower list cleared.",
                 "Lista borrada.");
-    }
-
-    private static void fillEs32(Map<String, String> table) {
         table.put("Unlock",
                 "Desbloquear");
         table.put("Unlock Instagram",
@@ -8336,8 +8375,8 @@ public final class L10nTranslations {
                 "Los videos se reproducen en la calidad m\u00e1s baja que Instagram ofrece para cada uno.");
         table.put("Videos wait for your tap where the choice below says. Feed videos show a play button, as they do when you use less mobile data.",
                 "Los videos esperan a que toques donde indica la opci\u00f3n de abajo. Los videos del feed muestran un bot\u00f3n de reproducir, como cuando usas menos datos m\u00f3viles.");
-        table.put("Videos, reels and stories play at the quality below, starting with the next one you open.",
-                "Los videos, reels e historias se reproducen en la calidad de abajo, a partir del pr\u00f3ximo que abras.");
+        table.put("Videos, reels and stories play at the quality below, starting with the next one you open. When your connection can't keep up, a video drops to the next lower quality.",
+                "Los videos, reels e historias se reproducen en la calidad de abajo, a partir del pr\u00f3ximo que abras. Cuando tu conexi\u00f3n no da abasto, el video baja a la calidad inmediatamente inferior.");
         table.put("View DM photos and videos anonymously",
                 "Ver fotos y videos de mensajes de forma an\u00f3nima");
         table.put("View live anonymously",
@@ -8354,6 +8393,9 @@ public final class L10nTranslations {
                 "Historial de lo visto borrado.");
         table.put("Viewing, sound and the stories tray.",
                 "Visualizaci\u00f3n, sonido y la bandeja de historias.");
+    }
+
+    private static void fillEs33(Map<String, String> table) {
         table.put("Voice message",
                 "Mensaje de voz");
         table.put("Volume up still raises the phone's volume, but a muted reel stays muted until you unmute it.",
@@ -8370,9 +8412,6 @@ public final class L10nTranslations {
                 "Volver a ver en el feed");
         table.put("Watch on TV",
                 "Ver en la tele");
-    }
-
-    private static void fillEs33(Map<String, String> table) {
         table.put("Wave",
                 "Onda");
         table.put("Web links you tap open in your usual browser, without Instagram's click tracker. Ads and Meta's own sites (Instagram, Facebook, Messenger, Threads) still open in the app.",
@@ -8421,6 +8460,8 @@ public final class L10nTranslations {
                 "Amplio");
         table.put("With Expandable categories on, a tap opens a category on a page of its own. Back takes you to the list.",
                 "Con Categor\u00edas desplegables activado, al tocar una categor\u00eda se abre en su propia p\u00e1gina. Atr\u00e1s te lleva de vuelta a la lista.");
+        table.put("With Liquid glass look off, scrolling a list down makes the pill smaller, and scrolling up or changing tab brings it back to full size. Hide the tab bar as you scroll takes over when it's on. Restart Instagram after changing it.",
+                "Con Aspecto de cristal l\u00edquido desactivado, al desplazarte hacia abajo en una lista la p\u00edldora se hace m\u00e1s peque\u00f1a, y al subir o cambiar de pesta\u00f1a vuelve a su tama\u00f1o completo. Si Ocultar la barra de pesta\u00f1as al desplazarte est\u00e1 activado, manda ese. Reinicia Instagram tras cambiarlo.");
         table.put("With Name saves by account and post time on, only a save that doesn't know who posted or when is named this way.",
                 "Con \u00abNombrar lo guardado por cuenta y hora de publicaci\u00f3n\u00bb activado, este nombre solo se usa cuando no se sabe qui\u00e9n lo public\u00f3 o cu\u00e1ndo.");
         table.put("With Stop Reels scrolling on, reels you open from Search, Explore, a hashtag or a place still move on when you swipe.",
@@ -8475,6 +8516,9 @@ public final class L10nTranslations {
                 "Tu versi\u00f3n, el c\u00f3digo fuente y las licencias.");
         table.put("Your words",
                 "Tu texto");
+    }
+
+    private static void fillEs34(Map<String, String> table) {
         table.put("Zoomed photo",
                 "Foto ampliada");
         table.put("the home screen icon you picked",
@@ -8494,7 +8538,7 @@ public final class L10nTranslations {
     }
 
     private static Map<String, String> buildIn() {
-        Map<String, String> table = new HashMap<>(4078);
+        Map<String, String> table = new HashMap<>(4096);
         fillIn0(table);
         fillIn1(table);
         fillIn2(table);
@@ -8529,6 +8573,7 @@ public final class L10nTranslations {
         fillIn31(table);
         fillIn32(table);
         fillIn33(table);
+        fillIn34(table);
         return table;
     }
 
@@ -8728,8 +8773,8 @@ public final class L10nTranslations {
                 "Tautan reel membuka reel yang dituju. Instagram tidak memutar reel lain yang disimpan di ponselmu selama reel itu dimuat.");
         table.put("A reel that doesn't fill the screen shows a blurred copy of itself above and below it instead of black bars, and the strip under the tab bar and the band behind the clock show the reel blurred too. The copy shows only where a reel leaves room, as with Show the whole reel on. Open Reels again after a change.",
                 "Reel yang tidak memenuhi layar menampilkan salinan buramnya di atas dan di bawahnya, bukan bilah hitam, dan strip di bawah bilah tab serta area di belakang jam juga menampilkan reel itu secara buram. Salinan itu hanya muncul di tempat reel menyisakan ruang, seperti saat Tampilkan reel utuh aktif. Buka Reel lagi setelah ada perubahan.");
-        table.put("A reel you open from the Reels tab or a post on Home plays with sound, and Home is muted again when you go back. Your phone's ringer and volume still count.",
-                "Reel yang kamu buka dari tab Reels atau postingan di Beranda diputar dengan suara, dan Beranda kembali bisu saat kamu kembali. Mode dering dan volume ponselmu tetap berlaku.");
+        table.put("A reel you open from the Reels tab, a profile or a post on Home plays with sound, and Home is muted again when you go back. Your phone's ringer and volume still count.",
+                "Reel yang kamu buka dari tab Reels, profil, atau postingan di Beranda diputar dengan suara, dan Beranda kembali bisu saat kamu kembali. Mode dering dan volume ponselmu tetap berlaku.");
         table.put("A rounded bar split by a tall handle.",
                 "Bilah membulat yang dipisahkan oleh pegangan tinggi.");
         table.put("A save stopped. Reopen the media and save again.",
@@ -8974,6 +9019,8 @@ public final class L10nTranslations {
                 "File font emoji");
         table.put("An eye at the top of each chat holds or sends Seen in that chat alone, whatever Read messages without the seen receipt says. Changing it doesn't send anything by itself.",
                 "Ikon mata di bagian atas setiap chat menahan atau mengirim Dilihat hanya di chat itu, apa pun pengaturan Baca pesan tanpa tanda dilihat. Mengubahnya tidak mengirim apa pun dengan sendirinya.");
+        table.put("App",
+                "Aplikasi");
         table.put("App icon",
                 "Ikon aplikasi");
         table.put("App-only proxy",
@@ -9020,11 +9067,11 @@ public final class L10nTranslations {
                 "Kembali meninggalkan Beranda apa adanya");
         table.put("Back on Home leaves Instagram without first scrolling the feed to the top and reloading it.",
                 "Kembali di Beranda keluar dari Instagram tanpa lebih dulu menggulir feed ke atas dan memuat ulang.");
-        table.put("Background playback",
-                "Pemutaran latar belakang");
     }
 
     private static void fillIn4(Map<String, String> table) {
+        table.put("Background playback",
+                "Pemutaran latar belakang");
         table.put("Backgrounds in the accent color",
                 "Latar belakang dengan warna aksen");
         table.put("Badges in the accent color",
@@ -9049,8 +9096,8 @@ public final class L10nTranslations {
                 "Bio");
         table.put("Bio copied",
                 "Bio disalin");
-        table.put("Black rows and dialogs, HushGram's name at the top, and each category on one line.",
-                "Baris dan dialog hitam, nama HushGram di atas, dan setiap kategori dalam satu baris.");
+        table.put("Black rows and dialogs, with HushGram's name at the top.",
+                "Baris dan dialog hitam, dengan nama HushGram di atas.");
         table.put("Black settings page",
                 "Halaman pengaturan hitam");
         table.put("Blend post edges",
@@ -9143,11 +9190,11 @@ public final class L10nTranslations {
                 "Pilih file untuk mengekspor pengaturan.");
         table.put("Choose a file for your installed patches' settings and saved profiles. Your login and history stay on this device.",
                 "Pilih file untuk pengaturan patch yang terpasang dan profil tersimpan. Info masuk dan riwayat tetap di perangkat ini.");
-        table.put("Choose a file for your installed patches' settings. Accounts and history stay on this device.",
-                "Pilih file untuk pengaturan patch yang terpasang. Akun dan riwayat tetap di perangkat ini.");
     }
 
     private static void fillIn5(Map<String, String> table) {
+        table.put("Choose a file for your installed patches' settings. Accounts and history stay on this device.",
+                "Pilih file untuk pengaturan patch yang terpasang. Akun dan riwayat tetap di perangkat ini.");
         table.put("Choose a folder",
                 "Pilih folder");
         table.put("Choose a folder name under Movies and Pictures. Invalid characters become underscores. Leave it blank to use the default folder, %1$s. For an SD card or anywhere else, use Choose a folder.",
@@ -9204,6 +9251,8 @@ public final class L10nTranslations {
                 "Ringkas");
         table.put("Confirm PIN",
                 "Konfirmasi PIN");
+        table.put("Content",
+                "Konten");
         table.put("Continue",
                 "Lanjutkan");
         table.put("Control where Meta AI appears.",
@@ -9264,13 +9313,13 @@ public final class L10nTranslations {
                 "Tidak bisa menghapus salinan tersimpan. Coba lagi.");
         table.put("Couldn't clear the unfollower list. Try again.",
                 "Daftar berhenti mengikuti gagal dihapus. Coba lagi.");
+    }
+
+    private static void fillIn6(Map<String, String> table) {
         table.put("Couldn't clear the viewing history. Try again.",
                 "Riwayat tontonan tidak bisa dihapus. Coba lagi.");
         table.put("Couldn't copy comment",
                 "Tidak dapat menyalin komentar");
-    }
-
-    private static void fillIn6(Map<String, String> table) {
         table.put("Couldn't copy the GIF name",
                 "Tidak dapat menyalin nama GIF");
         table.put("Couldn't copy the bio",
@@ -9387,13 +9436,13 @@ public final class L10nTranslations {
                 "Kustom");
         table.put("Custom app icon",
                 "Ikon aplikasi kustom");
+    }
+
+    private static void fillIn7(Map<String, String> table) {
         table.put("Custom color",
                 "Warna kustom");
         table.put("Custom tab",
                 "Tab khusus");
-    }
-
-    private static void fillIn7(Map<String, String> table) {
         table.put("Data saver",
                 "Penghemat data");
         table.put("Date and time",
@@ -9510,13 +9559,13 @@ public final class L10nTranslations {
                 "Mengunduh");
         table.put("Downloading the emoji...",
                 "Mengunduh emoji...");
+    }
+
+    private static void fillIn8(Map<String, String> table) {
         table.put("Downloads",
                 "Unduhan");
         table.put("Drag to move %1$s",
                 "Seret untuk memindahkan %1$s");
-    }
-
-    private static void fillIn8(Map<String, String> table) {
         table.put("Drag to move, pinch to zoom.",
                 "Seret untuk menggeser, cubit untuk zoom.");
         table.put("Draws Instagram's tab bar as a floating, rounded glass pill with a highlight on the tab you're on. Restart Instagram after changing it.",
@@ -9633,13 +9682,13 @@ public final class L10nTranslations {
                 "Gulir cepat di Tersimpan");
         table.put("Favorites still shows them.",
                 "Favorit tetap menampilkannya.");
+    }
+
+    private static void fillIn9(Map<String, String> table) {
         table.put("Feed",
                 "Feed");
         table.put("Feed videos and reels stop at their last frame instead of playing again. Reels still loop while auto scroll is on, so it can move on.",
                 "Video di feed dan reel berhenti di bingkai terakhirnya, tidak diputar lagi. Reel tetap diulang selama gulir otomatis aktif, agar bisa lanjut ke berikutnya.");
-    }
-
-    private static void fillIn9(Map<String, String> table) {
         table.put("Feed videos and stories wait for your tap. Reels play as you swipe to them.",
                 "Video di feed dan cerita menunggu ketukan Anda. Reels diputar saat Anda menggeser ke sana.");
         table.put("Feed videos, reels and stories all wait for your tap.",
@@ -9756,13 +9805,13 @@ public final class L10nTranslations {
                 "Bulat penuh");
         table.put("GIF name",
                 "Nama GIF");
+    }
+
+    private static void fillIn10(Map<String, String> table) {
         table.put("GIF name copied",
                 "Nama GIF disalin");
         table.put("GIF or sticker",
                 "GIF atau stiker");
-    }
-
-    private static void fillIn10(Map<String, String> table) {
         table.put("GPL-3.0, with the notices of the projects this is built on",
                 "GPL-3.0, beserta pemberitahuan dari proyek yang menjadi dasarnya");
         table.put("Galaxy S26 Ultra",
@@ -9879,13 +9928,13 @@ public final class L10nTranslations {
                 "Sembunyikan Unggulan di notifikasi");
         table.put("Hide Follow on posts",
                 "Sembunyikan Ikuti di postingan");
+    }
+
+    private static void fillIn11(Map<String, String> table) {
         table.put("Hide Follow on stories",
                 "Sembunyikan Ikuti di cerita");
         table.put("Hide GIFs in comments",
                 "Sembunyikan GIF di komentar");
-    }
-
-    private static void fillIn11(Map<String, String> table) {
         table.put("Hide Instagram Plus prompts",
                 "Sembunyikan ajakan Instagram Plus");
         table.put("Hide Instants",
@@ -9922,6 +9971,8 @@ public final class L10nTranslations {
                 "Sembunyikan Disarankan untuk kamu di daftar ikuti");
         table.put("Hide Threads posts",
                 "Sembunyikan postingan Threads");
+        table.put("Hide Watch more reels",
+                "Sembunyikan Tonton reels lainnya");
         table.put("Hide Your algorithm on reels",
                 "Sembunyikan Algoritma Anda di reel");
         table.put("Hide activity bubbles",
@@ -10000,15 +10051,15 @@ public final class L10nTranslations {
                 "Sembunyikan postingan yang disarankan");
         table.put("Hide suggested searches on reels",
                 "Sembunyikan saran pencarian di Reels");
+    }
+
+    private static void fillIn12(Map<String, String> table) {
         table.put("Hide suggested stories",
                 "Sembunyikan cerita yang disarankan");
         table.put("Hide suggestions in notifications",
                 "Sembunyikan saran di notifikasi");
         table.put("Hide surveys",
                 "Sembunyikan survei");
-    }
-
-    private static void fillIn12(Map<String, String> table) {
         table.put("Hide that you're typing",
                 "Sembunyikan bahwa Anda sedang mengetik");
         table.put("Hide the 2x popup",
@@ -10123,15 +10174,15 @@ public final class L10nTranslations {
                 "Menyembunyikan postingan dan reel dari akun yang tidak kamu ikuti, yang ditandai Disarankan untuk Anda. Postingan dari akun yang kamu ikuti tetap ada.");
         table.put("Hides sponsored posts, reels, stories and the ad in comments. No empty gap is left where an ad would have been.",
                 "Menyembunyikan postingan, reel, dan cerita bersponsor, serta iklan di komentar. Tidak ada celah kosong di tempat iklan seharusnya muncul.");
+    }
+
+    private static void fillIn13(Map<String, String> table) {
         table.put("Hides stories from accounts you don't follow, and accounts Instagram suggests, in the row at the top of Home. Stories from accounts you follow stay.",
                 "Menyembunyikan cerita dari akun yang tidak kamu ikuti dan akun yang disarankan Instagram di baris atas Beranda. Cerita dari akun yang kamu ikuti tetap ada.");
         table.put("Hides the bar under a post that asks you to join the account's channel. The post stays.",
                 "Menyembunyikan bilah di bawah postingan yang memintamu bergabung ke saluran akun tersebut. Postingannya tetap ada.");
         table.put("Hides the bubble under a post that asks 'Are you interested in this post?' with Not interested and Interested buttons. Nothing is answered for you.",
                 "Menyembunyikan gelembung di bawah postingan yang bertanya 'Apakah kamu tertarik dengan postingan ini?' dengan tombol Tidak tertarik dan Tertarik. Tidak ada yang dijawab untukmu.");
-    }
-
-    private static void fillIn13(Map<String, String> table) {
         table.put("Hides the buttons that push Edits, templates, Meta AI and Ray-Ban Meta glasses. Live badges and state-controlled media labels stay.",
                 "Menyembunyikan tombol yang mempromosikan Edits, templat, Meta AI, dan kacamata Ray-Ban Meta. Lencana siaran langsung dan label media milik negara tetap ada.");
         table.put("Hides the card after the posts from accounts you follow that says you've seen the latest ones, and its Older posts link. When Home has no new posts at all, only that line goes and the link stays. Pull down on Home to refresh after changing it.",
@@ -10246,15 +10297,15 @@ public final class L10nTranslations {
                 "%1$d pengaturan diimpor. %2$d dilewati karena tidak dikenal versi ini.");
         table.put("Instagram accepts this build",
                 "Instagram menerima build ini");
+    }
+
+    private static void fillIn14(Map<String, String> table) {
         table.put("Instagram blue",
                 "Biru Instagram");
         table.put("Instagram can't read where the photos and videos in your gallery were taken.",
                 "Instagram tidak bisa membaca tempat foto dan video di galerimu diambil.");
         table.put("Instagram can't read your phone's advertising ID or tell Android's ad services which ads you saw or tapped. The permissions for them are gone from this build.",
                 "Instagram tidak dapat membaca ID iklan ponselmu atau memberi tahu layanan iklan Android iklan mana yang kamu lihat atau ketuk. Izin untuk itu sudah dihapus dari build ini.");
-    }
-
-    private static void fillIn14(Map<String, String> table) {
         table.put("Instagram crashed or froze within a minute of starting three times in a row, so HushGram paused itself.",
                 "Instagram berhenti mendadak atau macet dalam satu menit setelah dibuka, tiga kali berturut-turut, jadi HushGram menjeda dirinya sendiri.");
         table.put("Instagram didn't keep the change and the overrides couldn't be confirmed. Use Restore previous overrides, then restart Instagram.",
@@ -10369,15 +10420,15 @@ public final class L10nTranslations {
                 "Lompat ke pesan pertama atau ke tanggal");
         table.put("KakaoTalk",
                 "KakaoTalk");
+    }
+
+    private static void fillIn15(Map<String, String> table) {
         table.put("Keep Featured off the heart's dot",
                 "Jangan nyalakan titik hati karena Unggulan");
         table.put("Keep Home's top bar",
                 "Tetap tampilkan bilah atas Beranda");
         table.put("Keep Instagram's saved photos and videos from filling your phone.",
                 "Cegah foto dan video simpanan Instagram memenuhi ponselmu.");
-    }
-
-    private static void fillIn15(Map<String, String> table) {
         table.put("Keep Reels auto scroll between sessions",
                 "Keep Reels auto scroll between sessions");
         table.put("Keep a seek bar",
@@ -10492,15 +10543,15 @@ public final class L10nTranslations {
                 "Menghapus kartu Add Yours, seperti Add Yours populer dan ajakan ikut Add Yours yang sedang tren, yang diselipkan Instagram di antara cerita yang kamu ketuk. Ceritanya sendiri tetap ada.");
         table.put("Leaves out the Suggested for you cards of accounts to follow that Instagram puts between the stories you tap through. The stories themselves stay.",
                 "Menghapus kartu Disarankan untuk kamu berisi akun untuk diikuti yang diselipkan Instagram di antara cerita yang kamu ketuk. Ceritanya sendiri tetap ada.");
+    }
+
+    private static void fillIn16(Map<String, String> table) {
         table.put("Leaves out the live broadcasts Instagram puts between reels in the Reels tab and when you swipe through reels from Explore.",
                 "Menyembunyikan siaran langsung yang diselipkan Instagram di antara reel di tab Reels dan saat kamu menggeser reel dari Jelajahi.");
         table.put("Leaves the Suggested for you accounts out of what shows when you tap the search bar. Recent searches stay.",
                 "Menghapus akun Disarankan untuk kamu dari yang muncul saat kamu mengetuk kolom pencarian. Pencarian terbaru tetap ada.");
         table.put("Leaves the Suggested for you section off the followers, following and mutual lists and the screen where you approve follow requests, and the Suggested tab off other people's follow lists. Every account in the lists and every real request stays.",
                 "Menghapus bagian Disarankan untuk kamu dari daftar pengikut, yang diikuti, dan bersama, serta dari layar tempat kamu menyetujui permintaan mengikuti, dan tab Disarankan dari daftar orang lain. Semua akun di daftar dan semua permintaan asli tetap ada.");
-    }
-
-    private static void fillIn16(Map<String, String> table) {
         table.put("Leaving Instagram while a reel plays shrinks it into a small window over your other apps. Works in Reels and on reels opened from the feed, on Android 15 or newer.",
                 "Saat kamu keluar dari Instagram ketika reel sedang diputar, reel mengecil menjadi jendela kecil di atas aplikasi lain. Berfungsi di Reels dan pada reels yang dibuka dari feed, di Android 15 atau yang lebih baru.");
         table.put("Leaving Instagram while a story plays shrinks it into a small window over your other apps, where it keeps going through the stories.",
@@ -10599,6 +10650,8 @@ public final class L10nTranslations {
                 "Tekan lama foto untuk memperbesar");
         table.put("Long press a post for full screen",
                 "Tekan lama postingan untuk layar penuh");
+        table.put("Look",
+                "Tampilan");
         table.put("Loop a story",
                 "Putar ulang cerita");
         table.put("Loop didn't change",
@@ -10613,6 +10666,9 @@ public final class L10nTranslations {
                 "Video ini diulang");
         table.put("Makes Instagram see the phone chosen below, unlocking HDR video downloads and other features limited to those phones, and adds the matching developer options. Restart Instagram to see the change.",
                 "Membuat Instagram mendeteksi ponsel yang dipilih di bawah, membuka unduhan video HDR dan fitur lain yang terbatas untuk ponsel tersebut, serta menambahkan opsi pengembang yang sesuai. Mulai ulang Instagram untuk melihat perubahan.");
+    }
+
+    private static void fillIn17(Map<String, String> table) {
         table.put("Makes the seek bar thicker, with a round white handle and the time above it, over a soft dark fade so it shows on any video. Drag it to seek. It also keeps the bar on short reels.",
                 "Membuat bilah geser lebih tebal, dengan pegangan putih bulat dan waktu di atasnya, di atas gradasi gelap lembut agar terlihat di video apa pun. Seret untuk mencari posisi. Bilah juga tetap tampil di Reel pendek.");
         table.put("Mapping file removed. Open MetaConfig again to see the change.",
@@ -10621,9 +10677,6 @@ public final class L10nTranslations {
                 "Mapping imported: %1$d names. Open MetaConfig again to see them.");
         table.put("Mark a chat seen when you reply",
                 "Tandai obrolan sudah dilihat saat kamu membalas");
-    }
-
-    private static void fillIn17(Map<String, String> table) {
         table.put("Mark as read",
                 "Tandai sudah dibaca");
         table.put("Mark as read button in chats",
@@ -10650,6 +10703,8 @@ public final class L10nTranslations {
                 "Material You butuh Android 12 atau yang lebih baru, jadi biru Instagram tetap dipakai.");
         table.put("Media ID %1$s",
                 "ID media %1$s");
+        table.put("Media and storage",
+                "Media dan penyimpanan");
         table.put("Media link",
                 "Tautan media");
         table.put("Media link copied. It stops working after a few days.",
@@ -10700,8 +10755,8 @@ public final class L10nTranslations {
                 "@%1$s dipindahkan ke %2$s");
         table.put("Moved @%s out of its folder",
                 "@%s dikeluarkan dari folder");
-        table.put("Moves a carousel post's page dots onto a round pill at the bottom of its photo or video, with the page you're on in blue.",
-                "Memindahkan titik halaman kiriman carousel ke pil bulat di bagian bawah foto atau videonya, dengan halaman yang sedang dibuka berwarna biru.");
+        table.put("Moves a carousel post's page dots onto a round pill at the bottom of its photo or video, with the page you're on in blue. Hold the pill and slide left or right to move through the pages.",
+                "Memindahkan titik halaman kiriman carousel ke pil bulat di bagian bawah foto atau videonya, dengan halaman yang sedang dibuka berwarna biru. Tahan pil lalu geser ke kiri atau kanan untuk berpindah halaman.");
         table.put("Moves the gallery and microphone buttons off the message bar and into the plus menu. They work as before. Turn it off and they're back the next time a chat opens.",
                 "Memindahkan tombol galeri dan mikrofon dari bilah pesan ke menu plus. Fungsinya tetap sama. Matikan, dan tombolnya kembali saat chat dibuka lagi.");
         table.put("Mute",
@@ -10734,6 +10789,9 @@ public final class L10nTranslations {
                 "Folder baru");
         table.put("New like animations",
                 "New like animations");
+    }
+
+    private static void fillIn18(Map<String, String> table) {
         table.put("New message",
                 "Pesan baru");
         table.put("New message after this reel",
@@ -10744,9 +10802,6 @@ public final class L10nTranslations {
                 "Foto profil dan bio baru");
         table.put("New story fonts and animations",
                 "New story fonts and animations");
-    }
-
-    private static void fillIn18(Map<String, String> table) {
         table.put("New story timestamp style",
                 "New story timestamp style");
         table.put("Next match",
@@ -10857,6 +10912,9 @@ public final class L10nTranslations {
                 "Beri tahu saya soal yang berhenti mengikuti");
         table.put("OK",
                 "Oke");
+    }
+
+    private static void fillIn19(Map<String, String> table) {
         table.put("Off",
                 "Nonaktif");
         table.put("Off. It can cover the Home, Reels and Explore tabs for a break after you've spent a while on them.",
@@ -10867,9 +10925,6 @@ public final class L10nTranslations {
                 "Bio lama, %s");
         table.put("Old profile picture, %s",
                 "Foto profil lama, %s");
-    }
-
-    private static void fillIn19(Map<String, String> table) {
         table.put("On Reels, the tab bar slides away after %1$d seconds without a touch. Tap the bottom edge of the screen, change tab or press Back to bring it back. Restart Instagram after changing it.",
                 "Di Reels, bilah tab bergeser keluar setelah %1$d detik tanpa sentuhan. Ketuk tepi bawah layar, pindah tab, atau tekan Kembali untuk memunculkannya lagi. Mulai ulang Instagram setelah mengubahnya.");
         table.put("On a carousel, the download icon saves all of its pages at once instead of asking.",
@@ -10980,6 +11035,9 @@ public final class L10nTranslations {
                 "Membuka chat tidak memberi tahu orang lain bahwa Anda sudah melihat pesan mereka, dan Anda tetap melihat kapan mereka melihat pesan Anda. Agar satu chat tahu, tekan lama chat itu di pesan Anda lalu ketuk Tandai sudah dibaca.");
         table.put("Opening someone's profile takes you on to their posts as a scrolling list of full posts. Go Back for the grid. Your own profile keeps its grid.",
                 "Membuka profil seseorang langsung membawamu ke postingannya sebagai daftar postingan utuh yang bisa digulir. Kembali untuk melihat kisi. Profilmu sendiri tetap memakai kisi.");
+    }
+
+    private static void fillIn20(Map<String, String> table) {
         table.put("Opens Home on posts from accounts you follow instead of For you. Tap the top of Home to switch. Restart Instagram to see the change.",
                 "Membuka Beranda dengan postingan dari akun yang kamu ikuti, bukan Untuk Anda. Ketuk bagian atas Beranda untuk berganti. Mulai ulang Instagram untuk melihat perubahannya.");
         table.put("Opens Instagram's own Whitehat settings. Its switch lets Instagram trust the certificates installed on this phone for 24 hours, so you can check the app's traffic. Restart Instagram after you turn it on.",
@@ -10990,9 +11048,6 @@ public final class L10nTranslations {
                 "Opens Instagram's own editor for its hidden settings (MetaConfig). A wrong override, which is a changed setting, can break parts of Instagram.");
         table.put("Opens a GitHub report with your versions and settings filled in. Add what happened.",
                 "Membuka laporan GitHub yang sudah berisi versi dan pengaturanmu. Tambahkan apa yang terjadi.");
-    }
-
-    private static void fillIn20(Map<String, String> table) {
         table.put("Orange",
                 "Oranye");
         table.put("Overrides cleared. Restart Instagram to apply the change.",
@@ -11103,6 +11158,9 @@ public final class L10nTranslations {
                 "Post a story straight to Highlights");
         table.put("Posted %1$s",
                 "Diposting %1$s");
+    }
+
+    private static void fillIn21(Map<String, String> table) {
         table.put("Posts",
                 "Postingan");
         table.put("Posts from @%1$s are hidden",
@@ -11113,9 +11171,6 @@ public final class L10nTranslations {
                 "Postingan dari akun tersembunyimu tetap muncul di Favorit. Untuk Anda dan Mengikuti tidak menampilkannya. Tarik Beranda ke bawah untuk menyegarkan setelah mengubahnya.");
         table.put("Preparing diagnostic report...",
                 "Menyiapkan laporan diagnostik...");
-    }
-
-    private static void fillIn21(Map<String, String> table) {
         table.put("Press and hold a comment that has its own photo, GIF or sticker, and its menu gets Save. Saves the largest size Instagram sent.",
                 "Tekan dan tahan komentar yang memiliki foto, GIF, atau stiker sendiri, dan menunya akan berisi Simpan. Menyimpan ukuran terbesar yang dikirim Instagram.");
         table.put("Press and hold a photo in a feed to see it twice as big around your finger, and slide to look around. Let go to close it. While this is on, it takes the place of Instagram's own long press on a photo.",
@@ -11150,6 +11205,8 @@ public final class L10nTranslations {
                 "Halaman sebelumnya");
         table.put("Priority accounts",
                 "Akun prioritas");
+        table.put("Privacy",
+                "Privasi");
         table.put("Privacy and controls for your chats.",
                 "Privasi dan kontrol untuk obrolan.");
         table.put("Profile",
@@ -11224,6 +11281,9 @@ public final class L10nTranslations {
                 "Menaruh tombol kecepatan di bagian atas cerita video, di samping tiga titik. Ketuk untuk 1,5x, ketuk lagi untuk 2x, dan sekali lagi untuk 1x. Cerita video berikutnya tetap memakai kecepatan itu sampai kamu mengubahnya atau memulai ulang Instagram. Iklan diputar dengan kecepatan normal.");
         table.put("Puts a speed icon beside a reel. Tap it to pick a speed from 0.5x to 3x. With Keep the reel speed on, the next reels play at it too.",
                 "Menaruh ikon kecepatan di samping reel. Ketuk untuk memilih kecepatan dari 0,5x hingga 3x. Jika Pertahankan kecepatan reel aktif, reel berikutnya juga diputar dengan kecepatan itu.");
+    }
+
+    private static void fillIn22(Map<String, String> table) {
         table.put("Puts an (i) next to the three dots on a profile that opens Instagram's About this account for that account. Instagram took its own away.",
                 "Menaruh (i) di samping tiga titik pada profil yang membuka Tentang akun ini milik Instagram untuk akun tersebut. Instagram sudah menghapus miliknya.");
         table.put("Puts back the overrides saved before your last import for this account and Instagram version.",
@@ -11236,9 +11296,6 @@ public final class L10nTranslations {
                 "Menampilkan jawabannya sebagai chip di bawah jumlah postingan, pengikut, dan diikuti di profil, dan menampilkan Saling mengikuti jika Anda juga mengikutinya.");
         table.put("Puts the seek bar right on the bottom edge of the video, so it's harder to touch by accident while you scroll.",
                 "Menaruh bilah geser tepat di tepi bawah video, jadi lebih sulit tersentuh tanpa sengaja saat kamu menggulir.");
-    }
-
-    private static void fillIn22(Map<String, String> table) {
         table.put("Puts the title in the middle of the bar at the top of other screens, like notifications, as far as the buttons beside it allow. The buttons stay where they are.",
                 "Menempatkan judul di tengah bilah atas layar lain, seperti notifikasi, sejauh tombol di sampingnya memungkinkan. Tombol tetap di tempatnya.");
         table.put("Puts the username in the middle of the bar at the top of a profile, yours and other people's. The buttons stay where they are.",
@@ -11347,6 +11404,9 @@ public final class L10nTranslations {
                 "Menghapus setiap postingan satu foto dari Beranda, bahkan dari akun yang kamu ikuti. Tarik Beranda ke bawah untuk menyegarkan setelah mengubahnya.");
         table.put("Removes every single-video post and reel from Home, even from accounts you follow. Pull down on Home to refresh after changing it.",
                 "Menghapus setiap postingan satu video dan reel dari Beranda, bahkan dari akun yang kamu ikuti. Tarik Beranda ke bawah untuk menyegarkan setelah mengubahnya.");
+    }
+
+    private static void fillIn23(Map<String, String> table) {
         table.put("Removes posts by business and creator accounts from Home and Following, friends who use one included. Pull down on Home to refresh after changing it.",
                 "Menghapus postingan dari akun bisnis dan kreator dari Beranda dan Mengikuti, termasuk teman yang memakainya. Tarik Beranda ke bawah untuk menyegarkan setelah mengubahnya.");
         table.put("Removes posts you've already liked from Home and Following. A post you like now stays until you pull down on Home to refresh.",
@@ -11359,9 +11419,6 @@ public final class L10nTranslations {
                 "Menghapus tombol Muse dari bilah atas profilmu. Nama pengguna dan menu tetap ada.");
         table.put("Removes the empty gap under Instagram's tab bar that appears when your phone hides its navigation bar or Instagram is in a pop-up window. Restart Instagram to see the change.",
                 "Menghapus celah kosong di bawah bilah tab Instagram yang muncul saat ponselmu menyembunyikan bilah navigasinya atau Instagram ada di jendela pop-up. Mulai ulang Instagram untuk melihat perubahannya.");
-    }
-
-    private static void fillIn23(Map<String, String> table) {
         table.put("Removes the stack of Instants (quick photos from friends) from your messages. Restart Instagram to see the change.",
                 "Menghapus tumpukan Instants (foto cepat dari teman) dari pesan kamu. Mulai ulang Instagram untuk melihat perubahannya.");
         table.put("Removes the summary, Sources and Ask Meta AI box from a reel's more menu. In your feed the audio row goes too. Other options stay.",
@@ -11470,6 +11527,9 @@ public final class L10nTranslations {
                 "Simpan video sebagai MKV");
         table.put("Save videos other apps can open",
                 "Simpan video yang bisa dibuka aplikasi lain");
+    }
+
+    private static void fillIn24(Map<String, String> table) {
         table.put("Save your HushGram choices to a file, or bring them back.",
                 "Simpan pilihan HushGram kamu ke file, atau pulihkan kembali.");
         table.put("Saved",
@@ -11482,9 +11542,6 @@ public final class L10nTranslations {
                 "@%s disimpan");
         table.put("Saved and everything in it stay covered until your fingerprint, face or screen lock says it's you.",
                 "Tersimpan dan semua isinya tetap tertutup sampai sidik jari, wajah, atau kunci layar Anda memastikan itu Anda.");
-    }
-
-    private static void fillIn24(Map<String, String> table) {
         table.put("Saved button in Explore",
                 "Saved button in Explore");
         table.put("Saved is locked",
@@ -11593,6 +11650,9 @@ public final class L10nTranslations {
                 "Dilihat ditahan di chat ini");
         table.put("Select text",
                 "Pilih teks");
+    }
+
+    private static void fillIn25(Map<String, String> table) {
         table.put("Select text to copy",
                 "Pilih teks untuk disalin");
         table.put("Send",
@@ -11605,9 +11665,6 @@ public final class L10nTranslations {
                 "Send stories with a long press");
         table.put("Send to",
                 "Kirim ke");
-    }
-
-    private static void fillIn25(Map<String, String> table) {
         table.put("Sending a message in a chat lets the other person see that you've read what they sent before it. Chats you don't answer stay unseen to them.",
                 "Saat kamu mengirim pesan di obrolan, orang lain melihat bahwa kamu sudah membaca pesan mereka sebelumnya. Obrolan yang tidak kamu balas tetap belum terlihat oleh mereka.");
         table.put("Sends Instagram through the HTTP proxy set below. Other apps and your phone's own settings aren't changed.",
@@ -11716,6 +11773,9 @@ public final class L10nTranslations {
                 "Menampilkan bilah di dekat bagian bawah cerita video. Geser bilahnya untuk melompat ke titik mana pun di video. Foto tidak mendapatkannya.");
         table.put("Shows a blurred preview of a disappearing photo or video in a chat.",
                 "Shows a blurred preview of a disappearing photo or video in a chat.");
+    }
+
+    private static void fillIn26(Map<String, String> table) {
         table.put("Shows a handle at the right edge of Saved and your collections while they scroll. Drag it to jump through them.",
                 "Menampilkan pegangan di tepi kanan Tersimpan dan koleksimu saat digulir. Seret untuk melompat di dalamnya.");
         table.put("Shows each switch by its name alone. Tap the i next to a name to read what it does.",
@@ -11728,9 +11788,6 @@ public final class L10nTranslations {
                 "Menampilkan baris Impor dan Pulihkan. Impor mengubah pengaturan tersembunyi Instagram untuk akun yang sedang masuk ini.");
         table.put("Shows the date and time a reel was posted under the author's name, like Oct 2, 3:45 PM. A change shows from the next reel.",
                 "Menampilkan tanggal dan waktu reel diposting di bawah nama pembuatnya, seperti 2 Okt, 15.45. Perubahan terlihat mulai reel berikutnya.");
-    }
-
-    private static void fillIn26(Map<String, String> table) {
         table.put("Shows the days, hours and minutes since it went up on a line under the time, like 1d 2h 5m ago.",
                 "Menampilkan hari, jam, dan menit sejak diposting di baris di bawah waktunya, seperti 1 hr, 2 j, 5 mnt yang lalu.");
         table.put("Shows the time above your finger while you drag a seek bar on a feed video, story or reel, and a small picture of that moment when Instagram has one for the video.",
@@ -11741,6 +11798,8 @@ public final class L10nTranslations {
                 "Menampilkan kapan postingan dan komentarnya diunggah, seperti 2 Okt, 15.45, bukan berapa lama yang lalu. Postingan yang dimuat setelah perubahan akan menampilkannya.");
         table.put("Shows your feed blurred under Home's top bar, like frosted glass.",
                 "Menampilkan feed Anda secara buram di bawah bilah atas Beranda, seperti kaca buram.");
+        table.put("Shrink the pill as you scroll",
+                "Perkecil pil saat menggulir");
         table.put("Size %1$d \u00d7 %2$d",
                 "Ukuran %1$d \u00d7 %2$d");
         table.put("Skip length",
@@ -11837,6 +11896,9 @@ public final class L10nTranslations {
                 "Tetap gulir reel dari Cari dan Jelajahi");
         table.put("Still scroll reels from a profile",
                 "Tetap gulir reel dari profil");
+    }
+
+    private static void fillIn27(Map<String, String> table) {
         table.put("Still scroll reels from a song page",
                 "Tetap gulir reel dari halaman lagu");
         table.put("Stop",
@@ -11851,9 +11913,6 @@ public final class L10nTranslations {
                 "Berhenti setelah sejumlah reel");
         table.put("Stop after the chat's reels",
                 "Berhenti setelah reel chat");
-    }
-
-    private static void fillIn27(Map<String, String> table) {
         table.put("Stop background feed refresh",
                 "Hentikan penyegaran feed di latar belakang");
         table.put("Stop background work Instagram doesn't need.",
@@ -11960,6 +12019,9 @@ public final class L10nTranslations {
                 "Menekan lama tab tetap menjalankan tindakan Instagram. Pilih satu tab untuk membuka Favorit sebagai gantinya.");
         table.put("Tab long presses keep Instagram's own action. Choose one to open HushGram instead.",
                 "Menekan lama tab tetap menjalankan tindakan Instagram. Pilih satu tab untuk membuka HushGram sebagai gantinya.");
+    }
+
+    private static void fillIn28(Map<String, String> table) {
         table.put("Tab long presses keep Instagram's own action. Choose one to open Saved profiles instead.",
                 "Menekan lama tab tetap menjalankan tindakan Instagram. Pilih satu tab untuk membuka Profil tersimpan sebagai gantinya.");
         table.put("Tab long presses keep Instagram's own action. Choose one to pick the playback quality instead.",
@@ -11974,9 +12036,6 @@ public final class L10nTranslations {
                 "Tab di profil lain");
         table.put("Tabs on your profile",
                 "Tab di profil Anda");
-    }
-
-    private static void fillIn28(Map<String, String> table) {
         table.put("Tagged",
                 "Ditandai");
         table.put("Take a scroll break",
@@ -12065,6 +12124,8 @@ public final class L10nTranslations {
                 "Menghapus lencana Threads dari bawah bio di profil orang lain. Profilmu tetap memilikinya.");
         table.put("Takes the Threads button off the top of profiles, yours included. The menu and the other buttons stay where they were.",
                 "Menghapus tombol Threads dari bagian atas profil, termasuk profilmu. Menu dan tombol lainnya tetap di tempatnya.");
+        table.put("Takes the Watch more reels button off the card a reel in your feed shows when it ends. Watch again stays.",
+                "Menghapus tombol Tonton reels lainnya dari kartu yang muncul saat reel di feed kamu selesai. Tonton lagi tetap ada.");
         table.put("Takes the Your algorithm button off the top of the Reels tab and closes up the gap. The rest of the bar stays.",
                 "Menghapus tombol Algoritma Anda dari bagian atas tab Reels lalu menutup celahnya. Bagian bilah lainnya tetap ada.");
         table.put("Takes the accounts Instagram suggests off the bottom of your messages. Your chats and follow requests stay. Restart Instagram to see the change.",
@@ -12081,6 +12142,9 @@ public final class L10nTranslations {
                 "Menghapus ikon hati dari bagian atas Beranda dan menutup celahnya. Pemberitahuan tetap masuk. Mulai ulang Instagram untuk melihat perubahannya.");
         table.put("Takes the interests someone added, like reading or hiking, from under their bio. Yours keeps them.",
                 "Menghapus minat yang ditambahkan seseorang, seperti membaca atau mendaki, dari bawah bio mereka. Profilmu tetap memilikinya.");
+    }
+
+    private static void fillIn29(Map<String, String> table) {
         table.put("Takes the invite to someone's broadcast channel from under their bio. Yours keeps it.",
                 "Menghapus undangan ke saluran siaran seseorang dari bawah bio mereka. Profilmu tetap memilikinya.");
         table.put("Takes the link to someone's WhatsApp from under their bio. Yours keeps it.",
@@ -12097,9 +12161,6 @@ public final class L10nTranslations {
                 "Menghapus ikon pesawat kertas dari bagian bawah cerita orang lain. Tidak ada ruang kosong yang tersisa.");
         table.put("Takes the plus button off the top of Home and closes up the gap. The Create tab and swiping to create are separate. Restart Instagram to see the change.",
                 "Menghapus tombol plus dari bagian atas Beranda dan menutup celahnya. Tab Buat dan geser untuk membuat adalah pengaturan terpisah. Mulai ulang Instagram untuk melihat perubahannya.");
-    }
-
-    private static void fillIn29(Map<String, String> table) {
         table.put("Takes the plus button off the top of reels you open from Saved or a collection and closes up the gap. The Reels tab and other reels keep theirs.",
                 "Menghapus tombol plus dari bagian atas reel yang kamu buka dari Tersimpan atau koleksi, lalu menutup celahnya. Tab Reels dan reel lainnya tetap memilikinya.");
         table.put("Takes the plus button that opens the camera off the top of reels, on the Reels tab and everywhere else, and closes up the gap. The rest of the bar stays.",
@@ -12204,6 +12265,9 @@ public final class L10nTranslations {
                 "Bilah dan pegangan bulat yang sudah biasa.");
         table.put("The bar sits in the space under the Send message box. Where there's no room under it, the bar stays above it.",
                 "Bilah berada di ruang di bawah kotak Kirim pesan. Jika tidak ada ruang di bawahnya, bilah tetap di atasnya.");
+    }
+
+    private static void fillIn30(Map<String, String> table) {
         table.put("The bar sits just above the Send message box at the bottom of a story.",
                 "Bilah berada tepat di atas kotak Kirim pesan di bagian bawah cerita.");
         table.put("The bubbles of friends who liked or commented, the Followed by and Liked by lines with their faces, the comment shown under a reel and the row of friends who saw it. Comments are still a tap away.",
@@ -12220,9 +12284,6 @@ public final class L10nTranslations {
                 "Tanggal dan jam cerita diposting, misalnya 2 Okt, 15.45.");
         table.put("The file %1$s couldn't be removed. Delete it from %2$s to turn HushGram back on.",
                 "File %1$s tidak dapat dihapus. Hapus file itu dari %2$s untuk mengaktifkan HushGram lagi.");
-    }
-
-    private static void fillIn30(Map<String, String> table) {
         table.put("The heart at the top of Home shows how many notifications are waiting, like the number on Messages, in place of the red dot. Restart Instagram to see the change.",
                 "Ikon hati di bagian atas Beranda menampilkan jumlah pemberitahuan yang menunggu, seperti angka di Pesan, sebagai ganti titik merah. Mulai ulang Instagram untuk melihat perubahannya.");
         table.put("The heart plays %1$s when you double tap a post.",
@@ -12327,6 +12388,9 @@ public final class L10nTranslations {
                 "Tombol ini perlu Cari di bilah tab kamu.");
         table.put("This chat is locked",
                 "Obrolan ini terkunci");
+    }
+
+    private static void fillIn31(Map<String, String> table) {
         table.put("This chat uses the setting",
                 "Chat ini mengikuti pengaturan");
         table.put("This file matches the current overrides. Nothing changed.",
@@ -12343,9 +12407,6 @@ public final class L10nTranslations {
                 "Cerita ini tidak diulang");
         table.put("This video has no file another player can open",
                 "Video ini tidak memiliki file yang dapat dibuka pemutar lain");
-    }
-
-    private static void fillIn31(Map<String, String> table) {
         table.put("This video plays once",
                 "Video ini tidak diulang");
         table.put("Threads",
@@ -12450,6 +12511,9 @@ public final class L10nTranslations {
                 "Di bawah jumlah");
         table.put("Under the name, 1 mention",
                 "Di bawah nama, 1 sebutan");
+    }
+
+    private static void fillIn32(Map<String, String> table) {
         table.put("Undo cleared positions",
                 "Pulihkan posisi yang dihapus");
         table.put("Undo couldn't fully restore the settings. Check the shown values. Undo has been used up.",
@@ -12466,9 +12530,6 @@ public final class L10nTranslations {
                 "Notifikasi berhenti mengikuti");
         table.put("Unfollower list cleared.",
                 "Daftar berhenti mengikuti dihapus.");
-    }
-
-    private static void fillIn32(Map<String, String> table) {
         table.put("Unlock",
                 "Buka kunci");
         table.put("Unlock Instagram",
@@ -12555,8 +12616,8 @@ public final class L10nTranslations {
                 "Video diputar dengan kualitas terendah yang ditawarkan Instagram untuk masing-masing.");
         table.put("Videos wait for your tap where the choice below says. Feed videos show a play button, as they do when you use less mobile data.",
                 "Video menunggu ketukan Anda di tempat yang dipilih di bawah. Video di feed menampilkan tombol putar, seperti saat Anda menghemat data seluler.");
-        table.put("Videos, reels and stories play at the quality below, starting with the next one you open.",
-                "Video, reels, dan cerita diputar dengan kualitas di bawah, mulai dari yang berikutnya Anda buka.");
+        table.put("Videos, reels and stories play at the quality below, starting with the next one you open. When your connection can't keep up, a video drops to the next lower quality.",
+                "Video, reels, dan cerita diputar dengan kualitas di bawah, mulai dari yang berikutnya Anda buka. Saat koneksi tidak sanggup mengikuti, video turun ke kualitas satu tingkat di bawahnya.");
         table.put("View DM photos and videos anonymously",
                 "Lihat foto dan video di pesan secara anonim");
         table.put("View live anonymously",
@@ -12573,6 +12634,9 @@ public final class L10nTranslations {
                 "Riwayat tontonan dihapus.");
         table.put("Viewing, sound and the stories tray.",
                 "Tampilan, suara, dan deretan cerita.");
+    }
+
+    private static void fillIn33(Map<String, String> table) {
         table.put("Voice message",
                 "Pesan suara");
         table.put("Volume up still raises the phone's volume, but a muted reel stays muted until you unmute it.",
@@ -12589,9 +12653,6 @@ public final class L10nTranslations {
                 "Tonton lagi di feed");
         table.put("Watch on TV",
                 "Tonton di TV");
-    }
-
-    private static void fillIn33(Map<String, String> table) {
         table.put("Wave",
                 "Gelombang");
         table.put("Web links you tap open in your usual browser, without Instagram's click tracker. Ads and Meta's own sites (Instagram, Facebook, Messenger, Threads) still open in the app.",
@@ -12640,6 +12701,8 @@ public final class L10nTranslations {
                 "Lebar");
         table.put("With Expandable categories on, a tap opens a category on a page of its own. Back takes you to the list.",
                 "Dengan Kategori yang dapat diperluas aktif, ketukan membuka kategori di halamannya sendiri. Kembali membawamu ke daftar.");
+        table.put("With Liquid glass look off, scrolling a list down makes the pill smaller, and scrolling up or changing tab brings it back to full size. Hide the tab bar as you scroll takes over when it's on. Restart Instagram after changing it.",
+                "Saat Tampilan kaca cair mati, menggulir daftar ke bawah membuat pil lebih kecil, dan menggulir ke atas atau berganti tab mengembalikannya ke ukuran penuh. Jika Sembunyikan bilah tab saat menggulir aktif, pengaturan itu yang berlaku. Mulai ulang Instagram setelah mengubahnya.");
         table.put("With Name saves by account and post time on, only a save that doesn't know who posted or when is named this way.",
                 "Jika Beri nama simpanan menurut akun dan waktu posting aktif, nama ini hanya dipakai saat tidak diketahui siapa yang memposting atau kapan.");
         table.put("With Stop Reels scrolling on, reels you open from Search, Explore, a hashtag or a place still move on when you swipe.",
@@ -12694,6 +12757,9 @@ public final class L10nTranslations {
                 "Versimu, kode sumber, dan lisensi.");
         table.put("Your words",
                 "Teksmu");
+    }
+
+    private static void fillIn34(Map<String, String> table) {
         table.put("Zoomed photo",
                 "Foto yang diperbesar");
         table.put("the home screen icon you picked",
@@ -12713,7 +12779,7 @@ public final class L10nTranslations {
     }
 
     private static Map<String, String> buildIt() {
-        Map<String, String> table = new HashMap<>(4078);
+        Map<String, String> table = new HashMap<>(4096);
         fillIt0(table);
         fillIt1(table);
         fillIt2(table);
@@ -12748,6 +12814,7 @@ public final class L10nTranslations {
         fillIt31(table);
         fillIt32(table);
         fillIt33(table);
+        fillIt34(table);
         return table;
     }
 
@@ -12947,8 +13014,8 @@ public final class L10nTranslations {
                 "Un link a un reel apre il reel a cui punta. Instagram non riproduce un altro reel salvato sul telefono mentre quello si carica.");
         table.put("A reel that doesn't fill the screen shows a blurred copy of itself above and below it instead of black bars, and the strip under the tab bar and the band behind the clock show the reel blurred too. The copy shows only where a reel leaves room, as with Show the whole reel on. Open Reels again after a change.",
                 "Un reel che non riempie lo schermo mostra una copia sfocata di s\u00e9 sopra e sotto invece delle barre nere, e anche la striscia sotto la barra delle schede e la fascia dietro l'orologio mostrano il reel sfocato. La copia compare solo dove un reel lascia spazio, come con Mostra il reel intero attivo. Riapri i reel dopo una modifica.");
-        table.put("A reel you open from the Reels tab or a post on Home plays with sound, and Home is muted again when you go back. Your phone's ringer and volume still count.",
-                "Un reel che apri dalla scheda Reels o da un post nella Home parte con l'audio, e la Home torna muta quando torni indietro. Suoneria e volume del telefono contano ancora.");
+        table.put("A reel you open from the Reels tab, a profile or a post on Home plays with sound, and Home is muted again when you go back. Your phone's ringer and volume still count.",
+                "Un reel che apri dalla scheda Reels, da un profilo o da un post nella Home parte con l'audio, e la Home torna muta quando torni indietro. Suoneria e volume del telefono contano ancora.");
         table.put("A rounded bar split by a tall handle.",
                 "Una barra arrotondata divisa da una maniglia alta.");
         table.put("A save stopped. Reopen the media and save again.",
@@ -13193,6 +13260,8 @@ public final class L10nTranslations {
                 "Un file di font emoji");
         table.put("An eye at the top of each chat holds or sends Seen in that chat alone, whatever Read messages without the seen receipt says. Changing it doesn't send anything by itself.",
                 "Un occhio in cima a ogni chat trattiene o invia Visualizzato solo in quella chat, qualunque cosa dica Leggi i messaggi senza conferma di lettura. Cambiarlo non invia nulla da solo.");
+        table.put("App",
+                "App");
         table.put("App icon",
                 "Icona dell'app");
         table.put("App-only proxy",
@@ -13239,11 +13308,11 @@ public final class L10nTranslations {
                 "Indietro lascia la Home com'\u00e8");
         table.put("Back on Home leaves Instagram without first scrolling the feed to the top and reloading it.",
                 "Indietro nella Home esce da Instagram senza prima riportare il feed in cima e ricaricarlo.");
-        table.put("Background playback",
-                "Riproduzione in background");
     }
 
     private static void fillIt4(Map<String, String> table) {
+        table.put("Background playback",
+                "Riproduzione in background");
         table.put("Backgrounds in the accent color",
                 "Sfondi nel colore di accento");
         table.put("Badges in the accent color",
@@ -13268,8 +13337,8 @@ public final class L10nTranslations {
                 "Bio");
         table.put("Bio copied",
                 "Bio copiata");
-        table.put("Black rows and dialogs, HushGram's name at the top, and each category on one line.",
-                "Righe e finestre nere, il nome di HushGram in alto e ogni categoria su una riga.");
+        table.put("Black rows and dialogs, with HushGram's name at the top.",
+                "Righe e finestre nere, con il nome di HushGram in alto.");
         table.put("Black settings page",
                 "Pagina delle impostazioni nera");
         table.put("Blend post edges",
@@ -13362,11 +13431,11 @@ public final class L10nTranslations {
                 "Scegli un file per l'esportazione delle impostazioni.");
         table.put("Choose a file for your installed patches' settings and saved profiles. Your login and history stay on this device.",
                 "Scegli un file per le impostazioni delle patch installate e i profili salvati. Accesso e cronologia restano su questo dispositivo.");
-        table.put("Choose a file for your installed patches' settings. Accounts and history stay on this device.",
-                "Scegli un file per le impostazioni delle patch installate. Account e cronologia restano su questo dispositivo.");
     }
 
     private static void fillIt5(Map<String, String> table) {
+        table.put("Choose a file for your installed patches' settings. Accounts and history stay on this device.",
+                "Scegli un file per le impostazioni delle patch installate. Account e cronologia restano su questo dispositivo.");
         table.put("Choose a folder",
                 "Scegli una cartella");
         table.put("Choose a folder name under Movies and Pictures. Invalid characters become underscores. Leave it blank to use the default folder, %1$s. For an SD card or anywhere else, use Choose a folder.",
@@ -13423,6 +13492,8 @@ public final class L10nTranslations {
                 "Compatta");
         table.put("Confirm PIN",
                 "Conferma il PIN");
+        table.put("Content",
+                "Contenuti");
         table.put("Continue",
                 "Continua");
         table.put("Control where Meta AI appears.",
@@ -13483,13 +13554,13 @@ public final class L10nTranslations {
                 "Impossibile cancellare le copie salvate. Riprova.");
         table.put("Couldn't clear the unfollower list. Try again.",
                 "Impossibile cancellare la lista. Riprova.");
+    }
+
+    private static void fillIt6(Map<String, String> table) {
         table.put("Couldn't clear the viewing history. Try again.",
                 "Cronologia non cancellata. Riprova.");
         table.put("Couldn't copy comment",
                 "Impossibile copiare il commento");
-    }
-
-    private static void fillIt6(Map<String, String> table) {
         table.put("Couldn't copy the GIF name",
                 "Impossibile copiare il nome della GIF");
         table.put("Couldn't copy the bio",
@@ -13606,13 +13677,13 @@ public final class L10nTranslations {
                 "Personalizzato");
         table.put("Custom app icon",
                 "Icona personalizzata dell'app");
+    }
+
+    private static void fillIt7(Map<String, String> table) {
         table.put("Custom color",
                 "Colore personalizzato");
         table.put("Custom tab",
                 "Scheda personalizzata");
-    }
-
-    private static void fillIt7(Map<String, String> table) {
         table.put("Data saver",
                 "Risparmio dati");
         table.put("Date and time",
@@ -13729,13 +13800,13 @@ public final class L10nTranslations {
                 "Download in corso");
         table.put("Downloading the emoji...",
                 "Scaricamento delle emoji...");
+    }
+
+    private static void fillIt8(Map<String, String> table) {
         table.put("Downloads",
                 "Download");
         table.put("Drag to move %1$s",
                 "Trascina per spostare %1$s");
-    }
-
-    private static void fillIt8(Map<String, String> table) {
         table.put("Drag to move, pinch to zoom.",
                 "Trascina per spostare, pizzica per ingrandire.");
         table.put("Draws Instagram's tab bar as a floating, rounded glass pill with a highlight on the tab you're on. Restart Instagram after changing it.",
@@ -13852,13 +13923,13 @@ public final class L10nTranslations {
                 "Scorrimento rapido in Salvati");
         table.put("Favorites still shows them.",
                 "Preferiti continua a mostrarli.");
+    }
+
+    private static void fillIt9(Map<String, String> table) {
         table.put("Feed",
                 "Feed");
         table.put("Feed videos and reels stop at their last frame instead of playing again. Reels still loop while auto scroll is on, so it can move on.",
                 "I video del feed e i reel si fermano sull'ultimo fotogramma invece di ripartire. I reel continuano a ripetersi finch\u00e9 lo scorrimento automatico \u00e8 attivo, cos\u00ec pu\u00f2 passare al successivo.");
-    }
-
-    private static void fillIt9(Map<String, String> table) {
         table.put("Feed videos and stories wait for your tap. Reels play as you swipe to them.",
                 "I video del feed e le storie aspettano il tuo tocco. I reel partono quando ci scorri sopra.");
         table.put("Feed videos, reels and stories all wait for your tap.",
@@ -13975,13 +14046,13 @@ public final class L10nTranslations {
                 "Completamente arrotondati");
         table.put("GIF name",
                 "Nome della GIF");
+    }
+
+    private static void fillIt10(Map<String, String> table) {
         table.put("GIF name copied",
                 "Nome della GIF copiato");
         table.put("GIF or sticker",
                 "GIF o sticker");
-    }
-
-    private static void fillIt10(Map<String, String> table) {
         table.put("GPL-3.0, with the notices of the projects this is built on",
                 "GPL-3.0, con le note dei progetti su cui si basa");
         table.put("Galaxy S26 Ultra",
@@ -14098,13 +14169,13 @@ public final class L10nTranslations {
                 "Nascondi In evidenza nelle notifiche");
         table.put("Hide Follow on posts",
                 "Nascondi Segui sui post");
+    }
+
+    private static void fillIt11(Map<String, String> table) {
         table.put("Hide Follow on stories",
                 "Nascondi Segui nelle storie");
         table.put("Hide GIFs in comments",
                 "Nascondi le GIF nei commenti");
-    }
-
-    private static void fillIt11(Map<String, String> table) {
         table.put("Hide Instagram Plus prompts",
                 "Nascondi gli inviti a Instagram Plus");
         table.put("Hide Instants",
@@ -14141,6 +14212,8 @@ public final class L10nTranslations {
                 "Nascondi Suggeriti per te negli elenchi di follower e seguiti");
         table.put("Hide Threads posts",
                 "Nascondi i post di Threads");
+        table.put("Hide Watch more reels",
+                "Nascondi Guarda altri reel");
         table.put("Hide Your algorithm on reels",
                 "Nascondi Il tuo algoritmo sui reel");
         table.put("Hide activity bubbles",
@@ -14219,15 +14292,15 @@ public final class L10nTranslations {
                 "Nascondi i post suggeriti");
         table.put("Hide suggested searches on reels",
                 "Nascondi le ricerche suggerite nei reel");
+    }
+
+    private static void fillIt12(Map<String, String> table) {
         table.put("Hide suggested stories",
                 "Nascondi le storie suggerite");
         table.put("Hide suggestions in notifications",
                 "Nascondi i suggerimenti nelle notifiche");
         table.put("Hide surveys",
                 "Nascondi i sondaggi");
-    }
-
-    private static void fillIt12(Map<String, String> table) {
         table.put("Hide that you're typing",
                 "Nascondi che stai scrivendo");
         table.put("Hide the 2x popup",
@@ -14342,15 +14415,15 @@ public final class L10nTranslations {
                 "Nasconde i post e i reel di account che non segui, contrassegnati Suggeriti per te. I post degli account che segui restano.");
         table.put("Hides sponsored posts, reels, stories and the ad in comments. No empty gap is left where an ad would have been.",
                 "Nasconde post, reel e storie sponsorizzati, e l'annuncio nei commenti. Non resta nessun vuoto dove ci sarebbe stato un annuncio.");
+    }
+
+    private static void fillIt13(Map<String, String> table) {
         table.put("Hides stories from accounts you don't follow, and accounts Instagram suggests, in the row at the top of Home. Stories from accounts you follow stay.",
                 "Nasconde le storie di account che non segui, e gli account suggeriti da Instagram, nella riga in alto nella Home. Le storie degli account che segui restano.");
         table.put("Hides the bar under a post that asks you to join the account's channel. The post stays.",
                 "Nasconde la barra sotto un post che ti chiede di unirti al canale dell'account. Il post resta.");
         table.put("Hides the bubble under a post that asks 'Are you interested in this post?' with Not interested and Interested buttons. Nothing is answered for you.",
                 "Nasconde il fumetto sotto un post che chiede 'Ti interessa questo post?' con i pulsanti Non mi interessa e Mi interessa. Non viene risposto nulla al posto tuo.");
-    }
-
-    private static void fillIt13(Map<String, String> table) {
         table.put("Hides the buttons that push Edits, templates, Meta AI and Ray-Ban Meta glasses. Live badges and state-controlled media labels stay.",
                 "Nasconde i pulsanti che promuovono Edits, i modelli, Meta AI e gli occhiali Ray-Ban Meta. Restano i badge Live e le etichette dei media statali.");
         table.put("Hides the card after the posts from accounts you follow that says you've seen the latest ones, and its Older posts link. When Home has no new posts at all, only that line goes and the link stays. Pull down on Home to refresh after changing it.",
@@ -14465,15 +14538,15 @@ public final class L10nTranslations {
                 "Importate %1$d impostazioni. Saltate %2$d che questa versione non conosce.");
         table.put("Instagram accepts this build",
                 "Instagram accetta questa build");
+    }
+
+    private static void fillIt14(Map<String, String> table) {
         table.put("Instagram blue",
                 "Blu Instagram");
         table.put("Instagram can't read where the photos and videos in your gallery were taken.",
                 "Instagram non pu\u00f2 leggere la posizione delle foto e dei video della tua galleria.");
         table.put("Instagram can't read your phone's advertising ID or tell Android's ad services which ads you saw or tapped. The permissions for them are gone from this build.",
                 "Instagram non pu\u00f2 leggere l'ID pubblicitario del telefono n\u00e9 dire ai servizi pubblicitari di Android quali annunci hai visto o toccato. I permessi per farlo sono stati tolti da questa build.");
-    }
-
-    private static void fillIt14(Map<String, String> table) {
         table.put("Instagram crashed or froze within a minute of starting three times in a row, so HushGram paused itself.",
                 "Instagram si \u00e8 chiuso o bloccato entro un minuto dall'avvio tre volte di fila, quindi HushGram si \u00e8 messo in pausa da solo.");
         table.put("Instagram didn't keep the change and the overrides couldn't be confirmed. Use Restore previous overrides, then restart Instagram.",
@@ -14588,15 +14661,15 @@ public final class L10nTranslations {
                 "Vai al primo messaggio o a una data");
         table.put("KakaoTalk",
                 "KakaoTalk");
+    }
+
+    private static void fillIt15(Map<String, String> table) {
         table.put("Keep Featured off the heart's dot",
                 "Niente puntino sul cuore per In evidenza");
         table.put("Keep Home's top bar",
                 "Fissa la barra in alto della Home");
         table.put("Keep Instagram's saved photos and videos from filling your phone.",
                 "Evita che le foto e i video salvati da Instagram riempiano il telefono.");
-    }
-
-    private static void fillIt15(Map<String, String> table) {
         table.put("Keep Reels auto scroll between sessions",
                 "Keep Reels auto scroll between sessions");
         table.put("Keep a seek bar",
@@ -14711,15 +14784,15 @@ public final class L10nTranslations {
                 "Esclude le schede Tocca a te, come quelle popolari o di tendenza a cui unirsi, che Instagram mette tra le storie che scorri. Le storie restano.");
         table.put("Leaves out the Suggested for you cards of accounts to follow that Instagram puts between the stories you tap through. The stories themselves stay.",
                 "Esclude le schede Suggeriti per te di account da seguire che Instagram mette tra le storie che scorri. Le storie restano.");
+    }
+
+    private static void fillIt16(Map<String, String> table) {
         table.put("Leaves out the live broadcasts Instagram puts between reels in the Reels tab and when you swipe through reels from Explore.",
                 "Lascia fuori le dirette che Instagram mette tra i reel nella scheda Reels e quando scorri i reel da Esplora.");
         table.put("Leaves the Suggested for you accounts out of what shows when you tap the search bar. Recent searches stay.",
                 "Esclude gli account Suggeriti per te da ci\u00f2 che compare quando tocchi la barra di ricerca. Le ricerche recenti restano.");
         table.put("Leaves the Suggested for you section off the followers, following and mutual lists and the screen where you approve follow requests, and the Suggested tab off other people's follow lists. Every account in the lists and every real request stays.",
                 "Toglie la sezione Suggeriti per te dagli elenchi dei follower, dei seguiti e in comune e dalla schermata in cui approvi le richieste di follow, e la scheda Suggeriti dagli elenchi delle altre persone. Tutti gli account negli elenchi e tutte le richieste vere restano.");
-    }
-
-    private static void fillIt16(Map<String, String> table) {
         table.put("Leaving Instagram while a reel plays shrinks it into a small window over your other apps. Works in Reels and on reels opened from the feed, on Android 15 or newer.",
                 "Se esci da Instagram mentre un reel \u00e8 in riproduzione, si riduce in una piccola finestra sopra le altre app. Funziona in Reels e sui reel aperti dal feed, su Android 15 o versioni successive.");
         table.put("Leaving Instagram while a story plays shrinks it into a small window over your other apps, where it keeps going through the stories.",
@@ -14818,6 +14891,8 @@ public final class L10nTranslations {
                 "Pressione lunga su una foto per ingrandirla");
         table.put("Long press a post for full screen",
                 "Tieni premuto un post per lo schermo intero");
+        table.put("Look",
+                "Aspetto");
         table.put("Loop a story",
                 "Ripeti una storia");
         table.put("Loop didn't change",
@@ -14832,6 +14907,9 @@ public final class L10nTranslations {
                 "Questo video si ripete");
         table.put("Makes Instagram see the phone chosen below, unlocking HDR video downloads and other features limited to those phones, and adds the matching developer options. Restart Instagram to see the change.",
                 "Fa in modo che Instagram veda il telefono scelto qui sotto, sbloccando i download di video HDR e altre funzioni limitate a quei telefoni, e aggiunge le relative opzioni sviluppatore. Riavvia Instagram per vedere la modifica.");
+    }
+
+    private static void fillIt17(Map<String, String> table) {
         table.put("Makes the seek bar thicker, with a round white handle and the time above it, over a soft dark fade so it shows on any video. Drag it to seek. It also keeps the bar on short reels.",
                 "Rende la barra di avanzamento pi\u00f9 spessa, con una maniglia rotonda bianca e il tempo sopra, su una morbida sfumatura scura cos\u00ec si vede su qualsiasi video. Trascinala per spostarti. Mantiene la barra anche sui reel brevi.");
         table.put("Mapping file removed. Open MetaConfig again to see the change.",
@@ -14840,9 +14918,6 @@ public final class L10nTranslations {
                 "Mapping imported: %1$d names. Open MetaConfig again to see them.");
         table.put("Mark a chat seen when you reply",
                 "Segna una chat come vista quando rispondi");
-    }
-
-    private static void fillIt17(Map<String, String> table) {
         table.put("Mark as read",
                 "Segna come letto");
         table.put("Mark as read button in chats",
@@ -14869,6 +14944,8 @@ public final class L10nTranslations {
                 "Material You richiede Android 12 o successivo, quindi resta il blu di Instagram.");
         table.put("Media ID %1$s",
                 "ID media %1$s");
+        table.put("Media and storage",
+                "Media e archiviazione");
         table.put("Media link",
                 "Link del media");
         table.put("Media link copied. It stops working after a few days.",
@@ -14919,8 +14996,8 @@ public final class L10nTranslations {
                 "Hai spostato @%1$s in %2$s");
         table.put("Moved @%s out of its folder",
                 "Hai tolto @%s dalla cartella");
-        table.put("Moves a carousel post's page dots onto a round pill at the bottom of its photo or video, with the page you're on in blue.",
-                "Sposta i puntini di pagina di un post a carosello su una pillola arrotondata in fondo alla foto o al video, con la pagina in cui sei in blu.");
+        table.put("Moves a carousel post's page dots onto a round pill at the bottom of its photo or video, with the page you're on in blue. Hold the pill and slide left or right to move through the pages.",
+                "Sposta i puntini di pagina di un post a carosello su una pillola arrotondata in fondo alla foto o al video, con la pagina in cui sei in blu. Tieni premuta la pillola e scorri a sinistra o a destra per cambiare pagina.");
         table.put("Moves the gallery and microphone buttons off the message bar and into the plus menu. They work as before. Turn it off and they're back the next time a chat opens.",
                 "Sposta i pulsanti della galleria e del microfono dalla barra dei messaggi al menu pi\u00f9. Funzionano come prima. Se lo disattivi, tornano alla prossima apertura di una chat.");
         table.put("Mute",
@@ -14953,6 +15030,9 @@ public final class L10nTranslations {
                 "Nuova cartella");
         table.put("New like animations",
                 "New like animations");
+    }
+
+    private static void fillIt18(Map<String, String> table) {
         table.put("New message",
                 "Nuovo messaggio");
         table.put("New message after this reel",
@@ -14963,9 +15043,6 @@ public final class L10nTranslations {
                 "Nuova foto profilo e nuova bio");
         table.put("New story fonts and animations",
                 "New story fonts and animations");
-    }
-
-    private static void fillIt18(Map<String, String> table) {
         table.put("New story timestamp style",
                 "New story timestamp style");
         table.put("Next match",
@@ -15076,6 +15153,9 @@ public final class L10nTranslations {
                 "Avvisami di chi smette di seguirmi");
         table.put("OK",
                 "OK");
+    }
+
+    private static void fillIt19(Map<String, String> table) {
         table.put("Off",
                 "Off");
         table.put("Off. It can cover the Home, Reels and Explore tabs for a break after you've spent a while on them.",
@@ -15086,9 +15166,6 @@ public final class L10nTranslations {
                 "Vecchia bio, %s");
         table.put("Old profile picture, %s",
                 "Vecchia foto profilo, %s");
-    }
-
-    private static void fillIt19(Map<String, String> table) {
         table.put("On Reels, the tab bar slides away after %1$d seconds without a touch. Tap the bottom edge of the screen, change tab or press Back to bring it back. Restart Instagram after changing it.",
                 "Nei reel, la barra delle schede scivola via dopo %1$d secondi senza un tocco. Tocca il bordo inferiore dello schermo, cambia scheda o premi Indietro per riportarla. Riavvia Instagram dopo averlo cambiato.");
         table.put("On a carousel, the download icon saves all of its pages at once instead of asking.",
@@ -15199,6 +15276,9 @@ public final class L10nTranslations {
                 "Aprire una chat non dice alle persone che hai visto i loro messaggi, e tu vedi comunque quando hanno visto i tuoi. Per farlo sapere a una chat, tienila premuta nei messaggi e tocca Segna come letto.");
         table.put("Opening someone's profile takes you on to their posts as a scrolling list of full posts. Go Back for the grid. Your own profile keeps its grid.",
                 "Aprendo il profilo di qualcuno passi ai suoi post come elenco scorrevole di post interi. Premi Indietro per la griglia. Il tuo profilo mantiene la sua griglia.");
+    }
+
+    private static void fillIt20(Map<String, String> table) {
         table.put("Opens Home on posts from accounts you follow instead of For you. Tap the top of Home to switch. Restart Instagram to see the change.",
                 "Apre la Home sui post degli account che segui invece di Per te. Tocca la parte alta della Home per cambiare. Riavvia Instagram per vedere la modifica.");
         table.put("Opens Instagram's own Whitehat settings. Its switch lets Instagram trust the certificates installed on this phone for 24 hours, so you can check the app's traffic. Restart Instagram after you turn it on.",
@@ -15209,9 +15289,6 @@ public final class L10nTranslations {
                 "Opens Instagram's own editor for its hidden settings (MetaConfig). A wrong override, which is a changed setting, can break parts of Instagram.");
         table.put("Opens a GitHub report with your versions and settings filled in. Add what happened.",
                 "Apre una segnalazione su GitHub con le tue versioni e impostazioni gi\u00e0 compilate. Aggiungi cos'\u00e8 successo.");
-    }
-
-    private static void fillIt20(Map<String, String> table) {
         table.put("Orange",
                 "Arancione");
         table.put("Overrides cleared. Restart Instagram to apply the change.",
@@ -15322,6 +15399,9 @@ public final class L10nTranslations {
                 "Post a story straight to Highlights");
         table.put("Posted %1$s",
                 "Pubblicato %1$s");
+    }
+
+    private static void fillIt21(Map<String, String> table) {
         table.put("Posts",
                 "Post");
         table.put("Posts from @%1$s are hidden",
@@ -15332,9 +15412,6 @@ public final class L10nTranslations {
                 "I post dei tuoi account nascosti restano visibili nei Preferiti. Per te e Seguiti li lasciano fuori. Tira verso il basso nella Home per aggiornare dopo averlo cambiato.");
         table.put("Preparing diagnostic report...",
                 "Preparazione del report diagnostico...");
-    }
-
-    private static void fillIt21(Map<String, String> table) {
         table.put("Press and hold a comment that has its own photo, GIF or sticker, and its menu gets Save. Saves the largest size Instagram sent.",
                 "Tieni premuto un commento con una sua foto, GIF o sticker e il suo menu avr\u00e0 Salva. Salva la dimensione pi\u00f9 grande inviata da Instagram.");
         table.put("Press and hold a photo in a feed to see it twice as big around your finger, and slide to look around. Let go to close it. While this is on, it takes the place of Instagram's own long press on a photo.",
@@ -15369,6 +15446,8 @@ public final class L10nTranslations {
                 "Pagina precedente");
         table.put("Priority accounts",
                 "Account prioritari");
+        table.put("Privacy",
+                "Riservatezza");
         table.put("Privacy and controls for your chats.",
                 "Privacy e controlli per le tue chat.");
         table.put("Profile",
@@ -15443,6 +15522,9 @@ public final class L10nTranslations {
                 "Mette un pulsante velocit\u00e0 in alto in una storia video, accanto ai tre puntini. Toccalo per 1,5x, di nuovo per 2x e ancora una volta per 1x. Le storie video successive mantengono la velocit\u00e0 finch\u00e9 non la cambi o riavvii Instagram. Le pubblicit\u00e0 vengono riprodotte a velocit\u00e0 normale.");
         table.put("Puts a speed icon beside a reel. Tap it to pick a speed from 0.5x to 3x. With Keep the reel speed on, the next reels play at it too.",
                 "Mette un'icona della velocit\u00e0 accanto a un reel. Toccala per scegliere una velocit\u00e0 da 0,5x a 3x. Con Mantieni la velocit\u00e0 dei reel attivo, anche i reel successivi vanno a quella velocit\u00e0.");
+    }
+
+    private static void fillIt22(Map<String, String> table) {
         table.put("Puts an (i) next to the three dots on a profile that opens Instagram's About this account for that account. Instagram took its own away.",
                 "Mette una (i) accanto ai tre puntini di un profilo che apre Informazioni su questo account di Instagram per quell'account. Instagram ha tolto il suo.");
         table.put("Puts back the overrides saved before your last import for this account and Instagram version.",
@@ -15455,9 +15537,6 @@ public final class L10nTranslations {
                 "Mette invece la risposta in un chip sotto i conteggi di post, follower e seguiti del profilo, e dice Vi seguite a vicenda quando lo segui anche tu.");
         table.put("Puts the seek bar right on the bottom edge of the video, so it's harder to touch by accident while you scroll.",
                 "Mette la barra di scorrimento proprio sul bordo inferiore del video, cos\u00ec \u00e8 pi\u00f9 difficile toccarla per sbaglio mentre scorri.");
-    }
-
-    private static void fillIt22(Map<String, String> table) {
         table.put("Puts the title in the middle of the bar at the top of other screens, like notifications, as far as the buttons beside it allow. The buttons stay where they are.",
                 "Mette il titolo al centro della barra in alto delle altre schermate, come le notifiche, per quanto lo permettono i pulsanti accanto. I pulsanti restano dove sono.");
         table.put("Puts the username in the middle of the bar at the top of a profile, yours and other people's. The buttons stay where they are.",
@@ -15566,6 +15645,9 @@ public final class L10nTranslations {
                 "Rimuove dalla Home ogni post con una sola foto, anche degli account che segui. Tira verso il basso nella Home per aggiornare dopo averlo cambiato.");
         table.put("Removes every single-video post and reel from Home, even from accounts you follow. Pull down on Home to refresh after changing it.",
                 "Rimuove dalla Home ogni post con un solo video e ogni reel, anche degli account che segui. Tira verso il basso nella Home per aggiornare dopo averlo cambiato.");
+    }
+
+    private static void fillIt23(Map<String, String> table) {
         table.put("Removes posts by business and creator accounts from Home and Following, friends who use one included. Pull down on Home to refresh after changing it.",
                 "Rimuove dalla Home e da Seguiti i post degli account business e creator, compresi gli amici che ne usano uno. Tira verso il basso nella Home per aggiornare dopo averlo cambiato.");
         table.put("Removes posts you've already liked from Home and Following. A post you like now stays until you pull down on Home to refresh.",
@@ -15578,9 +15660,6 @@ public final class L10nTranslations {
                 "Rimuove il pulsante Muse dalla barra in alto del tuo profilo. Il tuo nome utente e il menu restano.");
         table.put("Removes the empty gap under Instagram's tab bar that appears when your phone hides its navigation bar or Instagram is in a pop-up window. Restart Instagram to see the change.",
                 "Rimuove il vuoto sotto la barra delle schede di Instagram che compare quando il telefono nasconde la barra di navigazione o Instagram \u00e8 in una finestra a comparsa. Riavvia Instagram per vedere la modifica.");
-    }
-
-    private static void fillIt23(Map<String, String> table) {
         table.put("Removes the stack of Instants (quick photos from friends) from your messages. Restart Instagram to see the change.",
                 "Rimuove la pila di Instants (foto rapide degli amici) dai tuoi messaggi. Riavvia Instagram per vedere la modifica.");
         table.put("Removes the summary, Sources and Ask Meta AI box from a reel's more menu. In your feed the audio row goes too. Other options stay.",
@@ -15689,6 +15768,9 @@ public final class L10nTranslations {
                 "Salva i video come MKV");
         table.put("Save videos other apps can open",
                 "Salva video apribili da altre app");
+    }
+
+    private static void fillIt24(Map<String, String> table) {
         table.put("Save your HushGram choices to a file, or bring them back.",
                 "Salva le tue scelte di HushGram in un file, oppure ripristinale.");
         table.put("Saved",
@@ -15701,9 +15783,6 @@ public final class L10nTranslations {
                 "Hai salvato @%s");
         table.put("Saved and everything in it stay covered until your fingerprint, face or screen lock says it's you.",
                 "I Salvati e tutto ci\u00f2 che contengono restano coperti finch\u00e9 la tua impronta, il tuo volto o il blocco schermo non confermano che sei tu.");
-    }
-
-    private static void fillIt24(Map<String, String> table) {
         table.put("Saved button in Explore",
                 "Saved button in Explore");
         table.put("Saved is locked",
@@ -15812,6 +15891,9 @@ public final class L10nTranslations {
                 "Visualizzato trattenuto in questa chat");
         table.put("Select text",
                 "Seleziona testo");
+    }
+
+    private static void fillIt25(Map<String, String> table) {
         table.put("Select text to copy",
                 "Seleziona testo da copiare");
         table.put("Send",
@@ -15824,9 +15906,6 @@ public final class L10nTranslations {
                 "Send stories with a long press");
         table.put("Send to",
                 "Invia a");
-    }
-
-    private static void fillIt25(Map<String, String> table) {
         table.put("Sending a message in a chat lets the other person see that you've read what they sent before it. Chats you don't answer stay unseen to them.",
                 "Quando invii un messaggio in una chat, l'altra persona vede che hai letto ci\u00f2 che ti ha scritto prima. Le chat a cui non rispondi restano non visualizzate per lei.");
         table.put("Sends Instagram through the HTTP proxy set below. Other apps and your phone's own settings aren't changed.",
@@ -15935,6 +16014,9 @@ public final class L10nTranslations {
                 "Mostra una barra vicino al fondo di una storia video. Trascinala per saltare a qualsiasi punto del video. Le foto non ce l'hanno.");
         table.put("Shows a blurred preview of a disappearing photo or video in a chat.",
                 "Shows a blurred preview of a disappearing photo or video in a chat.");
+    }
+
+    private static void fillIt26(Map<String, String> table) {
         table.put("Shows a handle at the right edge of Saved and your collections while they scroll. Drag it to jump through them.",
                 "Mostra una maniglia sul bordo destro di Salvati e delle tue raccolte mentre scorrono. Trascinala per saltare al loro interno.");
         table.put("Shows each switch by its name alone. Tap the i next to a name to read what it does.",
@@ -15947,9 +16029,6 @@ public final class L10nTranslations {
                 "Mostra le righe Importa e Ripristina. Un'importazione cambia le impostazioni nascoste di Instagram per questo account con l'accesso effettuato.");
         table.put("Shows the date and time a reel was posted under the author's name, like Oct 2, 3:45 PM. A change shows from the next reel.",
                 "Mostra la data e l'ora di pubblicazione di un reel sotto il nome dell'autore, come 2 ott, 15:45. Una modifica si vede dal reel successivo.");
-    }
-
-    private static void fillIt26(Map<String, String> table) {
         table.put("Shows the days, hours and minutes since it went up on a line under the time, like 1d 2h 5m ago.",
                 "Mostra i giorni, le ore e i minuti da quando \u00e8 stato pubblicato su una riga sotto l'orario, come 1g 2h 5min fa.");
         table.put("Shows the time above your finger while you drag a seek bar on a feed video, story or reel, and a small picture of that moment when Instagram has one for the video.",
@@ -15960,6 +16039,8 @@ public final class L10nTranslations {
                 "Mostra quando sono stati pubblicati un post e i suoi commenti, come 2 ott, 15:45, invece di quanto tempo fa. I post che carichi dopo una modifica lo mostrano.");
         table.put("Shows your feed blurred under Home's top bar, like frosted glass.",
                 "Mostra il tuo feed sfocato sotto la barra in alto della Home, come un vetro smerigliato.");
+        table.put("Shrink the pill as you scroll",
+                "Rimpicciolisci la pillola durante lo scorrimento");
         table.put("Size %1$d \u00d7 %2$d",
                 "Dimensione %1$d \u00d7 %2$d");
         table.put("Skip length",
@@ -16056,6 +16137,9 @@ public final class L10nTranslations {
                 "Scorri comunque i reel da Cerca ed Esplora");
         table.put("Still scroll reels from a profile",
                 "Scorri comunque i reel da un profilo");
+    }
+
+    private static void fillIt27(Map<String, String> table) {
         table.put("Still scroll reels from a song page",
                 "Scorri comunque i reel dalla pagina di un brano");
         table.put("Stop",
@@ -16070,9 +16154,6 @@ public final class L10nTranslations {
                 "Fermati dopo un certo numero di reel");
         table.put("Stop after the chat's reels",
                 "Fermati dopo i reel della chat");
-    }
-
-    private static void fillIt27(Map<String, String> table) {
         table.put("Stop background feed refresh",
                 "Ferma l'aggiornamento del feed in background");
         table.put("Stop background work Instagram doesn't need.",
@@ -16179,6 +16260,9 @@ public final class L10nTranslations {
                 "Le pressioni lunghe sulle schede mantengono l'azione di Instagram. Scegline una per aprire invece Preferiti.");
         table.put("Tab long presses keep Instagram's own action. Choose one to open HushGram instead.",
                 "Le pressioni lunghe sulle schede mantengono l'azione di Instagram. Scegline una per aprire invece HushGram.");
+    }
+
+    private static void fillIt28(Map<String, String> table) {
         table.put("Tab long presses keep Instagram's own action. Choose one to open Saved profiles instead.",
                 "Le pressioni lunghe sulle schede mantengono l'azione di Instagram. Scegline una per aprire invece Profili salvati.");
         table.put("Tab long presses keep Instagram's own action. Choose one to pick the playback quality instead.",
@@ -16193,9 +16277,6 @@ public final class L10nTranslations {
                 "Schede negli altri profili");
         table.put("Tabs on your profile",
                 "Schede nel tuo profilo");
-    }
-
-    private static void fillIt28(Map<String, String> table) {
         table.put("Tagged",
                 "Taggati");
         table.put("Take a scroll break",
@@ -16284,6 +16365,8 @@ public final class L10nTranslations {
                 "Toglie il badge di Threads da sotto la bio nei profili degli altri. Il tuo lo mantiene.");
         table.put("Takes the Threads button off the top of profiles, yours included. The menu and the other buttons stay where they were.",
                 "Toglie il pulsante Threads dalla parte alta dei profili, compreso il tuo. Il menu e gli altri pulsanti restano dove erano.");
+        table.put("Takes the Watch more reels button off the card a reel in your feed shows when it ends. Watch again stays.",
+                "Toglie il pulsante Guarda altri reel dalla scheda che appare quando un reel nel tuo feed finisce. Guarda di nuovo resta.");
         table.put("Takes the Your algorithm button off the top of the Reels tab and closes up the gap. The rest of the bar stays.",
                 "Toglie il pulsante Il tuo algoritmo dalla parte alta della scheda Reel e chiude lo spazio vuoto. Il resto della barra resta.");
         table.put("Takes the accounts Instagram suggests off the bottom of your messages. Your chats and follow requests stay. Restart Instagram to see the change.",
@@ -16300,6 +16383,9 @@ public final class L10nTranslations {
                 "Toglie il cuore dalla parte alta della Home e chiude lo spazio. Gli avvisi arrivano comunque. Riavvia Instagram per vedere la modifica.");
         table.put("Takes the interests someone added, like reading or hiking, from under their bio. Yours keeps them.",
                 "Toglie gli interessi che qualcuno ha aggiunto, come leggere o fare escursioni, da sotto la sua bio. Il tuo li mantiene.");
+    }
+
+    private static void fillIt29(Map<String, String> table) {
         table.put("Takes the invite to someone's broadcast channel from under their bio. Yours keeps it.",
                 "Toglie l'invito al canale broadcast di qualcuno da sotto la sua bio. Il tuo lo mantiene.");
         table.put("Takes the link to someone's WhatsApp from under their bio. Yours keeps it.",
@@ -16316,9 +16402,6 @@ public final class L10nTranslations {
                 "Toglie l'aeroplanino di carta dal fondo delle storie degli altri. Non resta nessuno spazio vuoto.");
         table.put("Takes the plus button off the top of Home and closes up the gap. The Create tab and swiping to create are separate. Restart Instagram to see the change.",
                 "Toglie il pulsante pi\u00f9 dalla parte alta della Home e chiude lo spazio. La scheda Crea e lo scorrimento per creare sono separati. Riavvia Instagram per vedere la modifica.");
-    }
-
-    private static void fillIt29(Map<String, String> table) {
         table.put("Takes the plus button off the top of reels you open from Saved or a collection and closes up the gap. The Reels tab and other reels keep theirs.",
                 "Toglie il pulsante pi\u00f9 dalla parte alta dei reel che apri da Elementi salvati o da una raccolta e chiude lo spazio vuoto. La scheda Reel e gli altri reel tengono il loro.");
         table.put("Takes the plus button that opens the camera off the top of reels, on the Reels tab and everywhere else, and closes up the gap. The rest of the bar stays.",
@@ -16423,6 +16506,9 @@ public final class L10nTranslations {
                 "La barra e la maniglia rotonda di sempre.");
         table.put("The bar sits in the space under the Send message box. Where there's no room under it, the bar stays above it.",
                 "La barra sta nello spazio sotto la casella Invia messaggio. Dove sotto non c'\u00e8 spazio, resta sopra.");
+    }
+
+    private static void fillIt30(Map<String, String> table) {
         table.put("The bar sits just above the Send message box at the bottom of a story.",
                 "La barra sta appena sopra la casella Invia messaggio in fondo a una storia.");
         table.put("The bubbles of friends who liked or commented, the Followed by and Liked by lines with their faces, the comment shown under a reel and the row of friends who saw it. Comments are still a tap away.",
@@ -16439,9 +16525,6 @@ public final class L10nTranslations {
                 "La data e l'ora di pubblicazione della storia, come 2 ott, 15:45.");
         table.put("The file %1$s couldn't be removed. Delete it from %2$s to turn HushGram back on.",
                 "Impossibile rimuovere il file %1$s. Eliminalo da %2$s per riattivare HushGram.");
-    }
-
-    private static void fillIt30(Map<String, String> table) {
         table.put("The heart at the top of Home shows how many notifications are waiting, like the number on Messages, in place of the red dot. Restart Instagram to see the change.",
                 "Il cuore in alto nella Home mostra quante notifiche ti aspettano, come il numero sui Messaggi, al posto del pallino rosso. Riavvia Instagram per vedere la modifica.");
         table.put("The heart plays %1$s when you double tap a post.",
@@ -16546,6 +16629,9 @@ public final class L10nTranslations {
                 "Serve Cerca nella barra delle schede.");
         table.put("This chat is locked",
                 "Questa chat \u00e8 bloccata");
+    }
+
+    private static void fillIt31(Map<String, String> table) {
         table.put("This chat uses the setting",
                 "Questa chat segue l'impostazione");
         table.put("This file matches the current overrides. Nothing changed.",
@@ -16562,9 +16648,6 @@ public final class L10nTranslations {
                 "Questa storia non si ripete");
         table.put("This video has no file another player can open",
                 "Questo video non ha un file che un altro lettore possa aprire");
-    }
-
-    private static void fillIt31(Map<String, String> table) {
         table.put("This video plays once",
                 "Questo video non si ripete");
         table.put("Threads",
@@ -16669,6 +16752,9 @@ public final class L10nTranslations {
                 "Sotto i conteggi");
         table.put("Under the name, 1 mention",
                 "Sotto il nome, 1 menzione");
+    }
+
+    private static void fillIt32(Map<String, String> table) {
         table.put("Undo cleared positions",
                 "Annulla la cancellazione delle posizioni");
         table.put("Undo couldn't fully restore the settings. Check the shown values. Undo has been used up.",
@@ -16685,9 +16771,6 @@ public final class L10nTranslations {
                 "Avvisi di smesso di seguire");
         table.put("Unfollower list cleared.",
                 "Lista cancellata.");
-    }
-
-    private static void fillIt32(Map<String, String> table) {
         table.put("Unlock",
                 "Sblocca");
         table.put("Unlock Instagram",
@@ -16774,8 +16857,8 @@ public final class L10nTranslations {
                 "I video vengono riprodotti alla qualit\u00e0 pi\u00f9 bassa offerta da Instagram per ognuno.");
         table.put("Videos wait for your tap where the choice below says. Feed videos show a play button, as they do when you use less mobile data.",
                 "I video aspettano il tuo tocco dove indica la scelta qui sotto. I video del feed mostrano un pulsante di riproduzione, come quando usi meno dati mobili.");
-        table.put("Videos, reels and stories play at the quality below, starting with the next one you open.",
-                "I video, i reel e le storie vengono riprodotti alla qualit\u00e0 qui sotto, a partire dal prossimo che apri.");
+        table.put("Videos, reels and stories play at the quality below, starting with the next one you open. When your connection can't keep up, a video drops to the next lower quality.",
+                "I video, i reel e le storie vengono riprodotti alla qualit\u00e0 qui sotto, a partire dal prossimo che apri. Quando la connessione non regge, il video scende alla qualit\u00e0 subito inferiore.");
         table.put("View DM photos and videos anonymously",
                 "Guarda foto e video dei messaggi in modo anonimo");
         table.put("View live anonymously",
@@ -16792,6 +16875,9 @@ public final class L10nTranslations {
                 "Cronologia cancellata.");
         table.put("Viewing, sound and the stories tray.",
                 "Visualizzazione, audio e vassoio delle storie.");
+    }
+
+    private static void fillIt33(Map<String, String> table) {
         table.put("Voice message",
                 "Messaggio vocale");
         table.put("Volume up still raises the phone's volume, but a muted reel stays muted until you unmute it.",
@@ -16808,9 +16894,6 @@ public final class L10nTranslations {
                 "Guarda di nuovo nel feed");
         table.put("Watch on TV",
                 "Guarda sulla TV");
-    }
-
-    private static void fillIt33(Map<String, String> table) {
         table.put("Wave",
                 "Onda");
         table.put("Web links you tap open in your usual browser, without Instagram's click tracker. Ads and Meta's own sites (Instagram, Facebook, Messenger, Threads) still open in the app.",
@@ -16859,6 +16942,8 @@ public final class L10nTranslations {
                 "Ampio");
         table.put("With Expandable categories on, a tap opens a category on a page of its own. Back takes you to the list.",
                 "Con Categorie espandibili attivo, un tocco apre una categoria su una pagina tutta sua. Indietro ti riporta all'elenco.");
+        table.put("With Liquid glass look off, scrolling a list down makes the pill smaller, and scrolling up or changing tab brings it back to full size. Hide the tab bar as you scroll takes over when it's on. Restart Instagram after changing it.",
+                "Con Aspetto liquid glass disattivato, scorrendo un elenco verso il basso la pillola si rimpicciolisce, e scorrendo in su o cambiando scheda torna a grandezza piena. Se Nascondi la barra delle schede durante lo scorrimento \u00e8 attivo, vale quello. Riavvia Instagram dopo averlo cambiato.");
         table.put("With Name saves by account and post time on, only a save that doesn't know who posted or when is named this way.",
                 "Con \u00abDai un nome ai salvataggi con account e ora del post\u00bb attivo, questo nome vale solo per i salvataggi di cui non si sa chi li ha pubblicati o quando.");
         table.put("With Stop Reels scrolling on, reels you open from Search, Explore, a hashtag or a place still move on when you swipe.",
@@ -16913,6 +16998,9 @@ public final class L10nTranslations {
                 "La tua versione, il codice sorgente e le licenze.");
         table.put("Your words",
                 "Il tuo testo");
+    }
+
+    private static void fillIt34(Map<String, String> table) {
         table.put("Zoomed photo",
                 "Foto ingrandita");
         table.put("the home screen icon you picked",
@@ -16932,7 +17020,7 @@ public final class L10nTranslations {
     }
 
     private static Map<String, String> buildKo() {
-        Map<String, String> table = new HashMap<>(4078);
+        Map<String, String> table = new HashMap<>(4096);
         fillKo0(table);
         fillKo1(table);
         fillKo2(table);
@@ -16967,6 +17055,7 @@ public final class L10nTranslations {
         fillKo31(table);
         fillKo32(table);
         fillKo33(table);
+        fillKo34(table);
         return table;
     }
 
@@ -17166,8 +17255,8 @@ public final class L10nTranslations {
                 "\ub9b4\uc2a4 \ub9c1\ud06c\ub97c \uc5f4\uba74 \ub9c1\ud06c\uac00 \uac00\ub9ac\ud0a4\ub294 \ub9b4\uc2a4\uac00 \uc5f4\ub9bd\ub2c8\ub2e4. \uadf8 \ub9b4\uc2a4\ub97c \ubd88\ub7ec\uc624\ub294 \ub3d9\uc548 Instagram\uc774 \ud734\ub300\ud3f0\uc5d0 \uc800\uc7a5\ud574 \ub454 \ub2e4\ub978 \ub9b4\uc2a4\ub97c \uc7ac\uc0dd\ud558\uc9c0 \uc54a\uc2b5\ub2c8\ub2e4.");
         table.put("A reel that doesn't fill the screen shows a blurred copy of itself above and below it instead of black bars, and the strip under the tab bar and the band behind the clock show the reel blurred too. The copy shows only where a reel leaves room, as with Show the whole reel on. Open Reels again after a change.",
                 "\ud654\uba74\uc744 \uac00\ub4dd \ucc44\uc6b0\uc9c0 \uc54a\ub294 \ub9b4\uc2a4\ub294 \uac80\uc740 \ub9c9\ub300 \ub300\uc2e0 \uc704\uc544\ub798\uc5d0 \uc790\uc2e0\uc758 \ud750\ub9bf\ud55c \ubcf5\uc0ac\ubcf8\uc744 \ubcf4\uc5ec\uc8fc\uace0, \ud0ed \ubc14 \uc544\ub798\uc758 \ub760\uc640 \uc2dc\uacc4 \ub4a4\uc758 \uc601\uc5ed\uc5d0\ub3c4 \ub9b4\uc2a4\uac00 \ud750\ub9bf\ud558\uac8c \ubcf4\uc785\ub2c8\ub2e4. \ubcf5\uc0ac\ubcf8\uc740 \ub9b4\uc2a4 \uc804\uccb4 \ubcf4\uae30\ub97c \ucf30\uc744 \ub54c\ucc98\ub7fc \ub9b4\uc2a4 \uc8fc\uc704\uc5d0 \ube48 \uacf5\uac04\uc774 \uc788\uc744 \ub54c\ub9cc \ubcf4\uc785\ub2c8\ub2e4. \ubcc0\uacbd \ud6c4\uc5d0\ub294 \ub9b4\uc2a4\ub97c \ub2e4\uc2dc \uc5ec\uc138\uc694.");
-        table.put("A reel you open from the Reels tab or a post on Home plays with sound, and Home is muted again when you go back. Your phone's ringer and volume still count.",
-                "\ub9b4\uc2a4 \ud0ed\uc774\ub098 \ud648\uc758 \uac8c\uc2dc\ubb3c\uc5d0\uc11c \uc5f0 \ub9b4\uc2a4\ub294 \uc18c\ub9ac\uc640 \ud568\uaed8 \uc7ac\uc0dd\ub418\uace0, \ub3cc\uc544\uac00\uba74 \ud648\uc740 \ub2e4\uc2dc \uc74c\uc18c\uac70\ub429\ub2c8\ub2e4. \ud734\ub300\ud3f0\uc758 \ubca8\uc18c\ub9ac \ubaa8\ub4dc\uc640 \ubcfc\ub968\uc740 \uadf8\ub300\ub85c \uc801\uc6a9\ub429\ub2c8\ub2e4.");
+        table.put("A reel you open from the Reels tab, a profile or a post on Home plays with sound, and Home is muted again when you go back. Your phone's ringer and volume still count.",
+                "\ub9b4\uc2a4 \ud0ed, \ud504\ub85c\ud544 \ub610\ub294 \ud648\uc758 \uac8c\uc2dc\ubb3c\uc5d0\uc11c \uc5f0 \ub9b4\uc2a4\ub294 \uc18c\ub9ac\uc640 \ud568\uaed8 \uc7ac\uc0dd\ub418\uace0, \ub3cc\uc544\uac00\uba74 \ud648\uc740 \ub2e4\uc2dc \uc74c\uc18c\uac70\ub429\ub2c8\ub2e4. \ud734\ub300\ud3f0\uc758 \ubca8\uc18c\ub9ac \ubaa8\ub4dc\uc640 \ubcfc\ub968\uc740 \uadf8\ub300\ub85c \uc801\uc6a9\ub429\ub2c8\ub2e4.");
         table.put("A rounded bar split by a tall handle.",
                 "\uae34 \ud578\ub4e4\ub85c \ub098\ub25c \ub465\uadfc \ub9c9\ub300\uc785\ub2c8\ub2e4.");
         table.put("A save stopped. Reopen the media and save again.",
@@ -17412,6 +17501,8 @@ public final class L10nTranslations {
                 "\uc774\ubaa8\uc9c0 \uae00\uaf34 \ud30c\uc77c");
         table.put("An eye at the top of each chat holds or sends Seen in that chat alone, whatever Read messages without the seen receipt says. Changing it doesn't send anything by itself.",
                 "\uac01 \ucc44\ud305 \uc0c1\ub2e8\uc758 \ub208 \uc544\uc774\ucf58\uc73c\ub85c \uc77d\uc74c \ud45c\uc2dc \uc5c6\uc774 \uba54\uc2dc\uc9c0 \uc77d\uae30 \uc124\uc815\uacfc \uc0c1\uad00\uc5c6\uc774 \uadf8 \ucc44\ud305\uc5d0\uc11c\ub9cc \uc77d\uc74c\uc744 \ubcf4\ub958\ud558\uac70\ub098 \ubcf4\ub0c5\ub2c8\ub2e4. \ubc14\uafd4\ub3c4 \uadf8 \uc790\uccb4\ub85c\ub294 \uc544\ubb34\uac83\ub3c4 \ubcf4\ub0b4\uc9c0 \uc54a\uc2b5\ub2c8\ub2e4.");
+        table.put("App",
+                "\uc571");
         table.put("App icon",
                 "\uc571 \uc544\uc774\ucf58");
         table.put("App-only proxy",
@@ -17458,11 +17549,11 @@ public final class L10nTranslations {
                 "\ud648\uc5d0\uc11c \ub4a4\ub85c \uac00\uae30\ub85c \ubc14\ub85c \ub098\uac00\uae30");
         table.put("Back on Home leaves Instagram without first scrolling the feed to the top and reloading it.",
                 "\ud648\uc5d0\uc11c \ub4a4\ub85c \uac00\uba74 \ud53c\ub4dc\ub97c \ub9e8 \uc704\ub85c \uc62c\ub9ac\uace0 \uc0c8\ub85c\uace0\uce68\ud558\uc9c0 \uc54a\uace0 \ubc14\ub85c Instagram\uc744 \ub098\uac11\ub2c8\ub2e4.");
-        table.put("Background playback",
-                "\ubc31\uadf8\ub77c\uc6b4\ub4dc \uc7ac\uc0dd");
     }
 
     private static void fillKo4(Map<String, String> table) {
+        table.put("Background playback",
+                "\ubc31\uadf8\ub77c\uc6b4\ub4dc \uc7ac\uc0dd");
         table.put("Backgrounds in the accent color",
                 "\ubc30\uacbd\uc744 \uac15\uc870 \uc0c9\uc0c1\uc73c\ub85c");
         table.put("Badges in the accent color",
@@ -17487,8 +17578,8 @@ public final class L10nTranslations {
                 "\uc18c\uac1c");
         table.put("Bio copied",
                 "\uc18c\uac1c\ub97c \ubcf5\uc0ac\ud588\uc2b5\ub2c8\ub2e4");
-        table.put("Black rows and dialogs, HushGram's name at the top, and each category on one line.",
-                "\uac80\uc740\uc0c9 \ud589\uacfc \ub300\ud654\uc0c1\uc790, \ub9e8 \uc704\uc758 HushGram \uc774\ub984, \ud55c \uc904\ub85c \uc904\uc778 \uac01 \uce74\ud14c\uace0\ub9ac.");
+        table.put("Black rows and dialogs, with HushGram's name at the top.",
+                "\uac80\uc740\uc0c9 \ud589\uacfc \ub300\ud654\uc0c1\uc790, \ub9e8 \uc704\uc5d0 HushGram \uc774\ub984.");
         table.put("Black settings page",
                 "\uac80\uc740\uc0c9 \uc124\uc815 \ud398\uc774\uc9c0");
         table.put("Blend post edges",
@@ -17581,11 +17672,11 @@ public final class L10nTranslations {
                 "\uc124\uc815\uc744 \ub0b4\ubcf4\ub0bc \ud30c\uc77c\uc744 \uc120\ud0dd\ud558\uc138\uc694.");
         table.put("Choose a file for your installed patches' settings and saved profiles. Your login and history stay on this device.",
                 "\uc124\uce58\ub41c \ud328\uce58\uc758 \uc124\uc815\uacfc \uc800\uc7a5\ud55c \ud504\ub85c\ud544\uc774 \ub4e4\uc5b4 \uc788\ub294 \ud30c\uc77c\uc744 \uc120\ud0dd\ud558\uc138\uc694. \ub85c\uadf8\uc778 \uc815\ubcf4\uc640 \uae30\ub85d\uc740 \uc774 \uae30\uae30\uc5d0 \uadf8\ub300\ub85c \uc720\uc9c0\ub429\ub2c8\ub2e4.");
-        table.put("Choose a file for your installed patches' settings. Accounts and history stay on this device.",
-                "\uc124\uce58\ub41c \ud328\uce58\uc758 \uc124\uc815\uc774 \ub4e4\uc5b4 \uc788\ub294 \ud30c\uc77c\uc744 \uc120\ud0dd\ud558\uc138\uc694. \uacc4\uc815\uacfc \uae30\ub85d\uc740 \uc774 \uae30\uae30\uc5d0 \uadf8\ub300\ub85c \uc720\uc9c0\ub429\ub2c8\ub2e4");
     }
 
     private static void fillKo5(Map<String, String> table) {
+        table.put("Choose a file for your installed patches' settings. Accounts and history stay on this device.",
+                "\uc124\uce58\ub41c \ud328\uce58\uc758 \uc124\uc815\uc774 \ub4e4\uc5b4 \uc788\ub294 \ud30c\uc77c\uc744 \uc120\ud0dd\ud558\uc138\uc694. \uacc4\uc815\uacfc \uae30\ub85d\uc740 \uc774 \uae30\uae30\uc5d0 \uadf8\ub300\ub85c \uc720\uc9c0\ub429\ub2c8\ub2e4");
         table.put("Choose a folder",
                 "\ud3f4\ub354 \uc120\ud0dd");
         table.put("Choose a folder name under Movies and Pictures. Invalid characters become underscores. Leave it blank to use the default folder, %1$s. For an SD card or anywhere else, use Choose a folder.",
@@ -17642,6 +17733,8 @@ public final class L10nTranslations {
                 "\ucef4\ud329\ud2b8");
         table.put("Confirm PIN",
                 "PIN \ud655\uc778");
+        table.put("Content",
+                "\ucf58\ud150\uce20");
         table.put("Continue",
                 "\uacc4\uc18d");
         table.put("Control where Meta AI appears.",
@@ -17702,13 +17795,13 @@ public final class L10nTranslations {
                 "\uc800\uc7a5\ub41c \uc0ac\ubcf8\uc744 \uc0ad\uc81c\ud558\uc9c0 \ubabb\ud588\uc2b5\ub2c8\ub2e4. \ub2e4\uc2dc \uc2dc\ub3c4\ud558\uc138\uc694.");
         table.put("Couldn't clear the unfollower list. Try again.",
                 "\uc5b8\ud314\ub85c\uc6b0 \ubaa9\ub85d\uc744 \uc9c0\uc6b0\uc9c0 \ubabb\ud588\uc2b5\ub2c8\ub2e4. \ub2e4\uc2dc \uc2dc\ub3c4\ud558\uc138\uc694.");
+    }
+
+    private static void fillKo6(Map<String, String> table) {
         table.put("Couldn't clear the viewing history. Try again.",
                 "\ubcf8 \uae30\ub85d\uc744 \uc9c0\uc6b0\uc9c0 \ubabb\ud588\uc2b5\ub2c8\ub2e4. \ub2e4\uc2dc \uc2dc\ub3c4\ud574 \uc8fc\uc138\uc694.");
         table.put("Couldn't copy comment",
                 "\ub313\uae00\uc744 \ubcf5\uc0ac\ud560 \uc218 \uc5c6\uc2b5\ub2c8\ub2e4");
-    }
-
-    private static void fillKo6(Map<String, String> table) {
         table.put("Couldn't copy the GIF name",
                 "GIF \uc774\ub984\uc744 \ubcf5\uc0ac\ud560 \uc218 \uc5c6\uc2b5\ub2c8\ub2e4");
         table.put("Couldn't copy the bio",
@@ -17825,13 +17918,13 @@ public final class L10nTranslations {
                 "\uc0ac\uc6a9\uc790 \uc9c0\uc815");
         table.put("Custom app icon",
                 "\uc0ac\uc6a9\uc790 \uc9c0\uc815 \uc571 \uc544\uc774\ucf58");
+    }
+
+    private static void fillKo7(Map<String, String> table) {
         table.put("Custom color",
                 "\uc0ac\uc6a9\uc790 \uc9c0\uc815 \uc0c9\uc0c1");
         table.put("Custom tab",
                 "\uc0ac\uc6a9\uc790 \uc815\uc758 \ud0ed");
-    }
-
-    private static void fillKo7(Map<String, String> table) {
         table.put("Data saver",
                 "\ub370\uc774\ud130 \uc808\uc57d");
         table.put("Date and time",
@@ -17948,13 +18041,13 @@ public final class L10nTranslations {
                 "\ub2e4\uc6b4\ub85c\ub4dc\ud558\ub294 \uc911");
         table.put("Downloading the emoji...",
                 "\uc774\ubaa8\uc9c0\ub97c \ub2e4\uc6b4\ub85c\ub4dc\ud558\ub294 \uc911...");
+    }
+
+    private static void fillKo8(Map<String, String> table) {
         table.put("Downloads",
                 "\ub2e4\uc6b4\ub85c\ub4dc");
         table.put("Drag to move %1$s",
                 "\ub4dc\ub798\uadf8\ud574\uc11c %1$s \uc774\ub3d9");
-    }
-
-    private static void fillKo8(Map<String, String> table) {
         table.put("Drag to move, pinch to zoom.",
                 "\ub04c\uc5b4\uc11c \uc774\ub3d9, \ub450 \uc190\uac00\ub77d\uc73c\ub85c \ud655\ub300\ud558\uc138\uc694.");
         table.put("Draws Instagram's tab bar as a floating, rounded glass pill with a highlight on the tab you're on. Restart Instagram after changing it.",
@@ -18071,13 +18164,13 @@ public final class L10nTranslations {
                 "\uc800\uc7a5\ub428 \ube60\ub978 \uc2a4\ud06c\ub864");
         table.put("Favorites still shows them.",
                 "\uc990\uaca8\ucc3e\uae30\uc5d0\ub294 \uacc4\uc18d \ud45c\uc2dc\ub429\ub2c8\ub2e4.");
+    }
+
+    private static void fillKo9(Map<String, String> table) {
         table.put("Feed",
                 "\ud53c\ub4dc");
         table.put("Feed videos and reels stop at their last frame instead of playing again. Reels still loop while auto scroll is on, so it can move on.",
                 "\ud53c\ub4dc \ub3d9\uc601\uc0c1\uacfc \ub9b4\uc2a4\uac00 \ub2e4\uc2dc \uc7ac\uc0dd\ub418\uc9c0 \uc54a\uace0 \ub9c8\uc9c0\ub9c9 \uc7a5\uba74\uc5d0\uc11c \uba48\ucda5\ub2c8\ub2e4. \uc790\ub3d9 \uc2a4\ud06c\ub864\uc774 \ucf1c\uc838 \uc788\uc73c\uba74 \ub2e4\uc74c \ub9b4\uc2a4\ub85c \ub118\uc5b4\uac08 \uc218 \uc788\ub3c4\ub85d \ub9b4\uc2a4\ub294 \uacc4\uc18d \ubc18\ubcf5\ub429\ub2c8\ub2e4.");
-    }
-
-    private static void fillKo9(Map<String, String> table) {
         table.put("Feed videos and stories wait for your tap. Reels play as you swipe to them.",
                 "\ud53c\ub4dc \ub3d9\uc601\uc0c1\uacfc \uc2a4\ud1a0\ub9ac\ub294 \ud0ed\ud560 \ub54c\uae4c\uc9c0 \ub300\uae30\ud569\ub2c8\ub2e4. \ub9b4\uc2a4\ub294 \uc2a4\uc640\uc774\ud504\ud558\uba74 \ubc14\ub85c \uc7ac\uc0dd\ub429\ub2c8\ub2e4");
         table.put("Feed videos, reels and stories all wait for your tap.",
@@ -18194,13 +18287,13 @@ public final class L10nTranslations {
                 "\uc644\uc804\ud788 \ub465\uae00\uac8c");
         table.put("GIF name",
                 "GIF \uc774\ub984");
+    }
+
+    private static void fillKo10(Map<String, String> table) {
         table.put("GIF name copied",
                 "GIF \uc774\ub984\uc744 \ubcf5\uc0ac\ud588\uc2b5\ub2c8\ub2e4");
         table.put("GIF or sticker",
                 "GIF \ub610\ub294 \uc2a4\ud2f0\ucee4");
-    }
-
-    private static void fillKo10(Map<String, String> table) {
         table.put("GPL-3.0, with the notices of the projects this is built on",
                 "GPL-3.0 \ub77c\uc774\uc120\uc2a4\ub97c \uc801\uc6a9\ud558\uba70, \uc774 \ud504\ub85c\uadf8\ub7a8\uc774 \uae30\ubc18\uc73c\ub85c \uc0ac\uc6a9\ud558\ub294 \ud504\ub85c\uc81d\ud2b8\uc758 \uace0\uc9c0 \uc0ac\ud56d\uc744 \ud3ec\ud568\ud569\ub2c8\ub2e4");
         table.put("Galaxy S26 Ultra",
@@ -18317,13 +18410,13 @@ public final class L10nTranslations {
                 "\uc54c\ub9bc\uc5d0\uc11c \uc8fc\uc694 \ud56d\ubaa9 \uc228\uae30\uae30");
         table.put("Hide Follow on posts",
                 "\uac8c\uc2dc\ubb3c\uc758 \ud314\ub85c\uc6b0 \uc228\uae30\uae30");
+    }
+
+    private static void fillKo11(Map<String, String> table) {
         table.put("Hide Follow on stories",
                 "\uc2a4\ud1a0\ub9ac\uc5d0\uc11c \ud314\ub85c\uc6b0 \uc228\uae30\uae30");
         table.put("Hide GIFs in comments",
                 "\ub313\uae00\uc758 GIF \uc228\uae30\uae30");
-    }
-
-    private static void fillKo11(Map<String, String> table) {
         table.put("Hide Instagram Plus prompts",
                 "Instagram Plus \uc548\ub0b4 \uc228\uae30\uae30");
         table.put("Hide Instants",
@@ -18360,6 +18453,8 @@ public final class L10nTranslations {
                 "\ud314\ub85c\uc6b0 \ubaa9\ub85d\uc5d0\uc11c '\ucd94\ucc9c \uacc4\uc815' \uc228\uae30\uae30");
         table.put("Hide Threads posts",
                 "Threads \uac8c\uc2dc\ubb3c \uc228\uae30\uae30");
+        table.put("Hide Watch more reels",
+                "\ub354 \ub9ce\uc740 \ub9b4\uc2a4 \ubcf4\uae30 \uc228\uae30\uae30");
         table.put("Hide Your algorithm on reels",
                 "\ub9b4\uc2a4\uc758 \ub0b4 \uc54c\uace0\ub9ac\uc998 \uc228\uae30\uae30");
         table.put("Hide activity bubbles",
@@ -18438,15 +18533,15 @@ public final class L10nTranslations {
                 "\ucd94\ucc9c \uac8c\uc2dc\ubb3c \uc228\uae30\uae30");
         table.put("Hide suggested searches on reels",
                 "\ub9b4\uc2a4\uc758 \ucd94\ucc9c \uac80\uc0c9\uc5b4 \uc228\uae30\uae30");
+    }
+
+    private static void fillKo12(Map<String, String> table) {
         table.put("Hide suggested stories",
                 "\ucd94\ucc9c \uc2a4\ud1a0\ub9ac \uc228\uae30\uae30");
         table.put("Hide suggestions in notifications",
                 "\uc54c\ub9bc\uc758 \ucd94\ucc9c \uc228\uae30\uae30");
         table.put("Hide surveys",
                 "\uc124\ubb38 \uc228\uae30\uae30");
-    }
-
-    private static void fillKo12(Map<String, String> table) {
         table.put("Hide that you're typing",
                 "\uc785\ub825 \uc911 \ud45c\uc2dc \uc228\uae30\uae30");
         table.put("Hide the 2x popup",
@@ -18561,15 +18656,15 @@ public final class L10nTranslations {
                 "\ud314\ub85c\uc6b0\ud558\uc9c0 \uc54a\ub294 \uacc4\uc815\uc758 '\ud68c\uc6d0\ub2d8\uc744 \uc704\ud55c \ucd94\ucc9c' \ud45c\uc2dc\uac00 \uc788\ub294 \uac8c\uc2dc\ubb3c\uacfc \ub9b4\uc2a4\ub97c \uc228\uae41\ub2c8\ub2e4. \ud314\ub85c\uc6b0\ud558\ub294 \uacc4\uc815\uc758 \uac8c\uc2dc\ubb3c\uc740 \uadf8\ub300\ub85c \ub0a8\uc2b5\ub2c8\ub2e4.");
         table.put("Hides sponsored posts, reels, stories and the ad in comments. No empty gap is left where an ad would have been.",
                 "\uc2a4\ud3f0\uc11c \uac8c\uc2dc\ubb3c, \ub9b4\uc2a4, \uc2a4\ud1a0\ub9ac\uc640 \ub313\uae00 \uc18d \uad11\uace0\ub97c \uc228\uae41\ub2c8\ub2e4. \uad11\uace0\uac00 \uc788\ub358 \uc790\ub9ac\uc5d0 \ube48 \uacf5\uac04\uc774 \ub0a8\uc9c0 \uc54a\uc2b5\ub2c8\ub2e4.");
+    }
+
+    private static void fillKo13(Map<String, String> table) {
         table.put("Hides stories from accounts you don't follow, and accounts Instagram suggests, in the row at the top of Home. Stories from accounts you follow stay.",
                 "\ud648 \uc0c1\ub2e8 \ubaa9\ub85d\uc5d0\uc11c \ud314\ub85c\uc6b0\ud558\uc9c0 \uc54a\ub294 \uacc4\uc815\uc758 \uc2a4\ud1a0\ub9ac\uc640 Instagram\uc774 \ucd94\ucc9c\ud558\ub294 \uacc4\uc815\uc744 \uc228\uae41\ub2c8\ub2e4. \ud314\ub85c\uc6b0\ud558\ub294 \uacc4\uc815\uc758 \uc2a4\ud1a0\ub9ac\ub294 \uadf8\ub300\ub85c \ub0a8\uc2b5\ub2c8\ub2e4.");
         table.put("Hides the bar under a post that asks you to join the account's channel. The post stays.",
                 "\uac8c\uc2dc\ubb3c \uc544\ub798\uc5d0\uc11c \uacc4\uc815\uc758 \ucc44\ub110\uc5d0 \ucc38\uc5ec\ud558\ub77c\uace0 \ud558\ub294 \ubc14\ub97c \uc228\uae41\ub2c8\ub2e4. \uac8c\uc2dc\ubb3c\uc740 \uadf8\ub300\ub85c \uc788\uc2b5\ub2c8\ub2e4.");
         table.put("Hides the bubble under a post that asks 'Are you interested in this post?' with Not interested and Interested buttons. Nothing is answered for you.",
                 "\uac8c\uc2dc\ubb3c \uc544\ub798\uc5d0 '\uc774 \uac8c\uc2dc\ubb3c\uc5d0 \uad00\uc2ec\uc774 \uc788\uc73c\uc2e0\uac00\uc694?'\ub77c\uace0 \ubb3b\uace0 \uad00\uc2ec \uc5c6\uc74c\uacfc \uad00\uc2ec \uc788\uc74c \ubc84\ud2bc\uc774 \uc788\ub294 \ub9d0\ud48d\uc120\uc744 \uc228\uae41\ub2c8\ub2e4. \ub300\uc2e0 \ub2f5\ud574 \uc8fc\uc9c0\ub294 \uc54a\uc2b5\ub2c8\ub2e4.");
-    }
-
-    private static void fillKo13(Map<String, String> table) {
         table.put("Hides the buttons that push Edits, templates, Meta AI and Ray-Ban Meta glasses. Live badges and state-controlled media labels stay.",
                 "Edits, \ud15c\ud50c\ub9bf, Meta AI, Ray-Ban Meta \uc548\uacbd\uc744 \ud64d\ubcf4\ud558\ub294 \ubc84\ud2bc\uc744 \uc228\uae41\ub2c8\ub2e4. \ub77c\uc774\ube0c \ubc30\uc9c0\uc640 \uad6d\uac00 \ud1b5\uc81c \ub9e4\uccb4 \ud45c\uc2dc\ub294 \uadf8\ub300\ub85c\uc785\ub2c8\ub2e4.");
         table.put("Hides the card after the posts from accounts you follow that says you've seen the latest ones, and its Older posts link. When Home has no new posts at all, only that line goes and the link stays. Pull down on Home to refresh after changing it.",
@@ -18684,15 +18779,15 @@ public final class L10nTranslations {
                 "\uc124\uc815 %1$d\uac1c\ub97c \uac00\uc838\uc654\uc2b5\ub2c8\ub2e4. \uc774 \ubc84\uc804\uc774 \ubaa8\ub974\ub294 %2$d\uac1c\ub294 \uac74\ub108\ub6f0\uc5c8\uc2b5\ub2c8\ub2e4.");
         table.put("Instagram accepts this build",
                 "Instagram\uc5d0\uc11c \uc774 \ube4c\ub4dc \ud5c8\uc6a9");
+    }
+
+    private static void fillKo14(Map<String, String> table) {
         table.put("Instagram blue",
                 "Instagram \ud30c\ub780\uc0c9");
         table.put("Instagram can't read where the photos and videos in your gallery were taken.",
                 "Instagram\uc774 \uac24\ub7ec\ub9ac\uc5d0 \uc788\ub294 \uc0ac\uc9c4\uacfc \ub3d9\uc601\uc0c1\uc758 \ucd2c\uc601 \uc704\uce58\ub97c \uc77d\uc744 \uc218 \uc5c6\uc2b5\ub2c8\ub2e4.");
         table.put("Instagram can't read your phone's advertising ID or tell Android's ad services which ads you saw or tapped. The permissions for them are gone from this build.",
                 "Instagram\uc740 \ud734\ub300\uc804\ud654\uc758 \uad11\uace0 ID\ub97c \uc77d\uac70\ub098 Android\uc758 \uad11\uace0 \uc11c\ube44\uc2a4\uc5d0 \uc5b4\ub5a4 \uad11\uace0\ub97c \ubcf4\uac70\ub098 \ud0ed\ud588\ub294\uc9c0 \uc804\ub2ec\ud560 \uc218 \uc5c6\uc2b5\ub2c8\ub2e4. \ud574\ub2f9 \uae30\ub2a5\uc5d0 \ud544\uc694\ud55c \uad8c\ud55c\uc774 \uc774 \ube4c\ub4dc\uc5d0\uc11c \uc81c\uac70\ub418\uc5c8\uc2b5\ub2c8\ub2e4");
-    }
-
-    private static void fillKo14(Map<String, String> table) {
         table.put("Instagram crashed or froze within a minute of starting three times in a row, so HushGram paused itself.",
                 "Instagram\uc774 \uc2dc\uc791\ud55c \uc9c0 1\ubd84 \uc774\ub0b4\uc5d0 \uc5f0\uc18d\uc73c\ub85c \uc138 \ubc88 \ucda9\ub3cc\ud558\uac70\ub098 \uba48\ucdb0\uc11c HushGram\uc774 \uc77c\uc2dc\uc801\uc73c\ub85c \uc791\ub3d9\uc744 \uc815\uc9c0\ud558\uc600\uc2b5\ub2c8\ub2e4");
         table.put("Instagram didn't keep the change and the overrides couldn't be confirmed. Use Restore previous overrides, then restart Instagram.",
@@ -18807,15 +18902,15 @@ public final class L10nTranslations {
                 "\uccab \uba54\uc2dc\uc9c0 \ub610\ub294 \ub0a0\uc9dc\ub85c \uc774\ub3d9");
         table.put("KakaoTalk",
                 "KakaoTalk");
+    }
+
+    private static void fillKo15(Map<String, String> table) {
         table.put("Keep Featured off the heart's dot",
                 "\uc8fc\uc694 \ud56d\ubaa9 \ub54c\ubb38\uc5d0 \ud558\ud2b8\uc5d0 \uc810\uc774 \ub728\uc9c0 \uc54a\uac8c \ud558\uae30");
         table.put("Keep Home's top bar",
                 "\ud648 \uc0c1\ub2e8 \ubc14 \uace0\uc815");
         table.put("Keep Instagram's saved photos and videos from filling your phone.",
                 "Instagram\uc774 \uc800\uc7a5\ud574 \ub454 \uc0ac\uc9c4\uacfc \ub3d9\uc601\uc0c1\uc774 \ud734\ub300\ud3f0\uc744 \ucc44\uc6b0\uc9c0 \uc54a\uac8c \ud569\ub2c8\ub2e4.");
-    }
-
-    private static void fillKo15(Map<String, String> table) {
         table.put("Keep Reels auto scroll between sessions",
                 "Keep Reels auto scroll between sessions");
         table.put("Keep a seek bar",
@@ -18930,15 +19025,15 @@ public final class L10nTranslations {
                 "\ub118\uaca8 \ubcf4\ub294 \uc2a4\ud1a0\ub9ac \uc0ac\uc774\uc5d0 \uc778\uc2a4\ud0c0\uadf8\ub7a8\uc774 \ub123\ub294 \uc778\uae30 'Add Yours'\ub098 \ud2b8\ub80c\ub4dc 'Add Yours' \ucc38\uc5ec \uac19\uc740 'Add Yours' \uce74\ub4dc\ub97c \uc228\uae41\ub2c8\ub2e4. \uc2a4\ud1a0\ub9ac\ub294 \uadf8\ub300\ub85c \ub0a8\uc2b5\ub2c8\ub2e4.");
         table.put("Leaves out the Suggested for you cards of accounts to follow that Instagram puts between the stories you tap through. The stories themselves stay.",
                 "\ub118\uaca8 \ubcf4\ub294 \uc2a4\ud1a0\ub9ac \uc0ac\uc774\uc5d0 \uc778\uc2a4\ud0c0\uadf8\ub7a8\uc774 \ub123\ub294 \ud314\ub85c\uc6b0\ud560 '\ucd94\ucc9c \uacc4\uc815' \uce74\ub4dc\ub97c \uc228\uae41\ub2c8\ub2e4. \uc2a4\ud1a0\ub9ac\ub294 \uadf8\ub300\ub85c \ub0a8\uc2b5\ub2c8\ub2e4.");
+    }
+
+    private static void fillKo16(Map<String, String> table) {
         table.put("Leaves out the live broadcasts Instagram puts between reels in the Reels tab and when you swipe through reels from Explore.",
                 "\ub9b4\uc2a4 \ud0ed\uacfc \ud0d0\uc0c9 \ud0ed\uc5d0\uc11c \ub9b4\uc2a4\ub97c \ub118\uae38 \ub54c Instagram\uc774 \ub9b4\uc2a4 \uc0ac\uc774\uc5d0 \ub123\ub294 \ub77c\uc774\ube0c \ubc29\uc1a1\uc744 \ube7c\uace0 \ubcf4\uc5ec\uc90d\ub2c8\ub2e4.");
         table.put("Leaves the Suggested for you accounts out of what shows when you tap the search bar. Recent searches stay.",
                 "\uac80\uc0c9\ucc3d\uc744 \ub204\ub974\uba74 \ub098\uc624\ub294 \ud654\uba74\uc5d0\uc11c '\ucd94\ucc9c \uacc4\uc815'\uc744 \uc228\uae41\ub2c8\ub2e4. \ucd5c\uadfc \uac80\uc0c9\uc740 \uadf8\ub300\ub85c\uc785\ub2c8\ub2e4.");
         table.put("Leaves the Suggested for you section off the followers, following and mutual lists and the screen where you approve follow requests, and the Suggested tab off other people's follow lists. Every account in the lists and every real request stays.",
                 "\ud314\ub85c\uc6cc, \ud314\ub85c\uc789, \ud568\uaed8 \uc544\ub294 \ud314\ub85c\uc6cc \ubaa9\ub85d\uacfc \ud314\ub85c\uc6b0 \uc694\uccad\uc744 \uc2b9\uc778\ud558\ub294 \ud654\uba74\uc758 '\ucd94\ucc9c \uacc4\uc815' \uc139\uc158, \uadf8\ub9ac\uace0 \ub2e4\ub978 \uc0ac\ub78c \ud314\ub85c\uc6b0 \ubaa9\ub85d\uc758 '\ucd94\ucc9c' \ud0ed\uc744 \uc228\uae41\ub2c8\ub2e4. \ubaa9\ub85d\uc758 \ubaa8\ub4e0 \uacc4\uc815\uacfc \uc2e4\uc81c \uc694\uccad\uc740 \uadf8\ub300\ub85c \uc720\uc9c0\ub429\ub2c8\ub2e4.");
-    }
-
-    private static void fillKo16(Map<String, String> table) {
         table.put("Leaving Instagram while a reel plays shrinks it into a small window over your other apps. Works in Reels and on reels opened from the feed, on Android 15 or newer.",
                 "\ub9b4\uc2a4\uac00 \uc7ac\uc0dd\ub418\ub294 \uc911\uc5d0 Instagram\uc744 \ub098\uac00\uba74 \ub2e4\ub978 \uc571 \uc704\uc758 \uc791\uc740 \ucc3d\uc73c\ub85c \uc904\uc5b4\ub4ed\ub2c8\ub2e4. \ub9b4\uc2a4 \ud0ed\uacfc \ud53c\ub4dc\uc5d0\uc11c \uc5f0 \ub9b4\uc2a4\uc5d0\uc11c \uc791\ub3d9\ud558\uba70, Android 15 \uc774\uc0c1\uc774 \ud544\uc694\ud569\ub2c8\ub2e4.");
         table.put("Leaving Instagram while a story plays shrinks it into a small window over your other apps, where it keeps going through the stories.",
@@ -19037,6 +19132,8 @@ public final class L10nTranslations {
                 "\uc0ac\uc9c4\uc744 \uae38\uac8c \ub20c\ub7ec \ud655\ub300");
         table.put("Long press a post for full screen",
                 "\uac8c\uc2dc\ubb3c\uc744 \uae38\uac8c \ub20c\ub7ec \uc804\uccb4 \ud654\uba74\uc73c\ub85c \ubcf4\uae30");
+        table.put("Look",
+                "\ubaa8\uc591");
         table.put("Loop a story",
                 "\uc2a4\ud1a0\ub9ac \ubc18\ubcf5 \uc7ac\uc0dd");
         table.put("Loop didn't change",
@@ -19051,6 +19148,9 @@ public final class L10nTranslations {
                 "\uc774 \ub3d9\uc601\uc0c1\uc744 \ubc18\ubcf5\ud569\ub2c8\ub2e4");
         table.put("Makes Instagram see the phone chosen below, unlocking HDR video downloads and other features limited to those phones, and adds the matching developer options. Restart Instagram to see the change.",
                 "Instagram\uc774 \uc544\ub798\uc5d0\uc11c \uc120\ud0dd\ud55c \ud734\ub300\ud3f0\uc73c\ub85c \uc778\uc2dd\ud558\uac8c \ud558\uc5ec HDR \ub3d9\uc601\uc0c1 \ub2e4\uc6b4\ub85c\ub4dc \ubc0f \ud574\ub2f9 \uae30\uae30 \uc804\uc6a9 \uae30\ub2a5\uc744 \ud574\uc81c\ud558\uace0 \uad00\ub828 \uac1c\ubc1c\uc790 \uc635\uc158\uc744 \ucd94\uac00\ud569\ub2c8\ub2e4. \ubcc0\uacbd \uc0ac\ud56d\uc744 \uc801\uc6a9\ud558\ub824\uba74 Instagram\uc744 \ub2e4\uc2dc \uc2dc\uc791\ud558\uc138\uc694.");
+    }
+
+    private static void fillKo17(Map<String, String> table) {
         table.put("Makes the seek bar thicker, with a round white handle and the time above it, over a soft dark fade so it shows on any video. Drag it to seek. It also keeps the bar on short reels.",
                 "\ud0d0\uc0c9 \ubc14\ub97c \ub354 \ub450\uaecd\uac8c \ub9cc\ub4e4\uace0, \ub465\uadfc \ud770\uc0c9 \ud578\ub4e4\uacfc \uc704\ucabd \uc2dc\uac04 \ud45c\uc2dc\ub97c \ub123\uace0, \uc5b4\ub5a4 \uc601\uc0c1\uc5d0\uc11c\ub3c4 \ubcf4\uc774\ub3c4\ub85d \ubd80\ub4dc\ub7ec\uc6b4 \uc5b4\ub450\uc6b4 \uadf8\ub77c\ub370\uc774\uc158\uc744 \uae5d\ub2c8\ub2e4. \ub4dc\ub798\uadf8\ud574\uc11c \uc774\ub3d9\ud558\uc138\uc694. \uc9e7\uc740 \ub9b4\uc2a4\uc5d0\uc11c\ub3c4 \ubc14\ub97c \uc720\uc9c0\ud569\ub2c8\ub2e4.");
         table.put("Mapping file removed. Open MetaConfig again to see the change.",
@@ -19059,9 +19159,6 @@ public final class L10nTranslations {
                 "Mapping imported: %1$d names. Open MetaConfig again to see them.");
         table.put("Mark a chat seen when you reply",
                 "\ub2f5\uc7a5\ud558\uba74 \ucc44\ud305\uc744 \uc77d\uc74c\uc73c\ub85c \ud45c\uc2dc");
-    }
-
-    private static void fillKo17(Map<String, String> table) {
         table.put("Mark as read",
                 "\uc77d\uc74c\uc73c\ub85c \ud45c\uc2dc");
         table.put("Mark as read button in chats",
@@ -19088,6 +19185,8 @@ public final class L10nTranslations {
                 "Material You\ub294 Android 12 \uc774\uc0c1\uc774 \ud544\uc694\ud574\uc11c Instagram \ud30c\ub780\uc0c9\uc774 \uadf8\ub300\ub85c \uc720\uc9c0\ub429\ub2c8\ub2e4.");
         table.put("Media ID %1$s",
                 "\ubbf8\ub514\uc5b4 ID %1$s");
+        table.put("Media and storage",
+                "\ubbf8\ub514\uc5b4 \ubc0f \uc800\uc7a5\uacf5\uac04");
         table.put("Media link",
                 "\ubbf8\ub514\uc5b4 \ub9c1\ud06c");
         table.put("Media link copied. It stops working after a few days.",
@@ -19138,8 +19237,8 @@ public final class L10nTranslations {
                 "@%1$s \ub2d8\uc744 %2$s(\uc73c)\ub85c \uc774\ub3d9\ud588\uc2b5\ub2c8\ub2e4");
         table.put("Moved @%s out of its folder",
                 "@%s \ub2d8\uc744 \ud3f4\ub354\uc5d0\uc11c \ube90\uc2b5\ub2c8\ub2e4");
-        table.put("Moves a carousel post's page dots onto a round pill at the bottom of its photo or video, with the page you're on in blue.",
-                "\uce90\ub7ec\uc140 \uac8c\uc2dc\ubb3c\uc758 \ud398\uc774\uc9c0 \uc810\uc744 \uc0ac\uc9c4\uc774\ub098 \ub3d9\uc601\uc0c1 \uc544\ub798\ucabd\uc758 \ub465\uadfc \uc54c\uc57d \ubaa8\uc591 \uc704\ub85c \uc62e\uae41\ub2c8\ub2e4. \uc9c0\uae08 \ubcf4\uace0 \uc788\ub294 \ud398\uc774\uc9c0\ub294 \ud30c\ub780\uc0c9\uc73c\ub85c \ud45c\uc2dc\ub429\ub2c8\ub2e4.");
+        table.put("Moves a carousel post's page dots onto a round pill at the bottom of its photo or video, with the page you're on in blue. Hold the pill and slide left or right to move through the pages.",
+                "\uce90\ub7ec\uc140 \uac8c\uc2dc\ubb3c\uc758 \ud398\uc774\uc9c0 \uc810\uc744 \uc0ac\uc9c4\uc774\ub098 \ub3d9\uc601\uc0c1 \uc544\ub798\ucabd\uc758 \ub465\uadfc \uc54c\uc57d \ubaa8\uc591 \uc704\ub85c \uc62e\uae41\ub2c8\ub2e4. \uc9c0\uae08 \ubcf4\uace0 \uc788\ub294 \ud398\uc774\uc9c0\ub294 \ud30c\ub780\uc0c9\uc73c\ub85c \ud45c\uc2dc\ub429\ub2c8\ub2e4. \uc54c\uc57d\uc744 \uae38\uac8c \ub204\ub978 \ucc44 \uc67c\ucabd\uc774\ub098 \uc624\ub978\ucabd\uc73c\ub85c \ubc00\uba74 \ud398\uc774\uc9c0\ub97c \ub118\uae38 \uc218 \uc788\uc2b5\ub2c8\ub2e4.");
         table.put("Moves the gallery and microphone buttons off the message bar and into the plus menu. They work as before. Turn it off and they're back the next time a chat opens.",
                 "\uac24\ub7ec\ub9ac\uc640 \ub9c8\uc774\ud06c \ubc84\ud2bc\uc744 \uba54\uc2dc\uc9c0 \ubc14\uc5d0\uc11c \ud50c\ub7ec\uc2a4 \uba54\ub274\ub85c \uc62e\uae41\ub2c8\ub2e4. \uc791\ub3d9\uc740 \uc804\uacfc \uac19\uc2b5\ub2c8\ub2e4. \ub044\uba74 \ub2e4\uc74c\uc5d0 \ucc44\ud305\uc744 \uc5f4 \ub54c \ub2e4\uc2dc \ub3cc\uc544\uc635\ub2c8\ub2e4.");
         table.put("Mute",
@@ -19172,6 +19271,9 @@ public final class L10nTranslations {
                 "\uc0c8 \ud3f4\ub354");
         table.put("New like animations",
                 "New like animations");
+    }
+
+    private static void fillKo18(Map<String, String> table) {
         table.put("New message",
                 "\uc0c8 \uba54\uc2dc\uc9c0");
         table.put("New message after this reel",
@@ -19182,9 +19284,6 @@ public final class L10nTranslations {
                 "\uc0c8 \ud504\ub85c\ud544 \uc0ac\uc9c4\uacfc \uc18c\uac1c");
         table.put("New story fonts and animations",
                 "New story fonts and animations");
-    }
-
-    private static void fillKo18(Map<String, String> table) {
         table.put("New story timestamp style",
                 "New story timestamp style");
         table.put("Next match",
@@ -19295,6 +19394,9 @@ public final class L10nTranslations {
                 "\uc5b8\ud314\ub85c\uc6b0 \uc54c\ub9bc \ubc1b\uae30");
         table.put("OK",
                 "\ud655\uc778");
+    }
+
+    private static void fillKo19(Map<String, String> table) {
         table.put("Off",
                 "\uc0ac\uc6a9 \uc548\ud568");
         table.put("Off. It can cover the Home, Reels and Explore tabs for a break after you've spent a while on them.",
@@ -19305,9 +19407,6 @@ public final class L10nTranslations {
                 "\uc774\uc804 \uc18c\uac1c, %s");
         table.put("Old profile picture, %s",
                 "\uc774\uc804 \ud504\ub85c\ud544 \uc0ac\uc9c4, %s");
-    }
-
-    private static void fillKo19(Map<String, String> table) {
         table.put("On Reels, the tab bar slides away after %1$d seconds without a touch. Tap the bottom edge of the screen, change tab or press Back to bring it back. Restart Instagram after changing it.",
                 "\ub9b4\uc2a4\uc5d0\uc11c %1$d\ucd08 \ub3d9\uc548 \ud130\uce58\uac00 \uc5c6\uc73c\uba74 \ud0ed \ubc14\uac00 \uc544\ub798\ub85c \uc0ac\ub77c\uc9d1\ub2c8\ub2e4. \ub2e4\uc2dc \ubcf4\ub824\uba74 \ud654\uba74 \uc544\ub798\ucabd \uac00\uc7a5\uc790\ub9ac\ub97c \ud0ed\ud558\uac70\ub098 \ud0ed\uc744 \ubc14\uafb8\uac70\ub098 \ub4a4\ub85c\ub97c \ub204\ub974\uc138\uc694. \ubcc0\uacbd\ud55c \ub4a4\uc5d0\ub294 Instagram\uc744 \ub2e4\uc2dc \uc2dc\uc791\ud558\uc138\uc694.");
         table.put("On a carousel, the download icon saves all of its pages at once instead of asking.",
@@ -19418,6 +19517,9 @@ public final class L10nTranslations {
                 "\ucc44\ud305\uc744 \uc5f4\uc5b4\ub3c4 \uc0c1\ub300\ubc29\uc5d0\uac8c \uba54\uc2dc\uc9c0\ub97c \ubd24\ub2e4\ub294 \uc0ac\uc2e4\uc774 \uc804\ub2ec\ub418\uc9c0 \uc54a\uc73c\uba70, \uc0c1\ub300\ubc29\uc774 \ub0b4 \uba54\uc2dc\uc9c0\ub97c \ubd24\ub294\uc9c0\ub294 \uacc4\uc18d \ud655\uc778\ud560 \uc218 \uc788\uc2b5\ub2c8\ub2e4. \ud55c \ucc44\ud305\uc5d0\ub9cc \uc54c\ub9ac\ub824\uba74 \uba54\uc2dc\uc9c0\uc5d0\uc11c \uadf8 \ucc44\ud305\uc744 \uae38\uac8c \ub204\ub974\uace0 \uc77d\uc74c\uc73c\ub85c \ud45c\uc2dc\ub97c \ub204\ub974\uc138\uc694");
         table.put("Opening someone's profile takes you on to their posts as a scrolling list of full posts. Go Back for the grid. Your own profile keeps its grid.",
                 "\ub2e4\ub978 \uc0ac\ub78c\uc758 \ud504\ub85c\ud544\uc744 \uc5f4\uba74 \ubc14\ub85c \uc804\uccb4 \uac8c\uc2dc\ubb3c\uc774 \uc774\uc5b4\uc9c0\ub294 \uc2a4\ud06c\ub864 \ubaa9\ub85d\uc73c\ub85c \uc774\ub3d9\ud569\ub2c8\ub2e4. \ub4a4\ub85c \uac00\uba74 \uadf8\ub9ac\ub4dc\uac00 \ub098\uc635\ub2c8\ub2e4. \ub0b4 \ud504\ub85c\ud544\uc740 \uadf8\ub9ac\ub4dc \uadf8\ub300\ub85c\uc785\ub2c8\ub2e4.");
+    }
+
+    private static void fillKo20(Map<String, String> table) {
         table.put("Opens Home on posts from accounts you follow instead of For you. Tap the top of Home to switch. Restart Instagram to see the change.",
                 "\ud648\uc744 \ucd94\ucc9c \ub300\uc2e0 \ud314\ub85c\uc6b0\ud558\ub294 \uacc4\uc815\uc758 \uac8c\uc2dc\ubb3c\ub85c \uc5fd\ub2c8\ub2e4. \ud648 \uc0c1\ub2e8\uc744 \ud0ed\ud558\uba74 \uc804\ud658\ud560 \uc218 \uc788\uc2b5\ub2c8\ub2e4. \ubcc0\uacbd \uc0ac\ud56d\uc744 \ubcf4\ub824\uba74 Instagram\uc744 \ub2e4\uc2dc \uc2dc\uc791\ud558\uc138\uc694.");
         table.put("Opens Instagram's own Whitehat settings. Its switch lets Instagram trust the certificates installed on this phone for 24 hours, so you can check the app's traffic. Restart Instagram after you turn it on.",
@@ -19428,9 +19530,6 @@ public final class L10nTranslations {
                 "Opens Instagram's own editor for its hidden settings (MetaConfig). A wrong override, which is a changed setting, can break parts of Instagram.");
         table.put("Opens a GitHub report with your versions and settings filled in. Add what happened.",
                 "\ubc84\uc804\uacfc \uc124\uc815\uc774 \ubbf8\ub9ac \ucc44\uc6cc\uc9c4 GitHub \uc2e0\uace0\ub97c \uc5fd\ub2c8\ub2e4. \ubb34\uc2a8 \uc77c\uc774 \uc788\uc5c8\ub294\uc9c0 \uc801\uc5b4 \uc8fc\uc138\uc694.");
-    }
-
-    private static void fillKo20(Map<String, String> table) {
         table.put("Orange",
                 "\uc8fc\ud669\uc0c9");
         table.put("Overrides cleared. Restart Instagram to apply the change.",
@@ -19541,6 +19640,9 @@ public final class L10nTranslations {
                 "Post a story straight to Highlights");
         table.put("Posted %1$s",
                 "\uac8c\uc2dc \uc2dc\uac04 %1$s");
+    }
+
+    private static void fillKo21(Map<String, String> table) {
         table.put("Posts",
                 "\uac8c\uc2dc\ubb3c");
         table.put("Posts from @%1$s are hidden",
@@ -19551,9 +19653,6 @@ public final class L10nTranslations {
                 "\uc228\uae34 \uacc4\uc815\uc758 \uac8c\uc2dc\ubb3c\uc774 \uc990\uaca8\ucc3e\uae30\uc5d0\ub294 \uacc4\uc18d \ubcf4\uc785\ub2c8\ub2e4. \ucd94\ucc9c\uacfc \ud314\ub85c\uc789\uc5d0\uc11c\ub294 \ube60\uc9d1\ub2c8\ub2e4. \ubc14\uafbc \ub4a4\uc5d0\ub294 \ud648\uc744 \uc544\ub798\ub85c \ub2f9\uaca8 \uc0c8\ub85c\uace0\uce68\ud558\uc138\uc694.");
         table.put("Preparing diagnostic report...",
                 "\uc9c4\ub2e8 \ubcf4\uace0\uc11c\ub97c \uc900\ube44\ud558\ub294 \uc911...");
-    }
-
-    private static void fillKo21(Map<String, String> table) {
         table.put("Press and hold a comment that has its own photo, GIF or sticker, and its menu gets Save. Saves the largest size Instagram sent.",
                 "\uc0ac\uc9c4, GIF \ub610\ub294 \uc2a4\ud2f0\ucee4\uac00 \ucca8\ubd80\ub41c \ub313\uae00\uc744 \uae38\uac8c \ub204\ub974\uba74 \uba54\ub274\uc5d0 \uc800\uc7a5\uc774 \ucd94\uac00\ub429\ub2c8\ub2e4. Instagram\uc5d0\uc11c \uc804\uc1a1\ud55c \uac83 \uc911 \uac00\uc7a5 \ud070 \ud06c\uae30\ub97c \uc800\uc7a5\ud569\ub2c8\ub2e4.");
         table.put("Press and hold a photo in a feed to see it twice as big around your finger, and slide to look around. Let go to close it. While this is on, it takes the place of Instagram's own long press on a photo.",
@@ -19588,6 +19687,8 @@ public final class L10nTranslations {
                 "\uc774\uc804 \ud398\uc774\uc9c0");
         table.put("Priority accounts",
                 "\uc6b0\uc120 \uacc4\uc815");
+        table.put("Privacy",
+                "\uac1c\uc778\uc815\ubcf4");
         table.put("Privacy and controls for your chats.",
                 "\ucc44\ud305 \uac1c\uc778\uc815\ubcf4 \ubcf4\ud638 \ubc0f \uc81c\uc5b4.");
         table.put("Profile",
@@ -19662,6 +19763,9 @@ public final class L10nTranslations {
                 "\ub3d9\uc601\uc0c1 \uc2a4\ud1a0\ub9ac \uc0c1\ub2e8\uc758 \uc810 \uc138 \uac1c \uc606\uc5d0 \uc18d\ub3c4 \ubc84\ud2bc\uc744 \ucd94\uac00\ud569\ub2c8\ub2e4. \ud0ed\ud558\uba74 1.5x, \ub2e4\uc2dc \ud0ed\ud558\uba74 2x, \ud55c \ubc88 \ub354 \ud0ed\ud558\uba74 1x\uac00 \ub429\ub2c8\ub2e4. \uc774\ud6c4 \ub3d9\uc601\uc0c1 \uc2a4\ud1a0\ub9ac\ub3c4 \uc18d\ub3c4\ub97c \ubc14\uafb8\uac70\ub098 Instagram\uc744 \ub2e4\uc2dc \uc2dc\uc791\ud560 \ub54c\uae4c\uc9c0 \uadf8 \uc18d\ub3c4\ub97c \uc720\uc9c0\ud569\ub2c8\ub2e4. \uad11\uace0\ub294 \ubcf4\ud1b5 \uc18d\ub3c4\ub85c \uc7ac\uc0dd\ub429\ub2c8\ub2e4.");
         table.put("Puts a speed icon beside a reel. Tap it to pick a speed from 0.5x to 3x. With Keep the reel speed on, the next reels play at it too.",
                 "\ub9b4\uc2a4 \uc606\uc5d0 \uc18d\ub3c4 \uc544\uc774\ucf58\uc744 \ucd94\uac00\ud569\ub2c8\ub2e4. \ud0ed\ud574\uc11c 0.5x\uc5d0\uc11c 3x \uc0ac\uc774\uc758 \uc18d\ub3c4\ub97c \uace0\ub974\uc138\uc694. \ub9b4\uc2a4 \uc18d\ub3c4 \uc720\uc9c0\uac00 \ucf1c\uc838 \uc788\uc73c\uba74 \ub2e4\uc74c \ub9b4\uc2a4\ub3c4 \uadf8 \uc18d\ub3c4\ub85c \uc7ac\uc0dd\ub429\ub2c8\ub2e4.");
+    }
+
+    private static void fillKo22(Map<String, String> table) {
         table.put("Puts an (i) next to the three dots on a profile that opens Instagram's About this account for that account. Instagram took its own away.",
                 "\ud504\ub85c\ud544\uc758 \uc810 \uc138 \uac1c \uc606\uc5d0 (i)\ub97c \ub123\uc5b4 \ud574\ub2f9 \uacc4\uc815\uc758 Instagram \uc774 \uacc4\uc815 \uc815\ubcf4\ub97c \uc5fd\ub2c8\ub2e4. Instagram\uc774 \uae30\ubcf8 \ubc84\ud2bc\uc744 \uc5c6\uc574\uc2b5\ub2c8\ub2e4.");
         table.put("Puts back the overrides saved before your last import for this account and Instagram version.",
@@ -19674,9 +19778,6 @@ public final class L10nTranslations {
                 "\ub300\uc2e0 \ud504\ub85c\ud544\uc758 \uac8c\uc2dc\ubb3c, \ud314\ub85c\uc6cc, \ud314\ub85c\uc789 \uc218 \uc544\ub798\uc5d0 \uce69\uc73c\ub85c \ud45c\uc2dc\ud558\uace0, \ub098\ub3c4 \uadf8 \uacc4\uc815\uc744 \ud314\ub85c\uc6b0\ud558\uba74 \uc11c\ub85c \ud314\ub85c\uc6b0 \uc911\uc774\ub77c\uace0 \ud45c\uc2dc\ud569\ub2c8\ub2e4.");
         table.put("Puts the seek bar right on the bottom edge of the video, so it's harder to touch by accident while you scroll.",
                 "\ud0d0\uc0c9 \ub9c9\ub300\ub97c \ub3d9\uc601\uc0c1 \uc544\ub798\ucabd \uac00\uc7a5\uc790\ub9ac\uc5d0 \ubc14\ub85c \ubd99\uc5ec, \uc2a4\ud06c\ub864\ud558\ub2e4\uac00 \uc2e4\uc218\ub85c \uac74\ub4dc\ub9ac\uae30 \uc5b4\ub835\uac8c \ud569\ub2c8\ub2e4.");
-    }
-
-    private static void fillKo22(Map<String, String> table) {
         table.put("Puts the title in the middle of the bar at the top of other screens, like notifications, as far as the buttons beside it allow. The buttons stay where they are.",
                 "\uc54c\ub9bc \uac19\uc740 \ub2e4\ub978 \ud654\uba74 \uc704\ucabd \ubc14\uc5d0\uc11c \uc81c\ubaa9\uc744 \uc606 \ubc84\ud2bc\uc774 \ud5c8\ub77d\ud558\ub294 \ub9cc\ud07c \uac00\uc6b4\ub370\uc5d0 \ub461\ub2c8\ub2e4. \ubc84\ud2bc\uc740 \uadf8\ub300\ub85c \uc788\uc2b5\ub2c8\ub2e4.");
         table.put("Puts the username in the middle of the bar at the top of a profile, yours and other people's. The buttons stay where they are.",
@@ -19785,6 +19886,9 @@ public final class L10nTranslations {
                 "\ud314\ub85c\uc6b0\ud558\ub294 \uacc4\uc815\uc758 \uac83\uc744 \ud3ec\ud568\ud574 \uc0ac\uc9c4 \ud55c \uc7a5\uc9dc\ub9ac \uac8c\uc2dc\ubb3c\uc744 \ud648\uc5d0\uc11c \ubaa8\ub450 \uc5c6\uc571\ub2c8\ub2e4. \ubc14\uafbc \ub4a4\uc5d0\ub294 \ud648\uc744 \uc544\ub798\ub85c \ub2f9\uaca8 \uc0c8\ub85c\uace0\uce68\ud558\uc138\uc694.");
         table.put("Removes every single-video post and reel from Home, even from accounts you follow. Pull down on Home to refresh after changing it.",
                 "\ud314\ub85c\uc6b0\ud558\ub294 \uacc4\uc815\uc758 \uac83\uc744 \ud3ec\ud568\ud574 \ub3d9\uc601\uc0c1 \ud558\ub098\uc9dc\ub9ac \uac8c\uc2dc\ubb3c\uacfc \ub9b4\uc2a4\ub97c \ud648\uc5d0\uc11c \ubaa8\ub450 \uc5c6\uc571\ub2c8\ub2e4. \ubc14\uafbc \ub4a4\uc5d0\ub294 \ud648\uc744 \uc544\ub798\ub85c \ub2f9\uaca8 \uc0c8\ub85c\uace0\uce68\ud558\uc138\uc694.");
+    }
+
+    private static void fillKo23(Map<String, String> table) {
         table.put("Removes posts by business and creator accounts from Home and Following, friends who use one included. Pull down on Home to refresh after changing it.",
                 "\ube44\uc988\ub2c8\uc2a4 \ubc0f \ud06c\ub9ac\uc5d0\uc774\ud130 \uacc4\uc815\uc758 \uac8c\uc2dc\ubb3c\uc744 \ud648\uacfc \ud314\ub85c\uc789\uc5d0\uc11c \uc5c6\uc571\ub2c8\ub2e4. \uc774\ub7f0 \uacc4\uc815\uc744 \uc4f0\ub294 \uce5c\uad6c\ub3c4 \ud3ec\ud568\ub429\ub2c8\ub2e4. \ubc14\uafbc \ub4a4\uc5d0\ub294 \ud648\uc744 \uc544\ub798\ub85c \ub2f9\uaca8 \uc0c8\ub85c\uace0\uce68\ud558\uc138\uc694.");
         table.put("Removes posts you've already liked from Home and Following. A post you like now stays until you pull down on Home to refresh.",
@@ -19797,9 +19901,6 @@ public final class L10nTranslations {
                 "\ub0b4 \ud504\ub85c\ud544 \uc0c1\ub2e8 \ubc14\uc5d0\uc11c Muse \ubc84\ud2bc\uc744 \uc5c6\uc571\ub2c8\ub2e4. \uc0ac\uc6a9\uc790 \uc774\ub984\uacfc \uba54\ub274\ub294 \uadf8\ub300\ub85c \ub0a8\uc2b5\ub2c8\ub2e4.");
         table.put("Removes the empty gap under Instagram's tab bar that appears when your phone hides its navigation bar or Instagram is in a pop-up window. Restart Instagram to see the change.",
                 "\ud734\ub300\ud3f0\uc774 \ud0d0\uc0c9 \ub9c9\ub300\ub97c \uc228\uae30\uac70\ub098 Instagram\uc774 \ud31d\uc5c5 \ucc3d\uc5d0 \uc788\uc744 \ub54c \ud558\ub2e8\ubc14 \uc544\ub798\uc5d0 \uc0dd\uae30\ub294 \ube48 \uacf5\uac04\uc744 \uc5c6\uc571\ub2c8\ub2e4. \ubcc0\uacbd \uc0ac\ud56d\uc744 \ubcf4\ub824\uba74 Instagram\uc744 \ub2e4\uc2dc \uc2dc\uc791\ud558\uc138\uc694.");
-    }
-
-    private static void fillKo23(Map<String, String> table) {
         table.put("Removes the stack of Instants (quick photos from friends) from your messages. Restart Instagram to see the change.",
                 "\uba54\uc2dc\uc9c0\uc5d0\uc11c Instants(\uce5c\uad6c\uac00 \ubcf4\ub0b4\ub294 \ube60\ub978 \uc0ac\uc9c4) \ubb36\uc74c\uc744 \uc5c6\uc571\ub2c8\ub2e4. \ubcc0\uacbd \uc0ac\ud56d\uc744 \ubcf4\ub824\uba74 Instagram\uc744 \ub2e4\uc2dc \uc2dc\uc791\ud558\uc138\uc694.");
         table.put("Removes the summary, Sources and Ask Meta AI box from a reel's more menu. In your feed the audio row goes too. Other options stay.",
@@ -19908,6 +20009,9 @@ public final class L10nTranslations {
                 "\ub3d9\uc601\uc0c1\uc744 MKV\ub85c \uc800\uc7a5");
         table.put("Save videos other apps can open",
                 "\ub2e4\ub978 \uc571\uc5d0\uc11c \uc5f4 \uc218 \uc788\ub3c4\ub85d \ub3d9\uc601\uc0c1 \uc800\uc7a5");
+    }
+
+    private static void fillKo24(Map<String, String> table) {
         table.put("Save your HushGram choices to a file, or bring them back.",
                 "HushGram \uc124\uc815\uc744 \ud30c\uc77c\ub85c \uc800\uc7a5\ud558\uac70\ub098 \ub2e4\uc2dc \ubd88\ub7ec\uc635\ub2c8\ub2e4.");
         table.put("Saved",
@@ -19920,9 +20024,6 @@ public final class L10nTranslations {
                 "@%s \ub2d8\uc744 \uc800\uc7a5\ud588\uc2b5\ub2c8\ub2e4");
         table.put("Saved and everything in it stay covered until your fingerprint, face or screen lock says it's you.",
                 "\uc9c0\ubb38, \uc5bc\uad74 \ub610\ub294 \ud654\uba74 \uc7a0\uae08\uc73c\ub85c \ubcf8\uc778\uc784\uc774 \ud655\uc778\ub420 \ub54c\uae4c\uc9c0 \uc800\uc7a5\ub428\uacfc \uadf8 \uc548\uc758 \ubaa8\ub4e0 \ud56d\ubaa9\uc774 \uac00\ub824\uc9d1\ub2c8\ub2e4.");
-    }
-
-    private static void fillKo24(Map<String, String> table) {
         table.put("Saved button in Explore",
                 "Saved button in Explore");
         table.put("Saved is locked",
@@ -20031,6 +20132,9 @@ public final class L10nTranslations {
                 "\uc774 \ucc44\ud305\uc5d0\uc11c \uc77d\uc74c\uc744 \ubcf4\ub958\ud569\ub2c8\ub2e4");
         table.put("Select text",
                 "\ud14d\uc2a4\ud2b8 \uc120\ud0dd");
+    }
+
+    private static void fillKo25(Map<String, String> table) {
         table.put("Select text to copy",
                 "\ubcf5\uc0ac\ud560 \ud14d\uc2a4\ud2b8 \uc120\ud0dd");
         table.put("Send",
@@ -20043,9 +20147,6 @@ public final class L10nTranslations {
                 "Send stories with a long press");
         table.put("Send to",
                 "\ubcf4\ub0bc \uc571");
-    }
-
-    private static void fillKo25(Map<String, String> table) {
         table.put("Sending a message in a chat lets the other person see that you've read what they sent before it. Chats you don't answer stay unseen to them.",
                 "\ucc44\ud305\uc5d0\uc11c \uba54\uc2dc\uc9c0\ub97c \ubcf4\ub0b4\uba74 \uc0c1\ub300\uac00 \uadf8 \uc774\uc804\uc5d0 \ubcf4\ub0b8 \uba54\uc2dc\uc9c0\ub97c \uc77d\uc5c8\ub2e4\ub294 \uac83\uc744 \ubcfc \uc218 \uc788\uc2b5\ub2c8\ub2e4. \ub2f5\ud558\uc9c0 \uc54a\uc740 \ucc44\ud305\uc740 \uc0c1\ub300\uc5d0\uac8c \uc77d\uc9c0 \uc54a\uc740 \uc0c1\ud0dc\ub85c \ub0a8\uc2b5\ub2c8\ub2e4.");
         table.put("Sends Instagram through the HTTP proxy set below. Other apps and your phone's own settings aren't changed.",
@@ -20154,6 +20255,9 @@ public final class L10nTranslations {
                 "\ub3d9\uc601\uc0c1 \uc2a4\ud1a0\ub9ac \uc544\ub798\ucabd \uadfc\ucc98\uc5d0 \ub9c9\ub300\ub97c \ud45c\uc2dc\ud569\ub2c8\ub2e4. \ub9c9\ub300\ub97c \ub04c\uc5b4 \ub3d9\uc601\uc0c1\uc758 \uc6d0\ud558\ub294 \uc9c0\uc810\uc73c\ub85c \uc774\ub3d9\ud558\uc138\uc694. \uc0ac\uc9c4\uc5d0\ub294 \ud45c\uc2dc\ub418\uc9c0 \uc54a\uc2b5\ub2c8\ub2e4.");
         table.put("Shows a blurred preview of a disappearing photo or video in a chat.",
                 "Shows a blurred preview of a disappearing photo or video in a chat.");
+    }
+
+    private static void fillKo26(Map<String, String> table) {
         table.put("Shows a handle at the right edge of Saved and your collections while they scroll. Drag it to jump through them.",
                 "\uc800\uc7a5\ub428\uacfc \ub0b4 \uceec\ub809\uc158\uc744 \uc2a4\ud06c\ub864\ud558\ub294 \ub3d9\uc548 \uc624\ub978\ucabd \uac00\uc7a5\uc790\ub9ac\uc5d0 \ud578\ub4e4\uc744 \ud45c\uc2dc\ud569\ub2c8\ub2e4. \ud578\ub4e4\uc744 \ub04c\uc5b4 \ube60\ub974\uac8c \uc774\ub3d9\ud558\uc138\uc694.");
         table.put("Shows each switch by its name alone. Tap the i next to a name to read what it does.",
@@ -20166,9 +20270,6 @@ public final class L10nTranslations {
                 "\uac00\uc838\uc624\uae30\uc640 \ubcf5\uc6d0 \ud56d\ubaa9\uc744 \ud45c\uc2dc\ud569\ub2c8\ub2e4. \uac00\uc838\uc624\uae30\ub294 \ub85c\uadf8\uc778\ub41c \uc774 \uacc4\uc815\uc758 Instagram \uc228\uaca8\uc9c4 \uc124\uc815\uc744 \ubc14\uafc9\ub2c8\ub2e4.");
         table.put("Shows the date and time a reel was posted under the author's name, like Oct 2, 3:45 PM. A change shows from the next reel.",
                 "\ub9b4\uc2a4\uac00 \uac8c\uc2dc\ub41c \ub0a0\uc9dc\uc640 \uc2dc\uac04\uc744 \uc791\uc131\uc790 \uc774\ub984 \uc544\ub798\uc5d0 10\uc6d4 2\uc77c \uc624\ud6c4 3:45\ucc98\ub7fc \ubcf4\uc5ec\uc90d\ub2c8\ub2e4. \ubcc0\uacbd \uc0ac\ud56d\uc740 \ub2e4\uc74c \ub9b4\uc2a4\ubd80\ud130 \uc801\uc6a9\ub429\ub2c8\ub2e4.");
-    }
-
-    private static void fillKo26(Map<String, String> table) {
         table.put("Shows the days, hours and minutes since it went up on a line under the time, like 1d 2h 5m ago.",
                 "\uac8c\uc2dc\ub41c \ub4a4 \uc9c0\ub09c \uc77c, \uc2dc\uac04, \ubd84\uc744 \uc2dc\uac01 \uc544\ub798 \ud55c \uc904\uc5d0 1\uc77c 2\uc2dc\uac04 5\ubd84 \uc804\ucc98\ub7fc \ubcf4\uc5ec \uc90d\ub2c8\ub2e4.");
         table.put("Shows the time above your finger while you drag a seek bar on a feed video, story or reel, and a small picture of that moment when Instagram has one for the video.",
@@ -20179,6 +20280,8 @@ public final class L10nTranslations {
                 "\uac8c\uc2dc\ubb3c\uacfc \ub313\uae00\uc774 \uc62c\ub77c\uc628 \uc2dc\uc810\uc744 \uc5bc\ub9c8 \uc804\uc778\uc9c0 \ub300\uc2e0 10\uc6d4 2\uc77c \uc624\ud6c4 3:45\ucc98\ub7fc \ubcf4\uc5ec\uc90d\ub2c8\ub2e4. \ubcc0\uacbd \ud6c4\uc5d0 \ubd88\ub7ec\uc624\ub294 \uac8c\uc2dc\ubb3c\ubd80\ud130 \uc801\uc6a9\ub429\ub2c8\ub2e4.");
         table.put("Shows your feed blurred under Home's top bar, like frosted glass.",
                 "\ud648 \uc0c1\ub2e8 \ubc14 \uc544\ub798\ub85c \ud53c\ub4dc\uac00 \uc816\ube5b \uc720\ub9ac\ucc98\ub7fc \ud750\ub9ac\uac8c \ubcf4\uc785\ub2c8\ub2e4.");
+        table.put("Shrink the pill as you scroll",
+                "\uc2a4\ud06c\ub864\ud560 \ub54c \uc54c\uc57d \uc904\uc774\uae30");
         table.put("Size %1$d \u00d7 %2$d",
                 "\ud06c\uae30 %1$d \u00d7 %2$d");
         table.put("Skip length",
@@ -20275,6 +20378,9 @@ public final class L10nTranslations {
                 "\uac80\uc0c9\uacfc \ud0d0\uc0c9\uc5d0\uc11c \uc5f0 \ub9b4\uc2a4\ub294 \uacc4\uc18d \uc2a4\ud06c\ub864");
         table.put("Still scroll reels from a profile",
                 "\ud504\ub85c\ud544\uc5d0\uc11c \uc5f0 \ub9b4\uc2a4\ub294 \uacc4\uc18d \uc2a4\ud06c\ub864");
+    }
+
+    private static void fillKo27(Map<String, String> table) {
         table.put("Still scroll reels from a song page",
                 "\ub178\ub798 \ud398\uc774\uc9c0\uc5d0\uc11c \uc5f0 \ub9b4\uc2a4\ub294 \uacc4\uc18d \uc2a4\ud06c\ub864");
         table.put("Stop",
@@ -20289,9 +20395,6 @@ public final class L10nTranslations {
                 "\uc815\ud55c \uac1c\uc218\uc758 \ub9b4\uc2a4 \ud6c4 \uba48\ucd94\uae30");
         table.put("Stop after the chat's reels",
                 "\ucc44\ud305\uc758 \ub9b4\uc2a4\uae4c\uc9c0\ub9cc \ubcf4\uae30");
-    }
-
-    private static void fillKo27(Map<String, String> table) {
         table.put("Stop background feed refresh",
                 "\ubc31\uadf8\ub77c\uc6b4\ub4dc \ud53c\ub4dc \uc0c8\ub85c\uace0\uce68 \uc911\uc9c0");
         table.put("Stop background work Instagram doesn't need.",
@@ -20398,6 +20501,9 @@ public final class L10nTranslations {
                 "\ud0ed\uc744 \uae38\uac8c \ud0ed\ud558\uba74 Instagram\uc758 \uae30\ubcf8 \ub3d9\uc791\uc774 \uc2e4\ud589\ub429\ub2c8\ub2e4. \uc990\uaca8\ucc3e\uae30\ub97c \ub300\uc2e0 \uc5f4 \ud0ed\uc744 \ud558\ub098 \uace0\ub974\uc138\uc694.");
         table.put("Tab long presses keep Instagram's own action. Choose one to open HushGram instead.",
                 "\ud0ed\uc744 \uae38\uac8c \ud0ed\ud558\uba74 Instagram\uc758 \uae30\ubcf8 \ub3d9\uc791\uc774 \uc2e4\ud589\ub429\ub2c8\ub2e4. HushGram\uc744 \ub300\uc2e0 \uc5f4 \ud0ed\uc744 \ud558\ub098 \uc120\ud0dd\ud558\uc138\uc694");
+    }
+
+    private static void fillKo28(Map<String, String> table) {
         table.put("Tab long presses keep Instagram's own action. Choose one to open Saved profiles instead.",
                 "\ud0ed\uc744 \uae38\uac8c \ud0ed\ud558\uba74 Instagram\uc758 \uae30\ubcf8 \ub3d9\uc791\uc774 \uc2e4\ud589\ub429\ub2c8\ub2e4. \uc800\uc7a5\ud55c \ud504\ub85c\ud544\uc744 \ub300\uc2e0 \uc5f4 \ud0ed\uc744 \ud558\ub098 \uace0\ub974\uc138\uc694.");
         table.put("Tab long presses keep Instagram's own action. Choose one to pick the playback quality instead.",
@@ -20412,9 +20518,6 @@ public final class L10nTranslations {
                 "\ub2e4\ub978 \ud504\ub85c\ud544\uc758 \ud0ed");
         table.put("Tabs on your profile",
                 "\ub0b4 \ud504\ub85c\ud544\uc758 \ud0ed");
-    }
-
-    private static void fillKo28(Map<String, String> table) {
         table.put("Tagged",
                 "\ud0dc\uadf8\ub428");
         table.put("Take a scroll break",
@@ -20503,6 +20606,8 @@ public final class L10nTranslations {
                 "\ub2e4\ub978 \uc0ac\ub78c \ud504\ub85c\ud544\uc758 \uc18c\uac1c \uc544\ub798\uc5d0 \uc788\ub294 Threads \ubc30\uc9c0\ub97c \uc5c6\uc571\ub2c8\ub2e4. \ub0b4 \ud504\ub85c\ud544\uc5d0\ub294 \uadf8\ub300\ub85c \ub0a8\uc2b5\ub2c8\ub2e4.");
         table.put("Takes the Threads button off the top of profiles, yours included. The menu and the other buttons stay where they were.",
                 "\ubaa8\ub4e0 \ud504\ub85c\ud544 \uc0c1\ub2e8\uc5d0\uc11c Threads \ubc84\ud2bc\uc744 \uc228\uae41\ub2c8\ub2e4. \ub0b4 \ud504\ub85c\ud544\uc5d0\ub3c4 \uc801\uc6a9\ub429\ub2c8\ub2e4. \uba54\ub274\uc640 \ub2e4\ub978 \ubc84\ud2bc\uc740 \uc6d0\ub798 \uc790\ub9ac\uc5d0 \uadf8\ub300\ub85c \uc788\uc2b5\ub2c8\ub2e4.");
+        table.put("Takes the Watch more reels button off the card a reel in your feed shows when it ends. Watch again stays.",
+                "\ud53c\ub4dc\uc758 \ub9b4\uc2a4\uac00 \ub05d\ub0a0 \ub54c \ub098\uc624\ub294 \uce74\ub4dc\uc5d0\uc11c \ub354 \ub9ce\uc740 \ub9b4\uc2a4 \ubcf4\uae30 \ubc84\ud2bc\uc744 \uc5c6\uc571\ub2c8\ub2e4. \ub2e4\uc2dc \ubcf4\uae30\ub294 \uadf8\ub300\ub85c \ub0a8\uc2b5\ub2c8\ub2e4.");
         table.put("Takes the Your algorithm button off the top of the Reels tab and closes up the gap. The rest of the bar stays.",
                 "\ub9b4\uc2a4 \ud0ed \ub9e8 \uc704\uc5d0\uc11c \ub0b4 \uc54c\uace0\ub9ac\uc998 \ubc84\ud2bc\uc744 \uc228\uae30\uace0 \ube48\uc790\ub9ac\ub97c \uc5c6\uc571\ub2c8\ub2e4. \ub098\uba38\uc9c0 \ubc14\ub294 \uadf8\ub300\ub85c\uc785\ub2c8\ub2e4.");
         table.put("Takes the accounts Instagram suggests off the bottom of your messages. Your chats and follow requests stay. Restart Instagram to see the change.",
@@ -20519,6 +20624,9 @@ public final class L10nTranslations {
                 "\ud648 \uc0c1\ub2e8\uc758 \ud558\ud2b8\ub97c \uc81c\uac70\ud558\uace0 \ube48 \uc790\ub9ac\ub97c \ucc44\uc6c1\ub2c8\ub2e4. \uc54c\ub9bc\uc740 \uacc4\uc18d \uc635\ub2c8\ub2e4. \ubcc0\uacbd \uc0ac\ud56d\uc744 \ubcf4\ub824\uba74 Instagram\uc744 \ub2e4\uc2dc \uc2dc\uc791\ud558\uc138\uc694.");
         table.put("Takes the interests someone added, like reading or hiking, from under their bio. Yours keeps them.",
                 "\ub2e4\ub978 \uc0ac\ub78c\uc774 \ucd94\uac00\ud55c \ub3c5\uc11c\ub098 \ud558\uc774\ud0b9 \uac19\uc740 \uad00\uc2ec\uc0ac\ub97c \uc18c\uac1c \uc544\ub798\uc5d0\uc11c \uc5c6\uc571\ub2c8\ub2e4. \ub0b4 \ud504\ub85c\ud544\uc5d0\ub294 \uadf8\ub300\ub85c \ub0a8\uc2b5\ub2c8\ub2e4.");
+    }
+
+    private static void fillKo29(Map<String, String> table) {
         table.put("Takes the invite to someone's broadcast channel from under their bio. Yours keeps it.",
                 "\uc18c\uac1c \uc544\ub798\uc5d0 \uc788\ub294 \ub2e4\ub978 \uc0ac\ub78c\uc758 \ubc29\uc1a1 \ucc44\ub110 \ucd08\ub300\ub97c \uc5c6\uc571\ub2c8\ub2e4. \ub0b4 \ud504\ub85c\ud544\uc5d0\ub294 \uadf8\ub300\ub85c \ub0a8\uc2b5\ub2c8\ub2e4.");
         table.put("Takes the link to someone's WhatsApp from under their bio. Yours keeps it.",
@@ -20535,9 +20643,6 @@ public final class L10nTranslations {
                 "\ub2e4\ub978 \uc0ac\ub78c\uc758 \uc2a4\ud1a0\ub9ac \uc544\ub798\ucabd\uc5d0\uc11c \uc885\uc774\ube44\ud589\uae30\ub97c \uc5c6\uc571\ub2c8\ub2e4. \ube48 \uacf5\uac04\uc740 \ub0a8\uc9c0 \uc54a\uc2b5\ub2c8\ub2e4.");
         table.put("Takes the plus button off the top of Home and closes up the gap. The Create tab and swiping to create are separate. Restart Instagram to see the change.",
                 "\ud648 \uc0c1\ub2e8\uc758 \ub354\ud558\uae30 \ubc84\ud2bc\uc744 \uc81c\uac70\ud558\uace0 \ube48 \uc790\ub9ac\ub97c \ucc44\uc6c1\ub2c8\ub2e4. \ub9cc\ub4e4\uae30 \ud0ed\uacfc \uc2a4\uc640\uc774\ud504\ub85c \ub9cc\ub4e4\uae30\ub294 \ubcc4\uac1c\uc785\ub2c8\ub2e4. \ubcc0\uacbd \uc0ac\ud56d\uc744 \ubcf4\ub824\uba74 Instagram\uc744 \ub2e4\uc2dc \uc2dc\uc791\ud558\uc138\uc694.");
-    }
-
-    private static void fillKo29(Map<String, String> table) {
         table.put("Takes the plus button off the top of reels you open from Saved or a collection and closes up the gap. The Reels tab and other reels keep theirs.",
                 "\uc800\uc7a5\ub428\uc774\ub098 \uceec\ub809\uc158\uc5d0\uc11c \uc5f0 \ub9b4\uc2a4 \ub9e8 \uc704\uc758 \ub354\ud558\uae30 \ubc84\ud2bc\uc744 \uc228\uae30\uace0 \ube48\uc790\ub9ac\ub97c \uc5c6\uc571\ub2c8\ub2e4. \ub9b4\uc2a4 \ud0ed\uacfc \ub2e4\ub978 \ub9b4\uc2a4\ub294 \uadf8\ub300\ub85c \ub461\ub2c8\ub2e4.");
         table.put("Takes the plus button that opens the camera off the top of reels, on the Reels tab and everywhere else, and closes up the gap. The rest of the bar stays.",
@@ -20642,6 +20747,9 @@ public final class L10nTranslations {
                 "\uc775\uc219\ud55c \ub9c9\ub300\uc640 \ub465\uadfc \ud578\ub4e4\uc785\ub2c8\ub2e4.");
         table.put("The bar sits in the space under the Send message box. Where there's no room under it, the bar stays above it.",
                 "\ub9c9\ub300\uac00 \uba54\uc2dc\uc9c0 \ubcf4\ub0b4\uae30 \uc0c1\uc790 \uc544\ub798 \uacf5\uac04\uc5d0 \uc788\uc2b5\ub2c8\ub2e4. \uc544\ub798\uc5d0 \uacf5\uac04\uc774 \uc5c6\uc73c\uba74 \uc0c1\uc790 \uc704\uc5d0 \uadf8\ub300\ub85c \uc788\uc2b5\ub2c8\ub2e4.");
+    }
+
+    private static void fillKo30(Map<String, String> table) {
         table.put("The bar sits just above the Send message box at the bottom of a story.",
                 "\ub9c9\ub300\uac00 \uc2a4\ud1a0\ub9ac \uc544\ub798\ucabd\uc758 \uba54\uc2dc\uc9c0 \ubcf4\ub0b4\uae30 \uc0c1\uc790 \ubc14\ub85c \uc704\uc5d0 \uc788\uc2b5\ub2c8\ub2e4.");
         table.put("The bubbles of friends who liked or commented, the Followed by and Liked by lines with their faces, the comment shown under a reel and the row of friends who saw it. Comments are still a tap away.",
@@ -20658,9 +20766,6 @@ public final class L10nTranslations {
                 "\uc2a4\ud1a0\ub9ac\uac00 \uac8c\uc2dc\ub41c \ub0a0\uc9dc\uc640 \uc2dc\uac04\uc785\ub2c8\ub2e4. \uc608: 10\uc6d4 2\uc77c \uc624\ud6c4 3:45");
         table.put("The file %1$s couldn't be removed. Delete it from %2$s to turn HushGram back on.",
                 "%1$s \ud30c\uc77c\uc744 \uc0ad\uc81c\ud560 \uc218 \uc5c6\uc2b5\ub2c8\ub2e4. HushGram\uc744 \ub2e4\uc2dc \ud65c\uc131\ud654\ud558\ub824\uba74 %2$s\uc5d0\uc11c \ud574\ub2f9 \ud30c\uc77c\uc744 \uc0ad\uc81c\ud558\uc138\uc694");
-    }
-
-    private static void fillKo30(Map<String, String> table) {
         table.put("The heart at the top of Home shows how many notifications are waiting, like the number on Messages, in place of the red dot. Restart Instagram to see the change.",
                 "\ud648 \uc0c1\ub2e8\uc758 \ud558\ud2b8\uc5d0 \ube68\uac04 \uc810 \ub300\uc2e0 \uba54\uc2dc\uc9c0\ucc98\ub7fc \uae30\ub2e4\ub9ac\ub294 \uc54c\ub9bc \uc218\ub97c \ud45c\uc2dc\ud569\ub2c8\ub2e4. \ubcc0\uacbd \uc0ac\ud56d\uc744 \ubcf4\ub824\uba74 Instagram\uc744 \ub2e4\uc2dc \uc2dc\uc791\ud558\uc138\uc694.");
         table.put("The heart plays %1$s when you double tap a post.",
@@ -20765,6 +20870,9 @@ public final class L10nTranslations {
                 "\uac80\uc0c9\uc774 \ud558\ub2e8\ubc14\uc5d0 \uc5c6\uc5b4\uc11c \uc774 \ubc84\ud2bc\uc73c\ub85c \uc5ec\uae30\uc11c \uc5f4 \uc218 \uc5c6\uc2b5\ub2c8\ub2e4.");
         table.put("This chat is locked",
                 "\uc774 \ucc44\ud305\uc740 \uc7a0\uaca8 \uc788\uc2b5\ub2c8\ub2e4");
+    }
+
+    private static void fillKo31(Map<String, String> table) {
         table.put("This chat uses the setting",
                 "\uc774 \ucc44\ud305\uc740 \uc124\uc815\uc744 \ub530\ub985\ub2c8\ub2e4");
         table.put("This file matches the current overrides. Nothing changed.",
@@ -20781,9 +20889,6 @@ public final class L10nTranslations {
                 "\uc774 \uc2a4\ud1a0\ub9ac\ub294 \ud55c \ubc88\ub9cc \uc7ac\uc0dd\ub429\ub2c8\ub2e4");
         table.put("This video has no file another player can open",
                 "\uc774 \ub3d9\uc601\uc0c1\uc5d0\ub294 \ub2e4\ub978 \ud50c\ub808\uc774\uc5b4\uac00 \uc5f4 \uc218 \uc788\ub294 \ud30c\uc77c\uc774 \uc5c6\uc2b5\ub2c8\ub2e4");
-    }
-
-    private static void fillKo31(Map<String, String> table) {
         table.put("This video plays once",
                 "\uc774 \ub3d9\uc601\uc0c1\uc740 \ud55c \ubc88\ub9cc \uc7ac\uc0dd\ub429\ub2c8\ub2e4");
         table.put("Threads",
@@ -20888,6 +20993,9 @@ public final class L10nTranslations {
                 "\uc22b\uc790 \uc544\ub798");
         table.put("Under the name, 1 mention",
                 "\uc774\ub984 \uc544\ub798, \uc5b8\uae09 1\uac1c");
+    }
+
+    private static void fillKo32(Map<String, String> table) {
         table.put("Undo cleared positions",
                 "\uc704\uce58 \uc9c0\uc6b0\uae30 \uc2e4\ud589 \ucde8\uc18c");
         table.put("Undo couldn't fully restore the settings. Check the shown values. Undo has been used up.",
@@ -20904,9 +21012,6 @@ public final class L10nTranslations {
                 "\uc5b8\ud314\ub85c\uc6b0 \uc54c\ub9bc");
         table.put("Unfollower list cleared.",
                 "\uc5b8\ud314\ub85c\uc6b0 \ubaa9\ub85d\uc744 \uc9c0\uc6e0\uc2b5\ub2c8\ub2e4.");
-    }
-
-    private static void fillKo32(Map<String, String> table) {
         table.put("Unlock",
                 "\uc7a0\uae08 \ud574\uc81c");
         table.put("Unlock Instagram",
@@ -20993,8 +21098,8 @@ public final class L10nTranslations {
                 "\uac01 \ub3d9\uc601\uc0c1\uc740 Instagram\uc774 \uc81c\uacf5\ud558\ub294 \uac00\uc7a5 \ub0ae\uc740 \ud654\uc9c8\ub85c \uc7ac\uc0dd\ub429\ub2c8\ub2e4");
         table.put("Videos wait for your tap where the choice below says. Feed videos show a play button, as they do when you use less mobile data.",
                 "\uc544\ub798\uc5d0\uc11c \uace0\ub978 \uacf3\uc5d0\uc11c\ub294 \ub3d9\uc601\uc0c1\uc774 \ud0ed\ud560 \ub54c\uae4c\uc9c0 \ub300\uae30\ud569\ub2c8\ub2e4. \ud53c\ub4dc\uc758 \ub3d9\uc601\uc0c1\uc5d0\ub294 \ubaa8\ubc14\uc77c \ub370\uc774\ud130 \uc0ac\uc6a9\ub7c9\uc744 \uc904\uc600\uc744 \ub54c\uc640 \ub9c8\ucc2c\uac00\uc9c0\ub85c \uc7ac\uc0dd \ubc84\ud2bc\uc774 \ud45c\uc2dc\ub429\ub2c8\ub2e4");
-        table.put("Videos, reels and stories play at the quality below, starting with the next one you open.",
-                "\ub3d9\uc601\uc0c1, \ub9b4\uc2a4 \ubc0f \uc2a4\ud1a0\ub9ac\ub294 \ub2e4\uc74c\uc5d0 \uc5ec\ub294 \ucf58\ud150\uce20\ubd80\ud130 \uc544\ub798 \uc124\uc815\ub41c \ud654\uc9c8\ub85c \uc7ac\uc0dd\ub429\ub2c8\ub2e4");
+        table.put("Videos, reels and stories play at the quality below, starting with the next one you open. When your connection can't keep up, a video drops to the next lower quality.",
+                "\ub3d9\uc601\uc0c1, \ub9b4\uc2a4 \ubc0f \uc2a4\ud1a0\ub9ac\ub294 \ub2e4\uc74c\uc5d0 \uc5ec\ub294 \ucf58\ud150\uce20\ubd80\ud130 \uc544\ub798 \uc124\uc815\ub41c \ud654\uc9c8\ub85c \uc7ac\uc0dd\ub429\ub2c8\ub2e4. \uc5f0\uacb0 \uc18d\ub3c4\uac00 \ub530\ub77c\uac00\uc9c0 \ubabb\ud558\uba74 \ub3d9\uc601\uc0c1\uc774 \ud55c \ub2e8\uacc4 \ub0ae\uc740 \ud654\uc9c8\ub85c \ub0b4\ub824\uac11\ub2c8\ub2e4");
         table.put("View DM photos and videos anonymously",
                 "DM \uc0ac\uc9c4 \ubc0f \ub3d9\uc601\uc0c1 \ubab0\ub798\ubcf4\uae30");
         table.put("View live anonymously",
@@ -21011,6 +21116,9 @@ public final class L10nTranslations {
                 "\ubcf8 \uae30\ub85d\uc744 \uc9c0\uc6e0\uc2b5\ub2c8\ub2e4.");
         table.put("Viewing, sound and the stories tray.",
                 "\uc2dc\uccad, \uc0ac\uc6b4\ub4dc \ubc0f \uc2a4\ud1a0\ub9ac \ud2b8\ub808\uc774.");
+    }
+
+    private static void fillKo33(Map<String, String> table) {
         table.put("Voice message",
                 "\uc74c\uc131 \uba54\uc2dc\uc9c0");
         table.put("Volume up still raises the phone's volume, but a muted reel stays muted until you unmute it.",
@@ -21027,9 +21135,6 @@ public final class L10nTranslations {
                 "\ud53c\ub4dc\uc5d0\uc11c \ub2e4\uc2dc \ubcf4\uae30");
         table.put("Watch on TV",
                 "TV\ub85c \ubcf4\uae30");
-    }
-
-    private static void fillKo33(Map<String, String> table) {
         table.put("Wave",
                 "\ubb3c\uacb0");
         table.put("Web links you tap open in your usual browser, without Instagram's click tracker. Ads and Meta's own sites (Instagram, Facebook, Messenger, Threads) still open in the app.",
@@ -21078,6 +21183,8 @@ public final class L10nTranslations {
                 "\ub113\uac8c");
         table.put("With Expandable categories on, a tap opens a category on a page of its own. Back takes you to the list.",
                 "\ud3bc\uce60 \uc218 \uc788\ub294 \uce74\ud14c\uace0\ub9ac\uac00 \ucf1c\uc838 \uc788\uc73c\uba74 \uce74\ud14c\uace0\ub9ac\ub97c \ud0ed\ud560 \ub54c \ubcc4\ub3c4 \ud398\uc774\uc9c0\ub85c \uc5f4\ub9bd\ub2c8\ub2e4. \ub4a4\ub85c\ub97c \ub204\ub974\uba74 \ubaa9\ub85d\uc73c\ub85c \ub3cc\uc544\uac11\ub2c8\ub2e4.");
+        table.put("With Liquid glass look off, scrolling a list down makes the pill smaller, and scrolling up or changing tab brings it back to full size. Hide the tab bar as you scroll takes over when it's on. Restart Instagram after changing it.",
+                "\ub9ac\ud034\ub4dc \uae00\ub798\uc2a4 \uc2a4\ud0c0\uc77c\uc774 \uaebc\uc838 \uc788\uc744 \ub54c \ubaa9\ub85d\uc744 \uc544\ub798\ub85c \uc2a4\ud06c\ub864\ud558\uba74 \uc54c\uc57d\uc774 \uc791\uc544\uc9c0\uace0, \uc704\ub85c \uc2a4\ud06c\ub864\ud558\uac70\ub098 \ud0ed\uc744 \ubc14\uafb8\uba74 \uc6d0\ub798 \ud06c\uae30\ub85c \ub3cc\uc544\uc635\ub2c8\ub2e4. \uc2a4\ud06c\ub864\ud560 \ub54c \ud0ed \ubc14 \uc228\uae30\uae30\uac00 \ucf1c\uc838 \uc788\uc73c\uba74 \uadf8 \uc124\uc815\uc774 \uc6b0\uc120\ud569\ub2c8\ub2e4. \ubcc0\uacbd\ud55c \ub4a4\uc5d0\ub294 Instagram\uc744 \ub2e4\uc2dc \uc2dc\uc791\ud558\uc138\uc694.");
         table.put("With Name saves by account and post time on, only a save that doesn't know who posted or when is named this way.",
                 "\u2018\uacc4\uc815\uacfc \uac8c\uc2dc \uc2dc\uac04\uc73c\ub85c \uc800\uc7a5 \ud30c\uc77c \uc774\ub984 \uc9d3\uae30\u2019\ub97c \ucf1c\uba74 \uac8c\uc2dc\ud55c \uc0ac\ub78c\uc774\ub098 \uc2dc\uac04\uc744 \ubaa8\ub974\ub294 \uc800\uc7a5 \ud30c\uc77c\uc5d0\ub9cc \uc774 \uc774\ub984\uc774 \ubd99\uc2b5\ub2c8\ub2e4.");
         table.put("With Stop Reels scrolling on, reels you open from Search, Explore, a hashtag or a place still move on when you swipe.",
@@ -21132,6 +21239,9 @@ public final class L10nTranslations {
                 "\uc0ac\uc6a9 \uc911\uc778 \ubc84\uc804, \uc18c\uc2a4 \ucf54\ub4dc, \ub77c\uc774\uc120\uc2a4\uc785\ub2c8\ub2e4.");
         table.put("Your words",
                 "\uc6d0\ud558\ub294 \ubb38\uad6c");
+    }
+
+    private static void fillKo34(Map<String, String> table) {
         table.put("Zoomed photo",
                 "\ud655\ub300\ub41c \uc0ac\uc9c4");
         table.put("the home screen icon you picked",
@@ -21151,7 +21261,7 @@ public final class L10nTranslations {
     }
 
     private static Map<String, String> buildPt_rBR() {
-        Map<String, String> table = new HashMap<>(4078);
+        Map<String, String> table = new HashMap<>(4096);
         fillPt_rBR0(table);
         fillPt_rBR1(table);
         fillPt_rBR2(table);
@@ -21186,6 +21296,7 @@ public final class L10nTranslations {
         fillPt_rBR31(table);
         fillPt_rBR32(table);
         fillPt_rBR33(table);
+        fillPt_rBR34(table);
         return table;
     }
 
@@ -21385,8 +21496,8 @@ public final class L10nTranslations {
                 "Um link de reel abre o reel para o qual aponta. O Instagram n\u00e3o reproduz outro reel guardado no seu celular enquanto esse carrega.");
         table.put("A reel that doesn't fill the screen shows a blurred copy of itself above and below it instead of black bars, and the strip under the tab bar and the band behind the clock show the reel blurred too. The copy shows only where a reel leaves room, as with Show the whole reel on. Open Reels again after a change.",
                 "Um reel que n\u00e3o preenche a tela mostra uma c\u00f3pia desfocada de si mesmo acima e abaixo, em vez de barras pretas, e a faixa sob a barra de abas e a \u00e1rea atr\u00e1s do rel\u00f3gio tamb\u00e9m mostram o reel desfocado. A c\u00f3pia s\u00f3 aparece onde o reel deixa espa\u00e7o, como com Mostrar o reel inteiro ativado. Abra os Reels de novo depois de uma altera\u00e7\u00e3o.");
-        table.put("A reel you open from the Reels tab or a post on Home plays with sound, and Home is muted again when you go back. Your phone's ringer and volume still count.",
-                "Um reel que voc\u00ea abre pela aba Reels ou a partir de um post no In\u00edcio toca com som, e o In\u00edcio volta a ficar silenciado quando voc\u00ea volta. O modo de toque e o volume do celular continuam valendo.");
+        table.put("A reel you open from the Reels tab, a profile or a post on Home plays with sound, and Home is muted again when you go back. Your phone's ringer and volume still count.",
+                "Um reel que voc\u00ea abre pela aba Reels, por um perfil ou a partir de um post no In\u00edcio toca com som, e o In\u00edcio volta a ficar silenciado quando voc\u00ea volta. O modo de toque e o volume do celular continuam valendo.");
         table.put("A rounded bar split by a tall handle.",
                 "Uma barra arredondada dividida por um controle alto.");
         table.put("A save stopped. Reopen the media and save again.",
@@ -21631,6 +21742,8 @@ public final class L10nTranslations {
                 "Um arquivo de fonte de emoji");
         table.put("An eye at the top of each chat holds or sends Seen in that chat alone, whatever Read messages without the seen receipt says. Changing it doesn't send anything by itself.",
                 "Um olho no topo de cada conversa segura ou envia Visto s\u00f3 nessa conversa, n\u00e3o importa o que diga Ler mensagens sem a confirma\u00e7\u00e3o de visto. Mudar isso n\u00e3o envia nada por si s\u00f3.");
+        table.put("App",
+                "App");
         table.put("App icon",
                 "\u00cdcone do app");
         table.put("App-only proxy",
@@ -21677,11 +21790,11 @@ public final class L10nTranslations {
                 "Voltar sai do In\u00edcio como est\u00e1");
         table.put("Back on Home leaves Instagram without first scrolling the feed to the top and reloading it.",
                 "Voltar no In\u00edcio sai do Instagram sem antes rolar o feed at\u00e9 o topo e recarreg\u00e1-lo.");
-        table.put("Background playback",
-                "Reprodu\u00e7\u00e3o em segundo plano");
     }
 
     private static void fillPt_rBR4(Map<String, String> table) {
+        table.put("Background playback",
+                "Reprodu\u00e7\u00e3o em segundo plano");
         table.put("Backgrounds in the accent color",
                 "Fundos na cor de destaque");
         table.put("Badges in the accent color",
@@ -21706,8 +21819,8 @@ public final class L10nTranslations {
                 "Bio");
         table.put("Bio copied",
                 "Bio copiada");
-        table.put("Black rows and dialogs, HushGram's name at the top, and each category on one line.",
-                "Linhas e caixas de di\u00e1logo pretas, o nome do HushGram no topo e cada categoria em uma linha.");
+        table.put("Black rows and dialogs, with HushGram's name at the top.",
+                "Linhas e caixas de di\u00e1logo pretas, com o nome do HushGram no topo.");
         table.put("Black settings page",
                 "P\u00e1gina de configura\u00e7\u00f5es preta");
         table.put("Blend post edges",
@@ -21800,11 +21913,11 @@ public final class L10nTranslations {
                 "Escolha um arquivo para exportar as configura\u00e7\u00f5es.");
         table.put("Choose a file for your installed patches' settings and saved profiles. Your login and history stay on this device.",
                 "Escolha um arquivo para as configura\u00e7\u00f5es dos patches instalados e os perfis salvos. Seu login e o hist\u00f3rico ficam neste dispositivo.");
-        table.put("Choose a file for your installed patches' settings. Accounts and history stay on this device.",
-                "Escolha um arquivo para as configura\u00e7\u00f5es dos patches instalados. As contas e o hist\u00f3rico ficam neste dispositivo.");
     }
 
     private static void fillPt_rBR5(Map<String, String> table) {
+        table.put("Choose a file for your installed patches' settings. Accounts and history stay on this device.",
+                "Escolha um arquivo para as configura\u00e7\u00f5es dos patches instalados. As contas e o hist\u00f3rico ficam neste dispositivo.");
         table.put("Choose a folder",
                 "Escolher uma pasta");
         table.put("Choose a folder name under Movies and Pictures. Invalid characters become underscores. Leave it blank to use the default folder, %1$s. For an SD card or anywhere else, use Choose a folder.",
@@ -21861,6 +21974,8 @@ public final class L10nTranslations {
                 "Compacta");
         table.put("Confirm PIN",
                 "Confirme o PIN");
+        table.put("Content",
+                "Conte\u00fado");
         table.put("Continue",
                 "Continuar");
         table.put("Control where Meta AI appears.",
@@ -21921,13 +22036,13 @@ public final class L10nTranslations {
                 "Erro ao limpar as c\u00f3pias salvas. Tente de novo.");
         table.put("Couldn't clear the unfollower list. Try again.",
                 "N\u00e3o foi poss\u00edvel limpar a lista. Tente de novo.");
+    }
+
+    private static void fillPt_rBR6(Map<String, String> table) {
         table.put("Couldn't clear the viewing history. Try again.",
                 "N\u00e3o foi poss\u00edvel apagar o hist\u00f3rico. Tente de novo.");
         table.put("Couldn't copy comment",
                 "N\u00e3o foi poss\u00edvel copiar o coment\u00e1rio");
-    }
-
-    private static void fillPt_rBR6(Map<String, String> table) {
         table.put("Couldn't copy the GIF name",
                 "N\u00e3o foi poss\u00edvel copiar o nome do GIF");
         table.put("Couldn't copy the bio",
@@ -22044,13 +22159,13 @@ public final class L10nTranslations {
                 "Personalizada");
         table.put("Custom app icon",
                 "\u00cdcone pr\u00f3prio do app");
+    }
+
+    private static void fillPt_rBR7(Map<String, String> table) {
         table.put("Custom color",
                 "Cor personalizada");
         table.put("Custom tab",
                 "Aba personalizada");
-    }
-
-    private static void fillPt_rBR7(Map<String, String> table) {
         table.put("Data saver",
                 "Economia de dados");
         table.put("Date and time",
@@ -22167,13 +22282,13 @@ public final class L10nTranslations {
                 "Baixando");
         table.put("Downloading the emoji...",
                 "Baixando os emojis...");
+    }
+
+    private static void fillPt_rBR8(Map<String, String> table) {
         table.put("Downloads",
                 "Downloads");
         table.put("Drag to move %1$s",
                 "Arraste para mover %1$s");
-    }
-
-    private static void fillPt_rBR8(Map<String, String> table) {
         table.put("Drag to move, pinch to zoom.",
                 "Arraste para mover, pince para ampliar.");
         table.put("Draws Instagram's tab bar as a floating, rounded glass pill with a highlight on the tab you're on. Restart Instagram after changing it.",
@@ -22290,13 +22405,13 @@ public final class L10nTranslations {
                 "Rolagem r\u00e1pida em Salvos");
         table.put("Favorites still shows them.",
                 "Favoritos continua mostrando esses posts.");
+    }
+
+    private static void fillPt_rBR9(Map<String, String> table) {
         table.put("Feed",
                 "Feed");
         table.put("Feed videos and reels stop at their last frame instead of playing again. Reels still loop while auto scroll is on, so it can move on.",
                 "Os v\u00eddeos do feed e os reels param no \u00faltimo quadro em vez de tocar de novo. Os reels continuam repetindo enquanto a rolagem autom\u00e1tica est\u00e1 ativada, para que ela possa avan\u00e7ar.");
-    }
-
-    private static void fillPt_rBR9(Map<String, String> table) {
         table.put("Feed videos and stories wait for your tap. Reels play as you swipe to them.",
                 "V\u00eddeos do feed e stories esperam o seu toque. Os reels tocam quando voc\u00ea desliza at\u00e9 eles.");
         table.put("Feed videos, reels and stories all wait for your tap.",
@@ -22413,13 +22528,13 @@ public final class L10nTranslations {
                 "Totalmente arredondados");
         table.put("GIF name",
                 "Nome do GIF");
+    }
+
+    private static void fillPt_rBR10(Map<String, String> table) {
         table.put("GIF name copied",
                 "Nome do GIF copiado");
         table.put("GIF or sticker",
                 "GIF ou figurinha");
-    }
-
-    private static void fillPt_rBR10(Map<String, String> table) {
         table.put("GPL-3.0, with the notices of the projects this is built on",
                 "GPL-3.0, com os avisos dos projetos em que o HushGram se baseia");
         table.put("Galaxy S26 Ultra",
@@ -22536,13 +22651,13 @@ public final class L10nTranslations {
                 "Ocultar Em destaque nas notifica\u00e7\u00f5es");
         table.put("Hide Follow on posts",
                 "Ocultar Seguir nas publica\u00e7\u00f5es");
+    }
+
+    private static void fillPt_rBR11(Map<String, String> table) {
         table.put("Hide Follow on stories",
                 "Ocultar Seguir nos Stories");
         table.put("Hide GIFs in comments",
                 "Ocultar GIFs nos coment\u00e1rios");
-    }
-
-    private static void fillPt_rBR11(Map<String, String> table) {
         table.put("Hide Instagram Plus prompts",
                 "Ocultar convites do Instagram Plus");
         table.put("Hide Instants",
@@ -22579,6 +22694,8 @@ public final class L10nTranslations {
                 "Ocultar Sugest\u00f5es para voc\u00ea nas listas de seguidores");
         table.put("Hide Threads posts",
                 "Ocultar posts do Threads");
+        table.put("Hide Watch more reels",
+                "Ocultar Assistir a mais reels");
         table.put("Hide Your algorithm on reels",
                 "Ocultar Seu algoritmo nos reels");
         table.put("Hide activity bubbles",
@@ -22657,15 +22774,15 @@ public final class L10nTranslations {
                 "Ocultar posts sugeridos");
         table.put("Hide suggested searches on reels",
                 "Ocultar pesquisas sugeridas nos Reels");
+    }
+
+    private static void fillPt_rBR12(Map<String, String> table) {
         table.put("Hide suggested stories",
                 "Ocultar stories sugeridos");
         table.put("Hide suggestions in notifications",
                 "Ocultar sugest\u00f5es nas notifica\u00e7\u00f5es");
         table.put("Hide surveys",
                 "Ocultar pesquisas");
-    }
-
-    private static void fillPt_rBR12(Map<String, String> table) {
         table.put("Hide that you're typing",
                 "Ocultar que voc\u00ea est\u00e1 digitando");
         table.put("Hide the 2x popup",
@@ -22780,15 +22897,15 @@ public final class L10nTranslations {
                 "Esconde posts e reels de contas que voc\u00ea n\u00e3o segue, marcados como Sugerido para voc\u00ea. Os posts de contas que voc\u00ea segue continuam.");
         table.put("Hides sponsored posts, reels, stories and the ad in comments. No empty gap is left where an ad would have been.",
                 "Esconde posts, reels e stories patrocinados, e o an\u00fancio nos coment\u00e1rios. N\u00e3o sobra espa\u00e7o vazio onde o an\u00fancio estaria.");
+    }
+
+    private static void fillPt_rBR13(Map<String, String> table) {
         table.put("Hides stories from accounts you don't follow, and accounts Instagram suggests, in the row at the top of Home. Stories from accounts you follow stay.",
                 "Esconde stories de contas que voc\u00ea n\u00e3o segue e contas sugeridas pelo Instagram na fileira no topo do In\u00edcio. Stories de contas que voc\u00ea segue continuam.");
         table.put("Hides the bar under a post that asks you to join the account's channel. The post stays.",
                 "Esconde a barra abaixo de um post que pede para voc\u00ea participar do canal da conta. O post continua.");
         table.put("Hides the bubble under a post that asks 'Are you interested in this post?' with Not interested and Interested buttons. Nothing is answered for you.",
                 "Oculta o bal\u00e3o sob uma publica\u00e7\u00e3o que pergunta \u201cVoc\u00ea tem interesse nesta publica\u00e7\u00e3o?\u201d com os bot\u00f5es N\u00e3o tenho interesse e Tenho interesse. Nada \u00e9 respondido por voc\u00ea.");
-    }
-
-    private static void fillPt_rBR13(Map<String, String> table) {
         table.put("Hides the buttons that push Edits, templates, Meta AI and Ray-Ban Meta glasses. Live badges and state-controlled media labels stay.",
                 "Esconde os bot\u00f5es que promovem Edits, modelos, Meta AI e os \u00f3culos Ray-Ban Meta. A etiqueta de ao vivo e o r\u00f3tulo de m\u00eddia controlada pelo Estado continuam.");
         table.put("Hides the card after the posts from accounts you follow that says you've seen the latest ones, and its Older posts link. When Home has no new posts at all, only that line goes and the link stays. Pull down on Home to refresh after changing it.",
@@ -22903,15 +23020,15 @@ public final class L10nTranslations {
                 "%1$d configura\u00e7\u00f5es importadas. %2$d ignoradas porque esta vers\u00e3o n\u00e3o as conhece.");
         table.put("Instagram accepts this build",
                 "O Instagram aceita esta vers\u00e3o");
+    }
+
+    private static void fillPt_rBR14(Map<String, String> table) {
         table.put("Instagram blue",
                 "Azul do Instagram");
         table.put("Instagram can't read where the photos and videos in your gallery were taken.",
                 "O Instagram n\u00e3o consegue ler onde as fotos e os v\u00eddeos da sua galeria foram feitos.");
         table.put("Instagram can't read your phone's advertising ID or tell Android's ad services which ads you saw or tapped. The permissions for them are gone from this build.",
                 "O Instagram n\u00e3o consegue ler o ID de publicidade do seu celular nem informar aos servi\u00e7os de an\u00fancios do Android quais an\u00fancios voc\u00ea viu ou tocou. As permiss\u00f5es para isso foram removidas desta vers\u00e3o.");
-    }
-
-    private static void fillPt_rBR14(Map<String, String> table) {
         table.put("Instagram crashed or froze within a minute of starting three times in a row, so HushGram paused itself.",
                 "O Instagram fechou com erro ou travou no primeiro minuto ap\u00f3s iniciar, tr\u00eas vezes seguidas, ent\u00e3o o HushGram foi pausado automaticamente.");
         table.put("Instagram didn't keep the change and the overrides couldn't be confirmed. Use Restore previous overrides, then restart Instagram.",
@@ -23026,15 +23143,15 @@ public final class L10nTranslations {
                 "Ir para a primeira mensagem ou para uma data");
         table.put("KakaoTalk",
                 "KakaoTalk");
+    }
+
+    private static void fillPt_rBR15(Map<String, String> table) {
         table.put("Keep Featured off the heart's dot",
                 "N\u00e3o acender o ponto do cora\u00e7\u00e3o por Em destaque");
         table.put("Keep Home's top bar",
                 "Fixar a barra de cima do In\u00edcio");
         table.put("Keep Instagram's saved photos and videos from filling your phone.",
                 "Evite que as fotos e v\u00eddeos guardados pelo Instagram encham seu celular.");
-    }
-
-    private static void fillPt_rBR15(Map<String, String> table) {
         table.put("Keep Reels auto scroll between sessions",
                 "Keep Reels auto scroll between sessions");
         table.put("Keep a seek bar",
@@ -23149,15 +23266,15 @@ public final class L10nTranslations {
                 "Tira os cards de Sua vez, como os populares ou os em alta para participar, que o Instagram coloca entre os stories que voc\u00ea passa. Os stories em si continuam.");
         table.put("Leaves out the Suggested for you cards of accounts to follow that Instagram puts between the stories you tap through. The stories themselves stay.",
                 "Tira os cards de Sugest\u00f5es para voc\u00ea com contas para seguir que o Instagram coloca entre os stories que voc\u00ea passa. Os stories em si continuam.");
+    }
+
+    private static void fillPt_rBR16(Map<String, String> table) {
         table.put("Leaves out the live broadcasts Instagram puts between reels in the Reels tab and when you swipe through reels from Explore.",
                 "Deixa de fora as transmiss\u00f5es ao vivo que o Instagram coloca entre os reels na aba Reels e quando voc\u00ea passa reels abertos pelo Explorar.");
         table.put("Leaves the Suggested for you accounts out of what shows when you tap the search bar. Recent searches stay.",
                 "Tira as contas de Sugest\u00f5es para voc\u00ea do que aparece quando voc\u00ea toca na barra de pesquisa. As pesquisas recentes continuam.");
         table.put("Leaves the Suggested for you section off the followers, following and mutual lists and the screen where you approve follow requests, and the Suggested tab off other people's follow lists. Every account in the lists and every real request stays.",
                 "Tira a se\u00e7\u00e3o Sugest\u00f5es para voc\u00ea das listas de seguidores, seguindo e em comum e da tela onde voc\u00ea aprova pedidos de seguir, e a aba Sugest\u00f5es das listas de outras pessoas. Todas as contas das listas e todos os pedidos reais continuam l\u00e1.");
-    }
-
-    private static void fillPt_rBR16(Map<String, String> table) {
         table.put("Leaving Instagram while a reel plays shrinks it into a small window over your other apps. Works in Reels and on reels opened from the feed, on Android 15 or newer.",
                 "Ao sair do Instagram enquanto um reel toca, ele vira uma janela pequena sobre seus outros apps. Funciona no Reels e em reels abertos pelo feed, no Android 15 ou mais recente.");
         table.put("Leaving Instagram while a story plays shrinks it into a small window over your other apps, where it keeps going through the stories.",
@@ -23256,6 +23373,8 @@ public final class L10nTranslations {
                 "Toque e segure uma foto para ampliar");
         table.put("Long press a post for full screen",
                 "Segure uma publica\u00e7\u00e3o para ver em tela cheia");
+        table.put("Look",
+                "Apar\u00eancia");
         table.put("Loop a story",
                 "Repetir um story");
         table.put("Loop didn't change",
@@ -23270,6 +23389,9 @@ public final class L10nTranslations {
                 "Repetindo este v\u00eddeo");
         table.put("Makes Instagram see the phone chosen below, unlocking HDR video downloads and other features limited to those phones, and adds the matching developer options. Restart Instagram to see the change.",
                 "Faz o Instagram enxergar o celular escolhido abaixo, desbloqueando downloads de v\u00eddeo em HDR e outros recursos restritos a esses aparelhos, al\u00e9m de adicionar as op\u00e7\u00f5es de desenvolvedor correspondentes. Reinicie o Instagram para ver a altera\u00e7\u00e3o.");
+    }
+
+    private static void fillPt_rBR17(Map<String, String> table) {
         table.put("Makes the seek bar thicker, with a round white handle and the time above it, over a soft dark fade so it shows on any video. Drag it to seek. It also keeps the bar on short reels.",
                 "Deixa a barra de progresso mais grossa, com um controle redondo branco e o tempo acima, sobre um degrad\u00ea escuro suave para aparecer em qualquer v\u00eddeo. Arraste para avan\u00e7ar. Tamb\u00e9m mant\u00e9m a barra em Reels curtos.");
         table.put("Mapping file removed. Open MetaConfig again to see the change.",
@@ -23278,9 +23400,6 @@ public final class L10nTranslations {
                 "Mapping imported: %1$d names. Open MetaConfig again to see them.");
         table.put("Mark a chat seen when you reply",
                 "Marcar a conversa como vista quando voc\u00ea responder");
-    }
-
-    private static void fillPt_rBR17(Map<String, String> table) {
         table.put("Mark as read",
                 "Marcar como lida");
         table.put("Mark as read button in chats",
@@ -23307,6 +23426,8 @@ public final class L10nTranslations {
                 "O Material You precisa do Android 12 ou mais recente, ent\u00e3o o azul do Instagram continua.");
         table.put("Media ID %1$s",
                 "ID da m\u00eddia %1$s");
+        table.put("Media and storage",
+                "M\u00eddia e armazenamento");
         table.put("Media link",
                 "Link da m\u00eddia");
         table.put("Media link copied. It stops working after a few days.",
@@ -23357,8 +23478,8 @@ public final class L10nTranslations {
                 "@%1$s movido para %2$s");
         table.put("Moved @%s out of its folder",
                 "@%s tirado da pasta");
-        table.put("Moves a carousel post's page dots onto a round pill at the bottom of its photo or video, with the page you're on in blue.",
-                "Move os pontos de p\u00e1gina de uma publica\u00e7\u00e3o em carrossel para uma p\u00edlula arredondada na parte de baixo da foto ou do v\u00eddeo, com a p\u00e1gina em que voc\u00ea est\u00e1 em azul.");
+        table.put("Moves a carousel post's page dots onto a round pill at the bottom of its photo or video, with the page you're on in blue. Hold the pill and slide left or right to move through the pages.",
+                "Move os pontos de p\u00e1gina de uma publica\u00e7\u00e3o em carrossel para uma p\u00edlula arredondada na parte de baixo da foto ou do v\u00eddeo, com a p\u00e1gina em que voc\u00ea est\u00e1 em azul. Segure a p\u00edlula e deslize para a esquerda ou para a direita para passar as p\u00e1ginas.");
         table.put("Moves the gallery and microphone buttons off the message bar and into the plus menu. They work as before. Turn it off and they're back the next time a chat opens.",
                 "Move os bot\u00f5es de galeria e microfone da barra de mensagens para o menu de mais. Eles funcionam como antes. Desative e eles voltam na pr\u00f3xima vez que uma conversa abrir.");
         table.put("Mute",
@@ -23391,6 +23512,9 @@ public final class L10nTranslations {
                 "Nova pasta");
         table.put("New like animations",
                 "New like animations");
+    }
+
+    private static void fillPt_rBR18(Map<String, String> table) {
         table.put("New message",
                 "Nova mensagem");
         table.put("New message after this reel",
@@ -23401,9 +23525,6 @@ public final class L10nTranslations {
                 "Nova foto do perfil e nova bio");
         table.put("New story fonts and animations",
                 "New story fonts and animations");
-    }
-
-    private static void fillPt_rBR18(Map<String, String> table) {
         table.put("New story timestamp style",
                 "New story timestamp style");
         table.put("Next match",
@@ -23514,6 +23635,9 @@ public final class L10nTranslations {
                 "Avisar quem deixar de me seguir");
         table.put("OK",
                 "OK");
+    }
+
+    private static void fillPt_rBR19(Map<String, String> table) {
         table.put("Off",
                 "Desativado");
         table.put("Off. It can cover the Home, Reels and Explore tabs for a break after you've spent a while on them.",
@@ -23524,9 +23648,6 @@ public final class L10nTranslations {
                 "Bio antiga, %s");
         table.put("Old profile picture, %s",
                 "Foto do perfil antiga, %s");
-    }
-
-    private static void fillPt_rBR19(Map<String, String> table) {
         table.put("On Reels, the tab bar slides away after %1$d seconds without a touch. Tap the bottom edge of the screen, change tab or press Back to bring it back. Restart Instagram after changing it.",
                 "Nos Reels, a barra de abas desliza para fora ap\u00f3s %1$d segundos sem toque. Toque na borda inferior da tela, troque de aba ou pressione Voltar para traz\u00ea-la de volta. Reinicie o Instagram depois de alterar.");
         table.put("On a carousel, the download icon saves all of its pages at once instead of asking.",
@@ -23637,6 +23758,9 @@ public final class L10nTranslations {
                 "Abrir uma conversa n\u00e3o avisa \u00e0s pessoas que voc\u00ea viu as mensagens delas, e voc\u00ea continua vendo quando elas viram as suas. Para avisar uma conversa, mantenha-a pressionada nas suas mensagens e toque em Marcar como lida.");
         table.put("Opening someone's profile takes you on to their posts as a scrolling list of full posts. Go Back for the grid. Your own profile keeps its grid.",
                 "Ao abrir o perfil de algu\u00e9m, voc\u00ea vai direto para os posts dessa pessoa em uma lista rol\u00e1vel de posts completos. Volte para ver a grade. Seu pr\u00f3prio perfil mant\u00e9m a grade.");
+    }
+
+    private static void fillPt_rBR20(Map<String, String> table) {
         table.put("Opens Home on posts from accounts you follow instead of For you. Tap the top of Home to switch. Restart Instagram to see the change.",
                 "Abre o In\u00edcio com os posts de contas que voc\u00ea segue, em vez de Para voc\u00ea. Toque no topo do In\u00edcio para alternar. Reinicie o Instagram para ver a mudan\u00e7a.");
         table.put("Opens Instagram's own Whitehat settings. Its switch lets Instagram trust the certificates installed on this phone for 24 hours, so you can check the app's traffic. Restart Instagram after you turn it on.",
@@ -23647,9 +23771,6 @@ public final class L10nTranslations {
                 "Opens Instagram's own editor for its hidden settings (MetaConfig). A wrong override, which is a changed setting, can break parts of Instagram.");
         table.put("Opens a GitHub report with your versions and settings filled in. Add what happened.",
                 "Abre um relat\u00f3rio no GitHub com suas vers\u00f5es e configura\u00e7\u00f5es j\u00e1 preenchidas. Conte o que aconteceu.");
-    }
-
-    private static void fillPt_rBR20(Map<String, String> table) {
         table.put("Orange",
                 "Laranja");
         table.put("Overrides cleared. Restart Instagram to apply the change.",
@@ -23760,6 +23881,9 @@ public final class L10nTranslations {
                 "Post a story straight to Highlights");
         table.put("Posted %1$s",
                 "Postado em %1$s");
+    }
+
+    private static void fillPt_rBR21(Map<String, String> table) {
         table.put("Posts",
                 "Posts");
         table.put("Posts from @%1$s are hidden",
@@ -23770,9 +23894,6 @@ public final class L10nTranslations {
                 "Os posts das suas contas ocultas continuam aparecendo em Favoritos. Para voc\u00ea e Seguindo deixam eles de fora. Puxe o In\u00edcio para baixo para atualizar depois de mudar.");
         table.put("Preparing diagnostic report...",
                 "Preparando relat\u00f3rio de diagn\u00f3stico...");
-    }
-
-    private static void fillPt_rBR21(Map<String, String> table) {
         table.put("Press and hold a comment that has its own photo, GIF or sticker, and its menu gets Save. Saves the largest size Instagram sent.",
                 "Toque e segure um coment\u00e1rio com a pr\u00f3pria foto, GIF ou figurinha e o menu dele ter\u00e1 Salvar. Salva o maior tamanho que o Instagram enviou.");
         table.put("Press and hold a photo in a feed to see it twice as big around your finger, and slide to look around. Let go to close it. While this is on, it takes the place of Instagram's own long press on a photo.",
@@ -23807,6 +23928,8 @@ public final class L10nTranslations {
                 "P\u00e1gina anterior");
         table.put("Priority accounts",
                 "Contas priorit\u00e1rias");
+        table.put("Privacy",
+                "Privacidade");
         table.put("Privacy and controls for your chats.",
                 "Privacidade e controles para suas conversas.");
         table.put("Profile",
@@ -23881,6 +24004,9 @@ public final class L10nTranslations {
                 "Coloca um bot\u00e3o de velocidade no topo de um story em v\u00eddeo, ao lado dos tr\u00eas pontos. Toque nele para 1,5x, de novo para 2x e mais uma vez para 1x. Os pr\u00f3ximos stories em v\u00eddeo mant\u00eam a velocidade at\u00e9 voc\u00ea mud\u00e1-la ou reiniciar o Instagram. An\u00fancios tocam na velocidade normal.");
         table.put("Puts a speed icon beside a reel. Tap it to pick a speed from 0.5x to 3x. With Keep the reel speed on, the next reels play at it too.",
                 "Coloca um \u00edcone de velocidade ao lado de um reel. Toque nele para escolher uma velocidade de 0,5x a 3x. Com Manter a velocidade do reel ativado, os pr\u00f3ximos reels tamb\u00e9m tocam nessa velocidade.");
+    }
+
+    private static void fillPt_rBR22(Map<String, String> table) {
         table.put("Puts an (i) next to the three dots on a profile that opens Instagram's About this account for that account. Instagram took its own away.",
                 "Coloca um (i) ao lado dos tr\u00eas pontos de um perfil que abre o Sobre esta conta do Instagram para essa conta. O Instagram tirou o dele.");
         table.put("Puts back the overrides saved before your last import for this account and Instagram version.",
@@ -23893,9 +24019,6 @@ public final class L10nTranslations {
                 "Mostra a resposta em um chip abaixo dos n\u00fameros de posts, seguidores e seguindo do perfil e diz Voc\u00eas se seguem quando voc\u00ea tamb\u00e9m segue a conta.");
         table.put("Puts the seek bar right on the bottom edge of the video, so it's harder to touch by accident while you scroll.",
                 "Coloca a barra de busca bem na borda de baixo do v\u00eddeo, para ficar mais dif\u00edcil de tocar sem querer enquanto voc\u00ea rola.");
-    }
-
-    private static void fillPt_rBR22(Map<String, String> table) {
         table.put("Puts the title in the middle of the bar at the top of other screens, like notifications, as far as the buttons beside it allow. The buttons stay where they are.",
                 "Coloca o t\u00edtulo no meio da barra no topo de outras telas, como as notifica\u00e7\u00f5es, at\u00e9 onde os bot\u00f5es ao lado deixam. Os bot\u00f5es ficam onde est\u00e3o.");
         table.put("Puts the username in the middle of the bar at the top of a profile, yours and other people's. The buttons stay where they are.",
@@ -24004,6 +24127,9 @@ public final class L10nTranslations {
                 "Tira do In\u00edcio todo post de uma \u00fanica foto, at\u00e9 de contas que voc\u00ea segue. Puxe o In\u00edcio para baixo para atualizar depois de mudar.");
         table.put("Removes every single-video post and reel from Home, even from accounts you follow. Pull down on Home to refresh after changing it.",
                 "Tira do In\u00edcio todo post de um \u00fanico v\u00eddeo e os reels, at\u00e9 de contas que voc\u00ea segue. Puxe o In\u00edcio para baixo para atualizar depois de mudar.");
+    }
+
+    private static void fillPt_rBR23(Map<String, String> table) {
         table.put("Removes posts by business and creator accounts from Home and Following, friends who use one included. Pull down on Home to refresh after changing it.",
                 "Tira do In\u00edcio e de Seguindo os posts de contas comerciais e de criador, inclusive de amigos que usam uma. Puxe o In\u00edcio para baixo para atualizar depois de mudar.");
         table.put("Removes posts you've already liked from Home and Following. A post you like now stays until you pull down on Home to refresh.",
@@ -24016,9 +24142,6 @@ public final class L10nTranslations {
                 "Tira o bot\u00e3o do Muse da barra de cima do seu perfil. Seu nome de usu\u00e1rio e o menu continuam.");
         table.put("Removes the empty gap under Instagram's tab bar that appears when your phone hides its navigation bar or Instagram is in a pop-up window. Restart Instagram to see the change.",
                 "Tira o espa\u00e7o vazio abaixo da barra de abas do Instagram que aparece quando seu celular esconde a barra de navega\u00e7\u00e3o ou o Instagram est\u00e1 em uma janela flutuante. Reinicie o Instagram para ver a mudan\u00e7a.");
-    }
-
-    private static void fillPt_rBR23(Map<String, String> table) {
         table.put("Removes the stack of Instants (quick photos from friends) from your messages. Restart Instagram to see the change.",
                 "Tira das suas mensagens a pilha de Instants (fotos r\u00e1pidas de amigos). Reinicie o Instagram para ver a mudan\u00e7a.");
         table.put("Removes the summary, Sources and Ask Meta AI box from a reel's more menu. In your feed the audio row goes too. Other options stay.",
@@ -24127,6 +24250,9 @@ public final class L10nTranslations {
                 "Salvar v\u00eddeos como MKV");
         table.put("Save videos other apps can open",
                 "Salvar v\u00eddeos que outros apps conseguem abrir");
+    }
+
+    private static void fillPt_rBR24(Map<String, String> table) {
         table.put("Save your HushGram choices to a file, or bring them back.",
                 "Salve suas escolhas do HushGram em um arquivo ou traga-as de volta.");
         table.put("Saved",
@@ -24139,9 +24265,6 @@ public final class L10nTranslations {
                 "@%s salvo");
         table.put("Saved and everything in it stay covered until your fingerprint, face or screen lock says it's you.",
                 "Salvos e tudo o que h\u00e1 neles ficam cobertos at\u00e9 sua digital, seu rosto ou o bloqueio de tela confirmar que \u00e9 voc\u00ea.");
-    }
-
-    private static void fillPt_rBR24(Map<String, String> table) {
         table.put("Saved button in Explore",
                 "Saved button in Explore");
         table.put("Saved is locked",
@@ -24250,6 +24373,9 @@ public final class L10nTranslations {
                 "Visto retido nesta conversa");
         table.put("Select text",
                 "Selecionar texto");
+    }
+
+    private static void fillPt_rBR25(Map<String, String> table) {
         table.put("Select text to copy",
                 "Selecionar texto para copiar");
         table.put("Send",
@@ -24262,9 +24388,6 @@ public final class L10nTranslations {
                 "Send stories with a long press");
         table.put("Send to",
                 "Enviar para");
-    }
-
-    private static void fillPt_rBR25(Map<String, String> table) {
         table.put("Sending a message in a chat lets the other person see that you've read what they sent before it. Chats you don't answer stay unseen to them.",
                 "Ao enviar uma mensagem em uma conversa, a outra pessoa v\u00ea que voc\u00ea leu o que ela mandou antes. As conversas que voc\u00ea n\u00e3o responde continuam sem visualiza\u00e7\u00e3o para ela.");
         table.put("Sends Instagram through the HTTP proxy set below. Other apps and your phone's own settings aren't changed.",
@@ -24373,6 +24496,9 @@ public final class L10nTranslations {
                 "Mostra uma barra perto da parte de baixo de um story em v\u00eddeo. Arraste para pular para qualquer ponto do v\u00eddeo. Fotos n\u00e3o t\u00eam.");
         table.put("Shows a blurred preview of a disappearing photo or video in a chat.",
                 "Shows a blurred preview of a disappearing photo or video in a chat.");
+    }
+
+    private static void fillPt_rBR26(Map<String, String> table) {
         table.put("Shows a handle at the right edge of Saved and your collections while they scroll. Drag it to jump through them.",
                 "Mostra uma al\u00e7a na borda direita de Salvos e das suas cole\u00e7\u00f5es enquanto rolam. Arraste para pular por elas.");
         table.put("Shows each switch by its name alone. Tap the i next to a name to read what it does.",
@@ -24385,9 +24511,6 @@ public final class L10nTranslations {
                 "Mostra as linhas Importar e Restaurar. Uma importa\u00e7\u00e3o muda as configura\u00e7\u00f5es ocultas do Instagram para esta conta conectada.");
         table.put("Shows the date and time a reel was posted under the author's name, like Oct 2, 3:45 PM. A change shows from the next reel.",
                 "Mostra a data e a hora em que um reel foi publicado abaixo do nome do autor, como 2 de out., 15:45. A mudan\u00e7a aparece a partir do pr\u00f3ximo reel.");
-    }
-
-    private static void fillPt_rBR26(Map<String, String> table) {
         table.put("Shows the days, hours and minutes since it went up on a line under the time, like 1d 2h 5m ago.",
                 "Mostra os dias, horas e minutos desde a publica\u00e7\u00e3o em uma linha abaixo do hor\u00e1rio, como h\u00e1 1 dia 2 h 5 min.");
         table.put("Shows the time above your finger while you drag a seek bar on a feed video, story or reel, and a small picture of that moment when Instagram has one for the video.",
@@ -24398,6 +24521,8 @@ public final class L10nTranslations {
                 "Mostra quando um post e os coment\u00e1rios dele foram publicados, como 2 de out., 15:45, em vez de h\u00e1 quanto tempo. Posts carregados depois de uma mudan\u00e7a mostram isso.");
         table.put("Shows your feed blurred under Home's top bar, like frosted glass.",
                 "Mostra seu feed desfocado sob a barra de cima do In\u00edcio, como vidro fosco.");
+        table.put("Shrink the pill as you scroll",
+                "Diminuir a p\u00edlula ao rolar");
         table.put("Size %1$d \u00d7 %2$d",
                 "Tamanho %1$d \u00d7 %2$d");
         table.put("Skip length",
@@ -24494,6 +24619,9 @@ public final class L10nTranslations {
                 "Continuar rolando reels abertos de Busca e Explorar");
         table.put("Still scroll reels from a profile",
                 "Continuar rolando reels abertos de um perfil");
+    }
+
+    private static void fillPt_rBR27(Map<String, String> table) {
         table.put("Still scroll reels from a song page",
                 "Continuar rolando reels abertos da p\u00e1gina de uma m\u00fasica");
         table.put("Stop",
@@ -24508,9 +24636,6 @@ public final class L10nTranslations {
                 "Parar depois de um n\u00famero de reels");
         table.put("Stop after the chat's reels",
                 "Parar depois dos reels da conversa");
-    }
-
-    private static void fillPt_rBR27(Map<String, String> table) {
         table.put("Stop background feed refresh",
                 "Parar a atualiza\u00e7\u00e3o do feed em segundo plano");
         table.put("Stop background work Instagram doesn't need.",
@@ -24617,6 +24742,9 @@ public final class L10nTranslations {
                 "Manter uma aba pressionada continua usando a a\u00e7\u00e3o do Instagram. Escolha uma para abrir Favoritos no lugar dela.");
         table.put("Tab long presses keep Instagram's own action. Choose one to open HushGram instead.",
                 "Manter uma aba pressionada continua usando a a\u00e7\u00e3o do Instagram. Escolha uma para abrir o HushGram no lugar dela.");
+    }
+
+    private static void fillPt_rBR28(Map<String, String> table) {
         table.put("Tab long presses keep Instagram's own action. Choose one to open Saved profiles instead.",
                 "Manter uma aba pressionada continua usando a a\u00e7\u00e3o do Instagram. Escolha uma para abrir Perfis salvos no lugar dela.");
         table.put("Tab long presses keep Instagram's own action. Choose one to pick the playback quality instead.",
@@ -24631,9 +24759,6 @@ public final class L10nTranslations {
                 "Abas em outros perfis");
         table.put("Tabs on your profile",
                 "Abas no seu perfil");
-    }
-
-    private static void fillPt_rBR28(Map<String, String> table) {
         table.put("Tagged",
                 "Marcados");
         table.put("Take a scroll break",
@@ -24722,6 +24847,8 @@ public final class L10nTranslations {
                 "Tira o selo do Threads de baixo da bio nos perfis de outras pessoas. O seu continua com ele.");
         table.put("Takes the Threads button off the top of profiles, yours included. The menu and the other buttons stay where they were.",
                 "Tira o bot\u00e3o do Threads do topo dos perfis, incluindo o seu. O menu e os outros bot\u00f5es continuam onde estavam.");
+        table.put("Takes the Watch more reels button off the card a reel in your feed shows when it ends. Watch again stays.",
+                "Tira o bot\u00e3o Assistir a mais reels do cart\u00e3o que aparece quando um reel no seu feed termina. Assistir de novo continua l\u00e1.");
         table.put("Takes the Your algorithm button off the top of the Reels tab and closes up the gap. The rest of the bar stays.",
                 "Tira o bot\u00e3o Seu algoritmo do topo da aba Reels e fecha o espa\u00e7o. O resto da barra continua.");
         table.put("Takes the accounts Instagram suggests off the bottom of your messages. Your chats and follow requests stay. Restart Instagram to see the change.",
@@ -24738,6 +24865,9 @@ public final class L10nTranslations {
                 "Tira o cora\u00e7\u00e3o do topo da P\u00e1gina inicial e fecha o espa\u00e7o. Os avisos continuam chegando. Reinicie o Instagram para ver a mudan\u00e7a.");
         table.put("Takes the interests someone added, like reading or hiking, from under their bio. Yours keeps them.",
                 "Tira os interesses que algu\u00e9m adicionou, como ler ou fazer trilhas, de baixo da bio. O seu continua com eles.");
+    }
+
+    private static void fillPt_rBR29(Map<String, String> table) {
         table.put("Takes the invite to someone's broadcast channel from under their bio. Yours keeps it.",
                 "Tira o convite para o canal de transmiss\u00e3o de algu\u00e9m de baixo da bio. O seu continua com ele.");
         table.put("Takes the link to someone's WhatsApp from under their bio. Yours keeps it.",
@@ -24754,9 +24884,6 @@ public final class L10nTranslations {
                 "Tira o avi\u00e3ozinho de papel da parte de baixo dos stories de outras pessoas. N\u00e3o fica nenhum espa\u00e7o vazio.");
         table.put("Takes the plus button off the top of Home and closes up the gap. The Create tab and swiping to create are separate. Restart Instagram to see the change.",
                 "Tira o bot\u00e3o de mais do topo da P\u00e1gina inicial e fecha o espa\u00e7o. A aba Criar e deslizar para criar s\u00e3o separados. Reinicie o Instagram para ver a mudan\u00e7a.");
-    }
-
-    private static void fillPt_rBR29(Map<String, String> table) {
         table.put("Takes the plus button off the top of reels you open from Saved or a collection and closes up the gap. The Reels tab and other reels keep theirs.",
                 "Tira o bot\u00e3o de mais do topo dos reels que voc\u00ea abre em Salvos ou numa cole\u00e7\u00e3o e fecha o espa\u00e7o. A aba Reels e os outros reels mant\u00eam o deles.");
         table.put("Takes the plus button that opens the camera off the top of reels, on the Reels tab and everywhere else, and closes up the gap. The rest of the bar stays.",
@@ -24861,6 +24988,9 @@ public final class L10nTranslations {
                 "A barra e o controle redondo de sempre.");
         table.put("The bar sits in the space under the Send message box. Where there's no room under it, the bar stays above it.",
                 "A barra fica no espa\u00e7o abaixo da caixa Enviar mensagem. Onde n\u00e3o h\u00e1 espa\u00e7o abaixo dela, a barra fica acima.");
+    }
+
+    private static void fillPt_rBR30(Map<String, String> table) {
         table.put("The bar sits just above the Send message box at the bottom of a story.",
                 "A barra fica logo acima da caixa Enviar mensagem, na parte de baixo de um story.");
         table.put("The bubbles of friends who liked or commented, the Followed by and Liked by lines with their faces, the comment shown under a reel and the row of friends who saw it. Comments are still a tap away.",
@@ -24877,9 +25007,6 @@ public final class L10nTranslations {
                 "A data e o hor\u00e1rio em que o story foi postado, como 2 de out., 15:45.");
         table.put("The file %1$s couldn't be removed. Delete it from %2$s to turn HushGram back on.",
                 "N\u00e3o foi poss\u00edvel remover o arquivo %1$s. Exclua-o de %2$s para reativar o HushGram.");
-    }
-
-    private static void fillPt_rBR30(Map<String, String> table) {
         table.put("The heart at the top of Home shows how many notifications are waiting, like the number on Messages, in place of the red dot. Restart Instagram to see the change.",
                 "O cora\u00e7\u00e3o no topo da P\u00e1gina inicial mostra quantas notifica\u00e7\u00f5es est\u00e3o esperando, como o n\u00famero em Mensagens, no lugar do ponto vermelho. Reinicie o Instagram para ver a mudan\u00e7a.");
         table.put("The heart plays %1$s when you double tap a post.",
@@ -24984,6 +25111,9 @@ public final class L10nTranslations {
                 "Este bot\u00e3o precisa da Pesquisa na barra de abas.");
         table.put("This chat is locked",
                 "Esta conversa est\u00e1 bloqueada");
+    }
+
+    private static void fillPt_rBR31(Map<String, String> table) {
         table.put("This chat uses the setting",
                 "Esta conversa segue a configura\u00e7\u00e3o");
         table.put("This file matches the current overrides. Nothing changed.",
@@ -25000,9 +25130,6 @@ public final class L10nTranslations {
                 "Este story n\u00e3o se repete");
         table.put("This video has no file another player can open",
                 "Este v\u00eddeo n\u00e3o tem um arquivo que outro player consiga abrir");
-    }
-
-    private static void fillPt_rBR31(Map<String, String> table) {
         table.put("This video plays once",
                 "Este v\u00eddeo n\u00e3o se repete");
         table.put("Threads",
@@ -25107,6 +25234,9 @@ public final class L10nTranslations {
                 "Abaixo dos n\u00fameros");
         table.put("Under the name, 1 mention",
                 "Abaixo do nome, 1 men\u00e7\u00e3o");
+    }
+
+    private static void fillPt_rBR32(Map<String, String> table) {
         table.put("Undo cleared positions",
                 "Restaurar posi\u00e7\u00f5es apagadas");
         table.put("Undo couldn't fully restore the settings. Check the shown values. Undo has been used up.",
@@ -25123,9 +25253,6 @@ public final class L10nTranslations {
                 "Avisos de quem deixou de seguir");
         table.put("Unfollower list cleared.",
                 "Lista limpa.");
-    }
-
-    private static void fillPt_rBR32(Map<String, String> table) {
         table.put("Unlock",
                 "Desbloquear");
         table.put("Unlock Instagram",
@@ -25212,8 +25339,8 @@ public final class L10nTranslations {
                 "Os v\u00eddeos s\u00e3o reproduzidos na menor qualidade que o Instagram oferece para cada um.");
         table.put("Videos wait for your tap where the choice below says. Feed videos show a play button, as they do when you use less mobile data.",
                 "Os v\u00eddeos esperam o seu toque onde a op\u00e7\u00e3o abaixo indica. Os v\u00eddeos do feed mostram um bot\u00e3o de reproduzir, como quando voc\u00ea usa menos dados m\u00f3veis.");
-        table.put("Videos, reels and stories play at the quality below, starting with the next one you open.",
-                "V\u00eddeos, reels e stories s\u00e3o reproduzidos na qualidade abaixo, a partir do pr\u00f3ximo que voc\u00ea abrir.");
+        table.put("Videos, reels and stories play at the quality below, starting with the next one you open. When your connection can't keep up, a video drops to the next lower quality.",
+                "V\u00eddeos, reels e stories s\u00e3o reproduzidos na qualidade abaixo, a partir do pr\u00f3ximo que voc\u00ea abrir. Quando a conex\u00e3o n\u00e3o d\u00e1 conta, o v\u00eddeo cai para a qualidade logo abaixo.");
         table.put("View DM photos and videos anonymously",
                 "Ver fotos e v\u00eddeos de mensagens anonimamente");
         table.put("View live anonymously",
@@ -25230,6 +25357,9 @@ public final class L10nTranslations {
                 "Hist\u00f3rico apagado.");
         table.put("Viewing, sound and the stories tray.",
                 "Visualiza\u00e7\u00e3o, som e a bandeja de stories.");
+    }
+
+    private static void fillPt_rBR33(Map<String, String> table) {
         table.put("Voice message",
                 "Mensagem de voz");
         table.put("Volume up still raises the phone's volume, but a muted reel stays muted until you unmute it.",
@@ -25246,9 +25376,6 @@ public final class L10nTranslations {
                 "Assistir de novo no feed");
         table.put("Watch on TV",
                 "Assistir na TV");
-    }
-
-    private static void fillPt_rBR33(Map<String, String> table) {
         table.put("Wave",
                 "Onda");
         table.put("Web links you tap open in your usual browser, without Instagram's click tracker. Ads and Meta's own sites (Instagram, Facebook, Messenger, Threads) still open in the app.",
@@ -25297,6 +25424,8 @@ public final class L10nTranslations {
                 "Amplo");
         table.put("With Expandable categories on, a tap opens a category on a page of its own. Back takes you to the list.",
                 "Com Categorias expans\u00edveis ativado, tocar em uma categoria a abre em uma p\u00e1gina pr\u00f3pria. Voltar leva voc\u00ea de volta \u00e0 lista.");
+        table.put("With Liquid glass look off, scrolling a list down makes the pill smaller, and scrolling up or changing tab brings it back to full size. Hide the tab bar as you scroll takes over when it's on. Restart Instagram after changing it.",
+                "Com Visual de vidro l\u00edquido desligado, rolar uma lista para baixo deixa a p\u00edlula menor, e rolar para cima ou trocar de aba a traz de volta ao tamanho cheio. Se Ocultar a barra de abas ao rolar estiver ligado, ele vale. Reinicie o Instagram depois de alterar.");
         table.put("With Name saves by account and post time on, only a save that doesn't know who posted or when is named this way.",
                 "Com Nomear o que \u00e9 salvo por conta e hora do post ativado, s\u00f3 recebe este nome o que for salvo sem saber quem postou ou quando.");
         table.put("With Stop Reels scrolling on, reels you open from Search, Explore, a hashtag or a place still move on when you swipe.",
@@ -25351,6 +25480,9 @@ public final class L10nTranslations {
                 "Sua vers\u00e3o, o c\u00f3digo-fonte e as licen\u00e7as.");
         table.put("Your words",
                 "Seu texto");
+    }
+
+    private static void fillPt_rBR34(Map<String, String> table) {
         table.put("Zoomed photo",
                 "Foto ampliada");
         table.put("the home screen icon you picked",
@@ -25370,7 +25502,7 @@ public final class L10nTranslations {
     }
 
     private static Map<String, String> buildTh() {
-        Map<String, String> table = new HashMap<>(4078);
+        Map<String, String> table = new HashMap<>(4096);
         fillTh0(table);
         fillTh1(table);
         fillTh2(table);
@@ -25405,6 +25537,7 @@ public final class L10nTranslations {
         fillTh31(table);
         fillTh32(table);
         fillTh33(table);
+        fillTh34(table);
         return table;
     }
 
@@ -25604,8 +25737,8 @@ public final class L10nTranslations {
                 "\u0e25\u0e34\u0e07\u0e01\u0e4c\u0e23\u0e35\u0e25\u0e2a\u0e4c\u0e08\u0e30\u0e40\u0e1b\u0e34\u0e14\u0e23\u0e35\u0e25\u0e2a\u0e4c\u0e17\u0e35\u0e48\u0e25\u0e34\u0e07\u0e01\u0e4c\u0e0a\u0e35\u0e49\u0e44\u0e1b Instagram \u0e08\u0e30\u0e44\u0e21\u0e48\u0e40\u0e25\u0e48\u0e19\u0e23\u0e35\u0e25\u0e2a\u0e4c\u0e2d\u0e37\u0e48\u0e19\u0e17\u0e35\u0e48\u0e40\u0e01\u0e47\u0e1a\u0e44\u0e27\u0e49\u0e43\u0e19\u0e42\u0e17\u0e23\u0e28\u0e31\u0e1e\u0e17\u0e4c\u0e02\u0e2d\u0e07\u0e04\u0e38\u0e13\u0e23\u0e30\u0e2b\u0e27\u0e48\u0e32\u0e07\u0e17\u0e35\u0e48\u0e23\u0e35\u0e25\u0e2a\u0e4c\u0e19\u0e31\u0e49\u0e19\u0e01\u0e33\u0e25\u0e31\u0e07\u0e42\u0e2b\u0e25\u0e14");
         table.put("A reel that doesn't fill the screen shows a blurred copy of itself above and below it instead of black bars, and the strip under the tab bar and the band behind the clock show the reel blurred too. The copy shows only where a reel leaves room, as with Show the whole reel on. Open Reels again after a change.",
                 "\u0e23\u0e35\u0e25\u0e2a\u0e4c\u0e17\u0e35\u0e48\u0e44\u0e21\u0e48\u0e40\u0e15\u0e47\u0e21\u0e2b\u0e19\u0e49\u0e32\u0e08\u0e2d\u0e08\u0e30\u0e41\u0e2a\u0e14\u0e07\u0e20\u0e32\u0e1e\u0e23\u0e35\u0e25\u0e2a\u0e4c\u0e41\u0e1a\u0e1a\u0e40\u0e1a\u0e25\u0e2d\u0e17\u0e35\u0e48\u0e14\u0e49\u0e32\u0e19\u0e1a\u0e19\u0e41\u0e25\u0e30\u0e14\u0e49\u0e32\u0e19\u0e25\u0e48\u0e32\u0e07\u0e41\u0e17\u0e19\u0e41\u0e16\u0e1a\u0e2a\u0e35\u0e14\u0e33 \u0e23\u0e27\u0e21\u0e16\u0e36\u0e07\u0e41\u0e16\u0e1a\u0e43\u0e15\u0e49\u0e41\u0e16\u0e1a\u0e41\u0e17\u0e47\u0e1a\u0e41\u0e25\u0e30\u0e41\u0e16\u0e1a\u0e14\u0e49\u0e32\u0e19\u0e2b\u0e25\u0e31\u0e07\u0e19\u0e32\u0e2c\u0e34\u0e01\u0e32\u0e08\u0e30\u0e41\u0e2a\u0e14\u0e07\u0e20\u0e32\u0e1e\u0e23\u0e35\u0e25\u0e2a\u0e4c\u0e41\u0e1a\u0e1a\u0e40\u0e1a\u0e25\u0e2d\u0e14\u0e49\u0e27\u0e22 \u0e20\u0e32\u0e1e\u0e2a\u0e33\u0e40\u0e19\u0e32\u0e08\u0e30\u0e41\u0e2a\u0e14\u0e07\u0e40\u0e09\u0e1e\u0e32\u0e30\u0e1a\u0e23\u0e34\u0e40\u0e27\u0e13\u0e17\u0e35\u0e48\u0e23\u0e35\u0e25\u0e2a\u0e4c\u0e40\u0e2b\u0e25\u0e37\u0e2d\u0e1e\u0e37\u0e49\u0e19\u0e17\u0e35\u0e48\u0e44\u0e27\u0e49 \u0e40\u0e0a\u0e48\u0e19 \u0e40\u0e21\u0e37\u0e48\u0e2d\u0e40\u0e1b\u0e34\u0e14 \"\u0e41\u0e2a\u0e14\u0e07\u0e23\u0e35\u0e25\u0e2a\u0e4c\u0e17\u0e31\u0e49\u0e07\u0e04\u0e25\u0e34\u0e1b\" \u0e40\u0e1b\u0e34\u0e14\u0e23\u0e35\u0e25\u0e2a\u0e4c\u0e2d\u0e35\u0e01\u0e04\u0e23\u0e31\u0e49\u0e07\u0e2b\u0e25\u0e31\u0e07\u0e08\u0e32\u0e01\u0e40\u0e1b\u0e25\u0e35\u0e48\u0e22\u0e19\u0e41\u0e1b\u0e25\u0e07");
-        table.put("A reel you open from the Reels tab or a post on Home plays with sound, and Home is muted again when you go back. Your phone's ringer and volume still count.",
-                "\u0e23\u0e35\u0e25\u0e2a\u0e4c\u0e17\u0e35\u0e48\u0e04\u0e38\u0e13\u0e40\u0e1b\u0e34\u0e14\u0e08\u0e32\u0e01\u0e41\u0e17\u0e47\u0e1a\u0e23\u0e35\u0e25\u0e2a\u0e4c\u0e2b\u0e23\u0e37\u0e2d\u0e08\u0e32\u0e01\u0e42\u0e1e\u0e2a\u0e15\u0e4c\u0e1a\u0e19\u0e2b\u0e19\u0e49\u0e32\u0e2b\u0e25\u0e31\u0e01\u0e08\u0e30\u0e40\u0e25\u0e48\u0e19\u0e41\u0e1a\u0e1a\u0e21\u0e35\u0e40\u0e2a\u0e35\u0e22\u0e07 \u0e41\u0e25\u0e30\u0e2b\u0e19\u0e49\u0e32\u0e2b\u0e25\u0e31\u0e01\u0e08\u0e30\u0e1b\u0e34\u0e14\u0e40\u0e2a\u0e35\u0e22\u0e07\u0e2d\u0e35\u0e01\u0e04\u0e23\u0e31\u0e49\u0e07\u0e40\u0e21\u0e37\u0e48\u0e2d\u0e04\u0e38\u0e13\u0e01\u0e25\u0e31\u0e1a\u0e44\u0e1b \u0e42\u0e14\u0e22\u0e42\u0e2b\u0e21\u0e14\u0e40\u0e2a\u0e35\u0e22\u0e07\u0e40\u0e23\u0e35\u0e22\u0e01\u0e40\u0e02\u0e49\u0e32\u0e41\u0e25\u0e30\u0e23\u0e30\u0e14\u0e31\u0e1a\u0e40\u0e2a\u0e35\u0e22\u0e07\u0e02\u0e2d\u0e07\u0e42\u0e17\u0e23\u0e28\u0e31\u0e1e\u0e17\u0e4c\u0e08\u0e30\u0e22\u0e31\u0e07\u0e21\u0e35\u0e1c\u0e25\u0e2d\u0e22\u0e39\u0e48");
+        table.put("A reel you open from the Reels tab, a profile or a post on Home plays with sound, and Home is muted again when you go back. Your phone's ringer and volume still count.",
+                "\u0e23\u0e35\u0e25\u0e2a\u0e4c\u0e17\u0e35\u0e48\u0e04\u0e38\u0e13\u0e40\u0e1b\u0e34\u0e14\u0e08\u0e32\u0e01\u0e41\u0e17\u0e47\u0e1a\u0e23\u0e35\u0e25\u0e2a\u0e4c \u0e08\u0e32\u0e01\u0e42\u0e1b\u0e23\u0e44\u0e1f\u0e25\u0e4c \u0e2b\u0e23\u0e37\u0e2d\u0e08\u0e32\u0e01\u0e42\u0e1e\u0e2a\u0e15\u0e4c\u0e1a\u0e19\u0e2b\u0e19\u0e49\u0e32\u0e2b\u0e25\u0e31\u0e01\u0e08\u0e30\u0e40\u0e25\u0e48\u0e19\u0e41\u0e1a\u0e1a\u0e21\u0e35\u0e40\u0e2a\u0e35\u0e22\u0e07 \u0e41\u0e25\u0e30\u0e2b\u0e19\u0e49\u0e32\u0e2b\u0e25\u0e31\u0e01\u0e08\u0e30\u0e1b\u0e34\u0e14\u0e40\u0e2a\u0e35\u0e22\u0e07\u0e2d\u0e35\u0e01\u0e04\u0e23\u0e31\u0e49\u0e07\u0e40\u0e21\u0e37\u0e48\u0e2d\u0e04\u0e38\u0e13\u0e01\u0e25\u0e31\u0e1a\u0e44\u0e1b \u0e42\u0e14\u0e22\u0e42\u0e2b\u0e21\u0e14\u0e40\u0e2a\u0e35\u0e22\u0e07\u0e40\u0e23\u0e35\u0e22\u0e01\u0e40\u0e02\u0e49\u0e32\u0e41\u0e25\u0e30\u0e23\u0e30\u0e14\u0e31\u0e1a\u0e40\u0e2a\u0e35\u0e22\u0e07\u0e02\u0e2d\u0e07\u0e42\u0e17\u0e23\u0e28\u0e31\u0e1e\u0e17\u0e4c\u0e08\u0e30\u0e22\u0e31\u0e07\u0e21\u0e35\u0e1c\u0e25\u0e2d\u0e22\u0e39\u0e48");
         table.put("A rounded bar split by a tall handle.",
                 "\u0e41\u0e16\u0e1a\u0e17\u0e23\u0e07\u0e21\u0e19\u0e17\u0e35\u0e48\u0e16\u0e39\u0e01\u0e41\u0e1a\u0e48\u0e07\u0e14\u0e49\u0e27\u0e22\u0e1b\u0e38\u0e48\u0e21\u0e40\u0e25\u0e37\u0e48\u0e2d\u0e19\u0e17\u0e23\u0e07\u0e2a\u0e39\u0e07");
         table.put("A save stopped. Reopen the media and save again.",
@@ -25850,6 +25983,8 @@ public final class L10nTranslations {
                 "\u0e44\u0e1f\u0e25\u0e4c\u0e41\u0e1a\u0e1a\u0e2d\u0e31\u0e01\u0e29\u0e23\u0e2d\u0e34\u0e42\u0e21\u0e08\u0e34");
         table.put("An eye at the top of each chat holds or sends Seen in that chat alone, whatever Read messages without the seen receipt says. Changing it doesn't send anything by itself.",
                 "\u0e44\u0e2d\u0e04\u0e2d\u0e19\u0e23\u0e39\u0e1b\u0e14\u0e27\u0e07\u0e15\u0e32\u0e17\u0e35\u0e48\u0e14\u0e49\u0e32\u0e19\u0e1a\u0e19\u0e02\u0e2d\u0e07\u0e41\u0e15\u0e48\u0e25\u0e30\u0e41\u0e0a\u0e17\u0e08\u0e30\u0e23\u0e30\u0e07\u0e31\u0e1a\u0e2b\u0e23\u0e37\u0e2d\u0e2a\u0e48\u0e07\u0e2a\u0e16\u0e32\u0e19\u0e30 \"\u0e2d\u0e48\u0e32\u0e19\u0e41\u0e25\u0e49\u0e27\" \u0e43\u0e19\u0e41\u0e0a\u0e17\u0e19\u0e31\u0e49\u0e19\u0e42\u0e14\u0e22\u0e40\u0e09\u0e1e\u0e32\u0e30 \u0e44\u0e21\u0e48\u0e27\u0e48\u0e32\u0e01\u0e32\u0e23\u0e15\u0e31\u0e49\u0e07\u0e04\u0e48\u0e32 \"\u0e2d\u0e48\u0e32\u0e19\u0e02\u0e49\u0e2d\u0e04\u0e27\u0e32\u0e21\u0e42\u0e14\u0e22\u0e44\u0e21\u0e48\u0e2a\u0e48\u0e07\u0e01\u0e32\u0e23\u0e15\u0e2d\u0e1a\u0e23\u0e31\u0e1a\u0e27\u0e48\u0e32\u0e2d\u0e48\u0e32\u0e19\u0e41\u0e25\u0e49\u0e27\" \u0e08\u0e30\u0e15\u0e31\u0e49\u0e07\u0e44\u0e27\u0e49\u0e2d\u0e22\u0e48\u0e32\u0e07\u0e44\u0e23 \u0e01\u0e32\u0e23\u0e40\u0e1b\u0e25\u0e35\u0e48\u0e22\u0e19\u0e15\u0e31\u0e27\u0e40\u0e25\u0e37\u0e2d\u0e01\u0e19\u0e35\u0e49\u0e08\u0e30\u0e44\u0e21\u0e48\u0e2a\u0e48\u0e07\u0e2a\u0e34\u0e48\u0e07\u0e43\u0e14\u0e42\u0e14\u0e22\u0e2d\u0e31\u0e15\u0e42\u0e19\u0e21\u0e31\u0e15\u0e34");
+        table.put("App",
+                "\u0e41\u0e2d\u0e1b");
         table.put("App icon",
                 "\u0e44\u0e2d\u0e04\u0e2d\u0e19\u0e41\u0e2d\u0e1b");
         table.put("App-only proxy",
@@ -25896,11 +26031,11 @@ public final class L10nTranslations {
                 "\u0e01\u0e14\u0e01\u0e25\u0e31\u0e1a\u0e42\u0e14\u0e22\u0e04\u0e07\u0e2b\u0e19\u0e49\u0e32\u0e2b\u0e25\u0e31\u0e01\u0e44\u0e27\u0e49\u0e40\u0e2b\u0e21\u0e37\u0e2d\u0e19\u0e40\u0e14\u0e34\u0e21");
         table.put("Back on Home leaves Instagram without first scrolling the feed to the top and reloading it.",
                 "\u0e01\u0e32\u0e23\u0e01\u0e14\u0e1b\u0e38\u0e48\u0e21\u0e22\u0e49\u0e2d\u0e19\u0e01\u0e25\u0e31\u0e1a\u0e17\u0e35\u0e48\u0e2b\u0e19\u0e49\u0e32\u0e2b\u0e25\u0e31\u0e01\u0e08\u0e30\u0e2d\u0e2d\u0e01\u0e08\u0e32\u0e01 Instagram \u0e42\u0e14\u0e22\u0e44\u0e21\u0e48\u0e40\u0e25\u0e37\u0e48\u0e2d\u0e19\u0e1f\u0e35\u0e14\u0e02\u0e36\u0e49\u0e19\u0e44\u0e1b\u0e14\u0e49\u0e32\u0e19\u0e1a\u0e19\u0e2a\u0e38\u0e14\u0e41\u0e25\u0e30\u0e42\u0e2b\u0e25\u0e14\u0e43\u0e2b\u0e21\u0e48\u0e01\u0e48\u0e2d\u0e19");
-        table.put("Background playback",
-                "\u0e01\u0e32\u0e23\u0e40\u0e25\u0e48\u0e19\u0e43\u0e19\u0e1e\u0e37\u0e49\u0e19\u0e2b\u0e25\u0e31\u0e07");
     }
 
     private static void fillTh4(Map<String, String> table) {
+        table.put("Background playback",
+                "\u0e01\u0e32\u0e23\u0e40\u0e25\u0e48\u0e19\u0e43\u0e19\u0e1e\u0e37\u0e49\u0e19\u0e2b\u0e25\u0e31\u0e07");
         table.put("Backgrounds in the accent color",
                 "\u0e1e\u0e37\u0e49\u0e19\u0e2b\u0e25\u0e31\u0e07\u0e40\u0e1b\u0e47\u0e19\u0e2a\u0e35\u0e40\u0e19\u0e49\u0e19");
         table.put("Badges in the accent color",
@@ -25925,8 +26060,8 @@ public final class L10nTranslations {
                 "\u0e1b\u0e23\u0e30\u0e27\u0e31\u0e15\u0e34");
         table.put("Bio copied",
                 "\u0e04\u0e31\u0e14\u0e25\u0e2d\u0e01\u0e1b\u0e23\u0e30\u0e27\u0e31\u0e15\u0e34\u0e41\u0e25\u0e49\u0e27");
-        table.put("Black rows and dialogs, HushGram's name at the top, and each category on one line.",
-                "\u0e41\u0e16\u0e27\u0e41\u0e25\u0e30\u0e01\u0e25\u0e48\u0e2d\u0e07\u0e42\u0e15\u0e49\u0e15\u0e2d\u0e1a\u0e2a\u0e35\u0e14\u0e33 \u0e1e\u0e23\u0e49\u0e2d\u0e21\u0e0a\u0e37\u0e48\u0e2d HushGram \u0e17\u0e35\u0e48\u0e14\u0e49\u0e32\u0e19\u0e1a\u0e19 \u0e41\u0e25\u0e30\u0e41\u0e15\u0e48\u0e25\u0e30\u0e2b\u0e21\u0e27\u0e14\u0e2b\u0e21\u0e39\u0e48\u0e2d\u0e22\u0e39\u0e48\u0e43\u0e19\u0e2b\u0e19\u0e36\u0e48\u0e07\u0e1a\u0e23\u0e23\u0e17\u0e31\u0e14");
+        table.put("Black rows and dialogs, with HushGram's name at the top.",
+                "\u0e41\u0e16\u0e27\u0e41\u0e25\u0e30\u0e01\u0e25\u0e48\u0e2d\u0e07\u0e42\u0e15\u0e49\u0e15\u0e2d\u0e1a\u0e2a\u0e35\u0e14\u0e33 \u0e1e\u0e23\u0e49\u0e2d\u0e21\u0e0a\u0e37\u0e48\u0e2d HushGram \u0e17\u0e35\u0e48\u0e14\u0e49\u0e32\u0e19\u0e1a\u0e19");
         table.put("Black settings page",
                 "\u0e2b\u0e19\u0e49\u0e32\u0e01\u0e32\u0e23\u0e15\u0e31\u0e49\u0e07\u0e04\u0e48\u0e32\u0e2a\u0e35\u0e14\u0e33");
         table.put("Blend post edges",
@@ -26019,11 +26154,11 @@ public final class L10nTranslations {
                 "\u0e40\u0e25\u0e37\u0e2d\u0e01\u0e44\u0e1f\u0e25\u0e4c\u0e2a\u0e33\u0e2b\u0e23\u0e31\u0e1a\u0e01\u0e32\u0e23\u0e2a\u0e48\u0e07\u0e2d\u0e2d\u0e01\u0e01\u0e32\u0e23\u0e15\u0e31\u0e49\u0e07\u0e04\u0e48\u0e32");
         table.put("Choose a file for your installed patches' settings and saved profiles. Your login and history stay on this device.",
                 "\u0e40\u0e25\u0e37\u0e2d\u0e01\u0e44\u0e1f\u0e25\u0e4c\u0e2a\u0e33\u0e2b\u0e23\u0e31\u0e1a\u0e01\u0e32\u0e23\u0e15\u0e31\u0e49\u0e07\u0e04\u0e48\u0e32\u0e41\u0e1e\u0e15\u0e0a\u0e4c\u0e17\u0e35\u0e48\u0e04\u0e38\u0e13\u0e15\u0e34\u0e14\u0e15\u0e31\u0e49\u0e07\u0e44\u0e27\u0e49\u0e41\u0e25\u0e30\u0e42\u0e1b\u0e23\u0e44\u0e1f\u0e25\u0e4c\u0e17\u0e35\u0e48\u0e1a\u0e31\u0e19\u0e17\u0e36\u0e01\u0e44\u0e27\u0e49 \u0e01\u0e32\u0e23\u0e40\u0e02\u0e49\u0e32\u0e2a\u0e39\u0e48\u0e23\u0e30\u0e1a\u0e1a\u0e41\u0e25\u0e30\u0e1b\u0e23\u0e30\u0e27\u0e31\u0e15\u0e34\u0e08\u0e30\u0e22\u0e31\u0e07\u0e04\u0e07\u0e2d\u0e22\u0e39\u0e48\u0e1a\u0e19\u0e2d\u0e38\u0e1b\u0e01\u0e23\u0e13\u0e4c\u0e19\u0e35\u0e49");
-        table.put("Choose a file for your installed patches' settings. Accounts and history stay on this device.",
-                "\u0e40\u0e25\u0e37\u0e2d\u0e01\u0e44\u0e1f\u0e25\u0e4c\u0e2a\u0e33\u0e2b\u0e23\u0e31\u0e1a\u0e01\u0e32\u0e23\u0e15\u0e31\u0e49\u0e07\u0e04\u0e48\u0e32\u0e41\u0e1e\u0e15\u0e0a\u0e4c\u0e17\u0e35\u0e48\u0e04\u0e38\u0e13\u0e15\u0e34\u0e14\u0e15\u0e31\u0e49\u0e07\u0e44\u0e27\u0e49 \u0e1a\u0e31\u0e0d\u0e0a\u0e35\u0e41\u0e25\u0e30\u0e1b\u0e23\u0e30\u0e27\u0e31\u0e15\u0e34\u0e08\u0e30\u0e22\u0e31\u0e07\u0e04\u0e07\u0e2d\u0e22\u0e39\u0e48\u0e1a\u0e19\u0e2d\u0e38\u0e1b\u0e01\u0e23\u0e13\u0e4c\u0e19\u0e35\u0e49");
     }
 
     private static void fillTh5(Map<String, String> table) {
+        table.put("Choose a file for your installed patches' settings. Accounts and history stay on this device.",
+                "\u0e40\u0e25\u0e37\u0e2d\u0e01\u0e44\u0e1f\u0e25\u0e4c\u0e2a\u0e33\u0e2b\u0e23\u0e31\u0e1a\u0e01\u0e32\u0e23\u0e15\u0e31\u0e49\u0e07\u0e04\u0e48\u0e32\u0e41\u0e1e\u0e15\u0e0a\u0e4c\u0e17\u0e35\u0e48\u0e04\u0e38\u0e13\u0e15\u0e34\u0e14\u0e15\u0e31\u0e49\u0e07\u0e44\u0e27\u0e49 \u0e1a\u0e31\u0e0d\u0e0a\u0e35\u0e41\u0e25\u0e30\u0e1b\u0e23\u0e30\u0e27\u0e31\u0e15\u0e34\u0e08\u0e30\u0e22\u0e31\u0e07\u0e04\u0e07\u0e2d\u0e22\u0e39\u0e48\u0e1a\u0e19\u0e2d\u0e38\u0e1b\u0e01\u0e23\u0e13\u0e4c\u0e19\u0e35\u0e49");
         table.put("Choose a folder",
                 "\u0e40\u0e25\u0e37\u0e2d\u0e01\u0e42\u0e1f\u0e25\u0e40\u0e14\u0e2d\u0e23\u0e4c");
         table.put("Choose a folder name under Movies and Pictures. Invalid characters become underscores. Leave it blank to use the default folder, %1$s. For an SD card or anywhere else, use Choose a folder.",
@@ -26080,6 +26215,8 @@ public final class L10nTranslations {
                 "\u0e01\u0e30\u0e17\u0e31\u0e14\u0e23\u0e31\u0e14");
         table.put("Confirm PIN",
                 "\u0e22\u0e37\u0e19\u0e22\u0e31\u0e19 PIN");
+        table.put("Content",
+                "\u0e40\u0e19\u0e37\u0e49\u0e2d\u0e2b\u0e32");
         table.put("Continue",
                 "\u0e14\u0e33\u0e40\u0e19\u0e34\u0e19\u0e01\u0e32\u0e23\u0e15\u0e48\u0e2d");
         table.put("Control where Meta AI appears.",
@@ -26140,13 +26277,13 @@ public final class L10nTranslations {
                 "\u0e44\u0e21\u0e48\u0e2a\u0e32\u0e21\u0e32\u0e23\u0e16\u0e25\u0e49\u0e32\u0e07\u0e2a\u0e33\u0e40\u0e19\u0e32\u0e17\u0e35\u0e48\u0e1a\u0e31\u0e19\u0e17\u0e36\u0e01\u0e44\u0e27\u0e49\u0e44\u0e14\u0e49 \u0e42\u0e1b\u0e23\u0e14\u0e25\u0e2d\u0e07\u0e2d\u0e35\u0e01\u0e04\u0e23\u0e31\u0e49\u0e07");
         table.put("Couldn't clear the unfollower list. Try again.",
                 "\u0e44\u0e21\u0e48\u0e2a\u0e32\u0e21\u0e32\u0e23\u0e16\u0e25\u0e49\u0e32\u0e07\u0e23\u0e32\u0e22\u0e0a\u0e37\u0e48\u0e2d\u0e1c\u0e39\u0e49\u0e40\u0e25\u0e34\u0e01\u0e15\u0e34\u0e14\u0e15\u0e32\u0e21\u0e44\u0e14\u0e49 \u0e42\u0e1b\u0e23\u0e14\u0e25\u0e2d\u0e07\u0e2d\u0e35\u0e01\u0e04\u0e23\u0e31\u0e49\u0e07");
+    }
+
+    private static void fillTh6(Map<String, String> table) {
         table.put("Couldn't clear the viewing history. Try again.",
                 "\u0e44\u0e21\u0e48\u0e2a\u0e32\u0e21\u0e32\u0e23\u0e16\u0e25\u0e49\u0e32\u0e07\u0e1b\u0e23\u0e30\u0e27\u0e31\u0e15\u0e34\u0e01\u0e32\u0e23\u0e23\u0e31\u0e1a\u0e0a\u0e21\u0e44\u0e14\u0e49 \u0e42\u0e1b\u0e23\u0e14\u0e25\u0e2d\u0e07\u0e2d\u0e35\u0e01\u0e04\u0e23\u0e31\u0e49\u0e07");
         table.put("Couldn't copy comment",
                 "\u0e44\u0e21\u0e48\u0e2a\u0e32\u0e21\u0e32\u0e23\u0e16\u0e04\u0e31\u0e14\u0e25\u0e2d\u0e01\u0e04\u0e27\u0e32\u0e21\u0e04\u0e34\u0e14\u0e40\u0e2b\u0e47\u0e19\u0e44\u0e14\u0e49");
-    }
-
-    private static void fillTh6(Map<String, String> table) {
         table.put("Couldn't copy the GIF name",
                 "\u0e44\u0e21\u0e48\u0e2a\u0e32\u0e21\u0e32\u0e23\u0e16\u0e04\u0e31\u0e14\u0e25\u0e2d\u0e01\u0e0a\u0e37\u0e48\u0e2d GIF \u0e44\u0e14\u0e49");
         table.put("Couldn't copy the bio",
@@ -26263,13 +26400,13 @@ public final class L10nTranslations {
                 "\u0e01\u0e33\u0e2b\u0e19\u0e14\u0e40\u0e2d\u0e07");
         table.put("Custom app icon",
                 "\u0e44\u0e2d\u0e04\u0e2d\u0e19\u0e41\u0e2d\u0e1b\u0e17\u0e35\u0e48\u0e01\u0e33\u0e2b\u0e19\u0e14\u0e40\u0e2d\u0e07");
+    }
+
+    private static void fillTh7(Map<String, String> table) {
         table.put("Custom color",
                 "\u0e2a\u0e35\u0e17\u0e35\u0e48\u0e01\u0e33\u0e2b\u0e19\u0e14\u0e40\u0e2d\u0e07");
         table.put("Custom tab",
                 "\u0e41\u0e17\u0e47\u0e1a\u0e17\u0e35\u0e48\u0e01\u0e33\u0e2b\u0e19\u0e14\u0e40\u0e2d\u0e07");
-    }
-
-    private static void fillTh7(Map<String, String> table) {
         table.put("Data saver",
                 "\u0e42\u0e2b\u0e21\u0e14\u0e1b\u0e23\u0e30\u0e2b\u0e22\u0e31\u0e14\u0e2d\u0e34\u0e19\u0e40\u0e17\u0e2d\u0e23\u0e4c\u0e40\u0e19\u0e47\u0e15");
         table.put("Date and time",
@@ -26386,13 +26523,13 @@ public final class L10nTranslations {
                 "\u0e01\u0e33\u0e25\u0e31\u0e07\u0e14\u0e32\u0e27\u0e19\u0e4c\u0e42\u0e2b\u0e25\u0e14");
         table.put("Downloading the emoji...",
                 "\u0e01\u0e33\u0e25\u0e31\u0e07\u0e14\u0e32\u0e27\u0e19\u0e4c\u0e42\u0e2b\u0e25\u0e14\u0e2d\u0e34\u0e42\u0e21\u0e08\u0e34...");
+    }
+
+    private static void fillTh8(Map<String, String> table) {
         table.put("Downloads",
                 "\u0e14\u0e32\u0e27\u0e19\u0e4c\u0e42\u0e2b\u0e25\u0e14");
         table.put("Drag to move %1$s",
                 "\u0e25\u0e32\u0e01\u0e40\u0e1e\u0e37\u0e48\u0e2d\u0e22\u0e49\u0e32\u0e22 %1$s");
-    }
-
-    private static void fillTh8(Map<String, String> table) {
         table.put("Drag to move, pinch to zoom.",
                 "\u0e25\u0e32\u0e01\u0e40\u0e1e\u0e37\u0e48\u0e2d\u0e22\u0e49\u0e32\u0e22 \u0e1a\u0e35\u0e1a\u0e2b\u0e23\u0e37\u0e2d\u0e01\u0e32\u0e07\u0e19\u0e34\u0e49\u0e27\u0e40\u0e1e\u0e37\u0e48\u0e2d\u0e0b\u0e39\u0e21");
         table.put("Draws Instagram's tab bar as a floating, rounded glass pill with a highlight on the tab you're on. Restart Instagram after changing it.",
@@ -26509,13 +26646,13 @@ public final class L10nTranslations {
                 "\u0e40\u0e25\u0e37\u0e48\u0e2d\u0e19\u0e40\u0e23\u0e47\u0e27\u0e43\u0e19 \"\u0e1a\u0e31\u0e19\u0e17\u0e36\u0e01\u0e41\u0e25\u0e49\u0e27\"");
         table.put("Favorites still shows them.",
                 "\"\u0e23\u0e32\u0e22\u0e01\u0e32\u0e23\u0e42\u0e1b\u0e23\u0e14\" \u0e22\u0e31\u0e07\u0e04\u0e07\u0e41\u0e2a\u0e14\u0e07\u0e42\u0e1e\u0e2a\u0e15\u0e4c\u0e40\u0e2b\u0e25\u0e48\u0e32\u0e19\u0e35\u0e49");
+    }
+
+    private static void fillTh9(Map<String, String> table) {
         table.put("Feed",
                 "\u0e1f\u0e35\u0e14");
         table.put("Feed videos and reels stop at their last frame instead of playing again. Reels still loop while auto scroll is on, so it can move on.",
                 "\u0e27\u0e34\u0e14\u0e35\u0e42\u0e2d\u0e43\u0e19\u0e1f\u0e35\u0e14\u0e41\u0e25\u0e30\u0e23\u0e35\u0e25\u0e2a\u0e4c\u0e08\u0e30\u0e2b\u0e22\u0e38\u0e14\u0e2d\u0e22\u0e39\u0e48\u0e17\u0e35\u0e48\u0e40\u0e1f\u0e23\u0e21\u0e2a\u0e38\u0e14\u0e17\u0e49\u0e32\u0e22\u0e41\u0e17\u0e19\u0e17\u0e35\u0e48\u0e08\u0e30\u0e40\u0e25\u0e48\u0e19\u0e0b\u0e49\u0e33 \u0e23\u0e35\u0e25\u0e2a\u0e4c\u0e08\u0e30\u0e22\u0e31\u0e07\u0e04\u0e07\u0e40\u0e25\u0e48\u0e19\u0e27\u0e19\u0e0b\u0e49\u0e33\u0e40\u0e21\u0e37\u0e48\u0e2d\u0e40\u0e1b\u0e34\u0e14\u0e01\u0e32\u0e23\u0e40\u0e25\u0e37\u0e48\u0e2d\u0e19\u0e2d\u0e31\u0e15\u0e42\u0e19\u0e21\u0e31\u0e15\u0e34 \u0e40\u0e1e\u0e37\u0e48\u0e2d\u0e43\u0e2b\u0e49\u0e2a\u0e32\u0e21\u0e32\u0e23\u0e16\u0e40\u0e25\u0e37\u0e48\u0e2d\u0e19\u0e15\u0e48\u0e2d\u0e44\u0e1b\u0e44\u0e14\u0e49");
-    }
-
-    private static void fillTh9(Map<String, String> table) {
         table.put("Feed videos and stories wait for your tap. Reels play as you swipe to them.",
                 "\u0e27\u0e34\u0e14\u0e35\u0e42\u0e2d\u0e43\u0e19\u0e1f\u0e35\u0e14\u0e41\u0e25\u0e30\u0e2a\u0e15\u0e2d\u0e23\u0e35\u0e48\u0e08\u0e30\u0e23\u0e2d\u0e43\u0e2b\u0e49\u0e04\u0e38\u0e13\u0e41\u0e15\u0e30 \u0e2a\u0e48\u0e27\u0e19\u0e23\u0e35\u0e25\u0e2a\u0e4c\u0e08\u0e30\u0e40\u0e25\u0e48\u0e19\u0e17\u0e31\u0e19\u0e17\u0e35\u0e17\u0e35\u0e48\u0e04\u0e38\u0e13\u0e1b\u0e31\u0e14\u0e44\u0e1b\u0e16\u0e36\u0e07");
         table.put("Feed videos, reels and stories all wait for your tap.",
@@ -26632,13 +26769,13 @@ public final class L10nTranslations {
                 "\u0e21\u0e19\u0e01\u0e25\u0e21\u0e40\u0e15\u0e47\u0e21\u0e17\u0e35\u0e48");
         table.put("GIF name",
                 "\u0e0a\u0e37\u0e48\u0e2d GIF");
+    }
+
+    private static void fillTh10(Map<String, String> table) {
         table.put("GIF name copied",
                 "\u0e04\u0e31\u0e14\u0e25\u0e2d\u0e01\u0e0a\u0e37\u0e48\u0e2d GIF \u0e41\u0e25\u0e49\u0e27");
         table.put("GIF or sticker",
                 "GIF \u0e2b\u0e23\u0e37\u0e2d\u0e2a\u0e15\u0e34\u0e01\u0e40\u0e01\u0e2d\u0e23\u0e4c");
-    }
-
-    private static void fillTh10(Map<String, String> table) {
         table.put("GPL-3.0, with the notices of the projects this is built on",
                 "GPL-3.0 \u0e1e\u0e23\u0e49\u0e2d\u0e21\u0e1b\u0e23\u0e30\u0e01\u0e32\u0e28\u0e02\u0e2d\u0e07\u0e42\u0e1b\u0e23\u0e40\u0e08\u0e01\u0e15\u0e4c\u0e17\u0e35\u0e48\u0e19\u0e33\u0e21\u0e32\u0e1e\u0e31\u0e12\u0e19\u0e32\u0e15\u0e48\u0e2d\u0e22\u0e2d\u0e14");
         table.put("Galaxy S26 Ultra",
@@ -26755,13 +26892,13 @@ public final class L10nTranslations {
                 "\u0e0b\u0e48\u0e2d\u0e19 \"\u0e41\u0e19\u0e30\u0e19\u0e33\" \u0e43\u0e19\u0e01\u0e32\u0e23\u0e41\u0e08\u0e49\u0e07\u0e40\u0e15\u0e37\u0e2d\u0e19");
         table.put("Hide Follow on posts",
                 "\u0e0b\u0e48\u0e2d\u0e19\u0e1b\u0e38\u0e48\u0e21\u0e15\u0e34\u0e14\u0e15\u0e32\u0e21\u0e1a\u0e19\u0e42\u0e1e\u0e2a\u0e15\u0e4c");
+    }
+
+    private static void fillTh11(Map<String, String> table) {
         table.put("Hide Follow on stories",
                 "\u0e0b\u0e48\u0e2d\u0e19\u0e1b\u0e38\u0e48\u0e21\u0e15\u0e34\u0e14\u0e15\u0e32\u0e21\u0e43\u0e19\u0e2a\u0e15\u0e2d\u0e23\u0e35\u0e48");
         table.put("Hide GIFs in comments",
                 "\u0e0b\u0e48\u0e2d\u0e19 GIF \u0e43\u0e19\u0e04\u0e27\u0e32\u0e21\u0e04\u0e34\u0e14\u0e40\u0e2b\u0e47\u0e19");
-    }
-
-    private static void fillTh11(Map<String, String> table) {
         table.put("Hide Instagram Plus prompts",
                 "\u0e0b\u0e48\u0e2d\u0e19\u0e02\u0e49\u0e2d\u0e04\u0e27\u0e32\u0e21\u0e41\u0e08\u0e49\u0e07\u0e40\u0e15\u0e37\u0e2d\u0e19 Instagram Plus");
         table.put("Hide Instants",
@@ -26798,6 +26935,8 @@ public final class L10nTranslations {
                 "\u0e0b\u0e48\u0e2d\u0e19 \"\u0e41\u0e19\u0e30\u0e19\u0e33\u0e2a\u0e33\u0e2b\u0e23\u0e31\u0e1a\u0e04\u0e38\u0e13\" \u0e43\u0e19\u0e23\u0e32\u0e22\u0e0a\u0e37\u0e48\u0e2d\u0e15\u0e34\u0e14\u0e15\u0e32\u0e21");
         table.put("Hide Threads posts",
                 "\u0e0b\u0e48\u0e2d\u0e19\u0e42\u0e1e\u0e2a\u0e15\u0e4c\u0e08\u0e32\u0e01 Threads");
+        table.put("Hide Watch more reels",
+                "\u0e0b\u0e48\u0e2d\u0e19\u0e1b\u0e38\u0e48\u0e21\u0e14\u0e39\u0e23\u0e35\u0e25\u0e2a\u0e4c\u0e40\u0e1e\u0e34\u0e48\u0e21\u0e40\u0e15\u0e34\u0e21");
         table.put("Hide Your algorithm on reels",
                 "\u0e0b\u0e48\u0e2d\u0e19 \"\u0e2d\u0e31\u0e25\u0e01\u0e2d\u0e23\u0e34\u0e17\u0e36\u0e21\u0e02\u0e2d\u0e07\u0e04\u0e38\u0e13\" \u0e43\u0e19\u0e23\u0e35\u0e25\u0e2a\u0e4c");
         table.put("Hide activity bubbles",
@@ -26876,15 +27015,15 @@ public final class L10nTranslations {
                 "\u0e0b\u0e48\u0e2d\u0e19\u0e42\u0e1e\u0e2a\u0e15\u0e4c\u0e17\u0e35\u0e48\u0e41\u0e19\u0e30\u0e19\u0e33");
         table.put("Hide suggested searches on reels",
                 "\u0e0b\u0e48\u0e2d\u0e19\u0e01\u0e32\u0e23\u0e04\u0e49\u0e19\u0e2b\u0e32\u0e17\u0e35\u0e48\u0e41\u0e19\u0e30\u0e19\u0e33\u0e1a\u0e19\u0e23\u0e35\u0e25\u0e2a\u0e4c");
+    }
+
+    private static void fillTh12(Map<String, String> table) {
         table.put("Hide suggested stories",
                 "\u0e0b\u0e48\u0e2d\u0e19\u0e2a\u0e15\u0e2d\u0e23\u0e35\u0e48\u0e17\u0e35\u0e48\u0e41\u0e19\u0e30\u0e19\u0e33");
         table.put("Hide suggestions in notifications",
                 "\u0e0b\u0e48\u0e2d\u0e19\u0e04\u0e33\u0e41\u0e19\u0e30\u0e19\u0e33\u0e43\u0e19\u0e01\u0e32\u0e23\u0e41\u0e08\u0e49\u0e07\u0e40\u0e15\u0e37\u0e2d\u0e19");
         table.put("Hide surveys",
                 "\u0e0b\u0e48\u0e2d\u0e19\u0e41\u0e1a\u0e1a\u0e2a\u0e33\u0e23\u0e27\u0e08");
-    }
-
-    private static void fillTh12(Map<String, String> table) {
         table.put("Hide that you're typing",
                 "\u0e0b\u0e48\u0e2d\u0e19\u0e2a\u0e16\u0e32\u0e19\u0e30\u0e01\u0e33\u0e25\u0e31\u0e07\u0e1e\u0e34\u0e21\u0e1e\u0e4c");
         table.put("Hide the 2x popup",
@@ -26999,15 +27138,15 @@ public final class L10nTranslations {
                 "\u0e0b\u0e48\u0e2d\u0e19\u0e42\u0e1e\u0e2a\u0e15\u0e4c\u0e41\u0e25\u0e30\u0e23\u0e35\u0e25\u0e2a\u0e4c\u0e08\u0e32\u0e01\u0e1a\u0e31\u0e0d\u0e0a\u0e35\u0e17\u0e35\u0e48\u0e04\u0e38\u0e13\u0e44\u0e21\u0e48\u0e44\u0e14\u0e49\u0e15\u0e34\u0e14\u0e15\u0e32\u0e21\u0e0b\u0e36\u0e48\u0e07\u0e21\u0e35\u0e02\u0e49\u0e2d\u0e04\u0e27\u0e32\u0e21 \"\u0e41\u0e19\u0e30\u0e19\u0e33\u0e2a\u0e33\u0e2b\u0e23\u0e31\u0e1a\u0e04\u0e38\u0e13\" \u0e42\u0e14\u0e22\u0e42\u0e1e\u0e2a\u0e15\u0e4c\u0e08\u0e32\u0e01\u0e1a\u0e31\u0e0d\u0e0a\u0e35\u0e17\u0e35\u0e48\u0e04\u0e38\u0e13\u0e15\u0e34\u0e14\u0e15\u0e32\u0e21\u0e08\u0e30\u0e22\u0e31\u0e07\u0e04\u0e07\u0e2d\u0e22\u0e39\u0e48");
         table.put("Hides sponsored posts, reels, stories and the ad in comments. No empty gap is left where an ad would have been.",
                 "\u0e0b\u0e48\u0e2d\u0e19\u0e42\u0e1e\u0e2a\u0e15\u0e4c\u0e17\u0e35\u0e48\u0e44\u0e14\u0e49\u0e23\u0e31\u0e1a\u0e01\u0e32\u0e23\u0e2a\u0e19\u0e31\u0e1a\u0e2a\u0e19\u0e38\u0e19, \u0e23\u0e35\u0e25\u0e2a\u0e4c, \u0e2a\u0e15\u0e2d\u0e23\u0e35\u0e48 \u0e41\u0e25\u0e30\u0e42\u0e06\u0e29\u0e13\u0e32\u0e43\u0e19\u0e04\u0e27\u0e32\u0e21\u0e04\u0e34\u0e14\u0e40\u0e2b\u0e47\u0e19 \u0e42\u0e14\u0e22\u0e08\u0e30\u0e44\u0e21\u0e48\u0e40\u0e2b\u0e25\u0e37\u0e2d\u0e0a\u0e48\u0e2d\u0e07\u0e27\u0e48\u0e32\u0e07\u0e15\u0e23\u0e07\u0e08\u0e38\u0e14\u0e17\u0e35\u0e48\u0e40\u0e04\u0e22\u0e21\u0e35\u0e42\u0e06\u0e29\u0e13\u0e32");
+    }
+
+    private static void fillTh13(Map<String, String> table) {
         table.put("Hides stories from accounts you don't follow, and accounts Instagram suggests, in the row at the top of Home. Stories from accounts you follow stay.",
                 "\u0e0b\u0e48\u0e2d\u0e19\u0e2a\u0e15\u0e2d\u0e23\u0e35\u0e48\u0e08\u0e32\u0e01\u0e1a\u0e31\u0e0d\u0e0a\u0e35\u0e17\u0e35\u0e48\u0e04\u0e38\u0e13\u0e44\u0e21\u0e48\u0e44\u0e14\u0e49\u0e15\u0e34\u0e14\u0e15\u0e32\u0e21 \u0e41\u0e25\u0e30\u0e1a\u0e31\u0e0d\u0e0a\u0e35\u0e17\u0e35\u0e48 Instagram \u0e41\u0e19\u0e30\u0e19\u0e33\u0e43\u0e19\u0e41\u0e16\u0e27\u0e14\u0e49\u0e32\u0e19\u0e1a\u0e19\u0e02\u0e2d\u0e07\u0e2b\u0e19\u0e49\u0e32\u0e2b\u0e25\u0e31\u0e01 \u0e42\u0e14\u0e22\u0e2a\u0e15\u0e2d\u0e23\u0e35\u0e48\u0e08\u0e32\u0e01\u0e1a\u0e31\u0e0d\u0e0a\u0e35\u0e17\u0e35\u0e48\u0e04\u0e38\u0e13\u0e15\u0e34\u0e14\u0e15\u0e32\u0e21\u0e08\u0e30\u0e22\u0e31\u0e07\u0e04\u0e07\u0e2d\u0e22\u0e39\u0e48");
         table.put("Hides the bar under a post that asks you to join the account's channel. The post stays.",
                 "\u0e0b\u0e48\u0e2d\u0e19\u0e41\u0e16\u0e1a\u0e43\u0e15\u0e49\u0e42\u0e1e\u0e2a\u0e15\u0e4c\u0e17\u0e35\u0e48\u0e0a\u0e27\u0e19\u0e43\u0e2b\u0e49\u0e04\u0e38\u0e13\u0e40\u0e02\u0e49\u0e32\u0e23\u0e48\u0e27\u0e21\u0e0a\u0e48\u0e2d\u0e07\u0e02\u0e2d\u0e07\u0e1a\u0e31\u0e0d\u0e0a\u0e35\u0e19\u0e31\u0e49\u0e19 \u0e42\u0e1e\u0e2a\u0e15\u0e4c\u0e22\u0e31\u0e07\u0e04\u0e07\u0e2d\u0e22\u0e39\u0e48");
         table.put("Hides the bubble under a post that asks 'Are you interested in this post?' with Not interested and Interested buttons. Nothing is answered for you.",
                 "\u0e0b\u0e48\u0e2d\u0e19\u0e1a\u0e31\u0e1a\u0e40\u0e1a\u0e34\u0e25\u0e43\u0e15\u0e49\u0e42\u0e1e\u0e2a\u0e15\u0e4c\u0e17\u0e35\u0e48\u0e16\u0e32\u0e21\u0e27\u0e48\u0e32 \"\u0e04\u0e38\u0e13\u0e2a\u0e19\u0e43\u0e08\u0e42\u0e1e\u0e2a\u0e15\u0e4c\u0e19\u0e35\u0e49\u0e2b\u0e23\u0e37\u0e2d\u0e44\u0e21\u0e48\" \u0e0b\u0e36\u0e48\u0e07\u0e21\u0e35\u0e1b\u0e38\u0e48\u0e21\u0e44\u0e21\u0e48\u0e2a\u0e19\u0e43\u0e08\u0e41\u0e25\u0e30\u0e2a\u0e19\u0e43\u0e08 \u0e42\u0e14\u0e22\u0e08\u0e30\u0e44\u0e21\u0e48\u0e21\u0e35\u0e01\u0e32\u0e23\u0e15\u0e2d\u0e1a\u0e41\u0e17\u0e19\u0e04\u0e38\u0e13\u0e41\u0e15\u0e48\u0e2d\u0e22\u0e48\u0e32\u0e07\u0e43\u0e14");
-    }
-
-    private static void fillTh13(Map<String, String> table) {
         table.put("Hides the buttons that push Edits, templates, Meta AI and Ray-Ban Meta glasses. Live badges and state-controlled media labels stay.",
                 "\u0e0b\u0e48\u0e2d\u0e19\u0e1b\u0e38\u0e48\u0e21\u0e17\u0e35\u0e48\u0e42\u0e1b\u0e23\u0e42\u0e21\u0e17 Edits, \u0e40\u0e17\u0e21\u0e40\u0e1e\u0e25\u0e15, Meta AI \u0e41\u0e25\u0e30\u0e41\u0e27\u0e48\u0e19\u0e15\u0e32 Ray-Ban Meta \u0e1b\u0e49\u0e32\u0e22\u0e16\u0e48\u0e32\u0e22\u0e17\u0e2d\u0e14\u0e2a\u0e14\u0e41\u0e25\u0e30\u0e1b\u0e49\u0e32\u0e22\u0e2a\u0e37\u0e48\u0e2d\u0e17\u0e35\u0e48\u0e04\u0e27\u0e1a\u0e04\u0e38\u0e21\u0e42\u0e14\u0e22\u0e23\u0e31\u0e10\u0e08\u0e30\u0e22\u0e31\u0e07\u0e04\u0e07\u0e2d\u0e22\u0e39\u0e48");
         table.put("Hides the card after the posts from accounts you follow that says you've seen the latest ones, and its Older posts link. When Home has no new posts at all, only that line goes and the link stays. Pull down on Home to refresh after changing it.",
@@ -27122,15 +27261,15 @@ public final class L10nTranslations {
                 "\u0e19\u0e33\u0e40\u0e02\u0e49\u0e32\u0e01\u0e32\u0e23\u0e15\u0e31\u0e49\u0e07\u0e04\u0e48\u0e32\u0e41\u0e25\u0e49\u0e27 %1$d \u0e23\u0e32\u0e22\u0e01\u0e32\u0e23 \u0e02\u0e49\u0e32\u0e21\u0e44\u0e1b %2$d \u0e23\u0e32\u0e22\u0e01\u0e32\u0e23\u0e17\u0e35\u0e48\u0e40\u0e27\u0e2d\u0e23\u0e4c\u0e0a\u0e31\u0e19\u0e19\u0e35\u0e49\u0e44\u0e21\u0e48\u0e23\u0e39\u0e49\u0e08\u0e31\u0e01");
         table.put("Instagram accepts this build",
                 "Instagram \u0e22\u0e2d\u0e21\u0e23\u0e31\u0e1a\u0e1a\u0e34\u0e25\u0e14\u0e4c\u0e19\u0e35\u0e49");
+    }
+
+    private static void fillTh14(Map<String, String> table) {
         table.put("Instagram blue",
                 "\u0e2a\u0e35\u0e19\u0e49\u0e33\u0e40\u0e07\u0e34\u0e19 Instagram");
         table.put("Instagram can't read where the photos and videos in your gallery were taken.",
                 "Instagram \u0e08\u0e30\u0e2d\u0e48\u0e32\u0e19\u0e44\u0e21\u0e48\u0e44\u0e14\u0e49\u0e27\u0e48\u0e32\u0e23\u0e39\u0e1b\u0e20\u0e32\u0e1e\u0e41\u0e25\u0e30\u0e27\u0e34\u0e14\u0e35\u0e42\u0e2d\u0e43\u0e19\u0e41\u0e01\u0e25\u0e40\u0e25\u0e2d\u0e23\u0e35\u0e02\u0e2d\u0e07\u0e04\u0e38\u0e13\u0e16\u0e48\u0e32\u0e22\u0e17\u0e35\u0e48\u0e44\u0e2b\u0e19");
         table.put("Instagram can't read your phone's advertising ID or tell Android's ad services which ads you saw or tapped. The permissions for them are gone from this build.",
                 "Instagram \u0e44\u0e21\u0e48\u0e2a\u0e32\u0e21\u0e32\u0e23\u0e16\u0e2d\u0e48\u0e32\u0e19\u0e23\u0e2b\u0e31\u0e2a\u0e42\u0e06\u0e29\u0e13\u0e32\u0e02\u0e2d\u0e07\u0e42\u0e17\u0e23\u0e28\u0e31\u0e1e\u0e17\u0e4c\u0e04\u0e38\u0e13 \u0e2b\u0e23\u0e37\u0e2d\u0e2a\u0e48\u0e07\u0e02\u0e49\u0e2d\u0e21\u0e39\u0e25\u0e44\u0e1b\u0e22\u0e31\u0e07\u0e1a\u0e23\u0e34\u0e01\u0e32\u0e23\u0e42\u0e06\u0e29\u0e13\u0e32\u0e02\u0e2d\u0e07 Android \u0e27\u0e48\u0e32\u0e04\u0e38\u0e13\u0e14\u0e39\u0e2b\u0e23\u0e37\u0e2d\u0e41\u0e15\u0e30\u0e42\u0e06\u0e29\u0e13\u0e32\u0e43\u0e14 \u0e2a\u0e34\u0e17\u0e18\u0e34\u0e4c\u0e01\u0e32\u0e23\u0e40\u0e02\u0e49\u0e32\u0e16\u0e36\u0e07\u0e2a\u0e33\u0e2b\u0e23\u0e31\u0e1a\u0e1f\u0e31\u0e07\u0e01\u0e4c\u0e0a\u0e31\u0e19\u0e14\u0e31\u0e07\u0e01\u0e25\u0e48\u0e32\u0e27\u0e16\u0e39\u0e01\u0e19\u0e33\u0e2d\u0e2d\u0e01\u0e08\u0e32\u0e01\u0e1a\u0e34\u0e25\u0e14\u0e4c\u0e19\u0e35\u0e49\u0e41\u0e25\u0e49\u0e27");
-    }
-
-    private static void fillTh14(Map<String, String> table) {
         table.put("Instagram crashed or froze within a minute of starting three times in a row, so HushGram paused itself.",
                 "Instagram \u0e02\u0e31\u0e14\u0e02\u0e49\u0e2d\u0e07\u0e2b\u0e23\u0e37\u0e2d\u0e04\u0e49\u0e32\u0e07\u0e20\u0e32\u0e22\u0e43\u0e19\u0e2b\u0e19\u0e36\u0e48\u0e07\u0e19\u0e32\u0e17\u0e35\u0e2b\u0e25\u0e31\u0e07\u0e08\u0e32\u0e01\u0e40\u0e23\u0e34\u0e48\u0e21\u0e41\u0e2d\u0e1b\u0e15\u0e34\u0e14\u0e15\u0e48\u0e2d\u0e01\u0e31\u0e19\u0e2a\u0e32\u0e21\u0e04\u0e23\u0e31\u0e49\u0e07 HushGram \u0e08\u0e36\u0e07\u0e2b\u0e22\u0e38\u0e14\u0e17\u0e33\u0e07\u0e32\u0e19\u0e0a\u0e31\u0e48\u0e27\u0e04\u0e23\u0e32\u0e27\u0e42\u0e14\u0e22\u0e2d\u0e31\u0e15\u0e42\u0e19\u0e21\u0e31\u0e15\u0e34");
         table.put("Instagram didn't keep the change and the overrides couldn't be confirmed. Use Restore previous overrides, then restart Instagram.",
@@ -27245,15 +27384,15 @@ public final class L10nTranslations {
                 "\u0e02\u0e49\u0e32\u0e21\u0e44\u0e1b\u0e22\u0e31\u0e07\u0e02\u0e49\u0e2d\u0e04\u0e27\u0e32\u0e21\u0e41\u0e23\u0e01\u0e2b\u0e23\u0e37\u0e2d\u0e27\u0e31\u0e19\u0e17\u0e35\u0e48");
         table.put("KakaoTalk",
                 "KakaoTalk");
+    }
+
+    private static void fillTh15(Map<String, String> table) {
         table.put("Keep Featured off the heart's dot",
                 "\u0e44\u0e21\u0e48\u0e43\u0e2b\u0e49\u0e23\u0e32\u0e22\u0e01\u0e32\u0e23\u0e41\u0e19\u0e30\u0e19\u0e33\u0e41\u0e2a\u0e14\u0e07\u0e08\u0e38\u0e14\u0e1a\u0e19\u0e23\u0e39\u0e1b\u0e2b\u0e31\u0e27\u0e43\u0e08");
         table.put("Keep Home's top bar",
                 "\u0e04\u0e07\u0e41\u0e16\u0e1a\u0e14\u0e49\u0e32\u0e19\u0e1a\u0e19\u0e02\u0e2d\u0e07\u0e2b\u0e19\u0e49\u0e32\u0e2b\u0e25\u0e31\u0e01\u0e44\u0e27\u0e49");
         table.put("Keep Instagram's saved photos and videos from filling your phone.",
                 "\u0e1b\u0e49\u0e2d\u0e07\u0e01\u0e31\u0e19\u0e44\u0e21\u0e48\u0e43\u0e2b\u0e49\u0e23\u0e39\u0e1b\u0e20\u0e32\u0e1e\u0e41\u0e25\u0e30\u0e27\u0e34\u0e14\u0e35\u0e42\u0e2d\u0e17\u0e35\u0e48\u0e1a\u0e31\u0e19\u0e17\u0e36\u0e01\u0e02\u0e2d\u0e07 Instagram \u0e43\u0e0a\u0e49\u0e1e\u0e37\u0e49\u0e19\u0e17\u0e35\u0e48\u0e42\u0e17\u0e23\u0e28\u0e31\u0e1e\u0e17\u0e4c\u0e02\u0e2d\u0e07\u0e04\u0e38\u0e13\u0e08\u0e19\u0e40\u0e15\u0e47\u0e21");
-    }
-
-    private static void fillTh15(Map<String, String> table) {
         table.put("Keep Reels auto scroll between sessions",
                 "Keep Reels auto scroll between sessions");
         table.put("Keep a seek bar",
@@ -27368,15 +27507,15 @@ public final class L10nTranslations {
                 "\u0e44\u0e21\u0e48\u0e41\u0e2a\u0e14\u0e07\u0e01\u0e32\u0e23\u0e4c\u0e14 \"\u0e15\u0e32\u0e04\u0e38\u0e13\u0e41\u0e25\u0e49\u0e27\" \u0e40\u0e0a\u0e48\u0e19 \u0e2a\u0e15\u0e34\u0e01\u0e40\u0e01\u0e2d\u0e23\u0e4c\u0e15\u0e32\u0e04\u0e38\u0e13\u0e41\u0e25\u0e49\u0e27\u0e22\u0e2d\u0e14\u0e19\u0e34\u0e22\u0e21 \u0e41\u0e25\u0e30\u0e40\u0e02\u0e49\u0e32\u0e23\u0e48\u0e27\u0e21\u0e2a\u0e15\u0e34\u0e01\u0e40\u0e01\u0e2d\u0e23\u0e4c\u0e15\u0e32\u0e04\u0e38\u0e13\u0e41\u0e25\u0e49\u0e27\u0e17\u0e35\u0e48\u0e01\u0e33\u0e25\u0e31\u0e07\u0e21\u0e32\u0e41\u0e23\u0e07 \u0e17\u0e35\u0e48 Instagram \u0e41\u0e17\u0e23\u0e01\u0e44\u0e27\u0e49\u0e23\u0e30\u0e2b\u0e27\u0e48\u0e32\u0e07\u0e2a\u0e15\u0e2d\u0e23\u0e35\u0e48\u0e17\u0e35\u0e48\u0e04\u0e38\u0e13\u0e41\u0e15\u0e30\u0e14\u0e39 \u0e42\u0e14\u0e22\u0e2a\u0e15\u0e2d\u0e23\u0e35\u0e48\u0e22\u0e31\u0e07\u0e04\u0e07\u0e41\u0e2a\u0e14\u0e07\u0e15\u0e32\u0e21\u0e1b\u0e01\u0e15\u0e34");
         table.put("Leaves out the Suggested for you cards of accounts to follow that Instagram puts between the stories you tap through. The stories themselves stay.",
                 "\u0e44\u0e21\u0e48\u0e41\u0e2a\u0e14\u0e07\u0e01\u0e32\u0e23\u0e4c\u0e14\u0e1a\u0e31\u0e0d\u0e0a\u0e35\u0e41\u0e19\u0e30\u0e19\u0e33\u0e43\u0e2b\u0e49\u0e15\u0e34\u0e14\u0e15\u0e32\u0e21 \"\u0e41\u0e19\u0e30\u0e19\u0e33\u0e2a\u0e33\u0e2b\u0e23\u0e31\u0e1a\u0e04\u0e38\u0e13\" \u0e17\u0e35\u0e48 Instagram \u0e41\u0e17\u0e23\u0e01\u0e44\u0e27\u0e49\u0e23\u0e30\u0e2b\u0e27\u0e48\u0e32\u0e07\u0e2a\u0e15\u0e2d\u0e23\u0e35\u0e48\u0e17\u0e35\u0e48\u0e04\u0e38\u0e13\u0e41\u0e15\u0e30\u0e14\u0e39 \u0e42\u0e14\u0e22\u0e2a\u0e15\u0e2d\u0e23\u0e35\u0e48\u0e22\u0e31\u0e07\u0e04\u0e07\u0e41\u0e2a\u0e14\u0e07\u0e15\u0e32\u0e21\u0e1b\u0e01\u0e15\u0e34");
+    }
+
+    private static void fillTh16(Map<String, String> table) {
         table.put("Leaves out the live broadcasts Instagram puts between reels in the Reels tab and when you swipe through reels from Explore.",
                 "\u0e25\u0e30\u0e40\u0e27\u0e49\u0e19\u0e01\u0e32\u0e23\u0e16\u0e48\u0e32\u0e22\u0e17\u0e2d\u0e14\u0e2a\u0e14\u0e17\u0e35\u0e48 Instagram \u0e41\u0e17\u0e23\u0e01\u0e44\u0e27\u0e49\u0e23\u0e30\u0e2b\u0e27\u0e48\u0e32\u0e07\u0e23\u0e35\u0e25\u0e2a\u0e4c\u0e43\u0e19\u0e41\u0e17\u0e47\u0e1a\u0e23\u0e35\u0e25\u0e2a\u0e4c \u0e41\u0e25\u0e30\u0e40\u0e21\u0e37\u0e48\u0e2d\u0e04\u0e38\u0e13\u0e1b\u0e31\u0e14\u0e14\u0e39\u0e23\u0e35\u0e25\u0e2a\u0e4c\u0e08\u0e32\u0e01\u0e41\u0e17\u0e47\u0e1a\u0e2a\u0e33\u0e23\u0e27\u0e08");
         table.put("Leaves the Suggested for you accounts out of what shows when you tap the search bar. Recent searches stay.",
                 "\u0e44\u0e21\u0e48\u0e41\u0e2a\u0e14\u0e07\u0e1a\u0e31\u0e0d\u0e0a\u0e35 \"\u0e41\u0e19\u0e30\u0e19\u0e33\u0e2a\u0e33\u0e2b\u0e23\u0e31\u0e1a\u0e04\u0e38\u0e13\" \u0e40\u0e21\u0e37\u0e48\u0e2d\u0e04\u0e38\u0e13\u0e41\u0e15\u0e30\u0e17\u0e35\u0e48\u0e41\u0e16\u0e1a\u0e04\u0e49\u0e19\u0e2b\u0e32 \u0e01\u0e32\u0e23\u0e04\u0e49\u0e19\u0e2b\u0e32\u0e25\u0e48\u0e32\u0e2a\u0e38\u0e14\u0e08\u0e30\u0e22\u0e31\u0e07\u0e04\u0e07\u0e2d\u0e22\u0e39\u0e48");
         table.put("Leaves the Suggested for you section off the followers, following and mutual lists and the screen where you approve follow requests, and the Suggested tab off other people's follow lists. Every account in the lists and every real request stays.",
                 "\u0e19\u0e33\u0e2a\u0e48\u0e27\u0e19 \"\u0e41\u0e19\u0e30\u0e19\u0e33\u0e2a\u0e33\u0e2b\u0e23\u0e31\u0e1a\u0e04\u0e38\u0e13\" \u0e2d\u0e2d\u0e01\u0e08\u0e32\u0e01\u0e23\u0e32\u0e22\u0e0a\u0e37\u0e48\u0e2d\u0e1c\u0e39\u0e49\u0e15\u0e34\u0e14\u0e15\u0e32\u0e21 \u0e01\u0e33\u0e25\u0e31\u0e07\u0e15\u0e34\u0e14\u0e15\u0e32\u0e21 \u0e41\u0e25\u0e30\u0e1c\u0e39\u0e49\u0e15\u0e34\u0e14\u0e15\u0e32\u0e21\u0e23\u0e48\u0e27\u0e21 \u0e23\u0e27\u0e21\u0e16\u0e36\u0e07\u0e2b\u0e19\u0e49\u0e32\u0e08\u0e2d\u0e17\u0e35\u0e48\u0e04\u0e38\u0e13\u0e2d\u0e19\u0e38\u0e21\u0e31\u0e15\u0e34\u0e04\u0e33\u0e02\u0e2d\u0e15\u0e34\u0e14\u0e15\u0e32\u0e21 \u0e41\u0e25\u0e30\u0e19\u0e33\u0e41\u0e17\u0e47\u0e1a \"\u0e41\u0e19\u0e30\u0e19\u0e33\" \u0e2d\u0e2d\u0e01\u0e08\u0e32\u0e01\u0e23\u0e32\u0e22\u0e0a\u0e37\u0e48\u0e2d\u0e15\u0e34\u0e14\u0e15\u0e32\u0e21\u0e02\u0e2d\u0e07\u0e1c\u0e39\u0e49\u0e2d\u0e37\u0e48\u0e19 \u0e1a\u0e31\u0e0d\u0e0a\u0e35\u0e17\u0e31\u0e49\u0e07\u0e2b\u0e21\u0e14\u0e43\u0e19\u0e23\u0e32\u0e22\u0e0a\u0e37\u0e48\u0e2d\u0e41\u0e25\u0e30\u0e04\u0e33\u0e02\u0e2d\u0e15\u0e34\u0e14\u0e15\u0e32\u0e21\u0e08\u0e23\u0e34\u0e07\u0e08\u0e30\u0e22\u0e31\u0e07\u0e04\u0e07\u0e2d\u0e22\u0e39\u0e48");
-    }
-
-    private static void fillTh16(Map<String, String> table) {
         table.put("Leaving Instagram while a reel plays shrinks it into a small window over your other apps. Works in Reels and on reels opened from the feed, on Android 15 or newer.",
                 "\u0e01\u0e32\u0e23\u0e2d\u0e2d\u0e01\u0e08\u0e32\u0e01 Instagram \u0e02\u0e13\u0e30\u0e17\u0e35\u0e48\u0e23\u0e35\u0e25\u0e2a\u0e4c\u0e01\u0e33\u0e25\u0e31\u0e07\u0e40\u0e25\u0e48\u0e19\u0e08\u0e30\u0e22\u0e48\u0e2d\u0e02\u0e19\u0e32\u0e14\u0e40\u0e1b\u0e47\u0e19\u0e2b\u0e19\u0e49\u0e32\u0e15\u0e48\u0e32\u0e07\u0e02\u0e19\u0e32\u0e14\u0e40\u0e25\u0e47\u0e01\u0e17\u0e31\u0e1a\u0e1a\u0e19\u0e41\u0e2d\u0e1b\u0e2d\u0e37\u0e48\u0e19\u0e46 \u0e02\u0e2d\u0e07\u0e04\u0e38\u0e13 \u0e43\u0e0a\u0e49\u0e07\u0e32\u0e19\u0e44\u0e14\u0e49\u0e43\u0e19\u0e41\u0e17\u0e47\u0e1a\u0e23\u0e35\u0e25\u0e2a\u0e4c\u0e41\u0e25\u0e30\u0e23\u0e35\u0e25\u0e2a\u0e4c\u0e17\u0e35\u0e48\u0e40\u0e1b\u0e34\u0e14\u0e08\u0e32\u0e01\u0e1f\u0e35\u0e14 \u0e1a\u0e19 Android 15 \u0e02\u0e36\u0e49\u0e19\u0e44\u0e1b");
         table.put("Leaving Instagram while a story plays shrinks it into a small window over your other apps, where it keeps going through the stories.",
@@ -27475,6 +27614,8 @@ public final class L10nTranslations {
                 "\u0e01\u0e14\u0e04\u0e49\u0e32\u0e07\u0e17\u0e35\u0e48\u0e23\u0e39\u0e1b\u0e20\u0e32\u0e1e\u0e40\u0e1e\u0e37\u0e48\u0e2d\u0e0b\u0e39\u0e21");
         table.put("Long press a post for full screen",
                 "\u0e01\u0e14\u0e42\u0e1e\u0e2a\u0e15\u0e4c\u0e04\u0e49\u0e32\u0e07\u0e44\u0e27\u0e49\u0e40\u0e1e\u0e37\u0e48\u0e2d\u0e14\u0e39\u0e41\u0e1a\u0e1a\u0e40\u0e15\u0e47\u0e21\u0e2b\u0e19\u0e49\u0e32\u0e08\u0e2d");
+        table.put("Look",
+                "\u0e23\u0e39\u0e1b\u0e25\u0e31\u0e01\u0e29\u0e13\u0e4c");
         table.put("Loop a story",
                 "\u0e40\u0e25\u0e48\u0e19\u0e2a\u0e15\u0e2d\u0e23\u0e35\u0e48\u0e27\u0e19\u0e0b\u0e49\u0e33");
         table.put("Loop didn't change",
@@ -27489,6 +27630,9 @@ public final class L10nTranslations {
                 "\u0e01\u0e33\u0e25\u0e31\u0e07\u0e40\u0e25\u0e48\u0e19\u0e27\u0e34\u0e14\u0e35\u0e42\u0e2d\u0e19\u0e35\u0e49\u0e0b\u0e49\u0e33");
         table.put("Makes Instagram see the phone chosen below, unlocking HDR video downloads and other features limited to those phones, and adds the matching developer options. Restart Instagram to see the change.",
                 "\u0e17\u0e33\u0e43\u0e2b\u0e49 Instagram \u0e40\u0e2b\u0e47\u0e19\u0e40\u0e1b\u0e47\u0e19\u0e23\u0e38\u0e48\u0e19\u0e42\u0e17\u0e23\u0e28\u0e31\u0e1e\u0e17\u0e4c\u0e17\u0e35\u0e48\u0e40\u0e25\u0e37\u0e2d\u0e01\u0e14\u0e49\u0e32\u0e19\u0e25\u0e48\u0e32\u0e07 \u0e40\u0e1e\u0e37\u0e48\u0e2d\u0e1b\u0e25\u0e14\u0e25\u0e47\u0e2d\u0e01\u0e01\u0e32\u0e23\u0e14\u0e32\u0e27\u0e19\u0e4c\u0e42\u0e2b\u0e25\u0e14\u0e27\u0e34\u0e14\u0e35\u0e42\u0e2d HDR \u0e41\u0e25\u0e30\u0e1f\u0e35\u0e40\u0e08\u0e2d\u0e23\u0e4c\u0e2d\u0e37\u0e48\u0e19\u0e17\u0e35\u0e48\u0e08\u0e33\u0e01\u0e31\u0e14\u0e40\u0e09\u0e1e\u0e32\u0e30\u0e23\u0e38\u0e48\u0e19\u0e40\u0e2b\u0e25\u0e48\u0e32\u0e19\u0e31\u0e49\u0e19 \u0e1e\u0e23\u0e49\u0e2d\u0e21\u0e40\u0e1e\u0e34\u0e48\u0e21\u0e15\u0e31\u0e27\u0e40\u0e25\u0e37\u0e2d\u0e01\u0e2a\u0e33\u0e2b\u0e23\u0e31\u0e1a\u0e19\u0e31\u0e01\u0e1e\u0e31\u0e12\u0e19\u0e32\u0e17\u0e35\u0e48\u0e15\u0e23\u0e07\u0e01\u0e31\u0e19 \u0e23\u0e35\u0e2a\u0e15\u0e32\u0e23\u0e4c\u0e15 Instagram \u0e40\u0e1e\u0e37\u0e48\u0e2d\u0e14\u0e39\u0e01\u0e32\u0e23\u0e40\u0e1b\u0e25\u0e35\u0e48\u0e22\u0e19\u0e41\u0e1b\u0e25\u0e07");
+    }
+
+    private static void fillTh17(Map<String, String> table) {
         table.put("Makes the seek bar thicker, with a round white handle and the time above it, over a soft dark fade so it shows on any video. Drag it to seek. It also keeps the bar on short reels.",
                 "\u0e17\u0e33\u0e43\u0e2b\u0e49\u0e41\u0e16\u0e1a\u0e40\u0e25\u0e37\u0e48\u0e2d\u0e19\u0e40\u0e27\u0e25\u0e32\u0e2b\u0e19\u0e32\u0e02\u0e36\u0e49\u0e19 \u0e1e\u0e23\u0e49\u0e2d\u0e21\u0e1b\u0e38\u0e48\u0e21\u0e04\u0e27\u0e1a\u0e04\u0e38\u0e21\u0e17\u0e23\u0e07\u0e01\u0e25\u0e21\u0e2a\u0e35\u0e02\u0e32\u0e27\u0e41\u0e25\u0e30\u0e40\u0e27\u0e25\u0e32\u0e14\u0e49\u0e32\u0e19\u0e1a\u0e19 \u0e1a\u0e19\u0e1e\u0e37\u0e49\u0e19\u0e2b\u0e25\u0e31\u0e07\u0e2a\u0e35\u0e40\u0e02\u0e49\u0e21\u0e41\u0e1a\u0e1a\u0e44\u0e25\u0e48\u0e23\u0e30\u0e14\u0e31\u0e1a\u0e17\u0e35\u0e48\u0e19\u0e38\u0e48\u0e21\u0e19\u0e27\u0e25\u0e40\u0e1e\u0e37\u0e48\u0e2d\u0e43\u0e2b\u0e49\u0e21\u0e2d\u0e07\u0e40\u0e2b\u0e47\u0e19\u0e44\u0e14\u0e49\u0e1a\u0e19\u0e17\u0e38\u0e01\u0e27\u0e34\u0e14\u0e35\u0e42\u0e2d \u0e25\u0e32\u0e01\u0e40\u0e1e\u0e37\u0e48\u0e2d\u0e40\u0e25\u0e37\u0e48\u0e2d\u0e19\u0e15\u0e33\u0e41\u0e2b\u0e19\u0e48\u0e07 \u0e41\u0e25\u0e30\u0e22\u0e31\u0e07\u0e04\u0e07\u0e41\u0e2a\u0e14\u0e07\u0e41\u0e16\u0e1a\u0e1a\u0e19\u0e23\u0e35\u0e25\u0e2a\u0e4c\u0e2a\u0e31\u0e49\u0e19\u0e46 \u0e2d\u0e35\u0e01\u0e14\u0e49\u0e27\u0e22");
         table.put("Mapping file removed. Open MetaConfig again to see the change.",
@@ -27497,9 +27641,6 @@ public final class L10nTranslations {
                 "Mapping imported: %1$d names. Open MetaConfig again to see them.");
         table.put("Mark a chat seen when you reply",
                 "\u0e17\u0e33\u0e40\u0e04\u0e23\u0e37\u0e48\u0e2d\u0e07\u0e2b\u0e21\u0e32\u0e22\u0e27\u0e48\u0e32\u0e2d\u0e48\u0e32\u0e19\u0e41\u0e0a\u0e17\u0e41\u0e25\u0e49\u0e27\u0e40\u0e21\u0e37\u0e48\u0e2d\u0e04\u0e38\u0e13\u0e15\u0e2d\u0e1a\u0e01\u0e25\u0e31\u0e1a");
-    }
-
-    private static void fillTh17(Map<String, String> table) {
         table.put("Mark as read",
                 "\u0e17\u0e33\u0e40\u0e04\u0e23\u0e37\u0e48\u0e2d\u0e07\u0e2b\u0e21\u0e32\u0e22\u0e27\u0e48\u0e32\u0e2d\u0e48\u0e32\u0e19\u0e41\u0e25\u0e49\u0e27");
         table.put("Mark as read button in chats",
@@ -27526,6 +27667,8 @@ public final class L10nTranslations {
                 "Material You \u0e15\u0e49\u0e2d\u0e07\u0e43\u0e0a\u0e49 Android 12 \u0e02\u0e36\u0e49\u0e19\u0e44\u0e1b \u0e14\u0e31\u0e07\u0e19\u0e31\u0e49\u0e19\u0e08\u0e36\u0e07\u0e08\u0e30\u0e22\u0e31\u0e07\u0e04\u0e07\u0e43\u0e0a\u0e49\u0e2a\u0e35\u0e19\u0e49\u0e33\u0e40\u0e07\u0e34\u0e19\u0e02\u0e2d\u0e07 Instagram");
         table.put("Media ID %1$s",
                 "ID \u0e2a\u0e37\u0e48\u0e2d %1$s");
+        table.put("Media and storage",
+                "\u0e2a\u0e37\u0e48\u0e2d\u0e41\u0e25\u0e30\u0e1e\u0e37\u0e49\u0e19\u0e17\u0e35\u0e48\u0e40\u0e01\u0e47\u0e1a\u0e02\u0e49\u0e2d\u0e21\u0e39\u0e25");
         table.put("Media link",
                 "\u0e25\u0e34\u0e07\u0e01\u0e4c\u0e2a\u0e37\u0e48\u0e2d");
         table.put("Media link copied. It stops working after a few days.",
@@ -27576,8 +27719,8 @@ public final class L10nTranslations {
                 "\u0e22\u0e49\u0e32\u0e22 @%1$s \u0e44\u0e1b\u0e22\u0e31\u0e07 %2$s \u0e41\u0e25\u0e49\u0e27");
         table.put("Moved @%s out of its folder",
                 "\u0e19\u0e33 @%s \u0e2d\u0e2d\u0e01\u0e08\u0e32\u0e01\u0e42\u0e1f\u0e25\u0e40\u0e14\u0e2d\u0e23\u0e4c\u0e41\u0e25\u0e49\u0e27");
-        table.put("Moves a carousel post's page dots onto a round pill at the bottom of its photo or video, with the page you're on in blue.",
-                "\u0e22\u0e49\u0e32\u0e22\u0e08\u0e38\u0e14\u0e1a\u0e2d\u0e01\u0e2b\u0e19\u0e49\u0e32\u0e02\u0e2d\u0e07\u0e42\u0e1e\u0e2a\u0e15\u0e4c\u0e20\u0e32\u0e1e\u0e2b\u0e21\u0e38\u0e19\u0e44\u0e1b\u0e22\u0e31\u0e07\u0e41\u0e16\u0e1a\u0e41\u0e04\u0e1b\u0e0b\u0e39\u0e25\u0e21\u0e19\u0e17\u0e35\u0e48\u0e14\u0e49\u0e32\u0e19\u0e25\u0e48\u0e32\u0e07\u0e02\u0e2d\u0e07\u0e23\u0e39\u0e1b\u0e20\u0e32\u0e1e\u0e2b\u0e23\u0e37\u0e2d\u0e27\u0e34\u0e14\u0e35\u0e42\u0e2d \u0e42\u0e14\u0e22\u0e41\u0e2a\u0e14\u0e07\u0e2b\u0e19\u0e49\u0e32\u0e17\u0e35\u0e48\u0e04\u0e38\u0e13\u0e40\u0e1b\u0e34\u0e14\u0e2d\u0e22\u0e39\u0e48\u0e40\u0e1b\u0e47\u0e19\u0e2a\u0e35\u0e1f\u0e49\u0e32");
+        table.put("Moves a carousel post's page dots onto a round pill at the bottom of its photo or video, with the page you're on in blue. Hold the pill and slide left or right to move through the pages.",
+                "\u0e22\u0e49\u0e32\u0e22\u0e08\u0e38\u0e14\u0e1a\u0e2d\u0e01\u0e2b\u0e19\u0e49\u0e32\u0e02\u0e2d\u0e07\u0e42\u0e1e\u0e2a\u0e15\u0e4c\u0e20\u0e32\u0e1e\u0e2b\u0e21\u0e38\u0e19\u0e44\u0e1b\u0e22\u0e31\u0e07\u0e41\u0e16\u0e1a\u0e41\u0e04\u0e1b\u0e0b\u0e39\u0e25\u0e21\u0e19\u0e17\u0e35\u0e48\u0e14\u0e49\u0e32\u0e19\u0e25\u0e48\u0e32\u0e07\u0e02\u0e2d\u0e07\u0e23\u0e39\u0e1b\u0e20\u0e32\u0e1e\u0e2b\u0e23\u0e37\u0e2d\u0e27\u0e34\u0e14\u0e35\u0e42\u0e2d \u0e42\u0e14\u0e22\u0e41\u0e2a\u0e14\u0e07\u0e2b\u0e19\u0e49\u0e32\u0e17\u0e35\u0e48\u0e04\u0e38\u0e13\u0e40\u0e1b\u0e34\u0e14\u0e2d\u0e22\u0e39\u0e48\u0e40\u0e1b\u0e47\u0e19\u0e2a\u0e35\u0e1f\u0e49\u0e32 \u0e01\u0e14\u0e41\u0e16\u0e1a\u0e41\u0e04\u0e1b\u0e0b\u0e39\u0e25\u0e04\u0e49\u0e32\u0e07\u0e44\u0e27\u0e49\u0e41\u0e25\u0e49\u0e27\u0e40\u0e25\u0e37\u0e48\u0e2d\u0e19\u0e44\u0e1b\u0e17\u0e32\u0e07\u0e0b\u0e49\u0e32\u0e22\u0e2b\u0e23\u0e37\u0e2d\u0e02\u0e27\u0e32\u0e40\u0e1e\u0e37\u0e48\u0e2d\u0e40\u0e1b\u0e25\u0e35\u0e48\u0e22\u0e19\u0e2b\u0e19\u0e49\u0e32");
         table.put("Moves the gallery and microphone buttons off the message bar and into the plus menu. They work as before. Turn it off and they're back the next time a chat opens.",
                 "\u0e22\u0e49\u0e32\u0e22\u0e1b\u0e38\u0e48\u0e21\u0e41\u0e01\u0e25\u0e40\u0e25\u0e2d\u0e23\u0e35\u0e41\u0e25\u0e30\u0e44\u0e21\u0e42\u0e04\u0e23\u0e42\u0e1f\u0e19\u0e2d\u0e2d\u0e01\u0e08\u0e32\u0e01\u0e41\u0e16\u0e1a\u0e02\u0e49\u0e2d\u0e04\u0e27\u0e32\u0e21\u0e40\u0e02\u0e49\u0e32\u0e44\u0e1b\u0e44\u0e27\u0e49\u0e43\u0e19\u0e40\u0e21\u0e19\u0e39\u0e40\u0e04\u0e23\u0e37\u0e48\u0e2d\u0e07\u0e2b\u0e21\u0e32\u0e22\u0e1a\u0e27\u0e01 \u0e42\u0e14\u0e22\u0e22\u0e31\u0e07\u0e04\u0e07\u0e43\u0e0a\u0e49\u0e07\u0e32\u0e19\u0e44\u0e14\u0e49\u0e15\u0e32\u0e21\u0e1b\u0e01\u0e15\u0e34 \u0e40\u0e21\u0e37\u0e48\u0e2d\u0e1b\u0e34\u0e14\u0e2a\u0e27\u0e34\u0e15\u0e0a\u0e4c\u0e19\u0e35\u0e49 \u0e1b\u0e38\u0e48\u0e21\u0e08\u0e30\u0e01\u0e25\u0e31\u0e1a\u0e21\u0e32\u0e41\u0e2a\u0e14\u0e07\u0e43\u0e19\u0e01\u0e32\u0e23\u0e40\u0e1b\u0e34\u0e14\u0e41\u0e0a\u0e17\u0e04\u0e23\u0e31\u0e49\u0e07\u0e16\u0e31\u0e14\u0e44\u0e1b");
         table.put("Mute",
@@ -27610,6 +27753,9 @@ public final class L10nTranslations {
                 "\u0e42\u0e1f\u0e25\u0e40\u0e14\u0e2d\u0e23\u0e4c\u0e43\u0e2b\u0e21\u0e48");
         table.put("New like animations",
                 "New like animations");
+    }
+
+    private static void fillTh18(Map<String, String> table) {
         table.put("New message",
                 "\u0e02\u0e49\u0e2d\u0e04\u0e27\u0e32\u0e21\u0e43\u0e2b\u0e21\u0e48");
         table.put("New message after this reel",
@@ -27620,9 +27766,6 @@ public final class L10nTranslations {
                 "\u0e23\u0e39\u0e1b\u0e42\u0e1b\u0e23\u0e44\u0e1f\u0e25\u0e4c\u0e41\u0e25\u0e30\u0e1b\u0e23\u0e30\u0e27\u0e31\u0e15\u0e34\u0e43\u0e2b\u0e21\u0e48");
         table.put("New story fonts and animations",
                 "New story fonts and animations");
-    }
-
-    private static void fillTh18(Map<String, String> table) {
         table.put("New story timestamp style",
                 "New story timestamp style");
         table.put("Next match",
@@ -27733,6 +27876,9 @@ public final class L10nTranslations {
                 "\u0e41\u0e08\u0e49\u0e07\u0e40\u0e15\u0e37\u0e2d\u0e19\u0e40\u0e21\u0e37\u0e48\u0e2d\u0e21\u0e35\u0e1c\u0e39\u0e49\u0e40\u0e25\u0e34\u0e01\u0e15\u0e34\u0e14\u0e15\u0e32\u0e21");
         table.put("OK",
                 "\u0e15\u0e01\u0e25\u0e07");
+    }
+
+    private static void fillTh19(Map<String, String> table) {
         table.put("Off",
                 "\u0e1b\u0e34\u0e14");
         table.put("Off. It can cover the Home, Reels and Explore tabs for a break after you've spent a while on them.",
@@ -27743,9 +27889,6 @@ public final class L10nTranslations {
                 "\u0e1b\u0e23\u0e30\u0e27\u0e31\u0e15\u0e34\u0e40\u0e14\u0e34\u0e21 %s");
         table.put("Old profile picture, %s",
                 "\u0e23\u0e39\u0e1b\u0e42\u0e1b\u0e23\u0e44\u0e1f\u0e25\u0e4c\u0e40\u0e14\u0e34\u0e21 %s");
-    }
-
-    private static void fillTh19(Map<String, String> table) {
         table.put("On Reels, the tab bar slides away after %1$d seconds without a touch. Tap the bottom edge of the screen, change tab or press Back to bring it back. Restart Instagram after changing it.",
                 "\u0e43\u0e19\u0e23\u0e35\u0e25\u0e2a\u0e4c \u0e41\u0e16\u0e1a\u0e41\u0e17\u0e47\u0e1a\u0e08\u0e30\u0e40\u0e25\u0e37\u0e48\u0e2d\u0e19\u0e2d\u0e2d\u0e01\u0e44\u0e1b\u0e2b\u0e25\u0e31\u0e07\u0e08\u0e32\u0e01 %1$d \u0e27\u0e34\u0e19\u0e32\u0e17\u0e35\u0e42\u0e14\u0e22\u0e44\u0e21\u0e48\u0e21\u0e35\u0e01\u0e32\u0e23\u0e41\u0e15\u0e30\u0e2b\u0e19\u0e49\u0e32\u0e08\u0e2d \u0e41\u0e15\u0e30\u0e02\u0e2d\u0e1a\u0e25\u0e48\u0e32\u0e07\u0e02\u0e2d\u0e07\u0e2b\u0e19\u0e49\u0e32\u0e08\u0e2d \u0e40\u0e1b\u0e25\u0e35\u0e48\u0e22\u0e19\u0e41\u0e17\u0e47\u0e1a \u0e2b\u0e23\u0e37\u0e2d\u0e01\u0e14\u0e1b\u0e38\u0e48\u0e21\u0e22\u0e49\u0e2d\u0e19\u0e01\u0e25\u0e31\u0e1a\u0e40\u0e1e\u0e37\u0e48\u0e2d\u0e40\u0e23\u0e35\u0e22\u0e01\u0e41\u0e16\u0e1a\u0e41\u0e17\u0e47\u0e1a\u0e01\u0e25\u0e31\u0e1a\u0e21\u0e32 \u0e42\u0e1b\u0e23\u0e14\u0e23\u0e35\u0e2a\u0e15\u0e32\u0e23\u0e4c\u0e17 Instagram \u0e2b\u0e25\u0e31\u0e07\u0e08\u0e32\u0e01\u0e40\u0e1b\u0e25\u0e35\u0e48\u0e22\u0e19\u0e01\u0e32\u0e23\u0e15\u0e31\u0e49\u0e07\u0e04\u0e48\u0e32\u0e19\u0e35\u0e49");
         table.put("On a carousel, the download icon saves all of its pages at once instead of asking.",
@@ -27856,6 +27999,9 @@ public final class L10nTranslations {
                 "\u0e01\u0e32\u0e23\u0e40\u0e1b\u0e34\u0e14\u0e41\u0e0a\u0e17\u0e08\u0e30\u0e44\u0e21\u0e48\u0e41\u0e08\u0e49\u0e07\u0e43\u0e2b\u0e49\u0e2d\u0e35\u0e01\u0e1d\u0e48\u0e32\u0e22\u0e17\u0e23\u0e32\u0e1a\u0e27\u0e48\u0e32\u0e04\u0e38\u0e13\u0e44\u0e14\u0e49\u0e2d\u0e48\u0e32\u0e19\u0e02\u0e49\u0e2d\u0e04\u0e27\u0e32\u0e21\u0e02\u0e2d\u0e07\u0e1e\u0e27\u0e01\u0e40\u0e02\u0e32\u0e41\u0e25\u0e49\u0e27 \u0e41\u0e25\u0e30\u0e04\u0e38\u0e13\u0e22\u0e31\u0e07\u0e04\u0e07\u0e40\u0e2b\u0e47\u0e19\u0e40\u0e21\u0e37\u0e48\u0e2d\u0e1e\u0e27\u0e01\u0e40\u0e02\u0e32\u0e2d\u0e48\u0e32\u0e19\u0e02\u0e49\u0e2d\u0e04\u0e27\u0e32\u0e21\u0e02\u0e2d\u0e07\u0e04\u0e38\u0e13 \u0e2b\u0e32\u0e01\u0e15\u0e49\u0e2d\u0e07\u0e01\u0e32\u0e23\u0e43\u0e2b\u0e49\u0e2d\u0e35\u0e01\u0e1d\u0e48\u0e32\u0e22\u0e43\u0e19\u0e41\u0e0a\u0e17\u0e43\u0e14\u0e41\u0e0a\u0e17\u0e2b\u0e19\u0e36\u0e48\u0e07\u0e17\u0e23\u0e32\u0e1a \u0e43\u0e2b\u0e49\u0e41\u0e15\u0e30\u0e41\u0e0a\u0e17\u0e19\u0e31\u0e49\u0e19\u0e04\u0e49\u0e32\u0e07\u0e44\u0e27\u0e49\u0e43\u0e19\u0e2b\u0e19\u0e49\u0e32\u0e23\u0e32\u0e22\u0e01\u0e32\u0e23\u0e02\u0e49\u0e2d\u0e04\u0e27\u0e32\u0e21\u0e41\u0e25\u0e49\u0e27\u0e41\u0e15\u0e30 \"\u0e17\u0e33\u0e40\u0e04\u0e23\u0e37\u0e48\u0e2d\u0e07\u0e2b\u0e21\u0e32\u0e22\u0e27\u0e48\u0e32\u0e2d\u0e48\u0e32\u0e19\u0e41\u0e25\u0e49\u0e27\"");
         table.put("Opening someone's profile takes you on to their posts as a scrolling list of full posts. Go Back for the grid. Your own profile keeps its grid.",
                 "\u0e40\u0e21\u0e37\u0e48\u0e2d\u0e40\u0e1b\u0e34\u0e14\u0e42\u0e1b\u0e23\u0e44\u0e1f\u0e25\u0e4c\u0e02\u0e2d\u0e07\u0e1c\u0e39\u0e49\u0e2d\u0e37\u0e48\u0e19 \u0e08\u0e30\u0e19\u0e33\u0e04\u0e38\u0e13\u0e44\u0e1b\u0e22\u0e31\u0e07\u0e42\u0e1e\u0e2a\u0e15\u0e4c\u0e02\u0e2d\u0e07\u0e1e\u0e27\u0e01\u0e40\u0e02\u0e32\u0e40\u0e1b\u0e47\u0e19\u0e23\u0e32\u0e22\u0e01\u0e32\u0e23\u0e41\u0e1a\u0e1a\u0e40\u0e25\u0e37\u0e48\u0e2d\u0e19\u0e14\u0e39\u0e42\u0e1e\u0e2a\u0e15\u0e4c\u0e41\u0e1a\u0e1a\u0e40\u0e15\u0e47\u0e21 \u0e01\u0e14\u0e1b\u0e38\u0e48\u0e21\u0e22\u0e49\u0e2d\u0e19\u0e01\u0e25\u0e31\u0e1a\u0e40\u0e1e\u0e37\u0e48\u0e2d\u0e14\u0e39\u0e41\u0e1a\u0e1a\u0e15\u0e32\u0e23\u0e32\u0e07 \u0e17\u0e31\u0e49\u0e07\u0e19\u0e35\u0e49\u0e42\u0e1b\u0e23\u0e44\u0e1f\u0e25\u0e4c\u0e02\u0e2d\u0e07\u0e04\u0e38\u0e13\u0e40\u0e2d\u0e07\u0e08\u0e30\u0e22\u0e31\u0e07\u0e04\u0e07\u0e41\u0e2a\u0e14\u0e07\u0e40\u0e1b\u0e47\u0e19\u0e41\u0e1a\u0e1a\u0e15\u0e32\u0e23\u0e32\u0e07");
+    }
+
+    private static void fillTh20(Map<String, String> table) {
         table.put("Opens Home on posts from accounts you follow instead of For you. Tap the top of Home to switch. Restart Instagram to see the change.",
                 "\u0e40\u0e1b\u0e34\u0e14\u0e2b\u0e19\u0e49\u0e32\u0e2b\u0e25\u0e31\u0e01\u0e14\u0e49\u0e27\u0e22\u0e42\u0e1e\u0e2a\u0e15\u0e4c\u0e08\u0e32\u0e01\u0e1a\u0e31\u0e0d\u0e0a\u0e35\u0e17\u0e35\u0e48\u0e04\u0e38\u0e13\u0e01\u0e33\u0e25\u0e31\u0e07\u0e15\u0e34\u0e14\u0e15\u0e32\u0e21\u0e41\u0e17\u0e19\u0e17\u0e35\u0e48\u0e08\u0e30\u0e40\u0e1b\u0e47\u0e19\u0e41\u0e17\u0e47\u0e1a \"\u0e2a\u0e33\u0e2b\u0e23\u0e31\u0e1a\u0e04\u0e38\u0e13\" \u0e41\u0e15\u0e30\u0e17\u0e35\u0e48\u0e14\u0e49\u0e32\u0e19\u0e1a\u0e19\u0e02\u0e2d\u0e07\u0e2b\u0e19\u0e49\u0e32\u0e2b\u0e25\u0e31\u0e01\u0e40\u0e1e\u0e37\u0e48\u0e2d\u0e2a\u0e25\u0e31\u0e1a \u0e23\u0e35\u0e2a\u0e15\u0e32\u0e23\u0e4c\u0e17 Instagram \u0e40\u0e1e\u0e37\u0e48\u0e2d\u0e14\u0e39\u0e01\u0e32\u0e23\u0e40\u0e1b\u0e25\u0e35\u0e48\u0e22\u0e19\u0e41\u0e1b\u0e25\u0e07");
         table.put("Opens Instagram's own Whitehat settings. Its switch lets Instagram trust the certificates installed on this phone for 24 hours, so you can check the app's traffic. Restart Instagram after you turn it on.",
@@ -27866,9 +28012,6 @@ public final class L10nTranslations {
                 "Opens Instagram's own editor for its hidden settings (MetaConfig). A wrong override, which is a changed setting, can break parts of Instagram.");
         table.put("Opens a GitHub report with your versions and settings filled in. Add what happened.",
                 "\u0e40\u0e1b\u0e34\u0e14\u0e23\u0e32\u0e22\u0e07\u0e32\u0e19\u0e1a\u0e19 GitHub \u0e1e\u0e23\u0e49\u0e2d\u0e21\u0e01\u0e23\u0e2d\u0e01\u0e40\u0e27\u0e2d\u0e23\u0e4c\u0e0a\u0e31\u0e19\u0e41\u0e25\u0e30\u0e01\u0e32\u0e23\u0e15\u0e31\u0e49\u0e07\u0e04\u0e48\u0e32\u0e02\u0e2d\u0e07\u0e04\u0e38\u0e13\u0e44\u0e27\u0e49\u0e25\u0e48\u0e27\u0e07\u0e2b\u0e19\u0e49\u0e32 \u0e42\u0e1b\u0e23\u0e14\u0e23\u0e30\u0e1a\u0e38\u0e2a\u0e34\u0e48\u0e07\u0e17\u0e35\u0e48\u0e40\u0e01\u0e34\u0e14\u0e02\u0e36\u0e49\u0e19\u0e40\u0e1e\u0e34\u0e48\u0e21\u0e40\u0e15\u0e34\u0e21");
-    }
-
-    private static void fillTh20(Map<String, String> table) {
         table.put("Orange",
                 "\u0e2a\u0e35\u0e2a\u0e49\u0e21");
         table.put("Overrides cleared. Restart Instagram to apply the change.",
@@ -27979,6 +28122,9 @@ public final class L10nTranslations {
                 "Post a story straight to Highlights");
         table.put("Posted %1$s",
                 "\u0e42\u0e1e\u0e2a\u0e15\u0e4c\u0e40\u0e21\u0e37\u0e48\u0e2d %1$s");
+    }
+
+    private static void fillTh21(Map<String, String> table) {
         table.put("Posts",
                 "\u0e42\u0e1e\u0e2a\u0e15\u0e4c");
         table.put("Posts from @%1$s are hidden",
@@ -27989,9 +28135,6 @@ public final class L10nTranslations {
                 "\u0e42\u0e1e\u0e2a\u0e15\u0e4c\u0e08\u0e32\u0e01\u0e1a\u0e31\u0e0d\u0e0a\u0e35\u0e17\u0e35\u0e48\u0e04\u0e38\u0e13\u0e0b\u0e48\u0e2d\u0e19\u0e44\u0e27\u0e49\u0e08\u0e30\u0e22\u0e31\u0e07\u0e41\u0e2a\u0e14\u0e07\u0e43\u0e19 \"\u0e23\u0e32\u0e22\u0e01\u0e32\u0e23\u0e42\u0e1b\u0e23\u0e14\" \u0e2a\u0e48\u0e27\u0e19 \"\u0e2a\u0e33\u0e2b\u0e23\u0e31\u0e1a\u0e04\u0e38\u0e13\" \u0e41\u0e25\u0e30 \"\u0e01\u0e33\u0e25\u0e31\u0e07\u0e15\u0e34\u0e14\u0e15\u0e32\u0e21\" \u0e08\u0e30\u0e44\u0e21\u0e48\u0e41\u0e2a\u0e14\u0e07\u0e42\u0e1e\u0e2a\u0e15\u0e4c\u0e40\u0e2b\u0e25\u0e48\u0e32\u0e19\u0e31\u0e49\u0e19 \u0e43\u0e2b\u0e49\u0e14\u0e36\u0e07\u0e2b\u0e19\u0e49\u0e32\u0e2b\u0e25\u0e31\u0e01\u0e25\u0e07\u0e40\u0e1e\u0e37\u0e48\u0e2d\u0e23\u0e35\u0e40\u0e1f\u0e23\u0e0a\u0e2b\u0e25\u0e31\u0e07\u0e08\u0e32\u0e01\u0e40\u0e1b\u0e25\u0e35\u0e48\u0e22\u0e19\u0e01\u0e32\u0e23\u0e15\u0e31\u0e49\u0e07\u0e04\u0e48\u0e32\u0e19\u0e35\u0e49");
         table.put("Preparing diagnostic report...",
                 "\u0e01\u0e33\u0e25\u0e31\u0e07\u0e40\u0e15\u0e23\u0e35\u0e22\u0e21\u0e23\u0e32\u0e22\u0e07\u0e32\u0e19\u0e01\u0e32\u0e23\u0e27\u0e34\u0e19\u0e34\u0e08\u0e09\u0e31\u0e22...");
-    }
-
-    private static void fillTh21(Map<String, String> table) {
         table.put("Press and hold a comment that has its own photo, GIF or sticker, and its menu gets Save. Saves the largest size Instagram sent.",
                 "\u0e01\u0e14\u0e04\u0e49\u0e32\u0e07\u0e17\u0e35\u0e48\u0e04\u0e27\u0e32\u0e21\u0e04\u0e34\u0e14\u0e40\u0e2b\u0e47\u0e19\u0e17\u0e35\u0e48\u0e21\u0e35\u0e23\u0e39\u0e1b\u0e20\u0e32\u0e1e GIF \u0e2b\u0e23\u0e37\u0e2d\u0e2a\u0e15\u0e34\u0e01\u0e40\u0e01\u0e2d\u0e23\u0e4c\u0e02\u0e2d\u0e07\u0e15\u0e31\u0e27\u0e40\u0e2d\u0e07 \u0e41\u0e25\u0e49\u0e27\u0e40\u0e21\u0e19\u0e39\u0e08\u0e30\u0e21\u0e35\u0e15\u0e31\u0e27\u0e40\u0e25\u0e37\u0e2d\u0e01 \"\u0e1a\u0e31\u0e19\u0e17\u0e36\u0e01\" \u0e42\u0e14\u0e22\u0e08\u0e30\u0e1a\u0e31\u0e19\u0e17\u0e36\u0e01\u0e02\u0e19\u0e32\u0e14\u0e17\u0e35\u0e48\u0e43\u0e2b\u0e0d\u0e48\u0e17\u0e35\u0e48\u0e2a\u0e38\u0e14\u0e17\u0e35\u0e48 Instagram \u0e2a\u0e48\u0e07\u0e21\u0e32");
         table.put("Press and hold a photo in a feed to see it twice as big around your finger, and slide to look around. Let go to close it. While this is on, it takes the place of Instagram's own long press on a photo.",
@@ -28026,6 +28169,8 @@ public final class L10nTranslations {
                 "\u0e2b\u0e19\u0e49\u0e32\u0e01\u0e48\u0e2d\u0e19\u0e2b\u0e19\u0e49\u0e32");
         table.put("Priority accounts",
                 "\u0e1a\u0e31\u0e0d\u0e0a\u0e35\u0e17\u0e35\u0e48\u0e43\u0e2b\u0e49\u0e04\u0e27\u0e32\u0e21\u0e2a\u0e33\u0e04\u0e31\u0e0d");
+        table.put("Privacy",
+                "\u0e04\u0e27\u0e32\u0e21\u0e40\u0e1b\u0e47\u0e19\u0e2a\u0e48\u0e27\u0e19\u0e15\u0e31\u0e27");
         table.put("Privacy and controls for your chats.",
                 "\u0e04\u0e27\u0e32\u0e21\u0e40\u0e1b\u0e47\u0e19\u0e2a\u0e48\u0e27\u0e19\u0e15\u0e31\u0e27\u0e41\u0e25\u0e30\u0e01\u0e32\u0e23\u0e04\u0e27\u0e1a\u0e04\u0e38\u0e21\u0e2a\u0e33\u0e2b\u0e23\u0e31\u0e1a\u0e41\u0e0a\u0e17\u0e02\u0e2d\u0e07\u0e04\u0e38\u0e13");
         table.put("Profile",
@@ -28100,6 +28245,9 @@ public final class L10nTranslations {
                 "\u0e40\u0e1e\u0e34\u0e48\u0e21\u0e1b\u0e38\u0e48\u0e21\u0e04\u0e27\u0e32\u0e21\u0e40\u0e23\u0e47\u0e27\u0e17\u0e35\u0e48\u0e14\u0e49\u0e32\u0e19\u0e1a\u0e19\u0e02\u0e2d\u0e07\u0e2a\u0e15\u0e2d\u0e23\u0e35\u0e48\u0e27\u0e34\u0e14\u0e35\u0e42\u0e2d \u0e02\u0e49\u0e32\u0e07\u0e08\u0e38\u0e14\u0e2a\u0e32\u0e21\u0e08\u0e38\u0e14 \u0e41\u0e15\u0e30\u0e40\u0e1e\u0e37\u0e48\u0e2d\u0e40\u0e25\u0e37\u0e2d\u0e01 1.5x \u0e41\u0e15\u0e30\u0e2d\u0e35\u0e01\u0e04\u0e23\u0e31\u0e49\u0e07\u0e40\u0e1e\u0e37\u0e48\u0e2d\u0e40\u0e25\u0e37\u0e2d\u0e01 2x \u0e41\u0e25\u0e30\u0e41\u0e15\u0e30\u0e2d\u0e35\u0e01\u0e04\u0e23\u0e31\u0e49\u0e07\u0e2a\u0e33\u0e2b\u0e23\u0e31\u0e1a 1x \u0e2a\u0e15\u0e2d\u0e23\u0e35\u0e48\u0e27\u0e34\u0e14\u0e35\u0e42\u0e2d\u0e16\u0e31\u0e14\u0e44\u0e1b\u0e08\u0e30\u0e04\u0e07\u0e04\u0e27\u0e32\u0e21\u0e40\u0e23\u0e47\u0e27\u0e19\u0e35\u0e49\u0e44\u0e27\u0e49\u0e08\u0e19\u0e01\u0e27\u0e48\u0e32\u0e04\u0e38\u0e13\u0e08\u0e30\u0e40\u0e1b\u0e25\u0e35\u0e48\u0e22\u0e19\u0e2b\u0e23\u0e37\u0e2d\u0e23\u0e35\u0e2a\u0e15\u0e32\u0e23\u0e4c\u0e17 Instagram \u0e2a\u0e48\u0e27\u0e19\u0e42\u0e06\u0e29\u0e13\u0e32\u0e08\u0e30\u0e40\u0e25\u0e48\u0e19\u0e17\u0e35\u0e48\u0e04\u0e27\u0e32\u0e21\u0e40\u0e23\u0e47\u0e27\u0e1b\u0e01\u0e15\u0e34");
         table.put("Puts a speed icon beside a reel. Tap it to pick a speed from 0.5x to 3x. With Keep the reel speed on, the next reels play at it too.",
                 "\u0e41\u0e2a\u0e14\u0e07\u0e44\u0e2d\u0e04\u0e2d\u0e19\u0e04\u0e27\u0e32\u0e21\u0e40\u0e23\u0e47\u0e27\u0e02\u0e49\u0e32\u0e07\u0e23\u0e35\u0e25\u0e2a\u0e4c \u0e41\u0e15\u0e30\u0e40\u0e1e\u0e37\u0e48\u0e2d\u0e40\u0e25\u0e37\u0e2d\u0e01\u0e04\u0e27\u0e32\u0e21\u0e40\u0e23\u0e47\u0e27\u0e15\u0e31\u0e49\u0e07\u0e41\u0e15\u0e48 0.5x \u0e16\u0e36\u0e07 3x \u0e2b\u0e32\u0e01\u0e40\u0e1b\u0e34\u0e14 \"\u0e04\u0e07\u0e04\u0e27\u0e32\u0e21\u0e40\u0e23\u0e47\u0e27\u0e02\u0e2d\u0e07\u0e23\u0e35\u0e25\u0e2a\u0e4c\u0e44\u0e27\u0e49\" \u0e23\u0e35\u0e25\u0e2a\u0e4c\u0e16\u0e31\u0e14\u0e44\u0e1b\u0e01\u0e47\u0e08\u0e30\u0e40\u0e25\u0e48\u0e19\u0e14\u0e49\u0e27\u0e22\u0e04\u0e27\u0e32\u0e21\u0e40\u0e23\u0e47\u0e27\u0e19\u0e35\u0e49\u0e40\u0e0a\u0e48\u0e19\u0e01\u0e31\u0e19");
+    }
+
+    private static void fillTh22(Map<String, String> table) {
         table.put("Puts an (i) next to the three dots on a profile that opens Instagram's About this account for that account. Instagram took its own away.",
                 "\u0e41\u0e2a\u0e14\u0e07\u0e44\u0e2d\u0e04\u0e2d\u0e19 (i) \u0e02\u0e49\u0e32\u0e07\u0e08\u0e38\u0e14\u0e2a\u0e32\u0e21\u0e08\u0e38\u0e14\u0e1a\u0e19\u0e42\u0e1b\u0e23\u0e44\u0e1f\u0e25\u0e4c\u0e40\u0e1e\u0e37\u0e48\u0e2d\u0e40\u0e1b\u0e34\u0e14 \"\u0e40\u0e01\u0e35\u0e48\u0e22\u0e27\u0e01\u0e31\u0e1a\u0e1a\u0e31\u0e0d\u0e0a\u0e35\u0e19\u0e35\u0e49\" \u0e02\u0e2d\u0e07 Instagram \u0e2a\u0e33\u0e2b\u0e23\u0e31\u0e1a\u0e1a\u0e31\u0e0d\u0e0a\u0e35\u0e19\u0e31\u0e49\u0e19 \u0e2b\u0e25\u0e31\u0e07\u0e08\u0e32\u0e01\u0e17\u0e35\u0e48 Instagram \u0e44\u0e14\u0e49\u0e19\u0e33\u0e1b\u0e38\u0e48\u0e21\u0e40\u0e14\u0e34\u0e21\u0e2d\u0e2d\u0e01\u0e44\u0e1b");
         table.put("Puts back the overrides saved before your last import for this account and Instagram version.",
@@ -28112,9 +28260,6 @@ public final class L10nTranslations {
                 "\u0e41\u0e2a\u0e14\u0e07\u0e04\u0e33\u0e15\u0e2d\u0e1a\u0e40\u0e1b\u0e47\u0e19\u0e0a\u0e34\u0e1b\u0e43\u0e15\u0e49\u0e08\u0e33\u0e19\u0e27\u0e19\u0e42\u0e1e\u0e2a\u0e15\u0e4c \u0e1c\u0e39\u0e49\u0e15\u0e34\u0e14\u0e15\u0e32\u0e21 \u0e41\u0e25\u0e30\u0e01\u0e33\u0e25\u0e31\u0e07\u0e15\u0e34\u0e14\u0e15\u0e32\u0e21\u0e02\u0e2d\u0e07\u0e42\u0e1b\u0e23\u0e44\u0e1f\u0e25\u0e4c\u0e41\u0e17\u0e19 \u0e41\u0e25\u0e30\u0e08\u0e30\u0e41\u0e2a\u0e14\u0e07\u0e27\u0e48\u0e32 \"\u0e01\u0e33\u0e25\u0e31\u0e07\u0e15\u0e34\u0e14\u0e15\u0e32\u0e21\u0e0b\u0e36\u0e48\u0e07\u0e01\u0e31\u0e19\u0e41\u0e25\u0e30\u0e01\u0e31\u0e19\" \u0e40\u0e21\u0e37\u0e48\u0e2d\u0e04\u0e38\u0e13\u0e15\u0e34\u0e14\u0e15\u0e32\u0e21\u0e1e\u0e27\u0e01\u0e40\u0e02\u0e32\u0e01\u0e25\u0e31\u0e1a\u0e14\u0e49\u0e27\u0e22");
         table.put("Puts the seek bar right on the bottom edge of the video, so it's harder to touch by accident while you scroll.",
                 "\u0e27\u0e32\u0e07\u0e41\u0e16\u0e1a\u0e40\u0e25\u0e37\u0e48\u0e2d\u0e19\u0e40\u0e27\u0e25\u0e32\u0e44\u0e27\u0e49\u0e17\u0e35\u0e48\u0e02\u0e2d\u0e1a\u0e14\u0e49\u0e32\u0e19\u0e25\u0e48\u0e32\u0e07\u0e2a\u0e38\u0e14\u0e02\u0e2d\u0e07\u0e27\u0e34\u0e14\u0e35\u0e42\u0e2d \u0e40\u0e1e\u0e37\u0e48\u0e2d\u0e25\u0e14\u0e42\u0e2d\u0e01\u0e32\u0e2a\u0e2a\u0e31\u0e21\u0e1c\u0e31\u0e2a\u0e42\u0e14\u0e22\u0e44\u0e21\u0e48\u0e44\u0e14\u0e49\u0e15\u0e31\u0e49\u0e07\u0e43\u0e08\u0e02\u0e13\u0e30\u0e17\u0e35\u0e48\u0e04\u0e38\u0e13\u0e40\u0e25\u0e37\u0e48\u0e2d\u0e19\u0e14\u0e39");
-    }
-
-    private static void fillTh22(Map<String, String> table) {
         table.put("Puts the title in the middle of the bar at the top of other screens, like notifications, as far as the buttons beside it allow. The buttons stay where they are.",
                 "\u0e27\u0e32\u0e07\u0e0a\u0e37\u0e48\u0e2d\u0e40\u0e23\u0e37\u0e48\u0e2d\u0e07\u0e44\u0e27\u0e49\u0e15\u0e23\u0e07\u0e01\u0e25\u0e32\u0e07\u0e41\u0e16\u0e1a\u0e14\u0e49\u0e32\u0e19\u0e1a\u0e19\u0e02\u0e2d\u0e07\u0e2b\u0e19\u0e49\u0e32\u0e08\u0e2d\u0e2d\u0e37\u0e48\u0e19\u0e46 \u0e40\u0e0a\u0e48\u0e19 \u0e01\u0e32\u0e23\u0e41\u0e08\u0e49\u0e07\u0e40\u0e15\u0e37\u0e2d\u0e19 \u0e40\u0e17\u0e48\u0e32\u0e17\u0e35\u0e48\u0e1b\u0e38\u0e48\u0e21\u0e14\u0e49\u0e32\u0e19\u0e02\u0e49\u0e32\u0e07\u0e08\u0e30\u0e40\u0e2d\u0e37\u0e49\u0e2d\u0e2d\u0e33\u0e19\u0e27\u0e22 \u0e42\u0e14\u0e22\u0e1b\u0e38\u0e48\u0e21\u0e15\u0e48\u0e32\u0e07\u0e46 \u0e08\u0e30\u0e22\u0e31\u0e07\u0e04\u0e07\u0e2d\u0e22\u0e39\u0e48\u0e17\u0e35\u0e48\u0e40\u0e14\u0e34\u0e21");
         table.put("Puts the username in the middle of the bar at the top of a profile, yours and other people's. The buttons stay where they are.",
@@ -28223,6 +28368,9 @@ public final class L10nTranslations {
                 "\u0e25\u0e1a\u0e42\u0e1e\u0e2a\u0e15\u0e4c\u0e17\u0e35\u0e48\u0e21\u0e35\u0e23\u0e39\u0e1b\u0e20\u0e32\u0e1e\u0e40\u0e14\u0e35\u0e48\u0e22\u0e27\u0e17\u0e31\u0e49\u0e07\u0e2b\u0e21\u0e14\u0e2d\u0e2d\u0e01\u0e08\u0e32\u0e01\u0e2b\u0e19\u0e49\u0e32\u0e2b\u0e25\u0e31\u0e01 \u0e41\u0e21\u0e49\u0e08\u0e30\u0e21\u0e32\u0e08\u0e32\u0e01\u0e1a\u0e31\u0e0d\u0e0a\u0e35\u0e17\u0e35\u0e48\u0e04\u0e38\u0e13\u0e01\u0e33\u0e25\u0e31\u0e07\u0e15\u0e34\u0e14\u0e15\u0e32\u0e21\u0e2d\u0e22\u0e39\u0e48\u0e01\u0e47\u0e15\u0e32\u0e21 \u0e43\u0e2b\u0e49\u0e14\u0e36\u0e07\u0e2b\u0e19\u0e49\u0e32\u0e2b\u0e25\u0e31\u0e01\u0e25\u0e07\u0e40\u0e1e\u0e37\u0e48\u0e2d\u0e23\u0e35\u0e40\u0e1f\u0e23\u0e0a\u0e2b\u0e25\u0e31\u0e07\u0e08\u0e32\u0e01\u0e40\u0e1b\u0e25\u0e35\u0e48\u0e22\u0e19\u0e01\u0e32\u0e23\u0e15\u0e31\u0e49\u0e07\u0e04\u0e48\u0e32\u0e19\u0e35\u0e49");
         table.put("Removes every single-video post and reel from Home, even from accounts you follow. Pull down on Home to refresh after changing it.",
                 "\u0e25\u0e1a\u0e42\u0e1e\u0e2a\u0e15\u0e4c\u0e17\u0e35\u0e48\u0e21\u0e35\u0e27\u0e34\u0e14\u0e35\u0e42\u0e2d\u0e40\u0e14\u0e35\u0e48\u0e22\u0e27\u0e41\u0e25\u0e30\u0e23\u0e35\u0e25\u0e2a\u0e4c\u0e17\u0e31\u0e49\u0e07\u0e2b\u0e21\u0e14\u0e2d\u0e2d\u0e01\u0e08\u0e32\u0e01\u0e2b\u0e19\u0e49\u0e32\u0e2b\u0e25\u0e31\u0e01 \u0e41\u0e21\u0e49\u0e08\u0e30\u0e21\u0e32\u0e08\u0e32\u0e01\u0e1a\u0e31\u0e0d\u0e0a\u0e35\u0e17\u0e35\u0e48\u0e04\u0e38\u0e13\u0e01\u0e33\u0e25\u0e31\u0e07\u0e15\u0e34\u0e14\u0e15\u0e32\u0e21\u0e2d\u0e22\u0e39\u0e48\u0e01\u0e47\u0e15\u0e32\u0e21 \u0e43\u0e2b\u0e49\u0e14\u0e36\u0e07\u0e2b\u0e19\u0e49\u0e32\u0e2b\u0e25\u0e31\u0e01\u0e25\u0e07\u0e40\u0e1e\u0e37\u0e48\u0e2d\u0e23\u0e35\u0e40\u0e1f\u0e23\u0e0a\u0e2b\u0e25\u0e31\u0e07\u0e08\u0e32\u0e01\u0e40\u0e1b\u0e25\u0e35\u0e48\u0e22\u0e19\u0e01\u0e32\u0e23\u0e15\u0e31\u0e49\u0e07\u0e04\u0e48\u0e32\u0e19\u0e35\u0e49");
+    }
+
+    private static void fillTh23(Map<String, String> table) {
         table.put("Removes posts by business and creator accounts from Home and Following, friends who use one included. Pull down on Home to refresh after changing it.",
                 "\u0e25\u0e1a\u0e42\u0e1e\u0e2a\u0e15\u0e4c\u0e08\u0e32\u0e01\u0e1a\u0e31\u0e0d\u0e0a\u0e35\u0e18\u0e38\u0e23\u0e01\u0e34\u0e08\u0e41\u0e25\u0e30\u0e1a\u0e31\u0e0d\u0e0a\u0e35\u0e04\u0e23\u0e35\u0e40\u0e2d\u0e40\u0e15\u0e2d\u0e23\u0e4c\u0e2d\u0e2d\u0e01\u0e08\u0e32\u0e01\u0e2b\u0e19\u0e49\u0e32\u0e2b\u0e25\u0e31\u0e01\u0e41\u0e25\u0e30 \"\u0e01\u0e33\u0e25\u0e31\u0e07\u0e15\u0e34\u0e14\u0e15\u0e32\u0e21\" \u0e23\u0e27\u0e21\u0e16\u0e36\u0e07\u0e40\u0e1e\u0e37\u0e48\u0e2d\u0e19\u0e17\u0e35\u0e48\u0e43\u0e0a\u0e49\u0e1a\u0e31\u0e0d\u0e0a\u0e35\u0e1b\u0e23\u0e30\u0e40\u0e20\u0e17\u0e19\u0e35\u0e49 \u0e43\u0e2b\u0e49\u0e14\u0e36\u0e07\u0e2b\u0e19\u0e49\u0e32\u0e2b\u0e25\u0e31\u0e01\u0e25\u0e07\u0e40\u0e1e\u0e37\u0e48\u0e2d\u0e23\u0e35\u0e40\u0e1f\u0e23\u0e0a\u0e2b\u0e25\u0e31\u0e07\u0e08\u0e32\u0e01\u0e40\u0e1b\u0e25\u0e35\u0e48\u0e22\u0e19\u0e01\u0e32\u0e23\u0e15\u0e31\u0e49\u0e07\u0e04\u0e48\u0e32\u0e19\u0e35\u0e49");
         table.put("Removes posts you've already liked from Home and Following. A post you like now stays until you pull down on Home to refresh.",
@@ -28235,9 +28383,6 @@ public final class L10nTranslations {
                 "\u0e25\u0e1a\u0e1b\u0e38\u0e48\u0e21 Muse \u0e2d\u0e2d\u0e01\u0e08\u0e32\u0e01\u0e41\u0e16\u0e1a\u0e14\u0e49\u0e32\u0e19\u0e1a\u0e19\u0e02\u0e2d\u0e07\u0e42\u0e1b\u0e23\u0e44\u0e1f\u0e25\u0e4c \u0e0a\u0e37\u0e48\u0e2d\u0e1c\u0e39\u0e49\u0e43\u0e0a\u0e49\u0e41\u0e25\u0e30\u0e40\u0e21\u0e19\u0e39\u0e02\u0e2d\u0e07\u0e04\u0e38\u0e13\u0e08\u0e30\u0e22\u0e31\u0e07\u0e04\u0e07\u0e2d\u0e22\u0e39\u0e48");
         table.put("Removes the empty gap under Instagram's tab bar that appears when your phone hides its navigation bar or Instagram is in a pop-up window. Restart Instagram to see the change.",
                 "\u0e25\u0e1a\u0e0a\u0e48\u0e2d\u0e07\u0e27\u0e48\u0e32\u0e07\u0e43\u0e15\u0e49\u0e41\u0e16\u0e1a\u0e41\u0e17\u0e47\u0e1a\u0e02\u0e2d\u0e07 Instagram \u0e17\u0e35\u0e48\u0e1b\u0e23\u0e32\u0e01\u0e0f\u0e40\u0e21\u0e37\u0e48\u0e2d\u0e42\u0e17\u0e23\u0e28\u0e31\u0e1e\u0e17\u0e4c\u0e02\u0e2d\u0e07\u0e04\u0e38\u0e13\u0e0b\u0e48\u0e2d\u0e19\u0e41\u0e16\u0e1a\u0e01\u0e32\u0e23\u0e19\u0e33\u0e17\u0e32\u0e07 \u0e2b\u0e23\u0e37\u0e2d\u0e40\u0e21\u0e37\u0e48\u0e2d Instagram \u0e2d\u0e22\u0e39\u0e48\u0e43\u0e19\u0e2b\u0e19\u0e49\u0e32\u0e15\u0e48\u0e32\u0e07\u0e1b\u0e4a\u0e2d\u0e1b\u0e2d\u0e31\u0e1b \u0e42\u0e1b\u0e23\u0e14\u0e23\u0e35\u0e2a\u0e15\u0e32\u0e23\u0e4c\u0e17 Instagram \u0e40\u0e1e\u0e37\u0e48\u0e2d\u0e14\u0e39\u0e01\u0e32\u0e23\u0e40\u0e1b\u0e25\u0e35\u0e48\u0e22\u0e19\u0e41\u0e1b\u0e25\u0e07");
-    }
-
-    private static void fillTh23(Map<String, String> table) {
         table.put("Removes the stack of Instants (quick photos from friends) from your messages. Restart Instagram to see the change.",
                 "\u0e19\u0e33\u0e0a\u0e38\u0e14 Instants (\u0e23\u0e39\u0e1b\u0e16\u0e48\u0e32\u0e22\u0e14\u0e48\u0e27\u0e19\u0e08\u0e32\u0e01\u0e40\u0e1e\u0e37\u0e48\u0e2d\u0e19) \u0e2d\u0e2d\u0e01\u0e08\u0e32\u0e01\u0e02\u0e49\u0e2d\u0e04\u0e27\u0e32\u0e21\u0e02\u0e2d\u0e07\u0e04\u0e38\u0e13 \u0e23\u0e35\u0e2a\u0e15\u0e32\u0e23\u0e4c\u0e17 Instagram \u0e40\u0e1e\u0e37\u0e48\u0e2d\u0e14\u0e39\u0e01\u0e32\u0e23\u0e40\u0e1b\u0e25\u0e35\u0e48\u0e22\u0e19\u0e41\u0e1b\u0e25\u0e07");
         table.put("Removes the summary, Sources and Ask Meta AI box from a reel's more menu. In your feed the audio row goes too. Other options stay.",
@@ -28346,6 +28491,9 @@ public final class L10nTranslations {
                 "\u0e1a\u0e31\u0e19\u0e17\u0e36\u0e01\u0e27\u0e34\u0e14\u0e35\u0e42\u0e2d\u0e40\u0e1b\u0e47\u0e19 MKV");
         table.put("Save videos other apps can open",
                 "\u0e1a\u0e31\u0e19\u0e17\u0e36\u0e01\u0e27\u0e34\u0e14\u0e35\u0e42\u0e2d\u0e17\u0e35\u0e48\u0e41\u0e2d\u0e1b\u0e2d\u0e37\u0e48\u0e19\u0e2a\u0e32\u0e21\u0e32\u0e23\u0e16\u0e40\u0e1b\u0e34\u0e14\u0e44\u0e14\u0e49");
+    }
+
+    private static void fillTh24(Map<String, String> table) {
         table.put("Save your HushGram choices to a file, or bring them back.",
                 "\u0e1a\u0e31\u0e19\u0e17\u0e36\u0e01\u0e01\u0e32\u0e23\u0e15\u0e31\u0e49\u0e07\u0e04\u0e48\u0e32\u0e15\u0e31\u0e27\u0e40\u0e25\u0e37\u0e2d\u0e01 HushGram \u0e02\u0e2d\u0e07\u0e04\u0e38\u0e13\u0e25\u0e07\u0e43\u0e19\u0e44\u0e1f\u0e25\u0e4c \u0e2b\u0e23\u0e37\u0e2d\u0e01\u0e39\u0e49\u0e04\u0e37\u0e19\u0e01\u0e25\u0e31\u0e1a\u0e21\u0e32");
         table.put("Saved",
@@ -28358,9 +28506,6 @@ public final class L10nTranslations {
                 "\u0e1a\u0e31\u0e19\u0e17\u0e36\u0e01 @%s \u0e41\u0e25\u0e49\u0e27");
         table.put("Saved and everything in it stay covered until your fingerprint, face or screen lock says it's you.",
                 "\"\u0e1a\u0e31\u0e19\u0e17\u0e36\u0e01\u0e41\u0e25\u0e49\u0e27\" \u0e41\u0e25\u0e30\u0e17\u0e38\u0e01\u0e2d\u0e22\u0e48\u0e32\u0e07\u0e43\u0e19\u0e19\u0e31\u0e49\u0e19\u0e08\u0e30\u0e16\u0e39\u0e01\u0e1b\u0e34\u0e14\u0e01\u0e31\u0e49\u0e19\u0e44\u0e27\u0e49\u0e08\u0e19\u0e01\u0e27\u0e48\u0e32\u0e25\u0e32\u0e22\u0e19\u0e34\u0e49\u0e27\u0e21\u0e37\u0e2d \u0e43\u0e1a\u0e2b\u0e19\u0e49\u0e32 \u0e2b\u0e23\u0e37\u0e2d\u0e01\u0e32\u0e23\u0e25\u0e47\u0e2d\u0e01\u0e2b\u0e19\u0e49\u0e32\u0e08\u0e2d\u0e08\u0e30\u0e22\u0e37\u0e19\u0e22\u0e31\u0e19\u0e15\u0e31\u0e27\u0e15\u0e19\u0e02\u0e2d\u0e07\u0e04\u0e38\u0e13");
-    }
-
-    private static void fillTh24(Map<String, String> table) {
         table.put("Saved button in Explore",
                 "Saved button in Explore");
         table.put("Saved is locked",
@@ -28469,6 +28614,9 @@ public final class L10nTranslations {
                 "\u0e23\u0e30\u0e07\u0e31\u0e1a\u0e2a\u0e16\u0e32\u0e19\u0e30\u0e2d\u0e48\u0e32\u0e19\u0e41\u0e25\u0e49\u0e27\u0e43\u0e19\u0e41\u0e0a\u0e17\u0e19\u0e35\u0e49\u0e41\u0e25\u0e49\u0e27");
         table.put("Select text",
                 "\u0e40\u0e25\u0e37\u0e2d\u0e01\u0e02\u0e49\u0e2d\u0e04\u0e27\u0e32\u0e21");
+    }
+
+    private static void fillTh25(Map<String, String> table) {
         table.put("Select text to copy",
                 "\u0e40\u0e25\u0e37\u0e2d\u0e01\u0e02\u0e49\u0e2d\u0e04\u0e27\u0e32\u0e21\u0e40\u0e1e\u0e37\u0e48\u0e2d\u0e04\u0e31\u0e14\u0e25\u0e2d\u0e01");
         table.put("Send",
@@ -28481,9 +28629,6 @@ public final class L10nTranslations {
                 "Send stories with a long press");
         table.put("Send to",
                 "\u0e2a\u0e48\u0e07\u0e44\u0e1b\u0e17\u0e35\u0e48");
-    }
-
-    private static void fillTh25(Map<String, String> table) {
         table.put("Sending a message in a chat lets the other person see that you've read what they sent before it. Chats you don't answer stay unseen to them.",
                 "\u0e01\u0e32\u0e23\u0e2a\u0e48\u0e07\u0e02\u0e49\u0e2d\u0e04\u0e27\u0e32\u0e21\u0e43\u0e19\u0e41\u0e0a\u0e17\u0e08\u0e30\u0e17\u0e33\u0e43\u0e2b\u0e49\u0e2d\u0e35\u0e01\u0e1d\u0e48\u0e32\u0e22\u0e40\u0e2b\u0e47\u0e19\u0e27\u0e48\u0e32\u0e04\u0e38\u0e13\u0e44\u0e14\u0e49\u0e2d\u0e48\u0e32\u0e19\u0e02\u0e49\u0e2d\u0e04\u0e27\u0e32\u0e21\u0e17\u0e35\u0e48\u0e1e\u0e27\u0e01\u0e40\u0e02\u0e32\u0e2a\u0e48\u0e07\u0e21\u0e32\u0e01\u0e48\u0e2d\u0e19\u0e2b\u0e19\u0e49\u0e32\u0e19\u0e31\u0e49\u0e19\u0e41\u0e25\u0e49\u0e27 \u0e2a\u0e48\u0e27\u0e19\u0e41\u0e0a\u0e17\u0e17\u0e35\u0e48\u0e04\u0e38\u0e13\u0e44\u0e21\u0e48\u0e44\u0e14\u0e49\u0e15\u0e2d\u0e1a\u0e01\u0e25\u0e31\u0e1a\u0e08\u0e30\u0e22\u0e31\u0e07\u0e04\u0e07\u0e44\u0e21\u0e48\u0e02\u0e36\u0e49\u0e19\u0e27\u0e48\u0e32\u0e2d\u0e48\u0e32\u0e19\u0e41\u0e25\u0e49\u0e27\u0e2a\u0e33\u0e2b\u0e23\u0e31\u0e1a\u0e1e\u0e27\u0e01\u0e40\u0e02\u0e32");
         table.put("Sends Instagram through the HTTP proxy set below. Other apps and your phone's own settings aren't changed.",
@@ -28592,6 +28737,9 @@ public final class L10nTranslations {
                 "\u0e41\u0e2a\u0e14\u0e07\u0e41\u0e16\u0e1a\u0e43\u0e01\u0e25\u0e49\u0e01\u0e31\u0e1a\u0e14\u0e49\u0e32\u0e19\u0e25\u0e48\u0e32\u0e07\u0e02\u0e2d\u0e07\u0e2a\u0e15\u0e2d\u0e23\u0e35\u0e48\u0e17\u0e35\u0e48\u0e40\u0e1b\u0e47\u0e19\u0e27\u0e34\u0e14\u0e35\u0e42\u0e2d \u0e25\u0e32\u0e01\u0e41\u0e16\u0e1a\u0e19\u0e35\u0e49\u0e40\u0e1e\u0e37\u0e48\u0e2d\u0e02\u0e49\u0e32\u0e21\u0e44\u0e1b\u0e22\u0e31\u0e07\u0e08\u0e38\u0e14\u0e43\u0e14\u0e01\u0e47\u0e44\u0e14\u0e49\u0e43\u0e19\u0e27\u0e34\u0e14\u0e35\u0e42\u0e2d \u0e2a\u0e33\u0e2b\u0e23\u0e31\u0e1a\u0e23\u0e39\u0e1b\u0e20\u0e32\u0e1e\u0e08\u0e30\u0e44\u0e21\u0e48\u0e21\u0e35\u0e41\u0e16\u0e1a\u0e19\u0e35\u0e49");
         table.put("Shows a blurred preview of a disappearing photo or video in a chat.",
                 "Shows a blurred preview of a disappearing photo or video in a chat.");
+    }
+
+    private static void fillTh26(Map<String, String> table) {
         table.put("Shows a handle at the right edge of Saved and your collections while they scroll. Drag it to jump through them.",
                 "\u0e41\u0e2a\u0e14\u0e07\u0e17\u0e35\u0e48\u0e08\u0e31\u0e1a\u0e17\u0e35\u0e48\u0e02\u0e2d\u0e1a\u0e02\u0e27\u0e32\u0e02\u0e2d\u0e07 \"\u0e1a\u0e31\u0e19\u0e17\u0e36\u0e01\u0e41\u0e25\u0e49\u0e27\" \u0e41\u0e25\u0e30\u0e04\u0e2d\u0e25\u0e40\u0e25\u0e01\u0e0a\u0e31\u0e19\u0e02\u0e2d\u0e07\u0e04\u0e38\u0e13\u0e02\u0e13\u0e30\u0e40\u0e25\u0e37\u0e48\u0e2d\u0e19 \u0e25\u0e32\u0e01\u0e40\u0e1e\u0e37\u0e48\u0e2d\u0e02\u0e49\u0e32\u0e21\u0e44\u0e1b\u0e2d\u0e22\u0e48\u0e32\u0e07\u0e23\u0e27\u0e14\u0e40\u0e23\u0e47\u0e27");
         table.put("Shows each switch by its name alone. Tap the i next to a name to read what it does.",
@@ -28604,9 +28752,6 @@ public final class L10nTranslations {
                 "Shows the Import and Restore rows. An import changes Instagram's hidden settings for this signed-in account.");
         table.put("Shows the date and time a reel was posted under the author's name, like Oct 2, 3:45 PM. A change shows from the next reel.",
                 "\u0e41\u0e2a\u0e14\u0e07\u0e27\u0e31\u0e19\u0e17\u0e35\u0e48\u0e41\u0e25\u0e30\u0e40\u0e27\u0e25\u0e32\u0e17\u0e35\u0e48\u0e42\u0e1e\u0e2a\u0e15\u0e4c\u0e23\u0e35\u0e25\u0e2a\u0e4c\u0e44\u0e27\u0e49\u0e43\u0e15\u0e49\u0e0a\u0e37\u0e48\u0e2d\u0e1c\u0e39\u0e49\u0e2a\u0e23\u0e49\u0e32\u0e07 \u0e40\u0e0a\u0e48\u0e19 2 \u0e15.\u0e04. 15:45 \u0e19. \u0e01\u0e32\u0e23\u0e40\u0e1b\u0e25\u0e35\u0e48\u0e22\u0e19\u0e41\u0e1b\u0e25\u0e07\u0e08\u0e30\u0e21\u0e35\u0e1c\u0e25\u0e15\u0e31\u0e49\u0e07\u0e41\u0e15\u0e48\u0e23\u0e35\u0e25\u0e2a\u0e4c\u0e16\u0e31\u0e14\u0e44\u0e1b");
-    }
-
-    private static void fillTh26(Map<String, String> table) {
         table.put("Shows the days, hours and minutes since it went up on a line under the time, like 1d 2h 5m ago.",
                 "\u0e41\u0e2a\u0e14\u0e07\u0e08\u0e33\u0e19\u0e27\u0e19\u0e27\u0e31\u0e19 \u0e0a\u0e31\u0e48\u0e27\u0e42\u0e21\u0e07 \u0e41\u0e25\u0e30\u0e19\u0e32\u0e17\u0e35\u0e15\u0e31\u0e49\u0e07\u0e41\u0e15\u0e48\u0e42\u0e1e\u0e2a\u0e15\u0e4c\u0e04\u0e25\u0e34\u0e1b\u0e43\u0e19\u0e1a\u0e23\u0e23\u0e17\u0e31\u0e14\u0e43\u0e15\u0e49\u0e40\u0e27\u0e25\u0e32 \u0e40\u0e0a\u0e48\u0e19 1d 2h 5m ago");
         table.put("Shows the time above your finger while you drag a seek bar on a feed video, story or reel, and a small picture of that moment when Instagram has one for the video.",
@@ -28617,6 +28762,8 @@ public final class L10nTranslations {
                 "\u0e41\u0e2a\u0e14\u0e07\u0e40\u0e27\u0e25\u0e32\u0e17\u0e35\u0e48\u0e42\u0e1e\u0e2a\u0e15\u0e4c\u0e41\u0e25\u0e30\u0e04\u0e27\u0e32\u0e21\u0e04\u0e34\u0e14\u0e40\u0e2b\u0e47\u0e19\u0e16\u0e39\u0e01\u0e42\u0e1e\u0e2a\u0e15\u0e4c \u0e40\u0e0a\u0e48\u0e19 2 \u0e15.\u0e04. 15:45 \u0e19. \u0e41\u0e17\u0e19\u0e17\u0e35\u0e48\u0e08\u0e30\u0e41\u0e2a\u0e14\u0e07\u0e27\u0e48\u0e32\u0e1c\u0e48\u0e32\u0e19\u0e21\u0e32\u0e19\u0e32\u0e19\u0e40\u0e17\u0e48\u0e32\u0e43\u0e14\u0e41\u0e25\u0e49\u0e27 \u0e42\u0e1e\u0e2a\u0e15\u0e4c\u0e17\u0e35\u0e48\u0e04\u0e38\u0e13\u0e42\u0e2b\u0e25\u0e14\u0e2b\u0e25\u0e31\u0e07\u0e08\u0e32\u0e01\u0e01\u0e32\u0e23\u0e40\u0e1b\u0e25\u0e35\u0e48\u0e22\u0e19\u0e41\u0e1b\u0e25\u0e07\u0e08\u0e30\u0e41\u0e2a\u0e14\u0e07\u0e40\u0e27\u0e25\u0e32\u0e19\u0e35\u0e49");
         table.put("Shows your feed blurred under Home's top bar, like frosted glass.",
                 "\u0e41\u0e2a\u0e14\u0e07\u0e1f\u0e35\u0e14\u0e02\u0e2d\u0e07\u0e04\u0e38\u0e13\u0e41\u0e1a\u0e1a\u0e40\u0e1a\u0e25\u0e2d\u0e43\u0e15\u0e49\u0e41\u0e16\u0e1a\u0e14\u0e49\u0e32\u0e19\u0e1a\u0e19\u0e02\u0e2d\u0e07\u0e2b\u0e19\u0e49\u0e32\u0e2b\u0e25\u0e31\u0e01 \u0e04\u0e25\u0e49\u0e32\u0e22\u0e01\u0e31\u0e1a\u0e01\u0e23\u0e30\u0e08\u0e01\u0e1d\u0e49\u0e32");
+        table.put("Shrink the pill as you scroll",
+                "\u0e22\u0e48\u0e2d\u0e41\u0e16\u0e1a\u0e41\u0e04\u0e1b\u0e0b\u0e39\u0e25\u0e02\u0e13\u0e30\u0e40\u0e25\u0e37\u0e48\u0e2d\u0e19\u0e2b\u0e19\u0e49\u0e32\u0e08\u0e2d");
         table.put("Size %1$d \u00d7 %2$d",
                 "\u0e02\u0e19\u0e32\u0e14 %1$d \u00d7 %2$d");
         table.put("Skip length",
@@ -28713,6 +28860,9 @@ public final class L10nTranslations {
                 "\u0e22\u0e31\u0e07\u0e04\u0e07\u0e40\u0e25\u0e37\u0e48\u0e2d\u0e19\u0e14\u0e39\u0e23\u0e35\u0e25\u0e2a\u0e4c\u0e08\u0e32\u0e01\u0e01\u0e32\u0e23\u0e04\u0e49\u0e19\u0e2b\u0e32\u0e41\u0e25\u0e30\u0e2a\u0e33\u0e23\u0e27\u0e08\u0e44\u0e14\u0e49");
         table.put("Still scroll reels from a profile",
                 "\u0e22\u0e31\u0e07\u0e04\u0e07\u0e40\u0e25\u0e37\u0e48\u0e2d\u0e19\u0e14\u0e39\u0e23\u0e35\u0e25\u0e2a\u0e4c\u0e08\u0e32\u0e01\u0e42\u0e1b\u0e23\u0e44\u0e1f\u0e25\u0e4c\u0e44\u0e14\u0e49");
+    }
+
+    private static void fillTh27(Map<String, String> table) {
         table.put("Still scroll reels from a song page",
                 "\u0e22\u0e31\u0e07\u0e04\u0e07\u0e40\u0e25\u0e37\u0e48\u0e2d\u0e19\u0e14\u0e39\u0e23\u0e35\u0e25\u0e2a\u0e4c\u0e08\u0e32\u0e01\u0e2b\u0e19\u0e49\u0e32\u0e40\u0e1e\u0e25\u0e07\u0e44\u0e14\u0e49");
         table.put("Stop",
@@ -28727,9 +28877,6 @@ public final class L10nTranslations {
                 "\u0e2b\u0e22\u0e38\u0e14\u0e2b\u0e25\u0e31\u0e07\u0e08\u0e32\u0e01\u0e14\u0e39\u0e23\u0e35\u0e25\u0e2a\u0e4c\u0e04\u0e23\u0e1a\u0e15\u0e32\u0e21\u0e08\u0e33\u0e19\u0e27\u0e19\u0e17\u0e35\u0e48\u0e01\u0e33\u0e2b\u0e19\u0e14");
         table.put("Stop after the chat's reels",
                 "\u0e2b\u0e22\u0e38\u0e14\u0e2b\u0e25\u0e31\u0e07\u0e08\u0e32\u0e01\u0e14\u0e39\u0e23\u0e35\u0e25\u0e2a\u0e4c\u0e02\u0e2d\u0e07\u0e41\u0e0a\u0e17\u0e04\u0e23\u0e1a\u0e41\u0e25\u0e49\u0e27");
-    }
-
-    private static void fillTh27(Map<String, String> table) {
         table.put("Stop background feed refresh",
                 "\u0e2b\u0e22\u0e38\u0e14\u0e01\u0e32\u0e23\u0e23\u0e35\u0e40\u0e1f\u0e23\u0e0a\u0e1f\u0e35\u0e14\u0e43\u0e19\u0e1e\u0e37\u0e49\u0e19\u0e2b\u0e25\u0e31\u0e07");
         table.put("Stop background work Instagram doesn't need.",
@@ -28836,6 +28983,9 @@ public final class L10nTranslations {
                 "\u0e01\u0e32\u0e23\u0e01\u0e14\u0e04\u0e49\u0e32\u0e07\u0e17\u0e35\u0e48\u0e41\u0e17\u0e47\u0e1a\u0e08\u0e30\u0e22\u0e31\u0e07\u0e04\u0e07\u0e43\u0e0a\u0e49\u0e01\u0e32\u0e23\u0e14\u0e33\u0e40\u0e19\u0e34\u0e19\u0e01\u0e32\u0e23\u0e40\u0e14\u0e34\u0e21\u0e02\u0e2d\u0e07 Instagram \u0e40\u0e25\u0e37\u0e2d\u0e01\u0e41\u0e17\u0e47\u0e1a\u0e2b\u0e19\u0e36\u0e48\u0e07\u0e40\u0e1e\u0e37\u0e48\u0e2d\u0e43\u0e0a\u0e49\u0e40\u0e1b\u0e34\u0e14 \"\u0e23\u0e32\u0e22\u0e01\u0e32\u0e23\u0e42\u0e1b\u0e23\u0e14\" \u0e41\u0e17\u0e19");
         table.put("Tab long presses keep Instagram's own action. Choose one to open HushGram instead.",
                 "\u0e01\u0e32\u0e23\u0e01\u0e14\u0e04\u0e49\u0e32\u0e07\u0e17\u0e35\u0e48\u0e41\u0e17\u0e47\u0e1a\u0e08\u0e30\u0e04\u0e07\u0e01\u0e32\u0e23\u0e17\u0e33\u0e07\u0e32\u0e19\u0e15\u0e32\u0e21\u0e1b\u0e01\u0e15\u0e34\u0e02\u0e2d\u0e07 Instagram \u0e44\u0e27\u0e49 \u0e40\u0e25\u0e37\u0e2d\u0e01\u0e41\u0e17\u0e47\u0e1a\u0e40\u0e1e\u0e37\u0e48\u0e2d\u0e40\u0e1b\u0e34\u0e14 HushGram \u0e41\u0e17\u0e19");
+    }
+
+    private static void fillTh28(Map<String, String> table) {
         table.put("Tab long presses keep Instagram's own action. Choose one to open Saved profiles instead.",
                 "\u0e01\u0e32\u0e23\u0e01\u0e14\u0e04\u0e49\u0e32\u0e07\u0e17\u0e35\u0e48\u0e41\u0e17\u0e47\u0e1a\u0e08\u0e30\u0e22\u0e31\u0e07\u0e04\u0e07\u0e43\u0e0a\u0e49\u0e01\u0e32\u0e23\u0e14\u0e33\u0e40\u0e19\u0e34\u0e19\u0e01\u0e32\u0e23\u0e40\u0e14\u0e34\u0e21\u0e02\u0e2d\u0e07 Instagram \u0e40\u0e25\u0e37\u0e2d\u0e01\u0e41\u0e17\u0e47\u0e1a\u0e2b\u0e19\u0e36\u0e48\u0e07\u0e40\u0e1e\u0e37\u0e48\u0e2d\u0e43\u0e0a\u0e49\u0e40\u0e1b\u0e34\u0e14\u0e42\u0e1b\u0e23\u0e44\u0e1f\u0e25\u0e4c\u0e17\u0e35\u0e48\u0e1a\u0e31\u0e19\u0e17\u0e36\u0e01\u0e44\u0e27\u0e49\u0e41\u0e17\u0e19");
         table.put("Tab long presses keep Instagram's own action. Choose one to pick the playback quality instead.",
@@ -28850,9 +29000,6 @@ public final class L10nTranslations {
                 "\u0e41\u0e17\u0e47\u0e1a\u0e1a\u0e19\u0e42\u0e1b\u0e23\u0e44\u0e1f\u0e25\u0e4c\u0e02\u0e2d\u0e07\u0e1c\u0e39\u0e49\u0e2d\u0e37\u0e48\u0e19");
         table.put("Tabs on your profile",
                 "\u0e41\u0e17\u0e47\u0e1a\u0e1a\u0e19\u0e42\u0e1b\u0e23\u0e44\u0e1f\u0e25\u0e4c\u0e02\u0e2d\u0e07\u0e04\u0e38\u0e13");
-    }
-
-    private static void fillTh28(Map<String, String> table) {
         table.put("Tagged",
                 "\u0e41\u0e17\u0e47\u0e01\u0e41\u0e25\u0e49\u0e27");
         table.put("Take a scroll break",
@@ -28941,6 +29088,8 @@ public final class L10nTranslations {
                 "\u0e19\u0e33\u0e1b\u0e49\u0e32\u0e22 Threads \u0e43\u0e15\u0e49\u0e1b\u0e23\u0e30\u0e27\u0e31\u0e15\u0e34\u0e22\u0e48\u0e2d\u0e2d\u0e2d\u0e01\u0e08\u0e32\u0e01\u0e42\u0e1b\u0e23\u0e44\u0e1f\u0e25\u0e4c\u0e02\u0e2d\u0e07\u0e04\u0e19\u0e2d\u0e37\u0e48\u0e19 \u0e42\u0e1b\u0e23\u0e44\u0e1f\u0e25\u0e4c\u0e02\u0e2d\u0e07\u0e04\u0e38\u0e13\u0e22\u0e31\u0e07\u0e04\u0e07\u0e21\u0e35\u0e2d\u0e22\u0e39\u0e48");
         table.put("Takes the Threads button off the top of profiles, yours included. The menu and the other buttons stay where they were.",
                 "\u0e19\u0e33\u0e1b\u0e38\u0e48\u0e21 Threads \u0e2d\u0e2d\u0e01\u0e08\u0e32\u0e01\u0e14\u0e49\u0e32\u0e19\u0e1a\u0e19\u0e02\u0e2d\u0e07\u0e42\u0e1b\u0e23\u0e44\u0e1f\u0e25\u0e4c \u0e23\u0e27\u0e21\u0e16\u0e36\u0e07\u0e42\u0e1b\u0e23\u0e44\u0e1f\u0e25\u0e4c\u0e02\u0e2d\u0e07\u0e04\u0e38\u0e13\u0e14\u0e49\u0e27\u0e22 \u0e17\u0e31\u0e49\u0e07\u0e19\u0e35\u0e49\u0e40\u0e21\u0e19\u0e39\u0e41\u0e25\u0e30\u0e1b\u0e38\u0e48\u0e21\u0e2d\u0e37\u0e48\u0e19\u0e46 \u0e08\u0e30\u0e22\u0e31\u0e07\u0e04\u0e07\u0e2d\u0e22\u0e39\u0e48\u0e17\u0e35\u0e48\u0e40\u0e14\u0e34\u0e21");
+        table.put("Takes the Watch more reels button off the card a reel in your feed shows when it ends. Watch again stays.",
+                "\u0e19\u0e33\u0e1b\u0e38\u0e48\u0e21 \"\u0e14\u0e39\u0e23\u0e35\u0e25\u0e2a\u0e4c\u0e40\u0e1e\u0e34\u0e48\u0e21\u0e40\u0e15\u0e34\u0e21\" \u0e2d\u0e2d\u0e01\u0e08\u0e32\u0e01\u0e01\u0e32\u0e23\u0e4c\u0e14\u0e17\u0e35\u0e48\u0e02\u0e36\u0e49\u0e19\u0e40\u0e21\u0e37\u0e48\u0e2d\u0e23\u0e35\u0e25\u0e2a\u0e4c\u0e43\u0e19\u0e1f\u0e35\u0e14\u0e02\u0e2d\u0e07\u0e04\u0e38\u0e13\u0e40\u0e25\u0e48\u0e19\u0e08\u0e1a \u0e1b\u0e38\u0e48\u0e21 \"\u0e14\u0e39\u0e2d\u0e35\u0e01\u0e04\u0e23\u0e31\u0e49\u0e07\" \u0e22\u0e31\u0e07\u0e2d\u0e22\u0e39\u0e48");
         table.put("Takes the Your algorithm button off the top of the Reels tab and closes up the gap. The rest of the bar stays.",
                 "\u0e19\u0e33\u0e1b\u0e38\u0e48\u0e21 \"\u0e2d\u0e31\u0e25\u0e01\u0e2d\u0e23\u0e34\u0e17\u0e36\u0e21\u0e02\u0e2d\u0e07\u0e04\u0e38\u0e13\" \u0e2d\u0e2d\u0e01\u0e08\u0e32\u0e01\u0e14\u0e49\u0e32\u0e19\u0e1a\u0e19\u0e2a\u0e38\u0e14\u0e02\u0e2d\u0e07\u0e41\u0e17\u0e47\u0e1a\u0e23\u0e35\u0e25\u0e2a\u0e4c\u0e41\u0e25\u0e30\u0e1b\u0e34\u0e14\u0e0a\u0e48\u0e2d\u0e07\u0e27\u0e48\u0e32\u0e07 \u0e2a\u0e48\u0e27\u0e19\u0e41\u0e16\u0e1a\u0e17\u0e35\u0e48\u0e40\u0e2b\u0e25\u0e37\u0e2d\u0e08\u0e30\u0e22\u0e31\u0e07\u0e04\u0e07\u0e2d\u0e22\u0e39\u0e48");
         table.put("Takes the accounts Instagram suggests off the bottom of your messages. Your chats and follow requests stay. Restart Instagram to see the change.",
@@ -28957,6 +29106,9 @@ public final class L10nTranslations {
                 "\u0e19\u0e33\u0e23\u0e39\u0e1b\u0e2b\u0e31\u0e27\u0e43\u0e08\u0e2d\u0e2d\u0e01\u0e08\u0e32\u0e01\u0e14\u0e49\u0e32\u0e19\u0e1a\u0e19\u0e02\u0e2d\u0e07\u0e2b\u0e19\u0e49\u0e32\u0e2b\u0e25\u0e31\u0e01\u0e41\u0e25\u0e30\u0e1b\u0e34\u0e14\u0e0a\u0e48\u0e2d\u0e07\u0e27\u0e48\u0e32\u0e07 \u0e42\u0e14\u0e22\u0e01\u0e32\u0e23\u0e41\u0e08\u0e49\u0e07\u0e40\u0e15\u0e37\u0e2d\u0e19\u0e08\u0e30\u0e22\u0e31\u0e07\u0e04\u0e07\u0e2a\u0e48\u0e07\u0e40\u0e02\u0e49\u0e32\u0e21\u0e32\u0e15\u0e32\u0e21\u0e1b\u0e01\u0e15\u0e34 \u0e42\u0e1b\u0e23\u0e14\u0e23\u0e35\u0e2a\u0e15\u0e32\u0e23\u0e4c\u0e17 Instagram \u0e40\u0e1e\u0e37\u0e48\u0e2d\u0e14\u0e39\u0e01\u0e32\u0e23\u0e40\u0e1b\u0e25\u0e35\u0e48\u0e22\u0e19\u0e41\u0e1b\u0e25\u0e07");
         table.put("Takes the interests someone added, like reading or hiking, from under their bio. Yours keeps them.",
                 "\u0e19\u0e33\u0e04\u0e27\u0e32\u0e21\u0e2a\u0e19\u0e43\u0e08\u0e17\u0e35\u0e48\u0e1c\u0e39\u0e49\u0e2d\u0e37\u0e48\u0e19\u0e40\u0e1e\u0e34\u0e48\u0e21\u0e44\u0e27\u0e49 \u0e40\u0e0a\u0e48\u0e19 \u0e01\u0e32\u0e23\u0e2d\u0e48\u0e32\u0e19\u0e2b\u0e23\u0e37\u0e2d\u0e01\u0e32\u0e23\u0e40\u0e14\u0e34\u0e19\u0e1b\u0e48\u0e32 \u0e2d\u0e2d\u0e01\u0e08\u0e32\u0e01\u0e43\u0e15\u0e49\u0e1b\u0e23\u0e30\u0e27\u0e31\u0e15\u0e34\u0e22\u0e48\u0e2d \u0e42\u0e1b\u0e23\u0e44\u0e1f\u0e25\u0e4c\u0e02\u0e2d\u0e07\u0e04\u0e38\u0e13\u0e22\u0e31\u0e07\u0e04\u0e07\u0e21\u0e35\u0e2d\u0e22\u0e39\u0e48");
+    }
+
+    private static void fillTh29(Map<String, String> table) {
         table.put("Takes the invite to someone's broadcast channel from under their bio. Yours keeps it.",
                 "\u0e19\u0e33\u0e04\u0e33\u0e40\u0e0a\u0e34\u0e0d\u0e40\u0e02\u0e49\u0e32\u0e0a\u0e48\u0e2d\u0e07\u0e16\u0e48\u0e32\u0e22\u0e17\u0e2d\u0e14\u0e02\u0e2d\u0e07\u0e1c\u0e39\u0e49\u0e2d\u0e37\u0e48\u0e19\u0e2d\u0e2d\u0e01\u0e08\u0e32\u0e01\u0e43\u0e15\u0e49\u0e1b\u0e23\u0e30\u0e27\u0e31\u0e15\u0e34\u0e22\u0e48\u0e2d \u0e42\u0e1b\u0e23\u0e44\u0e1f\u0e25\u0e4c\u0e02\u0e2d\u0e07\u0e04\u0e38\u0e13\u0e22\u0e31\u0e07\u0e04\u0e07\u0e21\u0e35\u0e2d\u0e22\u0e39\u0e48");
         table.put("Takes the link to someone's WhatsApp from under their bio. Yours keeps it.",
@@ -28973,9 +29125,6 @@ public final class L10nTranslations {
                 "\u0e19\u0e33\u0e23\u0e39\u0e1b\u0e40\u0e04\u0e23\u0e37\u0e48\u0e2d\u0e07\u0e1a\u0e34\u0e19\u0e01\u0e23\u0e30\u0e14\u0e32\u0e29\u0e2d\u0e2d\u0e01\u0e08\u0e32\u0e01\u0e14\u0e49\u0e32\u0e19\u0e25\u0e48\u0e32\u0e07\u0e2a\u0e15\u0e2d\u0e23\u0e35\u0e48\u0e02\u0e2d\u0e07\u0e1c\u0e39\u0e49\u0e2d\u0e37\u0e48\u0e19 \u0e41\u0e25\u0e30\u0e44\u0e21\u0e48\u0e40\u0e2b\u0e25\u0e37\u0e2d\u0e0a\u0e48\u0e2d\u0e07\u0e27\u0e48\u0e32\u0e07");
         table.put("Takes the plus button off the top of Home and closes up the gap. The Create tab and swiping to create are separate. Restart Instagram to see the change.",
                 "\u0e19\u0e33\u0e1b\u0e38\u0e48\u0e21\u0e40\u0e04\u0e23\u0e37\u0e48\u0e2d\u0e07\u0e2b\u0e21\u0e32\u0e22\u0e1a\u0e27\u0e01\u0e2d\u0e2d\u0e01\u0e08\u0e32\u0e01\u0e14\u0e49\u0e32\u0e19\u0e1a\u0e19\u0e02\u0e2d\u0e07\u0e2b\u0e19\u0e49\u0e32\u0e2b\u0e25\u0e31\u0e01\u0e41\u0e25\u0e30\u0e1b\u0e34\u0e14\u0e0a\u0e48\u0e2d\u0e07\u0e27\u0e48\u0e32\u0e07 \u0e42\u0e14\u0e22\u0e41\u0e17\u0e47\u0e1a\u0e2a\u0e23\u0e49\u0e32\u0e07\u0e41\u0e25\u0e30\u0e01\u0e32\u0e23\u0e1b\u0e31\u0e14\u0e2b\u0e19\u0e49\u0e32\u0e08\u0e2d\u0e40\u0e1e\u0e37\u0e48\u0e2d\u0e2a\u0e23\u0e49\u0e32\u0e07\u0e08\u0e30\u0e41\u0e22\u0e01\u0e15\u0e48\u0e32\u0e07\u0e2b\u0e32\u0e01\u0e08\u0e32\u0e01\u0e01\u0e32\u0e23\u0e15\u0e31\u0e49\u0e07\u0e04\u0e48\u0e32\u0e19\u0e35\u0e49 \u0e42\u0e1b\u0e23\u0e14\u0e23\u0e35\u0e2a\u0e15\u0e32\u0e23\u0e4c\u0e17 Instagram \u0e40\u0e1e\u0e37\u0e48\u0e2d\u0e14\u0e39\u0e01\u0e32\u0e23\u0e40\u0e1b\u0e25\u0e35\u0e48\u0e22\u0e19\u0e41\u0e1b\u0e25\u0e07");
-    }
-
-    private static void fillTh29(Map<String, String> table) {
         table.put("Takes the plus button off the top of reels you open from Saved or a collection and closes up the gap. The Reels tab and other reels keep theirs.",
                 "\u0e19\u0e33\u0e1b\u0e38\u0e48\u0e21\u0e40\u0e04\u0e23\u0e37\u0e48\u0e2d\u0e07\u0e2b\u0e21\u0e32\u0e22\u0e1a\u0e27\u0e01\u0e2d\u0e2d\u0e01\u0e08\u0e32\u0e01\u0e14\u0e49\u0e32\u0e19\u0e1a\u0e19\u0e02\u0e2d\u0e07\u0e23\u0e35\u0e25\u0e2a\u0e4c\u0e17\u0e35\u0e48\u0e04\u0e38\u0e13\u0e40\u0e1b\u0e34\u0e14\u0e08\u0e32\u0e01\u0e23\u0e32\u0e22\u0e01\u0e32\u0e23\u0e17\u0e35\u0e48\u0e1a\u0e31\u0e19\u0e17\u0e36\u0e01\u0e44\u0e27\u0e49\u0e2b\u0e23\u0e37\u0e2d\u0e04\u0e2d\u0e25\u0e40\u0e25\u0e01\u0e0a\u0e31\u0e19 \u0e1e\u0e23\u0e49\u0e2d\u0e21\u0e17\u0e31\u0e49\u0e07\u0e1b\u0e34\u0e14\u0e0a\u0e48\u0e2d\u0e07\u0e27\u0e48\u0e32\u0e07 \u0e41\u0e17\u0e47\u0e1a\u0e23\u0e35\u0e25\u0e2a\u0e4c\u0e41\u0e25\u0e30\u0e23\u0e35\u0e25\u0e2a\u0e4c\u0e2d\u0e37\u0e48\u0e19\u0e46 \u0e22\u0e31\u0e07\u0e04\u0e07\u0e21\u0e35\u0e1b\u0e38\u0e48\u0e21\u0e19\u0e35\u0e49\u0e2d\u0e22\u0e39\u0e48");
         table.put("Takes the plus button that opens the camera off the top of reels, on the Reels tab and everywhere else, and closes up the gap. The rest of the bar stays.",
@@ -29080,6 +29229,9 @@ public final class L10nTranslations {
                 "\u0e41\u0e16\u0e1a\u0e41\u0e25\u0e30\u0e1b\u0e38\u0e48\u0e21\u0e40\u0e25\u0e37\u0e48\u0e2d\u0e19\u0e17\u0e23\u0e07\u0e01\u0e25\u0e21\u0e41\u0e1a\u0e1a\u0e17\u0e35\u0e48\u0e04\u0e38\u0e13\u0e04\u0e38\u0e49\u0e19\u0e40\u0e04\u0e22");
         table.put("The bar sits in the space under the Send message box. Where there's no room under it, the bar stays above it.",
                 "\u0e41\u0e16\u0e1a\u0e08\u0e30\u0e2d\u0e22\u0e39\u0e48\u0e43\u0e19\u0e1e\u0e37\u0e49\u0e19\u0e17\u0e35\u0e48\u0e43\u0e15\u0e49\u0e01\u0e25\u0e48\u0e2d\u0e07 \"\u0e2a\u0e48\u0e07\u0e02\u0e49\u0e2d\u0e04\u0e27\u0e32\u0e21\" \u0e2b\u0e32\u0e01\u0e14\u0e49\u0e32\u0e19\u0e25\u0e48\u0e32\u0e07\u0e44\u0e21\u0e48\u0e21\u0e35\u0e17\u0e35\u0e48\u0e27\u0e48\u0e32\u0e07 \u0e41\u0e16\u0e1a\u0e08\u0e30\u0e22\u0e31\u0e07\u0e04\u0e07\u0e2d\u0e22\u0e39\u0e48\u0e40\u0e2b\u0e19\u0e37\u0e2d\u0e01\u0e25\u0e48\u0e2d\u0e07");
+    }
+
+    private static void fillTh30(Map<String, String> table) {
         table.put("The bar sits just above the Send message box at the bottom of a story.",
                 "\u0e41\u0e16\u0e1a\u0e08\u0e30\u0e2d\u0e22\u0e39\u0e48\u0e40\u0e2b\u0e19\u0e37\u0e2d\u0e01\u0e25\u0e48\u0e2d\u0e07 \"\u0e2a\u0e48\u0e07\u0e02\u0e49\u0e2d\u0e04\u0e27\u0e32\u0e21\" \u0e17\u0e35\u0e48\u0e14\u0e49\u0e32\u0e19\u0e25\u0e48\u0e32\u0e07\u0e02\u0e2d\u0e07\u0e2a\u0e15\u0e2d\u0e23\u0e35\u0e48\u0e1e\u0e2d\u0e14\u0e35");
         table.put("The bubbles of friends who liked or commented, the Followed by and Liked by lines with their faces, the comment shown under a reel and the row of friends who saw it. Comments are still a tap away.",
@@ -29096,9 +29248,6 @@ public final class L10nTranslations {
                 "\u0e27\u0e31\u0e19\u0e17\u0e35\u0e48\u0e41\u0e25\u0e30\u0e40\u0e27\u0e25\u0e32\u0e17\u0e35\u0e48\u0e42\u0e1e\u0e2a\u0e15\u0e4c\u0e2a\u0e15\u0e2d\u0e23\u0e35\u0e48 \u0e40\u0e0a\u0e48\u0e19 2 \u0e15.\u0e04. 15:45 \u0e19.");
         table.put("The file %1$s couldn't be removed. Delete it from %2$s to turn HushGram back on.",
                 "\u0e44\u0e21\u0e48\u0e2a\u0e32\u0e21\u0e32\u0e23\u0e16\u0e25\u0e1a\u0e44\u0e1f\u0e25\u0e4c %1$s \u0e44\u0e14\u0e49 \u0e25\u0e1a\u0e44\u0e1f\u0e25\u0e4c\u0e19\u0e35\u0e49\u0e2d\u0e2d\u0e01\u0e08\u0e32\u0e01 %2$s \u0e40\u0e1e\u0e37\u0e48\u0e2d\u0e40\u0e1b\u0e34\u0e14\u0e43\u0e0a\u0e49\u0e07\u0e32\u0e19 HushGram \u0e2d\u0e35\u0e01\u0e04\u0e23\u0e31\u0e49\u0e07");
-    }
-
-    private static void fillTh30(Map<String, String> table) {
         table.put("The heart at the top of Home shows how many notifications are waiting, like the number on Messages, in place of the red dot. Restart Instagram to see the change.",
                 "\u0e44\u0e2d\u0e04\u0e2d\u0e19\u0e23\u0e39\u0e1b\u0e2b\u0e31\u0e27\u0e43\u0e08\u0e17\u0e35\u0e48\u0e14\u0e49\u0e32\u0e19\u0e1a\u0e19\u0e02\u0e2d\u0e07\u0e2b\u0e19\u0e49\u0e32\u0e2b\u0e25\u0e31\u0e01\u0e08\u0e30\u0e41\u0e2a\u0e14\u0e07\u0e08\u0e33\u0e19\u0e27\u0e19\u0e01\u0e32\u0e23\u0e41\u0e08\u0e49\u0e07\u0e40\u0e15\u0e37\u0e2d\u0e19\u0e17\u0e35\u0e48\u0e23\u0e2d\u0e2d\u0e22\u0e39\u0e48 \u0e40\u0e0a\u0e48\u0e19\u0e40\u0e14\u0e35\u0e22\u0e27\u0e01\u0e31\u0e1a\u0e15\u0e31\u0e27\u0e40\u0e25\u0e02\u0e1a\u0e19\u0e02\u0e49\u0e2d\u0e04\u0e27\u0e32\u0e21 \u0e41\u0e17\u0e19\u0e17\u0e35\u0e48\u0e08\u0e30\u0e41\u0e2a\u0e14\u0e07\u0e40\u0e1b\u0e47\u0e19\u0e08\u0e38\u0e14\u0e2a\u0e35\u0e41\u0e14\u0e07 \u0e23\u0e35\u0e2a\u0e15\u0e32\u0e23\u0e4c\u0e17 Instagram \u0e40\u0e1e\u0e37\u0e48\u0e2d\u0e14\u0e39\u0e01\u0e32\u0e23\u0e40\u0e1b\u0e25\u0e35\u0e48\u0e22\u0e19\u0e41\u0e1b\u0e25\u0e07");
         table.put("The heart plays %1$s when you double tap a post.",
@@ -29203,6 +29352,9 @@ public final class L10nTranslations {
                 "\u0e1b\u0e38\u0e48\u0e21\u0e19\u0e35\u0e49\u0e15\u0e49\u0e2d\u0e07\u0e21\u0e35 \"\u0e04\u0e49\u0e19\u0e2b\u0e32\" \u0e1a\u0e19\u0e41\u0e16\u0e1a\u0e41\u0e17\u0e47\u0e1a\u0e02\u0e2d\u0e07\u0e04\u0e38\u0e13");
         table.put("This chat is locked",
                 "\u0e41\u0e0a\u0e17\u0e19\u0e35\u0e49\u0e16\u0e39\u0e01\u0e25\u0e47\u0e2d\u0e04\u0e2d\u0e22\u0e39\u0e48");
+    }
+
+    private static void fillTh31(Map<String, String> table) {
         table.put("This chat uses the setting",
                 "\u0e41\u0e0a\u0e17\u0e19\u0e35\u0e49\u0e43\u0e0a\u0e49\u0e01\u0e32\u0e23\u0e15\u0e31\u0e49\u0e07\u0e04\u0e48\u0e32\u0e2a\u0e48\u0e27\u0e19\u0e01\u0e25\u0e32\u0e07");
         table.put("This file matches the current overrides. Nothing changed.",
@@ -29219,9 +29371,6 @@ public final class L10nTranslations {
                 "\u0e2a\u0e15\u0e2d\u0e23\u0e35\u0e48\u0e19\u0e35\u0e49\u0e08\u0e30\u0e40\u0e25\u0e48\u0e19\u0e04\u0e23\u0e31\u0e49\u0e07\u0e40\u0e14\u0e35\u0e22\u0e27");
         table.put("This video has no file another player can open",
                 "\u0e27\u0e34\u0e14\u0e35\u0e42\u0e2d\u0e19\u0e35\u0e49\u0e44\u0e21\u0e48\u0e21\u0e35\u0e44\u0e1f\u0e25\u0e4c\u0e17\u0e35\u0e48\u0e42\u0e1b\u0e23\u0e41\u0e01\u0e23\u0e21\u0e40\u0e25\u0e48\u0e19\u0e2d\u0e37\u0e48\u0e19\u0e2a\u0e32\u0e21\u0e32\u0e23\u0e16\u0e40\u0e1b\u0e34\u0e14\u0e44\u0e14\u0e49");
-    }
-
-    private static void fillTh31(Map<String, String> table) {
         table.put("This video plays once",
                 "\u0e27\u0e34\u0e14\u0e35\u0e42\u0e2d\u0e19\u0e35\u0e49\u0e08\u0e30\u0e40\u0e25\u0e48\u0e19\u0e04\u0e23\u0e31\u0e49\u0e07\u0e40\u0e14\u0e35\u0e22\u0e27");
         table.put("Threads",
@@ -29326,6 +29475,9 @@ public final class L10nTranslations {
                 "\u0e43\u0e15\u0e49\u0e08\u0e33\u0e19\u0e27\u0e19\u0e15\u0e31\u0e27\u0e40\u0e25\u0e02");
         table.put("Under the name, 1 mention",
                 "\u0e43\u0e15\u0e49\u0e0a\u0e37\u0e48\u0e2d, \u0e1e\u0e39\u0e14\u0e16\u0e36\u0e07 1 \u0e04\u0e19");
+    }
+
+    private static void fillTh32(Map<String, String> table) {
         table.put("Undo cleared positions",
                 "\u0e40\u0e25\u0e34\u0e01\u0e17\u0e33\u0e01\u0e32\u0e23\u0e25\u0e49\u0e32\u0e07\u0e15\u0e33\u0e41\u0e2b\u0e19\u0e48\u0e07\u0e17\u0e35\u0e48\u0e08\u0e33\u0e44\u0e27\u0e49");
         table.put("Undo couldn't fully restore the settings. Check the shown values. Undo has been used up.",
@@ -29342,9 +29494,6 @@ public final class L10nTranslations {
                 "\u0e01\u0e32\u0e23\u0e41\u0e08\u0e49\u0e07\u0e40\u0e15\u0e37\u0e2d\u0e19\u0e01\u0e32\u0e23\u0e40\u0e25\u0e34\u0e01\u0e15\u0e34\u0e14\u0e15\u0e32\u0e21");
         table.put("Unfollower list cleared.",
                 "\u0e25\u0e49\u0e32\u0e07\u0e23\u0e32\u0e22\u0e0a\u0e37\u0e48\u0e2d\u0e1c\u0e39\u0e49\u0e40\u0e25\u0e34\u0e01\u0e15\u0e34\u0e14\u0e15\u0e32\u0e21\u0e41\u0e25\u0e49\u0e27");
-    }
-
-    private static void fillTh32(Map<String, String> table) {
         table.put("Unlock",
                 "\u0e1b\u0e25\u0e14\u0e25\u0e47\u0e2d\u0e01");
         table.put("Unlock Instagram",
@@ -29431,8 +29580,8 @@ public final class L10nTranslations {
                 "\u0e27\u0e34\u0e14\u0e35\u0e42\u0e2d\u0e08\u0e30\u0e40\u0e25\u0e48\u0e19\u0e43\u0e19\u0e04\u0e38\u0e13\u0e20\u0e32\u0e1e\u0e15\u0e48\u0e33\u0e17\u0e35\u0e48\u0e2a\u0e38\u0e14\u0e17\u0e35\u0e48 Instagram \u0e21\u0e35\u0e43\u0e2b\u0e49\u0e2a\u0e33\u0e2b\u0e23\u0e31\u0e1a\u0e41\u0e15\u0e48\u0e25\u0e30\u0e27\u0e34\u0e14\u0e35\u0e42\u0e2d");
         table.put("Videos wait for your tap where the choice below says. Feed videos show a play button, as they do when you use less mobile data.",
                 "\u0e27\u0e34\u0e14\u0e35\u0e42\u0e2d\u0e08\u0e30\u0e23\u0e2d\u0e43\u0e2b\u0e49\u0e04\u0e38\u0e13\u0e41\u0e15\u0e30\u0e15\u0e32\u0e21\u0e15\u0e33\u0e41\u0e2b\u0e19\u0e48\u0e07\u0e17\u0e35\u0e48\u0e40\u0e25\u0e37\u0e2d\u0e01\u0e44\u0e27\u0e49\u0e14\u0e49\u0e32\u0e19\u0e25\u0e48\u0e32\u0e07 \u0e27\u0e34\u0e14\u0e35\u0e42\u0e2d\u0e43\u0e19\u0e1f\u0e35\u0e14\u0e08\u0e30\u0e41\u0e2a\u0e14\u0e07\u0e1b\u0e38\u0e48\u0e21\u0e40\u0e25\u0e48\u0e19 \u0e40\u0e0a\u0e48\u0e19\u0e40\u0e14\u0e35\u0e22\u0e27\u0e01\u0e31\u0e1a\u0e40\u0e27\u0e25\u0e32\u0e17\u0e35\u0e48\u0e04\u0e38\u0e13\u0e43\u0e0a\u0e49\u0e42\u0e2b\u0e21\u0e14\u0e1b\u0e23\u0e30\u0e2b\u0e22\u0e31\u0e14\u0e2d\u0e34\u0e19\u0e40\u0e17\u0e2d\u0e23\u0e4c\u0e40\u0e19\u0e47\u0e15\u0e21\u0e37\u0e2d\u0e16\u0e37\u0e2d");
-        table.put("Videos, reels and stories play at the quality below, starting with the next one you open.",
-                "\u0e27\u0e34\u0e14\u0e35\u0e42\u0e2d, \u0e23\u0e35\u0e25\u0e2a\u0e4c \u0e41\u0e25\u0e30\u0e2a\u0e15\u0e2d\u0e23\u0e35\u0e48\u0e08\u0e30\u0e40\u0e25\u0e48\u0e19\u0e15\u0e32\u0e21\u0e04\u0e38\u0e13\u0e20\u0e32\u0e1e\u0e14\u0e49\u0e32\u0e19\u0e25\u0e48\u0e32\u0e07 \u0e42\u0e14\u0e22\u0e40\u0e23\u0e34\u0e48\u0e21\u0e08\u0e32\u0e01\u0e23\u0e32\u0e22\u0e01\u0e32\u0e23\u0e16\u0e31\u0e14\u0e44\u0e1b\u0e17\u0e35\u0e48\u0e04\u0e38\u0e13\u0e40\u0e1b\u0e34\u0e14");
+        table.put("Videos, reels and stories play at the quality below, starting with the next one you open. When your connection can't keep up, a video drops to the next lower quality.",
+                "\u0e27\u0e34\u0e14\u0e35\u0e42\u0e2d, \u0e23\u0e35\u0e25\u0e2a\u0e4c \u0e41\u0e25\u0e30\u0e2a\u0e15\u0e2d\u0e23\u0e35\u0e48\u0e08\u0e30\u0e40\u0e25\u0e48\u0e19\u0e15\u0e32\u0e21\u0e04\u0e38\u0e13\u0e20\u0e32\u0e1e\u0e14\u0e49\u0e32\u0e19\u0e25\u0e48\u0e32\u0e07 \u0e42\u0e14\u0e22\u0e40\u0e23\u0e34\u0e48\u0e21\u0e08\u0e32\u0e01\u0e23\u0e32\u0e22\u0e01\u0e32\u0e23\u0e16\u0e31\u0e14\u0e44\u0e1b\u0e17\u0e35\u0e48\u0e04\u0e38\u0e13\u0e40\u0e1b\u0e34\u0e14 \u0e40\u0e21\u0e37\u0e48\u0e2d\u0e01\u0e32\u0e23\u0e40\u0e0a\u0e37\u0e48\u0e2d\u0e21\u0e15\u0e48\u0e2d\u0e15\u0e32\u0e21\u0e44\u0e21\u0e48\u0e17\u0e31\u0e19 \u0e27\u0e34\u0e14\u0e35\u0e42\u0e2d\u0e08\u0e30\u0e25\u0e14\u0e44\u0e1b\u0e43\u0e0a\u0e49\u0e04\u0e38\u0e13\u0e20\u0e32\u0e1e\u0e17\u0e35\u0e48\u0e15\u0e48\u0e33\u0e01\u0e27\u0e48\u0e32\u0e16\u0e31\u0e14\u0e44\u0e1b");
         table.put("View DM photos and videos anonymously",
                 "\u0e14\u0e39\u0e23\u0e39\u0e1b\u0e20\u0e32\u0e1e\u0e41\u0e25\u0e30\u0e27\u0e34\u0e14\u0e35\u0e42\u0e2d\u0e43\u0e19 DM \u0e41\u0e1a\u0e1a\u0e44\u0e21\u0e48\u0e23\u0e30\u0e1a\u0e38\u0e15\u0e31\u0e27\u0e15\u0e19");
         table.put("View live anonymously",
@@ -29449,6 +29598,9 @@ public final class L10nTranslations {
                 "\u0e25\u0e49\u0e32\u0e07\u0e1b\u0e23\u0e30\u0e27\u0e31\u0e15\u0e34\u0e01\u0e32\u0e23\u0e23\u0e31\u0e1a\u0e0a\u0e21\u0e41\u0e25\u0e49\u0e27");
         table.put("Viewing, sound and the stories tray.",
                 "\u0e01\u0e32\u0e23\u0e23\u0e31\u0e1a\u0e0a\u0e21 \u0e40\u0e2a\u0e35\u0e22\u0e07 \u0e41\u0e25\u0e30\u0e41\u0e16\u0e1a\u0e2a\u0e15\u0e2d\u0e23\u0e35\u0e48");
+    }
+
+    private static void fillTh33(Map<String, String> table) {
         table.put("Voice message",
                 "\u0e02\u0e49\u0e2d\u0e04\u0e27\u0e32\u0e21\u0e40\u0e2a\u0e35\u0e22\u0e07");
         table.put("Volume up still raises the phone's volume, but a muted reel stays muted until you unmute it.",
@@ -29465,9 +29617,6 @@ public final class L10nTranslations {
                 "\u0e14\u0e39\u0e2d\u0e35\u0e01\u0e04\u0e23\u0e31\u0e49\u0e07\u0e43\u0e19\u0e1f\u0e35\u0e14");
         table.put("Watch on TV",
                 "\u0e14\u0e39\u0e1a\u0e19\u0e17\u0e35\u0e27\u0e35");
-    }
-
-    private static void fillTh33(Map<String, String> table) {
         table.put("Wave",
                 "\u0e04\u0e25\u0e37\u0e48\u0e19");
         table.put("Web links you tap open in your usual browser, without Instagram's click tracker. Ads and Meta's own sites (Instagram, Facebook, Messenger, Threads) still open in the app.",
@@ -29516,6 +29665,8 @@ public final class L10nTranslations {
                 "\u0e01\u0e27\u0e49\u0e32\u0e07");
         table.put("With Expandable categories on, a tap opens a category on a page of its own. Back takes you to the list.",
                 "\u0e40\u0e21\u0e37\u0e48\u0e2d\u0e40\u0e1b\u0e34\u0e14\u0e43\u0e0a\u0e49\u0e07\u0e32\u0e19 \"\u0e2b\u0e21\u0e27\u0e14\u0e2b\u0e21\u0e39\u0e48\u0e17\u0e35\u0e48\u0e02\u0e22\u0e32\u0e22\u0e44\u0e14\u0e49\" \u0e01\u0e32\u0e23\u0e41\u0e15\u0e30\u0e08\u0e30\u0e40\u0e1b\u0e34\u0e14\u0e2b\u0e21\u0e27\u0e14\u0e2b\u0e21\u0e39\u0e48\u0e43\u0e19\u0e2b\u0e19\u0e49\u0e32\u0e02\u0e2d\u0e07\u0e15\u0e31\u0e27\u0e40\u0e2d\u0e07 \u0e1b\u0e38\u0e48\u0e21\u0e22\u0e49\u0e2d\u0e19\u0e01\u0e25\u0e31\u0e1a\u0e08\u0e30\u0e19\u0e33\u0e04\u0e38\u0e13\u0e01\u0e25\u0e31\u0e1a\u0e44\u0e1b\u0e22\u0e31\u0e07\u0e23\u0e32\u0e22\u0e01\u0e32\u0e23");
+        table.put("With Liquid glass look off, scrolling a list down makes the pill smaller, and scrolling up or changing tab brings it back to full size. Hide the tab bar as you scroll takes over when it's on. Restart Instagram after changing it.",
+                "\u0e40\u0e21\u0e37\u0e48\u0e2d\u0e1b\u0e34\u0e14\u0e23\u0e39\u0e1b\u0e25\u0e31\u0e01\u0e29\u0e13\u0e4c\u0e01\u0e23\u0e30\u0e08\u0e01\u0e40\u0e2b\u0e25\u0e27 \u0e01\u0e32\u0e23\u0e40\u0e25\u0e37\u0e48\u0e2d\u0e19\u0e23\u0e32\u0e22\u0e01\u0e32\u0e23\u0e25\u0e07\u0e08\u0e30\u0e17\u0e33\u0e43\u0e2b\u0e49\u0e41\u0e16\u0e1a\u0e41\u0e04\u0e1b\u0e0b\u0e39\u0e25\u0e40\u0e25\u0e47\u0e01\u0e25\u0e07 \u0e41\u0e25\u0e30\u0e01\u0e32\u0e23\u0e40\u0e25\u0e37\u0e48\u0e2d\u0e19\u0e02\u0e36\u0e49\u0e19\u0e2b\u0e23\u0e37\u0e2d\u0e40\u0e1b\u0e25\u0e35\u0e48\u0e22\u0e19\u0e41\u0e17\u0e47\u0e1a\u0e08\u0e30\u0e17\u0e33\u0e43\u0e2b\u0e49\u0e01\u0e25\u0e31\u0e1a\u0e40\u0e1b\u0e47\u0e19\u0e02\u0e19\u0e32\u0e14\u0e40\u0e15\u0e47\u0e21 \u0e2b\u0e32\u0e01\u0e40\u0e1b\u0e34\u0e14\u0e0b\u0e48\u0e2d\u0e19\u0e41\u0e16\u0e1a\u0e41\u0e17\u0e47\u0e1a\u0e02\u0e13\u0e30\u0e40\u0e25\u0e37\u0e48\u0e2d\u0e19\u0e2b\u0e19\u0e49\u0e32\u0e08\u0e2d\u0e2d\u0e22\u0e39\u0e48 \u0e08\u0e30\u0e43\u0e0a\u0e49\u0e01\u0e32\u0e23\u0e15\u0e31\u0e49\u0e07\u0e04\u0e48\u0e32\u0e19\u0e31\u0e49\u0e19\u0e41\u0e17\u0e19 \u0e23\u0e35\u0e2a\u0e15\u0e32\u0e23\u0e4c\u0e17 Instagram \u0e2b\u0e25\u0e31\u0e07\u0e08\u0e32\u0e01\u0e40\u0e1b\u0e25\u0e35\u0e48\u0e22\u0e19\u0e41\u0e1b\u0e25\u0e07\u0e01\u0e32\u0e23\u0e15\u0e31\u0e49\u0e07\u0e04\u0e48\u0e32");
         table.put("With Name saves by account and post time on, only a save that doesn't know who posted or when is named this way.",
                 "\u0e40\u0e21\u0e37\u0e48\u0e2d\u0e40\u0e1b\u0e34\u0e14 \"\u0e15\u0e31\u0e49\u0e07\u0e0a\u0e37\u0e48\u0e2d\u0e44\u0e1f\u0e25\u0e4c\u0e17\u0e35\u0e48\u0e1a\u0e31\u0e19\u0e17\u0e36\u0e01\u0e15\u0e32\u0e21\u0e1a\u0e31\u0e0d\u0e0a\u0e35\u0e41\u0e25\u0e30\u0e40\u0e27\u0e25\u0e32\u0e17\u0e35\u0e48\u0e42\u0e1e\u0e2a\u0e15\u0e4c\" \u0e01\u0e32\u0e23\u0e15\u0e31\u0e49\u0e07\u0e0a\u0e37\u0e48\u0e2d\u0e41\u0e1a\u0e1a\u0e19\u0e35\u0e49\u0e08\u0e30\u0e43\u0e0a\u0e49\u0e40\u0e09\u0e1e\u0e32\u0e30\u0e01\u0e31\u0e1a\u0e01\u0e32\u0e23\u0e1a\u0e31\u0e19\u0e17\u0e36\u0e01\u0e17\u0e35\u0e48\u0e44\u0e21\u0e48\u0e17\u0e23\u0e32\u0e1a\u0e27\u0e48\u0e32\u0e43\u0e04\u0e23\u0e40\u0e1b\u0e47\u0e19\u0e1c\u0e39\u0e49\u0e42\u0e1e\u0e2a\u0e15\u0e4c\u0e2b\u0e23\u0e37\u0e2d\u0e42\u0e1e\u0e2a\u0e15\u0e4c\u0e40\u0e21\u0e37\u0e48\u0e2d\u0e43\u0e14\u0e40\u0e17\u0e48\u0e32\u0e19\u0e31\u0e49\u0e19");
         table.put("With Stop Reels scrolling on, reels you open from Search, Explore, a hashtag or a place still move on when you swipe.",
@@ -29570,6 +29721,9 @@ public final class L10nTranslations {
                 "\u0e40\u0e27\u0e2d\u0e23\u0e4c\u0e0a\u0e31\u0e19\u0e02\u0e2d\u0e07\u0e04\u0e38\u0e13 \u0e0b\u0e2d\u0e23\u0e4c\u0e2a\u0e42\u0e04\u0e49\u0e14 \u0e41\u0e25\u0e30\u0e43\u0e1a\u0e2d\u0e19\u0e38\u0e0d\u0e32\u0e15");
         table.put("Your words",
                 "\u0e02\u0e49\u0e2d\u0e04\u0e27\u0e32\u0e21\u0e02\u0e2d\u0e07\u0e04\u0e38\u0e13");
+    }
+
+    private static void fillTh34(Map<String, String> table) {
         table.put("Zoomed photo",
                 "\u0e23\u0e39\u0e1b\u0e20\u0e32\u0e1e\u0e17\u0e35\u0e48\u0e0b\u0e39\u0e21");
         table.put("the home screen icon you picked",
@@ -29589,7 +29743,7 @@ public final class L10nTranslations {
     }
 
     private static Map<String, String> buildTr() {
-        Map<String, String> table = new HashMap<>(4078);
+        Map<String, String> table = new HashMap<>(4096);
         fillTr0(table);
         fillTr1(table);
         fillTr2(table);
@@ -29624,6 +29778,7 @@ public final class L10nTranslations {
         fillTr31(table);
         fillTr32(table);
         fillTr33(table);
+        fillTr34(table);
         return table;
     }
 
@@ -29823,8 +29978,8 @@ public final class L10nTranslations {
                 "Bir reel ba\u011flant\u0131s\u0131, g\u00f6sterdi\u011fi reel'i a\u00e7ar. O reel y\u00fcklenirken Instagram telefonunda saklad\u0131\u011f\u0131 ba\u015fka bir reel'i oynatmaz.");
         table.put("A reel that doesn't fill the screen shows a blurred copy of itself above and below it instead of black bars, and the strip under the tab bar and the band behind the clock show the reel blurred too. The copy shows only where a reel leaves room, as with Show the whole reel on. Open Reels again after a change.",
                 "Ekran\u0131 doldurmayan bir Reel, siyah \u00e7ubuklar yerine \u00fcst\u00fcnde ve alt\u0131nda kendisinin bulan\u0131k bir kopyas\u0131n\u0131 g\u00f6sterir, sekme \u00e7ubu\u011funun alt\u0131ndaki \u015ferit ve saatin arkas\u0131ndaki alan da Reel'i bulan\u0131k g\u00f6sterir. Kopya yaln\u0131zca Reel'in bo\u015fluk b\u0131rakt\u0131\u011f\u0131 yerde g\u00f6r\u00fcn\u00fcr, \u00f6rne\u011fin Reels videosunun tamam\u0131n\u0131 g\u00f6ster a\u00e7\u0131kken. De\u011fi\u015fiklikten sonra Reels'i yeniden a\u00e7.");
-        table.put("A reel you open from the Reels tab or a post on Home plays with sound, and Home is muted again when you go back. Your phone's ringer and volume still count.",
-                "Reels sekmesinden veya Ana Sayfa'daki bir g\u00f6nderiden a\u00e7t\u0131\u011f\u0131n\u0131z reel sesli oynar ve geri d\u00f6nd\u00fc\u011f\u00fcn\u00fczde Ana Sayfa yeniden sessize al\u0131n\u0131r. Telefonunuzun zil modu ve ses d\u00fczeyi yine ge\u00e7erlidir.");
+        table.put("A reel you open from the Reels tab, a profile or a post on Home plays with sound, and Home is muted again when you go back. Your phone's ringer and volume still count.",
+                "Reels sekmesinden, bir profilden veya Ana Sayfa'daki bir g\u00f6nderiden a\u00e7t\u0131\u011f\u0131n\u0131z reel sesli oynar ve geri d\u00f6nd\u00fc\u011f\u00fcn\u00fczde Ana Sayfa yeniden sessize al\u0131n\u0131r. Telefonunuzun zil modu ve ses d\u00fczeyi yine ge\u00e7erlidir.");
         table.put("A rounded bar split by a tall handle.",
                 "Uzun bir tutama\u00e7la b\u00f6l\u00fcnm\u00fc\u015f yuvarlat\u0131lm\u0131\u015f bir \u00e7ubuk.");
         table.put("A save stopped. Reopen the media and save again.",
@@ -30069,6 +30224,8 @@ public final class L10nTranslations {
                 "Bir emoji yaz\u0131 tipi dosyas\u0131");
         table.put("An eye at the top of each chat holds or sends Seen in that chat alone, whatever Read messages without the seen receipt says. Changing it doesn't send anything by itself.",
                 "Her sohbetin \u00fcst\u00fcndeki g\u00f6z, Mesajlar\u0131 g\u00f6r\u00fcld\u00fc bilgisi olmadan oku ne derse desin, G\u00f6r\u00fcld\u00fc'y\u00fc yaln\u0131zca o sohbette tutar ya da g\u00f6nderir. De\u011fi\u015ftirmek kendi ba\u015f\u0131na hi\u00e7bir \u015fey g\u00f6ndermez.");
+        table.put("App",
+                "Uygulama");
         table.put("App icon",
                 "Uygulama simgesi");
         table.put("App-only proxy",
@@ -30115,11 +30272,11 @@ public final class L10nTranslations {
                 "Geri tu\u015fu Ana Sayfa'dan oldu\u011fu gibi \u00e7\u0131kar");
         table.put("Back on Home leaves Instagram without first scrolling the feed to the top and reloading it.",
                 "Ana Sayfa'da Geri, ak\u0131\u015f\u0131 \u00f6nce en \u00fcste kayd\u0131r\u0131p yenilemeden Instagram'dan \u00e7\u0131kar.");
-        table.put("Background playback",
-                "Arka planda oynatma");
     }
 
     private static void fillTr4(Map<String, String> table) {
+        table.put("Background playback",
+                "Arka planda oynatma");
         table.put("Backgrounds in the accent color",
                 "Arka planlar vurgu renginde");
         table.put("Badges in the accent color",
@@ -30144,8 +30301,8 @@ public final class L10nTranslations {
                 "Biyografi");
         table.put("Bio copied",
                 "Biyografi kopyaland\u0131");
-        table.put("Black rows and dialogs, HushGram's name at the top, and each category on one line.",
-                "Siyah sat\u0131rlar ve pencereler, \u00fcstte HushGram ad\u0131 ve her kategori tek sat\u0131rda.");
+        table.put("Black rows and dialogs, with HushGram's name at the top.",
+                "Siyah sat\u0131rlar ve pencereler, \u00fcstte HushGram ad\u0131yla.");
         table.put("Black settings page",
                 "Siyah ayarlar sayfas\u0131");
         table.put("Blend post edges",
@@ -30238,11 +30395,11 @@ public final class L10nTranslations {
                 "Ayarlar\u0131 d\u0131\u015fa aktarmak i\u00e7in bir dosya se\u00e7in.");
         table.put("Choose a file for your installed patches' settings and saved profiles. Your login and history stay on this device.",
                 "Y\u00fckl\u00fc yamalar\u0131n ayarlar\u0131 ve kaydedilen profiller i\u00e7in bir dosya se\u00e7in. Oturum bilgileriniz ve ge\u00e7mi\u015f bu cihazda kal\u0131r.");
-        table.put("Choose a file for your installed patches' settings. Accounts and history stay on this device.",
-                "Y\u00fckl\u00fc yamalar\u0131n ayarlar\u0131 i\u00e7in bir dosya se\u00e7in. Hesaplar ve ge\u00e7mi\u015f bu cihazda kal\u0131r.");
     }
 
     private static void fillTr5(Map<String, String> table) {
+        table.put("Choose a file for your installed patches' settings. Accounts and history stay on this device.",
+                "Y\u00fckl\u00fc yamalar\u0131n ayarlar\u0131 i\u00e7in bir dosya se\u00e7in. Hesaplar ve ge\u00e7mi\u015f bu cihazda kal\u0131r.");
         table.put("Choose a folder",
                 "Klas\u00f6r se\u00e7");
         table.put("Choose a folder name under Movies and Pictures. Invalid characters become underscores. Leave it blank to use the default folder, %1$s. For an SD card or anywhere else, use Choose a folder.",
@@ -30299,6 +30456,8 @@ public final class L10nTranslations {
                 "Kompakt");
         table.put("Confirm PIN",
                 "PIN'i onayla");
+        table.put("Content",
+                "\u0130\u00e7erik");
         table.put("Continue",
                 "Devam et");
         table.put("Control where Meta AI appears.",
@@ -30359,13 +30518,13 @@ public final class L10nTranslations {
                 "Kay\u0131tl\u0131 kopyalar temizlenemedi. Tekrar dene.");
         table.put("Couldn't clear the unfollower list. Try again.",
                 "Takipten \u00e7\u0131kanlar listesi temizlenemedi. Tekrar dene.");
+    }
+
+    private static void fillTr6(Map<String, String> table) {
         table.put("Couldn't clear the viewing history. Try again.",
                 "G\u00f6r\u00fcnt\u00fcleme ge\u00e7mi\u015fi temizlenemedi. Tekrar dene.");
         table.put("Couldn't copy comment",
                 "Yorum kopyalanamad\u0131");
-    }
-
-    private static void fillTr6(Map<String, String> table) {
         table.put("Couldn't copy the GIF name",
                 "GIF ad\u0131 kopyalanamad\u0131");
         table.put("Couldn't copy the bio",
@@ -30482,13 +30641,13 @@ public final class L10nTranslations {
                 "\u00d6zel");
         table.put("Custom app icon",
                 "\u00d6zel uygulama simgesi");
+    }
+
+    private static void fillTr7(Map<String, String> table) {
         table.put("Custom color",
                 "\u00d6zel renk");
         table.put("Custom tab",
                 "\u00d6zel sekme");
-    }
-
-    private static void fillTr7(Map<String, String> table) {
         table.put("Data saver",
                 "Veri tasarrufu");
         table.put("Date and time",
@@ -30605,13 +30764,13 @@ public final class L10nTranslations {
                 "\u0130ndiriliyor");
         table.put("Downloading the emoji...",
                 "Emojiler indiriliyor...");
+    }
+
+    private static void fillTr8(Map<String, String> table) {
         table.put("Downloads",
                 "\u0130ndirmeler");
         table.put("Drag to move %1$s",
                 "%1$s \u00f6\u011fesini ta\u015f\u0131mak i\u00e7in s\u00fcr\u00fckle");
-    }
-
-    private static void fillTr8(Map<String, String> table) {
         table.put("Drag to move, pinch to zoom.",
                 "Ta\u015f\u0131mak i\u00e7in s\u00fcr\u00fckle, yak\u0131nla\u015ft\u0131rmak i\u00e7in s\u0131k\u0131\u015ft\u0131r.");
         table.put("Draws Instagram's tab bar as a floating, rounded glass pill with a highlight on the tab you're on. Restart Instagram after changing it.",
@@ -30728,13 +30887,13 @@ public final class L10nTranslations {
                 "Kaydedilenler'de h\u0131zl\u0131 kayd\u0131rma");
         table.put("Favorites still shows them.",
                 "Favoriler onlar\u0131 g\u00f6stermeye devam eder.");
+    }
+
+    private static void fillTr9(Map<String, String> table) {
         table.put("Feed",
                 "Ak\u0131\u015f");
         table.put("Feed videos and reels stop at their last frame instead of playing again. Reels still loop while auto scroll is on, so it can move on.",
                 "Ak\u0131\u015ftaki videolar ve reels videolar\u0131 yeniden oynat\u0131lmak yerine son karelerinde durur. Otomatik kayd\u0131rma a\u00e7\u0131kken reels videolar\u0131 bir sonrakine ge\u00e7ebilmesi i\u00e7in tekrarlanmaya devam eder.");
-    }
-
-    private static void fillTr9(Map<String, String> table) {
         table.put("Feed videos and stories wait for your tap. Reels play as you swipe to them.",
                 "Ak\u0131\u015ftaki videolar ve hikayeler dokunman\u0131 bekler. Reels, kayd\u0131rd\u0131\u011f\u0131nda oynar.");
         table.put("Feed videos, reels and stories all wait for your tap.",
@@ -30851,13 +31010,13 @@ public final class L10nTranslations {
                 "Tam yuvarlak");
         table.put("GIF name",
                 "GIF ad\u0131");
+    }
+
+    private static void fillTr10(Map<String, String> table) {
         table.put("GIF name copied",
                 "GIF ad\u0131 kopyaland\u0131");
         table.put("GIF or sticker",
                 "GIF veya \u00e7\u0131kartma");
-    }
-
-    private static void fillTr10(Map<String, String> table) {
         table.put("GPL-3.0, with the notices of the projects this is built on",
                 "GPL-3.0, \u00fczerine kuruldu\u011fu projelerin lisans bildirimleriyle");
         table.put("Galaxy S26 Ultra",
@@ -30974,13 +31133,13 @@ public final class L10nTranslations {
                 "Bildirimlerde \u00d6ne \u00c7\u0131kanlar'\u0131 gizle");
         table.put("Hide Follow on posts",
                 "G\u00f6nderilerde Takip Et'i gizle");
+    }
+
+    private static void fillTr11(Map<String, String> table) {
         table.put("Hide Follow on stories",
                 "Hikayelerde Takip Et'i gizle");
         table.put("Hide GIFs in comments",
                 "Yorumlardaki GIF'leri gizle");
-    }
-
-    private static void fillTr11(Map<String, String> table) {
         table.put("Hide Instagram Plus prompts",
                 "Instagram Plus \u00f6nerilerini gizle");
         table.put("Hide Instants",
@@ -31017,6 +31176,8 @@ public final class L10nTranslations {
                 "Takip listelerinde Senin i\u00e7in \u00f6nerilenleri gizle");
         table.put("Hide Threads posts",
                 "Threads g\u00f6nderilerini gizle");
+        table.put("Hide Watch more reels",
+                "Daha fazla reels izle'yi gizle");
         table.put("Hide Your algorithm on reels",
                 "Reels'te Algoritman d\u00fc\u011fmesini gizle");
         table.put("Hide activity bubbles",
@@ -31095,15 +31256,15 @@ public final class L10nTranslations {
                 "\u00d6nerilen g\u00f6nderileri gizle");
         table.put("Hide suggested searches on reels",
                 "Reels'teki \u00f6nerilen aramalar\u0131 gizle");
+    }
+
+    private static void fillTr12(Map<String, String> table) {
         table.put("Hide suggested stories",
                 "\u00d6nerilen hikayeleri gizle");
         table.put("Hide suggestions in notifications",
                 "Bildirimlerdeki \u00f6nerileri gizle");
         table.put("Hide surveys",
                 "Anketleri gizle");
-    }
-
-    private static void fillTr12(Map<String, String> table) {
         table.put("Hide that you're typing",
                 "Yazd\u0131\u011f\u0131n\u0131 gizle");
         table.put("Hide the 2x popup",
@@ -31218,15 +31379,15 @@ public final class L10nTranslations {
                 "Takip etmedi\u011fin hesaplar\u0131n Senin i\u00e7in \u00f6nerilen olarak i\u015faretli g\u00f6nderilerini ve reels'lerini gizler. Takip etti\u011fin hesaplar\u0131n g\u00f6nderileri kal\u0131r.");
         table.put("Hides sponsored posts, reels, stories and the ad in comments. No empty gap is left where an ad would have been.",
                 "Sponsorlu g\u00f6nderileri, reels'leri, hik\u00e2yeleri ve yorumlardaki reklam\u0131 gizler. Reklam\u0131n olaca\u011f\u0131 yerde bo\u015fluk kalmaz.");
+    }
+
+    private static void fillTr13(Map<String, String> table) {
         table.put("Hides stories from accounts you don't follow, and accounts Instagram suggests, in the row at the top of Home. Stories from accounts you follow stay.",
                 "Ana Sayfa'n\u0131n \u00fcst\u00fcndeki sat\u0131rda, takip etmedi\u011fin hesaplar\u0131n hik\u00e2yelerini ve Instagram'\u0131n \u00f6nerdi\u011fi hesaplar\u0131 gizler. Takip etti\u011fin hesaplar\u0131n hik\u00e2yeleri kal\u0131r.");
         table.put("Hides the bar under a post that asks you to join the account's channel. The post stays.",
                 "Bir g\u00f6nderinin alt\u0131nda seni hesab\u0131n kanal\u0131na kat\u0131lmaya \u00e7a\u011f\u0131ran \u00e7ubu\u011fu gizler. G\u00f6nderi kal\u0131r.");
         table.put("Hides the bubble under a post that asks 'Are you interested in this post?' with Not interested and Interested buttons. Nothing is answered for you.",
                 "Bir g\u00f6nderinin alt\u0131nda 'Bu g\u00f6nderiyle ilgileniyor musun?' diye soran, \u0130lgilenmiyorum ve \u0130lgileniyorum d\u00fc\u011fmeleri olan balonu gizler. Senin yerine hi\u00e7bir \u015fey yan\u0131tlanmaz.");
-    }
-
-    private static void fillTr13(Map<String, String> table) {
         table.put("Hides the buttons that push Edits, templates, Meta AI and Ray-Ban Meta glasses. Live badges and state-controlled media labels stay.",
                 "Edits, \u015fablonlar, Meta AI ve Ray-Ban Meta g\u00f6zl\u00fcklerini \u00f6ne \u00e7\u0131karan d\u00fc\u011fmeleri gizler. Canl\u0131 rozeti ve devlet kontroll\u00fc medya etiketi kal\u0131r.");
         table.put("Hides the card after the posts from accounts you follow that says you've seen the latest ones, and its Older posts link. When Home has no new posts at all, only that line goes and the link stays. Pull down on Home to refresh after changing it.",
@@ -31341,15 +31502,15 @@ public final class L10nTranslations {
                 "%1$d ayar i\u00e7e aktar\u0131ld\u0131. Bu s\u00fcr\u00fcm\u00fcn tan\u0131mad\u0131\u011f\u0131 %2$d tanesi atland\u0131.");
         table.put("Instagram accepts this build",
                 "Instagram bu s\u00fcr\u00fcm\u00fc kabul eder");
+    }
+
+    private static void fillTr14(Map<String, String> table) {
         table.put("Instagram blue",
                 "Instagram mavisi");
         table.put("Instagram can't read where the photos and videos in your gallery were taken.",
                 "Instagram, galerindeki foto\u011fraflar\u0131n ve videolar\u0131n nerede \u00e7ekildi\u011fini okuyamaz.");
         table.put("Instagram can't read your phone's advertising ID or tell Android's ad services which ads you saw or tapped. The permissions for them are gone from this build.",
                 "Instagram telefonunun reklam kimli\u011fini okuyamaz ve Android'in reklam hizmetlerine hangi reklamlar\u0131 g\u00f6rd\u00fc\u011f\u00fcn\u00fc veya dokundu\u011funu bildiremez. Bunlar i\u00e7in gereken izinler bu s\u00fcr\u00fcmden kald\u0131r\u0131ld\u0131.");
-    }
-
-    private static void fillTr14(Map<String, String> table) {
         table.put("Instagram crashed or froze within a minute of starting three times in a row, so HushGram paused itself.",
                 "Instagram a\u00e7\u0131ld\u0131ktan sonraki bir dakika i\u00e7inde \u00fcst \u00fcste \u00fc\u00e7 kez \u00e7\u00f6kt\u00fc veya dondu, bu y\u00fczden HushGram kendini duraklatt\u0131.");
         table.put("Instagram didn't keep the change and the overrides couldn't be confirmed. Use Restore previous overrides, then restart Instagram.",
@@ -31464,15 +31625,15 @@ public final class L10nTranslations {
                 "\u0130lk mesaja veya bir tarihe atla");
         table.put("KakaoTalk",
                 "KakaoTalk");
+    }
+
+    private static void fillTr15(Map<String, String> table) {
         table.put("Keep Featured off the heart's dot",
                 "\u00d6ne \u00c7\u0131kanlar kalpteki noktay\u0131 yakmas\u0131n");
         table.put("Keep Home's top bar",
                 "Ana sayfan\u0131n \u00fcst \u00e7ubu\u011funu sabitle");
         table.put("Keep Instagram's saved photos and videos from filling your phone.",
                 "Instagram'\u0131n saklad\u0131\u011f\u0131 foto\u011fraf ve videolar\u0131n telefonunu doldurmas\u0131n\u0131 \u00f6nle.");
-    }
-
-    private static void fillTr15(Map<String, String> table) {
         table.put("Keep Reels auto scroll between sessions",
                 "Keep Reels auto scroll between sessions");
         table.put("Keep a seek bar",
@@ -31587,15 +31748,15 @@ public final class L10nTranslations {
                 "Instagram'\u0131n, dokunarak ge\u00e7ti\u011fin hikayelerin aras\u0131na koydu\u011fu pop\u00fcler ve trend S\u0131ra sende kartlar\u0131n\u0131 kald\u0131r\u0131r. Hikayelerin kendisi kal\u0131r.");
         table.put("Leaves out the Suggested for you cards of accounts to follow that Instagram puts between the stories you tap through. The stories themselves stay.",
                 "Instagram'\u0131n, dokunarak ge\u00e7ti\u011fin hikayelerin aras\u0131na koydu\u011fu takip edilecek hesap kartlar\u0131n\u0131 kald\u0131r\u0131r. Hikayelerin kendisi kal\u0131r.");
+    }
+
+    private static void fillTr16(Map<String, String> table) {
         table.put("Leaves out the live broadcasts Instagram puts between reels in the Reels tab and when you swipe through reels from Explore.",
                 "Instagram'\u0131n Reels sekmesinde ve Ke\u015ffet'ten a\u00e7t\u0131\u011f\u0131n reel'leri kayd\u0131r\u0131rken reel'lerin aras\u0131na koydu\u011fu canl\u0131 yay\u0131nlar\u0131 g\u00f6stermez.");
         table.put("Leaves the Suggested for you accounts out of what shows when you tap the search bar. Recent searches stay.",
                 "Arama \u00e7ubu\u011funa dokundu\u011funda \u00e7\u0131kan Senin i\u00e7in \u00f6nerilen hesaplar\u0131 kald\u0131r\u0131r. Son aramalar kal\u0131r.");
         table.put("Leaves the Suggested for you section off the followers, following and mutual lists and the screen where you approve follow requests, and the Suggested tab off other people's follow lists. Every account in the lists and every real request stays.",
                 "Takip\u00e7iler, takip edilenler ve ortak takip\u00e7iler listelerindeki ve takip isteklerini onaylad\u0131\u011f\u0131n ekrandaki Senin i\u00e7in \u00f6nerilenler b\u00f6l\u00fcm\u00fcn\u00fc, ayr\u0131ca ba\u015fkalar\u0131n\u0131n takip listelerindeki \u00d6nerilenler sekmesini kald\u0131r\u0131r. Listelerdeki her hesap ve her ger\u00e7ek istek kal\u0131r.");
-    }
-
-    private static void fillTr16(Map<String, String> table) {
         table.put("Leaving Instagram while a reel plays shrinks it into a small window over your other apps. Works in Reels and on reels opened from the feed, on Android 15 or newer.",
                 "Bir reel oynarken Instagram'dan \u00e7\u0131k\u0131nca, di\u011fer uygulamalar\u0131n\u0131n \u00fcst\u00fcnde k\u00fc\u00e7\u00fck bir pencereye d\u00f6n\u00fc\u015f\u00fcr. Reels'te ve ak\u0131\u015ftan a\u00e7\u0131lan reels'lerde, Android 15 veya daha yenisinde \u00e7al\u0131\u015f\u0131r.");
         table.put("Leaving Instagram while a story plays shrinks it into a small window over your other apps, where it keeps going through the stories.",
@@ -31694,6 +31855,8 @@ public final class L10nTranslations {
                 "Yak\u0131nla\u015ft\u0131rmak i\u00e7in foto\u011frafa uzun bas");
         table.put("Long press a post for full screen",
                 "Tam ekran i\u00e7in g\u00f6nderiye uzun bas");
+        table.put("Look",
+                "G\u00f6r\u00fcn\u00fcm");
         table.put("Loop a story",
                 "Hikayeyi d\u00f6ng\u00fcde oynat");
         table.put("Loop didn't change",
@@ -31708,6 +31871,9 @@ public final class L10nTranslations {
                 "Bu video tekrarlan\u0131yor");
         table.put("Makes Instagram see the phone chosen below, unlocking HDR video downloads and other features limited to those phones, and adds the matching developer options. Restart Instagram to see the change.",
                 "Instagram'\u0131n cihaz\u0131 a\u015fa\u011f\u0131da se\u00e7ilen telefon olarak g\u00f6rmesini sa\u011flar, HDR video indirmeleri ve bu telefonlara \u00f6zel di\u011fer \u00f6zellikleri a\u00e7ar ve ilgili geli\u015ftirici se\u00e7eneklerini ekler. De\u011fi\u015fikli\u011fi g\u00f6rmek i\u00e7in Instagram'\u0131 yeniden ba\u015flat\u0131n.");
+    }
+
+    private static void fillTr17(Map<String, String> table) {
         table.put("Makes the seek bar thicker, with a round white handle and the time above it, over a soft dark fade so it shows on any video. Drag it to seek. It also keeps the bar on short reels.",
                 "\u0130lerleme \u00e7ubu\u011funu daha kal\u0131n yapar. Yuvarlak beyaz tutama\u00e7 ve \u00fcst\u00fcnde s\u00fcre g\u00f6sterir, her videoda g\u00f6r\u00fcns\u00fcn diye yumu\u015fak koyu bir ge\u00e7i\u015fin \u00fczerinde durur. S\u00fcr\u00fckleyerek ilerle. K\u0131sa Reel'lerde de \u00e7ubu\u011fu tutar.");
         table.put("Mapping file removed. Open MetaConfig again to see the change.",
@@ -31716,9 +31882,6 @@ public final class L10nTranslations {
                 "Mapping imported: %1$d names. Open MetaConfig again to see them.");
         table.put("Mark a chat seen when you reply",
                 "Yan\u0131t verdi\u011finde sohbeti g\u00f6r\u00fcld\u00fc olarak i\u015faretle");
-    }
-
-    private static void fillTr17(Map<String, String> table) {
         table.put("Mark as read",
                 "Okundu olarak i\u015faretle");
         table.put("Mark as read button in chats",
@@ -31745,6 +31908,8 @@ public final class L10nTranslations {
                 "Material You i\u00e7in Android 12 veya daha yenisi gerekiyor, bu y\u00fczden Instagram mavisi kal\u0131yor.");
         table.put("Media ID %1$s",
                 "Medya kimli\u011fi %1$s");
+        table.put("Media and storage",
+                "Medya ve depolama");
         table.put("Media link",
                 "Medya ba\u011flant\u0131s\u0131");
         table.put("Media link copied. It stops working after a few days.",
@@ -31795,8 +31960,8 @@ public final class L10nTranslations {
                 "@%1$s, %2$s klas\u00f6r\u00fcne ta\u015f\u0131nd\u0131");
         table.put("Moved @%s out of its folder",
                 "@%s klas\u00f6rden \u00e7\u0131kar\u0131ld\u0131");
-        table.put("Moves a carousel post's page dots onto a round pill at the bottom of its photo or video, with the page you're on in blue.",
-                "\u00c7oklu g\u00f6nderinin sayfa noktalar\u0131n\u0131 foto\u011fraf\u0131n veya videonun alt\u0131ndaki yuvarlak bir hap\u0131n \u00fczerine ta\u015f\u0131r. Bulundu\u011fun sayfa mavi g\u00f6r\u00fcn\u00fcr.");
+        table.put("Moves a carousel post's page dots onto a round pill at the bottom of its photo or video, with the page you're on in blue. Hold the pill and slide left or right to move through the pages.",
+                "\u00c7oklu g\u00f6nderinin sayfa noktalar\u0131n\u0131 foto\u011fraf\u0131n veya videonun alt\u0131ndaki yuvarlak bir hap\u0131n \u00fczerine ta\u015f\u0131r. Bulundu\u011fun sayfa mavi g\u00f6r\u00fcn\u00fcr. Hapa bas\u0131l\u0131 tutup sola veya sa\u011fa kayd\u0131rarak sayfa de\u011fi\u015ftirebilirsin.");
         table.put("Moves the gallery and microphone buttons off the message bar and into the plus menu. They work as before. Turn it off and they're back the next time a chat opens.",
                 "Galeri ve mikrofon d\u00fc\u011fmelerini mesaj \u00e7ubu\u011fundan art\u0131 men\u00fcs\u00fcne ta\u015f\u0131r. Eskisi gibi \u00e7al\u0131\u015f\u0131rlar. Kapat\u0131rsan bir sohbet bir sonraki a\u00e7\u0131l\u0131\u015f\u0131nda geri gelirler.");
         table.put("Mute",
@@ -31829,6 +31994,9 @@ public final class L10nTranslations {
                 "Yeni klas\u00f6r");
         table.put("New like animations",
                 "New like animations");
+    }
+
+    private static void fillTr18(Map<String, String> table) {
         table.put("New message",
                 "Yeni mesaj");
         table.put("New message after this reel",
@@ -31839,9 +32007,6 @@ public final class L10nTranslations {
                 "Yeni profil foto\u011fraf\u0131 ve biyografi");
         table.put("New story fonts and animations",
                 "New story fonts and animations");
-    }
-
-    private static void fillTr18(Map<String, String> table) {
         table.put("New story timestamp style",
                 "New story timestamp style");
         table.put("Next match",
@@ -31952,6 +32117,9 @@ public final class L10nTranslations {
                 "Takibi b\u0131rakanlar\u0131 bildir");
         table.put("OK",
                 "Tamam");
+    }
+
+    private static void fillTr19(Map<String, String> table) {
         table.put("Off",
                 "Kapal\u0131");
         table.put("Off. It can cover the Home, Reels and Explore tabs for a break after you've spent a while on them.",
@@ -31962,9 +32130,6 @@ public final class L10nTranslations {
                 "Eski biyografi, %s");
         table.put("Old profile picture, %s",
                 "Eski profil foto\u011fraf\u0131, %s");
-    }
-
-    private static void fillTr19(Map<String, String> table) {
         table.put("On Reels, the tab bar slides away after %1$d seconds without a touch. Tap the bottom edge of the screen, change tab or press Back to bring it back. Restart Instagram after changing it.",
                 "Reels'te \u00e7ubuk, %1$d saniye dokunulmad\u0131\u011f\u0131nda kayarak kaybolur. Geri getirmek i\u00e7in ekran\u0131n alt kenar\u0131na dokunun, sekme de\u011fi\u015ftirin veya Geri'ye bas\u0131n. De\u011fi\u015ftirdikten sonra Instagram'\u0131 yeniden ba\u015flat\u0131n.");
         table.put("On a carousel, the download icon saves all of its pages at once instead of asking.",
@@ -32075,6 +32240,9 @@ public final class L10nTranslations {
                 "Bir sohbeti a\u00e7t\u0131\u011f\u0131nda kar\u015f\u0131 taraf mesajlar\u0131n\u0131 g\u00f6rd\u00fc\u011f\u00fcn\u00fc \u00f6\u011frenmez ve onlar\u0131n seninkileri ne zaman g\u00f6rd\u00fc\u011f\u00fcn\u00fc g\u00f6rmeye devam edersin. Bir sohbetin bilmesini istersen mesajlar\u0131nda ona uzun bas ve Okundu olarak i\u015faretle'ye dokun.");
         table.put("Opening someone's profile takes you on to their posts as a scrolling list of full posts. Go Back for the grid. Your own profile keeps its grid.",
                 "Birinin profilini a\u00e7t\u0131\u011f\u0131nda do\u011frudan g\u00f6nderilerine, tam g\u00f6nderilerden olu\u015fan kayd\u0131r\u0131labilir bir listeye ge\u00e7ersin. Izgara i\u00e7in Geri'ye d\u00f6n. Kendi profilin \u0131zgara olarak kal\u0131r.");
+    }
+
+    private static void fillTr20(Map<String, String> table) {
         table.put("Opens Home on posts from accounts you follow instead of For you. Tap the top of Home to switch. Restart Instagram to see the change.",
                 "Ana Sayfa'y\u0131 Senin i\u00e7in yerine takip etti\u011fin hesaplar\u0131n g\u00f6nderileriyle a\u00e7ar. Ge\u00e7i\u015f yapmak i\u00e7in Ana Sayfa'n\u0131n \u00fcst\u00fcne dokun. De\u011fi\u015fikli\u011fi g\u00f6rmek i\u00e7in Instagram'\u0131 yeniden ba\u015flat.");
         table.put("Opens Instagram's own Whitehat settings. Its switch lets Instagram trust the certificates installed on this phone for 24 hours, so you can check the app's traffic. Restart Instagram after you turn it on.",
@@ -32085,9 +32253,6 @@ public final class L10nTranslations {
                 "Opens Instagram's own editor for its hidden settings (MetaConfig). A wrong override, which is a changed setting, can break parts of Instagram.");
         table.put("Opens a GitHub report with your versions and settings filled in. Add what happened.",
                 "S\u00fcr\u00fcmlerin ve ayarlar\u0131n \u00f6nceden doldurulmu\u015f bir GitHub raporu a\u00e7ar. Ne oldu\u011funu ekle.");
-    }
-
-    private static void fillTr20(Map<String, String> table) {
         table.put("Orange",
                 "Turuncu");
         table.put("Overrides cleared. Restart Instagram to apply the change.",
@@ -32198,6 +32363,9 @@ public final class L10nTranslations {
                 "Post a story straight to Highlights");
         table.put("Posted %1$s",
                 "Payla\u015f\u0131ld\u0131: %1$s");
+    }
+
+    private static void fillTr21(Map<String, String> table) {
         table.put("Posts",
                 "G\u00f6nderiler");
         table.put("Posts from @%1$s are hidden",
@@ -32208,9 +32376,6 @@ public final class L10nTranslations {
                 "Gizli hesaplar\u0131n\u0131n g\u00f6nderileri Favoriler'de g\u00f6r\u00fcnmeye devam eder. Senin i\u00e7in ve Takip Edilenler onlar\u0131 g\u00f6stermez. De\u011fi\u015ftirdikten sonra yenilemek i\u00e7in Ana Sayfa'y\u0131 a\u015fa\u011f\u0131 \u00e7ek.");
         table.put("Preparing diagnostic report...",
                 "Tan\u0131lama raporu haz\u0131rlan\u0131yor...");
-    }
-
-    private static void fillTr21(Map<String, String> table) {
         table.put("Press and hold a comment that has its own photo, GIF or sticker, and its menu gets Save. Saves the largest size Instagram sent.",
                 "Kendi foto\u011fraf\u0131, GIF'i veya \u00e7\u0131kartmas\u0131 olan bir yorumu bas\u0131l\u0131 tutunca men\u00fcs\u00fcne Kaydet eklenir. Instagram'\u0131n g\u00f6nderdi\u011fi en b\u00fcy\u00fck boyutu kaydeder.");
         table.put("Press and hold a photo in a feed to see it twice as big around your finger, and slide to look around. Let go to close it. While this is on, it takes the place of Instagram's own long press on a photo.",
@@ -32245,6 +32410,8 @@ public final class L10nTranslations {
                 "\u00d6nceki sayfa");
         table.put("Priority accounts",
                 "\u00d6ncelikli hesaplar");
+        table.put("Privacy",
+                "Gizlilik");
         table.put("Privacy and controls for your chats.",
                 "Sohbetler i\u00e7in gizlilik ve kontroller.");
         table.put("Profile",
@@ -32319,6 +32486,9 @@ public final class L10nTranslations {
                 "Bir video hikayesinin \u00fcst\u00fcne, \u00fc\u00e7 noktan\u0131n yan\u0131na bir h\u0131z d\u00fc\u011fmesi koyar. 1,5x i\u00e7in dokun, 2x i\u00e7in tekrar dokun, 1x i\u00e7in bir kez daha dokun. Sonraki video hikayeleri, sen de\u011fi\u015ftirene veya Instagram'\u0131 yeniden ba\u015flatana kadar bu h\u0131z\u0131 korur. Reklamlar normal h\u0131zda oynat\u0131l\u0131r.");
         table.put("Puts a speed icon beside a reel. Tap it to pick a speed from 0.5x to 3x. With Keep the reel speed on, the next reels play at it too.",
                 "Bir reel'in yan\u0131na h\u0131z simgesi koyar. 0,5x ile 3x aras\u0131nda bir h\u0131z se\u00e7mek i\u00e7in dokun. Reel h\u0131z\u0131n\u0131 koru a\u00e7\u0131ksa sonraki reel'ler de bu h\u0131zda oynar.");
+    }
+
+    private static void fillTr22(Map<String, String> table) {
         table.put("Puts an (i) next to the three dots on a profile that opens Instagram's About this account for that account. Instagram took its own away.",
                 "Profilde \u00fc\u00e7 noktan\u0131n yan\u0131na, o hesap i\u00e7in Instagram'\u0131n Bu hesap hakk\u0131nda ekran\u0131n\u0131 a\u00e7an bir (i) koyar. Instagram kendi d\u00fc\u011fmesini kald\u0131rd\u0131.");
         table.put("Puts back the overrides saved before your last import for this account and Instagram version.",
@@ -32331,9 +32501,6 @@ public final class L10nTranslations {
                 "Bunun yerine yan\u0131t\u0131 profilin g\u00f6nderi, takip\u00e7i ve takip say\u0131lar\u0131n\u0131n alt\u0131nda bir \u00e7ip olarak g\u00f6sterir ve sen de takip ediyorsan Birbirinizi takip ediyorsunuz yazar.");
         table.put("Puts the seek bar right on the bottom edge of the video, so it's harder to touch by accident while you scroll.",
                 "Arama \u00e7ubu\u011funu videonun tam alt kenar\u0131na koyar, b\u00f6ylece kayd\u0131r\u0131rken yanl\u0131\u015fl\u0131kla dokunmak zorla\u015f\u0131r.");
-    }
-
-    private static void fillTr22(Map<String, String> table) {
         table.put("Puts the title in the middle of the bar at the top of other screens, like notifications, as far as the buttons beside it allow. The buttons stay where they are.",
                 "Bildirimler gibi di\u011fer ekranlar\u0131n \u00fcst\u00fcndeki \u00e7ubukta ba\u015fl\u0131\u011f\u0131, yan\u0131ndaki d\u00fc\u011fmelerin izin verdi\u011fi kadar ortaya koyar. D\u00fc\u011fmeler yerinde kal\u0131r.");
         table.put("Puts the username in the middle of the bar at the top of a profile, yours and other people's. The buttons stay where they are.",
@@ -32442,6 +32609,9 @@ public final class L10nTranslations {
                 "Ana Sayfa'dan tek foto\u011frafl\u0131 t\u00fcm g\u00f6nderileri, takip etti\u011fin hesaplardan gelenler dahil kald\u0131r\u0131r. De\u011fi\u015ftirdikten sonra yenilemek i\u00e7in Ana Sayfa'y\u0131 a\u015fa\u011f\u0131 \u00e7ek.");
         table.put("Removes every single-video post and reel from Home, even from accounts you follow. Pull down on Home to refresh after changing it.",
                 "Ana Sayfa'dan tek videolu t\u00fcm g\u00f6nderileri ve reels'leri, takip etti\u011fin hesaplardan gelenler dahil kald\u0131r\u0131r. De\u011fi\u015ftirdikten sonra yenilemek i\u00e7in Ana Sayfa'y\u0131 a\u015fa\u011f\u0131 \u00e7ek.");
+    }
+
+    private static void fillTr23(Map<String, String> table) {
         table.put("Removes posts by business and creator accounts from Home and Following, friends who use one included. Pull down on Home to refresh after changing it.",
                 "\u0130\u015fletme ve i\u00e7erik \u00fcreticisi hesaplar\u0131n\u0131n g\u00f6nderilerini, bu hesaplardan birini kullanan arkada\u015flar\u0131n dahil, Ana Sayfa'dan ve Takip Edilenler'den kald\u0131r\u0131r. De\u011fi\u015ftirdikten sonra yenilemek i\u00e7in Ana Sayfa'y\u0131 a\u015fa\u011f\u0131 \u00e7ek.");
         table.put("Removes posts you've already liked from Home and Following. A post you like now stays until you pull down on Home to refresh.",
@@ -32454,9 +32624,6 @@ public final class L10nTranslations {
                 "Muse d\u00fc\u011fmesini profilinin \u00fcst \u00e7ubu\u011fundan kald\u0131r\u0131r. Kullan\u0131c\u0131 ad\u0131n ve men\u00fc kal\u0131r.");
         table.put("Removes the empty gap under Instagram's tab bar that appears when your phone hides its navigation bar or Instagram is in a pop-up window. Restart Instagram to see the change.",
                 "Telefonun gezinme \u00e7ubu\u011funu gizledi\u011finde veya Instagram a\u00e7\u0131l\u0131r pencerede oldu\u011funda Instagram'\u0131n sekme \u00e7ubu\u011funun alt\u0131nda olu\u015fan bo\u015f bo\u015flu\u011fu kald\u0131r\u0131r. De\u011fi\u015fikli\u011fi g\u00f6rmek i\u00e7in Instagram'\u0131 yeniden ba\u015flat.");
-    }
-
-    private static void fillTr23(Map<String, String> table) {
         table.put("Removes the stack of Instants (quick photos from friends) from your messages. Restart Instagram to see the change.",
                 "Mesajlar\u0131ndaki Instants y\u0131\u011f\u0131n\u0131n\u0131 (arkada\u015flardan h\u0131zl\u0131 foto\u011fraflar) kald\u0131r\u0131r. De\u011fi\u015fikli\u011fi g\u00f6rmek i\u00e7in Instagram'\u0131 yeniden ba\u015flat.");
         table.put("Removes the summary, Sources and Ask Meta AI box from a reel's more menu. In your feed the audio row goes too. Other options stay.",
@@ -32565,6 +32732,9 @@ public final class L10nTranslations {
                 "Videolar\u0131 MKV olarak kaydet");
         table.put("Save videos other apps can open",
                 "Videolar\u0131 di\u011fer uygulamalar\u0131n a\u00e7abilece\u011fi bi\u00e7imde kaydet");
+    }
+
+    private static void fillTr24(Map<String, String> table) {
         table.put("Save your HushGram choices to a file, or bring them back.",
                 "HushGram se\u00e7imlerini bir dosyaya kaydet ya da geri getir.");
         table.put("Saved",
@@ -32577,9 +32747,6 @@ public final class L10nTranslations {
                 "@%s kaydedildi");
         table.put("Saved and everything in it stay covered until your fingerprint, face or screen lock says it's you.",
                 "Parmak izin, y\u00fcz\u00fcn veya ekran kilidin sen oldu\u011funu do\u011frulayana kadar Kaydedilenler ve i\u00e7indeki her \u015fey kapal\u0131 kal\u0131r.");
-    }
-
-    private static void fillTr24(Map<String, String> table) {
         table.put("Saved button in Explore",
                 "Saved button in Explore");
         table.put("Saved is locked",
@@ -32688,6 +32855,9 @@ public final class L10nTranslations {
                 "Bu sohbette G\u00f6r\u00fcld\u00fc tutuluyor");
         table.put("Select text",
                 "Metni se\u00e7");
+    }
+
+    private static void fillTr25(Map<String, String> table) {
         table.put("Select text to copy",
                 "Kopyalamak i\u00e7in metin se\u00e7");
         table.put("Send",
@@ -32700,9 +32870,6 @@ public final class L10nTranslations {
                 "Send stories with a long press");
         table.put("Send to",
                 "G\u00f6nderilecek uygulama");
-    }
-
-    private static void fillTr25(Map<String, String> table) {
         table.put("Sending a message in a chat lets the other person see that you've read what they sent before it. Chats you don't answer stay unseen to them.",
                 "Bir sohbette mesaj g\u00f6ndermen, kar\u015f\u0131 taraf\u0131n \u00f6ncesinde yazd\u0131klar\u0131n\u0131 okudu\u011funu g\u00f6rmesini sa\u011flar. Yan\u0131tlamad\u0131\u011f\u0131n sohbetler onlar i\u00e7in g\u00f6r\u00fclmemi\u015f kal\u0131r.");
         table.put("Sends Instagram through the HTTP proxy set below. Other apps and your phone's own settings aren't changed.",
@@ -32811,6 +32978,9 @@ public final class L10nTranslations {
                 "Video hikayenin alt\u0131na yak\u0131n bir \u00e7ubuk g\u00f6sterir. Videoda istedi\u011fin noktaya atlamak i\u00e7in s\u00fcr\u00fckle. Foto\u011fraflarda g\u00f6r\u00fcnmez.");
         table.put("Shows a blurred preview of a disappearing photo or video in a chat.",
                 "Shows a blurred preview of a disappearing photo or video in a chat.");
+    }
+
+    private static void fillTr26(Map<String, String> table) {
         table.put("Shows a handle at the right edge of Saved and your collections while they scroll. Drag it to jump through them.",
                 "Kaydedilenler ve koleksiyonlar\u0131n kayd\u0131r\u0131l\u0131rken sa\u011f kenarda bir tutama\u00e7 g\u00f6sterir. H\u0131zla atlamak i\u00e7in s\u00fcr\u00fckle.");
         table.put("Shows each switch by its name alone. Tap the i next to a name to read what it does.",
@@ -32823,9 +32993,6 @@ public final class L10nTranslations {
                 "\u0130\u00e7e Aktar ve Geri Y\u00fckle sat\u0131rlar\u0131n\u0131 g\u00f6sterir. \u0130\u00e7e aktarma, oturum a\u00e7\u0131k olan bu hesap i\u00e7in Instagram'\u0131n gizli ayarlar\u0131n\u0131 de\u011fi\u015ftirir.");
         table.put("Shows the date and time a reel was posted under the author's name, like Oct 2, 3:45 PM. A change shows from the next reel.",
                 "Bir reel'in payla\u015f\u0131ld\u0131\u011f\u0131 tarihi ve saati, payla\u015fan\u0131n ad\u0131n\u0131n alt\u0131nda 2 Eki, 15:45 gibi g\u00f6sterir. De\u011fi\u015fiklik bir sonraki reel'den itibaren g\u00f6r\u00fcn\u00fcr.");
-    }
-
-    private static void fillTr26(Map<String, String> table) {
         table.put("Shows the days, hours and minutes since it went up on a line under the time, like 1d 2h 5m ago.",
                 "Payla\u015f\u0131ld\u0131\u011f\u0131ndan beri ge\u00e7en g\u00fcnleri, saatleri ve dakikalar\u0131 zaman\u0131n alt\u0131ndaki bir sat\u0131rda g\u00f6sterir, 1g 2 sa 5d \u00f6nce gibi.");
         table.put("Shows the time above your finger while you drag a seek bar on a feed video, story or reel, and a small picture of that moment when Instagram has one for the video.",
@@ -32836,6 +33003,8 @@ public final class L10nTranslations {
                 "Bir g\u00f6nderinin ve yorumlar\u0131n\u0131n ne zaman payla\u015f\u0131ld\u0131\u011f\u0131n\u0131, ne kadar \u00f6nce oldu\u011fu yerine 2 Eki, 15:45 gibi g\u00f6sterir. De\u011fi\u015fiklikten sonra y\u00fcklenen g\u00f6nderilerde g\u00f6r\u00fcn\u00fcr.");
         table.put("Shows your feed blurred under Home's top bar, like frosted glass.",
                 "Ak\u0131\u015f\u0131n\u0131z\u0131 Ana sayfan\u0131n \u00fcst \u00e7ubu\u011funun alt\u0131nda buzlu cam gibi bulan\u0131k g\u00f6sterir.");
+        table.put("Shrink the pill as you scroll",
+                "Kayd\u0131r\u0131rken hap\u0131 k\u00fc\u00e7\u00fclt");
         table.put("Size %1$d \u00d7 %2$d",
                 "Boyut %1$d \u00d7 %2$d");
         table.put("Skip length",
@@ -32932,6 +33101,9 @@ public final class L10nTranslations {
                 "Arama ve Ke\u015ffet'ten a\u00e7\u0131lan reel'lerde kayd\u0131rmaya devam et");
         table.put("Still scroll reels from a profile",
                 "Profilden a\u00e7\u0131lan reel'lerde kayd\u0131rmaya devam et");
+    }
+
+    private static void fillTr27(Map<String, String> table) {
         table.put("Still scroll reels from a song page",
                 "\u015eark\u0131 sayfas\u0131ndan a\u00e7\u0131lan reel'lerde kayd\u0131rmaya devam et");
         table.put("Stop",
@@ -32946,9 +33118,6 @@ public final class L10nTranslations {
                 "Belirli say\u0131da reel'den sonra dur");
         table.put("Stop after the chat's reels",
                 "Sohbetin reels videolar\u0131ndan sonra dur");
-    }
-
-    private static void fillTr27(Map<String, String> table) {
         table.put("Stop background feed refresh",
                 "Arka planda ak\u0131\u015f yenilemeyi durdur");
         table.put("Stop background work Instagram doesn't need.",
@@ -33055,6 +33224,9 @@ public final class L10nTranslations {
                 "Sekmelere uzun basmak Instagram i\u015flemini korur. Bunun yerine Favoriler'i a\u00e7mak i\u00e7in bir sekme se\u00e7.");
         table.put("Tab long presses keep Instagram's own action. Choose one to open HushGram instead.",
                 "Sekmelere uzun basmak Instagram i\u015flemini korur. Bunun yerine HushGram a\u00e7mak i\u00e7in bir sekme se\u00e7.");
+    }
+
+    private static void fillTr28(Map<String, String> table) {
         table.put("Tab long presses keep Instagram's own action. Choose one to open Saved profiles instead.",
                 "Sekmelere uzun basmak Instagram i\u015flemini korur. Bunun yerine Kaydedilen profilleri a\u00e7mak i\u00e7in bir sekme se\u00e7.");
         table.put("Tab long presses keep Instagram's own action. Choose one to pick the playback quality instead.",
@@ -33069,9 +33241,6 @@ public final class L10nTranslations {
                 "Di\u011fer profillerdeki sekmeler");
         table.put("Tabs on your profile",
                 "Profilindeki sekmeler");
-    }
-
-    private static void fillTr28(Map<String, String> table) {
         table.put("Tagged",
                 "Etiketli");
         table.put("Take a scroll break",
@@ -33160,6 +33329,8 @@ public final class L10nTranslations {
                 "Ba\u015fkalar\u0131n\u0131n profillerinde biyografinin alt\u0131ndaki Threads rozetini kald\u0131r\u0131r. Seninki onu korur.");
         table.put("Takes the Threads button off the top of profiles, yours included. The menu and the other buttons stay where they were.",
                 "Threads d\u00fc\u011fmesini profillerin \u00fcst\u00fcnden, seninki dahil, kald\u0131r\u0131r. Men\u00fc ve di\u011fer d\u00fc\u011fmeler olduklar\u0131 yerde kal\u0131r.");
+        table.put("Takes the Watch more reels button off the card a reel in your feed shows when it ends. Watch again stays.",
+                "Ak\u0131\u015f\u0131ndaki bir reels bitti\u011finde \u00e7\u0131kan karttan Daha fazla reels izle d\u00fc\u011fmesini kald\u0131r\u0131r. Tekrar izle yerinde kal\u0131r.");
         table.put("Takes the Your algorithm button off the top of the Reels tab and closes up the gap. The rest of the bar stays.",
                 "Algoritman d\u00fc\u011fmesini Reels sekmesinin \u00fcst\u00fcnden kald\u0131r\u0131r ve bo\u015flu\u011fu kapat\u0131r. \u00c7ubu\u011fun geri kalan\u0131 kal\u0131r.");
         table.put("Takes the accounts Instagram suggests off the bottom of your messages. Your chats and follow requests stay. Restart Instagram to see the change.",
@@ -33176,6 +33347,9 @@ public final class L10nTranslations {
                 "Ana sayfan\u0131n \u00fcst\u00fcndeki kalbi kald\u0131r\u0131r ve bo\u015flu\u011fu kapat\u0131r. Uyar\u0131lar gelmeye devam eder. De\u011fi\u015fikli\u011fi g\u00f6rmek i\u00e7in Instagram'\u0131 yeniden ba\u015flat.");
         table.put("Takes the interests someone added, like reading or hiking, from under their bio. Yours keeps them.",
                 "Birinin ekledi\u011fi, okuma veya y\u00fcr\u00fcy\u00fc\u015f gibi ilgi alanlar\u0131n\u0131 biyografisinin alt\u0131ndan kald\u0131r\u0131r. Seninki onlar\u0131 korur.");
+    }
+
+    private static void fillTr29(Map<String, String> table) {
         table.put("Takes the invite to someone's broadcast channel from under their bio. Yours keeps it.",
                 "Birinin yay\u0131n kanal\u0131na davetini biyografisinin alt\u0131ndan kald\u0131r\u0131r. Seninki onu korur.");
         table.put("Takes the link to someone's WhatsApp from under their bio. Yours keeps it.",
@@ -33192,9 +33366,6 @@ public final class L10nTranslations {
                 "Ba\u015fkalar\u0131n\u0131n hikayelerinin alt\u0131ndaki ka\u011f\u0131t u\u00e7a\u011f\u0131 kald\u0131r\u0131r. Bo\u015fluk kalmaz.");
         table.put("Takes the plus button off the top of Home and closes up the gap. The Create tab and swiping to create are separate. Restart Instagram to see the change.",
                 "Ana sayfan\u0131n \u00fcst\u00fcndeki art\u0131 d\u00fc\u011fmesini kald\u0131r\u0131r ve bo\u015flu\u011fu kapat\u0131r. Olu\u015ftur sekmesi ve kayd\u0131rarak olu\u015fturma ayr\u0131d\u0131r. De\u011fi\u015fikli\u011fi g\u00f6rmek i\u00e7in Instagram'\u0131 yeniden ba\u015flat.");
-    }
-
-    private static void fillTr29(Map<String, String> table) {
         table.put("Takes the plus button off the top of reels you open from Saved or a collection and closes up the gap. The Reels tab and other reels keep theirs.",
                 "Kaydedilenler'den veya bir koleksiyondan a\u00e7t\u0131\u011f\u0131n reels'in \u00fcst\u00fcndeki art\u0131 d\u00fc\u011fmesini kald\u0131r\u0131r ve bo\u015flu\u011fu kapat\u0131r. Reels sekmesi ve di\u011fer reels'ler kendininkini korur.");
         table.put("Takes the plus button that opens the camera off the top of reels, on the Reels tab and everywhere else, and closes up the gap. The rest of the bar stays.",
@@ -33299,6 +33470,9 @@ public final class L10nTranslations {
                 "Bildi\u011finiz \u00e7ubuk ve yuvarlak tutama\u00e7.");
         table.put("The bar sits in the space under the Send message box. Where there's no room under it, the bar stays above it.",
                 "\u00c7ubuk, Mesaj g\u00f6nder kutusunun alt\u0131ndaki bo\u015flukta durur. Alt\u0131nda yer olmad\u0131\u011f\u0131nda \u00e7ubuk kutunun \u00fcst\u00fcnde kal\u0131r.");
+    }
+
+    private static void fillTr30(Map<String, String> table) {
         table.put("The bar sits just above the Send message box at the bottom of a story.",
                 "\u00c7ubuk, hikayenin alt\u0131ndaki Mesaj g\u00f6nder kutusunun hemen \u00fcst\u00fcnde durur.");
         table.put("The bubbles of friends who liked or commented, the Followed by and Liked by lines with their faces, the comment shown under a reel and the row of friends who saw it. Comments are still a tap away.",
@@ -33315,9 +33489,6 @@ public final class L10nTranslations {
                 "Hikayenin payla\u015f\u0131ld\u0131\u011f\u0131 tarih ve saat, \u00f6rne\u011fin 2 Eki 15:45.");
         table.put("The file %1$s couldn't be removed. Delete it from %2$s to turn HushGram back on.",
                 "%1$s dosyas\u0131 kald\u0131r\u0131lamad\u0131. HushGram'u yeniden a\u00e7mak i\u00e7in onu %2$s i\u00e7inden sil.");
-    }
-
-    private static void fillTr30(Map<String, String> table) {
         table.put("The heart at the top of Home shows how many notifications are waiting, like the number on Messages, in place of the red dot. Restart Instagram to see the change.",
                 "Ana sayfan\u0131n \u00fcst\u00fcndeki kalp, k\u0131rm\u0131z\u0131 nokta yerine Mesajlar'daki say\u0131 gibi bekleyen bildirim say\u0131s\u0131n\u0131 g\u00f6sterir. De\u011fi\u015fikli\u011fi g\u00f6rmek i\u00e7in Instagram'\u0131 yeniden ba\u015flat.");
         table.put("The heart plays %1$s when you double tap a post.",
@@ -33422,6 +33593,9 @@ public final class L10nTranslations {
                 "Bu d\u00fc\u011fme i\u00e7in Ara sekme \u00e7ubu\u011funda olmal\u0131.");
         table.put("This chat is locked",
                 "Bu sohbet kilitli");
+    }
+
+    private static void fillTr31(Map<String, String> table) {
         table.put("This chat uses the setting",
                 "Bu sohbet ayar\u0131 kullan\u0131yor");
         table.put("This file matches the current overrides. Nothing changed.",
@@ -33438,9 +33612,6 @@ public final class L10nTranslations {
                 "Bu hikaye bir kez oynat\u0131l\u0131r");
         table.put("This video has no file another player can open",
                 "Bu videonun ba\u015fka bir oynat\u0131c\u0131n\u0131n a\u00e7abilece\u011fi bir dosyas\u0131 yok");
-    }
-
-    private static void fillTr31(Map<String, String> table) {
         table.put("This video plays once",
                 "Bu video bir kez oynat\u0131l\u0131r");
         table.put("Threads",
@@ -33545,6 +33716,9 @@ public final class L10nTranslations {
                 "Say\u0131lar\u0131n alt\u0131nda");
         table.put("Under the name, 1 mention",
                 "Ad\u0131n alt\u0131nda, 1 bahsetme");
+    }
+
+    private static void fillTr32(Map<String, String> table) {
         table.put("Undo cleared positions",
                 "Silinen konumlar\u0131 geri y\u00fckle");
         table.put("Undo couldn't fully restore the settings. Check the shown values. Undo has been used up.",
@@ -33561,9 +33735,6 @@ public final class L10nTranslations {
                 "Takibi b\u0131rakma uyar\u0131lar\u0131");
         table.put("Unfollower list cleared.",
                 "Takipten \u00e7\u0131kanlar listesi temizlendi.");
-    }
-
-    private static void fillTr32(Map<String, String> table) {
         table.put("Unlock",
                 "Kilidi a\u00e7");
         table.put("Unlock Instagram",
@@ -33650,8 +33821,8 @@ public final class L10nTranslations {
                 "Videolar, Instagram'\u0131n her biri i\u00e7in sundu\u011fu en d\u00fc\u015f\u00fck kalitede oynat\u0131l\u0131r.");
         table.put("Videos wait for your tap where the choice below says. Feed videos show a play button, as they do when you use less mobile data.",
                 "Videolar, a\u015fa\u011f\u0131daki se\u00e7imin g\u00f6sterdi\u011fi yerlerde dokunman\u0131 bekler. Ak\u0131\u015ftaki videolar, daha az mobil veri kulland\u0131\u011f\u0131ndaki gibi bir oynat d\u00fc\u011fmesi g\u00f6sterir.");
-        table.put("Videos, reels and stories play at the quality below, starting with the next one you open.",
-                "Videolar, reels ve hikayeler, a\u00e7aca\u011f\u0131n bir sonrakinden itibaren a\u015fa\u011f\u0131daki kalitede oynat\u0131l\u0131r.");
+        table.put("Videos, reels and stories play at the quality below, starting with the next one you open. When your connection can't keep up, a video drops to the next lower quality.",
+                "Videolar, reels ve hikayeler, a\u00e7aca\u011f\u0131n bir sonrakinden itibaren a\u015fa\u011f\u0131daki kalitede oynat\u0131l\u0131r. Ba\u011flant\u0131n yeti\u015femedi\u011finde video bir alt kaliteye d\u00fc\u015fer.");
         table.put("View DM photos and videos anonymously",
                 "Mesajlardaki foto\u011fraf ve videolar\u0131 anonim g\u00f6r\u00fcnt\u00fcle");
         table.put("View live anonymously",
@@ -33668,6 +33839,9 @@ public final class L10nTranslations {
                 "G\u00f6r\u00fcnt\u00fcleme ge\u00e7mi\u015fi temizlendi.");
         table.put("Viewing, sound and the stories tray.",
                 "\u0130zleme, ses ve hik\u00e2ye tepsisi.");
+    }
+
+    private static void fillTr33(Map<String, String> table) {
         table.put("Voice message",
                 "Sesli mesaj");
         table.put("Volume up still raises the phone's volume, but a muted reel stays muted until you unmute it.",
@@ -33684,9 +33858,6 @@ public final class L10nTranslations {
                 "Ak\u0131\u015fta tekrar izle");
         table.put("Watch on TV",
                 "TV'de izle");
-    }
-
-    private static void fillTr33(Map<String, String> table) {
         table.put("Wave",
                 "Dalga");
         table.put("Web links you tap open in your usual browser, without Instagram's click tracker. Ads and Meta's own sites (Instagram, Facebook, Messenger, Threads) still open in the app.",
@@ -33735,6 +33906,8 @@ public final class L10nTranslations {
                 "Geni\u015f");
         table.put("With Expandable categories on, a tap opens a category on a page of its own. Back takes you to the list.",
                 "Geni\u015fletilebilir kategoriler a\u00e7\u0131kken bir kategoriye dokunmak onu kendi sayfas\u0131nda a\u00e7ar. Geri, listeye d\u00f6nd\u00fcr\u00fcr.");
+        table.put("With Liquid glass look off, scrolling a list down makes the pill smaller, and scrolling up or changing tab brings it back to full size. Hide the tab bar as you scroll takes over when it's on. Restart Instagram after changing it.",
+                "S\u0131v\u0131 cam g\u00f6r\u00fcn\u00fcm\u00fc kapal\u0131yken bir listeyi a\u015fa\u011f\u0131 kayd\u0131r\u0131nca hap k\u00fc\u00e7\u00fcl\u00fcr, yukar\u0131 kayd\u0131r\u0131nca ya da sekme de\u011fi\u015ftirince tam boyutuna d\u00f6ner. Kayd\u0131r\u0131rken sekme \u00e7ubu\u011funu gizle a\u00e7\u0131ksa o ge\u00e7erli olur. De\u011fi\u015ftirdikten sonra Instagram'\u0131 yeniden ba\u015flat.");
         table.put("With Name saves by account and post time on, only a save that doesn't know who posted or when is named this way.",
                 "Kaydedilenleri hesaba ve payla\u015f\u0131m zaman\u0131na g\u00f6re adland\u0131r a\u00e7\u0131kken bu ad yaln\u0131zca kimin ya da ne zaman payla\u015ft\u0131\u011f\u0131 bilinmeyen kay\u0131tlara verilir.");
         table.put("With Stop Reels scrolling on, reels you open from Search, Explore, a hashtag or a place still move on when you swipe.",
@@ -33789,6 +33962,9 @@ public final class L10nTranslations {
                 "S\u00fcr\u00fcm\u00fcn, kaynak kodu ve lisanslar.");
         table.put("Your words",
                 "Kendi yaz\u0131n");
+    }
+
+    private static void fillTr34(Map<String, String> table) {
         table.put("Zoomed photo",
                 "Yak\u0131nla\u015ft\u0131r\u0131lm\u0131\u015f foto\u011fraf");
         table.put("the home screen icon you picked",
@@ -33808,7 +33984,7 @@ public final class L10nTranslations {
     }
 
     private static Map<String, String> buildVi() {
-        Map<String, String> table = new HashMap<>(4078);
+        Map<String, String> table = new HashMap<>(4096);
         fillVi0(table);
         fillVi1(table);
         fillVi2(table);
@@ -33843,6 +34019,7 @@ public final class L10nTranslations {
         fillVi31(table);
         fillVi32(table);
         fillVi33(table);
+        fillVi34(table);
         return table;
     }
 
@@ -34042,8 +34219,8 @@ public final class L10nTranslations {
                 "Li\u00ean k\u1ebft reel m\u1edf \u0111\u00fang reel m\u00e0 n\u00f3 tr\u1ecf \u0111\u1ebfn. Instagram kh\u00f4ng ph\u00e1t m\u1ed9t reel kh\u00e1c \u0111\u00e3 l\u01b0u tr\u00ean \u0111i\u1ec7n tho\u1ea1i c\u1ee7a b\u1ea1n trong l\u00fac reel \u0111\u00f3 t\u1ea3i.");
         table.put("A reel that doesn't fill the screen shows a blurred copy of itself above and below it instead of black bars, and the strip under the tab bar and the band behind the clock show the reel blurred too. The copy shows only where a reel leaves room, as with Show the whole reel on. Open Reels again after a change.",
                 "Reel kh\u00f4ng l\u1ea5p \u0111\u1ea7y m\u00e0n h\u00ecnh s\u1ebd hi\u1ec7n b\u1ea3n m\u1edd c\u1ee7a ch\u00ednh n\u00f3 \u1edf tr\u00ean v\u00e0 d\u01b0\u1edbi thay v\u00ec thanh \u0111en, c\u00f2n d\u1ea3i d\u01b0\u1edbi thanh tab v\u00e0 d\u1ea3i sau \u0111\u1ed3ng h\u1ed3 c\u0169ng hi\u1ec7n reel m\u1edd. B\u1ea3n m\u1edd ch\u1ec9 hi\u1ec7n \u1edf ch\u1ed7 reel ch\u1eeba tr\u1ed1ng, nh\u01b0 khi b\u1eadt Hi\u1ec7n to\u00e0n b\u1ed9 reel. H\u00e3y m\u1edf l\u1ea1i Reels sau khi thay \u0111\u1ed5i.");
-        table.put("A reel you open from the Reels tab or a post on Home plays with sound, and Home is muted again when you go back. Your phone's ringer and volume still count.",
-                "Reel b\u1ea1n m\u1edf t\u1eeb tab Reels ho\u1eb7c t\u1eeb b\u00e0i vi\u1ebft tr\u00ean trang ch\u1ee7 ph\u00e1t c\u00f3 ti\u1ebfng, v\u00e0 trang ch\u1ee7 t\u1eaft ti\u1ebfng l\u1ea1i khi b\u1ea1n quay v\u1ec1. Chu\u00f4ng v\u00e0 \u00e2m l\u01b0\u1ee3ng \u0111i\u1ec7n tho\u1ea1i v\u1eabn c\u00f3 t\u00e1c d\u1ee5ng.");
+        table.put("A reel you open from the Reels tab, a profile or a post on Home plays with sound, and Home is muted again when you go back. Your phone's ringer and volume still count.",
+                "Reel b\u1ea1n m\u1edf t\u1eeb tab Reels, t\u1eeb trang c\u00e1 nh\u00e2n ho\u1eb7c t\u1eeb b\u00e0i vi\u1ebft tr\u00ean trang ch\u1ee7 ph\u00e1t c\u00f3 ti\u1ebfng, v\u00e0 trang ch\u1ee7 t\u1eaft ti\u1ebfng l\u1ea1i khi b\u1ea1n quay v\u1ec1. Chu\u00f4ng v\u00e0 \u00e2m l\u01b0\u1ee3ng \u0111i\u1ec7n tho\u1ea1i v\u1eabn c\u00f3 t\u00e1c d\u1ee5ng.");
         table.put("A rounded bar split by a tall handle.",
                 "M\u1ed9t thanh bo tr\u00f2n \u0111\u01b0\u1ee3c chia b\u1edfi m\u1ed9t n\u00fat cao.");
         table.put("A save stopped. Reopen the media and save again.",
@@ -34288,6 +34465,8 @@ public final class L10nTranslations {
                 "M\u1ed9t t\u1ec7p ph\u00f4ng ch\u1eef emoji");
         table.put("An eye at the top of each chat holds or sends Seen in that chat alone, whatever Read messages without the seen receipt says. Changing it doesn't send anything by itself.",
                 "Bi\u1ec3u t\u01b0\u1ee3ng con m\u1eaft \u1edf \u0111\u1ea7u m\u1ed7i cu\u1ed9c tr\u00f2 chuy\u1ec7n gi\u1eef ho\u1eb7c g\u1eedi \u0110\u00e3 xem ch\u1ec9 trong cu\u1ed9c tr\u00f2 chuy\u1ec7n \u0111\u00f3, b\u1ea5t k\u1ec3 \u0110\u1ecdc tin nh\u1eafn m\u00e0 kh\u00f4ng b\u00e1o \u0111\u00e3 xem \u0111ang b\u1eadt hay t\u1eaft. Thay \u0111\u1ed5i n\u00f3 kh\u00f4ng t\u1ef1 g\u1eedi g\u00ec c\u1ea3.");
+        table.put("App",
+                "\u1ee8ng d\u1ee5ng");
         table.put("App icon",
                 "Bi\u1ec3u t\u01b0\u1ee3ng \u1ee9ng d\u1ee5ng");
         table.put("App-only proxy",
@@ -34334,11 +34513,11 @@ public final class L10nTranslations {
                 "Quay l\u1ea1i gi\u1eef nguy\u00ean trang ch\u1ee7");
         table.put("Back on Home leaves Instagram without first scrolling the feed to the top and reloading it.",
                 "Quay l\u1ea1i tr\u00ean trang ch\u1ee7 s\u1ebd tho\u00e1t Instagram m\u00e0 kh\u00f4ng cu\u1ed9n b\u1ea3ng feed l\u00ean \u0111\u1ea7u v\u00e0 t\u1ea3i l\u1ea1i.");
-        table.put("Background playback",
-                "Ph\u00e1t trong n\u1ec1n");
     }
 
     private static void fillVi4(Map<String, String> table) {
+        table.put("Background playback",
+                "Ph\u00e1t trong n\u1ec1n");
         table.put("Backgrounds in the accent color",
                 "N\u1ec1n theo m\u00e0u nh\u1ea5n");
         table.put("Badges in the accent color",
@@ -34363,8 +34542,8 @@ public final class L10nTranslations {
                 "Ti\u1ec3u s\u1eed");
         table.put("Bio copied",
                 "\u0110\u00e3 sao ch\u00e9p ti\u1ec3u s\u1eed");
-        table.put("Black rows and dialogs, HushGram's name at the top, and each category on one line.",
-                "H\u00e0ng v\u00e0 h\u1ed9p tho\u1ea1i m\u00e0u \u0111en, t\u00ean HushGram \u1edf tr\u00ean c\u00f9ng, m\u1ed7i danh m\u1ee5c tr\u00ean m\u1ed9t d\u00f2ng.");
+        table.put("Black rows and dialogs, with HushGram's name at the top.",
+                "H\u00e0ng v\u00e0 h\u1ed9p tho\u1ea1i m\u00e0u \u0111en, t\u00ean HushGram \u1edf tr\u00ean c\u00f9ng.");
         table.put("Black settings page",
                 "Trang c\u00e0i \u0111\u1eb7t m\u00e0u \u0111en");
         table.put("Blend post edges",
@@ -34457,11 +34636,11 @@ public final class L10nTranslations {
                 "Ch\u1ecdn m\u1ed9t t\u1ec7p \u0111\u1ec3 xu\u1ea5t c\u00e0i \u0111\u1eb7t.");
         table.put("Choose a file for your installed patches' settings and saved profiles. Your login and history stay on this device.",
                 "Ch\u1ecdn m\u1ed9t t\u1ec7p cho c\u00e0i \u0111\u1eb7t c\u1ee7a c\u00e1c b\u1ea3n v\u00e1 \u0111\u00e3 c\u00e0i v\u00e0 c\u00e1c trang c\u00e1 nh\u00e2n \u0111\u00e3 l\u01b0u. Th\u00f4ng tin \u0111\u0103ng nh\u1eadp v\u00e0 l\u1ecbch s\u1eed v\u1eabn \u1edf tr\u00ean thi\u1ebft b\u1ecb n\u00e0y.");
-        table.put("Choose a file for your installed patches' settings. Accounts and history stay on this device.",
-                "Ch\u1ecdn m\u1ed9t t\u1ec7p cho c\u00e0i \u0111\u1eb7t c\u1ee7a c\u00e1c b\u1ea3n v\u00e1 \u0111\u00e3 c\u00e0i. T\u00e0i kho\u1ea3n v\u00e0 l\u1ecbch s\u1eed v\u1eabn \u1edf tr\u00ean thi\u1ebft b\u1ecb n\u00e0y.");
     }
 
     private static void fillVi5(Map<String, String> table) {
+        table.put("Choose a file for your installed patches' settings. Accounts and history stay on this device.",
+                "Ch\u1ecdn m\u1ed9t t\u1ec7p cho c\u00e0i \u0111\u1eb7t c\u1ee7a c\u00e1c b\u1ea3n v\u00e1 \u0111\u00e3 c\u00e0i. T\u00e0i kho\u1ea3n v\u00e0 l\u1ecbch s\u1eed v\u1eabn \u1edf tr\u00ean thi\u1ebft b\u1ecb n\u00e0y.");
         table.put("Choose a folder",
                 "Ch\u1ecdn th\u01b0 m\u1ee5c");
         table.put("Choose a folder name under Movies and Pictures. Invalid characters become underscores. Leave it blank to use the default folder, %1$s. For an SD card or anywhere else, use Choose a folder.",
@@ -34518,6 +34697,8 @@ public final class L10nTranslations {
                 "G\u1ecdn");
         table.put("Confirm PIN",
                 "X\u00e1c nh\u1eadn PIN");
+        table.put("Content",
+                "N\u1ed9i dung");
         table.put("Continue",
                 "Ti\u1ebfp t\u1ee5c");
         table.put("Control where Meta AI appears.",
@@ -34578,13 +34759,13 @@ public final class L10nTranslations {
                 "Kh\u00f4ng x\u00f3a \u0111\u01b0\u1ee3c b\u1ea3n \u0111\u00e3 l\u01b0u. H\u00e3y th\u1eed l\u1ea1i.");
         table.put("Couldn't clear the unfollower list. Try again.",
                 "Kh\u00f4ng x\u00f3a \u0111\u01b0\u1ee3c danh s\u00e1ch b\u1ecf theo d\u00f5i. Th\u1eed l\u1ea1i.");
+    }
+
+    private static void fillVi6(Map<String, String> table) {
         table.put("Couldn't clear the viewing history. Try again.",
                 "Kh\u00f4ng x\u00f3a \u0111\u01b0\u1ee3c l\u1ecbch s\u1eed \u0111\u00e3 xem. H\u00e3y th\u1eed l\u1ea1i.");
         table.put("Couldn't copy comment",
                 "Kh\u00f4ng sao ch\u00e9p \u0111\u01b0\u1ee3c b\u00ecnh lu\u1eadn");
-    }
-
-    private static void fillVi6(Map<String, String> table) {
         table.put("Couldn't copy the GIF name",
                 "Kh\u00f4ng sao ch\u00e9p \u0111\u01b0\u1ee3c t\u00ean GIF");
         table.put("Couldn't copy the bio",
@@ -34701,13 +34882,13 @@ public final class L10nTranslations {
                 "T\u00f9y ch\u1ec9nh");
         table.put("Custom app icon",
                 "Bi\u1ec3u t\u01b0\u1ee3ng \u1ee9ng d\u1ee5ng t\u00f9y ch\u1ec9nh");
+    }
+
+    private static void fillVi7(Map<String, String> table) {
         table.put("Custom color",
                 "M\u00e0u t\u00f9y ch\u1ec9nh");
         table.put("Custom tab",
                 "Tab t\u00f9y ch\u1ec9nh");
-    }
-
-    private static void fillVi7(Map<String, String> table) {
         table.put("Data saver",
                 "Ti\u1ebft ki\u1ec7m d\u1eef li\u1ec7u");
         table.put("Date and time",
@@ -34824,13 +35005,13 @@ public final class L10nTranslations {
                 "\u0110ang t\u1ea3i xu\u1ed1ng");
         table.put("Downloading the emoji...",
                 "\u0110ang t\u1ea3i emoji...");
+    }
+
+    private static void fillVi8(Map<String, String> table) {
         table.put("Downloads",
                 "T\u1ea3i xu\u1ed1ng");
         table.put("Drag to move %1$s",
                 "K\u00e9o \u0111\u1ec3 di chuy\u1ec3n %1$s");
-    }
-
-    private static void fillVi8(Map<String, String> table) {
         table.put("Drag to move, pinch to zoom.",
                 "K\u00e9o \u0111\u1ec3 di chuy\u1ec3n, ch\u1ee5m \u0111\u1ec3 thu ph\u00f3ng.");
         table.put("Draws Instagram's tab bar as a floating, rounded glass pill with a highlight on the tab you're on. Restart Instagram after changing it.",
@@ -34947,13 +35128,13 @@ public final class L10nTranslations {
                 "Cu\u1ed9n nhanh trong \u0110\u00e3 l\u01b0u");
         table.put("Favorites still shows them.",
                 "Y\u00eau th\u00edch v\u1eabn hi\u1ec3n th\u1ecb ch\u00fang.");
+    }
+
+    private static void fillVi9(Map<String, String> table) {
         table.put("Feed",
                 "B\u1ea3ng feed");
         table.put("Feed videos and reels stop at their last frame instead of playing again. Reels still loop while auto scroll is on, so it can move on.",
                 "Video b\u1ea3ng feed v\u00e0 reel d\u1eebng \u1edf khung h\u00ecnh cu\u1ed1i thay v\u00ec ph\u00e1t l\u1ea1i. Reel v\u1eabn l\u1eb7p khi t\u1ef1 \u0111\u1ed9ng cu\u1ed9n b\u1eadt, \u0111\u1ec3 n\u00f3 chuy\u1ec3n ti\u1ebfp \u0111\u01b0\u1ee3c.");
-    }
-
-    private static void fillVi9(Map<String, String> table) {
         table.put("Feed videos and stories wait for your tap. Reels play as you swipe to them.",
                 "Video tr\u00ean b\u1ea3ng feed v\u00e0 tin \u0111\u1ee3i b\u1ea1n nh\u1ea5n. Reels ph\u00e1t khi b\u1ea1n vu\u1ed1t \u0111\u1ebfn.");
         table.put("Feed videos, reels and stories all wait for your tap.",
@@ -35070,13 +35251,13 @@ public final class L10nTranslations {
                 "Tr\u00f2n ho\u00e0n to\u00e0n");
         table.put("GIF name",
                 "T\u00ean GIF");
+    }
+
+    private static void fillVi10(Map<String, String> table) {
         table.put("GIF name copied",
                 "\u0110\u00e3 sao ch\u00e9p t\u00ean GIF");
         table.put("GIF or sticker",
                 "GIF ho\u1eb7c nh\u00e3n d\u00e1n");
-    }
-
-    private static void fillVi10(Map<String, String> table) {
         table.put("GPL-3.0, with the notices of the projects this is built on",
                 "GPL-3.0, k\u00e8m th\u00f4ng b\u00e1o c\u1ee7a c\u00e1c d\u1ef1 \u00e1n m\u00e0 HushGram \u0111\u01b0\u1ee3c x\u00e2y d\u1ef1ng d\u1ef1a tr\u00ean");
         table.put("Galaxy S26 Ultra",
@@ -35193,13 +35374,13 @@ public final class L10nTranslations {
                 "\u1ea8n N\u1ed5i b\u1eadt trong th\u00f4ng b\u00e1o");
         table.put("Hide Follow on posts",
                 "\u1ea8n Theo d\u00f5i tr\u00ean b\u00e0i vi\u1ebft");
+    }
+
+    private static void fillVi11(Map<String, String> table) {
         table.put("Hide Follow on stories",
                 "\u1ea8n Theo d\u00f5i tr\u00ean tin");
         table.put("Hide GIFs in comments",
                 "\u1ea8n GIF trong b\u00ecnh lu\u1eadn");
-    }
-
-    private static void fillVi11(Map<String, String> table) {
         table.put("Hide Instagram Plus prompts",
                 "\u1ea8n l\u1eddi m\u1eddi Instagram Plus");
         table.put("Hide Instants",
@@ -35236,6 +35417,8 @@ public final class L10nTranslations {
                 "\u1ea8n G\u1ee3i \u00fd cho b\u1ea1n tr\u00ean danh s\u00e1ch theo d\u00f5i");
         table.put("Hide Threads posts",
                 "\u1ea8n b\u00e0i vi\u1ebft tr\u00ean Threads");
+        table.put("Hide Watch more reels",
+                "\u1ea8n Xem th\u00eam th\u01b0\u1edbc phim");
         table.put("Hide Your algorithm on reels",
                 "\u1ea8n Thu\u1eadt to\u00e1n c\u1ee7a b\u1ea1n tr\u00ean reel");
         table.put("Hide activity bubbles",
@@ -35314,15 +35497,15 @@ public final class L10nTranslations {
                 "\u1ea8n b\u00e0i vi\u1ebft g\u1ee3i \u00fd");
         table.put("Hide suggested searches on reels",
                 "\u1ea8n g\u1ee3i \u00fd t\u00ecm ki\u1ebfm tr\u00ean reel");
+    }
+
+    private static void fillVi12(Map<String, String> table) {
         table.put("Hide suggested stories",
                 "\u1ea8n tin g\u1ee3i \u00fd");
         table.put("Hide suggestions in notifications",
                 "\u1ea8n g\u1ee3i \u00fd trong th\u00f4ng b\u00e1o");
         table.put("Hide surveys",
                 "\u1ea8n kh\u1ea3o s\u00e1t");
-    }
-
-    private static void fillVi12(Map<String, String> table) {
         table.put("Hide that you're typing",
                 "\u1ea8n vi\u1ec7c b\u1ea1n \u0111ang nh\u1eadp");
         table.put("Hide the 2x popup",
@@ -35437,15 +35620,15 @@ public final class L10nTranslations {
                 "\u1ea8n b\u00e0i vi\u1ebft v\u00e0 reel t\u1eeb t\u00e0i kho\u1ea3n b\u1ea1n kh\u00f4ng theo d\u00f5i, c\u00f3 nh\u00e3n G\u1ee3i \u00fd cho b\u1ea1n. B\u00e0i vi\u1ebft t\u1eeb t\u00e0i kho\u1ea3n b\u1ea1n theo d\u00f5i v\u1eabn hi\u1ec7n.");
         table.put("Hides sponsored posts, reels, stories and the ad in comments. No empty gap is left where an ad would have been.",
                 "\u1ea8n b\u00e0i vi\u1ebft \u0111\u01b0\u1ee3c t\u00e0i tr\u1ee3, reel, tin v\u00e0 qu\u1ea3ng c\u00e1o trong ph\u1ea7n b\u00ecnh lu\u1eadn. Kh\u00f4ng \u0111\u1ec3 l\u1ea1i kho\u1ea3ng tr\u1ed1ng \u1edf ch\u1ed7 qu\u1ea3ng c\u00e1o.");
+    }
+
+    private static void fillVi13(Map<String, String> table) {
         table.put("Hides stories from accounts you don't follow, and accounts Instagram suggests, in the row at the top of Home. Stories from accounts you follow stay.",
                 "\u1ea8n tin t\u1eeb t\u00e0i kho\u1ea3n b\u1ea1n kh\u00f4ng theo d\u00f5i v\u00e0 t\u00e0i kho\u1ea3n Instagram g\u1ee3i \u00fd, trong h\u00e0ng \u1edf \u0111\u1ea7u trang ch\u1ee7. Tin t\u1eeb t\u00e0i kho\u1ea3n b\u1ea1n theo d\u00f5i v\u1eabn hi\u1ec7n.");
         table.put("Hides the bar under a post that asks you to join the account's channel. The post stays.",
                 "\u1ea8n thanh d\u01b0\u1edbi b\u00e0i vi\u1ebft m\u1eddi b\u1ea1n tham gia k\u00eanh c\u1ee7a t\u00e0i kho\u1ea3n. B\u00e0i vi\u1ebft v\u1eabn \u1edf l\u1ea1i.");
         table.put("Hides the bubble under a post that asks 'Are you interested in this post?' with Not interested and Interested buttons. Nothing is answered for you.",
                 "\u1ea8n bong b\u00f3ng b\u00ean d\u01b0\u1edbi b\u00e0i vi\u1ebft h\u1ecfi 'B\u1ea1n c\u00f3 quan t\u00e2m \u0111\u1ebfn b\u00e0i vi\u1ebft n\u00e0y kh\u00f4ng?' v\u1edbi c\u00e1c n\u00fat Kh\u00f4ng quan t\u00e2m v\u00e0 Quan t\u00e2m. Kh\u00f4ng c\u00f3 c\u00e2u tr\u1ea3 l\u1eddi n\u00e0o \u0111\u01b0\u1ee3c \u0111\u01b0a thay b\u1ea1n.");
-    }
-
-    private static void fillVi13(Map<String, String> table) {
         table.put("Hides the buttons that push Edits, templates, Meta AI and Ray-Ban Meta glasses. Live badges and state-controlled media labels stay.",
                 "\u1ea8n c\u00e1c n\u00fat qu\u1ea3ng b\u00e1 Edits, m\u1eabu, Meta AI v\u00e0 k\u00ednh Ray-Ban Meta. Huy hi\u1ec7u Tr\u1ef1c ti\u1ebfp v\u00e0 nh\u00e3n ph\u01b0\u01a1ng ti\u1ec7n truy\u1ec1n th\u00f4ng nh\u00e0 n\u01b0\u1edbc v\u1eabn gi\u1eef.");
         table.put("Hides the card after the posts from accounts you follow that says you've seen the latest ones, and its Older posts link. When Home has no new posts at all, only that line goes and the link stays. Pull down on Home to refresh after changing it.",
@@ -35560,15 +35743,15 @@ public final class L10nTranslations {
                 "\u0110\u00e3 nh\u1eadp %1$d c\u00e0i \u0111\u1eb7t. B\u1ecf qua %2$d m\u1ee5c m\u00e0 phi\u00ean b\u1ea3n n\u00e0y kh\u00f4ng bi\u1ebft.");
         table.put("Instagram accepts this build",
                 "Instagram ch\u1ea5p nh\u1eadn b\u1ea3n n\u00e0y");
+    }
+
+    private static void fillVi14(Map<String, String> table) {
         table.put("Instagram blue",
                 "Xanh Instagram");
         table.put("Instagram can't read where the photos and videos in your gallery were taken.",
                 "Instagram kh\u00f4ng \u0111\u1ecdc \u0111\u01b0\u1ee3c n\u01a1i ch\u1ee5p \u1ea3nh v\u00e0 quay video trong th\u01b0 vi\u1ec7n c\u1ee7a b\u1ea1n.");
         table.put("Instagram can't read your phone's advertising ID or tell Android's ad services which ads you saw or tapped. The permissions for them are gone from this build.",
                 "Instagram kh\u00f4ng \u0111\u1ecdc \u0111\u01b0\u1ee3c ID qu\u1ea3ng c\u00e1o tr\u00ean \u0111i\u1ec7n tho\u1ea1i hay b\u00e1o cho d\u1ecbch v\u1ee5 qu\u1ea3ng c\u00e1o c\u1ee7a Android bi\u1ebft b\u1ea1n \u0111\u00e3 th\u1ea5y ho\u1eb7c nh\u1ea5n qu\u1ea3ng c\u00e1o n\u00e0o. C\u00e1c quy\u1ec1n \u0111\u00f3 \u0111\u00e3 b\u1ecb g\u1ee1 kh\u1ecfi b\u1ea3n n\u00e0y.");
-    }
-
-    private static void fillVi14(Map<String, String> table) {
         table.put("Instagram crashed or froze within a minute of starting three times in a row, so HushGram paused itself.",
                 "Instagram s\u1eadp ho\u1eb7c \u0111\u1ee9ng trong v\u00f2ng m\u1ed9t ph\u00fat sau khi kh\u1edfi \u0111\u1ed9ng ba l\u1ea7n li\u00ean ti\u1ebfp n\u00ean HushGram \u0111\u00e3 t\u1ef1 t\u1ea1m d\u1eebng.");
         table.put("Instagram didn't keep the change and the overrides couldn't be confirmed. Use Restore previous overrides, then restart Instagram.",
@@ -35683,15 +35866,15 @@ public final class L10nTranslations {
                 "Chuy\u1ec3n \u0111\u1ebfn tin nh\u1eafn \u0111\u1ea7u ti\u00ean ho\u1eb7c m\u1ed9t ng\u00e0y");
         table.put("KakaoTalk",
                 "KakaoTalk");
+    }
+
+    private static void fillVi15(Map<String, String> table) {
         table.put("Keep Featured off the heart's dot",
                 "Kh\u00f4ng \u0111\u1ec3 N\u1ed5i b\u1eadt l\u00e0m s\u00e1ng ch\u1ea5m tr\u00e1i tim");
         table.put("Keep Home's top bar",
                 "Gi\u1eef thanh tr\u00ean c\u00f9ng c\u1ee7a trang ch\u1ee7");
         table.put("Keep Instagram's saved photos and videos from filling your phone.",
                 "Gi\u1eef \u1ea3nh v\u00e0 video \u0111\u00e3 l\u01b0u c\u1ee7a Instagram kh\u1ecfi l\u00e0m \u0111\u1ea7y \u0111i\u1ec7n tho\u1ea1i.");
-    }
-
-    private static void fillVi15(Map<String, String> table) {
         table.put("Keep Reels auto scroll between sessions",
                 "Keep Reels auto scroll between sessions");
         table.put("Keep a seek bar",
@@ -35806,15 +35989,15 @@ public final class L10nTranslations {
                 "B\u1ecf c\u00e1c th\u1ebb Add Yours, nh\u01b0 Add Yours ph\u1ed5 bi\u1ebfn v\u00e0 Tham gia Add Yours \u0111ang th\u1ecbnh h\u00e0nh, m\u00e0 Instagram ch\u00e8n gi\u1eefa c\u00e1c tin b\u1ea1n nh\u1ea5n xem. B\u1ea3n th\u00e2n c\u00e1c tin v\u1eabn gi\u1eef.");
         table.put("Leaves out the Suggested for you cards of accounts to follow that Instagram puts between the stories you tap through. The stories themselves stay.",
                 "B\u1ecf c\u00e1c th\u1ebb G\u1ee3i \u00fd cho b\u1ea1n v\u1ec1 t\u00e0i kho\u1ea3n \u0111\u1ec3 theo d\u00f5i m\u00e0 Instagram ch\u00e8n gi\u1eefa c\u00e1c tin b\u1ea1n nh\u1ea5n xem. B\u1ea3n th\u00e2n c\u00e1c tin v\u1eabn gi\u1eef.");
+    }
+
+    private static void fillVi16(Map<String, String> table) {
         table.put("Leaves out the live broadcasts Instagram puts between reels in the Reels tab and when you swipe through reels from Explore.",
                 "B\u1ecf qua c\u00e1c bu\u1ed5i ph\u00e1t tr\u1ef1c ti\u1ebfp m\u00e0 Instagram chen v\u00e0o gi\u1eefa c\u00e1c reel \u1edf tab Reels v\u00e0 khi b\u1ea1n vu\u1ed1t qua reel t\u1eeb Kh\u00e1m ph\u00e1.");
         table.put("Leaves the Suggested for you accounts out of what shows when you tap the search bar. Recent searches stay.",
                 "B\u1ecf c\u00e1c t\u00e0i kho\u1ea3n G\u1ee3i \u00fd cho b\u1ea1n kh\u1ecfi n\u1ed9i dung hi\u1ec7n khi b\u1ea1n nh\u1ea5n v\u00e0o thanh t\u00ecm ki\u1ebfm. N\u1ed9i dung t\u00ecm g\u1ea7n \u0111\u00e2y v\u1eabn gi\u1eef.");
         table.put("Leaves the Suggested for you section off the followers, following and mutual lists and the screen where you approve follow requests, and the Suggested tab off other people's follow lists. Every account in the lists and every real request stays.",
                 "B\u1ecf ph\u1ea7n G\u1ee3i \u00fd cho b\u1ea1n kh\u1ecfi danh s\u00e1ch ng\u01b0\u1eddi theo d\u00f5i, \u0111ang theo d\u00f5i v\u00e0 chung, c\u0169ng nh\u01b0 m\u00e0n h\u00ecnh n\u01a1i b\u1ea1n duy\u1ec7t y\u00eau c\u1ea7u theo d\u00f5i, v\u00e0 tab G\u1ee3i \u00fd kh\u1ecfi danh s\u00e1ch theo d\u00f5i c\u1ee7a ng\u01b0\u1eddi kh\u00e1c. M\u1ecdi t\u00e0i kho\u1ea3n trong danh s\u00e1ch v\u00e0 m\u1ecdi y\u00eau c\u1ea7u th\u1eadt v\u1eabn gi\u1eef.");
-    }
-
-    private static void fillVi16(Map<String, String> table) {
         table.put("Leaving Instagram while a reel plays shrinks it into a small window over your other apps. Works in Reels and on reels opened from the feed, on Android 15 or newer.",
                 "Khi b\u1ea1n r\u1eddi Instagram l\u00fac m\u1ed9t reel \u0111ang ph\u00e1t, n\u00f3 thu nh\u1ecf th\u00e0nh m\u1ed9t c\u1eeda s\u1ed5 nh\u1ecf n\u1eb1m tr\u00ean c\u00e1c \u1ee9ng d\u1ee5ng kh\u00e1c. Ho\u1ea1t \u0111\u1ed9ng trong Reels v\u00e0 v\u1edbi reel m\u1edf t\u1eeb b\u1ea3ng feed, tr\u00ean Android 15 tr\u1edf l\u00ean.");
         table.put("Leaving Instagram while a story plays shrinks it into a small window over your other apps, where it keeps going through the stories.",
@@ -35913,6 +36096,8 @@ public final class L10nTranslations {
                 "Nh\u1ea5n gi\u1eef \u1ea3nh \u0111\u1ec3 ph\u00f3ng to");
         table.put("Long press a post for full screen",
                 "Nh\u1ea5n gi\u1eef b\u00e0i \u0111\u0103ng \u0111\u1ec3 xem to\u00e0n m\u00e0n h\u00ecnh");
+        table.put("Look",
+                "Giao di\u1ec7n");
         table.put("Loop a story",
                 "L\u1eb7p l\u1ea1i tin");
         table.put("Loop didn't change",
@@ -35927,6 +36112,9 @@ public final class L10nTranslations {
                 "\u0110ang l\u1eb7p l\u1ea1i video n\u00e0y");
         table.put("Makes Instagram see the phone chosen below, unlocking HDR video downloads and other features limited to those phones, and adds the matching developer options. Restart Instagram to see the change.",
                 "Khi\u1ebfn Instagram nh\u1eadn di\u1ec7n \u0111i\u1ec7n tho\u1ea1i \u0111\u01b0\u1ee3c ch\u1ecdn b\u00ean d\u01b0\u1edbi, m\u1edf kh\u00f3a t\u1ea3i video HDR c\u00f9ng c\u00e1c t\u00ednh n\u0103ng gi\u1edbi h\u1ea1n cho nh\u1eefng m\u1eabu m\u00e1y \u0111\u00f3 v\u00e0 th\u00eam c\u00e1c t\u00f9y ch\u1ecdn nh\u00e0 ph\u00e1t tri\u1ec3n t\u01b0\u01a1ng \u1ee9ng. Kh\u1edfi \u0111\u1ed9ng l\u1ea1i Instagram \u0111\u1ec3 th\u1ea5y thay \u0111\u1ed5i.");
+    }
+
+    private static void fillVi17(Map<String, String> table) {
         table.put("Makes the seek bar thicker, with a round white handle and the time above it, over a soft dark fade so it shows on any video. Drag it to seek. It also keeps the bar on short reels.",
                 "L\u00e0m thanh tua d\u00e0y h\u01a1n, c\u00f3 n\u00fam tr\u00f2n tr\u1eafng v\u00e0 th\u1eddi gian \u1edf ph\u00eda tr\u00ean, tr\u00ean n\u1ec1n t\u1ed1i m\u1edd \u0111\u1ec3 hi\u1ec7n r\u00f5 tr\u00ean m\u1ecdi video. K\u00e9o \u0111\u1ec3 tua. Thanh c\u0169ng \u0111\u01b0\u1ee3c gi\u1eef tr\u00ean reel ng\u1eafn.");
         table.put("Mapping file removed. Open MetaConfig again to see the change.",
@@ -35935,9 +36123,6 @@ public final class L10nTranslations {
                 "Mapping imported: %1$d names. Open MetaConfig again to see them.");
         table.put("Mark a chat seen when you reply",
                 "\u0110\u00e1nh d\u1ea5u \u0111\u00e3 xem khi b\u1ea1n tr\u1ea3 l\u1eddi");
-    }
-
-    private static void fillVi17(Map<String, String> table) {
         table.put("Mark as read",
                 "\u0110\u00e1nh d\u1ea5u l\u00e0 \u0111\u00e3 \u0111\u1ecdc");
         table.put("Mark as read button in chats",
@@ -35964,6 +36149,8 @@ public final class L10nTranslations {
                 "Material You c\u1ea7n Android 12 tr\u1edf l\u00ean n\u00ean m\u00e0u xanh c\u1ee7a Instagram v\u1eabn gi\u1eef.");
         table.put("Media ID %1$s",
                 "ID ph\u01b0\u01a1ng ti\u1ec7n %1$s");
+        table.put("Media and storage",
+                "Ph\u01b0\u01a1ng ti\u1ec7n v\u00e0 b\u1ed9 nh\u1edb");
         table.put("Media link",
                 "Li\u00ean k\u1ebft ph\u01b0\u01a1ng ti\u1ec7n");
         table.put("Media link copied. It stops working after a few days.",
@@ -36014,8 +36201,8 @@ public final class L10nTranslations {
                 "\u0110\u00e3 chuy\u1ec3n @%1$s v\u00e0o %2$s");
         table.put("Moved @%s out of its folder",
                 "\u0110\u00e3 \u0111\u01b0a @%s ra kh\u1ecfi th\u01b0 m\u1ee5c");
-        table.put("Moves a carousel post's page dots onto a round pill at the bottom of its photo or video, with the page you're on in blue.",
-                "\u0110\u01b0a c\u00e1c ch\u1ea5m trang c\u1ee7a b\u00e0i vi\u1ebft nhi\u1ec1u trang l\u00ean vi\u00ean thu\u1ed1c tr\u00f2n \u1edf cu\u1ed1i \u1ea3nh ho\u1eb7c video, trang \u0111ang xem m\u00e0u xanh d\u01b0\u01a1ng.");
+        table.put("Moves a carousel post's page dots onto a round pill at the bottom of its photo or video, with the page you're on in blue. Hold the pill and slide left or right to move through the pages.",
+                "\u0110\u01b0a c\u00e1c ch\u1ea5m trang c\u1ee7a b\u00e0i vi\u1ebft nhi\u1ec1u trang l\u00ean vi\u00ean thu\u1ed1c tr\u00f2n \u1edf cu\u1ed1i \u1ea3nh ho\u1eb7c video, trang \u0111ang xem m\u00e0u xanh d\u01b0\u01a1ng. Gi\u1eef vi\u00ean thu\u1ed1c r\u1ed3i tr\u01b0\u1ee3t sang tr\u00e1i ho\u1eb7c ph\u1ea3i \u0111\u1ec3 chuy\u1ec3n trang.");
         table.put("Moves the gallery and microphone buttons off the message bar and into the plus menu. They work as before. Turn it off and they're back the next time a chat opens.",
                 "Chuy\u1ec3n n\u00fat th\u01b0 vi\u1ec7n \u1ea3nh v\u00e0 micr\u00f4 t\u1eeb thanh tin nh\u1eafn v\u00e0o menu d\u1ea5u c\u1ed9ng. Ch\u00fang ho\u1ea1t \u0111\u1ed9ng nh\u01b0 tr\u01b0\u1edbc. T\u1eaft \u0111i th\u00ec ch\u00fang quay l\u1ea1i l\u1ea7n sau khi b\u1ea1n m\u1edf cu\u1ed9c tr\u00f2 chuy\u1ec7n.");
         table.put("Mute",
@@ -36048,6 +36235,9 @@ public final class L10nTranslations {
                 "Th\u01b0 m\u1ee5c m\u1edbi");
         table.put("New like animations",
                 "New like animations");
+    }
+
+    private static void fillVi18(Map<String, String> table) {
         table.put("New message",
                 "Tin nh\u1eafn m\u1edbi");
         table.put("New message after this reel",
@@ -36058,9 +36248,6 @@ public final class L10nTranslations {
                 "\u1ea2nh \u0111\u1ea1i di\u1ec7n v\u00e0 ti\u1ec3u s\u1eed m\u1edbi");
         table.put("New story fonts and animations",
                 "New story fonts and animations");
-    }
-
-    private static void fillVi18(Map<String, String> table) {
         table.put("New story timestamp style",
                 "New story timestamp style");
         table.put("Next match",
@@ -36171,6 +36358,9 @@ public final class L10nTranslations {
                 "B\u00e1o cho t\u00f4i khi c\u00f3 ng\u01b0\u1eddi b\u1ecf theo d\u00f5i");
         table.put("OK",
                 "OK");
+    }
+
+    private static void fillVi19(Map<String, String> table) {
         table.put("Off",
                 "T\u1eaft");
         table.put("Off. It can cover the Home, Reels and Explore tabs for a break after you've spent a while on them.",
@@ -36181,9 +36371,6 @@ public final class L10nTranslations {
                 "Ti\u1ec3u s\u1eed c\u0169, %s");
         table.put("Old profile picture, %s",
                 "\u1ea2nh \u0111\u1ea1i di\u1ec7n c\u0169, %s");
-    }
-
-    private static void fillVi19(Map<String, String> table) {
         table.put("On Reels, the tab bar slides away after %1$d seconds without a touch. Tap the bottom edge of the screen, change tab or press Back to bring it back. Restart Instagram after changing it.",
                 "Tr\u00ean Reels, thanh tab tr\u01b0\u1ee3t \u0111i sau %1$d gi\u00e2y kh\u00f4ng ch\u1ea1m. Nh\u1ea5n v\u00e0o m\u00e9p d\u01b0\u1edbi m\u00e0n h\u00ecnh, \u0111\u1ed5i tab ho\u1eb7c nh\u1ea5n Quay l\u1ea1i \u0111\u1ec3 \u0111\u01b0a n\u00f3 tr\u1edf l\u1ea1i. H\u00e3y kh\u1edfi \u0111\u1ed9ng l\u1ea1i Instagram sau khi thay \u0111\u1ed5i.");
         table.put("On a carousel, the download icon saves all of its pages at once instead of asking.",
@@ -36294,6 +36481,9 @@ public final class L10nTranslations {
                 "M\u1edf cu\u1ed9c tr\u00f2 chuy\u1ec7n kh\u00f4ng b\u00e1o cho ng\u01b0\u1eddi kh\u00e1c bi\u1ebft b\u1ea1n \u0111\u00e3 xem tin nh\u1eafn c\u1ee7a h\u1ecd, c\u00f2n b\u1ea1n v\u1eabn th\u1ea5y khi h\u1ecd xem tin c\u1ee7a b\u1ea1n. \u0110\u1ec3 m\u1ed9t cu\u1ed9c tr\u00f2 chuy\u1ec7n bi\u1ebft, h\u00e3y nh\u1ea5n gi\u1eef n\u00f3 trong tin nh\u1eafn v\u00e0 nh\u1ea5n \u0110\u00e1nh d\u1ea5u l\u00e0 \u0111\u00e3 \u0111\u1ecdc.");
         table.put("Opening someone's profile takes you on to their posts as a scrolling list of full posts. Go Back for the grid. Your own profile keeps its grid.",
                 "M\u1edf trang c\u00e1 nh\u00e2n c\u1ee7a ai \u0111\u00f3 s\u1ebd \u0111\u01b0a b\u1ea1n \u0111\u1ebfn b\u00e0i vi\u1ebft c\u1ee7a h\u1ecd d\u1ea1ng danh s\u00e1ch cu\u1ed9n c\u00e1c b\u00e0i vi\u1ebft \u0111\u1ea7y \u0111\u1ee7. Quay l\u1ea1i \u0111\u1ec3 v\u1ec1 l\u01b0\u1edbi. Trang c\u00e1 nh\u00e2n c\u1ee7a b\u1ea1n v\u1eabn d\u1ea1ng l\u01b0\u1edbi.");
+    }
+
+    private static void fillVi20(Map<String, String> table) {
         table.put("Opens Home on posts from accounts you follow instead of For you. Tap the top of Home to switch. Restart Instagram to see the change.",
                 "M\u1edf trang ch\u1ee7 \u1edf b\u00e0i vi\u1ebft t\u1eeb t\u00e0i kho\u1ea3n b\u1ea1n theo d\u00f5i thay v\u00ec D\u00e0nh cho b\u1ea1n. Nh\u1ea5n v\u00e0o \u0111\u1ea7u trang ch\u1ee7 \u0111\u1ec3 chuy\u1ec3n. H\u00e3y kh\u1edfi \u0111\u1ed9ng l\u1ea1i Instagram \u0111\u1ec3 th\u1ea5y thay \u0111\u1ed5i.");
         table.put("Opens Instagram's own Whitehat settings. Its switch lets Instagram trust the certificates installed on this phone for 24 hours, so you can check the app's traffic. Restart Instagram after you turn it on.",
@@ -36304,9 +36494,6 @@ public final class L10nTranslations {
                 "Opens Instagram's own editor for its hidden settings (MetaConfig). A wrong override, which is a changed setting, can break parts of Instagram.");
         table.put("Opens a GitHub report with your versions and settings filled in. Add what happened.",
                 "M\u1edf b\u00e1o c\u00e1o GitHub v\u1edbi s\u1eb5n phi\u00ean b\u1ea3n v\u00e0 c\u00e0i \u0111\u1eb7t c\u1ee7a b\u1ea1n. H\u00e3y th\u00eam \u0111i\u1ec1u \u0111\u00e3 x\u1ea3y ra.");
-    }
-
-    private static void fillVi20(Map<String, String> table) {
         table.put("Orange",
                 "Cam");
         table.put("Overrides cleared. Restart Instagram to apply the change.",
@@ -36417,6 +36604,9 @@ public final class L10nTranslations {
                 "Post a story straight to Highlights");
         table.put("Posted %1$s",
                 "\u0110\u00e3 \u0111\u0103ng %1$s");
+    }
+
+    private static void fillVi21(Map<String, String> table) {
         table.put("Posts",
                 "B\u00e0i vi\u1ebft");
         table.put("Posts from @%1$s are hidden",
@@ -36427,9 +36617,6 @@ public final class L10nTranslations {
                 "B\u00e0i vi\u1ebft t\u1eeb c\u00e1c t\u00e0i kho\u1ea3n b\u1ea1n \u0111\u00e3 \u1ea9n v\u1eabn hi\u1ec7n trong Y\u00eau th\u00edch. D\u00e0nh cho b\u1ea1n v\u00e0 \u0110ang theo d\u00f5i s\u1ebd b\u1ecf ch\u00fang ra. H\u00e3y k\u00e9o xu\u1ed1ng tr\u00ean trang ch\u1ee7 \u0111\u1ec3 l\u00e0m m\u1edbi sau khi thay \u0111\u1ed5i.");
         table.put("Preparing diagnostic report...",
                 "\u0110ang chu\u1ea9n b\u1ecb b\u00e1o c\u00e1o ch\u1ea9n \u0111o\u00e1n...");
-    }
-
-    private static void fillVi21(Map<String, String> table) {
         table.put("Press and hold a comment that has its own photo, GIF or sticker, and its menu gets Save. Saves the largest size Instagram sent.",
                 "Nh\u1ea5n gi\u1eef b\u00ecnh lu\u1eadn c\u00f3 \u1ea3nh, GIF ho\u1eb7c nh\u00e3n d\u00e1n ri\u00eang, menu c\u1ee7a b\u00ecnh lu\u1eadn s\u1ebd c\u00f3 L\u01b0u. L\u01b0u k\u00edch th\u01b0\u1edbc l\u1edbn nh\u1ea5t m\u00e0 Instagram g\u1eedi.");
         table.put("Press and hold a photo in a feed to see it twice as big around your finger, and slide to look around. Let go to close it. While this is on, it takes the place of Instagram's own long press on a photo.",
@@ -36464,6 +36651,8 @@ public final class L10nTranslations {
                 "Trang tr\u01b0\u1edbc");
         table.put("Priority accounts",
                 "T\u00e0i kho\u1ea3n \u01b0u ti\u00ean");
+        table.put("Privacy",
+                "Quy\u1ec1n ri\u00eang t\u01b0");
         table.put("Privacy and controls for your chats.",
                 "Quy\u1ec1n ri\u00eang t\u01b0 v\u00e0 \u0111i\u1ec1u khi\u1ec3n cho cu\u1ed9c tr\u00f2 chuy\u1ec7n.");
         table.put("Profile",
@@ -36538,6 +36727,9 @@ public final class L10nTranslations {
                 "\u0110\u1eb7t n\u00fat t\u1ed1c \u0111\u1ed9 \u1edf \u0111\u1ea7u tin video, c\u1ea1nh ba ch\u1ea5m. Nh\u1ea5n \u0111\u1ec3 chuy\u1ec3n sang 1,5x, nh\u1ea5n l\u1ea7n n\u1eefa \u0111\u1ec3 2x v\u00e0 th\u00eam l\u1ea7n n\u1eefa \u0111\u1ec3 v\u1ec1 1x. C\u00e1c tin video ti\u1ebfp theo gi\u1eef t\u1ed1c \u0111\u1ed9 \u0111\u00f3 cho \u0111\u1ebfn khi b\u1ea1n \u0111\u1ed5i ho\u1eb7c kh\u1edfi \u0111\u1ed9ng l\u1ea1i Instagram. Qu\u1ea3ng c\u00e1o ph\u00e1t \u1edf t\u1ed1c \u0111\u1ed9 b\u00ecnh th\u01b0\u1eddng.");
         table.put("Puts a speed icon beside a reel. Tap it to pick a speed from 0.5x to 3x. With Keep the reel speed on, the next reels play at it too.",
                 "\u0110\u1eb7t m\u1ed9t bi\u1ec3u t\u01b0\u1ee3ng t\u1ed1c \u0111\u1ed9 b\u00ean c\u1ea1nh reel. Ch\u1ea1m v\u00e0o \u0111\u1ec3 ch\u1ecdn t\u1ed1c \u0111\u1ed9 t\u1eeb 0,5x \u0111\u1ebfn 3x. Khi b\u1eadt Gi\u1eef t\u1ed1c \u0111\u1ed9 reel, c\u00e1c reel ti\u1ebfp theo c\u0169ng ph\u00e1t \u1edf t\u1ed1c \u0111\u1ed9 \u0111\u00f3.");
+    }
+
+    private static void fillVi22(Map<String, String> table) {
         table.put("Puts an (i) next to the three dots on a profile that opens Instagram's About this account for that account. Instagram took its own away.",
                 "\u0110\u1eb7t m\u1ed9t (i) c\u1ea1nh ba ch\u1ea5m tr\u00ean h\u1ed3 s\u01a1 \u0111\u1ec3 m\u1edf Gi\u1edbi thi\u1ec7u v\u1ec1 t\u00e0i kho\u1ea3n n\u00e0y c\u1ee7a Instagram cho t\u00e0i kho\u1ea3n \u0111\u00f3. Instagram \u0111\u00e3 b\u1ecf n\u00fat c\u1ee7a ch\u00ednh n\u00f3.");
         table.put("Puts back the overrides saved before your last import for this account and Instagram version.",
@@ -36550,9 +36742,6 @@ public final class L10nTranslations {
                 "Thay v\u00e0o \u0111\u00f3 \u0111\u1eb7t c\u00e2u tr\u1ea3 l\u1eddi v\u00e0o m\u1ed9t nh\u00e3n b\u00ean d\u01b0\u1edbi s\u1ed1 b\u00e0i vi\u1ebft, ng\u01b0\u1eddi theo d\u00f5i v\u00e0 \u0111ang theo d\u00f5i c\u1ee7a trang c\u00e1 nh\u00e2n, v\u00e0 ghi Theo d\u00f5i l\u1eabn nhau khi b\u1ea1n c\u0169ng theo d\u00f5i h\u1ecd.");
         table.put("Puts the seek bar right on the bottom edge of the video, so it's harder to touch by accident while you scroll.",
                 "\u0110\u1eb7t thanh tua s\u00e1t m\u00e9p d\u01b0\u1edbi c\u1ee7a video, \u0111\u1ec3 kh\u00f3 ch\u1ea1m nh\u1ea7m h\u01a1n khi b\u1ea1n cu\u1ed9n.");
-    }
-
-    private static void fillVi22(Map<String, String> table) {
         table.put("Puts the title in the middle of the bar at the top of other screens, like notifications, as far as the buttons beside it allow. The buttons stay where they are.",
                 "\u0110\u1eb7t ti\u00eau \u0111\u1ec1 \u1edf gi\u1eefa thanh tr\u00ean c\u00f9ng c\u1ee7a c\u00e1c m\u00e0n h\u00ecnh kh\u00e1c, nh\u01b0 th\u00f4ng b\u00e1o, trong ch\u1eebng m\u1ef1c c\u00e1c n\u00fat b\u00ean c\u1ea1nh cho ph\u00e9p. C\u00e1c n\u00fat v\u1eabn \u1edf nguy\u00ean v\u1ecb tr\u00ed.");
         table.put("Puts the username in the middle of the bar at the top of a profile, yours and other people's. The buttons stay where they are.",
@@ -36661,6 +36850,9 @@ public final class L10nTranslations {
                 "G\u1ee1 m\u1ecdi b\u00e0i vi\u1ebft m\u1ed9t \u1ea3nh kh\u1ecfi trang ch\u1ee7, k\u1ec3 c\u1ea3 t\u1eeb t\u00e0i kho\u1ea3n b\u1ea1n theo d\u00f5i. H\u00e3y k\u00e9o xu\u1ed1ng tr\u00ean trang ch\u1ee7 \u0111\u1ec3 l\u00e0m m\u1edbi sau khi thay \u0111\u1ed5i.");
         table.put("Removes every single-video post and reel from Home, even from accounts you follow. Pull down on Home to refresh after changing it.",
                 "G\u1ee1 m\u1ecdi b\u00e0i vi\u1ebft m\u1ed9t video v\u00e0 reel kh\u1ecfi trang ch\u1ee7, k\u1ec3 c\u1ea3 t\u1eeb t\u00e0i kho\u1ea3n b\u1ea1n theo d\u00f5i. H\u00e3y k\u00e9o xu\u1ed1ng tr\u00ean trang ch\u1ee7 \u0111\u1ec3 l\u00e0m m\u1edbi sau khi thay \u0111\u1ed5i.");
+    }
+
+    private static void fillVi23(Map<String, String> table) {
         table.put("Removes posts by business and creator accounts from Home and Following, friends who use one included. Pull down on Home to refresh after changing it.",
                 "G\u1ee1 b\u00e0i vi\u1ebft c\u1ee7a t\u00e0i kho\u1ea3n doanh nghi\u1ec7p v\u00e0 nh\u00e0 s\u00e1ng t\u1ea1o kh\u1ecfi trang ch\u1ee7 v\u00e0 \u0110ang theo d\u00f5i, k\u1ec3 c\u1ea3 b\u1ea1n b\u00e8 d\u00f9ng lo\u1ea1i t\u00e0i kho\u1ea3n n\u00e0y. H\u00e3y k\u00e9o xu\u1ed1ng tr\u00ean trang ch\u1ee7 \u0111\u1ec3 l\u00e0m m\u1edbi sau khi thay \u0111\u1ed5i.");
         table.put("Removes posts you've already liked from Home and Following. A post you like now stays until you pull down on Home to refresh.",
@@ -36673,9 +36865,6 @@ public final class L10nTranslations {
                 "G\u1ee1 n\u00fat Muse kh\u1ecfi thanh tr\u00ean c\u00f9ng c\u1ee7a trang c\u00e1 nh\u00e2n. T\u00ean ng\u01b0\u1eddi d\u00f9ng v\u00e0 menu v\u1eabn gi\u1eef.");
         table.put("Removes the empty gap under Instagram's tab bar that appears when your phone hides its navigation bar or Instagram is in a pop-up window. Restart Instagram to see the change.",
                 "B\u1ecf kho\u1ea3ng tr\u1ed1ng b\u00ean d\u01b0\u1edbi thanh tab c\u1ee7a Instagram hi\u1ec7n khi \u0111i\u1ec7n tho\u1ea1i \u1ea9n thanh \u0111i\u1ec1u h\u01b0\u1edbng ho\u1eb7c Instagram \u1edf c\u1eeda s\u1ed5 b\u1eadt l\u00ean. H\u00e3y kh\u1edfi \u0111\u1ed9ng l\u1ea1i Instagram \u0111\u1ec3 th\u1ea5y thay \u0111\u1ed5i.");
-    }
-
-    private static void fillVi23(Map<String, String> table) {
         table.put("Removes the stack of Instants (quick photos from friends) from your messages. Restart Instagram to see the change.",
                 "G\u1ee1 ch\u1ed3ng Instants (\u1ea3nh ch\u1ee5p nhanh t\u1eeb b\u1ea1n b\u00e8) kh\u1ecfi ph\u1ea7n tin nh\u1eafn. H\u00e3y kh\u1edfi \u0111\u1ed9ng l\u1ea1i Instagram \u0111\u1ec3 th\u1ea5y thay \u0111\u1ed5i.");
         table.put("Removes the summary, Sources and Ask Meta AI box from a reel's more menu. In your feed the audio row goes too. Other options stay.",
@@ -36784,6 +36973,9 @@ public final class L10nTranslations {
                 "L\u01b0u video d\u1ea1ng MKV");
         table.put("Save videos other apps can open",
                 "L\u01b0u video \u0111\u1ec3 \u1ee9ng d\u1ee5ng kh\u00e1c m\u1edf \u0111\u01b0\u1ee3c");
+    }
+
+    private static void fillVi24(Map<String, String> table) {
         table.put("Save your HushGram choices to a file, or bring them back.",
                 "L\u01b0u l\u1ef1a ch\u1ecdn HushGram v\u00e0o t\u1ec7p ho\u1eb7c kh\u00f4i ph\u1ee5c l\u1ea1i.");
         table.put("Saved",
@@ -36796,9 +36988,6 @@ public final class L10nTranslations {
                 "\u0110\u00e3 l\u01b0u @%s");
         table.put("Saved and everything in it stay covered until your fingerprint, face or screen lock says it's you.",
                 "M\u1ee5c \u0110\u00e3 l\u01b0u v\u00e0 m\u1ecdi th\u1ee9 trong \u0111\u00f3 v\u1eabn b\u1ecb che cho \u0111\u1ebfn khi v\u00e2n tay, khu\u00f4n m\u1eb7t ho\u1eb7c kh\u00f3a m\u00e0n h\u00ecnh x\u00e1c nh\u1eadn l\u00e0 b\u1ea1n.");
-    }
-
-    private static void fillVi24(Map<String, String> table) {
         table.put("Saved button in Explore",
                 "Saved button in Explore");
         table.put("Saved is locked",
@@ -36907,6 +37096,9 @@ public final class L10nTranslations {
                 "Cu\u1ed9c tr\u00f2 chuy\u1ec7n n\u00e0y gi\u1eef \u0110\u00e3 xem");
         table.put("Select text",
                 "Ch\u1ecdn v\u0103n b\u1ea3n");
+    }
+
+    private static void fillVi25(Map<String, String> table) {
         table.put("Select text to copy",
                 "Ch\u1ecdn v\u0103n b\u1ea3n \u0111\u1ec3 sao ch\u00e9p");
         table.put("Send",
@@ -36919,9 +37111,6 @@ public final class L10nTranslations {
                 "Send stories with a long press");
         table.put("Send to",
                 "G\u1eedi \u0111\u1ebfn");
-    }
-
-    private static void fillVi25(Map<String, String> table) {
         table.put("Sending a message in a chat lets the other person see that you've read what they sent before it. Chats you don't answer stay unseen to them.",
                 "Khi b\u1ea1n g\u1eedi tin nh\u1eafn trong m\u1ed9t cu\u1ed9c tr\u00f2 chuy\u1ec7n, ng\u01b0\u1eddi kia s\u1ebd th\u1ea5y b\u1ea1n \u0111\u00e3 \u0111\u1ecdc nh\u1eefng g\u00ec h\u1ecd g\u1eedi tr\u01b0\u1edbc \u0111\u00f3. V\u1edbi c\u00e1c cu\u1ed9c tr\u00f2 chuy\u1ec7n b\u1ea1n kh\u00f4ng tr\u1ea3 l\u1eddi, h\u1ecd v\u1eabn kh\u00f4ng th\u1ea5y b\u1ea1n \u0111\u00e3 xem.");
         table.put("Sends Instagram through the HTTP proxy set below. Other apps and your phone's own settings aren't changed.",
@@ -37030,6 +37219,9 @@ public final class L10nTranslations {
                 "Hi\u1ec7n thanh g\u1ea7n cu\u1ed1i tin video. K\u00e9o \u0111\u1ec3 nh\u1ea3y \u0111\u1ebfn b\u1ea5t k\u1ef3 \u0111i\u1ec3m n\u00e0o trong video. \u1ea2nh kh\u00f4ng c\u00f3 thanh n\u00e0y.");
         table.put("Shows a blurred preview of a disappearing photo or video in a chat.",
                 "Shows a blurred preview of a disappearing photo or video in a chat.");
+    }
+
+    private static void fillVi26(Map<String, String> table) {
         table.put("Shows a handle at the right edge of Saved and your collections while they scroll. Drag it to jump through them.",
                 "Hi\u1ec7n tay n\u1eafm \u1edf c\u1ea1nh ph\u1ea3i c\u1ee7a \u0110\u00e3 l\u01b0u v\u00e0 b\u1ed9 s\u01b0u t\u1eadp c\u1ee7a b\u1ea1n khi cu\u1ed9n. K\u00e9o tay n\u1eafm \u0111\u1ec3 nh\u1ea3y nhanh qua danh s\u00e1ch.");
         table.put("Shows each switch by its name alone. Tap the i next to a name to read what it does.",
@@ -37042,9 +37234,6 @@ public final class L10nTranslations {
                 "Shows the Import and Restore rows. An import changes Instagram's hidden settings for this signed-in account.");
         table.put("Shows the date and time a reel was posted under the author's name, like Oct 2, 3:45 PM. A change shows from the next reel.",
                 "Hi\u1ec7n ng\u00e0y gi\u1edd \u0111\u0103ng reel b\u00ean d\u01b0\u1edbi t\u00ean t\u00e1c gi\u1ea3, nh\u01b0 2 thg 10, 3:45 CH. Thay \u0111\u1ed5i hi\u1ec7n t\u1eeb reel k\u1ebf ti\u1ebfp.");
-    }
-
-    private static void fillVi26(Map<String, String> table) {
         table.put("Shows the days, hours and minutes since it went up on a line under the time, like 1d 2h 5m ago.",
                 "Hi\u1ec7n s\u1ed1 ng\u00e0y, gi\u1edd v\u00e0 ph\u00fat k\u1ec3 t\u1eeb khi \u0111\u0103ng \u1edf d\u00f2ng d\u01b0\u1edbi th\u1eddi gian, nh\u01b0 1 ng\u00e0y 2 gi\u1edd 5 ph\u00fat tr\u01b0\u1edbc.");
         table.put("Shows the time above your finger while you drag a seek bar on a feed video, story or reel, and a small picture of that moment when Instagram has one for the video.",
@@ -37055,6 +37244,8 @@ public final class L10nTranslations {
                 "Hi\u1ec7n l\u00fac b\u00e0i vi\u1ebft v\u00e0 b\u00ecnh lu\u1eadn \u0111\u01b0\u1ee3c \u0111\u0103ng, nh\u01b0 2 thg 10, 3:45 CH, thay v\u00ec c\u00e1ch \u0111\u00e2y bao l\u00e2u. B\u00e0i vi\u1ebft b\u1ea1n t\u1ea3i sau khi thay \u0111\u1ed5i s\u1ebd hi\u1ec7n nh\u01b0 v\u1eady.");
         table.put("Shows your feed blurred under Home's top bar, like frosted glass.",
                 "Hi\u1ec7n b\u1ea3ng feed m\u1edd d\u01b0\u1edbi thanh tr\u00ean c\u00f9ng c\u1ee7a trang ch\u1ee7, nh\u01b0 k\u00ednh m\u1edd.");
+        table.put("Shrink the pill as you scroll",
+                "Thu nh\u1ecf vi\u00ean thanh khi cu\u1ed9n");
         table.put("Size %1$d \u00d7 %2$d",
                 "K\u00edch th\u01b0\u1edbc %1$d \u00d7 %2$d");
         table.put("Skip length",
@@ -37151,6 +37342,9 @@ public final class L10nTranslations {
                 "V\u1eabn cu\u1ed9n reel m\u1edf t\u1eeb T\u00ecm ki\u1ebfm v\u00e0 Kh\u00e1m ph\u00e1");
         table.put("Still scroll reels from a profile",
                 "V\u1eabn cu\u1ed9n reel m\u1edf t\u1eeb trang c\u00e1 nh\u00e2n");
+    }
+
+    private static void fillVi27(Map<String, String> table) {
         table.put("Still scroll reels from a song page",
                 "V\u1eabn cu\u1ed9n reel m\u1edf t\u1eeb trang b\u00e0i h\u00e1t");
         table.put("Stop",
@@ -37165,9 +37359,6 @@ public final class L10nTranslations {
                 "D\u1eebng sau m\u1ed9t s\u1ed1 reel nh\u1ea5t \u0111\u1ecbnh");
         table.put("Stop after the chat's reels",
                 "D\u1eebng sau c\u00e1c reel c\u1ee7a cu\u1ed9c tr\u00f2 chuy\u1ec7n");
-    }
-
-    private static void fillVi27(Map<String, String> table) {
         table.put("Stop background feed refresh",
                 "Ng\u1eebng l\u00e0m m\u1edbi b\u1ea3ng tin trong n\u1ec1n");
         table.put("Stop background work Instagram doesn't need.",
@@ -37274,6 +37465,9 @@ public final class L10nTranslations {
                 "Nh\u1ea5n gi\u1eef tab v\u1eabn d\u00f9ng thao t\u00e1c ri\u00eang c\u1ee7a Instagram. H\u00e3y ch\u1ecdn m\u1ed9t tab \u0111\u1ec3 m\u1edf Y\u00eau th\u00edch.");
         table.put("Tab long presses keep Instagram's own action. Choose one to open HushGram instead.",
                 "Nh\u1ea5n gi\u1eef tab v\u1eabn d\u00f9ng thao t\u00e1c ri\u00eang c\u1ee7a Instagram. H\u00e3y ch\u1ecdn m\u1ed9t tab \u0111\u1ec3 m\u1edf HushGram thay th\u1ebf.");
+    }
+
+    private static void fillVi28(Map<String, String> table) {
         table.put("Tab long presses keep Instagram's own action. Choose one to open Saved profiles instead.",
                 "Nh\u1ea5n gi\u1eef tab v\u1eabn d\u00f9ng thao t\u00e1c ri\u00eang c\u1ee7a Instagram. H\u00e3y ch\u1ecdn m\u1ed9t tab \u0111\u1ec3 m\u1edf Trang c\u00e1 nh\u00e2n \u0111\u00e3 l\u01b0u.");
         table.put("Tab long presses keep Instagram's own action. Choose one to pick the playback quality instead.",
@@ -37288,9 +37482,6 @@ public final class L10nTranslations {
                 "Tab tr\u00ean trang c\u00e1 nh\u00e2n ng\u01b0\u1eddi kh\u00e1c");
         table.put("Tabs on your profile",
                 "Tab tr\u00ean trang c\u00e1 nh\u00e2n c\u1ee7a b\u1ea1n");
-    }
-
-    private static void fillVi28(Map<String, String> table) {
         table.put("Tagged",
                 "\u0110\u01b0\u1ee3c g\u1eafn th\u1ebb");
         table.put("Take a scroll break",
@@ -37379,6 +37570,8 @@ public final class L10nTranslations {
                 "G\u1ee1 huy hi\u1ec7u Threads b\u00ean d\u01b0\u1edbi ti\u1ec3u s\u1eed tr\u00ean trang c\u00e1 nh\u00e2n c\u1ee7a ng\u01b0\u1eddi kh\u00e1c. Trang c\u1ee7a b\u1ea1n v\u1eabn gi\u1eef.");
         table.put("Takes the Threads button off the top of profiles, yours included. The menu and the other buttons stay where they were.",
                 "G\u1ee1 n\u00fat Threads kh\u1ecfi \u0111\u1ea7u trang c\u00e1 nh\u00e2n, k\u1ec3 c\u1ea3 c\u1ee7a b\u1ea1n. Menu v\u00e0 c\u00e1c n\u00fat kh\u00e1c v\u1eabn \u1edf ch\u1ed7 c\u0169.");
+        table.put("Takes the Watch more reels button off the card a reel in your feed shows when it ends. Watch again stays.",
+                "B\u1ecf n\u00fat Xem th\u00eam th\u01b0\u1edbc phim kh\u1ecfi th\u1ebb hi\u1ec7n ra khi m\u1ed9t th\u01b0\u1edbc phim trong b\u1ea3ng feed k\u1ebft th\u00fac. N\u00fat Xem l\u1ea1i v\u1eabn gi\u1eef nguy\u00ean.");
         table.put("Takes the Your algorithm button off the top of the Reels tab and closes up the gap. The rest of the bar stays.",
                 "G\u1ee1 n\u00fat Thu\u1eadt to\u00e1n c\u1ee7a b\u1ea1n kh\u1ecfi \u0111\u1ea7u tab Reels v\u00e0 thu h\u1eb9p kho\u1ea3ng tr\u1ed1ng. Ph\u1ea7n c\u00f2n l\u1ea1i c\u1ee7a thanh v\u1eabn gi\u1eef.");
         table.put("Takes the accounts Instagram suggests off the bottom of your messages. Your chats and follow requests stay. Restart Instagram to see the change.",
@@ -37395,6 +37588,9 @@ public final class L10nTranslations {
                 "G\u1ee1 bi\u1ec3u t\u01b0\u1ee3ng tr\u00e1i tim kh\u1ecfi \u0111\u1ea7u trang ch\u1ee7 v\u00e0 thu h\u1eb9p kho\u1ea3ng tr\u1ed1ng. C\u1ea3nh b\u00e1o v\u1eabn \u0111\u1ebfn. H\u00e3y kh\u1edfi \u0111\u1ed9ng l\u1ea1i Instagram \u0111\u1ec3 th\u1ea5y thay \u0111\u1ed5i.");
         table.put("Takes the interests someone added, like reading or hiking, from under their bio. Yours keeps them.",
                 "G\u1ee1 c\u00e1c s\u1edf th\u00edch ng\u01b0\u1eddi kh\u00e1c \u0111\u00e3 th\u00eam, nh\u01b0 \u0111\u1ecdc s\u00e1ch hay \u0111i b\u1ed9 \u0111\u01b0\u1eddng d\u00e0i, b\u00ean d\u01b0\u1edbi ti\u1ec3u s\u1eed. Trang c\u1ee7a b\u1ea1n v\u1eabn gi\u1eef.");
+    }
+
+    private static void fillVi29(Map<String, String> table) {
         table.put("Takes the invite to someone's broadcast channel from under their bio. Yours keeps it.",
                 "G\u1ee1 l\u1eddi m\u1eddi tham gia k\u00eanh ph\u00e1t s\u00f3ng c\u1ee7a ng\u01b0\u1eddi kh\u00e1c b\u00ean d\u01b0\u1edbi ti\u1ec3u s\u1eed. Trang c\u1ee7a b\u1ea1n v\u1eabn gi\u1eef.");
         table.put("Takes the link to someone's WhatsApp from under their bio. Yours keeps it.",
@@ -37411,9 +37607,6 @@ public final class L10nTranslations {
                 "B\u1ecf bi\u1ec3u t\u01b0\u1ee3ng m\u00e1y bay gi\u1ea5y \u1edf cu\u1ed1i tin c\u1ee7a ng\u01b0\u1eddi kh\u00e1c. Kh\u00f4ng \u0111\u1ec3 l\u1ea1i kho\u1ea3ng tr\u1ed1ng.");
         table.put("Takes the plus button off the top of Home and closes up the gap. The Create tab and swiping to create are separate. Restart Instagram to see the change.",
                 "G\u1ee1 n\u00fat d\u1ea5u c\u1ed9ng kh\u1ecfi \u0111\u1ea7u trang ch\u1ee7 v\u00e0 thu h\u1eb9p kho\u1ea3ng tr\u1ed1ng. Tab T\u1ea1o v\u00e0 vu\u1ed1t \u0111\u1ec3 t\u1ea1o l\u00e0 ri\u00eang bi\u1ec7t. H\u00e3y kh\u1edfi \u0111\u1ed9ng l\u1ea1i Instagram \u0111\u1ec3 th\u1ea5y thay \u0111\u1ed5i.");
-    }
-
-    private static void fillVi29(Map<String, String> table) {
         table.put("Takes the plus button off the top of reels you open from Saved or a collection and closes up the gap. The Reels tab and other reels keep theirs.",
                 "G\u1ee1 n\u00fat d\u1ea5u c\u1ed9ng kh\u1ecfi \u0111\u1ea7u c\u00e1c reel b\u1ea1n m\u1edf t\u1eeb m\u1ee5c \u0110\u00e3 l\u01b0u ho\u1eb7c m\u1ed9t b\u1ed9 s\u01b0u t\u1eadp, v\u00e0 thu h\u1eb9p kho\u1ea3ng tr\u1ed1ng. Tab Reels v\u00e0 c\u00e1c reel kh\u00e1c v\u1eabn gi\u1eef n\u00fat n\u00e0y.");
         table.put("Takes the plus button that opens the camera off the top of reels, on the Reels tab and everywhere else, and closes up the gap. The rest of the bar stays.",
@@ -37518,6 +37711,9 @@ public final class L10nTranslations {
                 "Thanh v\u00e0 n\u00fat tr\u00f2n quen thu\u1ed9c.");
         table.put("The bar sits in the space under the Send message box. Where there's no room under it, the bar stays above it.",
                 "Thanh n\u1eb1m trong kho\u1ea3ng tr\u1ed1ng b\u00ean d\u01b0\u1edbi \u00f4 G\u1eedi tin nh\u1eafn. N\u1ebfu b\u00ean d\u01b0\u1edbi kh\u00f4ng \u0111\u1ee7 ch\u1ed7, thanh v\u1eabn \u1edf ph\u00eda tr\u00ean \u00f4.");
+    }
+
+    private static void fillVi30(Map<String, String> table) {
         table.put("The bar sits just above the Send message box at the bottom of a story.",
                 "Thanh n\u1eb1m ngay ph\u00eda tr\u00ean \u00f4 G\u1eedi tin nh\u1eafn \u1edf cu\u1ed1i tin.");
         table.put("The bubbles of friends who liked or commented, the Followed by and Liked by lines with their faces, the comment shown under a reel and the row of friends who saw it. Comments are still a tap away.",
@@ -37534,9 +37730,6 @@ public final class L10nTranslations {
                 "Ng\u00e0y v\u00e0 gi\u1edd \u0111\u0103ng tin, v\u00ed d\u1ee5 2 thg 10, 3:45 CH.");
         table.put("The file %1$s couldn't be removed. Delete it from %2$s to turn HushGram back on.",
                 "Kh\u00f4ng x\u00f3a \u0111\u01b0\u1ee3c t\u1ec7p %1$s. H\u00e3y x\u00f3a t\u1ec7p \u0111\u00f3 kh\u1ecfi %2$s \u0111\u1ec3 b\u1eadt l\u1ea1i HushGram.");
-    }
-
-    private static void fillVi30(Map<String, String> table) {
         table.put("The heart at the top of Home shows how many notifications are waiting, like the number on Messages, in place of the red dot. Restart Instagram to see the change.",
                 "Tr\u00e1i tim \u1edf \u0111\u1ea7u trang ch\u1ee7 hi\u1ec7n s\u1ed1 th\u00f4ng b\u00e1o \u0111ang ch\u1edd, gi\u1ed1ng con s\u1ed1 tr\u00ean Tin nh\u1eafn, thay cho ch\u1ea5m \u0111\u1ecf. H\u00e3y kh\u1edfi \u0111\u1ed9ng l\u1ea1i Instagram \u0111\u1ec3 th\u1ea5y thay \u0111\u1ed5i.");
         table.put("The heart plays %1$s when you double tap a post.",
@@ -37641,6 +37834,9 @@ public final class L10nTranslations {
                 "T\u00ecm ki\u1ebfm kh\u00f4ng \u1edf thanh tab n\u00ean n\u00fat n\u00e0y kh\u00f4ng m\u1edf \u0111\u01b0\u1ee3c.");
         table.put("This chat is locked",
                 "Cu\u1ed9c tr\u00f2 chuy\u1ec7n n\u00e0y \u0111\u00e3 kh\u00f3a");
+    }
+
+    private static void fillVi31(Map<String, String> table) {
         table.put("This chat uses the setting",
                 "Cu\u1ed9c tr\u00f2 chuy\u1ec7n n\u00e0y theo c\u00e0i \u0111\u1eb7t");
         table.put("This file matches the current overrides. Nothing changed.",
@@ -37657,9 +37853,6 @@ public final class L10nTranslations {
                 "Tin n\u00e0y ch\u1ec9 ph\u00e1t m\u1ed9t l\u1ea7n");
         table.put("This video has no file another player can open",
                 "Video n\u00e0y kh\u00f4ng c\u00f3 t\u1ec7p n\u00e0o \u0111\u1ec3 tr\u00ecnh ph\u00e1t kh\u00e1c m\u1edf");
-    }
-
-    private static void fillVi31(Map<String, String> table) {
         table.put("This video plays once",
                 "Video n\u00e0y ch\u1ec9 ph\u00e1t m\u1ed9t l\u1ea7n");
         table.put("Threads",
@@ -37764,6 +37957,9 @@ public final class L10nTranslations {
                 "B\u00ean d\u01b0\u1edbi s\u1ed1 li\u1ec7u");
         table.put("Under the name, 1 mention",
                 "D\u01b0\u1edbi t\u00ean, 1 l\u01b0\u1ee3t nh\u1eafc");
+    }
+
+    private static void fillVi32(Map<String, String> table) {
         table.put("Undo cleared positions",
                 "Ho\u00e0n t\u00e1c vi\u1ec7c x\u00f3a v\u1ecb tr\u00ed");
         table.put("Undo couldn't fully restore the settings. Check the shown values. Undo has been used up.",
@@ -37780,9 +37976,6 @@ public final class L10nTranslations {
                 "Th\u00f4ng b\u00e1o b\u1ecf theo d\u00f5i");
         table.put("Unfollower list cleared.",
                 "\u0110\u00e3 x\u00f3a danh s\u00e1ch ng\u01b0\u1eddi b\u1ecf theo d\u00f5i.");
-    }
-
-    private static void fillVi32(Map<String, String> table) {
         table.put("Unlock",
                 "M\u1edf kh\u00f3a");
         table.put("Unlock Instagram",
@@ -37869,8 +38062,8 @@ public final class L10nTranslations {
                 "Video ph\u00e1t \u1edf ch\u1ea5t l\u01b0\u1ee3ng th\u1ea5p nh\u1ea5t m\u00e0 Instagram cung c\u1ea5p cho t\u1eebng video.");
         table.put("Videos wait for your tap where the choice below says. Feed videos show a play button, as they do when you use less mobile data.",
                 "Video \u0111\u1ee3i b\u1ea1n nh\u1ea5n \u1edf nh\u1eefng n\u01a1i l\u1ef1a ch\u1ecdn b\u00ean d\u01b0\u1edbi n\u00eau. Video tr\u00ean b\u1ea3ng feed hi\u1ec7n n\u00fat ph\u00e1t, nh\u01b0 khi b\u1ea1n d\u00f9ng \u00edt d\u1eef li\u1ec7u di \u0111\u1ed9ng h\u01a1n.");
-        table.put("Videos, reels and stories play at the quality below, starting with the next one you open.",
-                "Video, reel v\u00e0 tin ph\u00e1t \u1edf ch\u1ea5t l\u01b0\u1ee3ng b\u00ean d\u01b0\u1edbi, b\u1eaft \u0111\u1ea7u t\u1eeb m\u1ee5c ti\u1ebfp theo b\u1ea1n m\u1edf.");
+        table.put("Videos, reels and stories play at the quality below, starting with the next one you open. When your connection can't keep up, a video drops to the next lower quality.",
+                "Video, reel v\u00e0 tin ph\u00e1t \u1edf ch\u1ea5t l\u01b0\u1ee3ng b\u00ean d\u01b0\u1edbi, b\u1eaft \u0111\u1ea7u t\u1eeb m\u1ee5c ti\u1ebfp theo b\u1ea1n m\u1edf. Khi k\u1ebft n\u1ed1i kh\u00f4ng theo k\u1ecbp, video s\u1ebd h\u1ea1 xu\u1ed1ng m\u1ee9c ch\u1ea5t l\u01b0\u1ee3ng th\u1ea5p h\u01a1n k\u1ebf ti\u1ebfp.");
         table.put("View DM photos and videos anonymously",
                 "Xem \u1ea3nh v\u00e0 video trong Direct \u1ea9n danh");
         table.put("View live anonymously",
@@ -37887,6 +38080,9 @@ public final class L10nTranslations {
                 "\u0110\u00e3 x\u00f3a l\u1ecbch s\u1eed \u0111\u00e3 xem.");
         table.put("Viewing, sound and the stories tray.",
                 "Xem, \u00e2m thanh v\u00e0 khay tin.");
+    }
+
+    private static void fillVi33(Map<String, String> table) {
         table.put("Voice message",
                 "Tin nh\u1eafn tho\u1ea1i");
         table.put("Volume up still raises the phone's volume, but a muted reel stays muted until you unmute it.",
@@ -37903,9 +38099,6 @@ public final class L10nTranslations {
                 "Xem l\u1ea1i ngay trong b\u1ea3ng feed");
         table.put("Watch on TV",
                 "Xem tr\u00ean TV");
-    }
-
-    private static void fillVi33(Map<String, String> table) {
         table.put("Wave",
                 "S\u00f3ng");
         table.put("Web links you tap open in your usual browser, without Instagram's click tracker. Ads and Meta's own sites (Instagram, Facebook, Messenger, Threads) still open in the app.",
@@ -37954,6 +38147,8 @@ public final class L10nTranslations {
                 "R\u1ed9ng");
         table.put("With Expandable categories on, a tap opens a category on a page of its own. Back takes you to the list.",
                 "Khi b\u1eadt Danh m\u1ee5c m\u1edf r\u1ed9ng \u0111\u01b0\u1ee3c, nh\u1ea5n v\u00e0o m\u1ed9t danh m\u1ee5c s\u1ebd m\u1edf n\u00f3 tr\u00ean m\u1ed9t trang ri\u00eang. Quay l\u1ea1i s\u1ebd \u0111\u01b0a b\u1ea1n v\u1ec1 danh s\u00e1ch.");
+        table.put("With Liquid glass look off, scrolling a list down makes the pill smaller, and scrolling up or changing tab brings it back to full size. Hide the tab bar as you scroll takes over when it's on. Restart Instagram after changing it.",
+                "Khi t\u1eaft Ki\u1ec3u k\u00ednh l\u1ecfng, cu\u1ed9n danh s\u00e1ch xu\u1ed1ng s\u1ebd l\u00e0m vi\u00ean thanh nh\u1ecf l\u1ea1i, c\u00f2n cu\u1ed9n l\u00ean ho\u1eb7c \u0111\u1ed5i tab s\u1ebd \u0111\u01b0a n\u00f3 v\u1ec1 \u0111\u1ee7 c\u1ee1. N\u1ebfu \u1ea8n thanh tab khi cu\u1ed9n \u0111ang b\u1eadt th\u00ec c\u00e0i \u0111\u1eb7t \u0111\u00f3 \u0111\u01b0\u1ee3c \u01b0u ti\u00ean. H\u00e3y kh\u1edfi \u0111\u1ed9ng l\u1ea1i Instagram sau khi thay \u0111\u1ed5i.");
         table.put("With Name saves by account and post time on, only a save that doesn't know who posted or when is named this way.",
                 "Khi b\u1eadt \u0110\u1eb7t t\u00ean b\u1ea3n l\u01b0u theo t\u00e0i kho\u1ea3n v\u00e0 gi\u1edd \u0111\u0103ng, ch\u1ec9 b\u1ea3n l\u01b0u kh\u00f4ng r\u00f5 ai \u0111\u0103ng ho\u1eb7c \u0111\u0103ng l\u00fac n\u00e0o m\u1edbi \u0111\u01b0\u1ee3c \u0111\u1eb7t t\u00ean theo c\u00e1ch n\u00e0y.");
         table.put("With Stop Reels scrolling on, reels you open from Search, Explore, a hashtag or a place still move on when you swipe.",
@@ -38008,6 +38203,9 @@ public final class L10nTranslations {
                 "Phi\u00ean b\u1ea3n, m\u00e3 ngu\u1ed3n v\u00e0 gi\u1ea5y ph\u00e9p c\u1ee7a b\u1ea1n.");
         table.put("Your words",
                 "Ch\u1eef c\u1ee7a b\u1ea1n");
+    }
+
+    private static void fillVi34(Map<String, String> table) {
         table.put("Zoomed photo",
                 "\u1ea2nh ph\u00f3ng to");
         table.put("the home screen icon you picked",
@@ -38027,7 +38225,7 @@ public final class L10nTranslations {
     }
 
     private static Map<String, String> buildZh_rTW() {
-        Map<String, String> table = new HashMap<>(4078);
+        Map<String, String> table = new HashMap<>(4096);
         fillZh_rTW0(table);
         fillZh_rTW1(table);
         fillZh_rTW2(table);
@@ -38062,6 +38260,7 @@ public final class L10nTranslations {
         fillZh_rTW31(table);
         fillZh_rTW32(table);
         fillZh_rTW33(table);
+        fillZh_rTW34(table);
         return table;
     }
 
@@ -38261,8 +38460,8 @@ public final class L10nTranslations {
                 "Reels \u9023\u7d50\u6703\u958b\u555f\u5b83\u6307\u5411\u7684 Reel\u3002\u8a72 Reel \u8f09\u5165\u6642\uff0cInstagram \u4e0d\u6703\u5148\u64ad\u653e\u5b58\u5728\u4f60\u624b\u6a5f\u4e0a\u7684\u5176\u4ed6 Reel\u3002");
         table.put("A reel that doesn't fill the screen shows a blurred copy of itself above and below it instead of black bars, and the strip under the tab bar and the band behind the clock show the reel blurred too. The copy shows only where a reel leaves room, as with Show the whole reel on. Open Reels again after a change.",
                 "\u672a\u586b\u6eff\u87a2\u5e55\u7684 Reel \u6703\u5728\u4e0a\u4e0b\u986f\u793a\u81ea\u8eab\u7684\u6a21\u7cca\u5f71\u50cf\uff0c\u53d6\u4ee3\u9ed1\u908a\uff1b\u5206\u9801\u5217\u4e0b\u65b9\u8207\u6642\u9418\u5f8c\u65b9\u4e5f\u6703\u986f\u793a\u6a21\u7cca\u7684 Reel\u3002\u6a21\u7cca\u5f71\u50cf\u53ea\u6703\u51fa\u73fe\u5728 Reel \u7559\u6709\u7a7a\u9593\u7684\u5730\u65b9\uff0c\u4f8b\u5982\u958b\u555f\u300c\u986f\u793a\u5b8c\u6574\u7684 Reels\u300d\u6642\u3002\u8b8a\u66f4\u5f8c\u8acb\u91cd\u65b0\u958b\u555f Reels\u3002");
-        table.put("A reel you open from the Reels tab or a post on Home plays with sound, and Home is muted again when you go back. Your phone's ringer and volume still count.",
-                "\u5f9e Reels \u5206\u9801\u6216\u9996\u9801\u8cbc\u6587\u958b\u555f\u7684 Reel \u6703\u6709\u8072\u97f3\u64ad\u653e\uff0c\u8fd4\u56de\u5f8c\u9996\u9801\u6703\u518d\u6b21\u975c\u97f3\u3002\u624b\u6a5f\u7684\u9234\u8072\u6a21\u5f0f\u548c\u97f3\u91cf\u4ecd\u7136\u6709\u6548\u3002");
+        table.put("A reel you open from the Reels tab, a profile or a post on Home plays with sound, and Home is muted again when you go back. Your phone's ringer and volume still count.",
+                "\u5f9e Reels \u5206\u9801\u3001\u500b\u4eba\u6a94\u6848\u6216\u9996\u9801\u8cbc\u6587\u958b\u555f\u7684 Reel \u6703\u6709\u8072\u97f3\u64ad\u653e\uff0c\u8fd4\u56de\u5f8c\u9996\u9801\u6703\u518d\u6b21\u975c\u97f3\u3002\u624b\u6a5f\u7684\u9234\u8072\u6a21\u5f0f\u548c\u97f3\u91cf\u4ecd\u7136\u6709\u6548\u3002");
         table.put("A rounded bar split by a tall handle.",
                 "\u7531\u9ad8\u62d6\u66f3\u9215\u5206\u9694\u7684\u5713\u89d2\u62d6\u66f3\u5217\u3002");
         table.put("A save stopped. Reopen the media and save again.",
@@ -38507,6 +38706,8 @@ public final class L10nTranslations {
                 "\u8868\u60c5\u7b26\u865f\u5b57\u578b\u6a94\u6848");
         table.put("An eye at the top of each chat holds or sends Seen in that chat alone, whatever Read messages without the seen receipt says. Changing it doesn't send anything by itself.",
                 "\u6bcf\u500b\u804a\u5929\u9802\u7aef\u7684\u773c\u775b\u5716\u793a\u53ef\u8b93\u8a72\u804a\u5929\u55ae\u7368\u4fdd\u7559\u6216\u50b3\u9001\u300c\u5df2\u8b80\u300d\uff0c\u4e0d\u53d7\u300c\u533f\u540d\u67e5\u770b\u79c1\u8a0a\u300d\u5f71\u97ff\u3002\u8b8a\u66f4\u672c\u8eab\u4e0d\u6703\u50b3\u9001\u4efb\u4f55\u5167\u5bb9\u3002");
+        table.put("App",
+                "\u61c9\u7528\u7a0b\u5f0f");
         table.put("App icon",
                 "\u61c9\u7528\u7a0b\u5f0f\u5716\u793a");
         table.put("App-only proxy",
@@ -38553,11 +38754,11 @@ public final class L10nTranslations {
                 "\u8fd4\u56de\u6642\u4fdd\u7559\u9996\u9801\u72c0\u614b");
         table.put("Back on Home leaves Instagram without first scrolling the feed to the top and reloading it.",
                 "\u5728\u9996\u9801\u6309\u8fd4\u56de\u6703\u76f4\u63a5\u96e2\u958b Instagram\uff0c\u4e0d\u518d\u5148\u5c07\u52d5\u614b\u6372\u56de\u9802\u7aef\u4e26\u91cd\u65b0\u8f09\u5165\u3002");
-        table.put("Background playback",
-                "\u80cc\u666f\u64ad\u653e");
     }
 
     private static void fillZh_rTW4(Map<String, String> table) {
+        table.put("Background playback",
+                "\u80cc\u666f\u64ad\u653e");
         table.put("Backgrounds in the accent color",
                 "\u80cc\u666f\u4f7f\u7528\u5f37\u8abf\u8272");
         table.put("Badges in the accent color",
@@ -38582,8 +38783,8 @@ public final class L10nTranslations {
                 "\u500b\u4eba\u7c21\u4ecb");
         table.put("Bio copied",
                 "\u5df2\u8907\u88fd\u500b\u4eba\u7c21\u4ecb");
-        table.put("Black rows and dialogs, HushGram's name at the top, and each category on one line.",
-                "\u9ed1\u8272\u7684\u5217\u548c\u5c0d\u8a71\u6846\uff0c\u9802\u7aef\u986f\u793a HushGram \u540d\u7a31\uff0c\u6bcf\u500b\u985e\u5225\u53ea\u4f54\u4e00\u884c\u3002");
+        table.put("Black rows and dialogs, with HushGram's name at the top.",
+                "\u9ed1\u8272\u7684\u5217\u548c\u5c0d\u8a71\u6846\uff0c\u9802\u7aef\u986f\u793a HushGram \u540d\u7a31\u3002");
         table.put("Black settings page",
                 "\u9ed1\u8272\u8a2d\u5b9a\u9801\u9762");
         table.put("Blend post edges",
@@ -38676,11 +38877,11 @@ public final class L10nTranslations {
                 "\u8acb\u9078\u64c7\u532f\u51fa\u8a2d\u5b9a\u7684\u6a94\u6848\u3002");
         table.put("Choose a file for your installed patches' settings and saved profiles. Your login and history stay on this device.",
                 "\u9078\u64c7\u6a94\u6848\u4ee5\u5132\u5b58\u5df2\u5b89\u88dd\u4fee\u88dc\u7a0b\u5f0f\u7684\u8a2d\u5b9a\u8207\u5132\u5b58\u7684\u500b\u4eba\u6a94\u6848\u3002\u767b\u5165\u8cc7\u8a0a\u8207\u8a18\u9304\u4ecd\u7559\u5728\u6b64\u88dd\u7f6e\u4e0a\u3002");
-        table.put("Choose a file for your installed patches' settings. Accounts and history stay on this device.",
-                "\u9078\u64c7\u6a94\u6848\u4ee5\u5132\u5b58\u5df2\u5b89\u88dd\u4fee\u88dc\u7a0b\u5f0f\u7684\u8a2d\u5b9a\u3002\u5e33\u865f\u8207\u8a18\u9304\u4ecd\u7559\u5728\u6b64\u88dd\u7f6e\u4e0a\u3002");
     }
 
     private static void fillZh_rTW5(Map<String, String> table) {
+        table.put("Choose a file for your installed patches' settings. Accounts and history stay on this device.",
+                "\u9078\u64c7\u6a94\u6848\u4ee5\u5132\u5b58\u5df2\u5b89\u88dd\u4fee\u88dc\u7a0b\u5f0f\u7684\u8a2d\u5b9a\u3002\u5e33\u865f\u8207\u8a18\u9304\u4ecd\u7559\u5728\u6b64\u88dd\u7f6e\u4e0a\u3002");
         table.put("Choose a folder",
                 "\u9078\u64c7\u8cc7\u6599\u593e");
         table.put("Choose a folder name under Movies and Pictures. Invalid characters become underscores. Leave it blank to use the default folder, %1$s. For an SD card or anywhere else, use Choose a folder.",
@@ -38737,6 +38938,8 @@ public final class L10nTranslations {
                 "\u7dca\u6e4a");
         table.put("Confirm PIN",
                 "\u78ba\u8a8d PIN \u78bc");
+        table.put("Content",
+                "\u5167\u5bb9");
         table.put("Continue",
                 "\u7e7c\u7e8c");
         table.put("Control where Meta AI appears.",
@@ -38797,13 +39000,13 @@ public final class L10nTranslations {
                 "\u7121\u6cd5\u6e05\u9664\u5132\u5b58\u7684\u526f\u672c\uff0c\u8acb\u518d\u8a66\u4e00\u6b21\u3002");
         table.put("Couldn't clear the unfollower list. Try again.",
                 "\u7121\u6cd5\u6e05\u9664\u53d6\u6d88\u8ffd\u8e64\u8005\u540d\u55ae\uff0c\u8acb\u518d\u8a66\u4e00\u6b21\u3002");
+    }
+
+    private static void fillZh_rTW6(Map<String, String> table) {
         table.put("Couldn't clear the viewing history. Try again.",
                 "\u7121\u6cd5\u6e05\u9664\u700f\u89bd\u7d00\u9304\uff0c\u8acb\u518d\u8a66\u4e00\u6b21\u3002");
         table.put("Couldn't copy comment",
                 "\u7121\u6cd5\u8907\u88fd\u7559\u8a00");
-    }
-
-    private static void fillZh_rTW6(Map<String, String> table) {
         table.put("Couldn't copy the GIF name",
                 "\u7121\u6cd5\u8907\u88fd GIF \u540d\u7a31");
         table.put("Couldn't copy the bio",
@@ -38920,13 +39123,13 @@ public final class L10nTranslations {
                 "\u81ea\u8a02");
         table.put("Custom app icon",
                 "\u81ea\u8a02\u61c9\u7528\u7a0b\u5f0f\u5716\u793a");
+    }
+
+    private static void fillZh_rTW7(Map<String, String> table) {
         table.put("Custom color",
                 "\u81ea\u8a02\u984f\u8272");
         table.put("Custom tab",
                 "\u81ea\u8a02\u5206\u9801");
-    }
-
-    private static void fillZh_rTW7(Map<String, String> table) {
         table.put("Data saver",
                 "\u7bc0\u7701\u6578\u64da");
         table.put("Date and time",
@@ -39043,13 +39246,13 @@ public final class L10nTranslations {
                 "\u4e0b\u8f09\u4e2d");
         table.put("Downloading the emoji...",
                 "\u6b63\u5728\u4e0b\u8f09\u8868\u60c5\u7b26\u865f...");
+    }
+
+    private static void fillZh_rTW8(Map<String, String> table) {
         table.put("Downloads",
                 "\u4e0b\u8f09");
         table.put("Drag to move %1$s",
                 "\u62d6\u66f3\u4ee5\u79fb\u52d5 %1$s");
-    }
-
-    private static void fillZh_rTW8(Map<String, String> table) {
         table.put("Drag to move, pinch to zoom.",
                 "\u62d6\u66f3\u79fb\u52d5,\u96d9\u6307\u7e2e\u653e\u3002");
         table.put("Draws Instagram's tab bar as a floating, rounded glass pill with a highlight on the tab you're on. Restart Instagram after changing it.",
@@ -39166,13 +39369,13 @@ public final class L10nTranslations {
                 "\u5728\u300c\u5df2\u5132\u5b58\u300d\u4e2d\u5feb\u901f\u6372\u52d5");
         table.put("Favorites still shows them.",
                 "\u300c\u6700\u611b\u300d\u4ecd\u6703\u986f\u793a\u9019\u4e9b\u8cbc\u6587\u3002");
+    }
+
+    private static void fillZh_rTW9(Map<String, String> table) {
         table.put("Feed",
                 "\u52d5\u614b\u9996\u9801");
         table.put("Feed videos and reels stop at their last frame instead of playing again. Reels still loop while auto scroll is on, so it can move on.",
                 "\u52d5\u614b\u4e2d\u7684\u5f71\u7247\u548c Reels \u6703\u505c\u5728\u6700\u5f8c\u4e00\u683c\uff0c\u4e0d\u518d\u91cd\u65b0\u64ad\u653e\u3002\u958b\u555f\u81ea\u52d5\u6372\u52d5\u6642\uff0cReels \u4ecd\u6703\u91cd\u8907\u64ad\u653e\uff0c\u597d\u8b93\u5b83\u80fd\u5207\u63db\u5230\u4e0b\u4e00\u5247\u3002");
-    }
-
-    private static void fillZh_rTW9(Map<String, String> table) {
         table.put("Feed videos and stories wait for your tap. Reels play as you swipe to them.",
                 "\u52d5\u614b\u9996\u9801\u5f71\u7247\u8207\u9650\u6642\u52d5\u614b\u6703\u7b49\u5f85\u4f60\u9ede\u64ca\u3002Reels \u5247\u5728\u6ed1\u52d5\u81f3\u8a72\u5f71\u7247\u6642\u64ad\u653e\u3002");
         table.put("Feed videos, reels and stories all wait for your tap.",
@@ -39289,13 +39492,13 @@ public final class L10nTranslations {
                 "\u5168\u5713\u89d2");
         table.put("GIF name",
                 "GIF \u540d\u7a31");
+    }
+
+    private static void fillZh_rTW10(Map<String, String> table) {
         table.put("GIF name copied",
                 "\u5df2\u8907\u88fd GIF \u540d\u7a31");
         table.put("GIF or sticker",
                 "GIF \u6216\u8cbc\u5716");
-    }
-
-    private static void fillZh_rTW10(Map<String, String> table) {
         table.put("GPL-3.0, with the notices of the projects this is built on",
                 "GPL-3.0\uff0c\u4ee5\u53ca\u672c\u5c08\u6848\u6240\u63a1\u7528\u5c08\u6848\u7684\u8072\u660e");
         table.put("Galaxy S26 Ultra",
@@ -39412,13 +39615,13 @@ public final class L10nTranslations {
                 "\u96b1\u85cf\u901a\u77e5\u4e2d\u7684\u7cbe\u9078\u5167\u5bb9");
         table.put("Hide Follow on posts",
                 "\u96b1\u85cf\u8cbc\u6587\u4e0a\u7684\u8ffd\u8e64\u6309\u9215");
+    }
+
+    private static void fillZh_rTW11(Map<String, String> table) {
         table.put("Hide Follow on stories",
                 "\u96b1\u85cf\u9650\u6642\u52d5\u614b\u4e0a\u7684\u8ffd\u8e64\u6309\u9215");
         table.put("Hide GIFs in comments",
                 "\u96b1\u85cf\u7559\u8a00\u4e2d\u7684 GIF");
-    }
-
-    private static void fillZh_rTW11(Map<String, String> table) {
         table.put("Hide Instagram Plus prompts",
                 "\u96b1\u85cf Instagram Plus \u63a8\u5ee3");
         table.put("Hide Instants",
@@ -39455,6 +39658,8 @@ public final class L10nTranslations {
                 "\u96b1\u85cf\u8ffd\u8e64\u540d\u55ae\u4e2d\u7684\u300c\u70ba\u4f60\u63a8\u85a6\u300d");
         table.put("Hide Threads posts",
                 "\u96b1\u85cf Threads \u8cbc\u6587");
+        table.put("Hide Watch more reels",
+                "\u96b1\u85cf\u300c\u89c0\u770b\u66f4\u591a Reels\u300d");
         table.put("Hide Your algorithm on reels",
                 "\u96b1\u85cf Reels \u4e0a\u7684\u300c\u4f60\u7684\u6f14\u7b97\u6cd5\u300d");
         table.put("Hide activity bubbles",
@@ -39533,15 +39738,15 @@ public final class L10nTranslations {
                 "\u96b1\u85cf\u63a8\u85a6\u8cbc\u6587");
         table.put("Hide suggested searches on reels",
                 "\u96b1\u85cf Reels \u7684\u5efa\u8b70\u641c\u5c0b");
+    }
+
+    private static void fillZh_rTW12(Map<String, String> table) {
         table.put("Hide suggested stories",
                 "\u96b1\u85cf\u63a8\u85a6\u9650\u6642\u52d5\u614b");
         table.put("Hide suggestions in notifications",
                 "\u96b1\u85cf\u901a\u77e5\u4e2d\u7684\u63a8\u85a6\u5167\u5bb9");
         table.put("Hide surveys",
                 "\u96b1\u85cf\u554f\u5377");
-    }
-
-    private static void fillZh_rTW12(Map<String, String> table) {
         table.put("Hide that you're typing",
                 "\u96b1\u85cf\u300c\u6b63\u5728\u8f38\u5165\u2026\u300d\u72c0\u614b");
         table.put("Hide the 2x popup",
@@ -39656,15 +39861,15 @@ public final class L10nTranslations {
                 "\u96b1\u85cf\u672a\u8ffd\u8e64\u5e33\u865f\u767c\u4f48\u3001\u6a19\u793a\u70ba\u300c\u70ba\u4f60\u63a8\u85a6\u300d\u7684\u8cbc\u6587\u8207 Reels\u3002\u5df2\u8ffd\u8e64\u5e33\u865f\u7684\u8cbc\u6587\u4ecd\u6703\u4fdd\u7559\u3002");
         table.put("Hides sponsored posts, reels, stories and the ad in comments. No empty gap is left where an ad would have been.",
                 "\u96b1\u85cf\u8d0a\u52a9\u8cbc\u6587\u3001Reels\u3001\u9650\u6642\u52d5\u614b\u548c\u7559\u8a00\u4e2d\u7684\u5ee3\u544a\uff0c\u539f\u672c\u986f\u793a\u5ee3\u544a\u7684\u4f4d\u7f6e\u4e0d\u6703\u7559\u4e0b\u7a7a\u767d\u3002");
+    }
+
+    private static void fillZh_rTW13(Map<String, String> table) {
         table.put("Hides stories from accounts you don't follow, and accounts Instagram suggests, in the row at the top of Home. Stories from accounts you follow stay.",
                 "\u96b1\u85cf\u9996\u9801\u9802\u7aef\u6a6b\u5217\u4e2d\u4f86\u81ea\u672a\u8ffd\u8e64\u5e33\u865f\u7684\u9650\u6642\u52d5\u614b\uff0c\u4ee5\u53ca Instagram \u5efa\u8b70\u7684\u5e33\u865f\u3002\u5df2\u8ffd\u8e64\u5e33\u865f\u7684\u9650\u6642\u52d5\u614b\u4ecd\u6703\u4fdd\u7559\u3002");
         table.put("Hides the bar under a post that asks you to join the account's channel. The post stays.",
                 "\u96b1\u85cf\u8cbc\u6587\u4e0b\u65b9\u9080\u8acb\u4f60\u52a0\u5165\u8a72\u5e33\u865f\u983b\u9053\u7684\u6a6b\u5217\u3002\u8cbc\u6587\u6703\u4fdd\u7559\u3002");
         table.put("Hides the bubble under a post that asks 'Are you interested in this post?' with Not interested and Interested buttons. Nothing is answered for you.",
                 "\u96b1\u85cf\u8cbc\u6587\u4e0b\u65b9\u8a62\u554f\u300c\u4f60\u5c0d\u9019\u5247\u8cbc\u6587\u611f\u8208\u8da3\u55ce\uff1f\u300d\u7684\u6ce1\u6ce1\u53ca\u300c\u4e0d\u611f\u8208\u8da3\u300d\u3001\u300c\u611f\u8208\u8da3\u300d\u6309\u9215\u3002\u4e0d\u6703\u4ee3\u4f60\u4f5c\u7b54\u3002");
-    }
-
-    private static void fillZh_rTW13(Map<String, String> table) {
         table.put("Hides the buttons that push Edits, templates, Meta AI and Ray-Ban Meta glasses. Live badges and state-controlled media labels stay.",
                 "\u96b1\u85cf\u63a8\u5ee3 Edits\u3001\u7bc4\u672c\u3001Meta AI \u548c Ray-Ban Meta \u773c\u93e1\u7684\u6309\u9215\u3002\u76f4\u64ad\u5fbd\u7ae0\u8207\u570b\u71df\u5a92\u9ad4\u6a19\u7c64\u4ecd\u6703\u4fdd\u7559\u3002");
         table.put("Hides the card after the posts from accounts you follow that says you've seen the latest ones, and its Older posts link. When Home has no new posts at all, only that line goes and the link stays. Pull down on Home to refresh after changing it.",
@@ -39779,15 +39984,15 @@ public final class L10nTranslations {
                 "\u5df2\u532f\u5165 %1$d \u9805\u8a2d\u5b9a\uff0c\u7565\u904e\u6b64\u7248\u672c\u4e0d\u8a8d\u5f97\u7684 %2$d \u9805\u8a2d\u5b9a\u3002");
         table.put("Instagram accepts this build",
                 "\u8b93 Instagram \u63a5\u53d7\u6b64\u7248\u672c");
+    }
+
+    private static void fillZh_rTW14(Map<String, String> table) {
         table.put("Instagram blue",
                 "Instagram \u85cd");
         table.put("Instagram can't read where the photos and videos in your gallery were taken.",
                 "Instagram \u7121\u6cd5\u8b80\u53d6\u5716\u5eab\u4e2d\u76f8\u7247\u548c\u5f71\u7247\u7684\u62cd\u651d\u5730\u9ede.");
         table.put("Instagram can't read your phone's advertising ID or tell Android's ad services which ads you saw or tapped. The permissions for them are gone from this build.",
                 "Instagram \u7121\u6cd5\u8b80\u53d6\u624b\u6a5f\u7684\u5ee3\u544a ID\uff0c\u4e5f\u7121\u6cd5\u5411 Android \u5ee3\u544a\u670d\u52d9\u56de\u5831\u4f60\u770b\u904e\u6216\u9ede\u64ca\u904e\u54ea\u4e9b\u5ee3\u544a\u3002\u6b64\u7248\u672c\u5df2\u79fb\u9664\u76f8\u95dc\u6b0a\u9650\u3002");
-    }
-
-    private static void fillZh_rTW14(Map<String, String> table) {
         table.put("Instagram crashed or froze within a minute of starting three times in a row, so HushGram paused itself.",
                 "Instagram \u9023\u7e8c\u4e09\u6b21\u5728\u555f\u52d5\u5f8c\u4e00\u5206\u9418\u5167\u7576\u6a5f\u6216\u7121\u56de\u61c9\uff0c\u56e0\u6b64 HushGram \u5df2\u81ea\u52d5\u66ab\u505c\u3002");
         table.put("Instagram didn't keep the change and the overrides couldn't be confirmed. Use Restore previous overrides, then restart Instagram.",
@@ -39902,15 +40107,15 @@ public final class L10nTranslations {
                 "\u8df3\u5230\u7b2c\u4e00\u5247\u8a0a\u606f\u6216\u67d0\u500b\u65e5\u671f");
         table.put("KakaoTalk",
                 "KakaoTalk");
+    }
+
+    private static void fillZh_rTW15(Map<String, String> table) {
         table.put("Keep Featured off the heart's dot",
                 "\u4e0d\u8b93\u7cbe\u9078\u5167\u5bb9\u9ede\u4eae\u611b\u5fc3\u4e0a\u7684\u7d05\u9ede");
         table.put("Keep Home's top bar",
                 "\u56fa\u5b9a\u9996\u9801\u9802\u7aef\u5217");
         table.put("Keep Instagram's saved photos and videos from filling your phone.",
                 "\u907f\u514d Instagram \u5132\u5b58\u7684\u7167\u7247\u8207\u5f71\u7247\u4f54\u6eff\u624b\u6a5f\u3002");
-    }
-
-    private static void fillZh_rTW15(Map<String, String> table) {
         table.put("Keep Reels auto scroll between sessions",
                 "Keep Reels auto scroll between sessions");
         table.put("Keep a seek bar",
@@ -40025,15 +40230,15 @@ public final class L10nTranslations {
                 "\u79fb\u9664\u700f\u89bd\u9650\u6642\u52d5\u614b\u6642\uff0cInstagram \u5728\u4e2d\u9593\u63d2\u5165\u7684\u300c\u63db\u4f60\u4e86\u300d\u5361\u7247\uff0c\u4f8b\u5982\u300c\u71b1\u9580\u63db\u4f60\u4e86\u300d\u8207\u300c\u52a0\u5165\u71b1\u9580\u63db\u4f60\u4e86\u300d\u3002\u9650\u6642\u52d5\u614b\u672c\u8eab\u4ecd\u6703\u4fdd\u7559\u3002");
         table.put("Leaves out the Suggested for you cards of accounts to follow that Instagram puts between the stories you tap through. The stories themselves stay.",
                 "\u79fb\u9664\u700f\u89bd\u9650\u6642\u52d5\u614b\u6642\uff0cInstagram \u5728\u4e2d\u9593\u63d2\u5165\u7684\u300c\u70ba\u4f60\u63a8\u85a6\u300d\u8ffd\u8e64\u5e33\u865f\u5361\u7247\u3002\u9650\u6642\u52d5\u614b\u672c\u8eab\u4ecd\u6703\u4fdd\u7559\u3002");
+    }
+
+    private static void fillZh_rTW16(Map<String, String> table) {
         table.put("Leaves out the live broadcasts Instagram puts between reels in the Reels tab and when you swipe through reels from Explore.",
                 "\u7565\u904e Instagram \u5728 Reels \u5206\u9801\u4e2d\uff0c\u4ee5\u53ca\u5f9e\u63a2\u7d22\u6ed1\u52d5\u700f\u89bd Reels \u6642\uff0c\u593e\u5728 Reels \u4e4b\u9593\u7684\u76f4\u64ad\u3002");
         table.put("Leaves the Suggested for you accounts out of what shows when you tap the search bar. Recent searches stay.",
                 "\u9ede\u64ca\u641c\u5c0b\u5217\u6642\uff0c\u4e0d\u518d\u986f\u793a\u300c\u70ba\u4f60\u63a8\u85a6\u300d\u7684\u5e33\u865f\u3002\u6700\u8fd1\u641c\u5c0b\u4ecd\u6703\u4fdd\u7559\u3002");
         table.put("Leaves the Suggested for you section off the followers, following and mutual lists and the screen where you approve follow requests, and the Suggested tab off other people's follow lists. Every account in the lists and every real request stays.",
                 "\u79fb\u9664\u8ffd\u8e64\u8005\u3001\u8ffd\u8e64\u4e2d\u8207\u5171\u540c\u8ffd\u8e64\u540d\u55ae\uff0c\u4ee5\u53ca\u4f60\u6838\u51c6\u8ffd\u8e64\u8981\u6c42\u7684\u756b\u9762\u4e2d\u7684\u300c\u70ba\u4f60\u63a8\u85a6\u300d\u5340\u584a\uff0c\u9084\u6709\u4ed6\u4eba\u8ffd\u8e64\u540d\u55ae\u4e2d\u7684\u63a8\u85a6\u5206\u9801\u3002\u540d\u55ae\u5167\u7684\u5e33\u865f\u8207\u771f\u6b63\u7684\u8981\u6c42\u4ecd\u6703\u4fdd\u7559\u3002");
-    }
-
-    private static void fillZh_rTW16(Map<String, String> table) {
         table.put("Leaving Instagram while a reel plays shrinks it into a small window over your other apps. Works in Reels and on reels opened from the feed, on Android 15 or newer.",
                 "\u5728 Reel \u64ad\u653e\u6642\u96e2\u958b Instagram\uff0c\u5f71\u7247\u6703\u7e2e\u6210\u6d6e\u5728\u5176\u4ed6\u61c9\u7528\u7a0b\u5f0f\u4e0a\u65b9\u7684\u5c0f\u8996\u7a97\u3002\u9069\u7528\u65bc Reels \u548c\u5f9e\u52d5\u614b\u6d88\u606f\u958b\u555f\u7684 Reel\uff0c\u9700\u8981 Android 15 \u4ee5\u4e0a\u7248\u672c\u3002");
         table.put("Leaving Instagram while a story plays shrinks it into a small window over your other apps, where it keeps going through the stories.",
@@ -40132,6 +40337,8 @@ public final class L10nTranslations {
                 "\u9577\u6309\u7167\u7247\u653e\u5927");
         table.put("Long press a post for full screen",
                 "\u9577\u6309\u8cbc\u6587\u4ee5\u5168\u87a2\u5e55\u986f\u793a");
+        table.put("Look",
+                "\u5916\u89c0");
         table.put("Loop a story",
                 "\u5faa\u74b0\u64ad\u653e\u9650\u6642\u52d5\u614b");
         table.put("Loop didn't change",
@@ -40146,6 +40353,9 @@ public final class L10nTranslations {
                 "\u6b63\u5728\u91cd\u8907\u64ad\u653e\u9019\u90e8\u5f71\u7247");
         table.put("Makes Instagram see the phone chosen below, unlocking HDR video downloads and other features limited to those phones, and adds the matching developer options. Restart Instagram to see the change.",
                 "\u8b93 Instagram \u8b58\u5225\u70ba\u4e0b\u65b9\u9078\u64c7\u7684\u624b\u6a5f\uff0c\u89e3\u9396 HDR \u5f71\u7247\u4e0b\u8f09\u8207\u5176\u4ed6\u50c5\u9650\u9019\u4e9b\u6a5f\u578b\u7684\u529f\u80fd\uff0c\u4e26\u52a0\u5165\u5c0d\u61c9\u7684\u958b\u767c\u4eba\u54e1\u9078\u9805\u3002\u91cd\u65b0\u555f\u52d5 Instagram \u4ee5\u5957\u7528\u8b8a\u66f4\u3002");
+    }
+
+    private static void fillZh_rTW17(Map<String, String> table) {
         table.put("Makes the seek bar thicker, with a round white handle and the time above it, over a soft dark fade so it shows on any video. Drag it to seek. It also keeps the bar on short reels.",
                 "\u52a0\u7c97\u9032\u5ea6\u5217\uff0c\u52a0\u5165\u767d\u8272\u5713\u5f62\u62d6\u66f3\u9215\u8207\u4e0a\u65b9\u6642\u9593\uff0c\u4e26\u4ee5\u67d4\u548c\u7684\u6df1\u8272\u6f38\u5c64\u70ba\u80cc\u666f\uff0c\u8b93\u4efb\u4f55\u5f71\u7247\u4e0a\u90fd\u6e05\u695a\u53ef\u898b\u3002\u62d6\u66f3\u5373\u53ef\u8df3\u8f49\uff0c\u4e5f\u6703\u4fdd\u7559\u77ed Reels \u7684\u9032\u5ea6\u5217\u3002");
         table.put("Mapping file removed. Open MetaConfig again to see the change.",
@@ -40154,9 +40364,6 @@ public final class L10nTranslations {
                 "Mapping imported: %1$d names. Open MetaConfig again to see them.");
         table.put("Mark a chat seen when you reply",
                 "\u56de\u8986\u6642\u5c07\u804a\u5929\u6a19\u793a\u70ba\u5df2\u8b80");
-    }
-
-    private static void fillZh_rTW17(Map<String, String> table) {
         table.put("Mark as read",
                 "\u6a19\u793a\u70ba\u5df2\u8b80");
         table.put("Mark as read button in chats",
@@ -40183,6 +40390,8 @@ public final class L10nTranslations {
                 "Material You \u9700\u8981 Android 12 \u6216\u66f4\u65b0\u7248\u672c\uff0c\u56e0\u6b64\u4ecd\u6703\u4f7f\u7528 Instagram \u7684\u85cd\u8272\u3002");
         table.put("Media ID %1$s",
                 "\u5a92\u9ad4 ID %1$s");
+        table.put("Media and storage",
+                "\u5a92\u9ad4\u8207\u5132\u5b58\u7a7a\u9593");
         table.put("Media link",
                 "\u5a92\u9ad4\u9023\u7d50");
         table.put("Media link copied. It stops working after a few days.",
@@ -40233,8 +40442,8 @@ public final class L10nTranslations {
                 "\u5df2\u5c07 @%1$s \u79fb\u81f3 %2$s");
         table.put("Moved @%s out of its folder",
                 "\u5df2\u5c07 @%s \u79fb\u51fa\u8cc7\u6599\u593e");
-        table.put("Moves a carousel post's page dots onto a round pill at the bottom of its photo or video, with the page you're on in blue.",
-                "\u5c07\u8f2a\u64ad\u8cbc\u6587\u7684\u9801\u9762\u5713\u9ede\u79fb\u5230\u76f8\u7247\u6216\u5f71\u7247\u5e95\u90e8\u7684\u5713\u89d2\u81a0\u56ca\u4e0a\uff0c\u76ee\u524d\u7684\u9801\u9762\u4ee5\u85cd\u8272\u986f\u793a\u3002");
+        table.put("Moves a carousel post's page dots onto a round pill at the bottom of its photo or video, with the page you're on in blue. Hold the pill and slide left or right to move through the pages.",
+                "\u5c07\u8f2a\u64ad\u8cbc\u6587\u7684\u9801\u9762\u5713\u9ede\u79fb\u5230\u76f8\u7247\u6216\u5f71\u7247\u5e95\u90e8\u7684\u5713\u89d2\u81a0\u56ca\u4e0a\uff0c\u76ee\u524d\u7684\u9801\u9762\u4ee5\u85cd\u8272\u986f\u793a\u3002\u6309\u4f4f\u81a0\u56ca\u4e26\u5de6\u53f3\u6ed1\u52d5\u5373\u53ef\u5207\u63db\u9801\u9762\u3002");
         table.put("Moves the gallery and microphone buttons off the message bar and into the plus menu. They work as before. Turn it off and they're back the next time a chat opens.",
                 "\u628a\u76f8\u7c3f\u548c\u9ea5\u514b\u98a8\u6309\u9215\u5f9e\u8a0a\u606f\u5217\u79fb\u5230\u52a0\u865f\u9078\u55ae\u3002\u5b83\u5011\u7684\u529f\u80fd\u548c\u4ee5\u524d\u4e00\u6a23\u3002\u95dc\u9589\u5f8c\uff0c\u4e0b\u6b21\u958b\u555f\u804a\u5929\u6642\u5c31\u6703\u56de\u4f86\u3002");
         table.put("Mute",
@@ -40267,6 +40476,9 @@ public final class L10nTranslations {
                 "\u65b0\u589e\u8cc7\u6599\u593e");
         table.put("New like animations",
                 "New like animations");
+    }
+
+    private static void fillZh_rTW18(Map<String, String> table) {
         table.put("New message",
                 "\u65b0\u8a0a\u606f");
         table.put("New message after this reel",
@@ -40277,9 +40489,6 @@ public final class L10nTranslations {
                 "\u65b0\u7684\u500b\u4eba\u6a94\u6848\u76f8\u7247\u548c\u500b\u4eba\u7c21\u4ecb");
         table.put("New story fonts and animations",
                 "New story fonts and animations");
-    }
-
-    private static void fillZh_rTW18(Map<String, String> table) {
         table.put("New story timestamp style",
                 "New story timestamp style");
         table.put("Next match",
@@ -40390,6 +40599,9 @@ public final class L10nTranslations {
                 "\u901a\u77e5\u6211\u6709\u4eba\u53d6\u6d88\u8ffd\u8e64");
         table.put("OK",
                 "\u78ba\u8a8d");
+    }
+
+    private static void fillZh_rTW19(Map<String, String> table) {
         table.put("Off",
                 "\u95dc\u9589");
         table.put("Off. It can cover the Home, Reels and Explore tabs for a break after you've spent a while on them.",
@@ -40400,9 +40612,6 @@ public final class L10nTranslations {
                 "\u820a\u7684\u500b\u4eba\u7c21\u4ecb\uff0c%s");
         table.put("Old profile picture, %s",
                 "\u820a\u7684\u500b\u4eba\u6a94\u6848\u76f8\u7247\uff0c%s");
-    }
-
-    private static void fillZh_rTW19(Map<String, String> table) {
         table.put("On Reels, the tab bar slides away after %1$d seconds without a touch. Tap the bottom edge of the screen, change tab or press Back to bring it back. Restart Instagram after changing it.",
                 "\u5728 Reels \u4e2d\uff0c\u672a\u89f8\u78b0\u756b\u9762 %1$d \u79d2\u5f8c\u5206\u9801\u5217\u6703\u6ed1\u51fa\u756b\u9762\u3002\u9ede\u64ca\u87a2\u5e55\u5e95\u90e8\u908a\u7de3\u3001\u5207\u63db\u5206\u9801\u6216\u6309\u8fd4\u56de\u5373\u53ef\u91cd\u65b0\u986f\u793a\u3002\u8b8a\u66f4\u5f8c\u8acb\u91cd\u65b0\u555f\u52d5 Instagram\u3002");
         table.put("On a carousel, the download icon saves all of its pages at once instead of asking.",
@@ -40513,6 +40722,9 @@ public final class L10nTranslations {
                 "\u958b\u555f\u804a\u5929\u6642\u4e0d\u6703\u8b93\u5c0d\u65b9\u77e5\u9053\u4f60\u5df2\u8b80\uff0c\u4f60\u4ecd\u53ef\u770b\u5230\u5c0d\u65b9\u7684\u5df2\u8b80\u72c0\u614b\u3002\u82e5\u8981\u8b93\u67d0\u500b\u804a\u5929\u77e5\u9053\u4f60\u5df2\u8b80\uff0c\u8acb\u5728\u79c1\u8a0a\u4e2d\u9577\u6309\u8a72\u804a\u5929\u4e26\u9ede\u64ca\u300c\u6a19\u793a\u70ba\u5df2\u8b80\u300d\u3002");
         table.put("Opening someone's profile takes you on to their posts as a scrolling list of full posts. Go Back for the grid. Your own profile keeps its grid.",
                 "\u958b\u555f\u4ed6\u4eba\u500b\u4eba\u6a94\u6848\u6642\uff0c\u76f4\u63a5\u4ee5\u53ef\u6372\u52d5\u7684\u5b8c\u6574\u8cbc\u6587\u6e05\u55ae\u986f\u793a\u3002\u8fd4\u56de\u5373\u53ef\u67e5\u770b\u7db2\u683c\u3002\u81ea\u5df1\u7684\u500b\u4eba\u6a94\u6848\u4ecd\u4f7f\u7528\u7db2\u683c\u3002");
+    }
+
+    private static void fillZh_rTW20(Map<String, String> table) {
         table.put("Opens Home on posts from accounts you follow instead of For you. Tap the top of Home to switch. Restart Instagram to see the change.",
                 "\u958b\u555f\u9996\u9801\u6642\u986f\u793a\u5df2\u8ffd\u8e64\u5e33\u865f\u7684\u8cbc\u6587\uff0c\u800c\u975e\u300c\u70ba\u4f60\u63a8\u85a6\u300d\u3002\u9ede\u64ca\u9996\u9801\u9802\u7aef\u5373\u53ef\u5207\u63db\u3002\u8acb\u91cd\u65b0\u555f\u52d5 Instagram \u4ee5\u5957\u7528\u8b8a\u66f4\u3002");
         table.put("Opens Instagram's own Whitehat settings. Its switch lets Instagram trust the certificates installed on this phone for 24 hours, so you can check the app's traffic. Restart Instagram after you turn it on.",
@@ -40523,9 +40735,6 @@ public final class L10nTranslations {
                 "Opens Instagram's own editor for its hidden settings (MetaConfig). A wrong override, which is a changed setting, can break parts of Instagram.");
         table.put("Opens a GitHub report with your versions and settings filled in. Add what happened.",
                 "\u958b\u555f\u5df2\u586b\u5165\u7248\u672c\u8207\u8a2d\u5b9a\u7684 GitHub \u554f\u984c\u56de\u5831\uff0c\u8acb\u88dc\u5145\u767c\u751f\u7684\u60c5\u6cc1\u3002");
-    }
-
-    private static void fillZh_rTW20(Map<String, String> table) {
         table.put("Orange",
                 "\u6a58\u8272");
         table.put("Overrides cleared. Restart Instagram to apply the change.",
@@ -40636,6 +40845,9 @@ public final class L10nTranslations {
                 "Post a story straight to Highlights");
         table.put("Posted %1$s",
                 "\u767c\u4f48\u65bc %1$s");
+    }
+
+    private static void fillZh_rTW21(Map<String, String> table) {
         table.put("Posts",
                 "\u8cbc\u6587");
         table.put("Posts from @%1$s are hidden",
@@ -40646,9 +40858,6 @@ public final class L10nTranslations {
                 "\u96b1\u85cf\u5e33\u865f\u7684\u8cbc\u6587\u4ecd\u6703\u51fa\u73fe\u5728\u300c\u6700\u611b\u300d\u3002\u300c\u70ba\u4f60\u63a8\u85a6\u300d\u8207\u300c\u8ffd\u8e64\u4e2d\u300d\u4e0d\u6703\u986f\u793a\u9019\u4e9b\u8cbc\u6587\u3002\u8b8a\u66f4\u5f8c\u8acb\u4e0b\u62c9\u91cd\u65b0\u6574\u7406\u9996\u9801\u3002");
         table.put("Preparing diagnostic report...",
                 "\u6b63\u5728\u6e96\u5099\u8a3a\u65b7\u5831\u544a\u2026");
-    }
-
-    private static void fillZh_rTW21(Map<String, String> table) {
         table.put("Press and hold a comment that has its own photo, GIF or sticker, and its menu gets Save. Saves the largest size Instagram sent.",
                 "\u9577\u6309\u542b\u6709\u81ea\u5df1\u7167\u7247\u3001GIF \u6216\u8cbc\u5716\u7684\u7559\u8a00\uff0c\u9078\u55ae\u4e2d\u5c31\u6703\u51fa\u73fe\u300c\u5132\u5b58\u300d\u3002\u4ee5 Instagram \u50b3\u9001\u7684\u6700\u5927\u5c3a\u5bf8\u5132\u5b58\u3002");
         table.put("Press and hold a photo in a feed to see it twice as big around your finger, and slide to look around. Let go to close it. While this is on, it takes the place of Instagram's own long press on a photo.",
@@ -40683,6 +40892,8 @@ public final class L10nTranslations {
                 "\u4e0a\u4e00\u9801");
         table.put("Priority accounts",
                 "\u512a\u5148\u5e33\u865f");
+        table.put("Privacy",
+                "\u96b1\u79c1");
         table.put("Privacy and controls for your chats.",
                 "\u804a\u5929\u5ba4\u7684\u96b1\u79c1\u8207\u63a7\u5236\u9078\u9805\u3002");
         table.put("Profile",
@@ -40757,6 +40968,9 @@ public final class L10nTranslations {
                 "\u5728\u5f71\u7247\u9650\u6642\u52d5\u614b\u9802\u7aef\u7684\u4e09\u500b\u9ede\u65c1\u52a0\u5165\u901f\u5ea6\u6309\u9215\u3002\u9ede\u4e00\u4e0b\u5207\u63db\u70ba 1.5x\uff0c\u518d\u9ede\u4e00\u4e0b\u70ba 2x\uff0c\u518d\u9ede\u4e00\u6b21\u56de\u5230 1x\u3002\u4e4b\u5f8c\u7684\u5f71\u7247\u9650\u6642\u52d5\u614b\u6703\u6cbf\u7528\u9019\u500b\u901f\u5ea6\uff0c\u76f4\u5230\u4f60\u66f4\u6539\u6216\u91cd\u65b0\u555f\u52d5 Instagram\u3002\u5ee3\u544a\u4ee5\u6b63\u5e38\u901f\u5ea6\u64ad\u653e\u3002");
         table.put("Puts a speed icon beside a reel. Tap it to pick a speed from 0.5x to 3x. With Keep the reel speed on, the next reels play at it too.",
                 "\u5728 Reel \u65c1\u52a0\u5165\u901f\u5ea6\u5716\u793a\u3002\u9ede\u4e00\u4e0b\u5373\u53ef\u9078\u64c7 0.5x \u5230 3x \u7684\u901f\u5ea6\u3002\u958b\u555f\u300c\u4fdd\u7559 Reels \u64ad\u653e\u901f\u5ea6\u300d\u6642\uff0c\u4e4b\u5f8c\u7684 Reels \u4e5f\u6703\u4ee5\u9019\u500b\u901f\u5ea6\u64ad\u653e\u3002");
+    }
+
+    private static void fillZh_rTW22(Map<String, String> table) {
         table.put("Puts an (i) next to the three dots on a profile that opens Instagram's About this account for that account. Instagram took its own away.",
                 "\u5728\u500b\u4eba\u6a94\u6848\u7684\u4e09\u500b\u9ede\u65c1\u653e\u4e00\u500b (i),\u70ba\u8a72\u5e33\u865f\u958b\u555f Instagram \u7684\u300c\u95dc\u65bc\u9019\u500b\u5e33\u865f\u300d\u3002Instagram \u5df2\u79fb\u9664\u539f\u672c\u7684\u6309\u9215\u3002");
         table.put("Puts back the overrides saved before your last import for this account and Instagram version.",
@@ -40769,9 +40983,6 @@ public final class L10nTranslations {
                 "\u6539\u5728\u500b\u4eba\u6a94\u6848\u7684\u8cbc\u6587\u3001\u8ffd\u8e64\u8005\u8207\u8ffd\u8e64\u4e2d\u6578\u91cf\u4e0b\u65b9\uff0c\u4ee5\u6a19\u7c64\u986f\u793a\u8ffd\u8e64\u72c0\u614b\u3002\u82e5\u4f60\u4e5f\u8ffd\u8e64\u5c0d\u65b9\uff0c\u6703\u986f\u793a\u300c\u4e92\u76f8\u8ffd\u8e64\u4e2d\u300d\u3002");
         table.put("Puts the seek bar right on the bottom edge of the video, so it's harder to touch by accident while you scroll.",
                 "\u628a\u62d6\u66f3\u5217\u653e\u5728\u5f71\u7247\u6700\u5e95\u90e8\u7684\u908a\u7de3\uff0c\u6372\u52d5\u6642\u6bd4\u8f03\u4e0d\u5bb9\u6613\u8aa4\u89f8\u3002");
-    }
-
-    private static void fillZh_rTW22(Map<String, String> table) {
         table.put("Puts the title in the middle of the bar at the top of other screens, like notifications, as far as the buttons beside it allow. The buttons stay where they are.",
                 "\u5728\u5169\u5074\u6309\u9215\u5141\u8a31\u7684\u7a7a\u9593\u5167\uff0c\u5c07\u901a\u77e5\u7b49\u5176\u4ed6\u756b\u9762\u7684\u9802\u7aef\u6a19\u984c\u7f6e\u4e2d\u3002\u6309\u9215\u4ecd\u7559\u5728\u539f\u4f4d\u3002");
         table.put("Puts the username in the middle of the bar at the top of a profile, yours and other people's. The buttons stay where they are.",
@@ -40880,6 +41091,9 @@ public final class L10nTranslations {
                 "\u79fb\u9664\u9996\u9801\u6240\u6709\u55ae\u5f35\u7167\u7247\u8cbc\u6587\uff0c\u5305\u62ec\u5df2\u8ffd\u8e64\u5e33\u865f\u7684\u8cbc\u6587\u3002\u8b8a\u66f4\u5f8c\u8acb\u4e0b\u62c9\u91cd\u65b0\u6574\u7406\u9996\u9801\u3002");
         table.put("Removes every single-video post and reel from Home, even from accounts you follow. Pull down on Home to refresh after changing it.",
                 "\u79fb\u9664\u9996\u9801\u6240\u6709\u55ae\u90e8\u5f71\u7247\u8cbc\u6587\u8207 Reels\uff0c\u5305\u62ec\u5df2\u8ffd\u8e64\u5e33\u865f\u7684\u5167\u5bb9\u3002\u8b8a\u66f4\u5f8c\u8acb\u4e0b\u62c9\u91cd\u65b0\u6574\u7406\u9996\u9801\u3002");
+    }
+
+    private static void fillZh_rTW23(Map<String, String> table) {
         table.put("Removes posts by business and creator accounts from Home and Following, friends who use one included. Pull down on Home to refresh after changing it.",
                 "\u5f9e\u9996\u9801\u8207\u8ffd\u8e64\u4e2d\u79fb\u9664\u5546\u696d\u548c\u5275\u4f5c\u8005\u5e33\u865f\u7684\u8cbc\u6587\uff0c\u5305\u62ec\u4f7f\u7528\u9019\u985e\u5e33\u865f\u7684\u670b\u53cb\u3002\u8b8a\u66f4\u5f8c\u8acb\u4e0b\u62c9\u91cd\u65b0\u6574\u7406\u9996\u9801\u3002");
         table.put("Removes posts you've already liked from Home and Following. A post you like now stays until you pull down on Home to refresh.",
@@ -40892,9 +41106,6 @@ public final class L10nTranslations {
                 "\u5f9e\u500b\u4eba\u6a94\u6848\u9802\u7aef\u5217\u79fb\u9664 Muse \u6309\u9215\u3002\u4f7f\u7528\u8005\u540d\u7a31\u8207\u9078\u55ae\u4ecd\u6703\u4fdd\u7559\u3002");
         table.put("Removes the empty gap under Instagram's tab bar that appears when your phone hides its navigation bar or Instagram is in a pop-up window. Restart Instagram to see the change.",
                 "\u79fb\u9664\u624b\u6a5f\u96b1\u85cf\u5c0e\u89bd\u5217\u6216 Instagram \u4ee5\u5f48\u51fa\u5f0f\u8996\u7a97\u986f\u793a\u6642\uff0c\u5206\u9801\u5217\u4e0b\u65b9\u51fa\u73fe\u7684\u7a7a\u767d\u3002\u8acb\u91cd\u65b0\u555f\u52d5 Instagram \u4ee5\u5957\u7528\u8b8a\u66f4\u3002");
-    }
-
-    private static void fillZh_rTW23(Map<String, String> table) {
         table.put("Removes the stack of Instants (quick photos from friends) from your messages. Restart Instagram to see the change.",
                 "\u79fb\u9664\u79c1\u8a0a\u4e2d\u7684 Instants \u7167\u7247\u5806\u758a\uff08\u597d\u53cb\u7684\u5373\u62cd\u7167\u7247\uff09\u3002\u8acb\u91cd\u65b0\u555f\u52d5 Instagram \u4ee5\u5957\u7528\u8b8a\u66f4\u3002");
         table.put("Removes the summary, Sources and Ask Meta AI box from a reel's more menu. In your feed the audio row goes too. Other options stay.",
@@ -41003,6 +41214,9 @@ public final class L10nTranslations {
                 "\u5c07\u5f71\u7247\u5132\u5b58\u70ba MKV");
         table.put("Save videos other apps can open",
                 "\u5132\u5b58\u5176\u4ed6\u61c9\u7528\u7a0b\u5f0f\u53ef\u958b\u555f\u7684\u5f71\u7247");
+    }
+
+    private static void fillZh_rTW24(Map<String, String> table) {
         table.put("Save your HushGram choices to a file, or bring them back.",
                 "\u5c07 HushGram \u8a2d\u5b9a\u5132\u5b58\u70ba\u6a94\u6848\uff0c\u6216\u5f9e\u6a94\u6848\u9084\u539f\u3002");
         table.put("Saved",
@@ -41015,9 +41229,6 @@ public final class L10nTranslations {
                 "\u5df2\u5132\u5b58 @%s");
         table.put("Saved and everything in it stay covered until your fingerprint, face or screen lock says it's you.",
                 "\u300c\u5df2\u5132\u5b58\u300d\u53ca\u5176\u4e2d\u7684\u6240\u6709\u5167\u5bb9\u90fd\u6703\u88ab\u906e\u4f4f\uff0c\u76f4\u5230\u900f\u904e\u6307\u7d0b\u3001\u81c9\u90e8\u6216\u87a2\u5e55\u9396\u5b9a\u9a57\u8b49\u8eab\u5206\u3002");
-    }
-
-    private static void fillZh_rTW24(Map<String, String> table) {
         table.put("Saved button in Explore",
                 "Saved button in Explore");
         table.put("Saved is locked",
@@ -41126,6 +41337,9 @@ public final class L10nTranslations {
                 "\u6b64\u804a\u5929\u6703\u4fdd\u7559\u300c\u5df2\u8b80\u300d");
         table.put("Select text",
                 "\u9078\u53d6\u6587\u5b57");
+    }
+
+    private static void fillZh_rTW25(Map<String, String> table) {
         table.put("Select text to copy",
                 "\u9078\u53d6\u8981\u8907\u88fd\u7684\u6587\u5b57");
         table.put("Send",
@@ -41138,9 +41352,6 @@ public final class L10nTranslations {
                 "Send stories with a long press");
         table.put("Send to",
                 "\u50b3\u9001\u81f3");
-    }
-
-    private static void fillZh_rTW25(Map<String, String> table) {
         table.put("Sending a message in a chat lets the other person see that you've read what they sent before it. Chats you don't answer stay unseen to them.",
                 "\u5728\u804a\u5929\u4e2d\u50b3\u9001\u8a0a\u606f\u5f8c\uff0c\u5c0d\u65b9\u6703\u770b\u5230\u4f60\u5df2\u8b80\u904e\u4ed6\u5011\u5148\u524d\u50b3\u4f86\u7684\u5167\u5bb9\u3002\u4f60\u6c92\u6709\u56de\u8986\u7684\u804a\u5929\uff0c\u5c0d\u65b9\u4ecd\u770b\u4e0d\u5230\u5df2\u8b80\u3002");
         table.put("Sends Instagram through the HTTP proxy set below. Other apps and your phone's own settings aren't changed.",
@@ -41249,6 +41460,9 @@ public final class L10nTranslations {
                 "\u5728\u5f71\u7247\u9650\u6642\u52d5\u614b\u5e95\u90e8\u9644\u8fd1\u986f\u793a\u4e00\u689d\u62d6\u66f3\u5217\u3002\u62d6\u66f3\u5b83\u5373\u53ef\u8df3\u5230\u5f71\u7247\u4e2d\u7684\u4efb\u4f55\u4f4d\u7f6e\u3002\u76f8\u7247\u4e0d\u6703\u986f\u793a\u3002");
         table.put("Shows a blurred preview of a disappearing photo or video in a chat.",
                 "Shows a blurred preview of a disappearing photo or video in a chat.");
+    }
+
+    private static void fillZh_rTW26(Map<String, String> table) {
         table.put("Shows a handle at the right edge of Saved and your collections while they scroll. Drag it to jump through them.",
                 "\u6372\u52d5\u300c\u5df2\u5132\u5b58\u300d\u548c\u4f60\u7684\u73cd\u85cf\u5206\u985e\u6642\uff0c\u5728\u53f3\u5074\u908a\u7de3\u986f\u793a\u62c9\u687f\u3002\u62d6\u66f3\u62c9\u687f\u5373\u53ef\u5feb\u901f\u8df3\u8f49\u3002");
         table.put("Shows each switch by its name alone. Tap the i next to a name to read what it does.",
@@ -41261,9 +41475,6 @@ public final class L10nTranslations {
                 "Shows the Import and Restore rows. An import changes Instagram's hidden settings for this signed-in account.");
         table.put("Shows the date and time a reel was posted under the author's name, like Oct 2, 3:45 PM. A change shows from the next reel.",
                 "\u5728\u5275\u4f5c\u8005\u540d\u7a31\u4e0b\u65b9\u986f\u793a Reel \u7684\u767c\u4f48\u65e5\u671f\u8207\u6642\u9593\uff0c\u4f8b\u5982 10 \u6708 2 \u65e5\u4e0b\u5348 3:45\u3002\u8b8a\u66f4\u6703\u5f9e\u4e0b\u4e00\u5247 Reel \u958b\u59cb\u986f\u793a\u3002");
-    }
-
-    private static void fillZh_rTW26(Map<String, String> table) {
         table.put("Shows the days, hours and minutes since it went up on a line under the time, like 1d 2h 5m ago.",
                 "\u5728\u6642\u9593\u4e0b\u65b9\u53e6\u5916\u986f\u793a\u767c\u4f48\u81f3\u4eca\u7684\u5929\u6578\u3001\u6642\u6578\u8207\u5206\u9418\u6578\uff0c\u4f8b\u5982 1 \u5929 2 \u5c0f\u6642 5 \u5206\u9418\u524d\u3002");
         table.put("Shows the time above your finger while you drag a seek bar on a feed video, story or reel, and a small picture of that moment when Instagram has one for the video.",
@@ -41274,6 +41485,8 @@ public final class L10nTranslations {
                 "\u986f\u793a\u8cbc\u6587\u8207\u7559\u8a00\u7684\u767c\u4f48\u6642\u9593\uff0c\u4f8b\u5982 10 \u6708 2 \u65e5\u4e0b\u5348 3:45\uff0c\u53d6\u4ee3\u591a\u4e45\u4ee5\u524d\u7684\u6587\u5b57\u3002\u8b8a\u66f4\u5f8c\u8f09\u5165\u7684\u8cbc\u6587\u624d\u6703\u986f\u793a\u3002");
         table.put("Shows your feed blurred under Home's top bar, like frosted glass.",
                 "\u5728\u9996\u9801\u9802\u7aef\u5217\u4e0b\u65b9\u4ee5\u9727\u9762\u73bb\u7483\u822c\u7684\u6a21\u7cca\u6548\u679c\u986f\u793a\u4f60\u7684\u52d5\u614b\u3002");
+        table.put("Shrink the pill as you scroll",
+                "\u6372\u52d5\u6642\u7e2e\u5c0f\u81a0\u56ca");
         table.put("Size %1$d \u00d7 %2$d",
                 "\u5c3a\u5bf8 %1$d \u00d7 %2$d");
         table.put("Skip length",
@@ -41370,6 +41583,9 @@ public final class L10nTranslations {
                 "\u5f9e\u641c\u5c0b\u548c\u63a2\u7d22\u958b\u555f\u7684 Reels \u4ecd\u53ef\u6372\u52d5");
         table.put("Still scroll reels from a profile",
                 "\u5f9e\u500b\u4eba\u6a94\u6848\u958b\u555f\u7684 Reels \u4ecd\u53ef\u6372\u52d5");
+    }
+
+    private static void fillZh_rTW27(Map<String, String> table) {
         table.put("Still scroll reels from a song page",
                 "\u5f9e\u6b4c\u66f2\u9801\u9762\u958b\u555f\u7684 Reels \u4ecd\u53ef\u6372\u52d5");
         table.put("Stop",
@@ -41384,9 +41600,6 @@ public final class L10nTranslations {
                 "\u89c0\u770b\u8a2d\u5b9a\u6578\u91cf\u7684 Reels \u5f8c\u505c\u6b62");
         table.put("Stop after the chat's reels",
                 "\u770b\u5b8c\u804a\u5929\u5ba4\u7684 Reels \u5c31\u505c\u6b62");
-    }
-
-    private static void fillZh_rTW27(Map<String, String> table) {
         table.put("Stop background feed refresh",
                 "\u505c\u6b62\u80cc\u666f\u52d5\u614b\u66f4\u65b0");
         table.put("Stop background work Instagram doesn't need.",
@@ -41493,6 +41706,9 @@ public final class L10nTranslations {
                 "\u9577\u6309\u5206\u9801\u6703\u4fdd\u7559 Instagram \u539f\u672c\u7684\u64cd\u4f5c\u3002\u9078\u64c7\u4e00\u500b\u5206\u9801\uff0c\u6539\u70ba\u958b\u555f\u300c\u6700\u611b\u300d\u3002");
         table.put("Tab long presses keep Instagram's own action. Choose one to open HushGram instead.",
                 "\u9577\u6309\u5206\u9801\u6703\u4fdd\u7559 Instagram \u539f\u672c\u7684\u64cd\u4f5c\u3002\u9078\u64c7\u4e00\u500b\u5206\u9801\uff0c\u6539\u70ba\u958b\u555f HushGram\u3002");
+    }
+
+    private static void fillZh_rTW28(Map<String, String> table) {
         table.put("Tab long presses keep Instagram's own action. Choose one to open Saved profiles instead.",
                 "\u9577\u6309\u5206\u9801\u6703\u4fdd\u7559 Instagram \u539f\u672c\u7684\u64cd\u4f5c\u3002\u9078\u64c7\u4e00\u500b\u5206\u9801\uff0c\u6539\u70ba\u958b\u555f\u5df2\u5132\u5b58\u7684\u500b\u4eba\u6a94\u6848\u3002");
         table.put("Tab long presses keep Instagram's own action. Choose one to pick the playback quality instead.",
@@ -41507,9 +41723,6 @@ public final class L10nTranslations {
                 "\u4ed6\u4eba\u500b\u4eba\u6a94\u6848\u7684\u5206\u9801");
         table.put("Tabs on your profile",
                 "\u81ea\u5df1\u500b\u4eba\u6a94\u6848\u7684\u5206\u9801");
-    }
-
-    private static void fillZh_rTW28(Map<String, String> table) {
         table.put("Tagged",
                 "\u88ab\u6a19\u8a3b");
         table.put("Take a scroll break",
@@ -41598,6 +41811,8 @@ public final class L10nTranslations {
                 "\u79fb\u9664\u4ed6\u4eba\u500b\u4eba\u6a94\u6848\u4e2d\u500b\u4eba\u7c21\u4ecb\u4e0b\u65b9\u7684 Threads \u5fbd\u7ae0\u3002\u4f60\u81ea\u5df1\u7684\u500b\u4eba\u6a94\u6848\u4ecd\u6703\u4fdd\u7559\u3002");
         table.put("Takes the Threads button off the top of profiles, yours included. The menu and the other buttons stay where they were.",
                 "\u79fb\u9664\u500b\u4eba\u6a94\u6848\u9802\u7aef\u7684 Threads \u6309\u9215\uff0c\u81ea\u5df1\u7684\u500b\u4eba\u6a94\u6848\u4e5f\u9069\u7528\u3002\u9078\u55ae\u8207\u5176\u4ed6\u6309\u9215\u4ecd\u6703\u4fdd\u7559\u5728\u539f\u4f4d\u3002");
+        table.put("Takes the Watch more reels button off the card a reel in your feed shows when it ends. Watch again stays.",
+                "\u52d5\u614b\u4e2d\u7684 Reels \u64ad\u5b8c\u6642\uff0c\u7d50\u675f\u756b\u9762\u4e0d\u6703\u986f\u793a\u300c\u89c0\u770b\u66f4\u591a Reels\u300d\u6309\u9215\uff0c\u300c\u518d\u770b\u4e00\u6b21\u300d\u6703\u4fdd\u7559.");
         table.put("Takes the Your algorithm button off the top of the Reels tab and closes up the gap. The rest of the bar stays.",
                 "\u79fb\u9664 Reels \u5206\u9801\u9802\u7aef\u7684\u300c\u4f60\u7684\u6f14\u7b97\u6cd5\u300d\u6309\u9215\u4e26\u6536\u8d77\u7a7a\u767d\u3002\u9802\u7aef\u5217\u7684\u5176\u4ed6\u5167\u5bb9\u4ecd\u6703\u4fdd\u7559\u3002");
         table.put("Takes the accounts Instagram suggests off the bottom of your messages. Your chats and follow requests stay. Restart Instagram to see the change.",
@@ -41614,6 +41829,9 @@ public final class L10nTranslations {
                 "\u79fb\u9664\u9996\u9801\u9802\u7aef\u7684\u611b\u5fc3\u6309\u9215\u4e26\u6536\u8d77\u7a7a\u767d\u3002\u901a\u77e5\u4ecd\u6703\u9001\u9054\u3002\u8acb\u91cd\u65b0\u555f\u52d5 Instagram \u4ee5\u5957\u7528\u8b8a\u66f4\u3002");
         table.put("Takes the interests someone added, like reading or hiking, from under their bio. Yours keeps them.",
                 "\u79fb\u9664\u4ed6\u4eba\u5728\u500b\u4eba\u7c21\u4ecb\u4e0b\u65b9\u65b0\u589e\u7684\u8208\u8da3\uff0c\u4f8b\u5982\u95b1\u8b80\u6216\u5065\u884c\u3002\u4f60\u81ea\u5df1\u7684\u500b\u4eba\u6a94\u6848\u4ecd\u6703\u4fdd\u7559\u3002");
+    }
+
+    private static void fillZh_rTW29(Map<String, String> table) {
         table.put("Takes the invite to someone's broadcast channel from under their bio. Yours keeps it.",
                 "\u79fb\u9664\u4ed6\u4eba\u500b\u4eba\u7c21\u4ecb\u4e0b\u65b9\u7684\u5ee3\u64ad\u983b\u9053\u9080\u8acb\u3002\u4f60\u81ea\u5df1\u7684\u500b\u4eba\u6a94\u6848\u4ecd\u6703\u4fdd\u7559\u3002");
         table.put("Takes the link to someone's WhatsApp from under their bio. Yours keeps it.",
@@ -41630,9 +41848,6 @@ public final class L10nTranslations {
                 "\u79fb\u9664\u4ed6\u4eba\u9650\u6642\u52d5\u614b\u5e95\u90e8\u7684\u7d19\u98db\u6a5f\u3002\u4e0d\u6703\u7559\u4e0b\u7a7a\u767d\u3002");
         table.put("Takes the plus button off the top of Home and closes up the gap. The Create tab and swiping to create are separate. Restart Instagram to see the change.",
                 "\u79fb\u9664\u9996\u9801\u9802\u7aef\u7684\u52a0\u865f\u6309\u9215\u4e26\u6536\u8d77\u7a7a\u767d\u3002\u5efa\u7acb\u5206\u9801\u8207\u6ed1\u52d5\u5efa\u7acb\u53e6\u6709\u7368\u7acb\u8a2d\u5b9a\u3002\u8acb\u91cd\u65b0\u555f\u52d5 Instagram \u4ee5\u5957\u7528\u8b8a\u66f4\u3002");
-    }
-
-    private static void fillZh_rTW29(Map<String, String> table) {
         table.put("Takes the plus button off the top of reels you open from Saved or a collection and closes up the gap. The Reels tab and other reels keep theirs.",
                 "\u79fb\u9664\u5f9e\u300c\u5df2\u5132\u5b58\u300d\u6216\u6536\u85cf\u96c6\u958b\u555f\u7684 Reels \u9802\u7aef\u7684\u52a0\u865f\u6309\u9215\u4e26\u6536\u8d77\u7a7a\u767d\u3002Reels \u5206\u9801\u8207\u5176\u4ed6 Reels \u4ecd\u6703\u4fdd\u7559\u3002");
         table.put("Takes the plus button that opens the camera off the top of reels, on the Reels tab and everywhere else, and closes up the gap. The rest of the bar stays.",
@@ -41737,6 +41952,9 @@ public final class L10nTranslations {
                 "\u60a8\u719f\u6089\u7684\u62d6\u66f3\u5217\u8207\u5713\u5f62\u62d6\u66f3\u9215\u3002");
         table.put("The bar sits in the space under the Send message box. Where there's no room under it, the bar stays above it.",
                 "\u62d6\u66f3\u5217\u6703\u4f4d\u65bc\u300c\u50b3\u9001\u8a0a\u606f\u300d\u6846\u4e0b\u65b9\u7684\u7a7a\u9593\u3002\u4e0b\u65b9\u6c92\u6709\u7a7a\u9593\u6642\uff0c\u6703\u7559\u5728\u6846\u7684\u4e0a\u65b9\u3002");
+    }
+
+    private static void fillZh_rTW30(Map<String, String> table) {
         table.put("The bar sits just above the Send message box at the bottom of a story.",
                 "\u62d6\u66f3\u5217\u6703\u4f4d\u65bc\u9650\u6642\u52d5\u614b\u5e95\u90e8\u300c\u50b3\u9001\u8a0a\u606f\u300d\u6846\u7684\u6b63\u4e0a\u65b9\u3002");
         table.put("The bubbles of friends who liked or commented, the Followed by and Liked by lines with their faces, the comment shown under a reel and the row of friends who saw it. Comments are still a tap away.",
@@ -41753,9 +41971,6 @@ public final class L10nTranslations {
                 "\u9650\u6642\u52d5\u614b\u767c\u4f48\u7684\u65e5\u671f\u8207\u6642\u9593\uff0c\u4f8b\u5982 10 \u6708 2 \u65e5\u4e0b\u5348 3:45\u3002");
         table.put("The file %1$s couldn't be removed. Delete it from %2$s to turn HushGram back on.",
                 "\u7121\u6cd5\u79fb\u9664\u6a94\u6848 %1$s\u3002\u8acb\u5f9e %2$s \u522a\u9664\u5b83\uff0c\u4ee5\u91cd\u65b0\u555f\u7528 HushGram\u3002");
-    }
-
-    private static void fillZh_rTW30(Map<String, String> table) {
         table.put("The heart at the top of Home shows how many notifications are waiting, like the number on Messages, in place of the red dot. Restart Instagram to see the change.",
                 "\u9996\u9801\u9802\u7aef\u7684\u611b\u5fc3\u6703\u50cf\u8a0a\u606f\u4e00\u6a23\u986f\u793a\u5f85\u8b80\u901a\u77e5\u7684\u6578\u91cf\uff0c\u53d6\u4ee3\u7d05\u9ede\u3002\u8acb\u91cd\u65b0\u555f\u52d5 Instagram \u4ee5\u5957\u7528\u8b8a\u66f4\u3002");
         table.put("The heart plays %1$s when you double tap a post.",
@@ -41860,6 +42075,9 @@ public final class L10nTranslations {
                 "\u641c\u5c0b\u4e0d\u5728\u5206\u9801\u5217\u4e0a\uff0c\u56e0\u6b64\u6b64\u6309\u9215\u7121\u6cd5\u5728\u9019\u88e1\u958b\u555f\u641c\u5c0b\u3002");
         table.put("This chat is locked",
                 "\u6b64\u804a\u5929\u5df2\u9396\u5b9a");
+    }
+
+    private static void fillZh_rTW31(Map<String, String> table) {
         table.put("This chat uses the setting",
                 "\u6b64\u804a\u5929\u4f9d\u7167\u8a2d\u5b9a");
         table.put("This file matches the current overrides. Nothing changed.",
@@ -41876,9 +42094,6 @@ public final class L10nTranslations {
                 "\u9019\u5247\u9650\u6642\u52d5\u614b\u53ea\u64ad\u653e\u4e00\u6b21");
         table.put("This video has no file another player can open",
                 "\u6b64\u5f71\u7247\u6c92\u6709\u5176\u4ed6\u64ad\u653e\u5668\u53ef\u958b\u555f\u7684\u6a94\u6848");
-    }
-
-    private static void fillZh_rTW31(Map<String, String> table) {
         table.put("This video plays once",
                 "\u9019\u90e8\u5f71\u7247\u53ea\u64ad\u653e\u4e00\u6b21");
         table.put("Threads",
@@ -41983,6 +42198,9 @@ public final class L10nTranslations {
                 "\u5404\u9805\u6578\u91cf\u4e0b\u65b9");
         table.put("Under the name, 1 mention",
                 "\u540d\u7a31\u4e0b\u65b9\uff0c1 \u500b\u63d0\u53ca");
+    }
+
+    private static void fillZh_rTW32(Map<String, String> table) {
         table.put("Undo cleared positions",
                 "\u5fa9\u539f\u6e05\u9664\u64ad\u653e\u4f4d\u7f6e");
         table.put("Undo couldn't fully restore the settings. Check the shown values. Undo has been used up.",
@@ -41999,9 +42217,6 @@ public final class L10nTranslations {
                 "\u53d6\u6d88\u8ffd\u8e64\u901a\u77e5");
         table.put("Unfollower list cleared.",
                 "\u5df2\u6e05\u9664\u53d6\u6d88\u8ffd\u8e64\u8005\u540d\u55ae\u3002");
-    }
-
-    private static void fillZh_rTW32(Map<String, String> table) {
         table.put("Unlock",
                 "\u89e3\u9396");
         table.put("Unlock Instagram",
@@ -42088,8 +42303,8 @@ public final class L10nTranslations {
                 "\u6bcf\u90e8\u5f71\u7247\u7686\u4ee5 Instagram \u63d0\u4f9b\u7684\u6700\u4f4e\u756b\u8cea\u64ad\u653e\u3002");
         table.put("Videos wait for your tap where the choice below says. Feed videos show a play button, as they do when you use less mobile data.",
                 "\u4e0b\u65b9\u9078\u64c7\u7684\u4f4d\u7f6e\u6703\u7b49\u5f85\u4f60\u9ede\u64ca\u624d\u64ad\u653e\u5f71\u7247\u3002\u52d5\u614b\u9996\u9801\u5f71\u7247\u6703\u986f\u793a\u64ad\u653e\u6309\u9215\uff0c\u5982\u540c\u555f\u7528\u7bc0\u7701\u884c\u52d5\u6578\u64da\u6642\u4e00\u6a23\u3002");
-        table.put("Videos, reels and stories play at the quality below, starting with the next one you open.",
-                "\u5f9e\u4e0b\u4e00\u90e8\u958b\u555f\u7684\u5f71\u7247\u958b\u59cb\uff0c\u5f71\u7247\u3001Reels \u548c\u9650\u6642\u52d5\u614b\u6703\u4ee5\u4e0b\u65b9\u756b\u8cea\u64ad\u653e\u3002");
+        table.put("Videos, reels and stories play at the quality below, starting with the next one you open. When your connection can't keep up, a video drops to the next lower quality.",
+                "\u5f9e\u4e0b\u4e00\u90e8\u958b\u555f\u7684\u5f71\u7247\u958b\u59cb\uff0c\u5f71\u7247\u3001Reels \u548c\u9650\u6642\u52d5\u614b\u6703\u4ee5\u4e0b\u65b9\u756b\u8cea\u64ad\u653e\u3002\u9023\u7dda\u901f\u5ea6\u8ddf\u4e0d\u4e0a\u6642\uff0c\u5f71\u7247\u6703\u964d\u5230\u4f4e\u4e00\u7d1a\u7684\u756b\u8cea\u3002");
         table.put("View DM photos and videos anonymously",
                 "\u533f\u540d\u6aa2\u8996\u79c1\u8a0a\u7167\u7247\u8207\u5f71\u7247");
         table.put("View live anonymously",
@@ -42106,6 +42321,9 @@ public final class L10nTranslations {
                 "\u5df2\u6e05\u9664\u700f\u89bd\u7d00\u9304\u3002");
         table.put("Viewing, sound and the stories tray.",
                 "\u89c0\u770b\u3001\u97f3\u6548\u8207\u9650\u6642\u52d5\u614b\u5217\u3002");
+    }
+
+    private static void fillZh_rTW33(Map<String, String> table) {
         table.put("Voice message",
                 "\u8a9e\u97f3\u8a0a\u606f");
         table.put("Volume up still raises the phone's volume, but a muted reel stays muted until you unmute it.",
@@ -42122,9 +42340,6 @@ public final class L10nTranslations {
                 "\u5728\u52d5\u614b\u4e2d\u518d\u770b\u4e00\u6b21");
         table.put("Watch on TV",
                 "\u5728\u96fb\u8996\u4e0a\u89c0\u770b");
-    }
-
-    private static void fillZh_rTW33(Map<String, String> table) {
         table.put("Wave",
                 "\u6ce2\u6d6a");
         table.put("Web links you tap open in your usual browser, without Instagram's click tracker. Ads and Meta's own sites (Instagram, Facebook, Messenger, Threads) still open in the app.",
@@ -42173,6 +42388,8 @@ public final class L10nTranslations {
                 "\u5bec");
         table.put("With Expandable categories on, a tap opens a category on a page of its own. Back takes you to the list.",
                 "\u958b\u555f\u300c\u53ef\u5c55\u958b\u7684\u5206\u985e\u300d\u6642\uff0c\u9ede\u9078\u5206\u985e\u6703\u5728\u7368\u7acb\u9801\u9762\u958b\u555f\u3002\u6309\u8fd4\u56de\u5373\u53ef\u56de\u5230\u6e05\u55ae\u3002");
+        table.put("With Liquid glass look off, scrolling a list down makes the pill smaller, and scrolling up or changing tab brings it back to full size. Hide the tab bar as you scroll takes over when it's on. Restart Instagram after changing it.",
+                "\u95dc\u9589\u6db2\u614b\u73bb\u7483\u5916\u89c0\u6642\uff0c\u5411\u4e0b\u6372\u52d5\u6e05\u55ae\u6703\u8b93\u81a0\u56ca\u8b8a\u5c0f\uff0c\u5411\u4e0a\u6372\u52d5\u6216\u5207\u63db\u5206\u9801\u5c31\u6703\u6062\u5fa9\u5b8c\u6574\u5927\u5c0f\u3002\u958b\u555f\u6372\u52d5\u6642\u96b1\u85cf\u5206\u9801\u5217\u6642\uff0c\u4ee5\u8a72\u8a2d\u5b9a\u70ba\u6e96\u3002\u8b8a\u66f4\u5f8c\u8acb\u91cd\u65b0\u555f\u52d5 Instagram\u3002");
         table.put("With Name saves by account and post time on, only a save that doesn't know who posted or when is named this way.",
                 "\u958b\u555f\u300c\u6309\u5e33\u865f\u8207\u767c\u4f48\u6642\u9593\u547d\u540d\u300d\u6642\uff0c\u53ea\u6709\u4e0d\u77e5\u9053\u662f\u8ab0\u6216\u4f55\u6642\u767c\u4f48\u7684\u5132\u5b58\u9805\u76ee\u624d\u6703\u7528\u9019\u500b\u540d\u7a31\u3002");
         table.put("With Stop Reels scrolling on, reels you open from Search, Explore, a hashtag or a place still move on when you swipe.",
@@ -42227,6 +42444,9 @@ public final class L10nTranslations {
                 "\u67e5\u770b\u7248\u672c\u3001\u539f\u59cb\u78bc\u8207\u6388\u6b0a\u689d\u6b3e\u3002");
         table.put("Your words",
                 "\u4f60\u7684\u6587\u5b57");
+    }
+
+    private static void fillZh_rTW34(Map<String, String> table) {
         table.put("Zoomed photo",
                 "\u653e\u5927\u7684\u7167\u7247");
         table.put("the home screen icon you picked",

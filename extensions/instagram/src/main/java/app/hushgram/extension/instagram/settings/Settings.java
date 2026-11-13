@@ -142,11 +142,11 @@ public class Settings extends BaseSettings {
 
     /**
      * A tapped category opens on a page of its own instead of under its row, and Back returns to the
-     * list (#525). Only means something while {@link #CATEGORY_PAGES} is on. Off to start. A
+     * list (#525). Only means something while {@link #CATEGORY_PAGES} is on. On to start (#650). A
      * page-look choice, so Pause doesn't turn it off.
      */
     public static final BooleanSetting CATEGORY_OWN_PAGE =
-            new BooleanSetting("hushgram_category_own_page", FALSE);
+            new BooleanSetting("hushgram_category_own_page", TRUE);
 
     /**
      * The categories as two-column tiles instead of rows (#494). A tile opens its section in place,
@@ -158,15 +158,15 @@ public class Settings extends BaseSettings {
 
     /**
      * Each switch's description behind an "i" at the end of its title, for a shorter page (#130).
-     * Off to start. A settings-page choice, read saved even during Pause ({@link DescriptionInfo}).
+     * On to start (#650). A settings-page choice, read saved even during Pause ({@link DescriptionInfo}).
      */
     public static final BooleanSetting DESCRIPTIONS_BEHIND_INFO =
-            new BooleanSetting("hushgram_descriptions_behind_info", FALSE);
+            new BooleanSetting("hushgram_descriptions_behind_info", TRUE);
 
     /**
-     * The black look for HushGram's page (#455): black rows and dialogs, HushGram's name at the top
-     * and each category on one line. On to start (the reporter asked for it as the default). A
-     * settings-page choice, read saved even during Pause.
+     * The black look for HushGram's page (#455): black rows and dialogs, with HushGram's name at the
+     * top. On to start (the reporter asked for it as the default). A settings-page choice, read
+     * saved even during Pause.
      */
     public static final BooleanSetting SETTINGS_BLACK_LOOK =
             new BooleanSetting("hushgram_settings_black_look", TRUE);
@@ -1827,6 +1827,23 @@ public class Settings extends BaseSettings {
             new BooleanSetting("hushgram_glass_tab_bar_keep_size", FALSE, true, parent(GLASS_TAB_BAR_LIQUID));
 
     /**
+     * With {@link #GLASS_TAB_BAR_LIQUID} off: scrolling a list down makes the standard pill smaller, and
+     * scrolling up or changing tab brings it back to full size (#638). Hide the tab bar as you scroll takes
+     * over when it's on, and the choice rests while the liquid look is on. Read as the bar is built, so a
+     * change asks for a restart. Off to start.
+     */
+    public static final BooleanSetting GLASS_TAB_BAR_SHRINK_ON_SCROLL =
+            new BooleanSetting("hushgram_glass_tab_bar_shrink_on_scroll", FALSE, true, new Setting.Availability() {
+                @Override public boolean isAvailable() {
+                    return GLASS_TAB_BAR.savedValue() && !GLASS_TAB_BAR_LIQUID.savedValue();
+                }
+
+                @Override public List<Setting<?>> getParentSettings() {
+                    return Collections.singletonList(GLASS_TAB_BAR);
+                }
+            });
+
+    /**
      * Under {@link #GLASS_TAB_BAR_BLUR}: the pill's rim bends what's behind it the way the edge of real glass
      * does, so what passes under the edge shows mirrored and upside down (#369). The liquid pill and the
      * standard one both bend (#391), and only where the pill is blurred. Android 13 and newer, where the bar
@@ -2792,6 +2809,14 @@ public class Settings extends BaseSettings {
      */
     public static final BooleanSetting WATCH_AGAIN_IN_FEED =
             new BooleanSetting("hushgram_watch_again_in_feed", FALSE);
+
+    /**
+     * Takes "Watch more reels" off a feed reel's end card, leaving "Watch again" (#652,
+     * {@link app.hushgram.extension.instagram.feed.WatchAgain}). Read as each end card is shown, so it
+     * needs no restart. Off to start.
+     */
+    public static final BooleanSetting HIDE_WATCH_MORE_REELS =
+            new BooleanSetting("hushgram_hide_watch_more_reels", FALSE);
 
     /**
      * The little round pictures on posts and reels showing a friend liked, commented on or reshared
