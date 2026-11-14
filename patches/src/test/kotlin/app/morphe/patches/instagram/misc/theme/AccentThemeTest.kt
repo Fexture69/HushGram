@@ -17,6 +17,7 @@ import app.morphe.patcher.patch.ResourcePatchContext
 import app.morphe.patcher.resource.ResourceMode
 import app.morphe.patcher.util.proxy.mutableTypes.MutableMethod
 import app.morphe.patches.instagram.FixtureDex
+import app.morphe.patches.instagram.misc.extension.parameterRegisterNumber
 import app.morphe.patches.shared.compat.AppCompatibilities
 import com.android.tools.smali.dexlib2.AccessFlags
 import com.android.tools.smali.dexlib2.Opcode
@@ -436,7 +437,73 @@ class AccentThemeTest {
         assertTrue(again.message, again.message!!.contains("already have a hushgram_accent_red_background_light_top"))
     }
 
-    /** Text stays Instagram's color, so every color's backgrounds have to leave that text easy to read on them (#187). */
+    /**
+     * With Instagram's background attribute declared, Classic colors gets the older look's shade for each
+     * step, navy and charcoal on a dark theme and off-white on a light one, and a style for each theme (#639).
+     */
+    @Test
+    fun theClassicStylesPaintEachSurfaceInTheOlderLook() {
+        val uses = setOf(AccentUse("igds_color_link", AccentRole.LINK_ON_DARK, 0xff))
+        val attrs = declaring(listOf("igds_color_primary_background", "igds_color_elevated_background", "igds_color_secondary_background"))
+        val colors = parse("<resources />")
+        val styles = parse("<resources />")
+
+        addAccentResources(uses, attrs, colors, styles)
+
+        val values = colors.elements("color").associate { it.getAttribute("name") to it.textContent }
+        assertEquals("#ff101b2d", values["hushgram_classic_background_dark_base"])
+        assertEquals("#ff262626", values["hushgram_classic_background_dark_raised"])
+        assertEquals("#ff363636", values["hushgram_classic_background_dark_top"])
+        assertEquals("#fffafafa", values["hushgram_classic_background_light_base"])
+        assertEquals("#ffffffff", values["hushgram_classic_background_light_raised"])
+        assertEquals("#ffefefef", values["hushgram_classic_background_light_top"])
+        val classic = styleItems(styles, "HushGramClassicBackgrounds_")
+        assertEquals(listOf("HushGramClassicBackgrounds_light", "HushGramClassicBackgrounds_dark"), classic.keys.toList())
+        assertEquals(
+            listOf(
+                "igds_color_primary_background" to "@color/hushgram_classic_background_dark_base",
+                "igds_color_elevated_background" to "@color/hushgram_classic_background_dark_raised",
+                "igds_color_secondary_background" to "@color/hushgram_classic_background_dark_top",
+            ),
+            classic["HushGramClassicBackgrounds_dark"],
+        )
+
+        val withDark = parse("<resources />")
+        addAccentResources(
+            uses,
+            declaring(listOf("igds_color_primary_background", "igds_color_elevated_background_dark")),
+            parse("<resources />"),
+            withDark,
+        )
+        val dark = styleItems(withDark, "HushGramClassicBackgrounds_")
+        assertEquals(
+            "the dark style takes the always-dark surface",
+            "@color/hushgram_classic_background_dark_raised",
+            dark.getValue("HushGramClassicBackgrounds_dark").toMap()["igds_color_elevated_background_dark"],
+        )
+        assertEquals(
+            "the light style leaves Instagram's dark gray for the pills on it",
+            listOf("igds_color_primary_background" to "@color/hushgram_classic_background_light_base"),
+            dark["HushGramClassicBackgrounds_light"],
+        )
+        val accent = styleItems(withDark, "HushGramAccentBackgrounds_")
+        assertTrue("the accent has background styles", accent.isNotEmpty())
+        assertTrue(
+            "nor do the accent's light backgrounds",
+            accent.filterKeys { it.endsWith("_light") }.values.none { items -> items.any { it.first.endsWith("_dark") } },
+        )
+
+        val noPrimary = parse("<resources />")
+        addAccentResources(uses, declaring(listOf("igds_color_elevated_background")), parse("<resources />"), noPrimary)
+        assertTrue("a theme that can't say what its screens are gets none", styleItems(noPrimary, "HushGramClassicBackgrounds_").isEmpty())
+
+        val taken = parse("<resources><style name=\"HushGramClassicBackgrounds_dark\" /></resources>")
+        val fresh = declaring(listOf("igds_color_primary_background"))
+        val again = assertThrows(PatchException::class.java) { addAccentResources(uses, fresh, parse("<resources />"), taken) }
+        assertTrue(again.message, again.message!!.contains("already have a HushGramClassicBackgrounds_dark"))
+    }
+
+    /** Text stays Instagram's color, so every color's backgrounds have to leave that text easy to read on them (#187, #639). */
     @Test
     fun instagramsTextStaysReadableOnEveryBackground() {
         for (palette in ACCENT_PALETTES) {
@@ -446,6 +513,12 @@ class AccentThemeTest {
                 val light = contrast(0x0c1014, palette.background(IconTheme.LIGHT, step))
                 assertTrue("${palette.name} $step on a light theme: $light", light >= 7.0)
             }
+        }
+        for (step in BackgroundStep.entries) {
+            val dark = contrast(0xf5f5f5, classicBackground(IconTheme.DARK, step))
+            assertTrue("classic $step on a dark theme: $dark", dark >= 7.0)
+            val light = contrast(0x0c1014, classicBackground(IconTheme.LIGHT, step))
+            assertTrue("classic $step on a light theme: $light", light >= 7.0)
         }
     }
 
@@ -860,6 +933,89 @@ class AccentThemeTest {
     }
 
     /**
+     * A tab button hands both colors it's told to tint its icon with to the extension at its start and
+     * takes the answers in their place, so Reels' white and the text color Instagram resets to after it
+     * become the picked icon color (#663). Two such methods, or a jump onto the start, leave the tabs as
+     * they are, no tab button changes nothing, and an extension without the hooks refuses.
+     */
+    @Test
+    fun aTabButtonHandsTheColorsOfItsIconToTheExtension() {
+        val stock = tabButton().methods.single().code().map { it.opcode }
+        val context = PatchContexts.of(listOf(tabButton(), extension()))
+        context.tintTabIcons()
+        val code = context.mutableClassDefBy(TAB_BUTTON).methods.single().code()
+        assertEquals(listOf(TAB_ICONS, TAB_ICONS_BOXED), code.take(4).mapNotNull { (it as? ReferenceInstruction)?.reference?.toString() })
+        assertEquals(
+            listOf(Opcode.INVOKE_STATIC_RANGE, Opcode.MOVE_RESULT, Opcode.INVOKE_STATIC_RANGE, Opcode.MOVE_RESULT_OBJECT),
+            code.take(4).map { it.opcode },
+        )
+        // Two locals, then this in v2, the color in v3 and the boxed color in v4.
+        assertEquals(
+            "each color handed over and written back",
+            listOf(3, 3, 4, 4),
+            listOf(
+                (code[0] as RegisterRangeInstruction).startRegister, (code[1] as OneRegisterInstruction).registerA,
+                (code[2] as RegisterRangeInstruction).startRegister, (code[3] as OneRegisterInstruction).registerA,
+            ),
+        )
+        assertEquals("one register each", listOf(1, 1), listOf((code[0] as RegisterRangeInstruction).registerCount, (code[2] as RegisterRangeInstruction).registerCount))
+        assertEquals("Instagram's own code after", stock, code.drop(4).map { it.opcode })
+
+        for ((case, classes) in listOf(
+            "two methods recoloring a tab" to listOf(tabButton(methods = 2), extension()),
+            "a jump onto the start" to listOf(tabButton(jumpOnto = true), extension()),
+        )) {
+            val untouched = PatchContexts.of(classes)
+            untouched.tintTabIcons()
+            val methods = untouched.mutableClassDefBy(TAB_BUTTON).methods
+            assertTrue("$case: no hook", methods.none { method -> method.code().any { (it as? ReferenceInstruction)?.reference?.toString() == TAB_ICONS } })
+        }
+        PatchContexts.of(listOf(extension(tabIcons = false))).tintTabIcons()
+        val failure = assertThrows(PatchException::class.java) { PatchContexts.of(listOf(tabButton(), extension(tabIcons = false))).tintTabIcons() }
+        assertTrue("no hook in the extension: ${failure.message}", failure.message!!.startsWith("Accent color"))
+    }
+
+    /**
+     * Every build of Instagram: one method tells a tab's icon view its colors, and it hands both to the
+     * extension at its start, in the registers they came in, with Instagram's code after (#663).
+     */
+    @Test
+    fun everyBuildHandsItsTabIconColorsToTheExtension() {
+        for ((code, bundle) in builds()) {
+            val recolors = FixtureDex.methodsWhere(bundle, { dex -> dex.typeSection.any { it == TAB_ICON_VIEW } }) { method ->
+                !AccessFlags.STATIC.isSet(method.accessFlags) && method.returnType == "V" &&
+                    method.parameterTypes.map(Any::toString) == listOf("I", "Ljava/lang/Integer;") &&
+                    method.code().any { it.callsNamed(TAB_ICON_VIEW, "setActiveColor") } &&
+                    method.code().any { it.callsNamed(TAB_ICON_VIEW, "setNormalColor") }
+            }
+            assertEquals("$code: one method recolors a tab's icon, ${recolors.map { "${it.definingClass}->${it.name}" }}", 1, recolors.size)
+            val found = recolors.single()
+            val context = PatchContexts.of(listOf(FixtureDex.classes(bundle, setOf(found.definingClass)).getValue(found.definingClass), extension()))
+            context.tintTabIcons()
+            val method = context.mutableClassDefBy(found.definingClass).methods.single {
+                it.name == found.name && it.parameterTypes.map(Any::toString) == listOf("I", "Ljava/lang/Integer;")
+            }
+            val body = method.code()
+            assertEquals("$code: the hooks", listOf(TAB_ICONS, TAB_ICONS_BOXED), body.take(4).mapNotNull { (it as? ReferenceInstruction)?.reference?.toString() })
+            val color = method.parameterRegisterNumber(0)
+            val normal = method.parameterRegisterNumber(1)
+            assertEquals(
+                "$code: each color handed over and written back",
+                listOf(color, color, normal, normal),
+                listOf(
+                    (body[0] as RegisterRangeInstruction).startRegister, (body[1] as OneRegisterInstruction).registerA,
+                    (body[2] as RegisterRangeInstruction).startRegister, (body[3] as OneRegisterInstruction).registerA,
+                ),
+            )
+            assertEquals(
+                "$code: Instagram's own code after",
+                found.code().map { it.opcode }.filter { it != Opcode.NOP },
+                body.drop(4).map { it.opcode }.filter { it != Opcode.NOP },
+            )
+        }
+    }
+
+    /**
      * The declared build decoded and encoded as Manager does: the link and primary button attributes
      * are among the uses, every resource keeps its number, and the patched build gains just the added
      * names, which read back as written.
@@ -1088,7 +1244,13 @@ class AccentThemeTest {
         }
 
         /** AccentTheme's hooks, and the attribute and custom color stubs as javac and D8 leave `return null`. */
-        fun extension(stub: Boolean = true, headerIcons: Boolean = true, headerIcon: Boolean = true, customStub: Boolean = true): ClassDef = classOf(
+        fun extension(
+            stub: Boolean = true,
+            headerIcons: Boolean = true,
+            headerIcon: Boolean = true,
+            customStub: Boolean = true,
+            tabIcons: Boolean = true,
+        ): ClassDef = classOf(
             ACCENT_THEME,
             *listOfNotNull(
                 method(ACCENT_THEME, "apply", listOf(CONTEXT), 0, "return-void", static = true),
@@ -1096,8 +1258,38 @@ class AccentThemeTest {
                 if (customStub) method(ACCENT_THEME, "customColors", emptyList(), 1, "const/4 v0, 0x0\nreturn-object v0", static = true, returns = "Ljava/lang/String;") else null,
                 if (headerIcons) method(ACCENT_THEME, "headerIcons", listOf(CONTEXT, "I"), 0, "return p1", static = true, returns = "I") else null,
                 if (headerIcon) method(ACCENT_THEME, "headerIcon", listOf(CONTEXT, DRAWABLE), 0, "return-void", static = true) else null,
+                if (tabIcons) method(ACCENT_THEME, "tabIcons", listOf("I"), 0, "return p0", static = true, returns = "I") else null,
+                if (tabIcons) method(ACCENT_THEME, "tabIcons", listOf(BOXED), 0, "return-object p0", static = true, returns = BOXED) else null,
             ).toTypedArray(),
         )
+
+        const val BOXED = "Ljava/lang/Integer;"
+        const val TAB_BUTTON = "Lfixture/TabButton;"
+
+        /**
+         * A tab button's recolor, as 454's `LX/02a0;->A0A` has it: the icon view found and told the int
+         * selected, then the boxed color's value unselected when there is one. [methods] of them, and with
+         * [jumpOnto] a branch back to the start.
+         */
+        fun tabButton(methods: Int = 1, jumpOnto: Boolean = false): ClassDef {
+            val body = buildString {
+                if (jumpOnto) appendLine(":start")
+                appendLine("const v0, 0x7f0b4058")
+                appendLine("invoke-virtual { p0, v0 }, Landroid/view/View;->findViewById(I)Landroid/view/View;")
+                appendLine("move-result-object v1")
+                appendLine("check-cast v1, $TAB_ICON_VIEW")
+                appendLine("invoke-virtual { v1, p1 }, $TAB_ICON_VIEW->setActiveColor(I)V")
+                appendLine("if-eqz p2, :done")
+                appendLine("invoke-virtual { p2 }, Ljava/lang/Number;->intValue()I")
+                appendLine("move-result v0")
+                appendLine("invoke-virtual { v1, v0 }, $TAB_ICON_VIEW->setNormalColor(I)V")
+                if (jumpOnto) appendLine("if-eqz v0, :start")
+                appendLine(":done")
+                appendLine("return-void")
+            }
+            val recolors = (0 until methods).map { method(TAB_BUTTON, "A0" + ('A' + it), listOf("I", BOXED), 2, body, static = false) }
+            return classOf(TAB_BUTTON, *recolors.toTypedArray(), superclass = "Landroid/view/View;")
+        }
 
         const val DRAWABLE = "Landroid/graphics/drawable/Drawable;"
         const val ICON = "Lfixture/HeaderIcon;"

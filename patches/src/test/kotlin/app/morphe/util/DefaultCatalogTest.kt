@@ -46,6 +46,7 @@ import app.morphe.patches.instagram.feed.back.backLeavesHomePatch
 import app.morphe.patches.instagram.feed.place.keepHomePlacePatch
 import app.morphe.patches.instagram.feed.commentkeyboard.commentKeyboardPatch
 import app.morphe.patches.instagram.feed.audioicon.feedAudioIconPatch
+import app.morphe.patches.instagram.feed.autoscroll.feedAutoScrollPatch
 import app.morphe.patches.instagram.feed.captions.hideCaptionsPatch
 import app.morphe.patches.instagram.feed.commentgifs.hideCommentGifsPatch
 import app.morphe.patches.instagram.feed.comments.hideCommentsPatch
@@ -128,6 +129,7 @@ import app.morphe.patches.instagram.reels.profiletabbar.reelProfileTabBarPatch
 import app.morphe.patches.instagram.reels.swipeprofile.swipeToProfilePatch
 import app.morphe.patches.instagram.reels.seekbar.reelSeekBarPatch
 import app.morphe.patches.instagram.reels.links.openReelLinksPatch
+import app.morphe.patches.instagram.reels.abovecomments.reelAboveCommentsPatch
 import app.morphe.patches.instagram.reels.speed.keepReelSpeedPatch
 import app.morphe.patches.instagram.reels.suggested.hideReelsSuggestionsPatch
 import app.morphe.patches.instagram.reels.tab.hideReelsTabPatch
@@ -233,6 +235,7 @@ class DefaultCatalogTest {
         hideFeedFollowPatch,
         hideCaptionsPatch,
         feedAudioIconPatch,
+        feedAutoScrollPatch,
         keepHomeTopBarPatch,
         keepReelsTopBarPatch,
         markViewOncePatch,
@@ -350,6 +353,7 @@ class DefaultCatalogTest {
         hideLiveReelsPatch,
         watchAgainInFeedPatch,
         reelProfileTabBarPatch,
+        reelAboveCommentsPatch,
         spoofDevicePatch,
     )
 

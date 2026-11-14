@@ -59,6 +59,7 @@ import org.robolectric.annotation.GraphicsMode;
 import org.robolectric.shadows.ShadowLooper;
 import org.robolectric.util.ReflectionHelpers;
 
+import app.hushgram.extension.instagram.reels.FullScreenBars;
 import app.hushgram.extension.instagram.reels.ReelBlurBars;
 import app.hushgram.extension.instagram.settings.Settings;
 import app.hushgram.extension.shared.SettingsContextRule;
@@ -507,6 +508,141 @@ public class GlassTabBarTest {
                 other.pause().stop().destroy();
             }
         }
+    }
+
+    /**
+     * A floating pill back in front after another window had the navigation bar's height given through
+     * keeps the bar's room under itself as its activity resumes, and when Instagram's next insets pass
+     * offers back the 0 the resume put in its copy. That 0 read as no navigation bar, and the pill sat in
+     * the three-button bar with no lift (S25, 2026-11-11). A sheet over it and the Reels viewers keep the
+     * bar's room too, and the real height Instagram offers next is still answered 0.
+     */
+    @Test
+    @Config(sdk = 29, qualifiers = "en-rUS-w411dp-h891dp-xhdpi")
+    public void aPillBackInFrontKeepsTheNavigationBarsRoomWhenInstagramOffersBackItsZero() throws Exception {
+        GlassTabBar.resetForTests();
+        resetFullScreenHeights();
+        try (GlassHost host = new GlassHost(Color.BLACK, true, GlassHeight.STANDARD, false, false)) {
+            int nav = host.dp(24);
+            navBarAtTheFoot(nav);
+            host.controller.pause().resume();
+            host.frame();
+            int height = host.bar.getLayoutParams().height;
+            assertEquals("shown in front", 0, FullScreenBars.navBarHeight(nav));
+            host.frame();
+            assertEquals("the pill makes room for the bar", height + nav, host.bar.getLayoutParams().height);
+
+            host.controller.pause();
+            ActivityController<Activity> other = Robolectric.buildActivity(Activity.class).setup();
+            try {
+                assertEquals("another window gets the height", nav, FullScreenBars.navBarHeight(nav));
+            } finally {
+                other.pause().stop().destroy();
+            }
+            host.controller.resume();
+            host.frame();
+            assertEquals("back in front, before any pass", height + nav, host.bar.getLayoutParams().height);
+
+            assertEquals("Instagram keeps the pill's 0", 0, FullScreenBars.navBarHeight(0));
+            host.frame();
+            assertEquals("the pill keeps the bar's room", height + nav, host.bar.getLayoutParams().height);
+            assertEquals("a sheet stops above the bar", nav, GlassTabBar.cameraNavBarHeight(0));
+            assertEquals("a Reels viewer stops above the slot and the bar", 100 + nav, GlassTabBar.reelsMargin(100));
+
+            assertEquals("the real height again", 0, FullScreenBars.navBarHeight(nav));
+            host.frame();
+            assertEquals(height + nav, host.bar.getLayoutParams().height);
+        } finally {
+            resetFullScreenHeights();
+        }
+    }
+
+    /**
+     * A floating pill whose window is left with no navigation bar at its foot, as the top half of a
+     * split screen is, gives up the bar's room when Instagram then offers 0 (as it does with `Remove the
+     * empty space at the bottom` on) rather than floating that high over nothing, and comes back in
+     * front with none.
+     */
+    @Test
+    @Config(sdk = 29, qualifiers = "en-rUS-w411dp-h891dp-xhdpi")
+    public void aPillWhoseWindowLosesTheNavigationBarGivesUpItsRoom() throws Exception {
+        GlassTabBar.resetForTests();
+        resetFullScreenHeights();
+        try (GlassHost host = new GlassHost(Color.BLACK, true, GlassHeight.STANDARD, false, false)) {
+            int nav = host.dp(24);
+            navBarAtTheFoot(nav);
+            host.controller.pause().resume();
+            host.frame();
+            int height = host.bar.getLayoutParams().height;
+            assertEquals("shown in front", 0, FullScreenBars.navBarHeight(nav));
+            host.frame();
+            assertEquals("the pill makes room for the bar", height + nav, host.bar.getLayoutParams().height);
+
+            navBarAtTheFoot(0);
+            assertEquals(0, FullScreenBars.navBarHeight(0));
+            host.frame();
+            assertEquals("no bar, no room", height, host.bar.getLayoutParams().height);
+            assertEquals("a sheet goes down to the foot", 0, GlassTabBar.cameraNavBarHeight(0));
+
+            host.controller.pause().resume();
+            host.frame();
+            assertEquals("back in front with no room", height, host.bar.getLayoutParams().height);
+        } finally {
+            resetFullScreenHeights();
+        }
+    }
+
+    /**
+     * A floating pill coming back in front reads its own window's navigation bar, though FullScreenBars
+     * still names the window just left as it hears the resume after GlassTabBar does. Read from that
+     * window, which had no bar at its foot (a landscape chat with the bar on the side), the resume gave
+     * the pill no room until the next pass.
+     */
+    @Test
+    @Config(sdk = 29, qualifiers = "en-rUS-w411dp-h891dp-xhdpi")
+    public void aPillBackInFrontReadsItsOwnWindowsNavigationBar() throws Exception {
+        GlassTabBar.resetForTests();
+        resetFullScreenHeights();
+        try (GlassHost host = new GlassHost(Color.BLACK, true, GlassHeight.STANDARD, false, false)) {
+            int nav = host.dp(24);
+            ReflectionHelpers.callStaticMethod(FullScreenBars.class, "navBarForTests",
+                    ReflectionHelpers.ClassParameter.from(Activity.class, host.controller.get()),
+                    ReflectionHelpers.ClassParameter.from(int.class, nav));
+            host.controller.pause().resume();
+            host.frame();
+            int height = host.bar.getLayoutParams().height;
+            assertEquals("shown in front", 0, FullScreenBars.navBarHeight(nav));
+            host.frame();
+            assertEquals("the pill makes room for the bar", height + nav, host.bar.getLayoutParams().height);
+
+            host.controller.pause();
+            ActivityController<Activity> other = Robolectric.buildActivity(Activity.class).setup();
+            try {
+                assertEquals("another window gets the height", nav, FullScreenBars.navBarHeight(nav));
+                ReflectionHelpers.callStaticMethod(FullScreenBars.class, "nowResumed",
+                        ReflectionHelpers.ClassParameter.from(Activity.class, other.get()));
+            } finally {
+                other.pause().stop().destroy();
+            }
+            host.controller.resume();
+            host.frame();
+            assertEquals("back in front, its own bar read", height + nav, host.bar.getLayoutParams().height);
+        } finally {
+            resetFullScreenHeights();
+        }
+    }
+
+    /** FullScreenBars starts and ends with nothing offered, taken or kept, telling the patch's listeners. */
+    private static void resetFullScreenHeights() throws Exception {
+        Class<?> teller = Class.forName("app.hushgram.extension.instagram.reels.FullScreenBars$Teller");
+        ReflectionHelpers.callStaticMethod(FullScreenBars.class, "resetHeightsForTests",
+                ReflectionHelpers.ClassParameter.from(teller, null));
+    }
+
+    /** Gives the front window a navigation bar [height] pixels tall at its foot, 0 for none. */
+    private static void navBarAtTheFoot(int height) {
+        ReflectionHelpers.callStaticMethod(FullScreenBars.class, "navBarForTests",
+                ReflectionHelpers.ClassParameter.from(int.class, height));
     }
 
     /**
@@ -2689,6 +2825,9 @@ public class GlassTabBarTest {
         assertEquals("no copy yet: the place stays clear, not the bar's colour", 0, before.getPixel(50, 170));
 
         ReelBlurBars.FrameSource original = ReelFrames.source;
+        ReelFrames.Copier originalCopier = ReelFrames.copier;
+        // The copy that holds the main thread: before Android 14, and for a video whose surface gives nothing back.
+        ReelFrames.copier = null;
         Map<View, Integer> asked = new HashMap<>();
         ReelFrames.source = (from, reuse, width, height) -> {
             asked.merge(from, 1, Integer::sum);
@@ -2719,6 +2858,198 @@ public class GlassTabBarTest {
             viewer.setTranslationY(0);
         } finally {
             ReelFrames.source = original;
+            ReelFrames.copier = originalCopier;
+        }
+    }
+
+    /**
+     * #672: on Android 14 the reel's copy is read from its surface and lands later, so the main thread never
+     * waits on the GPU for it. One copy is on its way at a time, into a bitmap the glass isn't drawing, and a
+     * video whose surface keeps giving nothing back is read the old way.
+     */
+    @Test
+    @GraphicsMode(GraphicsMode.Mode.NATIVE)
+    @Config(sdk = 34)
+    public void onAndroid14AReelIsCopiedWithoutHoldingTheMainThread() {
+        Context context = RuntimeEnvironment.getApplication();
+        FrameLayout parent = new FrameLayout(context);
+        FrameLayout viewer = new FrameLayout(context);
+        TextureView video = new TextureView(context);
+        viewer.addView(video);
+        parent.addView(viewer);
+        parent.addView(new View(context));
+        parent.layout(0, 0, 100, 200);
+        viewer.layout(0, 0, 100, 200);
+        video.layout(0, 80, 100, 200);
+        Set<View> paths = new HashSet<>();
+        Set<View> skipped = new HashSet<>();
+        assertTrue(GlassTabBar.leaveOut(viewer, parent, paths, skipped));
+        ReelFrames reels = new ReelFrames();
+
+        ReelBlurBars.FrameSource originalSource = ReelFrames.source;
+        ReelFrames.Copier originalCopier = ReelFrames.copier;
+        assertNotNull("Android 14 copies from the video's surface", originalCopier);
+        java.util.List<Bitmap> into = new java.util.ArrayList<>();
+        java.util.List<java.util.function.Consumer<Boolean>> landing = new java.util.ArrayList<>();
+        AtomicInteger heldTheMainThread = new AtomicInteger();
+        ReelFrames.copier = (from, bitmap, done) -> {
+            assertSame(video, from);
+            into.add(bitmap);
+            landing.add(done);
+        };
+        ReelFrames.source = (from, reuse, width, height) -> {
+            heldTheMainThread.incrementAndGet();
+            Bitmap frame = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+            frame.eraseColor(Color.BLUE);
+            return frame;
+        };
+        try {
+            long now = 1000L;
+            assertTrue(reels.copy(viewer, parent, 150, 50, now));
+            assertEquals("one copy asked for", 1, into.size());
+            assertEquals(100 / ReelFrames.SCALE, into.get(0).getWidth());
+            assertEquals(120 / ReelFrames.SCALE, into.get(0).getHeight());
+            assertEquals("the main thread never waited on the GPU", 0, heldTheMainThread.get());
+            assertEquals("not landed yet, the place stays clear", 0, glass(parent, paths, skipped, reels).getPixel(50, 170));
+
+            reels.copy(viewer, parent, 150, 50, now + 3 * ReelFrames.COPY_EVERY_MS);
+            assertEquals("one copy on its way at a time", 1, into.size());
+            into.get(0).eraseColor(Color.YELLOW);
+            landing.get(0).accept(true);
+            assertEquals("the landed copy fills the video's place", Color.YELLOW,
+                    glass(parent, paths, skipped, reels).getPixel(50, 170));
+
+            for (int miss = 0; miss < ReelFrames.MOST_MISSES; miss++) {
+                now += ReelFrames.COPY_EVERY_MS;
+                reels.copy(viewer, parent, 150, 50, now);
+                assertEquals(2 + miss, into.size());
+                assertTrue("the next copy never writes the one being drawn", into.get(into.size() - 1) != into.get(0));
+                landing.get(landing.size() - 1).accept(false);
+                assertEquals("a copy that comes back empty keeps the last one", Color.YELLOW,
+                        glass(parent, paths, skipped, reels).getPixel(50, 170));
+            }
+            assertEquals(0, heldTheMainThread.get());
+            now += ReelFrames.COPY_EVERY_MS;
+            reels.copy(viewer, parent, 150, 50, now);
+            assertEquals("after that many misses the surface isn't asked again", 1 + ReelFrames.MOST_MISSES, into.size());
+            assertEquals("and the video is read the old way", 1, heldTheMainThread.get());
+            assertEquals(Color.BLUE, glass(parent, paths, skipped, reels).getPixel(50, 170));
+        } finally {
+            ReelFrames.source = originalSource;
+            ReelFrames.copier = originalCopier;
+        }
+    }
+
+    private static Bitmap glass(ViewGroup parent, Set<View> paths, Set<View> skipped, ReelFrames reels) {
+        Bitmap drawn = Bitmap.createBitmap(100, 200, Bitmap.Config.ARGB_8888);
+        GlassTabBar.drawUnderBar(new Canvas(drawn), Color.BLACK, parent, 1, 150, 50, paths, skipped, null, reels);
+        return drawn;
+    }
+
+    /**
+     * #672: only a reel behind the pill itself is copied. With Run Reels behind off, Reels stops its viewer
+     * above the pill, inside the blur's reach, and copying it there cost a copy eight times a second for a
+     * few blurred rows.
+     */
+    @Test
+    @GraphicsMode(GraphicsMode.Mode.NATIVE)
+    @Config(sdk = 33, qualifiers = "en-rUS-w411dp-h891dp-xhdpi")
+    public void onlyAReelBehindThePillItselfIsCopied() {
+        GlassTabBar.animationsOnForTests = false;
+        ReelBlurBars.FrameSource original = ReelFrames.source;
+        AtomicInteger copies = new AtomicInteger();
+        ReelFrames.source = (from, reuse, width, height) -> {
+            copies.incrementAndGet();
+            return Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+        };
+        try (GlassHost host = new GlassHost(Color.BLACK, true, GlassHeight.STANDARD, false, true)) {
+            FrameLayout viewer = new FrameLayout(host.activity);
+            TextureView video = new TextureView(host.activity);
+            viewer.addView(video);
+            host.root.addView(viewer, 0, new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+            GlassTabBar.apply(host.activity);
+            host.frame();
+            Object pill = host.bar.getBackground();
+            assertTrue("no backdrop recorded", (boolean) ReflectionHelpers.getField(pill, "recorded"));
+            ReflectionHelpers.callInstanceMethod(pill, "cancelCatchUp");
+            float top = ReflectionHelpers.getField(pill, "stripTop");
+            float pad = ReflectionHelpers.getField(pill, "stripPad");
+            assertTrue("the blur reaches past the pill", pad > 2);
+            Set<View> skipped = ReflectionHelpers.getField(pill, "skipped");
+            skipped.add(viewer);
+            int width = host.root.getWidth();
+
+            int abovePill = (int) Math.floor(top + pad) - 1;
+            viewer.layout(0, 0, width, abovePill);
+            video.layout(0, 0, width, abovePill);
+            ReflectionHelpers.callInstanceMethod(pill, "copyReels", ReflectionHelpers.ClassParameter.from(long.class, 1000L));
+            assertEquals("a reel only in the blur's reach isn't copied", 0, copies.get());
+
+            int intoPill = (int) Math.ceil(top + pad) + 10;
+            viewer.layout(0, 0, width, intoPill);
+            video.layout(0, 0, width, intoPill);
+            ReflectionHelpers.callInstanceMethod(pill, "copyReels", ReflectionHelpers.ClassParameter.from(long.class, 2000L));
+            assertEquals("one behind the pill is", 1, copies.get());
+        } finally {
+            ReelFrames.source = original;
+        }
+    }
+
+    /**
+     * #672: on Reels the screen draws for every frame of the video, and the glass records under the bar with
+     * those frames. A catch-up a frame had arranged recorded again a few milliseconds after the next frame
+     * already had, and asked for a frame of its own: a third more frames than Reels drew, and the phone ran
+     * warm. A frame that records drops the catch-up, and one that finds frames still coming waits for them
+     * to stop and asks for nothing until then.
+     */
+    @Test
+    @GraphicsMode(GraphicsMode.Mode.NATIVE)
+    @Config(sdk = 33, qualifiers = "en-rUS-w411dp-h891dp-xhdpi")
+    public void aCatchUpWaitsForFramesToStopAndAFrameThatRecordsDropsIt() {
+        GlassTabBar.animationsOnForTests = false;
+        try (GlassHost host = new GlassHost(Color.BLACK, true, GlassHeight.STANDARD, false, true)) {
+            Object[] pill = {null};
+            AtomicInteger captures = new AtomicInteger();
+            View feed = new View(host.activity) {
+                @Override public void draw(Canvas canvas) {
+                    if (pill[0] != null && (boolean) ReflectionHelpers.getField(pill[0], "drawingBackdrop")) captures.incrementAndGet();
+                    super.draw(canvas);
+                }
+            };
+            host.root.addView(feed, 0, new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+            GlassTabBar.apply(host.activity);
+            host.frame();
+            ShadowLooper.idleMainLooper(GlassTabBar.RESEARCH_MS * (GlassTabBar.MISS_REDRAWS + 1), java.util.concurrent.TimeUnit.MILLISECONDS);
+            pill[0] = host.bar.getBackground();
+            assertTrue("no backdrop recorded", (boolean) ReflectionHelpers.getField(pill[0], "recorded"));
+            ReflectionHelpers.callInstanceMethod(pill[0], "cancelCatchUp");
+            AtomicInteger askedForFrames = new AtomicInteger();
+            host.barInvalidated = askedForFrames::incrementAndGet;
+
+            arrangeCatchUp(pill[0]);
+            int before = captures.get();
+            ShadowLooper.idleMainLooper(GlassTabBar.RECORD_EVERY_MS, java.util.concurrent.TimeUnit.MILLISECONDS);
+            ReflectionHelpers.callInstanceMethod(pill[0], "recordIfDue");
+            assertEquals("the due frame recorded", before + 1, captures.get());
+            assertFalse("and dropped the catch-up", (boolean) ReflectionHelpers.getField(pill[0], "catchUpPending"));
+            ShadowLooper.idleMainLooper(GlassTabBar.MAX_STALE_MS, java.util.concurrent.TimeUnit.MILLISECONDS);
+            assertEquals("nothing recorded it again", before + 1, captures.get());
+            assertEquals("or asked for a frame", 0, askedForFrames.get());
+
+            arrangeCatchUp(pill[0]);
+            before = captures.get();
+            for (int i = 0; i < 3; i++) {
+                ShadowLooper.idleMainLooper(10, java.util.concurrent.TimeUnit.MILLISECONDS);
+                ReflectionHelpers.callInstanceMethod(pill[0], "recordIfDue");
+            }
+            // Past the time the catch-up was arranged for.
+            ShadowLooper.idleMainLooper(10, java.util.concurrent.TimeUnit.MILLISECONDS);
+            assertEquals("frames still coming, the catch-up recorded nothing", before, captures.get());
+            assertEquals("and asked for no frame of its own", 0, askedForFrames.get());
+            assertTrue("it waits for them to stop", (boolean) ReflectionHelpers.getField(pill[0], "catchUpPending"));
+            ShadowLooper.idleMainLooper(GlassTabBar.RECORD_EVERY_MS + 4, java.util.concurrent.TimeUnit.MILLISECONDS);
+            assertEquals("they stopped, and the last one is caught up", before + 1, captures.get());
+            assertEquals("with one frame to show it", 1, askedForFrames.get());
         }
     }
 
@@ -3450,6 +3781,7 @@ public class GlassTabBarTest {
             assertTrue(GlassTabBar.onTheStrip(strip, bar, 0, 27));
             assertFalse("past the strip's bottom edge", GlassTabBar.onTheStrip(strip, bar, 300, 28));
             assertFalse("the tabs' row", GlassTabBar.onTheStrip(strip, bar, 300, 90));
+            assertFalse("on the strip but above the bar, where the reel's buttons are", GlassTabBar.onTheStrip(strip, bar, 300, -40));
             assertFalse("no strip found", GlassTabBar.onTheStrip(null, bar, 300, 10));
             strip.setVisibility(View.GONE);
             layOut(root);
