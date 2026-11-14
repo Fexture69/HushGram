@@ -167,6 +167,12 @@ def resolve_catalog_test_conflicts():
                     val = int(match.group(1)) + 2
                     return f'assertEquals("every named patch needs one reviewed decision", {val}, all.size)'
                 return re.sub(r'assertEquals\(\s*"every named patch needs one reviewed decision",\s*(\d+),\s*all\.size\s*\)', inc_val, up_part) + "\n"
+            if "spoofDevicePatch" in head_part or "spoofDevicePatch" in up_part or "openDeveloperOptionsPatch" in head_part or "openDeveloperOptionsPatch" in up_part:
+                combined = []
+                for line in (up_part + "\n" + head_part).splitlines():
+                    if line.strip() and line not in combined:
+                        combined.append(line)
+                return "\n".join(combined) + "\n"
             return up_part + "\n"
 
         new_content = pattern.sub(repl, content)
@@ -174,6 +180,17 @@ def resolve_catalog_test_conflicts():
             f.write(new_content)
         subprocess.run(["git", "add", catalog_path], check=True)
         print("Resolved conflicts in DefaultCatalogTest.kt")
+
+def resolve_data_saver_test_conflicts():
+    path = "patches/src/test/kotlin/app/morphe/patches/instagram/media/quality/DataSaverPatchTest.kt"
+    if not os.path.exists(path):
+        return
+    with open(path, "r", encoding="utf-8") as f:
+        content = f.read()
+    if "<<<<<<<" in content:
+        subprocess.run(["git", "checkout", "--theirs", path], check=True)
+        subprocess.run(["git", "add", path], check=True)
+        print("Resolved conflicts in DataSaverPatchTest.kt by taking upstream implementation")
 
 def resolve_cleanup_reels_conflicts():
     path = "patches/src/main/kotlin/app/morphe/patches/instagram/reels/cleanup/CleanUpReelsPatch.kt"
@@ -290,6 +307,7 @@ def main():
     resolve_bundle_conflicts()
     resolve_readme_conflicts()
     resolve_catalog_test_conflicts()
+    resolve_data_saver_test_conflicts()
     resolve_cleanup_reels_conflicts()
     resolve_friends_tab_conflicts()
     resolve_obfuscated_identity_test_conflicts()
@@ -302,8 +320,8 @@ def main():
                 os.chmod("gradlew", 0o755)
             except Exception:
                 pass
-        gradle_cmd = "./gradlew" if os.name != "nt" else "gradlew.bat"
-        res = subprocess.run([gradle_cmd, ":patches:generatePatchesList", "--no-daemon", "--dependency-verification=lenient"], check=False)
+        gradle_cmd = ["bash", "./gradlew"] if os.name != "nt" else ["cmd.exe", "/c", "gradlew.bat"]
+        res = subprocess.run(gradle_cmd + [":patches:generatePatchesList", "--no-daemon", "--dependency-verification=lenient"], check=False)
         if res.returncode == 0 and os.path.exists("scripts/gen-readme-patches.py"):
             subprocess.run([sys.executable, "scripts/gen-readme-patches.py"], check=False)
         for generated_path in ("patches-list.json", "README.md"):
