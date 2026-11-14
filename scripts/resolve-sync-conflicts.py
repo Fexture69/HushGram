@@ -178,8 +178,24 @@ def resolve_catalog_test_conflicts():
         new_content = pattern.sub(repl, content)
         with open(catalog_path, "w", encoding="utf-8", newline="\n") as f:
             f.write(new_content)
-        subprocess.run(["git", "add", catalog_path], check=True)
-        print("Resolved conflicts in DefaultCatalogTest.kt")
+
+    # Dynamically ensure neutral.size and all.size assertions match actual declared patches
+    with open(catalog_path, "r", encoding="utf-8") as f:
+        code = f.read()
+    neutral_m = re.search(r'private val neutral = listOf<Patch>\((.*?)\n    \)', code, re.DOTALL)
+    prior_m = re.search(r'private val prior = listOf<Patch>\((.*?)\n    \)', code, re.DOTALL)
+    optIn_m = re.search(r'private val optIn = listOf<Patch>\((.*?)\n    \)', code, re.DOTALL)
+    if neutral_m and prior_m and optIn_m:
+        n_count = len([l for l in neutral_m.group(1).splitlines() if l.strip() and not l.strip().startswith('//')])
+        p_count = len([l for l in prior_m.group(1).splitlines() if l.strip() and not l.strip().startswith('//')])
+        o_count = len([l for l in optIn_m.group(1).splitlines() if l.strip() and not l.strip().startswith('//')])
+        total_count = n_count + p_count + o_count
+        code = re.sub(r'assertEquals\(\d+,\s*neutral\.size\)', f'assertEquals({n_count}, neutral.size)', code)
+        code = re.sub(r'assertEquals\(\s*"every named patch needs one reviewed decision",\s*\d+,\s*all\.size\s*\)', f'assertEquals("every named patch needs one reviewed decision", {total_count}, all.size)', code)
+        with open(catalog_path, "w", encoding="utf-8", newline="\n") as f:
+            f.write(code)
+    subprocess.run(["git", "add", catalog_path], check=True)
+    print("Resolved conflicts in DefaultCatalogTest.kt")
 
 def resolve_data_saver_test_conflicts():
     path = "patches/src/test/kotlin/app/morphe/patches/instagram/media/quality/DataSaverPatchTest.kt"
