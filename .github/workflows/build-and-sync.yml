@@ -31,7 +31,7 @@ on:
           - perf/s24-plus-exynos
         default: current
       sync_upstream:
-        description: 'Sync with upstream repository before building (main branch only)'
+        description: 'Sync with upstream repository before building'
         type: boolean
         default: true
       publish_release:
@@ -78,7 +78,9 @@ jobs:
 
       - name: Sync with Upstream
         if: |
-          github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && inputs.sync_upstream == true)
+          github.event_name == 'schedule' ||
+          github.event_name == 'push' ||
+          (github.event_name == 'workflow_dispatch' && inputs.sync_upstream == true)
         env:
           ANDROID_HOME: /usr/local/lib/android/sdk
           GITHUB_ACTOR: ${{ github.actor }}

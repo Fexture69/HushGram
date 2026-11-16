@@ -256,6 +256,18 @@ def resolve_obfuscated_identity_test_conflicts():
         subprocess.run(["git", "add", path], check=True)
         print("Resolved conflicts in ObfuscatedIdentityTest.kt")
 
+def resolve_neutral_defaults_settings_test_conflicts():
+    """Take the upstream test implementation when the fork and upstream both change it."""
+    path = "extensions/instagram/src/test/java/app/hushgram/extension/instagram/settings/NeutralDefaultsSettingsTest.java"
+    if not os.path.exists(path):
+        return
+    with open(path, "r", encoding="utf-8") as f:
+        content = f.read()
+    if "<<<<<<<" in content:
+        subprocess.run(["git", "checkout", "--theirs", path], check=True)
+        subprocess.run(["git", "add", path], check=True)
+        print(f"Resolved conflicts in {path} by taking upstream implementation")
+
 def resolve_patch_family_and_status_conflicts():
     for path in [
         "extensions/instagram/src/main/java/app/hushgram/extension/instagram/settings/PatchFamily.java",
@@ -327,6 +339,7 @@ def main():
     resolve_cleanup_reels_conflicts()
     resolve_friends_tab_conflicts()
     resolve_obfuscated_identity_test_conflicts()
+    resolve_neutral_defaults_settings_test_conflicts()
     resolve_patch_family_and_status_conflicts()
     resolve_generic_conflicts()
 
