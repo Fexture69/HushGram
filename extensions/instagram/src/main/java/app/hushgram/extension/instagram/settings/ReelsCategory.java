@@ -115,8 +115,9 @@ final class ReelsCategory {
                     L10n.t("The Add a comment bar under every reel, including the ones in the Reels tab. The comment "
                             + "button still opens the comments.")));
             reels.add(toggle(context, Settings.KEEP_REEL_COMMENT_BAR_SPACE, L10n.t("Keep the comment bar's space"),
-                    L10n.t("Leaves an empty band where a hidden comment bar was on reels you open from a post or a "
-                            + "profile, so the reel, its buttons and the seek bar don't move down.")));
+                    L10n.t("Leaves an empty black band where a hidden comment bar was on reels outside the Reels tab, "
+                            + "like the ones you open from Explore or a profile, so the reel, its buttons and the seek "
+                            + "bar don't move down.")));
             reels.add(toggle(context, Settings.HIDE_REEL_REPLY_BAR, L10n.t("Hide the reply bar on reels from chats"),
                     L10n.t("The Reply to box under a reel you open from a chat, with its reactions and plus button. "
                             + "The chat's own message box stays.")));
@@ -152,6 +153,16 @@ final class ReelsCategory {
             reels.add(toggle(context, Settings.HIDE_REEL_SAVE_BUTTON, L10n.t("Hide the Save button on reels"),
                     L10n.t("Takes the Save button out of the column of buttons beside a reel, and the count under it. "
                             + "Posts in your feed keep theirs.")));
+            reels.add(toggle(context, Settings.HIDE_REEL_LIKE_COUNT, L10n.t("Hide like counts on reels"),
+                    L10n.t("Takes away the number under the heart beside a reel. The heart stays.")));
+            reels.add(toggle(context, Settings.HIDE_REEL_COMMENT_COUNT, L10n.t("Hide comment counts on reels"),
+                    L10n.t("Takes away the number under the Comment button beside a reel. The button stays.")));
+            reels.add(toggle(context, Settings.HIDE_REEL_REPOST_COUNT, L10n.t("Hide repost counts on reels"),
+                    L10n.t("Takes away the number under the Repost button beside a reel. The button stays.")));
+            reels.add(toggle(context, Settings.HIDE_REEL_SHARE_COUNT, L10n.t("Hide share counts on reels"),
+                    L10n.t("Takes away the number under the Share button beside a reel. The button stays.")));
+            reels.add(toggle(context, Settings.HIDE_REEL_SAVE_COUNT, L10n.t("Hide save counts on reels"),
+                    L10n.t("Takes away the number under the Save button beside a reel. The button stays.")));
             reels.add(toggle(context, Settings.HIDE_REEL_PAUSE_ICON, L10n.t("Hide the pause icon on reels"),
                     L10n.t("A paused reel shows just its frame, without the big pause icon and the sound button over "
                             + "it. Tap the reel to play it again.")));

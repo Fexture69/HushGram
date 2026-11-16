@@ -517,6 +517,10 @@ public final class SettingsStatus {
         return false;
     }
 
+    public static boolean menuItems() {
+        return false;
+    }
+
     public static boolean watchAgain() {
         return false;
     }
@@ -567,6 +571,16 @@ public final class SettingsStatus {
     }
 
     public static boolean reelDownload() {
+        return false;
+    }
+
+    /** Rewritten by the Ask for VP9 instead of AV1 patch. */
+    public static boolean vp9Video() {
+        return false;
+    }
+
+    /** Rewritten by the Keep online history patch. */
+    public static boolean onlineHistory() {
         return false;
     }
 

@@ -95,7 +95,9 @@ public class GlassTabBarTest {
         Settings.GLASS_TAB_BAR_SLIDE.resetToDefault();
         Settings.GLASS_TAB_BAR_LIQUID.resetToDefault();
         Settings.GLASS_TAB_BAR_KEEP_SIZE.resetToDefault();
+        Settings.GLASS_TAB_BAR_HOLD_LENS.resetToDefault();
         Settings.GLASS_TAB_BAR_SHRINK_ON_SCROLL.resetToDefault();
+        Settings.GLASS_TAB_BAR_MATERIAL.resetToDefault();
         Settings.GLASS_TAB_BAR_REFRACT.resetToDefault();
         GlassTabBar.animationsOnForTests = null;
         BaseSettings.PAUSED.save(false);
@@ -160,6 +162,70 @@ public class GlassTabBarTest {
                         }
                     }
                 }
+            }
+        }
+    }
+
+    /**
+     * #720: the Material look draws the pill solid in Material 3's surface container with fully round ends,
+     * and the marker on the tab you're on in its secondary container. Below Android 12 those are the
+     * baseline colors. It rests while the liquid look is on.
+     */
+    @Test
+    @GraphicsMode(GraphicsMode.Mode.NATIVE)
+    @Config(sdk = 29, qualifiers = "en-rUS-w411dp-h891dp-xhdpi")
+    public void theMaterialLookIsASolidRoundPillInMaterialColors() throws Exception {
+        GlassTabBar.animationsOnForTests = false;
+        for (int base : new int[]{Color.BLACK, Color.WHITE}) {
+            int[] expected = base == Color.BLACK ? new int[]{0xff211f26, 0xff4a4458} : new int[]{0xfff3edf7, 0xffe8def8};
+            try (GlassHost host = new GlassHost(base, true, GlassHeight.STANDARD, false, false)) {
+                Settings.GLASS_TAB_BAR_MATERIAL.save(true);
+                assertTrue(GlassTabBar.material());
+                GlassTabBar.apply(host.activity);
+                host.layout();
+                try (Pixels plain = host.background()) {
+                    RectF drawn = ReflectionHelpers.getField(host.bar.getBackground(), "rect");
+                    int middle = plain.bitmap.getPixel(Math.round(drawn.centerX()), Math.round(drawn.centerY()));
+                    assertEquals("the pill is solid: " + Integer.toHexString(middle), expected[0], middle);
+                    int corner = plain.bitmap.getPixel(Math.round(drawn.left) + host.dp(3), Math.round(drawn.top) + host.dp(6));
+                    assertTrue("its ends are fully round: " + Integer.toHexString(corner), Color.alpha(corner) < 0x40);
+                }
+                assertTrue(host.bar.getChildAt(0).performClick());
+                try (Pixels active = host.background()) {
+                    RectF slot = ReflectionHelpers.getField(host.bar.getBackground(), "capsule");
+                    int marker = active.bitmap.getPixel(Math.round(slot.centerX()), Math.round(slot.centerY()));
+                    assertEquals("the marker: " + Integer.toHexString(marker), expected[1], marker);
+                }
+                host.capture(base == Color.BLACK ? "material-dark" : "material-light");
+            }
+        }
+        Settings.GLASS_TAB_BAR.save(true);
+        Settings.GLASS_TAB_BAR_MATERIAL.save(true);
+        Settings.GLASS_TAB_BAR_LIQUID.save(true);
+        assertFalse("the liquid look wins", GlassTabBar.material());
+    }
+
+    /** #720: Android 12 and 13 give the Material look the phone's own tones, and its pill never blurs. */
+    @Test
+    @GraphicsMode(GraphicsMode.Mode.NATIVE)
+    @Config(sdk = 33, qualifiers = "en-rUS-w411dp-h891dp-xhdpi")
+    public void theMaterialLookTakesThePhonesTonesAndNeverBlurs() {
+        GlassTabBar.animationsOnForTests = false;
+        Context context = RuntimeEnvironment.getApplication();
+        int[] light = GlassTabBar.materialColors(context, false);
+        assertEquals(context.getColor(android.R.color.system_neutral1_50), light[0]);
+        assertEquals(context.getColor(android.R.color.system_accent2_100), light[1]);
+        int[] dark = GlassTabBar.materialColors(context, true);
+        assertEquals(GlassTabBar.blend(context.getColor(android.R.color.system_neutral1_900),
+                context.getColor(android.R.color.system_neutral1_800), 0.2f), dark[0]);
+        assertEquals(context.getColor(android.R.color.system_accent2_700), dark[1]);
+        for (boolean material : new boolean[]{false, true}) {
+            try (GlassHost host = new GlassHost(Color.BLACK, true, GlassHeight.STANDARD, false, true)) {
+                Settings.GLASS_TAB_BAR_MATERIAL.save(material);
+                GlassTabBar.apply(host.activity);
+                host.layout();
+                assertEquals("blur with the Material look " + (material ? "on" : "off"), !material,
+                        (boolean) ReflectionHelpers.getField(host.glass(), "blurWanted"));
             }
         }
     }
@@ -1619,7 +1685,9 @@ public class GlassTabBarTest {
             Settings.GLASS_TAB_BAR_SLIDE.save(false);
             Settings.GLASS_TAB_BAR_LIQUID.save(false);
             Settings.GLASS_TAB_BAR_KEEP_SIZE.save(false);
+            Settings.GLASS_TAB_BAR_HOLD_LENS.save(false);
             Settings.GLASS_TAB_BAR_SHRINK_ON_SCROLL.save(false);
+            Settings.GLASS_TAB_BAR_MATERIAL.save(false);
             Settings.GLASS_TAB_BAR_REFRACT.save(false);
             controller = Robolectric.buildActivity(Activity.class).setup();
             activity = controller.get();
@@ -2087,6 +2155,104 @@ public class GlassTabBarTest {
             assertEquals("the lift starts the slide at the held size", 1.08f, (float) ReflectionHelpers.getField(pill, "bubbleFrom"), 0.001f);
             assertTrue((float) ReflectionHelpers.getField(pill, "bubbleNow") > 1.05f);
         }
+    }
+
+    /** #705: a held finger grows the bubble over a moment, never past full, and eases it back from wherever it got to. */
+    @Test
+    public void aHeldFingerGrowsTheBubbleOverAMomentAndEasesItBack() {
+        long grow = GlassTabBar.HOLD_GROW_MS;
+        assertEquals(0f, GlassTabBar.holdAmount(0, 0f, true), 0f);
+        assertEquals("eases out", 0.75f, GlassTabBar.holdAmount(grow / 2, 0f, true), 0.001f);
+        assertEquals(1f, GlassTabBar.holdAmount(grow, 0f, true), 0f);
+        assertEquals(1f, GlassTabBar.holdAmount(grow * 10, 0f, true), 0f);
+        assertEquals("a clock behind starts it at rest", 0f, GlassTabBar.holdAmount(-30, 0f, true), 0f);
+        assertEquals("a lift doesn't snap it back", 1f, GlassTabBar.holdAmount(0, 1f, false), 0f);
+        assertEquals(0.25f, GlassTabBar.holdAmount(grow / 2, 1f, false), 0.001f);
+        assertEquals(0f, GlassTabBar.holdAmount(grow, 1f, false), 0f);
+        assertEquals("a lift halfway eases back from there", 0.6f, GlassTabBar.holdAmount(0, 0.6f, false), 0f);
+        float last = -1f;
+        for (long t = 0; t <= grow; t += 10) {
+            float now = GlassTabBar.holdAmount(t, 0f, true);
+            assertTrue(t + " ms", now >= last && now <= 1f);
+            last = now;
+        }
+        assertEquals(1f, GlassTabBar.holdScale(0f), 0f);
+        assertEquals(1f + GlassTabBar.HOLD_SWELL, GlassTabBar.holdScale(1f), 0f);
+        assertEquals("never past full", GlassTabBar.holdScale(1f), GlassTabBar.holdScale(3f), 0f);
+        assertEquals(1f, GlassTabBar.holdScale(-1f), 0f);
+        assertEquals("no finger, the lens as it always was", 1f, GlassTabBar.lensBoost(0f), 0f);
+        assertEquals(1f + GlassLens.HOLD_BEND, GlassTabBar.lensBoost(1f), 0f);
+        assertEquals(GlassTabBar.lensBoost(1f), GlassTabBar.lensBoost(4f), 0f);
+    }
+
+    /**
+     * #705: with Glass lens under your finger on, a finger held on the liquid bubble grows it to its full size
+     * and it eases back once the finger lifts. A finger on another tab, not sliding, leaves it be, and with the
+     * phone's animations off it grows at once. With the switch off a held finger changes nothing.
+     */
+    @Test
+    @GraphicsMode(GraphicsMode.Mode.NATIVE)
+    @Config(sdk = 29, qualifiers = "en-rUS-w411dp-h891dp-xhdpi")
+    public void aFingerHeldOnTheBubbleGrowsItWithGlassLensUnderYourFinger() {
+        for (boolean on : new boolean[]{true, false}) {
+            GlassTabBar.animationsOnForTests = true;
+            try (GlassHost host = new GlassHost(Color.BLACK, true, GlassHeight.STANDARD, false, false)) {
+                String where = on ? "on" : "off";
+                Settings.GLASS_TAB_BAR_LIQUID.save(true);
+                Settings.GLASS_TAB_BAR_HOLD_LENS.save(on);
+                assertTrue(host.bar.getChildAt(0).performClick());
+                GlassTabBar.apply(host.activity);
+                host.frame();
+                Object pill = host.bar.getBackground();
+                RectF capsule = ReflectionHelpers.getField(pill, "capsule");
+                try (Pixels ignored = host.background()) { }
+                settle(pill, GlassTabBar.SLIDE_MS * 4);
+                try (Pixels ignored = host.background()) { }
+                float rest = capsule.height();
+                assertEquals(where + ": settled", 1f, (float) ReflectionHelpers.getField(pill, "bubbleNow"), 0f);
+                GlassTabSlide.Host glass = (GlassTabSlide.Host) host.glass();
+                View first = host.bar.getChildAt(0);
+                glass.hold((first.getLeft() + first.getRight()) / 2f);
+                try (Pixels ignored = host.background()) { }
+                assertEquals(where + ": it grows from rest", 0f, (float) ReflectionHelpers.getField(pill, "holdNow"), 0f);
+                holdFor(pill, GlassTabBar.HOLD_GROW_MS);
+                try (Pixels ignored = host.background()) { }
+                if (!on) {
+                    assertEquals(where + ": nothing grows", 0f, (float) ReflectionHelpers.getField(pill, "holdNow"), 0f);
+                    assertEquals(where + ": the rest size", rest, capsule.height(), 0.5f);
+                    continue;
+                }
+                assertEquals(where + ": fully grown", 1f, (float) ReflectionHelpers.getField(pill, "holdNow"), 0.001f);
+                assertEquals(where + ": swollen by HOLD_SWELL", rest * (1f + GlassTabBar.HOLD_SWELL), capsule.height(), 1f);
+
+                glass.hold(Float.NaN);
+                try (Pixels ignored = host.background()) { }
+                assertEquals("the lift doesn't snap it back", 1f, (float) ReflectionHelpers.getField(pill, "holdNow"), 0.001f);
+                holdFor(pill, GlassTabBar.HOLD_GROW_MS);
+                try (Pixels ignored = host.background()) { }
+                assertEquals("eased back", 0f, (float) ReflectionHelpers.getField(pill, "holdNow"), 0.001f);
+                assertEquals("back to its rest size", rest, capsule.height(), 0.5f);
+
+                View fourth = host.bar.getChildAt(3);
+                glass.hold((fourth.getLeft() + fourth.getRight()) / 2f);
+                try (Pixels ignored = host.background()) { }
+                holdFor(pill, GlassTabBar.HOLD_GROW_MS);
+                try (Pixels ignored = host.background()) { }
+                assertEquals("a finger on another tab leaves the bubble be", 0f, (float) ReflectionHelpers.getField(pill, "holdNow"), 0f);
+                glass.hold(Float.NaN);
+                try (Pixels ignored = host.background()) { }
+
+                GlassTabBar.animationsOnForTests = false;
+                glass.hold((first.getLeft() + first.getRight()) / 2f);
+                try (Pixels ignored = host.background()) { }
+                assertEquals("animations off, it grows at once", 1f, (float) ReflectionHelpers.getField(pill, "holdNow"), 0.001f);
+            }
+        }
+    }
+
+    /** Puts the change of a finger on the bubble [ago] ms back on the frame clock (#705). */
+    private static void holdFor(Object pill, long ago) {
+        ReflectionHelpers.setField(pill, "heldSince", android.view.animation.AnimationUtils.currentAnimationTimeMillis() - ago);
     }
 
     /**

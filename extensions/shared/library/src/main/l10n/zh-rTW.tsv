@@ -403,7 +403,9 @@ Leaves New group out of the share sheet, and the button that sends to the people
 Hide the search bar	隱藏搜尋列
 Takes the search bar off the top of the share sheet. The people you can send to still show.	移除分享表單頂端的搜尋列。可傳送的對象仍會顯示。
 Story ring size	限時動態光圈尺寸
-Draws the rings in the stories row at the top of Home at the size below, and the rings of stories you haven't watched in the color below. Restart Instagram to see a change.	首頁頂端限時動態橫列的光圈會使用下方尺寸，未觀看限時動態的光圈則使用下方顏色。請重新啟動 Instagram 以套用變更。
+Hide rings outside the stories row	隱藏限時動態橫列以外的光圈
+Takes the story and live rings off profile pictures on posts, comments, reels and profiles. The pictures stay, and so do the rings in the stories row.	移除貼文、留言、Reels 和個人檔案中大頭貼照上的限時動態光圈和直播光圈。大頭貼照會保留，限時動態橫列中的光圈也會保留。
+Draws the rings in the stories row at the top of Home at the size below, and the rings of stories you haven't watched in the color below. Story rings take the thickness below. Restart Instagram to see a change.	首頁頂端限時動態橫列的光圈會使用下方尺寸，未觀看限時動態的光圈則使用下方顏色。限時動態光圈使用下方粗細。請重新啟動 Instagram 以套用變更.
 Ring size	光圈尺寸
 Instagram's size	Instagram 預設尺寸
 The rings are the size Instagram picks for your screen.	光圈使用 Instagram 依螢幕選擇的尺寸。
@@ -781,7 +783,7 @@ That isn't a domain. Try one like example.com.	這不是有效的網域。請輸
 The heart plays %1$s when you double tap a post.	雙擊貼文時，愛心會播放 %1$s。
 The heart that pops up when you double tap a post plays the animation you pick below. They're animations Instagram made for its Rings creators.	雙擊貼文時彈出的愛心會播放下方選擇的動畫。這些是 Instagram 為 Rings 創作者製作的動畫。
 Turn on Change the like animation to use this choice.	請啟用「更改『按讚』動畫」以使用此選項。
-When Instagram has more than 500 MB of saved photos and videos, deletes the photos as you leave it and the videos the next time it starts. Your sign-in, drafts and settings stay.	Instagram 儲存的照片與影片超過 500 MB 時，會在離開應用程式時刪除照片，並於下次啟動時刪除影片。登入狀態、草稿與設定仍會保留。
+When Instagram's saved photos and videos pass the limit below, deletes the photos as you leave it and the videos the next time it starts. Your sign-in, drafts and settings stay.	Instagram 儲存的照片與影片超過下方的上限時，會在離開應用程式時刪除照片，並於下次啟動時刪除影片。登入狀態、草稿與設定仍會保留。
 Ask before a like	按讚前詢問
 Ask before a refresh	重新整理前詢問
 Continue	繼續
@@ -841,7 +843,7 @@ Cancel saving this voice message	取消儲存此語音訊息
 Download voice messages	下載語音訊息
 Following each other	互相追蹤中
 Hide the comment bar on reposted reels	隱藏轉發 Reels 的留言列
-Puts the answer in a chip under the profile's posts, followers and following counts instead, and says Following each other when you follow them too.	改在個人檔案的貼文、追蹤者與追蹤中數量下方，以標籤顯示追蹤狀態。若你也追蹤對方，會顯示「互相追蹤中」。
+Puts the answer in a chip under the profile's posts, followers and following counts instead, and says Following each other when you follow them too. Tap the chip to see everything else Instagram has said about you two, like Close Friends, mutes and restrictions.	改在個人檔案的貼文、追蹤者與追蹤中數量下方，以標籤顯示追蹤狀態。若你也追蹤對方，會顯示「互相追蹤中」。點一下標籤，即可查看 Instagram 提供的你們之間其他所有狀態，例如摯友、靜音和限制。
 Saving a voice message	正在儲存語音訊息
 Show it as a chip	以標籤顯示
 Follow label	追蹤狀態標籤
@@ -855,7 +857,7 @@ The Add comment bar under a reel you open from a profile's reposts. The comment 
 Hide the comment bar on all reels	隱藏所有 Reels 的留言列
 The Add a comment bar under every reel, including the ones in the Reels tab. The comment button still opens the comments.	隱藏每則 Reel 下方的「新增留言」列，包括 Reels 分頁中的影片。仍可透過留言按鈕開啟留言。
 Keep the comment bar's space	保留留言列的空間
-Leaves an empty band where a hidden comment bar was on reels you open from a post or a profile, so the reel, its buttons and the seek bar don't move down.	在從貼文或個人檔案開啟的 Reel 上，於隱藏的留言列原處留下一條空白帶，讓 Reel、按鈕和進度列不會往下移。
+Leaves an empty black band where a hidden comment bar was on reels outside the Reels tab, like the ones you open from Explore or a profile, so the reel, its buttons and the seek bar don't move down.	在 Reels 分頁以外的 Reel 上，例如從探索或個人檔案開啟的，於隱藏的留言列原處留下一條黑色空白帶，讓 Reel、按鈕和進度列不會往下移。
 Adds Copy username and Copy bio to the menu on someone's profile. Each copies the text exactly as the account has it.	在他人個人檔案的選單中新增「複製使用者名稱」與「複製個人簡介」，依帳號原文完整複製。
 Adds View profile picture to the menu on someone's profile. Opens their picture full screen at the largest size Instagram has, with pinch zoom and a Save button.	在他人個人檔案的選單中新增「檢視個人檔案相片」，以 Instagram 提供的最大尺寸全螢幕開啟，支援雙指縮放並提供儲存按鈕。
 Bio	個人簡介
@@ -1213,6 +1215,17 @@ At once	立即
 Tapping the video, double-tapping it to like, and Save and Download don't count as a touch, so the buttons stay faded.	點擊影片、雙擊按讚，以及儲存與下載不算觸碰操作，因此按鈕會維持淡化。
 Off. It can fade a reel's buttons while the screen sits untouched, so they don't burn into an OLED screen.	已關閉。可在未觸碰畫面時淡化 Reel 按鈕，避免 OLED 螢幕烙印。
 Takes the Save button out of the column of buttons beside a reel, and the count under it. Posts in your feed keep theirs.	移除 Reel 旁按鈕列中的儲存按鈕與下方數量。動態首頁貼文的儲存按鈕仍會保留。
+# context: Reels settings: five switches after Hide the Save button on reels (#719), each taking only the number under one button in the column beside a reel; use the button names of the rows above
+Hide like counts on reels	隱藏 Reels 上的讚數
+Takes away the number under the heart beside a reel. The heart stays.	移除 Reel 旁愛心下方的數字。愛心會保留。
+Hide comment counts on reels	隱藏 Reels 上的留言數
+Takes away the number under the Comment button beside a reel. The button stays.	移除 Reel 旁留言按鈕下方的數字。按鈕會保留。
+Hide repost counts on reels	隱藏 Reels 上的轉發數
+Takes away the number under the Repost button beside a reel. The button stays.	移除 Reel 旁轉發按鈕下方的數字。按鈕會保留。
+Hide share counts on reels	隱藏 Reels 上的分享數
+Takes away the number under the Share button beside a reel. The button stays.	移除 Reel 旁分享按鈕下方的數字。按鈕會保留。
+Hide save counts on reels	隱藏 Reels 上的儲存數
+Takes away the number under the Save button beside a reel. The button stays.	移除 Reel 旁儲存按鈕下方的數字。按鈕會保留。
 Hide the pause icon on reels	隱藏 Reels 上的暫停圖示
 A paused reel shows just its frame, without the big pause icon and the sound button over it. Tap the reel to play it again.	暫停的 Reel 只顯示畫面，不會再蓋上大大的暫停圖示和聲音按鈕。點一下 Reel 即可繼續播放。
 Keep clear mode on	保持清爽模式
@@ -1405,6 +1418,9 @@ Scrolling a list down leaves the liquid pill as it is, every tab in place. Resta
 # context: a switch under Glass tab bar that makes the standard pill (the one without the liquid look) smaller while a list scrolls down, and its description. Liquid glass look and Hide the tab bar as you scroll are the names of two other switches on the same page (#638)
 Shrink the pill as you scroll	捲動時縮小膠囊
 With Liquid glass look off, scrolling a list down makes the pill smaller, and scrolling up or changing tab brings it back to full size. Hide the tab bar as you scroll takes over when it's on. Restart Instagram after changing it.	關閉液態玻璃外觀時，向下捲動清單會讓膠囊變小，向上捲動或切換分頁就會恢復完整大小。開啟捲動時隱藏分頁列時，以該設定為準。變更後請重新啟動 Instagram。
+# context: a switch under Glass tab bar (#720) that gives the standard pill (the one without the liquid look) the look of Android's own Material 3 bars, and its description. Material is Google's design name, keep it; Liquid glass look is the name of another switch
+Material look	Material 外觀
+With Liquid glass look off, the pill looks like Android's own Material 3 bars. It's solid, with no blur, in your phone's colors on Android 12 and newer, and a round marker sits on the tab you're on. Restart Instagram after changing it.	關閉液態玻璃外觀時，膠囊會像 Android 的 Material 3 列一樣。它是實色、沒有模糊，在 Android 12 以上會使用手機的配色，目前所在的分頁上會有一個圓形標記。變更後請重新啟動 Instagram。
 # context: Layout: Glass tab bar's switch that makes the liquid pill's rim bend and mirror what's behind it like glass (#369)
 Bend light at the edges	在邊緣折射光線
 The pill's rim bends what's behind it like real glass, so what passes under the edge shows upside down. Android 13 and newer. Restart Instagram after changing it.	膠囊的邊緣會像真正的玻璃一樣折射後方的內容，經過邊緣下方的東西會上下顛倒。需要 Android 13 以上版本。變更後請重新啟動 Instagram。
@@ -1461,6 +1477,8 @@ Left off your profile: %1$s. The grid of posts stays.	你的個人檔案中已�
 Left off other profiles: %1$s. The grid of posts stays.	他人的個人檔案中已隱藏：%1$s。貼文網格仍會保留。
 Reposts	轉發
 Tagged	被標註
+# context: Instagram's Subscriptions tab on a creator's profile, a choice in the Tabs on your profile and Tabs on other profiles lists under Profiles (#721), next to Reels, Reposts and Tagged. Use Instagram's own name for that tab
+Subscriptions	訂閱
 # context: Show all recent searches switch under Explore; See all is Instagram's own row under the recent searches
 Show all recent searches	顯示所有最近搜尋
 Lists every recent search under the search bar, not just the first few. See all and the x on each row work as before.	在搜尋列下方列出所有最近搜尋，而非僅前幾筆。「查看全部」與每列的 x 仍可照常使用。
@@ -2174,6 +2192,21 @@ Clear profile history	清除個人檔案紀錄
 Forgets every username, bio and picture on the list, for all your accounts. The switch stays as it is.	清除清單中所有的使用者名稱、個人簡介和相片，涵蓋你的所有帳號。開關維持原狀。
 Profile history cleared.	已清除個人檔案紀錄。
 Couldn't clear the profile history. Try again.	無法清除個人檔案紀錄，請再試一次。
+# context: switch in HushGram settings > Profiles; notes, on this phone, when people in your messages come online and go offline, from the active status Instagram already shows (#590)
+Keep online history	保留上線紀錄
+Notes when people in your messages come online and go offline, from the active status Instagram already shows, on this phone only. Turn it off and it stops at once.	只在這支手機上記下你訊息裡的人何時上線、何時離線，資料來自 Instagram 已顯示的動態狀態。關閉後會立即停止。
+# context: row and page title in HushGram settings > Profiles listing when people came online and went offline (#590)
+Online history	上線紀錄
+Nothing here yet. With Keep online history on, the times people in your messages come online and go offline show up here.	目前還沒有內容。開啟「保留上線紀錄」後，你訊息裡的人上線和離線的時間會顯示在這裡。
+# context: a row on the Online history page; %s is Android's relative time of the change, like 5 minutes ago (#590)
+Came online, %s	上線了，%s
+Went offline, %s	離線了，%s
+# context: stands in for the username on an Online history row when Instagram never gave one (#590)
+Unknown account	不明帳號
+Clear online history	清除上線紀錄
+Forgets everyone on the list, for all your accounts. The switch stays as it is.	清除清單中的所有人，涵蓋你的所有帳號。開關維持原狀。
+Online history cleared.	已清除上線紀錄。
+Couldn't clear the online history. Try again.	無法清除上線紀錄，請再試一次。
 # context: toast when a profile opened has a different username than last time; %s is the old username (#611)
 Used to be @%s	以前是 @%s
 # context: toast when a profile opened has a new profile picture and bio since last time (#611)
@@ -2326,6 +2359,114 @@ With a reel's comments open, tap the reel above them to pause or play it, or hol
 Hide the speed lock message	隱藏速度鎖定訊息
 # context: Summary of Hide the speed lock message (#702)
 Keeps the message Instagram shows when you lock a reel's speed, and when the lock ends, off the screen. The lock still works.	鎖定 Reel 的播放速度和解除鎖定時，不顯示 Instagram 的提示訊息。鎖定仍然有效.
+Remove hidden data from saved photos	移除已儲存照片中的隱藏資料
+Takes Meta's FBMD tracking tag out of each photo you save, along with any camera, place and time details. The picture and its colors stay the same. With Add the source on, the source still goes in afterward. JPEG photos only.	從你儲存的每張照片中移除 Meta 的 FBMD 追蹤標記，以及相機、地點和時間等資訊。圖片和色彩保持不變。開啟「在儲存的照片和影片中加入來源資訊」時，之後仍會寫入來源。僅適用於 JPEG 照片。
+Ask for VP9 instead of AV1	改要求 VP9 而非 AV1
+Tells Instagram your phone has no AV1 decoder, so reels and stories come as VP9 or H.264, both to watch and to save. Takes a restart.	告訴 Instagram 你的手機沒有 AV1 解碼器，讓連續短片和限時動態改以 VP9 或 H.264 傳來，觀看和儲存都一樣。需要重新啟動。
+# context: Summary of Show the skip arrows under Double tap to skip on feed videos in Feed settings (#562)
+Two arrows flash on the side you double tapped, with the seconds skipped under them.	在你點兩下的那一側閃現兩個箭頭，下方顯示跳過的秒數.
+# context: Feed settings: choice under Seek bar shape that gives the seek bar on feed videos a shape of its own (#567)
+Feed seek bar shape	動態拖曳列形狀
+# context: Choice in Feed seek bar shape: feed videos follow the shape picked in Seek bar shape (#567)
+Same as Seek bar shape	與拖曳列形狀相同
+# context: Summary of Same as Seek bar shape in Feed seek bar shape (#567)
+Feed videos use the shape picked in Seek bar shape.	動態影片使用拖曳列形狀中選擇的形狀.
+# context: Summary of Standard in Feed seek bar shape (#567)
+The bar and round handle you know, on feed videos only.	您熟悉的拖曳列與圓形拖曳鈕，只用於動態影片.
+# context: Summary of Thin line in Feed seek bar shape (#567)
+A thin line with no handle on the bottom edge of feed videos, which grows while you drag it.	動態影片下緣的細線，沒有拖曳鈕，拖曳時會變粗.
+# context: Summary of Rounded in Feed seek bar shape (#567)
+A thicker rounded bar with no handle, on feed videos only.	較粗的圓角拖曳列，沒有拖曳鈕，只用於動態影片.
+# context: Summary of Expressive in Feed seek bar shape (#567)
+A rounded bar split by a tall handle, on feed videos only.	由高拖曳鈕分隔的圓角拖曳列，只用於動態影片.
+# context: Summary of Wave in Feed seek bar shape (#567)
+A wavy line for the part played, with a tall handle, on feed videos only.	已播放部分為波浪線，並附高拖曳鈕，只用於動態影片.
+# context: Feed settings: a switch under Seek bar on feed videos that shows the time over the bar (#711)
+Time on the seek bar	拖曳列上的時間
+# context: Summary of Time on the seek bar; 0:12 / 0:45 is an example time, keep the digits as they are (#711)
+Shows the time played and the video's length over the seek bar on feed videos, like 0:12 / 0:45. Tap the time to see the time left instead.	在動態影片的拖曳列上方顯示已播放時間和影片長度，例如 0:12 / 0:45。點一下時間即可改看剩餘時間.
+# context: Feed settings: a switch under Time on the seek bar that counts the time down instead (#711)
+Show the time left	顯示剩餘時間
+# context: Summary of Show the time left; -0:33 / 0:45 is an example time, keep the digits and the minus sign as they are (#711)
+The time on the seek bar counts down what's left of the video, like -0:33 / 0:45. A tap on the time switches back.	拖曳列上的時間改為倒數影片剩餘的時間，例如 -0:33 / 0:45。點一下時間即可切換回來.
+# context: Feed settings: a switch under Tap a feed video to pause it that keeps any tap on a feed video from opening Reels (#706)
+Taps on feed videos stay in the feed	點擊動態影片時留在動態
+# context: Summary of Taps on feed videos stay in the feed; Tap a feed video to pause it is the switch above it, use its translation (#706)
+A tap on a feed video, or on the screen it shows when it ends, no longer opens it full screen in Reels. Tap a feed video to pause it still pauses it, and the buttons on that screen still work.	點擊動態影片，或影片結束時顯示的畫面，不會再於 Reels 中以全螢幕開啟。點擊動態首頁影片以暫停仍會暫停影片，該畫面上的按鈕也照常運作.
+# context: Item in Items in the three-dot menus under Feed: Instagram's Report row in the menus behind the three dots (#697)
+Report	檢舉
+# context: Item in Items in the three-dot menus under Feed: Instagram's Unfollow row (#697)
+Unfollow	取消追蹤
+# context: Item in Items in the three-dot menus under Feed: Instagram's Interested row (#697)
+Interested	感興趣
+# context: Item in Items in the three-dot menus under Feed: Instagram's Why you're seeing this post row (#697)
+Why you're seeing this post	你為什麼會看到這則貼文
+# context: Title of the row under Feed that lists the items to keep in the menus behind the three dots on posts, reels and stories (#697, #707)
+Items in the three-dot menus	三點選單中的項目
+# context: Summary of Items in the three-dot menus under Feed while every item is ticked (#697, #707)
+Every item shows. Untick the ones you don't want in the menus behind the three dots on posts, reels and stories.	所有項目都會顯示。取消勾選你不想在貼文、Reels 和限時動態的三點選單中看到的項目.
+# context: Summary of Items in the three-dot menus under Feed naming the unticked items, which are joined with a comma (#697, #707)
+Left off the three-dot menus: %1$s.	已從三點選單中移除：%1$s.
+# context: Feed settings: a switch under Hold for 2x on feed videos that keeps a held feed video at 2x after the finger lifts (#552)
+Keep 2x after you let go	放開後維持 2 倍速
+# context: Summary of Keep 2x after you let go, a switch under Hold for 2x on feed videos (#552)
+A feed video you hold for 2x keeps playing at 2x after you let go. Hold it again to go back to normal speed.	長按以 2 倍速播放的動態影片，放開後仍以 2 倍速播放。再次長按即可恢復正常速度.
+# context: Stories settings: title and dialog title of the list under Story ring size that picks how thick story rings are drawn (#528)
+Ring thickness	光圈粗細
+# context: Stories settings: the Ring thickness choice that keeps the thickness Instagram gives story rings (#528)
+Instagram's thickness	Instagram 預設粗細
+# context: Stories settings: title and dialog title of the row under Ring color where a hex color is typed for the Custom ring color (#696)
+Custom ring color	自訂光圈顏色
+# context: Stories settings: dialog text of Custom ring color; Custom and Ring color are the names of the choice and the list above it (#696)
+A color as six hex digits, like #4A6B82. Saving it picks Custom under Ring color. Restart Instagram to see it.	用六位十六進位數字表示的顏色，例如 #4A6B82。儲存後會在光圈顏色中選取自訂。重新啟動 Instagram 即可看到.
+# context: Stories settings: summary of Custom ring color while no color is typed; Custom is the Ring color choice (#696)
+None yet. Custom keeps Instagram's colors until you type one.	尚未設定。輸入顏色前，自訂會維持 Instagram 預設顏色.
+# context: Stories settings: title and dialog title of the row under Custom ring color for the second color the custom ring fades into (#696)
+Custom ring end color	自訂光圈結尾顏色
+# context: Stories settings: dialog text of Custom ring end color (#696)
+A second color as six hex digits, like #FF8A00, that the ring fades into. Leave it empty for one solid color. Restart Instagram to see it.	光圈漸變到的第二種顏色，用六位十六進位數字表示，例如 #FF8A00。留空則為單一純色。重新啟動 Instagram 即可看到.
+# context: Stories settings: summary of Custom ring end color while it is empty (#696)
+None. The ring is one solid color.	無。光圈為單一純色.
+# context: Profiles: title of the list a tap on the Show it as a chip chip opens (#698)
+Friendship status	好友狀態
+# context: Profiles: the answer after a line in that list, "Follows you: Yes" (#698)
+Yes	是
+No	否
+# context: Profiles: one line per friendship flag in that list, followed by ": Yes" or ": No". Close Friends, Favorites and Instants are Instagram's own names (#698)
+You follow them	你已追蹤對方
+Asked to follow you	已要求追蹤你
+You asked to follow them	你已要求追蹤對方
+On your Close Friends list	在你的摯友名單中
+In your Favorites	在你的最愛中
+You restricted them	你已限制對方
+You blocked them	你已封鎖對方
+You hide your story from them	你對其隱藏了限時動態
+You muted their posts	你已將對方的貼文設為靜音
+You muted their story	你已將對方的限時動態設為靜音
+You muted their notes	你已將對方的筆記設為靜音
+You muted their notes on posts and reels	你已將對方在貼文和 Reels 上的筆記設為靜音
+You muted their reposts	你已將對方的轉發設為靜音
+You muted their Instants	你已將對方的 Instants 設為靜音
+Their account is private	對方是私人帳號
+You're subscribed to them	你已訂閱對方
+# context: Profiles: that list before Instagram has answered (#698)
+Instagram hasn't said anything about this account yet.	Instagram 尚未提供這個帳號的任何資訊。
+This profile hasn't loaded its own answer yet, so this is only what Instagram keeps on the account.	這個個人檔案尚未載入自己的回應，因此這裡只有 Instagram 為該帳號保存的資訊。
+# context: Profiles: heading over the flags in that list whose meaning isn't plain, shown under their raw names (#698)
+Other flags	其他標記
+Not sent for this profile	此個人檔案未傳送
+# context: Profiles: switch under Keep profile history (#715)
+Save changed pictures to the gallery	將更換的相片存到圖庫
+When a profile you open has a new picture, puts the old picture and the new one in your gallery, each once. Needs Keep profile history.	你開啟的個人檔案換了新相片時，會將舊相片和新相片各存一次到你的圖庫。需要開啟「保留個人檔案紀錄」。
+# context: Storage: slider under Clear the media cache that picks how big the saved photos and videos can get (#713)
+Cache size limit	快取大小上限
+# context: Storage: the Cache size limit slider's value; %1$d is a number of megabytes
+%1$d MB	%1$d MB
+# context: Storage: second line under Clear saved copies now; %1$s is a size such as 312 MB
+Saved photos and videos take up %1$s now.	已儲存的照片與影片目前佔用 %1$s。
+# context: Tab bar: switch under Keep the pill full size, for the liquid look's bubble under a held finger (#705)
+Glass lens under your finger	手指下的玻璃透鏡
+Hold a finger on the liquid pill's bubble, or slide it across the tabs, and the bubble swells and bends what's behind it harder, like glass under a fingertip. It eases back when you let go. The bend needs Blur behind the tab bar and Android 13 or newer. Restart Instagram after changing it.	用手指按住液態膠囊的泡泡，或在分頁間滑動它，泡泡會變大，並更強烈地折射後方的內容，就像指尖下的玻璃。放開後會恢復原狀。折射需要開啟「模糊分頁列後方內容」及 Android 13 或以上版本。變更後請重新啟動 Instagram。
 2x speed for videos in the feed	2x speed for videos in the feed
 Adds a shortcut to your saved posts in the Explore tab.	Adds a shortcut to your saved posts in the Explore tab.
 Adds a speed choice to the menu on a reel.	Adds a speed choice to the menu on a reel.

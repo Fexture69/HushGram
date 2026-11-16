@@ -398,7 +398,9 @@ Leaves New group out of the share sheet, and the button that sends to the people
 Hide the search bar	Suchleiste ausblenden
 Takes the search bar off the top of the share sheet. The people you can send to still show.	Entfernt die Suchleiste oben im Teilen-Menü. Die Personen, an die du senden kannst, werden weiter angezeigt.
 Story ring size	Größe der Story-Ringe
-Draws the rings in the stories row at the top of Home at the size below, and the rings of stories you haven't watched in the color below. Restart Instagram to see a change.	Zeichnet die Ringe in der Story-Leiste oben auf der Startseite in der unten gewählten Größe und die Ringe von Stories, die du noch nicht angesehen hast, in der unten gewählten Farbe. Starte Instagram neu, um eine Änderung zu sehen.
+Hide rings outside the stories row	Ringe außerhalb der Story-Leiste ausblenden
+Takes the story and live rings off profile pictures on posts, comments, reels and profiles. The pictures stay, and so do the rings in the stories row.	Entfernt die Story- und Live-Ringe von Profilbildern bei Beiträgen, Kommentaren, Reels und Profilen. Die Bilder bleiben, ebenso die Ringe in der Story-Leiste.
+Draws the rings in the stories row at the top of Home at the size below, and the rings of stories you haven't watched in the color below. Story rings take the thickness below. Restart Instagram to see a change.	Zeichnet die Ringe in der Story-Leiste oben auf der Startseite in der unten gewählten Größe und die Ringe von Stories, die du noch nicht angesehen hast, in der unten gewählten Farbe. Story-Ringe bekommen die unten gewählte Stärke. Starte Instagram neu, um eine Änderung zu sehen.
 Ring size	Ringgröße
 Instagram's size	Größe von Instagram
 The rings are the size Instagram picks for your screen.	Die Ringe haben die Größe, die Instagram für deinen Bildschirm wählt.
@@ -777,7 +779,7 @@ That isn't a domain. Try one like example.com.	Keine Domain. Gib eine wie exampl
 The heart plays %1$s when you double tap a post.	Das Herz spielt %1$s ab, wenn du doppelt auf einen Beitrag tippst.
 The heart that pops up when you double tap a post plays the animation you pick below. They're animations Instagram made for its Rings creators.	Das Herz, das beim Doppeltippen auf einen Beitrag erscheint, spielt die unten gewählte Animation ab. Es sind Animationen, die Instagram für seine Rings-Creator gemacht hat.
 Turn on Change the like animation to use this choice.	Schalte Like-Animation ändern ein, um diese Auswahl zu nutzen.
-When Instagram has more than 500 MB of saved photos and videos, deletes the photos as you leave it and the videos the next time it starts. Your sign-in, drafts and settings stay.	Wenn Instagram mehr als 500 MB gespeicherte Fotos und Videos hat, werden die Fotos gelöscht, sobald du die App verlässt, und die Videos beim nächsten Start. Anmeldung, Entwürfe und Einstellungen bleiben.
+When Instagram's saved photos and videos pass the limit below, deletes the photos as you leave it and the videos the next time it starts. Your sign-in, drafts and settings stay.	Wenn die gespeicherten Fotos und Videos von Instagram das Limit unten überschreiten, werden die Fotos gelöscht, sobald du die App verlässt, und die Videos beim nächsten Start. Anmeldung, Entwürfe und Einstellungen bleiben.
 Ask before a like	Vor einem Like fragen
 Ask before a refresh	Vor dem Aktualisieren fragen
 Continue	Weiter
@@ -837,7 +839,7 @@ Cancel saving this voice message	Speichern dieser Sprachnachricht abbrechen
 Download voice messages	Sprachnachrichten herunterladen
 Following each other	Ihr folgt euch gegenseitig
 Hide the comment bar on reposted reels	Kommentarleiste bei erneut geteilten Reels ausblenden
-Puts the answer in a chip under the profile's posts, followers and following counts instead, and says Following each other when you follow them too.	Zeigt die Antwort stattdessen als Chip unter den Zahlen für Beiträge, Follower und Gefolgt und sagt Ihr folgt euch gegenseitig, wenn du dem Konto auch folgst.
+Puts the answer in a chip under the profile's posts, followers and following counts instead, and says Following each other when you follow them too. Tap the chip to see everything else Instagram has said about you two, like Close Friends, mutes and restrictions.	Zeigt die Antwort stattdessen als Chip unter den Zahlen für Beiträge, Follower und Gefolgt und sagt Ihr folgt euch gegenseitig, wenn du dem Konto auch folgst. Tippe auf den Chip, um alles Weitere zu sehen, was Instagram über euch beide gesagt hat, etwa Enge Freunde, Stummschaltungen und Einschränkungen.
 Saving a voice message	Sprachnachricht wird gespeichert
 Show it as a chip	Als Chip anzeigen
 Follow label	Folge-Hinweis
@@ -851,7 +853,7 @@ The Add comment bar under a reel you open from a profile's reposts. The comment 
 Hide the comment bar on all reels	Kommentarleiste bei allen Reels ausblenden
 The Add a comment bar under every reel, including the ones in the Reels tab. The comment button still opens the comments.	Die Leiste Kommentar hinzufügen unter jedem Reel, auch in den Reels im Reels-Tab. Der Kommentar-Button öffnet weiterhin die Kommentare.
 Keep the comment bar's space	Platz der Kommentarleiste behalten
-Leaves an empty band where a hidden comment bar was on reels you open from a post or a profile, so the reel, its buttons and the seek bar don't move down.	Lässt bei Reels, die du über einen Beitrag oder ein Profil öffnest, einen leeren Streifen, wo die ausgeblendete Kommentarleiste war, damit das Reel, seine Buttons und der Fortschrittsbalken nicht nach unten rutschen.
+Leaves an empty black band where a hidden comment bar was on reels outside the Reels tab, like the ones you open from Explore or a profile, so the reel, its buttons and the seek bar don't move down.	Lässt bei Reels außerhalb des Reels-Tabs, etwa denen, die du über Entdecken oder ein Profil öffnest, einen leeren schwarzen Streifen, wo die ausgeblendete Kommentarleiste war, damit das Reel, seine Buttons und der Fortschrittsbalken nicht nach unten rutschen.
 Adds Copy username and Copy bio to the menu on someone's profile. Each copies the text exactly as the account has it.	Fügt dem Menü auf dem Profil einer Person Benutzernamen kopieren und Steckbrief kopieren hinzu. Beides kopiert den Text genau so, wie das Konto ihn hat.
 Adds View profile picture to the menu on someone's profile. Opens their picture full screen at the largest size Instagram has, with pinch zoom and a Save button.	Fügt dem Menü auf dem Profil einer Person Profilbild ansehen hinzu. Öffnet das Bild im Vollbild in der größten Größe, die Instagram hat, mit Zoom per Fingergeste und einem Speichern-Button.
 Bio	Steckbrief
@@ -1227,6 +1229,17 @@ At once	Sofort
 Tapping the video, double-tapping it to like, and Save and Download don't count as a touch, so the buttons stay faded.	Tippen aufs Video, Doppeltippen zum Liken sowie Speichern und Herunterladen zählen nicht als Berührung, die Schaltflächen bleiben also blass.
 Off. It can fade a reel's buttons while the screen sits untouched, so they don't burn into an OLED screen.	Aus. Kann die Schaltflächen eines Reels blasser machen, solange niemand den Bildschirm berührt, damit sie sich nicht in einen OLED-Bildschirm einbrennen.
 Takes the Save button out of the column of buttons beside a reel, and the count under it. Posts in your feed keep theirs.	Nimmt den Speichern-Button aus der Button-Spalte neben einem Reel, dazu die Zahl darunter. Beiträge in deinem Feed behalten ihren.
+# context: Reels settings: five switches after Hide the Save button on reels (#719), each taking only the number under one button in the column beside a reel; use the button names of the rows above
+Hide like counts on reels	Like-Zahlen bei Reels ausblenden
+Takes away the number under the heart beside a reel. The heart stays.	Entfernt die Zahl unter dem Herzen neben einem Reel. Das Herz bleibt.
+Hide comment counts on reels	Kommentarzahlen bei Reels ausblenden
+Takes away the number under the Comment button beside a reel. The button stays.	Entfernt die Zahl unter dem Kommentar-Button neben einem Reel. Der Button bleibt.
+Hide repost counts on reels	Repost-Zahlen bei Reels ausblenden
+Takes away the number under the Repost button beside a reel. The button stays.	Entfernt die Zahl unter der Repost-Schaltfläche neben einem Reel. Die Schaltfläche bleibt.
+Hide share counts on reels	Teilen-Zahlen bei Reels ausblenden
+Takes away the number under the Share button beside a reel. The button stays.	Entfernt die Zahl unter dem Teilen-Button neben einem Reel. Der Button bleibt.
+Hide save counts on reels	Speichern-Zahlen bei Reels ausblenden
+Takes away the number under the Save button beside a reel. The button stays.	Entfernt die Zahl unter dem Speichern-Button neben einem Reel. Der Button bleibt.
 Hide the pause icon on reels	Pausensymbol bei Reels ausblenden
 A paused reel shows just its frame, without the big pause icon and the sound button over it. Tap the reel to play it again.	Ein pausiertes Reel zeigt nur sein Bild, ohne das große Pausensymbol und den Ton-Button darüber. Tippe auf das Reel, um es weiter abzuspielen.
 Keep clear mode on	Klaren Modus anlassen
@@ -1419,6 +1432,9 @@ Scrolling a list down leaves the liquid pill as it is, every tab in place. Resta
 # context: a switch under Glass tab bar that makes the standard pill (the one without the liquid look) smaller while a list scrolls down, and its description. Liquid glass look and Hide the tab bar as you scroll are the names of two other switches on the same page (#638)
 Shrink the pill as you scroll	Pille beim Scrollen verkleinern
 With Liquid glass look off, scrolling a list down makes the pill smaller, and scrolling up or changing tab brings it back to full size. Hide the tab bar as you scroll takes over when it's on. Restart Instagram after changing it.	Ist der Liquid-Glass-Look aus, wird die Pille kleiner, wenn du eine Liste nach unten scrollst, und nach oben scrollen oder ein Tabwechsel bringt sie in voller Größe zurück. Ist Tab-Leiste beim Scrollen ausblenden an, hat das Vorrang. Starte Instagram nach der Änderung neu.
+# context: a switch under Glass tab bar (#720) that gives the standard pill (the one without the liquid look) the look of Android's own Material 3 bars, and its description. Material is Google's design name, keep it; Liquid glass look is the name of another switch
+Material look	Material-Look
+With Liquid glass look off, the pill looks like Android's own Material 3 bars. It's solid, with no blur, in your phone's colors on Android 12 and newer, and a round marker sits on the tab you're on. Restart Instagram after changing it.	Ist der Liquid-Glass-Look aus, sieht die Pille aus wie die Material-3-Leisten von Android. Sie ist einfarbig, ohne Unschärfe, ab Android 12 in den Farben deines Handys, und eine runde Markierung liegt auf dem Tab, auf dem du bist. Starte Instagram nach der Änderung neu.
 # context: Layout: Glass tab bar's switch that makes the liquid pill's rim bend and mirror what's behind it like glass (#369)
 Bend light at the edges	Licht an den Rändern brechen
 The pill's rim bends what's behind it like real glass, so what passes under the edge shows upside down. Android 13 and newer. Restart Instagram after changing it.	Der Rand der Pille bricht, was dahinter liegt, wie echtes Glas, sodass alles, was unter dem Rand vorbeizieht, kopfüber erscheint. Ab Android 13. Starte Instagram nach der Änderung neu.
@@ -1475,6 +1491,8 @@ Left off your profile: %1$s. The grid of posts stays.	In deinem Profil ausgeblen
 Left off other profiles: %1$s. The grid of posts stays.	In anderen Profilen ausgeblendet: %1$s. Das Raster mit den Beiträgen bleibt.
 Reposts	Reposts
 Tagged	Markiert
+# context: Instagram's Subscriptions tab on a creator's profile, a choice in the Tabs on your profile and Tabs on other profiles lists under Profiles (#721), next to Reels, Reposts and Tagged. Use Instagram's own name for that tab
+Subscriptions	Abonnements
 # context: Show all recent searches switch under Explore; See all is Instagram's own row under the recent searches
 Show all recent searches	Alle letzten Suchen anzeigen
 Lists every recent search under the search bar, not just the first few. See all and the x on each row work as before.	Zeigt unter der Suchleiste alle letzten Suchen, nicht nur die ersten paar. „Alle ansehen“ und das x an jeder Zeile funktionieren wie vorher.
@@ -2171,6 +2189,21 @@ Clear profile history	Profilverlauf löschen
 Forgets every username, bio and picture on the list, for all your accounts. The switch stays as it is.	Vergisst alle Benutzernamen, Steckbriefe und Bilder in der Liste, für alle deine Konten. Der Schalter bleibt, wie er ist.
 Profile history cleared.	Profilverlauf gelöscht.
 Couldn't clear the profile history. Try again.	Profilverlauf nicht gelöscht.
+# context: switch in HushGram settings > Profiles; notes, on this phone, when people in your messages come online and go offline, from the active status Instagram already shows (#590)
+Keep online history	Online-Verlauf führen
+Notes when people in your messages come online and go offline, from the active status Instagram already shows, on this phone only. Turn it off and it stops at once.	Notiert, wann Leute aus deinen Nachrichten online kommen und offline gehen, anhand des Aktivitätsstatus, den Instagram schon anzeigt, nur auf diesem Handy. Schalte es aus, und es hört sofort auf.
+# context: row and page title in HushGram settings > Profiles listing when people came online and went offline (#590)
+Online history	Online-Verlauf
+Nothing here yet. With Keep online history on, the times people in your messages come online and go offline show up here.	Noch nichts da. Mit „Online-Verlauf führen“ erscheinen hier die Zeiten, zu denen Leute aus deinen Nachrichten online kommen und offline gehen.
+# context: a row on the Online history page; %s is Android's relative time of the change, like 5 minutes ago (#590)
+Came online, %s	Online gekommen, %s
+Went offline, %s	Offline gegangen, %s
+# context: stands in for the username on an Online history row when Instagram never gave one (#590)
+Unknown account	Unbekanntes Konto
+Clear online history	Online-Verlauf löschen
+Forgets everyone on the list, for all your accounts. The switch stays as it is.	Vergisst alle in der Liste, für alle deine Konten. Der Schalter bleibt, wie er ist.
+Online history cleared.	Online-Verlauf gelöscht.
+Couldn't clear the online history. Try again.	Online-Verlauf nicht gelöscht.
 # context: toast when a profile opened has a different username than last time; %s is the old username (#611)
 Used to be @%s	Hieß früher @%s
 # context: toast when a profile opened has a new profile picture and bio since last time (#611)
@@ -2323,6 +2356,114 @@ With a reel's comments open, tap the reel above them to pause or play it, or hol
 Hide the speed lock message	Hinweis zur Geschwindigkeitssperre ausblenden
 # context: Summary of Hide the speed lock message (#702)
 Keeps the message Instagram shows when you lock a reel's speed, and when the lock ends, off the screen. The lock still works.	Hält die Meldung, die Instagram zeigt, wenn du die Geschwindigkeit eines Reels sperrst und wenn die Sperre endet, vom Bildschirm fern. Die Sperre funktioniert weiter.
+Remove hidden data from saved photos	Versteckte Daten aus gespeicherten Fotos entfernen
+Takes Meta's FBMD tracking tag out of each photo you save, along with any camera, place and time details. The picture and its colors stay the same. With Add the source on, the source still goes in afterward. JPEG photos only.	Entfernt Metas FBMD-Tracking-Tag aus jedem Foto, das du speicherst, und dazu alle Angaben zu Kamera, Ort und Zeit. Das Bild und seine Farben bleiben gleich. Ist „Quelle zu gespeicherten Fotos und Videos hinzufügen“ an, wird die Quelle danach trotzdem eingetragen. Nur JPEG-Fotos.
+Ask for VP9 instead of AV1	VP9 statt AV1 anfordern
+Tells Instagram your phone has no AV1 decoder, so reels and stories come as VP9 or H.264, both to watch and to save. Takes a restart.	Sagt Instagram, dass dein Handy keinen AV1-Decoder hat. Reels und Storys kommen dann als VP9 oder H.264, zum Ansehen und zum Speichern. Braucht einen Neustart.
+# context: Summary of Show the skip arrows under Double tap to skip on feed videos in Feed settings (#562)
+Two arrows flash on the side you double tapped, with the seconds skipped under them.	Zwei Pfeile blinken auf der Seite auf, auf die du doppelt getippt hast, darunter die übersprungenen Sekunden.
+# context: Feed settings: choice under Seek bar shape that gives the seek bar on feed videos a shape of its own (#567)
+Feed seek bar shape	Form der Suchleiste im Feed
+# context: Choice in Feed seek bar shape: feed videos follow the shape picked in Seek bar shape (#567)
+Same as Seek bar shape	Wie Form der Suchleiste
+# context: Summary of Same as Seek bar shape in Feed seek bar shape (#567)
+Feed videos use the shape picked in Seek bar shape.	Feed-Videos verwenden die unter Form der Suchleiste gewählte Form.
+# context: Summary of Standard in Feed seek bar shape (#567)
+The bar and round handle you know, on feed videos only.	Die gewohnte Leiste mit rundem Griff, nur bei Feed-Videos.
+# context: Summary of Thin line in Feed seek bar shape (#567)
+A thin line with no handle on the bottom edge of feed videos, which grows while you drag it.	Eine dünne Linie ohne Griff am unteren Rand von Feed-Videos, die beim Ziehen dicker wird.
+# context: Summary of Rounded in Feed seek bar shape (#567)
+A thicker rounded bar with no handle, on feed videos only.	Eine dickere, abgerundete Leiste ohne Griff, nur bei Feed-Videos.
+# context: Summary of Expressive in Feed seek bar shape (#567)
+A rounded bar split by a tall handle, on feed videos only.	Eine abgerundete Leiste, die von einem hohen Griff geteilt wird, nur bei Feed-Videos.
+# context: Summary of Wave in Feed seek bar shape (#567)
+A wavy line for the part played, with a tall handle, on feed videos only.	Eine Wellenlinie für den abgespielten Teil, mit einem hohen Griff, nur bei Feed-Videos.
+# context: Feed settings: a switch under Seek bar on feed videos that shows the time over the bar (#711)
+Time on the seek bar	Zeit über der Suchleiste
+# context: Summary of Time on the seek bar; 0:12 / 0:45 is an example time, keep the digits as they are (#711)
+Shows the time played and the video's length over the seek bar on feed videos, like 0:12 / 0:45. Tap the time to see the time left instead.	Zeigt bei Feed-Videos die abgespielte Zeit und die Länge des Videos über der Suchleiste, etwa 0:12 / 0:45. Tippe auf die Zeit, um stattdessen die Restzeit zu sehen.
+# context: Feed settings: a switch under Time on the seek bar that counts the time down instead (#711)
+Show the time left	Restzeit anzeigen
+# context: Summary of Show the time left; -0:33 / 0:45 is an example time, keep the digits and the minus sign as they are (#711)
+The time on the seek bar counts down what's left of the video, like -0:33 / 0:45. A tap on the time switches back.	Die Zeit über der Suchleiste zählt herunter, wie viel vom Video noch übrig ist, etwa -0:33 / 0:45. Ein Tippen auf die Zeit schaltet zurück.
+# context: Feed settings: a switch under Tap a feed video to pause it that keeps any tap on a feed video from opening Reels (#706)
+Taps on feed videos stay in the feed	Tippen auf Feed-Videos bleibt im Feed
+# context: Summary of Taps on feed videos stay in the feed; Tap a feed video to pause it is the switch above it, use its translation (#706)
+A tap on a feed video, or on the screen it shows when it ends, no longer opens it full screen in Reels. Tap a feed video to pause it still pauses it, and the buttons on that screen still work.	Ein Tippen auf ein Feed-Video oder auf den Bildschirm, den es am Ende zeigt, öffnet es nicht mehr im Vollbild in Reels. Feed-Video antippen zum Pausieren pausiert es weiterhin, und die Schaltflächen auf diesem Bildschirm funktionieren weiter.
+# context: Item in Items in the three-dot menus under Feed: Instagram's Report row in the menus behind the three dots (#697)
+Report	Melden
+# context: Item in Items in the three-dot menus under Feed: Instagram's Unfollow row (#697)
+Unfollow	Nicht mehr folgen
+# context: Item in Items in the three-dot menus under Feed: Instagram's Interested row (#697)
+Interested	Interessiert
+# context: Item in Items in the three-dot menus under Feed: Instagram's Why you're seeing this post row (#697)
+Why you're seeing this post	Warum du diesen Beitrag siehst
+# context: Title of the row under Feed that lists the items to keep in the menus behind the three dots on posts, reels and stories (#697, #707)
+Items in the three-dot menus	Einträge in den Drei-Punkte-Menüs
+# context: Summary of Items in the three-dot menus under Feed while every item is ticked (#697, #707)
+Every item shows. Untick the ones you don't want in the menus behind the three dots on posts, reels and stories.	Alle Einträge werden angezeigt. Entferne das Häkchen bei denen, die du in den Menüs hinter den drei Punkten bei Beiträgen, Reels und Stories nicht willst.
+# context: Summary of Items in the three-dot menus under Feed naming the unticked items, which are joined with a comma (#697, #707)
+Left off the three-dot menus: %1$s.	Aus den Drei-Punkte-Menüs entfernt: %1$s.
+# context: Feed settings: a switch under Hold for 2x on feed videos that keeps a held feed video at 2x after the finger lifts (#552)
+Keep 2x after you let go	2x nach dem Loslassen beibehalten
+# context: Summary of Keep 2x after you let go, a switch under Hold for 2x on feed videos (#552)
+A feed video you hold for 2x keeps playing at 2x after you let go. Hold it again to go back to normal speed.	Ein Feed-Video, das du für 2x gedrückt hältst, läuft nach dem Loslassen mit 2x weiter. Halte es erneut gedrückt, um zur normalen Geschwindigkeit zurückzukehren.
+# context: Stories settings: title and dialog title of the list under Story ring size that picks how thick story rings are drawn (#528)
+Ring thickness	Ringstärke
+# context: Stories settings: the Ring thickness choice that keeps the thickness Instagram gives story rings (#528)
+Instagram's thickness	Stärke von Instagram
+# context: Stories settings: title and dialog title of the row under Ring color where a hex color is typed for the Custom ring color (#696)
+Custom ring color	Eigene Ringfarbe
+# context: Stories settings: dialog text of Custom ring color; Custom and Ring color are the names of the choice and the list above it (#696)
+A color as six hex digits, like #4A6B82. Saving it picks Custom under Ring color. Restart Instagram to see it.	Eine Farbe als sechs Hex-Ziffern, zum Beispiel #4A6B82. Beim Speichern wird unter Ringfarbe Eigene gewählt. Starte Instagram neu, um sie zu sehen.
+# context: Stories settings: summary of Custom ring color while no color is typed; Custom is the Ring color choice (#696)
+None yet. Custom keeps Instagram's colors until you type one.	Noch keine. Eigene behält die Farben von Instagram, bis du eine eingibst.
+# context: Stories settings: title and dialog title of the row under Custom ring color for the second color the custom ring fades into (#696)
+Custom ring end color	Endfarbe des eigenen Rings
+# context: Stories settings: dialog text of Custom ring end color (#696)
+A second color as six hex digits, like #FF8A00, that the ring fades into. Leave it empty for one solid color. Restart Instagram to see it.	Eine zweite Farbe als sechs Hex-Ziffern, zum Beispiel #FF8A00, in die der Ring übergeht. Lass das Feld leer für eine einzige Farbe. Starte Instagram neu, um sie zu sehen.
+# context: Stories settings: summary of Custom ring end color while it is empty (#696)
+None. The ring is one solid color.	Keine. Der Ring hat eine einzige Farbe.
+# context: Profiles: title of the list a tap on the Show it as a chip chip opens (#698)
+Friendship status	Freundschaftsstatus
+# context: Profiles: the answer after a line in that list, "Follows you: Yes" (#698)
+Yes	Ja
+No	Nein
+# context: Profiles: one line per friendship flag in that list, followed by ": Yes" or ": No". Close Friends, Favorites and Instants are Instagram's own names (#698)
+You follow them	Du folgst dem Konto
+Asked to follow you	Möchte dir folgen
+You asked to follow them	Du hast angefragt, dem Konto zu folgen
+On your Close Friends list	Auf deiner Liste Enge Freunde
+In your Favorites	In deinen Favoriten
+You restricted them	Du hast das Konto eingeschränkt
+You blocked them	Du hast das Konto blockiert
+You hide your story from them	Du verbirgst deine Story vor dem Konto
+You muted their posts	Du hast die Beiträge stummgeschaltet
+You muted their story	Du hast die Story stummgeschaltet
+You muted their notes	Du hast die Notizen stummgeschaltet
+You muted their notes on posts and reels	Du hast die Notizen zu Beiträgen und Reels stummgeschaltet
+You muted their reposts	Du hast die Reposts stummgeschaltet
+You muted their Instants	Du hast die Instants stummgeschaltet
+Their account is private	Das Konto ist privat
+You're subscribed to them	Du hast das Konto abonniert
+# context: Profiles: that list before Instagram has answered (#698)
+Instagram hasn't said anything about this account yet.	Instagram hat zu diesem Konto noch nichts gesagt.
+This profile hasn't loaded its own answer yet, so this is only what Instagram keeps on the account.	Dieses Profil hat seine eigene Antwort noch nicht geladen, daher steht hier nur, was Instagram zum Konto gespeichert hat.
+# context: Profiles: heading over the flags in that list whose meaning isn't plain, shown under their raw names (#698)
+Other flags	Weitere Flags
+Not sent for this profile	Für dieses Profil nicht gesendet
+# context: Profiles: switch under Keep profile history (#715)
+Save changed pictures to the gallery	Geänderte Bilder in der Galerie speichern
+When a profile you open has a new picture, puts the old picture and the new one in your gallery, each once. Needs Keep profile history.	Wenn ein Profil, das du öffnest, ein neues Bild hat, kommen das alte und das neue Bild in deine Galerie, jedes nur einmal. Braucht Profilverlauf führen.
+# context: Storage: slider under Clear the media cache that picks how big the saved photos and videos can get (#713)
+Cache size limit	Größenlimit für den Cache
+# context: Storage: the Cache size limit slider's value; %1$d is a number of megabytes
+%1$d MB	%1$d MB
+# context: Storage: second line under Clear saved copies now; %1$s is a size such as 312 MB
+Saved photos and videos take up %1$s now.	Gespeicherte Fotos und Videos belegen gerade %1$s.
+# context: Tab bar: switch under Keep the pill full size, for the liquid look's bubble under a held finger (#705)
+Glass lens under your finger	Glaslinse unter deinem Finger
+Hold a finger on the liquid pill's bubble, or slide it across the tabs, and the bubble swells and bends what's behind it harder, like glass under a fingertip. It eases back when you let go. The bend needs Blur behind the tab bar and Android 13 or newer. Restart Instagram after changing it.	Halte einen Finger auf die Blase der Liquid-Glass-Pille oder schiebe sie über die Tabs, dann wird die Blase größer und bricht stärker, was dahinter liegt, wie Glas unter einer Fingerspitze. Lässt du los, wird sie wieder normal. Die Brechung braucht Unschärfe hinter der Tab-Leiste und Android 13 oder neuer. Starte Instagram nach der Änderung neu.
 2x speed for videos in the feed	2x speed for videos in the feed
 Adds a shortcut to your saved posts in the Explore tab.	Adds a shortcut to your saved posts in the Explore tab.
 Adds a speed choice to the menu on a reel.	Adds a speed choice to the menu on a reel.

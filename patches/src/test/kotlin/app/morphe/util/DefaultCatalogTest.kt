@@ -18,6 +18,7 @@ import app.morphe.patches.instagram.feed.confirm.askBeforeRefreshPatch
 import app.morphe.patches.instagram.profile.follow.askBeforeFollowPatch
 import app.morphe.patches.instagram.profile.follow.sentFollowRequestsPatch
 import app.morphe.patches.instagram.direct.instants.hideInstantsPatch
+import app.morphe.patches.instagram.direct.presence.keepOnlineHistoryPatch
 import app.morphe.patches.instagram.direct.presence.showLastActivePatch
 import app.morphe.patches.instagram.direct.presence.shorterActiveNowPatch
 import app.morphe.patches.instagram.direct.lock.lockMessagesPatch
@@ -39,6 +40,7 @@ import app.morphe.patches.instagram.direct.suggested.hideInboxSuggestionsPatch
 import app.morphe.patches.instagram.direct.typing.hideTypingPatch
 import app.morphe.patches.instagram.download.reel.downloadReelPatch
 import app.morphe.patches.instagram.download.story.downloadStoryPatch
+import app.morphe.patches.instagram.download.video.askForVp9Patch
 import app.morphe.patches.instagram.download.video.downloadVideoPatch
 import app.morphe.patches.instagram.explore.exploreMenuPatch
 import app.morphe.patches.instagram.explore.hideExploreGridPatch
@@ -125,6 +127,7 @@ import app.morphe.patches.instagram.reels.origin.findReelOriginPatch
 import app.morphe.patches.instagram.reels.partnership.hidePaidPartnershipReelsPatch
 import app.morphe.patches.instagram.reels.live.hideLiveReelsPatch
 import app.morphe.patches.instagram.feed.edits.hideEditsLabelPatch
+import app.morphe.patches.instagram.feed.menuitems.menuItemsPatch
 import app.morphe.patches.instagram.feed.savemenu.saveInPostMenuPatch
 import app.morphe.patches.instagram.feed.watchagain.watchAgainInFeedPatch
 import app.morphe.patches.instagram.reels.scrolling.stopReelsScrollingPatch
@@ -225,6 +228,7 @@ class DefaultCatalogTest {
         showAllRecentSearchesPatch,
         dontSendReelWatchHistoryPatch,
         downloadVideoPatch,
+        askForVp9Patch,
         downloadVoiceMessagesPatch,
         emojiStylePatch,
         findReelOriginPatch,
@@ -294,6 +298,7 @@ class DefaultCatalogTest {
         saveProfilePicturePatch,
         showHiddenLikeCountsPatch,
         showLastActivePatch,
+        keepOnlineHistoryPatch,
         shorterActiveNowPatch,
         showPostTimePatch,
         showReelTimePatch,
@@ -356,6 +361,7 @@ class DefaultCatalogTest {
         splitNotesRowPatch,
         hideEditsLabelPatch,
         saveInPostMenuPatch,
+        menuItemsPatch,
         hideLiveReelsPatch,
         watchAgainInFeedPatch,
         reelProfileTabBarPatch,
@@ -397,7 +403,7 @@ class DefaultCatalogTest {
     }
 
     @Test fun initiallyNeutralControlsAreAvailableInSimpleMode() {
-        assertEquals(160, neutral.size)
+        assertEquals(163, neutral.size)
         neutral.forEach { assertEquals(it.name, true, it.default) }
     }
 
@@ -409,7 +415,7 @@ class DefaultCatalogTest {
     @Test fun generatedCatalogMatchesAllReviewedDeclarations() {
         val all = prior + neutral + optIn
         val declarations = all.associate { it.name!! to it.default }
-        assertEquals("every named patch needs one reviewed decision", 182, all.size)
+        assertEquals("every named patch needs one reviewed decision", 185, all.size)
         assertEquals("the review must not name a patch twice", all.size, declarations.size)
         val file = File("patches-list.json").takeIf(File::isFile) ?: File("../patches-list.json")
         val rows = JsonParser.parseString(file.readText()).asJsonObject.getAsJsonArray("patches")

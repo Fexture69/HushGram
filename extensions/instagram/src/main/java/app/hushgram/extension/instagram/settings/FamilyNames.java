@@ -133,6 +133,7 @@ public final class FamilyNames {
     public static final String FEED_FOLLOW = "Hide Follow on feed posts";
     public static final String EDITS_LABEL = "Hide Made with Edits";
     public static final String FEED_SAVE = "Save in the post menu";
+    public static final String MENU_ITEMS = "Three-dot menu items";
     public static final String WATCH_AGAIN = "Watch again in the feed";
     public static final String ACTIVITY_BUBBLES = "Hide activity bubbles";
     public static final String HIDE_CAPTIONS = "Hide captions";
@@ -201,4 +202,6 @@ public final class FamilyNames {
     public static final String SENT_FOLLOW_REQUESTS = "Sent follow requests";
     public static final String SAVE_TRAY = "Skip the collections tray";
     public static final String LIVE_SEEN = "View live anonymously";
+    public static final String VP9_VIDEO = "Ask for VP9 instead of AV1";
+    public static final String ONLINE_HISTORY = "Keep online history";
 }

@@ -45,6 +45,7 @@ import app.hushgram.extension.shared.L10n;
 import app.hushgram.extension.shared.SettingsContextRule;
 import app.hushgram.extension.shared.Utils;
 import app.hushgram.extension.shared.settings.PauseForTests;
+import app.hushgram.extension.shared.settings.Setting;
 
 import org.junit.After;
 import org.junit.Rule;
@@ -559,6 +560,12 @@ public class DownloadSettingsTest {
             assertEquals("Saves videos as .mkv files instead of .mp4, for galleries that show no thumbnail for VP9 "
                     + "or AV1 videos. Nothing is re-encoded. A video Instagram sends as one file stays .mp4.",
                     String.valueOf(mkvRow.getSummary()));
+
+            // A settings backup carries all three, like the compatible and convert switches above them.
+            for (Setting<?> kept : Arrays.<Setting<?>>asList(Settings.DOWNLOAD_COMPATIBLE, Settings.DOWNLOAD_CONVERT,
+                    Settings.DOWNLOAD_NO_AV1, Settings.DOWNLOAD_NO_HDR, Settings.SAVE_VIDEOS_AS_MKV)) {
+                assertTrue(kept.key + " left out of a settings backup", ConfigurationBackup.eligible().containsKey(kept.key));
+            }
         }
 
         PatchFamily.inBuildForTests = EnumSet.of(PatchFamily.HIDE_ADS);
@@ -574,6 +581,35 @@ public class DownloadSettingsTest {
                     -1, indexOfKey(rows, Settings.DOWNLOAD_NO_HDR.key));
             assertEquals("an MKV row with no download in the build",
                     -1, indexOfKey(rows, Settings.SAVE_VIDEOS_AS_MKV.key));
+        }
+    }
+
+    /**
+     * With Ask for VP9 instead of AV1 in the build, its switch sits between Never save AV1 video and
+     * Never save HDR video, starts off and goes into a settings backup. Without it, no row (#546).
+     */
+    @Test
+    public void theVp9SwitchSitsUnderTheAv1One() {
+        PatchFamily.inBuildForTests = EnumSet.of(PatchFamily.REEL_DOWNLOAD, PatchFamily.VP9_VIDEO);
+        try (ActivityController<Activity> controller = Robolectric.buildActivity(Activity.class).setup()) {
+            List<Preference> rows = rowsOf(pageIn(controller));
+            int noAv1 = indexOfKey(rows, Settings.DOWNLOAD_NO_AV1.key);
+            int vp9 = indexOfKey(rows, Settings.ASK_FOR_VP9.key);
+            assertEquals("the VP9 switch isn't right under the AV1 one", noAv1 + 1, vp9);
+            assertEquals("the HDR switch isn't right under the VP9 one", vp9 + 1, indexOfKey(rows, Settings.DOWNLOAD_NO_HDR.key));
+            Preference row = rows.get(vp9);
+            assertTrue(row instanceof SwitchPreference);
+            assertFalse(((SwitchPreference) row).isChecked());
+            assertEquals("Ask for VP9 instead of AV1", String.valueOf(row.getTitle()));
+            assertEquals("Tells Instagram your phone has no AV1 decoder, so reels and stories come as VP9 or H.264, "
+                    + "both to watch and to save. Takes a restart.", String.valueOf(row.getSummary()));
+            assertTrue(ConfigurationBackup.eligible().containsKey(Settings.ASK_FOR_VP9.key));
+        }
+
+        PatchFamily.inBuildForTests = EnumSet.of(PatchFamily.REEL_DOWNLOAD);
+        try (ActivityController<Activity> controller = Robolectric.buildActivity(Activity.class).setup()) {
+            assertEquals("a VP9 row without its patch", -1, indexOfKey(rowsOf(pageIn(controller)), Settings.ASK_FOR_VP9.key));
+            assertFalse(ConfigurationBackup.eligible().containsKey(Settings.ASK_FOR_VP9.key));
         }
     }
 
@@ -1092,18 +1128,30 @@ public class DownloadSettingsTest {
             PreferenceGroup downloads = section(pageIn(controller).getPreferenceScreen(), "Downloads");
             int byPost = -1;
             int metadata = -1;
+            int scrub = -1;
             int skip = -1;
             int clear = -1;
             for (int i = 0; i < downloads.getPreferenceCount(); i++) {
                 String key = downloads.getPreference(i).getKey();
                 if (Settings.SAVE_NAME_BY_POST.key.equals(key)) byPost = i;
                 if (Settings.SAVE_PHOTO_METADATA.key.equals(key)) metadata = i;
+                if (Settings.SAVE_PHOTO_SCRUB.key.equals(key)) scrub = i;
                 if (Settings.DOWNLOAD_SKIP_SAVED.key.equals(key)) skip = i;
                 if (HushgramPreferenceFragment.CLEAR_DOWNLOAD_HISTORY.equals(key)) clear = i;
             }
             assertEquals(byPost + 1, metadata);
-            assertEquals(metadata + 1, skip);
+            assertEquals(metadata + 1, scrub);
+            assertEquals(scrub + 1, skip);
             assertEquals(skip + 1, clear);
+
+            // Remove hidden data from saved photos (#699) sits right under Add the source, off at first.
+            Preference scrubRow = downloads.getPreference(scrub);
+            assertTrue(scrubRow instanceof SwitchPreference);
+            assertEquals("Remove hidden data from saved photos", String.valueOf(scrubRow.getTitle()));
+            assertTrue(String.valueOf(scrubRow.getSummary()), String.valueOf(scrubRow.getSummary()).contains("FBMD"));
+            assertFalse(((SwitchPreference) scrubRow).isChecked());
+            assertTrue(ConfigurationBackup.eligible().containsKey(Settings.SAVE_PHOTO_SCRUB.key));
+            assertTrue(ConfigurationBackup.eligible().containsKey(Settings.SAVE_PHOTO_METADATA.key));
 
             Preference row = downloads.getPreference(skip);
             assertTrue(row instanceof SwitchPreference);

@@ -16,6 +16,7 @@ import app.hushgram.extension.instagram.download.FileNameTemplate;
 import app.hushgram.extension.instagram.download.HoldFingers;
 import app.hushgram.extension.instagram.download.HoldTime;
 import app.hushgram.extension.instagram.download.SaveFolder;
+import app.hushgram.extension.instagram.feed.FeedSeekShape;
 import app.hushgram.extension.instagram.feed.OverlayLook;
 import app.hushgram.extension.instagram.feed.SeekShape;
 import app.hushgram.extension.instagram.media.PlaybackQuality;
@@ -26,6 +27,7 @@ import app.hushgram.extension.instagram.stories.StoryMentionsLook;
 import app.hushgram.extension.instagram.stories.StorySeekBarPosition;
 import app.hushgram.extension.instagram.stories.StoryRingColor;
 import app.hushgram.extension.instagram.stories.StoryRingSize;
+import app.hushgram.extension.instagram.stories.StoryRingThickness;
 import app.hushgram.extension.instagram.stories.StoryTimeMode;
 import app.hushgram.extension.instagram.stories.TrayBadge;
 import app.hushgram.extension.shared.settings.BaseSettings;
@@ -515,11 +517,28 @@ public class Settings extends BaseSettings {
             new BooleanSetting("hushgram_tap_feed_video_to_pause", FALSE);
 
     /**
+     * A tap on a feed video, or on the end screen a finished feed reel shows, no longer opens it in Reels
+     * (#706, {@link app.hushgram.extension.instagram.feed.FeedTapPause}). With {@link #TAP_FEED_VIDEO_TO_PAUSE}
+     * on, a tap on the playing video still pauses it, and the end screen's buttons still go where they say.
+     * Off to start.
+     */
+    public static final BooleanSetting FEED_TAPS_STAY_IN_FEED =
+            new BooleanSetting("hushgram_feed_taps_stay_in_feed", FALSE);
+
+    /**
      * A press held on a video in a feed plays it at 2x until the finger lifts, with Instagram's own
      * speed-up ({@link app.hushgram.extension.instagram.feed.FeedHoldSpeed}). Off to start.
      */
     public static final BooleanSetting HOLD_FEED_VIDEO_FAST =
             new BooleanSetting("hushgram_hold_feed_video_fast", FALSE);
+
+    /**
+     * A feed video held for 2x under {@link #HOLD_FEED_VIDEO_FAST} stays at 2x when the finger lifts,
+     * until the next hold's lift ({@link app.hushgram.extension.instagram.feed.FeedHoldSpeed#lifted}).
+     * Read on every lift, so it needs no restart. Off to start (#552).
+     */
+    public static final BooleanSetting HOLD_FEED_VIDEO_KEEP =
+            new BooleanSetting("hushgram_hold_feed_video_keep", FALSE, parent(HOLD_FEED_VIDEO_FAST));
 
     /**
      * A seek bar along the bottom of the video playing in a feed, which moves the video to where a
@@ -553,6 +572,20 @@ public class Settings extends BaseSettings {
             new BooleanSetting("hushgram_feed_seek_bar_on_edge", FALSE, parentsAny(FEED_SEEK_BAR, FEED_SEEK_BUTTON));
 
     /**
+     * The time played and the video's length over the middle of the seek bar on feed videos, "0:12 / 0:45"
+     * (#711, {@link app.hushgram.extension.instagram.feed.FeedSeekBar}). Read as the bar updates. Off to start.
+     */
+    public static final BooleanSetting FEED_SEEK_TIME =
+            new BooleanSetting("hushgram_feed_seek_bar_time", FALSE, parentsAny(FEED_SEEK_BAR, FEED_SEEK_BUTTON));
+
+    /**
+     * The time over the feed seek bar counts down what's left, "-0:33 / 0:45" (#711). A tap on the time
+     * flips it. Off to start.
+     */
+    public static final BooleanSetting FEED_SEEK_TIME_LEFT =
+            new BooleanSetting("hushgram_feed_seek_bar_time_left", FALSE, parent(FEED_SEEK_TIME));
+
+    /**
      * A double tap on the left or right third of the video playing in a feed moves it back or ahead
      * {@link #FEED_DOUBLE_TAP_SKIP_SECONDS} instead of liking the post (#562,
      * {@link app.hushgram.extension.instagram.feed.FeedDoubleTapSkip}). Off to start.
@@ -567,6 +600,13 @@ public class Settings extends BaseSettings {
     public static final IntegerSetting FEED_DOUBLE_TAP_SKIP_SECONDS =
             new IntegerSetting("hushgram_feed_double_tap_skip_seconds", 10, false, parent(FEED_DOUBLE_TAP_SKIP))
                     .withRange(5, 30);
+
+    /**
+     * Under {@link #FEED_DOUBLE_TAP_SKIP}: a pair of arrows flashes on the side a double tap skipped to,
+     * with the seconds under them. On to start, off keeps the skip without the flash (#562).
+     */
+    public static final BooleanSetting FEED_SKIP_ARROWS =
+            new BooleanSetting("hushgram_feed_double_tap_skip_arrows", TRUE, parent(FEED_DOUBLE_TAP_SKIP));
 
     /**
      * Home moves on to the next post by itself: a video post when its video starts over or ends, any
@@ -1454,8 +1494,9 @@ public class Settings extends BaseSettings {
     /**
      * The rings in the stories row at the top of Home are drawn at the size in
      * {@link #STORY_RING_SCALE}, and the ring of a story that hasn't been watched in the color in
-     * {@link #STORY_RING_COLOR} ({@link app.hushgram.extension.instagram.stories.StoryRing}). The
-     * switch starts on, and both choices start as Instagram's own, so nothing changes until one is
+     * {@link #STORY_RING_COLOR} ({@link app.hushgram.extension.instagram.stories.StoryRing}), and
+     * story rings as thick as {@link #STORY_RING_THICKNESS} says. The switch starts on, and every
+     * choice starts as Instagram's own, so nothing changes until one is
      * picked. Nothing Instagram stores is written, so off or paused, the rings are Instagram's
      * again once Home is built anew.
      */
@@ -1477,6 +1518,36 @@ public class Settings extends BaseSettings {
      */
     public static final EnumSetting<StoryRingColor> STORY_RING_COLOR =
             new EnumSetting<>("hushgram_story_ring_color", StoryRingColor.INSTAGRAM, true, parent(STORY_RING));
+
+    /**
+     * While {@link #STORY_RING} is on, the ring around a profile picture is drawn only in the stories
+     * row at the top of Home, and nowhere else: a post's header, comments, reels, profiles (#719,
+     * {@link app.hushgram.extension.instagram.stories.StoryRing#hides}). The pictures stay. Read as
+     * each ring draws, so it needs no restart. Off to start.
+     */
+    public static final BooleanSetting HIDE_OTHER_STORY_RINGS =
+            new BooleanSetting("hushgram_hide_other_story_rings", FALSE, parent(STORY_RING));
+
+    /**
+     * The color typed for Custom under {@link #STORY_RING_COLOR} (#696), {@code #RRGGBB}. Empty to
+     * start, which leaves Custom on Instagram's colors. A change shows after a restart.
+     */
+    public static final StringSetting STORY_RING_CUSTOM =
+            new StringSetting("hushgram_story_ring_custom", "", true, parent(STORY_RING));
+
+    /**
+     * The color Custom's ring fades into from {@link #STORY_RING_CUSTOM} (#696), {@code #RRGGBB}.
+     * Empty to start, which draws the ring in the one color. A change shows after a restart.
+     */
+    public static final StringSetting STORY_RING_CUSTOM_END =
+            new StringSetting("hushgram_story_ring_custom_end", "", true, parent(STORY_RING));
+
+    /**
+     * How thick story rings are drawn while {@link #STORY_RING} is on, as a share of Instagram's
+     * width (#528). It starts as Instagram's own, and like the color it is a choice of its own.
+     */
+    public static final EnumSetting<StoryRingThickness> STORY_RING_THICKNESS =
+            new EnumSetting<>("hushgram_story_ring_thickness", StoryRingThickness.INSTAGRAM, true, parent(STORY_RING));
 
     /**
      * The progress bar along the top of a story is drawn {@link #STORY_BAR_THICKNESS} times as thick
@@ -1932,6 +2003,16 @@ public class Settings extends BaseSettings {
             new BooleanSetting("hushgram_glass_tab_bar_keep_size", FALSE, true, parent(GLASS_TAB_BAR_LIQUID));
 
     /**
+     * Under {@link #GLASS_TAB_BAR_LIQUID}: a finger held on the bubble, or sliding it across the tabs, swells it
+     * and makes its lens bend what's behind it harder, the way glass does under a fingertip (#705). It eases back
+     * once the finger lifts. The lens needs Blur behind the tab bar and Android 13 or newer, and without them the
+     * bubble only swells ({@link app.hushgram.extension.instagram.misc.GlassTabBar}). Read as the bar is built,
+     * so a change asks for a restart. Off to start.
+     */
+    public static final BooleanSetting GLASS_TAB_BAR_HOLD_LENS =
+            new BooleanSetting("hushgram_glass_tab_bar_hold_lens", FALSE, true, parent(GLASS_TAB_BAR_LIQUID));
+
+    /**
      * With {@link #GLASS_TAB_BAR_LIQUID} off: scrolling a list down makes the standard pill smaller, and
      * scrolling up or changing tab brings it back to full size (#638). Hide the tab bar as you scroll takes
      * over when it's on, and the choice rests while the liquid look is on. Read as the bar is built, so a
@@ -1939,6 +2020,23 @@ public class Settings extends BaseSettings {
      */
     public static final BooleanSetting GLASS_TAB_BAR_SHRINK_ON_SCROLL =
             new BooleanSetting("hushgram_glass_tab_bar_shrink_on_scroll", FALSE, true, new Setting.Availability() {
+                @Override public boolean isAvailable() {
+                    return GLASS_TAB_BAR.savedValue() && !GLASS_TAB_BAR_LIQUID.savedValue();
+                }
+
+                @Override public List<Setting<?>> getParentSettings() {
+                    return Collections.singletonList(GLASS_TAB_BAR);
+                }
+            });
+
+    /**
+     * With {@link #GLASS_TAB_BAR_LIQUID} off: the Material look (#720). The pill is drawn the way Material 3
+     * Expressive's floating bars are, solid in the phone's own colors with fully round ends and a round marker
+     * on the tab you're on, and no blur, sheen or rim ({@link app.hushgram.extension.instagram.misc.GlassTabBar#materialColors}).
+     * Read as the bar is built, so a change asks for a restart. Off to start.
+     */
+    public static final BooleanSetting GLASS_TAB_BAR_MATERIAL =
+            new BooleanSetting("hushgram_glass_tab_bar_material", FALSE, true, new Setting.Availability() {
                 @Override public boolean isAvailable() {
                     return GLASS_TAB_BAR.savedValue() && !GLASS_TAB_BAR_LIQUID.savedValue();
                 }
@@ -2342,11 +2440,20 @@ public class Settings extends BaseSettings {
             new StringSetting("hushgram_muted_notification_channels", "");
 
     /**
-     * Each time Instagram goes to the background with more than 500 MB in its cache folders, they're
-     * emptied ({@link app.hushgram.extension.instagram.misc.MediaCache}). Off to start.
+     * Each time Instagram goes to the background with more than {@link #MEDIA_CACHE_LIMIT_MB} in its
+     * cache folders, they're emptied ({@link app.hushgram.extension.instagram.misc.MediaCache}). Off
+     * to start.
      */
     public static final BooleanSetting CLEAR_MEDIA_CACHE =
             new BooleanSetting("hushgram_clear_media_cache", FALSE);
+
+    /**
+     * How many megabytes Instagram's saved photos and videos may take before Clear the media cache
+     * empties them, from a slider under it (#713). 500, the size it always had, to start.
+     */
+    public static final IntegerSetting MEDIA_CACHE_LIMIT_MB =
+            new IntegerSetting("hushgram_media_cache_limit_mb", 500, false, parent(CLEAR_MEDIA_CACHE))
+                    .withRange(100, 4000);
 
     /**
      * Follows you or Doesn't follow you beside the name on someone's profile
@@ -2502,7 +2609,7 @@ public class Settings extends BaseSettings {
 
     /**
      * The tabs Instagram leaves off other people's profiles, as Instagram's tab keys with commas between ({@link app.hushgram.extension.instagram.profile.ProfileTabs}):
-     * any of profile_clips, profile_reposts and profile_tagged_media_photos_of_you. Nothing named is the start, so every tab shows. The grid is
+     * any of profile_fan_club_grid (Subscriptions, #721), profile_clips, profile_reposts and profile_tagged_media_photos_of_you. Nothing named is the start, so every tab shows. The grid is
      * never offered. Read each time Instagram builds a profile's tabs, so it shows on the next profile opened. Before #296 it covered your own
      * profile too, so {@link #HIDDEN_OWN_PROFILE_TABS} follows it until that's saved.
      */
@@ -2980,6 +3087,16 @@ public class Settings extends BaseSettings {
             new BooleanSetting("hushgram_hide_feed_like_button", FALSE);
 
     /**
+     * The items left out of the menus behind the three dots on posts, reels and stories
+     * ({@link app.hushgram.extension.instagram.feed.MenuItems}, #697, #707), with commas between: any
+     * of REPORT, MUTE, UNFOLLOW, NOT_INTERESTED, INTERESTED, WHY, PLAYBACK_SPEED and PLAYBACK. Nothing
+     * named is the start, so every item shows. Read each time a menu is built, so a change shows the
+     * next time one opens. Stories only have Report and Mute to leave out.
+     */
+    public static final StringSetting HIDDEN_MENU_ITEMS =
+            new StringSetting("hushgram_hidden_menu_items", "");
+
+    /**
      * "Watch again" on a feed reel's end card replays the reel in the feed instead of opening Reels
      * (#568, {@link app.hushgram.extension.instagram.feed.WatchAgain}). Read as each end card is set
      * up, so it needs no restart. Off to start.
@@ -3083,9 +3200,10 @@ public class Settings extends BaseSettings {
             new BooleanSetting("hushgram_hide_reel_comment_bar_everywhere", FALSE);
 
     /**
-     * Leaves the room of a hidden comment bar empty under a reel opened from a post or a profile, so
-     * the reel, its buttons and the seek bar stay where they'd be with the bar (#523). The Reels tab's
-     * own bar keeps no room. Off to start.
+     * Leaves the room of a hidden comment bar empty under a reel outside the Reels tab, from Explore,
+     * a post or a profile, so the reel, its buttons and the seek bar stay where they'd be with the bar
+     * (#523). The room shows as a black band, and its row says so, so someone who sees the band can
+     * find it by searching for black (#680). The Reels tab's own bar keeps no room. Off to start.
      */
     public static final BooleanSetting KEEP_REEL_COMMENT_BAR_SPACE =
             new BooleanSetting("hushgram_keep_reel_comment_bar_space", FALSE,
@@ -3179,6 +3297,22 @@ public class Settings extends BaseSettings {
      */
     public static final BooleanSetting HIDE_REEL_COMMENT_BUTTON =
             new BooleanSetting("hushgram_hide_reel_comment_button", FALSE);
+
+    /**
+     * The number under each button in the right-hand column of a reel, one switch per button, with
+     * the button itself kept. The Like, Comment and Save button switches take their count too. Off to
+     * start (#719).
+     */
+    public static final BooleanSetting HIDE_REEL_LIKE_COUNT =
+            new BooleanSetting("hushgram_hide_reel_like_count", FALSE);
+    public static final BooleanSetting HIDE_REEL_COMMENT_COUNT =
+            new BooleanSetting("hushgram_hide_reel_comment_count", FALSE);
+    public static final BooleanSetting HIDE_REEL_REPOST_COUNT =
+            new BooleanSetting("hushgram_hide_reel_repost_count", FALSE);
+    public static final BooleanSetting HIDE_REEL_SHARE_COUNT =
+            new BooleanSetting("hushgram_hide_reel_share_count", FALSE);
+    public static final BooleanSetting HIDE_REEL_SAVE_COUNT =
+            new BooleanSetting("hushgram_hide_reel_save_count", FALSE);
 
     /**
      * The big pause icon a paused reel shows in its middle, and the sound button beside it. The
@@ -3641,6 +3775,14 @@ public class Settings extends BaseSettings {
      */
     public static final EnumSetting<SeekShape> SEEK_BAR_SHAPE =
             new EnumSetting<>("hushgram_seek_bar_shape", SeekShape.STANDARD);
+
+    /**
+     * The shape of the seek bar on feed videos alone (#567): {@link FeedSeekShape#SAME} follows
+     * {@link #SEEK_BAR_SHAPE}, and any other choice gives feed videos their own, so the feed can draw
+     * the thin line while reels keep the standard bar. Read as the bar updates.
+     */
+    public static final EnumSetting<FeedSeekShape> FEED_SEEK_SHAPE =
+            new EnumSetting<>("hushgram_feed_seek_bar_shape", FeedSeekShape.SAME, parentsAny(FEED_SEEK_BAR, FEED_SEEK_BUTTON));
 
     /**
      * A card above the finger while a seek bar on a feed video, story or reel is dragged (#567, #592):
@@ -4293,6 +4435,14 @@ public class Settings extends BaseSettings {
             new BooleanSetting("hushgram_save_photo_metadata", FALSE);
 
     /**
+     * A saved photo loses its hidden data right after the save (#699): Meta's FBMD tag in the IPTC
+     * block, any EXIF or XMP, and comments. The picture and its color profile stay as they were,
+     * and the source tags above still go in after. JPEG only. Starts off.
+     */
+    public static final BooleanSetting SAVE_PHOTO_SCRUB =
+            new BooleanSetting("hushgram_save_photo_scrub", FALSE);
+
+    /**
      * The quality a video save asks for: the best the player streams, a ceiling, or the smallest
      * file. Every video save reads it when it starts, and one that finds nothing at or under a
      * ceiling takes the nearest above it. Photos always save whole. Like the folder, it isn't a
@@ -4350,6 +4500,15 @@ public class Settings extends BaseSettings {
             new BooleanSetting("hushgram_download_no_av1", FALSE);
 
     /**
+     * Instagram's device status says the phone has no AV1 hardware decoder
+     * ({@link app.hushgram.extension.instagram.download.Vp9Video}), so reels and stories come as
+     * VP9 or H.264, to watch and to save (#546). The status is built once a run, so a change takes a
+     * restart. Off to start.
+     */
+    public static final BooleanSetting ASK_FOR_VP9 =
+            new BooleanSetting("hushgram_ask_for_vp9", FALSE, true);
+
+    /**
      * Passes HDR tracks over (#352), 10-bit ones included: a video Instagram has at full size only
      * in HDR is saved at its largest standard range size, so an app that plays HDR as SDR with a
      * yellow or green cast, Messenger among them, shows the save as the reel looked. A cover frame
@@ -4395,6 +4554,23 @@ public class Settings extends BaseSettings {
      */
     public static final BooleanSetting PROFILE_HISTORY =
             new BooleanSetting("hushgram_profile_history", FALSE);
+
+    /**
+     * Notes, only on this phone, when people in your messages come online and go offline (#590),
+     * from the active status Instagram already receives for its Active now dots. Nothing is asked
+     * for or sent. The list stays out of settings backups and the diagnostic report, and Clear
+     * online history forgets it. Starts off.
+     */
+    public static final BooleanSetting ONLINE_HISTORY =
+            new BooleanSetting("hushgram_online_history", FALSE);
+
+    /**
+     * With Keep profile history on, a profile whose picture changed since the last visit puts the
+     * old picture's kept copy and the new one in the gallery, each once, named like a Save profile
+     * picture (#715). Only pictures of profiles you open, and only when they change. Starts off.
+     */
+    public static final BooleanSetting PROFILE_HISTORY_SAVE_PICTURES =
+            new BooleanSetting("hushgram_profile_history_save_pictures", FALSE, parent(PROFILE_HISTORY));
 
     /**
      * The name a saved video gets: {date}, {video_id}, {owner} and {posted} fill in per save, the

@@ -1481,6 +1481,36 @@ public final class GlassTabBar {
         return Math.min(Math.round(dp * density), Math.max(0f, heightPx / 2f));
     }
 
+    /** Material 3's baseline surface container and secondary container, dark then light, for phones without Material You (#720). */
+    static final int[] MATERIAL_DARK = {0xff211f26, 0xff4a4458};
+    static final int[] MATERIAL_LIGHT = {0xfff3edf7, 0xffe8def8};
+
+    /** Whether the Material look is on (#720): its switch, which rests while the liquid look is on. */
+    public static boolean material() {
+        return Settings.GLASS_TAB_BAR_MATERIAL.isAvailable() && Settings.GLASS_TAB_BAR_MATERIAL.get();
+    }
+
+    /**
+     * The Material look's colors (#720): the bar's, Material 3's surface container, then the marker's, its
+     * secondary container, both from the phone's Material You palette. Android 14 and newer name the two
+     * tokens; Android 12 and 13 get them from the tones they're made of (neutral 12 and secondary 30 when
+     * [dark], neutral 95 and secondary 90 when light); older phones get Material 3's baseline.
+     */
+    public static int[] materialColors(Context context, boolean dark) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
+            return new int[] {
+                    context.getColor(dark ? android.R.color.system_surface_container_dark : android.R.color.system_surface_container_light),
+                    context.getColor(dark ? android.R.color.system_secondary_container_dark : android.R.color.system_secondary_container_light)};
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            int surface = dark
+                    ? blend(context.getColor(android.R.color.system_neutral1_900), context.getColor(android.R.color.system_neutral1_800), 0.2f)
+                    : context.getColor(android.R.color.system_neutral1_50);
+            return new int[] {surface, context.getColor(dark ? android.R.color.system_accent2_700 : android.R.color.system_accent2_100)};
+        }
+        return (dark ? MATERIAL_DARK : MATERIAL_LIGHT).clone();
+    }
+
     /** The selected tab's capsule: a quarter of white on dark glass, a sixth of grey on light. */
     static int highlight(int base) {
         return isDark(base) ? 0x40ffffff : 0x2a787880;
@@ -1717,6 +1747,10 @@ public final class GlassTabBar {
         private boolean stripWatched;
         /** Where a sliding finger holds the capsule's middle, in the bar's pixels, or NaN while none does. */
         private float dragX = Float.NaN;
+        /** Glass lens under your finger (#705): the liquid look's bubble swells and bends harder under a held finger. */
+        private final boolean holdLens;
+        /** Where a finger held on the pill is, in the bar's pixels, or NaN while none is (#705). */
+        private float holdX = Float.NaN;
         private final RectF touchArea = new RectF();
         /** Whether this slide has had its tick: one tick for a change of tab, however many tabs the capsule crosses. */
         private boolean tickedThisSlide;
@@ -1794,6 +1828,8 @@ public final class GlassTabBar {
         private final Rect reelsRect = new Rect();
         /** The liquid look (#65): a round pill and highlight, Search in a circle of its own, and the compact row on a scroll. */
         private final boolean liquid;
+        /** The Material look (#720): a solid pill in the phone's colors, fully round, with a round marker and no glass. */
+        private final boolean material;
         /** Whether the pill's rim bends what's behind it (#369), the liquid pill's or the standard one's (#391). */
         private final boolean refract;
         /** How far the liquid bar has shrunk to its compact row: 0 is the whole bar, 1 the tab you're on and Search. */
@@ -1820,7 +1856,9 @@ public final class GlassTabBar {
         Glass(ViewGroup bar) {
             this.bar = bar;
             this.density = bar.getResources().getDisplayMetrics().density;
-            this.blurWanted = Settings.GLASS_TAB_BAR_BLUR.get() && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S;
+            this.material = material();
+            // The Material look is solid, so there's nothing for a blur to show through (#720).
+            this.blurWanted = !material && Settings.GLASS_TAB_BAR_BLUR.get() && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S;
             this.floating = Settings.GLASS_TAB_BAR_FLOAT.get();
             this.haptics = Settings.GLASS_TAB_BAR_HAPTICS.get();
             this.hapticStyle = Settings.GLASS_TAB_BAR_HAPTIC_STYLE.get();
@@ -1829,6 +1867,7 @@ public final class GlassTabBar {
             this.lift = liftPx(Settings.GLASS_TAB_BAR_LIFT.get(), floating, density);
             this.room = lift;
             this.liquid = Settings.GLASS_TAB_BAR_LIQUID.get();
+            this.holdLens = liquid && Settings.GLASS_TAB_BAR_HOLD_LENS.get();
             this.refract = Settings.GLASS_TAB_BAR_REFRACT.get();
             boolean hideOnScroll = Settings.GLASS_TAB_BAR_HIDE_ON_SCROLL.get();
             // The liquid look shrinks the bar as a list scrolls down, unless a scroll is to take it away altogether
@@ -1877,11 +1916,12 @@ public final class GlassTabBar {
         }
 
         /**
-         * With Slide across the tabs on, [window]'s touches go through the slide from now on. With it off, only
-         * once a reel's seek bar strip turns up ({@link #watchTheStrip}), so a screen without one stays as it was.
+         * With Slide across the tabs or Glass lens under your finger (#705) on, [window]'s touches go through the
+         * slide from now on. With both off, only once a reel's seek bar strip turns up ({@link #watchTheStrip}), so
+         * a screen without one stays as it was.
          */
         void watchSlides(Window window) {
-            if (!slide.slides()) {
+            if (!watchesEveryTouch()) {
                 stripWindow = new WeakReference<>(window);
                 return;
             }
@@ -1893,9 +1933,14 @@ public final class GlassTabBar {
             }
         }
 
+        /** Whether the slide sees every touch from the start: a finger on the pill slides, or a held one grows the lens (#705). */
+        private boolean watchesEveryTouch() {
+            return slide.slides() || holdLens;
+        }
+
         /** Has the window's touches go through the slide once a reel's strip shows, with Slide across the tabs off (#526). */
         private void watchTheStrip() {
-            if (stripWatched || slide.slides()) return;
+            if (stripWatched || watchesEveryTouch()) return;
             Window window = stripWindow == null ? null : stripWindow.get();
             if (window == null) return;
             stripWatched = true;
@@ -2117,6 +2162,12 @@ public final class GlassTabBar {
             dragX = x;
             // A slide is a touch like any other, so the wait to hide the bar on Reels starts over.
             if (scrollHide != null) scrollHide.arm();
+            bar.invalidate();
+        }
+
+        @Override public void hold(float x) {
+            if (!holdLens || (Float.isNaN(x) && Float.isNaN(holdX))) return;
+            holdX = x;
             bar.invalidate();
         }
 
@@ -2830,6 +2881,14 @@ public final class GlassTabBar {
             private long slideStart;
             /** The size the liquid look's bubble is drawn at now, and at when the slide it is in began (#289). */
             private float bubbleNow = 1f, bubbleFrom = 1f;
+            /**
+             * Glass lens under your finger (#705): how far the bubble has grown under a held finger, 0 to 1, whether
+             * a finger holds it, and when that last changed on the frame clock and from what amount.
+             */
+            private float holdNow;
+            private boolean held;
+            private long heldSince;
+            private float heldFrom;
             /** Whether the blurred backdrop was drawn into the pill this frame, which the bubble's lens needs. */
             private boolean blurShown;
             @Nullable private GlassLens lens;
@@ -2839,6 +2898,9 @@ public final class GlassTabBar {
             private final Paint bubbleRim = new Paint(Paint.ANTI_ALIAS_FLAG);
             private final Matrix bubbleMatrix = new Matrix();
             private int bubbleShade;
+            /** The Material look's bar and marker colors (#720), and whether they're the dark shade's. */
+            @Nullable private int[] materialColors;
+            private boolean materialDark;
             /** The tab the capsule's middle was over when it last ticked, or -1 before the first frame. */
             private int tickedTab = -1;
             private boolean reported;
@@ -2876,6 +2938,10 @@ public final class GlassTabBar {
                 if (!pillBounds(rect)) return;
                 if (liquidNow()) {
                     drawLiquid(canvas);
+                    return;
+                }
+                if (material) {
+                    drawMaterial(canvas);
                     return;
                 }
                 float radius = cornerPx(corners, false, rect.height(), density);
@@ -2949,6 +3015,33 @@ public final class GlassTabBar {
                     outline.inset(half, half);
                     canvas.drawOval(outline, stroke);
                 }
+            }
+
+            /**
+             * The Material look (#720): the pill solid in Material 3's surface container, its ends fully round and
+             * lifted on a soft shadow in either shade, with the marker on the tab you're on in the secondary
+             * container, as round. The opacity slider still scales the pill's fill.
+             */
+            private void drawMaterial(@NonNull Canvas canvas) {
+                boolean dark = isDark(base);
+                float radius = rect.height() / 2f;
+                underlay(canvas);
+                shadow(canvas, rect, radius);
+                int surface = materialPair(dark)[0];
+                fill.setColor((surface & 0x00ffffff) | (scaledAlpha(Color.alpha(surface), opacityScale()) << 24));
+                canvas.drawRoundRect(rect, radius, radius, fill);
+                drawCapsule(canvas, rect, Math.max(0f, radius - dp(HIGHLIGHT_INSET_DP)), 1f);
+            }
+
+            /** The Material look's two colors for the shade the bar is in, read again only when the shade changes. */
+            private int[] materialPair(boolean dark) {
+                int[] pair = materialColors;
+                if (pair == null || materialDark != dark) {
+                    pair = GlassTabBar.materialColors(bar.getContext(), dark);
+                    materialColors = pair;
+                    materialDark = dark;
+                }
+                return pair;
             }
 
             /**
@@ -3042,32 +3135,53 @@ public final class GlassTabBar {
                     capsule.set(nowLeft, within.top + inset, nowRight, within.bottom - inset);
                 }
                 tick((nowLeft + nowRight) / 2f);
-                int color = highlight(base);
+                // A finger held on the bubble, or sliding it, grows it into a stronger lens (#705).
+                boolean underFinger = bubble && !Float.isNaN(holdX)
+                        && (!Float.isNaN(dragX) || (holdX >= nowLeft && holdX <= nowRight));
+                holdNow = holdAt(now, underFinger);
+                int color = material ? materialPair(isDark(base))[1] : highlight(base);
                 if (share < 1f) color = (color & 0x00ffffff) | (scaledAlpha(Color.alpha(color), Math.max(0f, share)) << 24);
                 fill.setColor(color);
-                if (bubble && bubbleNow != 1f) {
-                    float swell = (bubbleNow - 1f) / 2f;
+                float size = bubbleNow * holdScale(holdNow);
+                if (bubble && size != 1f) {
+                    float swell = (size - 1f) / 2f;
                     capsule.inset(-capsule.width() * swell, -capsule.height() * swell);
-                    corner *= bubbleNow;
+                    corner *= size;
                 }
-                if (bubble) paintLens(canvas, corner);
+                if (bubble) paintLens(canvas, corner, holdNow);
                 fill.setColor(color);
                 if (share > 0f) canvas.drawRoundRect(capsule, corner, corner, fill);
                 if (bubble) paintBubble(canvas, corner, share);
-                if (elapsed < (bubble ? SPRING_MS : SLIDE_MS)) invalidateSelf();
+                if (elapsed < (bubble ? SPRING_MS : SLIDE_MS) || (held ? holdNow < 1f : holdNow > 0f)) invalidateSelf();
+            }
+
+            /**
+             * How far the bubble has grown under a finger at [now], 0 to 1, after noting whether a finger is
+             * [on] it: it grows over {@link #HOLD_GROW_MS} once one is and eases back once it isn't, carrying
+             * on from where it was, at once when the phone's animations are off (#705).
+             */
+            private float holdAt(long now, boolean on) {
+                if (on != held) {
+                    heldFrom = holdAmount(now - heldSince, heldFrom, held);
+                    held = on;
+                    heldSince = animationsOn() ? now : now - HOLD_GROW_MS;
+                }
+                return holdAmount(now - heldSince, heldFrom, held);
             }
 
             /**
              * The lens under the bubble (#289): the blurred backdrop magnified a little, on Android 13 and newer and
              * only where the pill is blurred. The pill's tint goes back over it so the bubble reads as part of the pill.
+             * [hold] is how far a held finger has grown it, which bends it harder (#705).
              */
-            private void paintLens(Canvas canvas, float corner) {
+            private void paintLens(Canvas canvas, float corner, float hold) {
                 if (!blurShown || !GlassLens.supported()) return;
                 GlassLens made = lens;
                 if (made == null) {
                     made = new GlassLens();
                     lens = made;
                 }
+                made.boost = lensBoost(hold);
                 if (made.paint(canvas, node, nodeLeft, nodeTop, DOWNSAMPLE, bar.getWidth(), bar.getHeight(), capsule, corner)) {
                     fill.setColor(tint(base, true, opacityScale()));
                     canvas.drawRoundRect(capsule, corner, corner, fill);
@@ -3570,6 +3684,35 @@ public final class GlassTabBar {
         float swell = 1f + BUBBLE_SWELL * (float) Math.sin(Math.PI * t);
         float carried = 1f + Math.max(0f, from - 1f) * (1f - t);
         return Math.max(swell, carried);
+    }
+
+    /** How much more the liquid look's bubble grows under a finger held all the way, with Glass lens under your finger (#705). */
+    static final float HOLD_SWELL = 0.12f;
+
+    /** How long the bubble takes to grow under a finger, and to ease back once it lets go (#705). */
+    static final long HOLD_GROW_MS = 180;
+
+    /**
+     * How far the bubble has grown under a finger [elapsed] ms after it was put down, when [on], or lifted,
+     * when not, starting [from] the amount it had then: 0 is the bubble at rest and 1 fully grown. It eases
+     * out over {@link #HOLD_GROW_MS} either way (#705).
+     */
+    static float holdAmount(long elapsed, float from, boolean on) {
+        float start = Math.max(0f, Math.min(1f, from));
+        float t = Math.max(0f, Math.min(1f, elapsed / (float) HOLD_GROW_MS));
+        float eased = 1f - (1f - t) * (1f - t);
+        float target = on ? 1f : 0f;
+        return start + (target - start) * eased;
+    }
+
+    /** The bubble's size for [hold], how far it has grown under a finger: 1 at rest, 1 plus {@link #HOLD_SWELL} fully grown. */
+    static float holdScale(float hold) {
+        return 1f + HOLD_SWELL * Math.max(0f, Math.min(1f, hold));
+    }
+
+    /** What the bubble lens's bend is multiplied by for [hold]: 1 at rest, 1 plus {@link GlassLens#HOLD_BEND} fully grown. */
+    static float lensBoost(float hold) {
+        return 1f + GlassLens.HOLD_BEND * Math.max(0f, Math.min(1f, hold));
     }
 
     /**

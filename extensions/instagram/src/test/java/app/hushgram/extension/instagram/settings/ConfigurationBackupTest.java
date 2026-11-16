@@ -37,6 +37,7 @@ import app.hushgram.extension.instagram.download.DownloadQuality;
 import app.hushgram.extension.instagram.media.PlaybackQuality;
 import app.hushgram.extension.instagram.stories.StoryRingColor;
 import app.hushgram.extension.instagram.stories.StoryRingSize;
+import app.hushgram.extension.instagram.stories.StoryRingThickness;
 import app.hushgram.extension.shared.SettingsContextRule;
 import app.hushgram.extension.shared.Utils;
 import app.hushgram.extension.shared.settings.BaseSettings;
@@ -390,6 +391,85 @@ public class ConfigurationBackupTest {
         assertEquals(StoryRingSize.SMALLER, Settings.STORY_RING_SCALE.savedValue());
     }
 
+    // The ring's thickness (#528) travels by name beside the color, and a name this build has no
+    // thickness for is skipped while the color beside it applies.
+    @Test public void ringThicknessIsCarriedAndRestoredBesideTheColor() throws Exception {
+        assertTrue(ConfigurationBackup.eligible().containsKey(Settings.STORY_RING_THICKNESS.key));
+        Settings.STORY_RING_THICKNESS.save(StoryRingThickness.PERCENT_150);
+        JSONObject values = new JSONObject(new String(ConfigurationBackup.export(), StandardCharsets.UTF_8)).getJSONObject("settings");
+        assertEquals("PERCENT_150", values.getJSONObject(Settings.STORY_RING_THICKNESS.key).getString("value"));
+        Settings.STORY_RING_THICKNESS.resetToDefault();
+
+        ConfigurationBackup.Result restored = ConfigurationBackup.restore(file(
+                entry(Settings.STORY_RING_THICKNESS.key, "enum", "PERCENT_50") + "," + entry(Settings.STORY_RING_COLOR.key, "enum", "TEAL")));
+        assertEquals(2, restored.applied);
+        assertTrue("a new thickness shows after a restart", restored.restart);
+        assertEquals(StoryRingThickness.PERCENT_50, Settings.STORY_RING_THICKNESS.savedValue());
+        ConfigurationBackup.forgetUndo();
+
+        ConfigurationBackup.Result unknown = ConfigurationBackup.restore(file(
+                entry(Settings.STORY_RING_THICKNESS.key, "enum", "PERCENT_300") + "," + entry(Settings.STORY_RING_COLOR.key, "enum", "RED")));
+        assertEquals(1, unknown.applied);
+        assertEquals(1, unknown.skipped);
+        assertEquals(StoryRingThickness.PERCENT_50, Settings.STORY_RING_THICKNESS.savedValue());
+        assertEquals(StoryRingColor.RED, Settings.STORY_RING_COLOR.savedValue());
+
+        Settings.STORY_RING_THICKNESS.resetToDefault();
+        Settings.STORY_RING_COLOR.resetToDefault();
+        PatchFamily.inBuildForTests = EnumSet.complementOf(EnumSet.of(PatchFamily.STORY_RING));
+        assertFalse(ConfigurationBackup.eligible().containsKey(Settings.STORY_RING_THICKNESS.key));
+    }
+
+    // The colors typed for Custom (#696) travel as #RRGGBB beside the ring color, and anything else
+    // in a file (a word, small letters, a color with no #) is skipped while the rest applies.
+    @Test public void customRingColorsAreCarriedAndRestoredAsHexColors() throws Exception {
+        try {
+            assertTrue(ConfigurationBackup.eligible().containsKey(Settings.STORY_RING_CUSTOM.key));
+            assertTrue(ConfigurationBackup.eligible().containsKey(Settings.STORY_RING_CUSTOM_END.key));
+            Settings.STORY_RING_COLOR.save(StoryRingColor.CUSTOM);
+            Settings.STORY_RING_CUSTOM.save("#4A6B82");
+            Settings.STORY_RING_CUSTOM_END.save("#FF8A00");
+            JSONObject values = new JSONObject(new String(ConfigurationBackup.export(), StandardCharsets.UTF_8)).getJSONObject("settings");
+            assertEquals("CUSTOM", values.getJSONObject(Settings.STORY_RING_COLOR.key).getString("value"));
+            assertEquals("#4A6B82", values.getJSONObject(Settings.STORY_RING_CUSTOM.key).getString("value"));
+            assertEquals("#FF8A00", values.getJSONObject(Settings.STORY_RING_CUSTOM_END.key).getString("value"));
+            Settings.STORY_RING_COLOR.resetToDefault();
+            Settings.STORY_RING_CUSTOM.resetToDefault();
+            Settings.STORY_RING_CUSTOM_END.resetToDefault();
+
+            ConfigurationBackup.Result restored = ConfigurationBackup.restore(file(
+                    entry(Settings.STORY_RING_COLOR.key, "enum", "CUSTOM") + ","
+                            + entry(Settings.STORY_RING_CUSTOM.key, "string", "#4A6B82") + ","
+                            + entry(Settings.STORY_RING_CUSTOM_END.key, "string", "")));
+            assertEquals(3, restored.applied);
+            assertTrue("a new color shows after a restart", restored.restart);
+            assertEquals(StoryRingColor.CUSTOM, Settings.STORY_RING_COLOR.savedValue());
+            assertEquals("#4A6B82", Settings.STORY_RING_CUSTOM.savedValue());
+            assertEquals("", Settings.STORY_RING_CUSTOM_END.savedValue());
+            ConfigurationBackup.forgetUndo();
+
+            ConfigurationBackup.Result refused = ConfigurationBackup.restore(file(
+                    entry(Settings.STORY_RING_CUSTOM.key, "string", "teal") + ","
+                            + entry(Settings.STORY_RING_CUSTOM_END.key, "string", "#ff8a00") + ","
+                            + entry(Settings.STORY_RING_COLOR.key, "enum", "GOLD")));
+            assertEquals(1, refused.applied);
+            assertEquals(2, refused.skipped);
+            assertEquals("#4A6B82", Settings.STORY_RING_CUSTOM.savedValue());
+            assertEquals("", Settings.STORY_RING_CUSTOM_END.savedValue());
+            assertEquals(StoryRingColor.GOLD, Settings.STORY_RING_COLOR.savedValue());
+            ConfigurationBackup.forgetUndo();
+            assertFalse(ConfigurationBackup.textAllowed(Settings.STORY_RING_CUSTOM, "4A6B82"));
+
+            PatchFamily.inBuildForTests = EnumSet.complementOf(EnumSet.of(PatchFamily.STORY_RING));
+            assertFalse(ConfigurationBackup.eligible().containsKey(Settings.STORY_RING_CUSTOM.key));
+            assertFalse(ConfigurationBackup.eligible().containsKey(Settings.STORY_RING_CUSTOM_END.key));
+        } finally {
+            Settings.STORY_RING_COLOR.resetToDefault();
+            Settings.STORY_RING_CUSTOM.resetToDefault();
+            Settings.STORY_RING_CUSTOM_END.resetToDefault();
+        }
+    }
+
     // The glass sliders (#391) travel as whole numbers and come back without a restart. A number outside
     // the slider's range, or one that isn't a whole number, is skipped while the rest of the file applies.
     @Test public void glassSlidersRoundTripAsWholeNumbersInsideTheirRange() throws Exception {
@@ -508,7 +588,9 @@ public class ConfigurationBackupTest {
 
     @Test public void documentedRestartChoicesShareMetadataWithRowAndImportFeedback() throws Exception {
         Setting<?>[] choices = {Settings.START_ON_FOLLOWING, Settings.ONLY_FOLLOWING,
-                Settings.STORY_RING, Settings.STORY_RING_SCALE, Settings.STORY_RING_COLOR, Settings.HIDE_META_AI_SEARCH,
+                Settings.STORY_RING, Settings.STORY_RING_SCALE, Settings.STORY_RING_COLOR, Settings.STORY_RING_THICKNESS,
+                Settings.STORY_RING_CUSTOM, Settings.STORY_RING_CUSTOM_END,
+                Settings.HIDE_META_AI_SEARCH,
                 Settings.REMOVE_BOTTOM_SPACE};
         for (Setting<?> setting : choices) assertTrue(setting.key, setting.rebootApp);
         assertFalse(Settings.HIDE_ADS.rebootApp);

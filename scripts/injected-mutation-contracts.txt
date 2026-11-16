@@ -113,6 +113,8 @@ once-call Lapp/hushgram/extension/instagram/direct/SplitNotesRow;->split(I)Z in 
 once-call Lapp/hushgram/extension/instagram/direct/SplitNotesRow;->split(I)Z in instance (Lcom/instagram/common/session/UserSession;Lcom/instagram/direct/inbox/notes/data/repository/NotesRepository;LX/*;LX/*;LX/*;)V holding const:0x8115f000007436
 once-call Lapp/hushgram/extension/instagram/direct/SplitNotesRow;->split(I)Z in (Landroidx/fragment/app/FragmentActivity;Lcom/instagram/common/session/UserSession;LX/*;LX/*;Ljava/lang/String;Lkotlin/jvm/functions/Function0;J)V holding const:0x8115f000007436
 once-call Lapp/hushgram/extension/instagram/direct/SplitNotesRow;->split(I)Z in (Landroid/content/Context;Lcom/instagram/common/session/UserSession;Z)V holding const:0x8115f000007436
+once-call Lapp/hushgram/extension/instagram/direct/SplitNotesRow;->storiesOff(I)Z in (Landroid/content/Context;Lcom/instagram/common/session/UserSession;Z)V holding const:0x8115f0000e7443
+once-call Lapp/hushgram/extension/instagram/direct/SplitNotesRow;->storiesOff(I)Z in instance ()Ljava/lang/Object; holding const:0x8115f0000e7443
 # Tab bar layout (#356) hands each of the three returns of Instagram's newer tab bar gate (00PP.A04
 # on 454's 386014758), the static (UserSession) method answering a boolean from an override and the navigation
 # config, to TabBarLayout.newTabBar(int) first. The config's string read has another shape, so the
@@ -525,6 +527,13 @@ start-call Lapp/hushgram/extension/instagram/reels/ReelDeclutter;->hideCommentBu
 once-call Lapp/hushgram/extension/instagram/reels/ReelDeclutter;->hideCommentButton()Z in instance (L*;Lkotlin/jvm/functions/Function0;JJ)L*; calling instance LX/*;-><init>(Landroid/graphics/ColorFilter;Lcom/instagram/common/session/UserSession;*)V class-holding android_purge_26_q2_ClipsUfiComponent_createLikeButtonComponent
 start-call Lapp/hushgram/extension/instagram/reels/ReelDeclutter;->hideCommentCount()Z in instance (L*;Lkotlin/jvm/functions/Function0;JJ)L*; holding ufi_count
 once-call Lapp/hushgram/extension/instagram/reels/ReelDeclutter;->hideCommentCount()Z in instance (L*;Lkotlin/jvm/functions/Function0;JJ)L*; holding ufi_count
+# The count-only switches (#719) ask the same hooks, and two more: hideRepostCount() first thing in the
+# repost count's builder, the one of the Save builders' shape loading the count's text name (the save
+# count's loads its own), and shareCount(Object) once in the column's render, right before it adds the
+# share count it builds inline after its marker.
+start-call Lapp/hushgram/extension/instagram/reels/ReelDeclutter;->hideRepostCount()Z in instance (L*;JJ)L*; holding ufi_count
+once-call Lapp/hushgram/extension/instagram/reels/ReelDeclutter;->hideRepostCount()Z in instance (L*;JJ)L*; holding ufi_count
+once-call Lapp/hushgram/extension/instagram/reels/ReelDeclutter;->shareCount(Ljava/lang/Object;)Ljava/lang/Object; in instance (L*;)L*; holding android_purge_26_q2_ClipsUfiComponent_createShareCountComponent
 # Hide the pause icon on reels asks first thing in the pause-and-mute component's builders of a paused
 # reel's big pause icon and its sound button, each holding its marker (#686).
 start-call Lapp/hushgram/extension/instagram/reels/ReelDeclutter;->hidePauseIcon()Z in instance (*)L*; holding android_purge_26_q3_PauseAndMuteComponent_createPauseIcon
@@ -2085,6 +2094,33 @@ start-call Lapp/hushgram/extension/instagram/stories/StoryRing;->colors([I[F)[I 
 once-call Lapp/hushgram/extension/instagram/stories/StoryRing;->colors([I[F)[I in static (Lcom/instagram/ui/widget/gradientspinner/GradientSpinner;[F[F[F[III)Landroid/graphics/LinearGradient; holding Landroid/graphics/Shader$TileMode;->CLAMP:Landroid/graphics/Shader$TileMode;
 start-call Lapp/hushgram/extension/instagram/stories/StoryRing;->colors([I[F)[I in instance ([F[F[F[III)V holding Landroid/graphics/Shader$TileMode;->CLAMP:Landroid/graphics/Shader$TileMode;
 once-call Lapp/hushgram/extension/instagram/stories/StoryRing;->colors([I[F)[I in instance ([F[F[F[III)V holding Landroid/graphics/Shader$TileMode;->CLAMP:Landroid/graphics/Shader$TileMode;
+# Hide rings outside the stories row (#719) asks StoryRing.hides first in the ring view's own
+# onDraw(Canvas), and returns before anything is drawn on a yes. The draw loads no string, so the
+# rules hold it by the two calls it makes that Redex leaves alone: it records into a Picture and
+# asks the ring for its current paint. Left out, every ring draws whatever the switch says; twice
+# or elsewhere, it isn't the guard the patch wrote. StoryRingDrawHookTest checks every declared
+# fixture.
+start-call Lapp/hushgram/extension/instagram/stories/StoryRing;->hides(Landroid/view/View;)I in instance (Landroid/graphics/Canvas;)V holding Landroid/graphics/Picture;->beginRecording(II)Landroid/graphics/Canvas; Lcom/instagram/ui/widget/gradientspinner/GradientSpinner;->getCurrentPaint()Landroid/graphics/Paint;
+once-call Lapp/hushgram/extension/instagram/stories/StoryRing;->hides(Landroid/view/View;)I in instance (Landroid/graphics/Canvas;)V holding Landroid/graphics/Picture;->beginRecording(II)Landroid/graphics/Canvas; Lcom/instagram/ui/widget/gradientspinner/GradientSpinner;->getCurrentPaint()Landroid/graphics/Paint;
+# Compose screens build the default ring apart from the view (0IDN.A00 on 386014758): the static
+# loading default_brand_update turns the ring spec's list of colors into an int array, and
+# StoryRing.defaultColors takes that array right after it lands (#528). Its sibling loading the
+# same name turns no list into an array, so calling tells them apart. Left out, a chosen color
+# leaves Compose screens' rings in Instagram's gradient. StoryRingComposeHookTest checks every build.
+once-call Lapp/hushgram/extension/instagram/stories/StoryRing;->defaultColors([I)[I in static ()L*; calling static LX/*;->*(Ljava/util/List;)[I pooled holding default_brand_update
+# Its thickness passes every width the ring view reads through StoryRing.thickness, right after the
+# read (#528). It gets no rule: the view reads its two widths in five methods, up to a dozen times in
+# onDraw, the reads hold no string, and the fields' names are Redex's, so neither a method nor its
+# count of reads is a thing a rule can hold from one build to the next. StoryRingThicknessHookTest
+# checks on every fixture that each read gets the hook right after it and no other place does.
+# Story rings in the accent color hands the same two gradient makers to AccentRings.colors, behind
+# Story ring size's guard when that one is in, so the guard above stays first in either order, and
+# the Compose default ring's array to AccentRings.composeColors (#528). Left out, every ring but the
+# few that read the theme keeps Instagram's gradient with the accent rings on. AccentRingsHookTest
+# checks every build.
+once-call Lapp/hushgram/extension/instagram/misc/AccentRings;->colors([I[F)[I in static (Lcom/instagram/ui/widget/gradientspinner/GradientSpinner;[F[F[F[III)Landroid/graphics/LinearGradient; holding Landroid/graphics/Shader$TileMode;->CLAMP:Landroid/graphics/Shader$TileMode;
+once-call Lapp/hushgram/extension/instagram/misc/AccentRings;->colors([I[F)[I in instance ([F[F[F[III)V holding Landroid/graphics/Shader$TileMode;->CLAMP:Landroid/graphics/Shader$TileMode;
+once-call Lapp/hushgram/extension/instagram/misc/AccentRings;->composeColors([I)[I in static ()L*; calling static LX/*;->*(Ljava/util/List;)[I pooled holding default_brand_update
 # Hide the Repost button answers FALSE first thing in the post model's getter of
 # enable_media_notes_production, the one instance method taking nothing and answering a Boolean
 # that loads the field's name (Media.A3o on 449). Its other hooks filter the reads of the field
@@ -3232,6 +3268,11 @@ once-call Lapp/hushgram/extension/instagram/feed/CarouselPeek;->buffer(Ljava/lan
 # a hold on a reel never saves; twice or elsewhere, it isn't the call the patch wrote.
 start-call Lapp/hushgram/extension/instagram/download/HoldDownload;->reelTouch(Ljava/lang/Object;Landroid/view/View;Landroid/view/MotionEvent;)V in instance (Landroid/view/View;Landroid/view/MotionEvent;)Z holding android_purge_26_q3_ClipsItemGestureDetector_onTouch
 once-call Lapp/hushgram/extension/instagram/download/HoldDownload;->reelTouch(Ljava/lang/Object;Landroid/view/View;Landroid/view/MotionEvent;)V in instance (Landroid/view/View;Landroid/view/MotionEvent;)Z holding android_purge_26_q3_ClipsItemGestureDetector_onTouch
+# Ask for VP9 instead of AV1 (#546). The device status builder, the one static method returning a
+# map that loads hw_av1_dec and 10bit_hw_av1_dec, hands each of those two answers to
+# Vp9Video.hardwareAv1 right before it goes in the map. Left out, the server still sends AV1-only
+# video to a phone with an AV1 decoder; anywhere else, it isn't the hook.
+once-call Lapp/hushgram/extension/instagram/download/Vp9Video;->hardwareAv1(Ljava/lang/Object;)Ljava/lang/Object; in static (*)Ljava/util/Map; sites 2 pooled holding hw_av1_dec 10bit_hw_av1_dec
 # Pure black dark mode paints the comments sheet (#108). The bottom sheet host's (Context, Fragment,
 # int) set-up method, the one method holding the host's kept name, hands the host and its screen to
 # CommentsSheet.paint before each of its two returns. Its public (int, int) drag method, the one
@@ -3450,6 +3491,12 @@ once-call Lapp/hushgram/extension/instagram/feed/FeedTapPause;->released(Ljava/l
 once-call Lapp/hushgram/extension/instagram/feed/FeedHoldSpeed;->fast(I)Z in instance (Landroid/view/View;Lcom/instagram/feed/media/Media;L*;L*;L*;)V sites 6 class-holding FeedMediaTapHandlerV2-softError
 once-call Lapp/hushgram/extension/instagram/feed/FeedHoldSpeed;->fixedStrip(I)Z in instance (Landroid/view/View;Lcom/instagram/feed/media/Media;L*;L*;L*;)V class-holding FeedMediaTapHandlerV2-softError
 once-call Lapp/hushgram/extension/instagram/feed/FeedHoldSpeed;->strip(D)D in instance (Landroid/view/View;Lcom/instagram/feed/media/Media;L*;L*;L*;)V class-holding FeedMediaTapHandlerV2-softError
+# Keep 2x after you let go: the press entry tells FeedHoldSpeed.pressed the feed's 2x flag before it
+# resets the speed (07kE.A01 on 454's 386014758), and the release (02g8.A09) asks FeedHoldSpeed.lifted
+# before its own reset, whose yes skips it (#552). Left out, a lift always puts the speed back, or a
+# kept flag Instagram cleared reads as kept; twice or elsewhere, they aren't the hooks the patch wrote.
+once-call Lapp/hushgram/extension/instagram/feed/FeedHoldSpeed;->pressed(Ljava/util/concurrent/atomic/AtomicBoolean;)V in instance (Landroid/view/View;Lcom/instagram/feed/media/Media;L*;L*;L*;)V class-holding FeedMediaTapHandlerV2-softError
+once-call Lapp/hushgram/extension/instagram/feed/FeedHoldSpeed;->lifted(Ljava/util/concurrent/atomic/AtomicBoolean;)Z in instance (Lcom/instagram/feed/media/Media;L*;L*;Z)V class-holding FeedMediaTapHandlerV2-softError
 # On 451 a tap can reach Reels without the handler (the video's overlays, a server-sent tap), and
 # every way in ends in the feed's one Reels launcher, the instance (View, entry point, two objects,
 # Media, state, List, boolean, boolean) void method holding the contextual feed's profile argument
@@ -3602,3 +3649,9 @@ once-call Lapp/hushgram/extension/instagram/direct/ChatPager;->closed(Ljava/lang
 # chat gets no check mark in its header; twice or elsewhere, it isn't the hook the patch wrote.
 once-call Lapp/hushgram/extension/instagram/direct/MarkReadButton;->opened(Ljava/lang/Object;)V in instance ()V holding DirectThreadController.onResume
 once-call Lapp/hushgram/extension/instagram/direct/MarkReadButton;->closed(Ljava/lang/Object;)V in instance ()V holding DirectThreadController.onPause
+# Keep online history (#590). The presence store's merge, the one static method of the class polling
+# direct_v2/get_presence_active_now/ that takes the store and a map of updates, hands the store's
+# session and the map to OnlineHistory.received before anything else. Left out, the list never fills;
+# anywhere else, it isn't the store every presence update goes through.
+start-call Lapp/hushgram/extension/instagram/direct/OnlineHistory;->received(Ljava/lang/Object;Ljava/util/Map;)V in static (L*;Ljava/util/Map;ZZ)V pooled class-holding direct_v2/get_presence_active_now/
+once-call Lapp/hushgram/extension/instagram/direct/OnlineHistory;->received(Ljava/lang/Object;Ljava/util/Map;)V in static (L*;Ljava/util/Map;ZZ)V pooled class-holding direct_v2/get_presence_active_now/

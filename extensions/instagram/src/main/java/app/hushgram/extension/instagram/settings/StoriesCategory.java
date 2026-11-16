@@ -12,7 +12,10 @@ import static app.hushgram.extension.instagram.settings.HushgramPreferenceFragme
 import static app.hushgram.extension.instagram.settings.HushgramPreferenceFragment.storyBarRow;
 import static app.hushgram.extension.instagram.settings.HushgramPreferenceFragment.storyMentionsLookRow;
 import static app.hushgram.extension.instagram.settings.HushgramPreferenceFragment.storyRingColorRow;
+import static app.hushgram.extension.instagram.settings.HushgramPreferenceFragment.storyRingCustomEndRow;
+import static app.hushgram.extension.instagram.settings.HushgramPreferenceFragment.storyRingCustomRow;
 import static app.hushgram.extension.instagram.settings.HushgramPreferenceFragment.storyRingRow;
+import static app.hushgram.extension.instagram.settings.HushgramPreferenceFragment.storyRingThicknessRow;
 import static app.hushgram.extension.instagram.settings.HushgramPreferenceFragment.storySeekBarLookRow;
 import static app.hushgram.extension.instagram.settings.HushgramPreferenceFragment.storySeekBarPositionRow;
 import static app.hushgram.extension.instagram.settings.HushgramPreferenceFragment.storyTimeModeRow;
@@ -82,10 +85,16 @@ final class StoriesCategory {
         if (build.contains(PatchFamily.STORY_RING)) {
             stories.add(toggle(context, Settings.STORY_RING, L10n.t("Story ring size"),
                     L10n.t("Draws the rings in the stories row at the top of Home at the size below, and the rings "
-                            + "of stories you haven't watched in the color below. Restart Instagram to see a "
-                            + "change.")));
+                            + "of stories you haven't watched in the color below. Story rings take the thickness "
+                            + "below. Restart Instagram to see a change.")));
             stories.add(storyRingRow(context));
             stories.add(storyRingColorRow(context));
+            stories.add(storyRingCustomRow(context));
+            stories.add(storyRingCustomEndRow(context));
+            stories.add(storyRingThicknessRow(context));
+            stories.add(toggle(context, Settings.HIDE_OTHER_STORY_RINGS, L10n.t("Hide rings outside the stories row"),
+                    L10n.t("Takes the story and live rings off profile pictures on posts, comments, reels and "
+                            + "profiles. The pictures stay, and so do the rings in the stories row.")));
         }
         if (build.contains(PatchFamily.SMOOTH_STORY_OPEN)) {
             stories.add(toggle(context, Settings.SMOOTH_STORY_OPEN, L10n.t("Smooth story opening"),

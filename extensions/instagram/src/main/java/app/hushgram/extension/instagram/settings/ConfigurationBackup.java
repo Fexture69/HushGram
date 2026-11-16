@@ -33,6 +33,7 @@ import app.hushgram.extension.instagram.download.FileNameTemplate;
 import app.hushgram.extension.instagram.download.SaveFolder;
 import app.hushgram.extension.instagram.download.SavedProfiles;
 import app.hushgram.extension.instagram.direct.MessageBox;
+import app.hushgram.extension.instagram.feed.MenuItems;
 import app.hushgram.extension.instagram.profile.ProfileTabs;
 import app.hushgram.extension.instagram.misc.GlassBlur;
 import app.hushgram.extension.instagram.misc.GlassOpacity;
@@ -143,6 +144,9 @@ public final class ConfigurationBackup {
         if (PatchFamily.STORY_RING.inBuild()) {
             settings.put(Settings.STORY_RING_SCALE.key, Settings.STORY_RING_SCALE);
             settings.put(Settings.STORY_RING_COLOR.key, Settings.STORY_RING_COLOR);
+            settings.put(Settings.STORY_RING_CUSTOM.key, Settings.STORY_RING_CUSTOM);
+            settings.put(Settings.STORY_RING_CUSTOM_END.key, Settings.STORY_RING_CUSTOM_END);
+            settings.put(Settings.STORY_RING_THICKNESS.key, Settings.STORY_RING_THICKNESS);
         }
         if (PatchFamily.STORY_UPLOAD_QUALITY.inBuild()) {
             settings.put(Settings.UPLOAD_QUALITY_APPLIES_TO.key, Settings.UPLOAD_QUALITY_APPLIES_TO);
@@ -163,6 +167,7 @@ public final class ConfigurationBackup {
         if (PatchFamily.SPOOF_LOCATION.inBuild()) settings.put(Settings.SPOOF_LOCATION_PLACE.key, Settings.SPOOF_LOCATION_PLACE);
         if (PatchFamily.SPOOF_DEVICE.inBuild()) settings.put(Settings.SPOOF_DEVICE_PROFILE.key, Settings.SPOOF_DEVICE_PROFILE);
         if (PatchFamily.APP_PROXY.inBuild()) settings.put(Settings.APP_PROXY_SERVER.key, Settings.APP_PROXY_SERVER);
+        if (PatchFamily.MEDIA_CACHE.inBuild()) settings.put(Settings.MEDIA_CACHE_LIMIT_MB.key, Settings.MEDIA_CACHE_LIMIT_MB);
         if (PatchFamily.CAPTION_WORD_REELS.inBuild()) {
             settings.put(Settings.REELS_BLOCKED_WORDS.key, Settings.REELS_BLOCKED_WORDS);
             settings.put(Settings.REELS_KEPT_LANGUAGES.key, Settings.REELS_KEPT_LANGUAGES);
@@ -230,6 +235,7 @@ public final class ConfigurationBackup {
         }
         if (PatchFamily.favoritesFeedInBuild()) settings.put(Settings.FAVORITES_TAB_TARGET.key, Settings.FAVORITES_TAB_TARGET);
         if (PatchFamily.MESSAGE_BOX.inBuild()) settings.put(Settings.HIDDEN_MESSAGE_BOX_BUTTONS.key, Settings.HIDDEN_MESSAGE_BOX_BUTTONS);
+        if (PatchFamily.MENU_ITEMS.inBuild()) settings.put(Settings.HIDDEN_MENU_ITEMS.key, Settings.HIDDEN_MENU_ITEMS);
         if (PatchFamily.PROFILE_TABS.inBuild()) {
             settings.put(Settings.HIDDEN_OWN_PROFILE_TABS.key, Settings.HIDDEN_OWN_PROFILE_TABS);
             settings.put(Settings.HIDDEN_PROFILE_TABS.key, Settings.HIDDEN_PROFILE_TABS);
@@ -240,6 +246,7 @@ public final class ConfigurationBackup {
         if (PatchFamily.FEED_SEEK_BAR.inBuild()) {
             settings.put(Settings.FEED_SEEK_BAR_LOOK.key, Settings.FEED_SEEK_BAR_LOOK);
             settings.put(Settings.SEEK_BAR_SHAPE.key, Settings.SEEK_BAR_SHAPE);
+            settings.put(Settings.FEED_SEEK_SHAPE.key, Settings.FEED_SEEK_SHAPE);
             settings.put(Settings.FEED_DOUBLE_TAP_SKIP_SECONDS.key, Settings.FEED_DOUBLE_TAP_SKIP_SECONDS);
         }
         if (PatchFamily.REEL_DOUBLE_TAP_SKIP.inBuild()) {
@@ -332,6 +339,9 @@ public final class ConfigurationBackup {
                 || PatchFamily.VIDEO_DOWNLOAD.inBuild()) {
             settings.put(Settings.DOWNLOAD_COMPATIBLE.key, Settings.DOWNLOAD_COMPATIBLE);
             settings.put(Settings.DOWNLOAD_CONVERT.key, Settings.DOWNLOAD_CONVERT);
+            settings.put(Settings.DOWNLOAD_NO_AV1.key, Settings.DOWNLOAD_NO_AV1);
+            settings.put(Settings.DOWNLOAD_NO_HDR.key, Settings.DOWNLOAD_NO_HDR);
+            settings.put(Settings.SAVE_VIDEOS_AS_MKV.key, Settings.SAVE_VIDEOS_AS_MKV);
             // The switch only. What it remembered stays in DownloadHistory's own file, never exported.
             settings.put(Settings.DOWNLOAD_SKIP_SAVED.key, Settings.DOWNLOAD_SKIP_SAVED);
             // The switch only, like the one above. The list itself stays on the phone and is never exported.
@@ -341,6 +351,8 @@ public final class ConfigurationBackup {
             settings.put(Settings.SAVE_FOLDER.key, Settings.SAVE_FOLDER);
             settings.put(Settings.SAVE_FOLDER_PER_ACCOUNT.key, Settings.SAVE_FOLDER_PER_ACCOUNT);
             settings.put(Settings.SAVE_NAME_BY_POST.key, Settings.SAVE_NAME_BY_POST);
+            settings.put(Settings.SAVE_PHOTO_METADATA.key, Settings.SAVE_PHOTO_METADATA);
+            settings.put(Settings.SAVE_PHOTO_SCRUB.key, Settings.SAVE_PHOTO_SCRUB);
             settings.put(Settings.FILENAME_TEMPLATE.key, Settings.FILENAME_TEMPLATE);
         }
         settings.put(BaseSettings.DEBUG.key, BaseSettings.DEBUG);
@@ -594,6 +606,10 @@ public final class ConfigurationBackup {
         if (setting == Settings.APP_PROXY_SERVER) return text.equals(AppProxy.normalize(text));
         // The row saves the custom color as #RRGGBB, so a file holds it that way or blank.
         if (setting == Settings.ACCENT_CUSTOM) return text.isEmpty() || text.equals(CustomAccent.normalize(text));
+        // The Custom ring color rows save the same way (#696).
+        if (setting == Settings.STORY_RING_CUSTOM || setting == Settings.STORY_RING_CUSTOM_END) {
+            return text.isEmpty() || text.equals(CustomAccent.normalize(text));
+        }
         if (setting == Settings.TAB_ORDER) return text.equals(TabOrder.join(TabOrder.parse(text)));
         // The share sheet buttons to leave out, as Instagram's names for them with commas between.
         if (setting == Settings.HIDDEN_SHARE_SHEET_BUTTONS) {
@@ -601,6 +617,8 @@ public final class ConfigurationBackup {
         }
         // The message box buttons left off, as the names of Instagram's enum with commas between, in the order the dialog lists them.
         if (setting == Settings.HIDDEN_MESSAGE_BOX_BUTTONS) return text.equals(MessageBox.join(MessageBox.parse(text)));
+        // The three-dot menu items left out, as the names the list keeps them by with commas between, in the order it lists them.
+        if (setting == Settings.HIDDEN_MENU_ITEMS) return text.equals(MenuItems.join(MenuItems.parse(text)));
         // The rows of Instagram's settings left off, as the names of Instagram's row ids with commas between, in name order.
         if (setting == Settings.HIDDEN_SETTINGS_ROWS) return text.equals(SettingsRows.join(SettingsRows.parse(text)));
         // The notification channels muted, as Instagram's channel ids with commas between, in id order.
