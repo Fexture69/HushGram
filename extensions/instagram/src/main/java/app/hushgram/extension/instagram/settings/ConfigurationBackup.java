@@ -60,7 +60,11 @@ import app.hushgram.extension.shared.settings.preference.AbstractPreferenceFragm
 public final class ConfigurationBackup {
     /** Room for a full Saved profiles list beside the settings. */
     public static final int MAX_BYTES = 1024 * 1024;
-    public static final int MAX_ENTRIES = 512;
+    /**
+     * Bounds a file's entries, well past the settings a build with every patch has, which passed 512 as
+     * the settings grew and made every export from such a build fail.
+     */
+    public static final int MAX_ENTRIES = 1024;
     static final String PROFILES = "profiles";
     public static final long UNDO_WINDOW_MS = 10_000;
     /** The ordinary text bound. Selection and blocked-word lists have the larger bound below. */
@@ -71,11 +75,11 @@ public final class ConfigurationBackup {
      */
     public static final int MAX_WORDS_TEXT = 4096;
     /**
-     * The settings' own 2,048 values, and room for every saved profile's fields, a few more than
-     * this build writes. The only array is the profiles.
+     * Four values for each setting, which takes three (its entry, type and value), and room for
+     * every saved profile's fields, a few more than this build writes. The only array is the profiles.
      */
     private static final SettingsJson.Limits LIMITS = new SettingsJson.Limits(4,
-            2048 + 8 * SavedProfiles.MAX_PROFILES, MAX_WORDS_TEXT, SavedProfiles.MAX_PROFILES, MAX_BYTES);
+            4 * MAX_ENTRIES + 8 * SavedProfiles.MAX_PROFILES, MAX_WORDS_TEXT, SavedProfiles.MAX_PROFILES, MAX_BYTES);
     /**
      * Guards the Undo state below. It's a lock of its own, never the class's: an import holds the class
      * lock from its validation through its disk commit, and the page reads whether Undo is on offer, and
@@ -176,11 +180,16 @@ public final class ConfigurationBackup {
         if (PatchFamily.CALL_BLOCKER.inBuild()) {
             settings.put(Settings.CALL_BLOCK_MODE.key, Settings.CALL_BLOCK_MODE);
             settings.put(Settings.CALL_BLOCK_ACCOUNTS.key, Settings.CALL_BLOCK_ACCOUNTS);
+            settings.put(Settings.CALL_BLOCK_DECLINE.key, Settings.CALL_BLOCK_DECLINE);
         }
         if (PatchFamily.SANITIZE_SHARING_LINKS.inBuild()) settings.put(Settings.SHARING_DOMAIN.key, Settings.SHARING_DOMAIN);
         if (PatchFamily.LIKE_ANIMATION.inBuild()) settings.put(Settings.LIKE_ANIMATION.key, Settings.LIKE_ANIMATION);
         if (PatchFamily.LIKE_ANIMATION.inBuild()) settings.put(Settings.GROW_LIKE_HEART.key, Settings.GROW_LIKE_HEART);
-        if (PatchFamily.HEADER_TEXT.inBuild()) settings.put(Settings.HEADER_TEXT.key, Settings.HEADER_TEXT);
+        if (PatchFamily.HEADER_TEXT.inBuild()) {
+            settings.put(Settings.HEADER_TEXT.key, Settings.HEADER_TEXT);
+            settings.put(Settings.HEADER_TEXT_FONT.key, Settings.HEADER_TEXT_FONT);
+            settings.put(Settings.HEADER_TEXT_CENTER.key, Settings.HEADER_TEXT_CENTER);
+        }
         if (PatchFamily.NOTIFICATION_GROUPS.inBuild()) {
             settings.put(Settings.GROUP_NOTIFICATIONS_BY_TYPE.key, Settings.GROUP_NOTIFICATIONS_BY_TYPE);
             settings.put(Settings.MUTED_NOTIFICATION_CHANNELS.key, Settings.MUTED_NOTIFICATION_CHANNELS);
@@ -264,6 +273,10 @@ public final class ConfigurationBackup {
             settings.put(Settings.GLASS_TAB_BAR_LIFT.key, Settings.GLASS_TAB_BAR_LIFT);
             settings.put(Settings.GLASS_TAB_BAR_REELS_HIDE.key, Settings.GLASS_TAB_BAR_REELS_HIDE);
         }
+        if (PatchFamily.GLASS_CHAT.inBuild()) {
+            settings.put(Settings.GLASS_CHAT_TOP_BAR_OPACITY.key, Settings.GLASS_CHAT_TOP_BAR_OPACITY);
+            settings.put(Settings.GLASS_CHAT_BOX_OPACITY.key, Settings.GLASS_CHAT_BOX_OPACITY);
+        }
         if (PatchFamily.SHARE_SHEET.inBuild()) {
             settings.put(Settings.HIDDEN_SHARE_SHEET_BUTTONS.key, Settings.HIDDEN_SHARE_SHEET_BUTTONS);
         }
@@ -271,7 +284,10 @@ public final class ConfigurationBackup {
             settings.put(Settings.ACCENT_HUE.key, Settings.ACCENT_HUE);
             settings.put(Settings.ACCENT_CUSTOM.key, Settings.ACCENT_CUSTOM);
         }
-        if (PatchFamily.FONT.inBuild()) settings.put(Settings.FONT.key, Settings.FONT);
+        if (PatchFamily.FONT.inBuild()) {
+            settings.put(Settings.FONT.key, Settings.FONT);
+            settings.put(Settings.TEXT_SIZE.key, Settings.TEXT_SIZE);
+        }
         if (PatchFamily.EMOJI_STYLE.inBuild()) settings.put(Settings.EMOJI_FONT.key, Settings.EMOJI_FONT);
         if (PatchFamily.APP_ICON.inBuild()) settings.put(Settings.APP_ICON.key, Settings.APP_ICON);
         if (PatchFamily.SETTINGS_ROWS.inBuild()) settings.put(Settings.HIDDEN_SETTINGS_ROWS.key, Settings.HIDDEN_SETTINGS_ROWS);

@@ -72,7 +72,8 @@ public enum PatchFamily {
     STORY_BUTTONS_ROOM(FamilyNames.STORY_BUTTONS_ROOM, "storyButtonsRoom", null, Settings.KEEP_STORY_BUTTONS_BELOW),
     STORY_FONTS(FamilyNames.STORY_FONTS, "storyFonts", null, Settings.STORY_FONTS, Settings.STORY_EMOJI),
     STORY_UPLOAD_QUALITY(FamilyNames.STORY_UPLOAD_QUALITY, "storyUploadQuality", null, Settings.UPLOAD_STORIES_AT_FULL_QUALITY),
-    FEED_SOUND(FamilyNames.FEED_SOUND, "feedSound", null, Settings.START_FEED_VIDEOS_WITH_SOUND),
+    FEED_SOUND(FamilyNames.FEED_SOUND, "feedSound", null, Settings.START_FEED_VIDEOS_WITH_SOUND,
+            Settings.START_FEED_VIDEOS_MUTED),
     FEED_TAP_PAUSE(FamilyNames.FEED_TAP_PAUSE, "feedTapPause", null, Settings.TAP_FEED_VIDEO_TO_PAUSE),
     FEED_HOLD_FAST(FamilyNames.FEED_HOLD_FAST, "feedHoldFast", null, Settings.HOLD_FEED_VIDEO_FAST),
     FEED_SEEK_BAR(FamilyNames.FEED_SEEK_BAR, "feedSeekBar", null, Settings.FEED_SEEK_BAR, Settings.FEED_SEEK_BUTTON,
@@ -99,6 +100,7 @@ public enum PatchFamily {
     TYPING(FamilyNames.TYPING, "typing", null, Settings.HIDE_TYPING),
     ACTIVE_STATUS(FamilyNames.ACTIVE_STATUS, "activeStatus", null, Settings.HIDE_ACTIVE_STATUS),
     LAST_ACTIVE(FamilyNames.LAST_ACTIVE, "lastActive", null, Settings.SHOW_LAST_ACTIVE),
+    SHORT_ACTIVE_NOW(FamilyNames.SHORT_ACTIVE_NOW, "shortActiveNow", null, Settings.SHORT_ACTIVE_NOW),
     MESSAGES_LOCK(FamilyNames.MESSAGES_LOCK, "messagesLock", null, Settings.LOCK_MESSAGES, Settings.LOCK_APP,
             Settings.LOCK_SAVED, Settings.LOCK_EACH_CHAT, Settings.DOUBLE_TAP_HIDDEN_CHATS),
     SCREENSHOT_REPORTS(FamilyNames.SCREENSHOT_REPORTS, "screenshotReports", null, Settings.HIDE_SCREENSHOTS),
@@ -112,7 +114,7 @@ public enum PatchFamily {
     CHAT_HISTORY(FamilyNames.CHAT_HISTORY, "chatHistory", null, Settings.JUMP_IN_CHAT, Settings.EXPORT_CHAT),
     PREVIEW_CHATS(FamilyNames.PREVIEW_CHATS, "previewChats", null, Settings.PREVIEW_CHATS),
     ASK_BEFORE_CALL(FamilyNames.ASK_BEFORE_CALL, "askBeforeCall", null, Settings.ASK_BEFORE_CALL,
-            Settings.HIDE_CALL_BUTTONS),
+            Settings.HIDE_CALL_BUTTONS, Settings.HIDE_CHAT_BLEND, Settings.HIDE_CHAT_BACK_BUTTON),
     CALL_BLOCKER(FamilyNames.CALL_BLOCKER, "callBlocker", null),
     KINDNESS_REMINDER(FamilyNames.KINDNESS_REMINDER, "kindnessReminder", null, Settings.HIDE_KINDNESS_REMINDER),
     MESSAGE_BOX(FamilyNames.MESSAGE_BOX, "messageBox", null),
@@ -123,6 +125,7 @@ public enum PatchFamily {
     ASK_BEFORE_LIKE(FamilyNames.ASK_BEFORE_LIKE, "askBeforeLike", null, Settings.ASK_BEFORE_LIKE),
     ASK_BEFORE_REFRESH(FamilyNames.ASK_BEFORE_REFRESH, "askBeforeRefresh", null, Settings.ASK_BEFORE_REFRESH),
     ASK_BEFORE_FOLLOW(FamilyNames.ASK_BEFORE_FOLLOW, "askBeforeFollow", null, Settings.ASK_BEFORE_FOLLOW),
+    SENT_FOLLOW_REQUESTS(FamilyNames.SENT_FOLLOW_REQUESTS, "sentRequests", null, Settings.SENT_FOLLOW_REQUESTS),
     SAVE_TRAY(FamilyNames.SAVE_TRAY, "saveTray", null, Settings.SKIP_COLLECTIONS_TRAY),
     STORIES_TRAY(FamilyNames.STORIES_TRAY, "storiesTray", null, Settings.HIDE_SUGGESTED_STORIES,
             Settings.HIDE_STORY_REWINDS, Settings.HIDE_STORY_RECAPS, Settings.STOP_LOADING_STORIES,
@@ -145,7 +148,7 @@ public enum PatchFamily {
     TAB_SWIPE(FamilyNames.TAB_SWIPE, "tabSwipe", null, Settings.STOP_TAB_SWIPING),
     TAB_BAR_LAYOUT(FamilyNames.TAB_BAR_LAYOUT, "tabBarLayout", null),
     FULL_RESOLUTION(FamilyNames.FULL_RESOLUTION, "fullResolution", null, Settings.FULL_RESOLUTION_PHOTOS,
-            Settings.ASK_FOR_LARGER_PHOTOS, Settings.FULL_SIZE_COVERS),
+            Settings.ASK_FOR_LARGER_PHOTOS, Settings.FULL_SIZE_COVERS, Settings.SAVE_PHOTOS_AT_FULL_SIZE),
     META_AI(FamilyNames.META_AI, "metaAi", null, Settings.HIDE_META_AI_SEARCH, Settings.HIDE_META_AI_POSTS,
             Settings.HIDE_ABOUT_THIS_REEL, Settings.HIDE_ASK_META_AI, Settings.HIDE_META_AI_SHARE_TARGET,
             Settings.HIDE_META_AI_PROFILE_BANNER, Settings.HIDE_META_AI_PROFILE_BUTTON, Settings.HIDE_META_AI_BLEND),
@@ -213,6 +216,7 @@ public enum PatchFamily {
             Settings.HIDE_PROFILE_LINKS),
     PROFILE_POSTS_LIST(FamilyNames.PROFILE_POSTS_LIST, "profilePostsList", null, Settings.PROFILE_POSTS_LIST),
     PROFILE_GRID_JUMP(FamilyNames.PROFILE_GRID_JUMP, "profileGridJump", null, Settings.PROFILE_GRID_JUMP),
+    PROFILE_REEL_SORT(FamilyNames.PROFILE_REEL_SORT, "profileReelSort", null, Settings.PROFILE_REEL_SORT),
     COMMENT_COPY(FamilyNames.COMMENT_COPY, "commentCopy", null, Settings.COPY_COMMENTS, Settings.COPY_COMMENT_AUTHORS,
             Settings.COPY_COMMENTS_WITHOUT_MENTIONS, Settings.SELECT_TEXT),
     COMMENT_PHOTO(FamilyNames.COMMENT_PHOTO, "commentPhoto", null, Settings.SAVE_COMMENT_PHOTOS,
@@ -245,7 +249,7 @@ public enum PatchFamily {
             Settings.HIDE_REELS_CREATE_BUTTON, Settings.HIDE_SAVED_REELS_CREATE_BUTTON,
             Settings.HIDE_REELS_YOUR_ALGORITHM, Settings.HIDE_REELS_FRIENDS_TAB,
             Settings.HIDE_REEL_LIKE_BUTTON, Settings.HIDE_REEL_COMMENT_BUTTON,
-            Settings.HIDE_REEL_SAVE_BUTTON, Settings.KEEP_REEL_CLEAR_MODE, Settings.QUIET_REEL_CLEAR_MODE,
+            Settings.HIDE_REEL_SAVE_BUTTON, Settings.HIDE_REEL_PAUSE_ICON, Settings.KEEP_REEL_CLEAR_MODE, Settings.QUIET_REEL_CLEAR_MODE,
             Settings.CLEAR_MODE_SEEK_BAR, Settings.SHOW_REELS_FRIENDS_TAB, Settings.PICK_FRIENDS_TAB),
     KEEP_REELS_TOP_BAR(FamilyNames.KEEP_REELS_TOP_BAR, "keepReelsTopBar", null, Settings.KEEP_REELS_TOP_BAR),
     REEL_DOWNLOAD(FamilyNames.REEL_DOWNLOAD, "reelDownload", null, Settings.DOWNLOAD_REELS),
@@ -280,8 +284,10 @@ public enum PatchFamily {
     REEL_SOUND(FamilyNames.REEL_SOUND, "reelSound", null, Settings.START_REELS_WITH_SOUND,
             Settings.START_REELS_MUTED),
     REEL_ZOOM(FamilyNames.REEL_ZOOM, "reelZoom", null, Settings.PINCH_ZOOM_REELS),
-    REEL_DOUBLE_TAP_SKIP(FamilyNames.REEL_DOUBLE_TAP_SKIP, "reelDoubleTapSkip", null, Settings.DOUBLE_TAP_SKIP_REELS),
-    HIDE_REEL_2X_POPUP(FamilyNames.HIDE_REEL_2X_POPUP, "reelFastLabel", null, Settings.HIDE_REEL_2X_POPUP),
+    REEL_DOUBLE_TAP_SKIP(FamilyNames.REEL_DOUBLE_TAP_SKIP, "reelDoubleTapSkip", null, Settings.DOUBLE_TAP_SKIP_REELS,
+            Settings.REEL_SKIP_ARROWS),
+    HIDE_REEL_2X_POPUP(FamilyNames.HIDE_REEL_2X_POPUP, "reelFastLabel", null, Settings.HIDE_REEL_2X_POPUP,
+            Settings.HIDE_REEL_LOCK_MESSAGE),
     REEL_AUTO_SCROLL(FamilyNames.REEL_AUTO_SCROLL, "reelAutoScroll", null, Settings.KEEP_REEL_AUTO_SCROLL,
             Settings.REEL_AUTO_ADVANCE),
     REEL_SCROLLING(FamilyNames.REEL_SCROLLING, "reelScrolling", null, Settings.STOP_REELS_SCROLLING,
@@ -845,7 +851,7 @@ public enum PatchFamily {
     List<Setting<?>> choices() {
         switch (this) {
             case FONT:
-                return Collections.singletonList(Settings.FONT);
+                return Arrays.asList(Settings.FONT, Settings.TEXT_SIZE);
             case EMOJI_STYLE:
                 return Collections.singletonList(Settings.EMOJI_FONT);
             case MESSAGE_BOX:

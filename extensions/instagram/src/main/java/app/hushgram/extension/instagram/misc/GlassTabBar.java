@@ -60,6 +60,7 @@ import java.util.WeakHashMap;
 import app.hushgram.extension.instagram.feed.AmbientLight;
 import app.hushgram.extension.instagram.reels.FullScreenBars;
 import app.hushgram.extension.instagram.reels.ReelBlurBars;
+import app.hushgram.extension.instagram.reels.ReelSeekRoom;
 import app.hushgram.extension.instagram.settings.FamilyNames;
 import app.hushgram.extension.instagram.settings.Settings;
 import app.hushgram.extension.instagram.settings.SettingsStatus;
@@ -291,12 +292,82 @@ public final class GlassTabBar {
      * when the reel runs behind it: the slot, while the slot is kept (#372). With no slot kept, as over a
      * reel opened from a feed post where Instagram hides its bar (#347), the viewer can run down over the
      * navigation bar, where nothing pads it, so the band clears [nav], how far the viewer reaches into
-     * that bar ({@link #intoTheNavigationBar}), and the seek bar stays off the gesture handle (#450). A
-     * viewer that stops at the slot needs no lift.
+     * that bar ({@link #intoTheNavigationBar}), and the seek bar stays off the gesture handle (#450).
+     * Over a kept slot the band also leaves [gap] ({@link #REELS_GAP_DP}) between the seek bar and the
+     * pill, which a viewer that stops at the slot otherwise put right on top of it (#187).
      */
-    static int reelsBandLift(boolean keep, boolean behind, int slot, int nav) {
+    static int reelsBandLift(boolean keep, boolean behind, int slot, int nav, int gap) {
         if (!keep) return Math.max(0, nav);
-        return behind ? Math.max(0, slot) : 0;
+        return (behind ? Math.max(0, slot) : 0) + Math.max(0, gap);
+    }
+
+    /**
+     * The bottom margin a reel's video or cover gets so a reel running behind the pill sits where it would
+     * in a viewer stopped at the [slot] (#450). Instagram centres a reel shorter than its viewer, so a viewer
+     * run down behind the pill put the reel half the slot lower, with that much more black over it. A
+     * FrameLayout moves a centred child up by its whole bottom margin, so the margin is half the slot, cut
+     * to half the [room] the view's [height] leaves in its parent so the reel never rises past the viewer's
+     * top. 0 unless the slot is kept ([keep]), the reel runs behind ([behind]) and the view is centred top
+     * to bottom ([gravity]).
+     */
+    static int reelsMediaMargin(boolean keep, boolean behind, int slot, int room, int height, int gravity) {
+        if (!keep || !behind || slot <= 0 || height <= 0 || room <= 0) return 0;
+        if ((gravity & Gravity.VERTICAL_GRAVITY_MASK) != Gravity.CENTER_VERTICAL) return 0;
+        return Math.max(0, Math.min(slot, room - height)) / 2;
+    }
+
+    /** The class of a reel's video view, which Instagram's reel binder sizes and centres along with its cover. */
+    static final String REEL_VIDEO_LAYOUT = "com.instagram.ui.simplevideolayout.SimpleVideoLayout";
+
+    /**
+     * Puts in [media] each reel video under [view] ({@link #REEL_VIDEO_LAYOUT}) and the views beside it that
+     * Instagram sized with it, its cover: the same parent, the same set height and the same gravity. Doesn't
+     * look inside those.
+     */
+    static void reelMedia(View view, java.util.List<View> media, int depth) {
+        if (depth > 60 || view.getVisibility() == View.GONE) return;
+        if (REEL_VIDEO_LAYOUT.equals(view.getClass().getName())) {
+            media.add(view);
+            if (!(view.getParent() instanceof ViewGroup)
+                    || !(view.getLayoutParams() instanceof FrameLayout.LayoutParams)) return;
+            FrameLayout.LayoutParams video = (FrameLayout.LayoutParams) view.getLayoutParams();
+            ViewGroup parent = (ViewGroup) view.getParent();
+            for (int i = 0; i < parent.getChildCount(); i++) {
+                View sibling = parent.getChildAt(i);
+                if (sibling == view || !(sibling.getLayoutParams() instanceof FrameLayout.LayoutParams)) continue;
+                FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) sibling.getLayoutParams();
+                if (params.height > 0 && params.height == video.height && params.gravity == video.gravity) {
+                    media.add(sibling);
+                }
+            }
+            return;
+        }
+        if (!(view instanceof ViewGroup)) return;
+        ViewGroup group = (ViewGroup) view;
+        for (int i = 0; i < group.getChildCount(); i++) reelMedia(group.getChildAt(i), media, depth + 1);
+    }
+
+    /**
+     * Gives [view], a reel's video or cover, the bottom margin {@link #reelsMediaMargin} works out for its
+     * parent's room, on top of the margin it had before this gave it one, which [given] remembers. Says
+     * whether that changed it.
+     */
+    static boolean placeReelMedia(View view, boolean keep, boolean behind, int slot, Map<View, Integer> given) {
+        if (!(view.getLayoutParams() instanceof FrameLayout.LayoutParams) || !(view.getParent() instanceof View)) {
+            return false;
+        }
+        FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) view.getLayoutParams();
+        View parent = (View) view.getParent();
+        Integer before = given.get(view);
+        int own = before != null ? before : params.bottomMargin;
+        int room = parent.getHeight() - parent.getPaddingTop() - parent.getPaddingBottom();
+        int margin = parent.getHeight() <= 0 ? 0 : reelsMediaMargin(keep, behind, slot, room, params.height, params.gravity);
+        if (margin == 0) given.remove(view);
+        else given.put(view, own);
+        if (params.bottomMargin == own + margin) return false;
+        params.bottomMargin = own + margin;
+        view.setLayoutParams(params);
+        return true;
     }
 
     /**
@@ -395,6 +466,23 @@ public final class GlassTabBar {
             room = Math.min(room, child.getTop());
         }
         return room == Integer.MAX_VALUE ? 0 : Math.max(0, room);
+    }
+
+    /**
+     * Whether [view]'s translation is someone else's, to be left alone: neither 0 nor [ours], the last one
+     * the pill gave it (null for none). A lift the seek bar's room gave the reel's seek bar row
+     * ({@link ReelSeekRoom#holdsUp}) is the pill's to take over. Taken for Instagram's, the row kept only
+     * that lift out of the navigation bar, and the seek bar stayed behind the pill (#704).
+     */
+    static boolean othersTranslation(View view, @Nullable Float ours) {
+        float now = view.getTranslationY();
+        return ours == null ? now != 0f && !ReelSeekRoom.holdsUp(view) : now != ours;
+    }
+
+    /** {@link #othersTranslation} for [view]'s scroll, which the seek bar's room gives the caption over the bar. */
+    static boolean othersScroll(View view, @Nullable Integer ours) {
+        int now = view.getScrollY();
+        return ours == null ? now != 0 && !ReelSeekRoom.scrollsUp(view) : now != ours;
     }
 
     /**
@@ -731,6 +819,17 @@ public final class GlassTabBar {
         return id == 0 ? null : root.findViewById(id);
     }
 
+    /** Whether [holder], Instagram's bottom sheet holder ({@link #SHEET_HOLDER}), is shown with a sheet in it. */
+    static boolean showsASheet(@Nullable View holder) {
+        if (!(holder instanceof ViewGroup) || !holder.isShown()) return false;
+        ViewGroup sheets = (ViewGroup) holder;
+        for (int i = 0; i < sheets.getChildCount(); i++) {
+            View sheet = sheets.getChildAt(i);
+            if (sheet.getVisibility() == View.VISIBLE && sheet.getHeight() > 0) return true;
+        }
+        return false;
+    }
+
     /** The first shown view called [name] under [root], or null ({@link #shownById}). */
     @Nullable
     static View findShown(View root, String name) {
@@ -849,6 +948,8 @@ public final class GlassTabBar {
      * and the bottom of that height.
      */
     static final int FIT_GAP_DP = 1;
+    /** The room a reel's seek bar keeps above the pill's slot on the Reels tab ({@link #reelsBandLift}, #187). */
+    static final int REELS_GAP_DP = 8;
     /**
      * Where the glass's blur slider starts (#391). Light enough that a post's thin white icons under the
      * pill still read as soft shapes. The 18 dp it started on before smeared them into a flat tint (#289).
@@ -914,6 +1015,8 @@ public final class GlassTabBar {
     static final String COUNT_REELS_LIFTED = "Reels viewer kept above the pill's slot";
     /** Counted each time a reel's caption, buttons or seek bar is raised clear of a footer laid over the reel (#260). */
     static final String COUNT_REEL_RAISED = "Reel's caption or seek bar raised over its footer";
+    /** What a reel's video or cover moved up to where the slot would put it, with the reel behind the pill, is counted under (#450). */
+    static final String COUNT_REEL_MEDIA_PLACED = "Reel behind the pill placed as over the slot";
     /** Counted each time a footer under a reel is laid over the reel instead of shrinking it (#260). */
     static final String COUNT_FOOTER_OVERLAID = "Footer laid over the reel";
     /**
@@ -1663,6 +1766,9 @@ public final class GlassTabBar {
         private final WeakHashMap<View, View> bands = new WeakHashMap<>();
         /** The footers laid over a reel's bottom (#260), each with the top margin it was given. */
         private final WeakHashMap<View, Integer> overlapped = new WeakHashMap<>();
+        /** The reel videos and covers moved up for a reel behind the pill (#450), each with the margin it had before. */
+        private final WeakHashMap<View, Integer> mediaMargins = new WeakHashMap<>();
+        private final java.util.ArrayList<View> media = new java.util.ArrayList<>();
         private final java.util.ArrayList<View> anchors = new java.util.ArrayList<>();
         private final java.util.ArrayList<View> footerViews = new java.util.ArrayList<>();
         private final java.util.Set<View> raisedNow = java.util.Collections.newSetFromMap(new java.util.IdentityHashMap<>());
@@ -2030,15 +2136,8 @@ public final class GlassTabBar {
         }
 
         /** Whether Instagram's bottom sheet holder in the bar's window shows a sheet. */
-        boolean underASheet() {
-            View holder = sheetHolder();
-            if (!(holder instanceof ViewGroup) || !holder.isShown()) return false;
-            ViewGroup sheets = (ViewGroup) holder;
-            for (int i = 0; i < sheets.getChildCount(); i++) {
-                View sheet = sheets.getChildAt(i);
-                if (sheet.getVisibility() == View.VISIBLE && sheet.getHeight() > 0) return true;
-            }
-            return false;
+        @Override public boolean underASheet() {
+            return showsASheet(sheetHolder());
         }
 
         /**
@@ -2322,6 +2421,17 @@ public final class GlassTabBar {
                 HookStatus.counted(FamilyNames.GLASS_TAB_BAR, COUNT_REELS_LIFTED);
                 movedForReels("lifted the Reels viewer", moved, wanted);
             }
+            media.clear();
+            for (View viewer : viewers) {
+                if (viewer != null && viewer.isAttachedToWindow()) reelMedia(viewer, media, 0);
+            }
+            for (View view : media) {
+                if (placeReelMedia(view, keep, behind, slot, mediaMargins)) {
+                    reelsMoved = true;
+                    HookStatus.counted(FamilyNames.GLASS_TAB_BAR, COUNT_REEL_MEDIA_PLACED);
+                }
+            }
+            media.clear();
         }
 
         /**
@@ -2351,7 +2461,7 @@ public final class GlassTabBar {
                 reelAnchors(viewer, info, scrubber, footers, anchors, footerViews, 0);
                 int footer = 0;
                 for (View view : footerViews) footer += overlapFooter(view);
-                footer += reelsBandLift(reelsKept, reelsBehind, reelsSlot, reelsKept ? 0 : navUnder(viewer));
+                footer += reelsBandLift(reelsKept, reelsBehind, reelsSlot, reelsKept ? 0 : navUnder(viewer), dp(REELS_GAP_DP));
                 for (View anchor : anchors) {
                     View band = bands.get(anchor);
                     if (band == null || !holds(band, anchor)) {
@@ -2423,7 +2533,7 @@ public final class GlassTabBar {
         private boolean scrollUp(View view, int by) {
             Integer ours = scrolled.get(view);
             int now = view.getScrollY();
-            if (ours == null ? now != 0 : now != ours) {
+            if (othersScroll(view, ours)) {
                 if (ours != null) {
                     scrolled.remove(view);
                     unwatch(view);
@@ -2478,12 +2588,13 @@ public final class GlassTabBar {
         /**
          * Moves [view] by [lift] up the screen (a negative translation) and says whether that changed it.
          * A translation that is neither 0 nor the last one this gave is Instagram's: the view is left to it
-         * and taken up again once Instagram puts it back to 0.
+         * and taken up again once Instagram puts it back to 0. The seek bar room's lift is taken over
+         * ({@link #othersTranslation}).
          */
         private boolean raise(View view, int lift) {
             Float ours = raised.get(view);
             float now = view.getTranslationY();
-            if (ours == null ? now != 0f : now != ours) {
+            if (othersTranslation(view, ours)) {
                 if (ours != null) forget(view);
                 return false;
             }
@@ -3506,7 +3617,8 @@ public final class GlassTabBar {
      * <p>Haptic strength (#640) moves each style off its own tick, as {@link #plan} works out: lighter is the
      * built-in tick, a weaker pulse or a smaller primitive, and stronger is the built-in heavy click, a harder
      * and then longer pulse, or the click primitive. A motor that runs at only one strength can only be made
-     * stronger by running it longer, so above 100% it plays a pulse of {@link #PULSE_MS} times the strength.
+     * stronger by running it longer, so above 100% it plays a pulse of {@link #PULSE_MS} times the strength
+     * squared. Past {@link #STRONG_FROM} every style plays that pulse at full strength (#689).
      */
     static final class Haptics {
         /** How much of the phone's tick primitive the light tick plays. */
@@ -3514,8 +3626,13 @@ public final class GlassTabBar {
         /** The short pulse: how long, and how hard of 255. */
         static final int SHORT_MS = 4;
         static final int SHORT_AMPLITUDE = 170;
-        /** At 100% strength, how long the pulse is on a motor that runs at only one strength. */
+        /**
+         * At 100% strength, how long the pulse is on a motor that runs at only one strength. Above 100% it grows
+         * with the square of the strength, to 60 ms at 200%, long enough for a coin motor to be clearly felt.
+         */
         static final int PULSE_MS = 15;
+        /** Past this strength every style plays the growing full-strength pulse, whatever the motor. */
+        static final int STRONG_FROM = 150;
         static final long MIN_TICK_GAP_MS = 35;
         private static final int TICK_PRIMITIVE = 1;
         private static final int CLICK_PRIMITIVE = 2;
@@ -3585,8 +3702,11 @@ public final class GlassTabBar {
         static Plan plan(HapticStyle style, int percent, int sdk, boolean amplitudeControl,
                          boolean tickPrimitive, boolean clickPrimitive) {
             float strength = percent / 100f;
-            if (!amplitudeControl && percent > 100) {
-                return Plan.pulse(Math.round(PULSE_MS * strength), android.os.VibrationEffect.DEFAULT_AMPLITUDE);
+            // Past the built-in heavy click (#689): it played the same from 101% to 200%, and on some phones it's
+            // barely felt, so the rest of the slider goes into a full-strength pulse that keeps growing.
+            if (percent > 100 && (!amplitudeControl || percent > STRONG_FROM)) {
+                return Plan.pulse(Math.round(PULSE_MS * strength * strength),
+                        amplitudeControl ? 255 : android.os.VibrationEffect.DEFAULT_AMPLITUDE);
             }
             if (style == HapticStyle.SYSTEM && sdk >= Build.VERSION_CODES.Q) {
                 return Plan.effect(percent < 100 ? android.os.VibrationEffect.EFFECT_TICK

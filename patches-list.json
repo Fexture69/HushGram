@@ -167,7 +167,7 @@
     },
     {
       "name": "Ask before a call",
-      "description": "Asks you to confirm before a call starts from a chat, so a stray tap on the call button doesn't ring anyone, and can take the call buttons off the top of a chat. Both start off. Turn them on in HushGram settings > Messages.",
+      "description": "Asks you to confirm before a call starts from a chat, so a stray tap on the call button doesn't ring anyone, and can take the call buttons, Blend and the back arrow off the top of a chat. All start off. Turn them on in HushGram settings > Messages.",
       "category": "Messages",
       "use": true,
       "dependencies": [
@@ -687,7 +687,7 @@
     },
     {
       "name": "Clean up Reels",
-      "description": "Hides extra buttons and prompts on reels, such as Follow, Edits, templates, Meta AI, Ray-Ban Meta glasses, friends' activity, the Add a comment bar, the reply bar on reels from chats, the Like, Comment and Save buttons, the Create and Your algorithm buttons, the Friends tab and the Reels tab's top bar. Each one has its own switch, and Burn-in guard can dim a reel's buttons, and a story's, while you aren't touching the screen. Keep clear mode on carries Instagram's clear mode to the next reels, and can start every reel in it. Starts off. Turn it on in HushGram settings > Reels.",
+      "description": "Hides extra buttons and prompts on reels, such as Follow, Edits, templates, Meta AI, Ray-Ban Meta glasses, friends' activity, the Add a comment bar, the reply bar on reels from chats, the Like, Comment and Save buttons, the pause icon on a paused reel, the Create and Your algorithm buttons, the Friends tab and the Reels tab's top bar. Each one has its own switch, and Burn-in guard can dim a reel's buttons, and a story's, while you aren't touching the screen. Keep clear mode on carries Instagram's clear mode to the next reels, and can start every reel in it. Starts off. Turn it on in HushGram settings > Reels.",
       "category": "Reels",
       "use": true,
       "dependencies": [
@@ -2851,7 +2851,7 @@
     },
     {
       "name": "Hide the 2x popup on Reels",
-      "description": "Takes the 2x label off a reel while you hold it to play faster. The speed-up still works. Starts off. Turn it on in HushGram settings > Reels.",
+      "description": "Takes the 2x label off a reel while you hold it to play faster. A second switch hides the message Instagram shows when you lock a reel's speed. The speed-up and the lock still work. Starts off. Turn them on in HushGram settings > Reels.",
       "category": "Reels",
       "use": true,
       "dependencies": [
@@ -5403,6 +5403,86 @@
       "options": []
     },
     {
+      "name": "Sent follow requests",
+      "description": "Keeps a list of the accounts you've asked to follow that haven't let you in yet, with their pictures and names. A tap opens the profile, where Instagram's own Requested button cancels the request. It lists the requests a follow button shows while it's on. Starts off. Turn it on in HushGram settings > Profiles.",
+      "category": "Profiles",
+      "use": true,
+      "dependencies": [
+        "BytecodePatch",
+        "HushGram settings"
+      ],
+      "compatiblePackages": {
+        "com.instagram.android": [
+          "454.0.0.54.77"
+        ]
+      },
+      "compatibility": [
+        {
+          "name": "Instagram",
+          "packageName": "com.instagram.android",
+          "description": null,
+          "appIconColor": 14757996,
+          "signatures": [
+            "3a10c50c18ba937506c2875e9047be74f8fd8b86fae2ff9feaa50a81fcb4c014",
+            "5f3e50f435583c9ae626302a71f7340044087a7e2c60adacfc254205a993e305"
+          ],
+          "targets": [
+            {
+              "version": "454.0.0.54.77",
+              "experimental": false,
+              "versionCodes": {
+                "ARM64_V8A": 386014758,
+                "ARMEABI_V7A": 386014757,
+                "X86": 386014759,
+                "X86_64": 386014760
+              }
+            }
+          ]
+        }
+      ],
+      "options": []
+    },
+    {
+      "name": "Shorter Active now",
+      "description": "Someone shows as Active now for one minute after they leave, like on the website, instead of six and a half. Starts off. Turn it on in HushGram settings > Messages.",
+      "category": "Fixes",
+      "use": true,
+      "dependencies": [
+        "BytecodePatch",
+        "HushGram settings"
+      ],
+      "compatiblePackages": {
+        "com.instagram.android": [
+          "454.0.0.54.77"
+        ]
+      },
+      "compatibility": [
+        {
+          "name": "Instagram",
+          "packageName": "com.instagram.android",
+          "description": null,
+          "appIconColor": 14757996,
+          "signatures": [
+            "3a10c50c18ba937506c2875e9047be74f8fd8b86fae2ff9feaa50a81fcb4c014",
+            "5f3e50f435583c9ae626302a71f7340044087a7e2c60adacfc254205a993e305"
+          ],
+          "targets": [
+            {
+              "version": "454.0.0.54.77",
+              "experimental": false,
+              "versionCodes": {
+                "ARM64_V8A": 386014758,
+                "ARMEABI_V7A": 386014757,
+                "X86": 386014759,
+                "X86_64": 386014760
+              }
+            }
+          ]
+        }
+      ],
+      "options": []
+    },
+    {
       "name": "Show a post's exact time",
       "description": "Shows the date and time a post went up, like Oct 2, 3:45 PM, instead of how long ago. It does the same for comments. Starts off. Turn it on in HushGram settings > Feed.",
       "category": "Feed",
@@ -5843,6 +5923,46 @@
       "options": []
     },
     {
+      "name": "Sort reels on profiles",
+      "description": "Brings back the arrow next to Reels on a profile, with Latest and Most viewed, on profiles where Instagram took it away. Starts off. Turn it on in HushGram settings > Profiles.",
+      "category": "Profiles",
+      "use": true,
+      "dependencies": [
+        "BytecodePatch",
+        "HushGram settings"
+      ],
+      "compatiblePackages": {
+        "com.instagram.android": [
+          "454.0.0.54.77"
+        ]
+      },
+      "compatibility": [
+        {
+          "name": "Instagram",
+          "packageName": "com.instagram.android",
+          "description": null,
+          "appIconColor": 14757996,
+          "signatures": [
+            "3a10c50c18ba937506c2875e9047be74f8fd8b86fae2ff9feaa50a81fcb4c014",
+            "5f3e50f435583c9ae626302a71f7340044087a7e2c60adacfc254205a993e305"
+          ],
+          "targets": [
+            {
+              "version": "454.0.0.54.77",
+              "experimental": false,
+              "versionCodes": {
+                "ARM64_V8A": 386014758,
+                "ARMEABI_V7A": 386014757,
+                "X86": 386014759,
+                "X86_64": 386014760
+              }
+            }
+          ]
+        }
+      ],
+      "options": []
+    },
+    {
       "name": "Speed button on stories",
       "description": "Puts a speed button at the top of a video story. Tap it to play the story at 1.5x or 2x, and later video stories keep that speed. Photos and ads play as usual. Starts off. Turn it on in HushGram settings > Stories.",
       "category": "Playback",
@@ -6044,7 +6164,7 @@
     },
     {
       "name": "Start feed videos with sound",
-      "description": "Starts videos on Home with their sound on, the same as tapping a video's speaker. Your phone's ringer and volume still count. Starts off. Turn it on in HushGram settings > Feed.",
+      "description": "Starts videos on Home with their sound on, the same as tapping a video's speaker, or keeps them muted while reels play with sound. Your phone's ringer and volume still count. Starts off. Turn it on in HushGram settings > Feed.",
       "category": "Playback",
       "use": true,
       "dependencies": [

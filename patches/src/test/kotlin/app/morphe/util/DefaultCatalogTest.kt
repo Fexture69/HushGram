@@ -16,8 +16,10 @@ import app.morphe.patches.instagram.direct.plusmenu.chatPlusMenuPatch
 import app.morphe.patches.instagram.feed.confirm.askBeforeLikePatch
 import app.morphe.patches.instagram.feed.confirm.askBeforeRefreshPatch
 import app.morphe.patches.instagram.profile.follow.askBeforeFollowPatch
+import app.morphe.patches.instagram.profile.follow.sentFollowRequestsPatch
 import app.morphe.patches.instagram.direct.instants.hideInstantsPatch
 import app.morphe.patches.instagram.direct.presence.showLastActivePatch
+import app.morphe.patches.instagram.direct.presence.shorterActiveNowPatch
 import app.morphe.patches.instagram.direct.lock.lockMessagesPatch
 import app.morphe.patches.instagram.stories.live.viewLiveAnonymouslyPatch
 import app.morphe.patches.instagram.direct.history.chatHistoryPatch
@@ -109,6 +111,7 @@ import app.morphe.patches.instagram.profile.notes.hideProfileNotesPatch
 import app.morphe.patches.instagram.profile.tabs.hideProfileTabsPatch
 import app.morphe.patches.instagram.profile.gridjump.profileGridJumpPatch
 import app.morphe.patches.instagram.profile.postslist.profilePostsListPatch
+import app.morphe.patches.instagram.profile.reelsort.sortProfileReelsPatch
 import app.morphe.patches.instagram.profile.suggested.hideProfileSuggestionsPatch
 import app.morphe.patches.instagram.profile.threads.hideThreadsButtonPatch
 import app.morphe.patches.instagram.reels.ailabel.hideAiLabeledReelsPatch
@@ -204,6 +207,7 @@ class DefaultCatalogTest {
         hideKindnessReminderPatch,
         callBlockerPatch,
         askBeforeFollowPatch,
+        sentFollowRequestsPatch,
         askBeforeLikePatch,
         askBeforeRefreshPatch,
         backLeavesHomePatch,
@@ -280,6 +284,7 @@ class DefaultCatalogTest {
         openDeveloperOptionsPatch,
         pickAppIconPatch,
         profileGridJumpPatch,
+        sortProfileReelsPatch,
         profilePostsListPatch,
         readWithoutSeenReceiptPatch,
         reelSeekBarPatch,
@@ -289,6 +294,7 @@ class DefaultCatalogTest {
         saveProfilePicturePatch,
         showHiddenLikeCountsPatch,
         showLastActivePatch,
+        shorterActiveNowPatch,
         showPostTimePatch,
         showReelTimePatch,
         showStoryTimePatch,
@@ -391,7 +397,7 @@ class DefaultCatalogTest {
     }
 
     @Test fun initiallyNeutralControlsAreAvailableInSimpleMode() {
-        assertEquals(157, neutral.size)
+        assertEquals(160, neutral.size)
         neutral.forEach { assertEquals(it.name, true, it.default) }
     }
 
@@ -403,7 +409,7 @@ class DefaultCatalogTest {
     @Test fun generatedCatalogMatchesAllReviewedDeclarations() {
         val all = prior + neutral + optIn
         val declarations = all.associate { it.name!! to it.default }
-        assertEquals("every named patch needs one reviewed decision", 179, all.size)
+        assertEquals("every named patch needs one reviewed decision", 182, all.size)
         assertEquals("the review must not name a patch twice", all.size, declarations.size)
         val file = File("patches-list.json").takeIf(File::isFile) ?: File("../patches-list.json")
         val rows = JsonParser.parseString(file.readText()).asJsonObject.getAsJsonArray("patches")

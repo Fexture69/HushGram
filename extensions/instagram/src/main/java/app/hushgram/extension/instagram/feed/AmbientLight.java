@@ -123,6 +123,11 @@ public final class AmbientLight {
 
     /** How many parents of a picture are asked whether they're its stage. */
     static final int STAGE_DEPTH = 16;
+    /**
+     * How many parents above a photo reel's stage are asked whether the picture leaves room in them.
+     * On 454 the reel's own view is one up. Past two, a full screen photo reaches the window's layout.
+     */
+    static final int PHOTO_STAGE_DEPTH = 2;
     /** The methods taking a Canvas that a view draws itself in. */
     private static final List<String> DRAWS = Arrays.asList("draw", "onDraw", "dispatchDraw", "onDrawForeground");
 
@@ -208,7 +213,7 @@ public final class AmbientLight {
     private static final Map<Class<?>, Boolean> frames = new WeakHashMap<>();
     private static final Runnable TICK = AmbientLight::tick;
     private static final Rect scratch = new Rect(), aim = new Rect();
-    private static final RectF mapped = new RectF();
+    private static final RectF mapped = new RectF(), picture = new RectF();
     private static final int[] where = new int[2];
     private static boolean ticking;
     private static volatile boolean registered;
@@ -366,6 +371,36 @@ public final class AmbientLight {
     }
 
     /**
+     * A photo reel's stage: [stage], or when [photo]'s picture fills it, the nearest of its next
+     * {@link #PHOTO_STAGE_DEPTH} parents the picture leaves room in. A photo reel's frame, and the
+     * view round it, are the photo's own size, so a glow on them never showed (#689).
+     */
+    @Nullable
+    static ViewGroup reelPhotoStageOf(ImageView photo, @Nullable ViewGroup stage) {
+        if (stage == null || !pictureFills(photo, stage)) return stage;
+        ViewParent parent = stage.getParent();
+        for (int i = 0; i < PHOTO_STAGE_DEPTH && parent instanceof ViewGroup; i++, parent = parent.getParent()) {
+            ViewGroup group = (ViewGroup) parent;
+            if (!pictureFills(photo, group)) return group;
+        }
+        return stage;
+    }
+
+    /** Whether [photo]'s picture, as drawn in its view, is at least {@link #FILLS} of [group] both ways. */
+    private static boolean pictureFills(ImageView photo, ViewGroup group) {
+        Drawable drawable = photo.getDrawable();
+        float width = photo.getWidth(), height = photo.getHeight();
+        if (drawable != null && drawable.getIntrinsicWidth() > 0 && drawable.getIntrinsicHeight() > 0
+                && photo.getScaleType() != ImageView.ScaleType.FIT_XY) {
+            picture.set(0, 0, drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight());
+            photo.getImageMatrix().mapRect(picture);
+            width = Math.min(width, picture.width());
+            height = Math.min(height, picture.height());
+        }
+        return width >= group.getWidth() * FILLS && height >= group.getHeight() * FILLS;
+    }
+
+    /**
      * A story's stage: the nearest parent of [media] that spans at least nine tenths of the window both
      * ways, or the width and nearly all the height between the system bars, so the glow can fill the
      * bands the picture leaves above, below and beside it. A tall status bar leaves Instagram's viewer
@@ -504,6 +539,30 @@ public final class AmbientLight {
             ViewGroup group = (ViewGroup) view;
             for (int i = 0; i < group.getChildCount(); i++) {
                 View found = storyMediaIn(group.getChildAt(i), video, budget);
+                if (found != null) return found;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * A photo reel's picture under [view] in the reel's [frame]: the first photo that shows with a
+     * picture of its own, nine tenths of the frame's width and a fifth of its height or more, so the
+     * profile picture, the song's cover and the buttons over the reel are passed by.
+     */
+    @Nullable
+    static ImageView reelPhotoIn(View view, View frame, int[] budget) {
+        if (budget[0]-- <= 0 || view.getVisibility() != View.VISIBLE) return null;
+        if (view instanceof ImageView) {
+            Drawable picture = ((ImageView) view).getDrawable();
+            boolean big = view.getWidth() >= frame.getWidth() * 0.9f && view.getHeight() >= frame.getHeight() / 5;
+            return big && picture != null && picture.getIntrinsicWidth() > 0 && picture.getIntrinsicHeight() > 0
+                    ? (ImageView) view : null;
+        }
+        if (view instanceof ViewGroup) {
+            ViewGroup group = (ViewGroup) view;
+            for (int i = 0; i < group.getChildCount(); i++) {
+                ImageView found = reelPhotoIn(group.getChildAt(i), frame, budget);
                 if (found != null) return found;
             }
         }
@@ -842,7 +901,9 @@ public final class AmbientLight {
             boolean story = light.kind == Kind.STORY;
             if (stage == null || !media.isAttachedToWindow() || !stage.isAttachedToWindow() || !under(media, stage)
                     || (light.host != null && (host == null || !host.isAttachedToWindow() || !under(stage, host)))
-                    || (story ? !stories || !media.isShown() : !feed || (light.kind == Kind.REEL && blurred))) {
+                    || (story ? !stories || !media.isShown() : !feed || (light.kind == Kind.REEL && blurred))
+                    // A photo reel's picture hidden for its video keeps no glow of its own.
+                    || (light.kind == Kind.REEL && media instanceof ImageView && !media.isShown())) {
                 drop(media, light);
                 continue;
             }
@@ -899,7 +960,7 @@ public final class AmbientLight {
         light.asking = true;
         try {
             if (!light.inView.isEmpty()) {
-                // A letterboxed story photo: copy the picture, not the black bands of its view.
+                // A letterboxed story or reel photo: copy the picture, not the black bands of its view.
                 media.getLocationInWindow(where);
                 aim.set(light.inView);
                 aim.offset(where[0], where[1]);
@@ -1319,7 +1380,7 @@ public final class AmbientLight {
                     content.set(0, 0, media.getWidth(), media.getHeight());
                     transform.mapRect(content);
                     content.round(at);
-                } else if (story && media instanceof ImageView && ((ImageView) media).getDrawable() != null
+                } else if ((story || kind == Kind.REEL) && media instanceof ImageView && ((ImageView) media).getDrawable() != null
                         && ((ImageView) media).getDrawable().getIntrinsicWidth() > 0
                         && ((ImageView) media).getDrawable().getIntrinsicHeight() > 0) {
                     // A photo letterboxed inside its own view: where the drawable lands, padding included.
@@ -1352,10 +1413,12 @@ public final class AmbientLight {
             int reach = Math.round(Settings.AMBIENT_LIGHT_SPREAD.get().dp * stage.getResources().getDisplayMetrics().density);
             // A story's bands can be deeper than the glow reaches, so the glow reaches the edge of the
             // host, or of the stage without one. Both draw it the same way, so it runs on unbroken. A
-            // reel's reaches the host's edges too, past the tab bar, which draws the host's glow.
+            // reel's reaches the host's edges too, past the tab bar, which draws the host's glow, and a
+            // reel with no host fills its stage's bands the same way, so a reel opened from a profile or
+            // the Reels tab glows like one opened from a link (#689).
             if ((story || kind == Kind.REEL) && !onHost.isEmpty()) {
                 reach = Math.max(reach, farthest(onHost, band));
-            } else if (story && !at.isEmpty()) {
+            } else if ((story || kind == Kind.REEL) && !at.isEmpty()) {
                 reach = Math.max(reach, farthest(at, stage));
             }
             int cut = -1;
@@ -1977,16 +2040,32 @@ public final class AmbientLight {
                 return;
             }
             if (frame != 0 && view.getId() == frame) {
-                if (reels) {
-                    TextureView video = videoIn(view, budget);
-                    if (video != null) light(owner, video, Kind.REEL, null, reelStageOf(video, view));
-                }
+                if (reels) lightReel(owner, view, budget);
                 return;
             }
             if (view instanceof ViewGroup) {
                 ViewGroup group = (ViewGroup) view;
                 for (int i = 0; i < group.getChildCount(); i++) walk(owner, group.getChildAt(i), frame, storyFrame, reels, budget);
             }
+        }
+
+        /**
+         * Lights the reel in [frame]: its video, or with none showing a photo reel's picture, which
+         * Instagram shows in a photo view of its own and which stayed dark (#689). A picture that took
+         * the other's place, a video starting over its cover, puts the old one's light out.
+         */
+        private void lightReel(Activity owner, View frame, int[] budget) {
+            View media = videoIn(frame, budget);
+            if (media == null) media = reelPhotoIn(frame, frame, budget);
+            View stale = null;
+            for (Map.Entry<View, Light> entry : lights.entrySet()) {
+                View lit = entry.getKey();
+                if (lit != null && lit != media && entry.getValue().kind == Kind.REEL && under(lit, frame)) stale = lit;
+            }
+            if (stale != null) drop(stale, lights.get(stale));
+            if (media == null) return;
+            ViewGroup stage = reelStageOf(media, frame);
+            light(owner, media, Kind.REEL, null, media instanceof ImageView ? reelPhotoStageOf((ImageView) media, stage) : stage);
         }
 
         /** The first video under [view] that shows. */

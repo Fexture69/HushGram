@@ -385,6 +385,8 @@ Hide Add Yours cards between stories	隱藏限時動態之間的「換你了」�
 Leaves out the Add Yours cards, like Popular Add Yours and Join a trending Add Yours, that Instagram puts between the stories you tap through. The stories themselves stay.	移除瀏覽限時動態時，Instagram 在中間插入的「換你了」卡片，例如「熱門換你了」與「加入熱門換你了」。限時動態本身仍會保留。
 Download feed photos	下載動態首頁照片
 The same Download on a photo post, and on a carousel showing a photo. Saves the largest size Instagram has.	在照片貼文與目前顯示照片的輪播貼文中加入相同的「下載」選項。以 Instagram 提供的最大尺寸儲存。
+Save photos at full size	以完整尺寸儲存照片
+Download feed photos saves a photo at the size it was posted, not the 1080 pixel copy Instagram shows. Grid pictures load larger too, which uses more data. Restart Instagram to see the change.	「下載動態首頁照片」會以照片發佈時的尺寸儲存，而不是 Instagram 顯示的 1080 像素副本。網格圖片也會以更大尺寸載入，會使用更多數據。請重新啟動 Instagram 以套用變更。
 the start-up fix for x86 devices	x86 裝置啟動修正
 # context: toasts when a long press of Home gave up waiting on Instagram's developer options to load
 Pure black dark mode	AMOLED 純黑模式
@@ -457,6 +459,9 @@ Puts a calendar on a profile's top bar. Pick a day and the posts grid goes back 
 Open the profile's posts first	請先開啟個人檔案的貼文
 Still loading, try again	仍在載入，請再試一次
 Going to that date	正在前往該日期
+# context: Profiles settings; Reels is the reels tab on a profile, Latest and Most viewed are the two sorts Instagram's arrow next to it offers (#679)
+Sort reels on profiles	排序個人檔案的 Reels
+Puts the arrow next to Reels on every profile, so you can sort them by Latest or Most viewed where Instagram took the choice away.	在每個個人檔案的 Reels 旁顯示箭頭，即使 Instagram 拿掉了這個選項，也能依「最新」或「最多觀看次數」排序。
 The cards of people and creators to follow that Instagram puts between reels. Every reel still plays.	隱藏 Instagram 在 Reels 之間插入的推薦用戶與創作者卡片。每則 Reel 仍會播放。
 Leaves out reels with a Paid partnership label, and reels Instagram marks as boosted. Ads have their own switch.	隱藏標示「付費合作夥伴」或 Instagram 標記為加強推廣的 Reels。廣告另有獨立開關。
 Turn on Start Home on Following to use this choice.	請啟用「首頁預設顯示追蹤中」以使用此選項。
@@ -976,6 +981,12 @@ Unlock this chat	解鎖此聊天
 Locked chats	已鎖定的聊天
 Lock single chats. A locked chat opens only once you unlock it the way Unlock with says, and its notifications say only that a message came.	鎖定個別聊天。已鎖定的聊天要依「解鎖方式」的設定解鎖後才會開啟；通知只會顯示收到新訊息。
 Open a chat in Instagram, then come back here to lock it.	先在 Instagram 開啟聊天，再回到此處鎖定。
+# context: Lock rows under Messages; a Saved collection is one of the folders Instagram's Saved keeps posts in. Unlock with is the row that picks the phone lock or a PIN (#678)
+This collection is locked	此珍藏分類已鎖定
+Unlock this collection	解鎖此珍藏分類
+Locked collections	已鎖定的珍藏分類
+Lock single collections in Saved. A locked collection opens only once you unlock it the way Unlock with says. Saving a post to it never asks.	鎖定「已儲存」中的個別珍藏分類。已鎖定的珍藏分類要依「解鎖方式」的設定解鎖後才會開啟。把貼文儲存到其中時一律不會詢問。
+Open a collection in Saved, then come back here to lock it.	先在「已儲存」打開珍藏分類，再回到此處鎖定。
 %1$s (opened last)	%1$s（最近開啟）
 %1$s is locked	已鎖定 %1$s
 %1$s is unlocked	已解鎖 %1$s
@@ -1058,7 +1069,7 @@ A tap on a reel pauses it, and another tap plays it again.	點擊 Reel 即可暫
 A tap on a playing reel turns its sound off or on and keeps it playing. A reel that's paused still plays on a tap.	點擊播放中的 Reel 會切換靜音並繼續播放。已暫停的 Reel 仍會在點擊後播放。
 A tap on a reel does what Instagram does.	點擊 Reel 時使用 Instagram 原本的操作。
 Keep playing	繼續播放
-A tap on a playing reel does nothing, so a stray touch doesn't stop it. A reel that's paused still plays on a tap.	點擊播放中的 Reel 不會有任何反應，誤觸也不會讓它停下。已暫停的 Reel 仍會在點擊後播放。
+A tap on a playing reel does nothing, so a stray touch doesn't stop it. A tap right on the play icon still pauses it, and a paused reel plays on a tap.	點擊播放中的 Reel 不會有任何反應，誤觸也不會讓它停下。直接點擊播放圖示仍會暫停，已暫停的 Reel 會在點擊後播放.
 Keep reels muted on the volume keys	按音量鍵時保持 Reels 靜音
 Volume up still raises the phone's volume, but a muted reel stays muted until you unmute it.	音量加鍵仍會提高手機音量，但已靜音的 Reel 會維持靜音，直到你取消靜音。
 Start stories with sound	限時動態預設開啟聲音
@@ -1120,6 +1131,8 @@ Never. Pick a time and the tab bar slides away once a reel has played that long 
 On Reels, the tab bar slides away after %1$d seconds without a touch. Tap the bottom edge of the screen, change tab or press Back to bring it back. Restart Instagram after changing it.	在 Reels 中，未觸碰畫面 %1$d 秒後分頁列會滑出畫面。點擊螢幕底部邊緣、切換分頁或按返回即可重新顯示。變更後請重新啟動 Instagram。
 Start feed videos with sound	動態首頁影片預設開啟聲音
 Videos on Home play with their sound on, the same as tapping a video's speaker. Mute one and the ones after it stay muted. Your phone's ringer and volume still count, so on silent or with the volume down, they stay quiet.	首頁影片會開啟聲音播放，等同點擊影片的喇叭按鈕。將其中一部靜音後，之後的影片也會保持靜音。仍受手機鈴聲與音量設定影響，因此靜音或音量調低時仍不會出聲。
+Start feed videos muted	動態首頁影片預設靜音
+Videos on Home start silent, even after you turn the sound on in Reels, so reels keep their sound. Tap a video's speaker to hear that one. Wins over Start feed videos with sound.	首頁影片會以靜音開始播放，即使你在 Reels 中開啟了聲音也一樣，因此 Reels 仍會保留聲音。點擊影片的喇叭按鈕即可聽該影片。優先於「動態首頁影片預設開啟聲音」。
 Tap a feed video to pause it	點擊動態首頁影片以暫停
 Tap the video playing in a feed to pause it in place instead of opening it in Reels, and tap it again to play it. Ads keep Instagram's own tap.	點擊動態中播放的影片會直接暫停，而非在 Reels 中開啟；再次點擊即可播放。廣告仍使用 Instagram 原本的點擊操作。
 Hold for 2x on feed videos	長按動態首頁影片以 2 倍速播放
@@ -1200,6 +1213,8 @@ At once	立即
 Tapping the video, double-tapping it to like, and Save and Download don't count as a touch, so the buttons stay faded.	點擊影片、雙擊按讚，以及儲存與下載不算觸碰操作，因此按鈕會維持淡化。
 Off. It can fade a reel's buttons while the screen sits untouched, so they don't burn into an OLED screen.	已關閉。可在未觸碰畫面時淡化 Reel 按鈕，避免 OLED 螢幕烙印。
 Takes the Save button out of the column of buttons beside a reel, and the count under it. Posts in your feed keep theirs.	移除 Reel 旁按鈕列中的儲存按鈕與下方數量。動態首頁貼文的儲存按鈕仍會保留。
+Hide the pause icon on reels	隱藏 Reels 上的暫停圖示
+A paused reel shows just its frame, without the big pause icon and the sound button over it. Tap the reel to play it again.	暫停的 Reel 只顯示畫面，不會再蓋上大大的暫停圖示和聲音按鈕。點一下 Reel 即可繼續播放。
 Keep clear mode on	保持清爽模式
 Turn on Instagram's clear mode on a reel and the next reels open in it too. Leave clear mode yourself and the next reels show their buttons again.	在 Reel 啟用 Instagram 的清爽模式後，後續 Reels 也會以此模式開啟。手動離開清爽模式後，後續 Reels 會重新顯示按鈕。
 # context: Reels settings: a switch under Keep clear mode on (#138). Clear mode is the name used for Instagram's own mode that hides a reel's buttons; Allow screenshots is HushGram's switch of that name
@@ -1243,6 +1258,9 @@ Under a name in your messages and in a chat, the exact time they were last on, l
 Active at %1$s	%1$s 上線
 Active yesterday at %1$s	昨天 %1$s 上線
 Active %1$s at %2$s	%1$s %2$s 上線
+# context: Messages settings; Active now is Instagram's presence label under a name in your messages and in a chat, shown for six and a half minutes after someone leaves (#683)
+Shorter Active now	縮短「目前在線上」
+Someone shows as Active now for one minute after they leave, like on the website, instead of six and a half. Restart Instagram to see the change.	對方離開後只會顯示「目前在線上」一分鐘，和網頁版一樣，而不是六分半鐘。請重新啟動 Instagram 以套用變更。
 Rounded corners on posts	貼文圓角
 Rounds the corners of a post's photo, video and carousel pages in Home and Following. Posts you scroll to after a change show it. Stories, profiles and Explore stay as they were.	將首頁與追蹤中貼文的照片、影片與輪播頁面改為圓角。變更後捲動到的貼文才會顯示。限時動態、個人檔案與探索不變。
 Corner size	圓角大小
@@ -1290,6 +1308,7 @@ Hide the reply bar on reels from chats	隱藏從聊天開啟的 Reels 回覆列
 The Reply to box under a reel you open from a chat, with its reactions and plus button. The chat's own message box stays.	隱藏從聊天開啟的 Reel 下方的回覆框、心情回應與加號按鈕。聊天本身的訊息輸入框仍會保留。
 # context: Layout list title; it picks the font Instagram's text draws in
 Font	字型
+Text size	文字大小
 # context: the three choices in the Font list
 Instagram's font	Instagram 字型
 Your phone's font	手機字型
@@ -1309,7 +1328,7 @@ Hide AI-labeled reels	隱藏標示為 AI 的 Reels
 Leaves out reels that carry Instagram's own AI label. A reel without that label stays, even if AI made it.	略過帶有 Instagram 原生 AI 標籤的 Reels。沒有該標籤的 Reel 仍會保留，即使內容由 AI 製作。
 # context: Downloads switch under Download button on feed posts; on a carousel the icon saves every page instead of asking which
 Save every page without asking	直接儲存所有頁面
-On a carousel, the download icon saves all of its pages at once instead of asking.	在輪播貼文點擊下載圖示時，直接儲存所有頁面，不再詢問。
+On a carousel, the download icon saves all of its pages at once instead of asking. A photo with music saves as a photo.	在輪播貼文點擊下載圖示時，直接儲存所有頁面，不再詢問。有音樂的照片會儲存為照片。
 # context: Reels switch Hide reels by caption words, its Blocked words list row and that row's summary; %1$d is how many words
 Hide reels by caption words	依說明文字隱藏 Reels
 Also on Home	同時套用至首頁
@@ -1447,6 +1466,10 @@ Show all recent searches	顯示所有最近搜尋
 Lists every recent search under the search bar, not just the first few. See all and the x on each row work as before.	在搜尋列下方列出所有最近搜尋，而非僅前幾筆。「查看全部」與每列的 x 仍可照常使用。
 Hide the call buttons in chats	隱藏聊天中的通話按鈕
 Takes the voice and video call buttons off the top of a chat. The name keeps its room. Turn it off and they're back the next time a chat opens.	移除聊天頂端的語音與視訊通話按鈕，名稱仍保有顯示空間。關閉後，下次開啟聊天就會恢復。
+Hide Blend in chats	隱藏聊天中的 Blend
+Takes the Blend button off the top of a chat. Turn it off and it's back the next time a chat opens.	移除聊天頂端的 Blend 按鈕。關閉後，下次開啟聊天就會恢復。
+Hide the back button in chats	隱藏聊天中的返回按鈕
+Leaves the back arrow off the top left of a chat, and the picture and the name move over. Swipe back or use the phone's back button to leave the chat. Shows the next time a chat opens.	移除聊天左上角的返回箭頭，頭像與名稱會移到該處。向後滑動或使用手機的返回鍵即可離開聊天。下次開啟聊天時生效。
 Hide the Community Standards reminder	隱藏社群守則提醒
 Takes the banner reminding you to be respectful off the bottom of a chat.	移除聊天底部提醒你保持尊重的橫幅。
 Buttons in the message box	訊息輸入框按鈕
@@ -1563,6 +1586,8 @@ Pinch to zoom	雙指縮放
 Two fingers zoom into a playing reel, the way a photo zooms. Lift them and it goes back. Restart Instagram to see the change.	用兩指放大正在播放的 Reels，就像放大相片一樣。放開手指就會恢復原狀。請重新啟動 Instagram 以套用變更。
 Double tap to skip	點兩下快轉
 A double tap on the left side of a reel goes back, and on the right side it goes ahead, as far as Skip length says. A double tap in the middle still likes it. Reels no longer than that don't skip.	在 Reel 左側點兩下會倒退，在右側點兩下會快轉，幅度依跳轉長度而定。在中間點兩下仍會按讚。不比這更長的 Reel 不會跳轉。
+Show the skip arrows	顯示跳轉箭頭
+Two arrows flash on the side you double tapped, with the seconds skipped under them, like on feed videos.	在你點兩下的那一側閃現兩個箭頭，下方顯示跳過的秒數，和動態影片一樣。
 Hide the 2x popup	隱藏 2 倍速提示
 Takes the 2x label off a reel while you hold it to play faster. The speed-up still works.	長按 Reels 加快播放時，不顯示 2x 標籤。加速播放仍然有效。
 Mute notification types	將通知類型設為靜音
@@ -1639,6 +1664,9 @@ Puts a Lens icon beside a reel. Tap it and Google Lens opens on what's showing, 
 # context: Stories settings: the same Lens button, in the story header beside the three dots (#303)
 Copy text button on stories	限時動態的複製文字按鈕
 Puts a Lens icon at the top of a story, beside the three dots. Tap it and Google Lens opens on what's showing, so you can select and copy its text.	在限時動態頂端的三個點旁加入智慧鏡頭圖示。點擊後，Google 智慧鏡頭會開啟目前的畫面，讓你選取並複製其中的文字。
+# context: Stories settings switch (#647). It moves the Mark as seen and Download buttons from the top of a story to the bottom row, beside Instagram's own Like and Share buttons (use the app's labels).
+Story buttons at the bottom	限時動態按鈕移到下方
+Moves the Mark as seen and Download buttons to the bottom right of a story, next to Like and Share, where your thumb is. Stories without Like and Share keep them at the top.	將標記為已讀和下載按鈕移到限時動態右下角，放在讚和分享旁邊，拇指就按得到。沒有讚和分享的限時動態仍會放在頂端。
 # context: the spoken label of that Lens icon, for screen readers
 Copy text	複製文字
 # context: title of the share sheet offered when Google Lens isn't installed; the apps listed below it read the picture's text
@@ -1749,6 +1777,8 @@ Glass in chats	聊天室玻璃效果
 Gives a chat's top bar and message bar frosted glass and puts the back, call and video buttons on round glass circles. It shows the next time you open a chat. Needs Android 12 or newer for the blur.	讓聊天室頂端列和訊息列呈現毛玻璃效果，並把返回、通話和視訊按鈕放在圓形玻璃圈上。下次開啟聊天室時生效。模糊效果需要 Android 12 或更新版本。
 Glass top bar in chats	聊天室頂端列玻璃效果
 Turn it off to leave a chat's top bar as Instagram draws it, with no frosted band behind it. The round glass buttons and the glass message bar stay.	關閉後聊天室頂端列保持 Instagram 原本的樣子，後方沒有毛玻璃色帶。圓形玻璃按鈕和玻璃訊息列會保留。
+Top bar tint in chats	聊天室頂端列染色
+Message bar tint	訊息列染色
 # context: Reels switch Hide reels with few views, its summary, the Minimum views row, its dialog message and the row's summary, then the Minimum likes row, its dialog message, its summary and its summary at 0; %1$s is a number with thousands separators (#444)
 Hide reels with few views	隱藏觀看次數少的 Reels
 Leaves out reels in the Reels tab with fewer views or likes than the numbers below. Reels from accounts you follow, reels sent to you and reels with no count still play.	在 Reels 分頁中略過觀看次數或按讚數低於下方數字的 Reels。你追蹤的帳號、別人傳給你的 Reels，以及沒有數字的 Reels 仍會播放。
@@ -1780,6 +1810,21 @@ Home header text	首頁頂端文字
 # context: placeholder in the empty Home header text field, where the person types their own words for the top of Home
 Your words	你的文字
 Words of your own at the top of Home, in place of Instagram's logo. Up to %1$d characters. Leave it blank to keep the logo.	在首頁頂端顯示你自己的文字，取代 Instagram 標誌。最多 %1$d 個字元。留空即可保留標誌。
+Header text font	頂端文字字型
+The bold font the words have always had.	文字一直以來使用的粗體字型。
+The phone's font at its regular weight.	手機的字型，一般粗細。
+A bold font with serifs, like a newspaper's.	有襯線的粗體字型，像報紙上的字。
+Joined-up handwriting.	連筆手寫體。
+Every letter the same width, like a typewriter.	每個字母寬度相同，像打字機。
+The font picked under Font, in bold. Bold while Instagram's own is picked there.	在「字型」中選的字型，粗體。那裡選的是 Instagram 自己的字型時，用粗體。
+Bold	粗體
+Regular	一般
+Serif	襯線
+Script	手寫體
+Monospace	等寬
+Your font	你的字型
+Center the header text	頂端文字置中
+Puts your words or picture in the middle of the top of Home instead of where Instagram puts its logo.	把你的文字或圖片放在首頁頂端正中間，而不是 Instagram 放標誌的位置。
 Instagram's logo stays at the top of Home.	首頁頂端保留 Instagram 標誌。
 The top of Home says %1$s.	首頁頂端顯示「%1$s」。
 Home header picture	首頁頂端圖片
@@ -2040,6 +2085,9 @@ No call rings your phone. Callers just get no answer.	沒有任何來電會響�
 Only people on your list ring your phone. Anyone else gets no answer.	只有名單上的人來電才會響。其他人得不到回應。
 People on your list don't ring your phone. Everyone else still does.	名單上的人來電不會響。其他人照常會響。
 Everyone can ring your phone, as usual.	所有人都能像平常一樣打給你。
+# context: Messages switch under Call blocker's rows; Decline is the button on Instagram's own incoming call notification, Who can call you is the row above (#578)
+Decline calls that don't ring	拒絕不會響的來電
+Calls kept quiet by Who can call you are also declined, the same as tapping Decline, instead of being left unanswered.	被「誰可以打給你」設為不響的來電也會被拒絕，就像點按「拒絕」一樣，而不是放著不接。
 # context: Seek bar shape and preview (#567, #586, #592)
 Seek bar shape	拖曳列形狀
 Thin line	細線
@@ -2115,6 +2163,13 @@ Was @%1$s, %2$s	曾為 @%1$s，%2$s
 # context: a row on the Profile changes page; %s is Android's relative time of the change, like 2 days ago (#611)
 Old profile picture, %s	舊的個人檔案相片，%s
 Old bio, %s	舊的個人簡介，%s
+# context: long-press menu items on an old picture's row on the Profile changes page; View opens it full screen, Save puts it in the gallery (#611)
+View picture	查看相片
+Save picture	儲存相片
+# context: a line on a Profile changes row; %1$s and %2$s are dates like Nov 3, 2026, the first and last day the old value was seen (#611)
+Seen from %1$s to %2$s	於 %1$s 至 %2$s 間看到
+# context: the same line when both days are one date; %s is a date like Nov 3, 2026 (#611)
+Seen on %s	於 %s 看到
 Clear profile history	清除個人檔案紀錄
 Forgets every username, bio and picture on the list, for all your accounts. The switch stays as it is.	清除清單中所有的使用者名稱、個人簡介和相片，涵蓋你的所有帳號。開關維持原狀。
 Profile history cleared.	已清除個人檔案紀錄。
@@ -2211,6 +2266,28 @@ Follow @%1$s?	要追蹤 @%1$s 嗎？
 Follow this account?	要追蹤這個帳號嗎？
 # context: The question's confirm button; Instagram's own Follow button label (#631)
 Follow	追蹤
+# context: Profiles > title of the switch that lists the follow requests you sent that are still waiting, and of its page (#690)
+Sent follow requests	已送出的追蹤要求
+# context: Profiles > summary of Sent follow requests; a follow button is Instagram's Follow, Requested or Following button (#690)
+Keeps a list of the accounts you've asked to follow that haven't let you in yet, from what their follow buttons show while this is on. Nothing extra is asked of Instagram, and the list stays on your phone.	記錄你已要求追蹤但對方尚未接受的帳號，依據此功能開啟時其追蹤按鈕顯示的狀態。不會向 Instagram 額外要求資料，名單也只保留在手機上。
+# context: Profiles > title of the row that opens the list of sent follow requests still waiting (#690)
+Your sent requests	你送出的要求
+# context: Profiles > summary of Your sent requests while the list is empty; Sent follow requests is the switch's title (#690)
+No requests waiting. With Sent follow requests on, a request you send, or one whose follow button you see, shows up here.	沒有等待中的要求。開啟「已送出的追蹤要求」後，你送出的要求，或你在追蹤按鈕上看到的要求，都會顯示在這裡。
+# context: Profiles > title of the row that forgets the sent follow requests list (#690)
+Clear sent requests	清除送出的要求
+# context: Profiles > summary of Clear sent requests; the requests themselves aren't cancelled (#690)
+Forgets every request on the list, for all your accounts. The requests stay sent on Instagram.	清除所有帳號名單上的所有要求。要求在 Instagram 上仍維持送出。
+# context: Toast after Clear sent requests; two lines of 28 characters at most (#690)
+Sent requests cleared.	已清除送出的要求。
+# context: Toast when Clear sent requests fails; two lines of 28 characters at most (#690)
+Couldn't clear the sent requests. Try again.	無法清除送出的要求，請再試一次。
+# context: Hint at the top of the Sent follow requests page; Instagram's Requested button cancels a request and asks first (#690)
+Tap an account to open its profile, where its follow button cancels the request. Instagram asks before it does.	點按帳號即可開啟其個人檔案，在那裡用追蹤按鈕取消要求。Instagram 會先詢問你。
+# context: Long-press menu item on the Sent follow requests page; takes the account off HushGram's list only (#690)
+Remove from the list	從名單移除
+# context: Toast after Remove from the list; %s is the account's username; two lines of 28 characters at most (#690)
+Removed @%s from the list	已將 @%s 從名單移除
 # context: switch in HushGram settings > Reels; a reel link opened from outside Instagram plays the linked reel first instead of a reel Instagram kept on the phone (#606)
 Open reel links on that reel	在連結指向的 Reel 開啟 Reels 連結
 A reel link opens on the reel it points to. Instagram doesn't play another reel it kept on your phone while that one loads.	Reels 連結會開啟它指向的 Reel。該 Reel 載入時，Instagram 不會先播放存在你手機上的其他 Reel。
@@ -2245,6 +2322,10 @@ Time on each post	每則貼文的時間
 Control the reel above comments	控制留言上方的 Reel
 # context: Summary of Control the reel above comments (#665)
 With a reel's comments open, tap the reel above them to pause or play it, or hold it to play at 2x. The comments stay open.	Reel 的留言開啟時，點一下上方的 Reel 即可暫停或播放，長按則以 2 倍速播放。留言會保持開啟.
+# context: Reels settings: switch that keeps Instagram's "Locked at 2x speed" toast, and the one it shows when the lock ends, off a reel; the lock itself still works (#702, #552)
+Hide the speed lock message	隱藏速度鎖定訊息
+# context: Summary of Hide the speed lock message (#702)
+Keeps the message Instagram shows when you lock a reel's speed, and when the lock ends, off the screen. The lock still works.	鎖定 Reel 的播放速度和解除鎖定時，不顯示 Instagram 的提示訊息。鎖定仍然有效.
 2x speed for videos in the feed	2x speed for videos in the feed
 Adds a shortcut to your saved posts in the Explore tab.	Adds a shortcut to your saved posts in the Explore tab.
 Adds a speed choice to the menu on a reel.	Adds a speed choice to the menu on a reel.

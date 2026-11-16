@@ -165,6 +165,16 @@ public class AccentColorTest {
         assertEquals("a see-through link keeps its alpha", 0x99000000 | purple.linkOnDark, AccentColor.color(0x99708dff));
     }
 
+    /** #187: Home's "Older posts" link over its suggested posts is Prism's indigo_02 on a dark screen. */
+    @Test
+    public void theOlderPostsLinkTakesTheColor() {
+        Settings.ACCENT_COLOR.save(true);
+        AccentHue purple = AccentHue.PURPLE;
+        assertEquals(AccentColor.Role.LINK_ON_DARK, AccentColor.role(0xff7595ff));
+        assertEquals(0xff000000 | purple.linkOnDark, AccentColor.color(0xff7595ff));
+        assertEquals("its indigo_01 neighbor isn't a link", 0xffa1bbff, AccentColor.color(0xffa1bbff));
+    }
+
     /** No other color changes: text, backgrounds, grays and Instagram's other pale blues stay as they are. */
     @Test
     public void everyOtherColorGoesThrough() {
@@ -395,6 +405,32 @@ public class AccentColorTest {
         assertSame("the switch off leaves Instagram's blue", blue, view.getTextColors());
 
         AccentColor.text(null);
+    }
+
+    /** An image view tinted blue in its layout, as a profile's verified badge is, takes the color; no tint or a gray one stays (#187). */
+    @Test
+    public void anImageViewTintedBlueTakesTheColor() {
+        Settings.ACCENT_COLOR.save(true);
+        android.widget.ImageView view = new android.widget.ImageView(RuntimeEnvironment.getApplication());
+        AccentColor.image(view);
+        assertNull("no tint stays no tint", view.getImageTintList());
+
+        view.setImageTintList(ColorStateList.valueOf(BLUE));
+        AccentColor.image(view);
+        assertEquals(0xff7638fa, view.getImageTintList().getDefaultColor());
+
+        ColorStateList gray = new ColorStateList(new int[][] {DISABLED, {}}, new int[] {0x4d737373, 0xff737373});
+        view.setImageTintList(gray);
+        AccentColor.image(view);
+        assertSame(gray, view.getImageTintList());
+
+        Settings.ACCENT_COLOR.save(false);
+        ColorStateList blue = ColorStateList.valueOf(BLUE);
+        view.setImageTintList(blue);
+        AccentColor.image(view);
+        assertSame("the switch off leaves Instagram's blue", blue, view.getImageTintList());
+
+        AccentColor.image(null);
     }
 
     /** Paused, not ready yet or Instagram blue picked: the stock blue, in a color and in a list. */

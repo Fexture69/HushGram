@@ -7,6 +7,7 @@ package app.hushgram.extension.instagram.misc;
 import android.content.res.ColorStateList;
 import android.os.Parcel;
 import android.util.TypedValue;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.Map;
@@ -171,6 +172,24 @@ public final class AccentColor {
     }
 
     /**
+     * Injected at the end of Instagram's image view constructors. A tint a layout gives an image view
+     * in its XML (android:tint) is read by the framework, as the verified badge on a profile's top bar
+     * has it, so it stayed blue (#187). Hands the view's tint to {@link #list}, and gives it the answer
+     * when that's a new list. Never throws.
+     */
+    public static void image(ImageView view) {
+        try {
+            if (view == null) return;
+            ColorStateList before = view.getImageTintList();
+            if (before == null) return;
+            ColorStateList after = list(before);
+            if (after != before) view.setImageTintList(after);
+        } catch (Throwable failure) {
+            HookStatus.threw(FamilyNames.ACCENT_COLOR, "image view", failure);
+        }
+    }
+
+    /**
      * The color picked, or null for Instagram's own: switch off, blue picked, paused or not ready,
      * Material You with no wallpaper palette to read, this read being one of that palette's tones, or
      * Custom with no color typed.
@@ -200,6 +219,9 @@ public final class AccentColor {
      * picks rather than a theme attribute. indigo_0800 (#5c77ff), indigo_0900 (#5465fe) and
      * indigo_1100 (#4150f7) fill badges, carousel dots and strong buttons, and indigo_000, _0100,
      * _050 and _0300 are a selected pill's pale backgrounds, held down or not.
+     *
+     * <p>Prism's indigo_02 (#7595ff) is the link on a dark screen too, Home's "Older posts" over its
+     * suggested posts (#187).
      */
     static Role role(int color) {
         switch (color & 0xffffff) {
@@ -220,6 +242,7 @@ public final class AccentColor {
             case 0x85a1ff:
             case 0x8593ff:
             case 0x708dff:
+            case 0x7595ff:
                 return Role.LINK_ON_DARK;
             case 0xe0f1ff:
             case 0xeff1ff:

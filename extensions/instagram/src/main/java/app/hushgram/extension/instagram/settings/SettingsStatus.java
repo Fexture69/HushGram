@@ -236,6 +236,11 @@ public final class SettingsStatus {
         return false;
     }
 
+    /** Rewritten by the Shorter Active now patch. */
+    public static boolean shortActiveNow() {
+        return false;
+    }
+
     public static boolean shareSheet() {
         return false;
     }
@@ -378,6 +383,11 @@ public final class SettingsStatus {
     }
 
     public static boolean profileGridJump() {
+        return false;
+    }
+
+    /** Rewritten by the Sort reels on profiles patch. */
+    public static boolean profileReelSort() {
         return false;
     }
 
@@ -770,6 +780,11 @@ public final class SettingsStatus {
     }
 
     public static boolean askBeforeFollow() {
+        return false;
+    }
+
+    /** Rewritten by the Sent follow requests patch. */
+    public static boolean sentRequests() {
         return false;
     }
 

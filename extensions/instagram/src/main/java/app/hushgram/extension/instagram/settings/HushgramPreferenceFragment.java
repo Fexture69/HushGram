@@ -96,6 +96,7 @@ import java.util.regex.Pattern;
 import app.hushgram.extension.instagram.direct.CallBlockMode;
 import app.hushgram.extension.instagram.direct.ChatAccounts;
 import app.hushgram.extension.instagram.direct.ChatLocks;
+import app.hushgram.extension.instagram.direct.CollectionLocks;
 import app.hushgram.extension.instagram.direct.HiddenChats;
 import app.hushgram.extension.instagram.direct.PinnedChats;
 import app.hushgram.extension.instagram.direct.LockDelay;
@@ -171,6 +172,7 @@ import app.hushgram.extension.instagram.reels.TabBarLayoutChoice;
 import app.hushgram.extension.instagram.reels.TabOrder;
 import app.hushgram.extension.instagram.download.DownloadHistory;
 import app.hushgram.extension.instagram.profile.Unfollowers;
+import app.hushgram.extension.instagram.profile.SentRequests;
 import app.hushgram.extension.instagram.download.FileNameTemplate;
 import app.hushgram.extension.instagram.download.PostDetails;
 import app.hushgram.extension.instagram.download.HoldFingers;
@@ -236,8 +238,13 @@ public final class HushgramPreferenceFragment extends AbstractPreferenceFragment
     static final String CLEAR_PROFILE_HISTORY = "hushgram_clear_profile_history";
     static final String SAVED_PROFILES_ROW = "hushgram_saved_profiles_row";
     static final String CLEAR_UNFOLLOWERS = "hushgram_clear_unfollowers";
+    /** The row listing the follow requests still waiting, and the row that forgets them. */
+    static final String SENT_REQUESTS_ROW = "hushgram_sent_requests_row";
+    static final String CLEAR_SENT_REQUESTS = "hushgram_clear_sent_requests";
     /** The row that lists the chats locked one at a time. */
     static final String LOCKED_CHATS_ROW = "hushgram_locked_chats_row";
+    /** The row that lists the Saved collections locked one at a time. */
+    static final String LOCKED_COLLECTIONS_ROW = "hushgram_locked_collections_row";
     /** The row that lists the chats hidden one at a time. */
     static final String HIDDEN_CHATS_ROW = "hushgram_hidden_chats_row";
     /** The row that lists the chats pinned to the top of the inbox. */
@@ -878,6 +885,8 @@ public final class HushgramPreferenceFragment extends AbstractPreferenceFragment
                             || Settings.GLASS_TAB_BAR_BLUR_RADIUS.key.equals(key)
                             || Settings.GLASS_TAB_BAR_HEIGHT.key.equals(key) || Settings.GLASS_TAB_BAR_LIFT.key.equals(key)
                             || Settings.GLASS_TAB_BAR_CORNERS.key.equals(key) || Settings.GLASS_TAB_BAR_REELS_HIDE.key.equals(key));
+                    belongs |= family == PatchFamily.GLASS_CHAT && (Settings.GLASS_CHAT_TOP_BAR_OPACITY.key.equals(key)
+                            || Settings.GLASS_CHAT_BOX_OPACITY.key.equals(key));
                     belongs |= family == PatchFamily.VIDEO_DOWNLOAD && (Settings.HOLD_TO_DOWNLOAD.key.equals(key)
                             || Settings.HOLD_FINGERS.key.equals(key) || Settings.HOLD_TIME.key.equals(key)
                             || Settings.FEED_DOWNLOAD_BUTTON.key.equals(key) || Settings.FEED_DOWNLOAD_ALL_PAGES.key.equals(key)
@@ -898,7 +907,10 @@ public final class HushgramPreferenceFragment extends AbstractPreferenceFragment
                             || HIDDEN_SOUNDS_ROW.equals(key));
                     belongs |= family == PatchFamily.ACCENT_COLOR && (Settings.ACCENT_HUE.key.equals(key)
                             || Settings.ACCENT_CUSTOM.key.equals(key));
-                    belongs |= family == PatchFamily.FONT && Settings.FONT.key.equals(key);
+                    belongs |= family == PatchFamily.FONT && (Settings.FONT.key.equals(key)
+                            || Settings.TEXT_SIZE.key.equals(key));
+                    belongs |= family == PatchFamily.HEADER_TEXT && (Settings.HEADER_TEXT_CENTER.key.equals(key)
+                            || Settings.HEADER_TEXT_FONT.key.equals(key));
                     belongs |= family == PatchFamily.EMOJI_STYLE && Settings.EMOJI_FONT.key.equals(key);
                     belongs |= family == PatchFamily.STORY_FONTS && STORY_FONTS_ROW.equals(key);
                     belongs |= family == PatchFamily.APP_ICON && Settings.APP_ICON.key.equals(key);
@@ -925,10 +937,11 @@ public final class HushgramPreferenceFragment extends AbstractPreferenceFragment
                             || Settings.UPLOAD_PHOTO_SIZE.key.equals(key));
                     belongs |= family == PatchFamily.STORY_PRIORITY && Settings.STORY_PRIORITY_ACCOUNTS.key.equals(key);
                     belongs |= family == PatchFamily.CALL_BLOCKER
-                            && (Settings.CALL_BLOCK_MODE.key.equals(key) || Settings.CALL_BLOCK_ACCOUNTS.key.equals(key));
+                            && (Settings.CALL_BLOCK_MODE.key.equals(key) || Settings.CALL_BLOCK_ACCOUNTS.key.equals(key)
+                            || Settings.CALL_BLOCK_DECLINE.key.equals(key));
                     belongs |= family == PatchFamily.MESSAGES_LOCK
                             && (Settings.LOCK_AGAIN.key.equals(key) || LOCKED_CHATS_ROW.equals(key)
-                            || HIDDEN_CHATS_ROW.equals(key) || PINNED_CHATS_ROW.equals(key) || Settings.UNLOCK_WITH.key.equals(key)
+                            || LOCKED_COLLECTIONS_ROW.equals(key) || HIDDEN_CHATS_ROW.equals(key) || PINNED_CHATS_ROW.equals(key) || Settings.UNLOCK_WITH.key.equals(key)
                             || CHANGE_PIN_ROW.equals(key));
                     belongs |= family == PatchFamily.RESUME_LONG_VIDEOS && row == clearPositions;
                     belongs |= (family == PatchFamily.REEL_DOWNLOAD || family == PatchFamily.STORY_DOWNLOAD
@@ -945,6 +958,8 @@ public final class HushgramPreferenceFragment extends AbstractPreferenceFragment
                     belongs |= family == PatchFamily.PROFILE_PICTURE
                             && (PROFILE_HISTORY_ROW.equals(key) || CLEAR_PROFILE_HISTORY.equals(key)
                             || SAVED_PROFILES_ROW.equals(key) || Settings.SAVED_PROFILES_TAB_TARGET.key.equals(key));
+                    belongs |= family == PatchFamily.SENT_FOLLOW_REQUESTS
+                            && (SENT_REQUESTS_ROW.equals(key) || CLEAR_SENT_REQUESTS.equals(key));
                     belongs |= family == PatchFamily.FOLLOWING_FEED && Settings.FAVORITES_TAB_TARGET.key.equals(key);
                     belongs |= family == PatchFamily.RESTORE_TRUST && L10n.t("Instagram accepts this build").equals(row.getTitle());
                     belongs |= family == PatchFamily.REMOVE_AD_ID && L10n.t("Advertising ID removed").equals(row.getTitle());
@@ -1968,6 +1983,11 @@ public final class HushgramPreferenceFragment extends AbstractPreferenceFragment
 
     /** Whether the Saved profiles page may change its list now, an account or a folder. The settings lock holds it too. */
     static boolean savedProfilesChangeAllowed(Preference row) {
+        return allowMutation(row, false);
+    }
+
+    /** Whether the Sent follow requests page may take an account off its list now. The settings lock holds it, as it holds Clear. */
+    static boolean sentRequestsChangeAllowed(Preference row) {
         return allowMutation(row, false);
     }
 
@@ -4028,6 +4048,88 @@ public final class HushgramPreferenceFragment extends AbstractPreferenceFragment
         MessagesLock.confirmChatsThen(activity, unlock);
     }
 
+    /** The row that opens the list of Saved collections locked one at a time (#678). */
+    Row lockedCollectionsRow(Context context) {
+        Row row = new Row(context);
+        row.setKey(LOCKED_COLLECTIONS_ROW);
+        row.setPersistent(false);
+        row.setTitle(L10n.t("Locked collections"));
+        row.setSummary(L10n.t("Lock single collections in Saved. A locked collection opens only once you unlock it the "
+                + "way Unlock with says. Saving a post to it never asks."));
+        row.setOnPreferenceClickListener(tapped -> {
+            showLockedCollections();
+            return true;
+        });
+        return row;
+    }
+
+    /**
+     * The locked collections of the account you're signed in to, each with a check, and the
+     * collection you opened last on it above them when it isn't on the list, as Locked chats lists
+     * chats. Unchecking one asks first while anything is locked.
+     */
+    private void showLockedCollections() {
+        Context context = getActivity();
+        if (context == null) return;
+        // The collection you open next is learned by name for this list, even with nothing locked.
+        CollectionLocks.lookForNames();
+        String account = ChatAccounts.active();
+        List<String> collections = new ArrayList<>(CollectionLocks.names(account));
+        String last = CollectionLocks.lastOpened(account);
+        int offered = last == null ? 0 : 1;
+        if (last != null) collections.add(0, last);
+        AlertDialog.Builder builder = new AlertDialog.Builder(context).setTitle(L10n.t("Locked collections"));
+        if (collections.isEmpty()) {
+            builder.setMessage(L10n.t("Open a collection in Saved, then come back here to lock it."));
+        } else {
+            CharSequence[] names = new CharSequence[collections.size()];
+            boolean[] locked = new boolean[collections.size()];
+            for (int i = 0; i < names.length; i++) {
+                boolean offer = i < offered;
+                names[i] = offer ? L10n.f("%1$s (opened last)", collections.get(i)) : collections.get(i);
+                locked[i] = !offer;
+            }
+            builder.setMultiChoiceItems(names, locked, (dialog, which, checked) ->
+                    lockCollection((AlertDialog) dialog, account, collections.get(which), which, checked));
+        }
+        show(builder.setPositiveButton(L10n.t("OK"), null));
+    }
+
+    private void lockCollection(AlertDialog dialog, String account, String name, int position, boolean lock) {
+        if (!allowMutation()) {
+            setChecked(dialog, position, !lock);
+            return;
+        }
+        if (lock) {
+            if (!CollectionLocks.add(account, name)) {
+                notSaved(dialog, position, false);
+                return;
+            }
+            Utils.showToastShort(L10n.f("%1$s is locked", L10n.isolate(name)));
+            return;
+        }
+        Runnable unlock = () -> {
+            if (!allowMutation()) {
+                setChecked(dialog, position, true);
+                return;
+            }
+            if (!CollectionLocks.remove(account, name)) {
+                notSaved(dialog, position, true);
+                return;
+            }
+            Utils.showToastShort(L10n.f("%1$s is unlocked", L10n.isolate(name)));
+            setChecked(dialog, position, false);
+        };
+        Activity activity = getActivity();
+        if (activity == null) {
+            setChecked(dialog, position, true);
+            return;
+        }
+        // Stays checked until the phone's lock says it's you, if anything is locked.
+        setChecked(dialog, position, true);
+        MessagesLock.confirmCollectionsThen(activity, unlock);
+    }
+
     /** The row that opens the list of chats hidden one at a time. */
     Row hiddenChatsRow(Context context) {
         Row row = new Row(context);
@@ -5021,6 +5123,76 @@ public final class HushgramPreferenceFragment extends AbstractPreferenceFragment
         return text.toString().trim();
     }
 
+    /** How many of the newest waiting requests the settings row names. Its page has them all. */
+    static final int SENT_REQUESTS_SHOWN = 3;
+
+    /**
+     * The row naming the newest follow requests still waiting, for the account signed in. Read off
+     * the main thread, so it says so until it's read. Tapping it opens them all on a page.
+     */
+    static Preference sentRequestsRow(Context context) {
+        Row row = new Row(context);
+        row.setKey(SENT_REQUESTS_ROW);
+        row.setPersistent(false);
+        row.setTitle(L10n.t("Your sent requests"));
+        row.setSummary(L10n.t("Reading the list…"));
+        row.setOnPreferenceClickListener(tapped -> {
+            SentRequestsPage.open(tapped.getContext(), tapped);
+            return true;
+        });
+        readSentRequests(row);
+        return mark(row, SettingsIcons.PERSON);
+    }
+
+    /** Names the newest waiting requests on [row], read off the main thread. */
+    static void readSentRequests(Preference row) {
+        if (!Utils.runOnBackgroundThread(() -> {
+            String summary = sentRequestsSummary(SentRequests.all(SentRequests.shownOwner()));
+            Utils.runOnMainThread(() -> row.setSummary(summary));
+        })) {
+            row.setSummary(sentRequestsSummary(SentRequests.all(SentRequests.shownOwner())));
+        }
+    }
+
+    /** What the Your sent requests row says for [requests], newest first. */
+    static String sentRequestsSummary(List<SentRequests.Request> requests) {
+        if (requests.isEmpty()) {
+            return L10n.t("No requests waiting. With Sent follow requests on, a request you send, or one whose "
+                    + "follow button you see, shows up here.");
+        }
+        StringBuilder text = new StringBuilder();
+        int shown = 0;
+        for (SentRequests.Request request : requests) {
+            if (shown == SENT_REQUESTS_SHOWN) break;
+            text.append('@').append(request.username).append('\n');
+            shown++;
+        }
+        text.append(L10n.f("Tap to see all %1$d, or search them.", requests.size()));
+        return text.toString().trim();
+    }
+
+    /** Forgets every account's waiting requests off the main thread, says so, and empties [list]. */
+    static void clearSentRequests(Preference row, Preference list) {
+        if (!allowMutation(row, true)) return;
+        if (!Utils.runOnBackgroundThread(() -> {
+            if (!asyncChangesAllowed()) {
+                Utils.showToastLong(heldMessage());
+                return;
+            }
+            boolean cleared = SentRequests.clear();
+            Utils.runOnMainThread(() -> {
+                if (cleared) {
+                    Utils.showToastShort(L10n.t("Sent requests cleared."));
+                    list.setSummary(sentRequestsSummary(java.util.Collections.emptyList()));
+                } else {
+                    Utils.showToastLong(L10n.t("Couldn't clear the sent requests. Try again."));
+                }
+            });
+        })) {
+            Utils.showToastLong(L10n.t("Couldn't clear the sent requests. Try again."));
+        }
+    }
+
     /** Forgets the profile history off the main thread, says so, and empties [list]. */
     static void clearProfileHistory(Preference row, Preference list) {
         clearProfileHistory(row, list, null);
@@ -5446,7 +5618,7 @@ public final class HushgramPreferenceFragment extends AbstractPreferenceFragment
                         + "A reel that's paused still plays on a tap.");
             case KEEP_PLAYING:
                 return L10n.t("A tap on a playing reel does nothing, so a stray touch doesn't stop it. "
-                        + "A reel that's paused still plays on a tap.");
+                        + "A tap right on the play icon still pauses it, and a paused reel plays on a tap.");
             default:
                 return L10n.t("A tap on a reel does what Instagram does.");
         }
@@ -5528,6 +5700,14 @@ public final class HushgramPreferenceFragment extends AbstractPreferenceFragment
         return row;
     }
 
+    /** How strong the tint of a chat's glass top bar or message bar is, from a slider in percent of its own look (#688). */
+    static SliderRow chatGlassTintRow(Context context, IntegerSetting setting, String title) {
+        SliderRow row = new SliderRow(context, setting, 5, L10n.t("%1$d%%"));
+        row.setTitle(title);
+        row.setText(String.valueOf(setting.savedValue()));
+        return row;
+    }
+
     /** How hard the pill bends what's behind its edge, liquid or not, from a slider in percent of the standard bend (#391). */
     static SliderRow glassRefractRow(Context context) {
         SliderRow row = new SliderRow(context, Settings.GLASS_TAB_BAR_REFRACT_STRENGTH, 10, L10n.t("%1$d%%"));
@@ -5549,6 +5729,14 @@ public final class HushgramPreferenceFragment extends AbstractPreferenceFragment
         SliderRow row = new SliderRow(context, Settings.REEL_CAP_BREAK, 5, L10n.t("%1$d minutes in the background"));
         row.setTitle(L10n.t("Time away before swiping comes back"));
         row.setText(String.valueOf(Settings.REEL_CAP_BREAK.savedValue()));
+        return row;
+    }
+
+    /** How big Instagram's text draws, from a slider in percent of the phone's own text size (#682). */
+    static SliderRow textSizeRow(Context context) {
+        SliderRow row = new SliderRow(context, Settings.TEXT_SIZE, 5, L10n.t("%1$d%%"));
+        row.setTitle(L10n.t("Text size"));
+        row.setText(String.valueOf(Settings.TEXT_SIZE.savedValue()));
         return row;
     }
 
@@ -7358,6 +7546,34 @@ public final class HushgramPreferenceFragment extends AbstractPreferenceFragment
         field.setHint(L10n.t("Your words"));
         field.setFilters(new InputFilter[]{new InputFilter.LengthFilter(HeaderText.MAX_LENGTH * 2)});
         row.setText(Settings.HEADER_TEXT.savedValue());
+        return row;
+    }
+
+    /**
+     * The font the Home header's words draw in (#688). Its values are the fonts' own names. Your font
+     * is offered only with the Change the font patch in the build, which picks it.
+     */
+    static ChoiceRow<HeaderText.Font> headerFontRow(Context context, boolean yourFont) {
+        HeaderText.Font[] all = HeaderText.Font.values();
+        HeaderText.Font[] fonts = yourFont ? all : Arrays.copyOf(all, all.length - 1);
+        String[] summaries = {
+                L10n.t("The bold font the words have always had."),
+                L10n.t("The phone's font at its regular weight."),
+                L10n.t("A bold font with serifs, like a newspaper's."),
+                L10n.t("Joined-up handwriting."),
+                L10n.t("Every letter the same width, like a typewriter."),
+                L10n.t("The font picked under Font, in bold. Bold while Instagram's own is picked there."),
+        };
+        String[] labels = {
+                L10n.t("Bold"),
+                L10n.t("Regular"),
+                L10n.t("Serif"),
+                L10n.t("Script"),
+                L10n.t("Monospace"),
+                L10n.t("Your font"),
+        };
+        ChoiceRow<HeaderText.Font> row = new ChoiceRow<>(context, Settings.HEADER_TEXT_FONT, fonts, summaries, null);
+        fill(row, Settings.HEADER_TEXT_FONT, fonts, Arrays.copyOf(labels, fonts.length), L10n.t("Header text font"));
         return row;
     }
 

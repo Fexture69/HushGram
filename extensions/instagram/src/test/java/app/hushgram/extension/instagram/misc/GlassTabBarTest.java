@@ -61,6 +61,7 @@ import org.robolectric.util.ReflectionHelpers;
 
 import app.hushgram.extension.instagram.reels.FullScreenBars;
 import app.hushgram.extension.instagram.reels.ReelBlurBars;
+import app.hushgram.extension.instagram.reels.ReelSeekRoom;
 import app.hushgram.extension.instagram.settings.Settings;
 import app.hushgram.extension.shared.SettingsContextRule;
 import app.hushgram.extension.shared.diagnostics.HookStatus;
@@ -706,6 +707,8 @@ public class GlassTabBarTest {
             host.frame();
             host.frame();
             assertEquals("a sheet came up, and the insets didn't go round", asked, insets.get());
+            assertTrue("the pill's slide sees the sheet, so the sheet keeps its presses (#526)",
+                    ((GlassTabSlide.Host) host.glass()).underASheet());
             assertEquals("under a sheet Instagram keeps the 0", 0, GlassTabBar.navBarHeight(nav));
             assertEquals("the keyboard over the sheet too", 0, GlassTabBar.navBarHeightOverTheKeyboard(nav));
             assertEquals("the Reels viewer under the sheet keeps its size", nav, GlassTabBar.reelsMargin(0));
@@ -715,6 +718,8 @@ public class GlassTabBarTest {
 
             holder.removeView(sheet);
             host.frame();
+            assertFalse("the sheet went, and the bar's presses are its own again",
+                    ((GlassTabSlide.Host) host.glass()).underASheet());
             assertEquals("the sheet went, and the insets didn't go round", asked, insets.get());
             assertEquals("the keyboard with no sheet gets the height", nav, GlassTabBar.navBarHeightOverTheKeyboard(nav));
             assertEquals("Instagram pads the Reels viewer by it, so the viewer gives up as much (#222)", 0, GlassTabBar.reelsMargin(0));
@@ -2413,10 +2418,10 @@ public class GlassTabBarTest {
         plan = GlassTabBar.Haptics.plan(HapticStyle.FULL, 100, t, true, true, true);
         assertEquals(tick, plan.primitive);
         assertEquals(1f, plan.scale, 0.001f);
-        plan = GlassTabBar.Haptics.plan(HapticStyle.FULL, 200, t, true, true, true);
+        plan = GlassTabBar.Haptics.plan(HapticStyle.FULL, 150, t, true, true, true);
         assertEquals("a full tick made stronger is the click primitive", click, plan.primitive);
-        assertEquals(1f, plan.scale, 0.001f);
-        plan = GlassTabBar.Haptics.plan(HapticStyle.FULL, 200, t, true, true, false);
+        assertEquals(0.75f, plan.scale, 0.001f);
+        plan = GlassTabBar.Haptics.plan(HapticStyle.FULL, 150, t, true, true, false);
         assertEquals("without the click primitive the tick stays at its top", tick, plan.primitive);
         assertEquals(1f, plan.scale, 0.001f);
 
@@ -2432,16 +2437,50 @@ public class GlassTabBarTest {
             assertEquals(style.name(), -1, stronger.effect);
             assertEquals(style.name(), -1, stronger.primitive);
             assertEquals(style.name(), android.os.VibrationEffect.DEFAULT_AMPLITUDE, stronger.amplitude);
-            assertEquals(style.name(), Math.round(GlassTabBar.Haptics.PULSE_MS * 1.5f), stronger.ms);
-            assertEquals(style.name(), GlassTabBar.Haptics.PULSE_MS * 2, strongest.ms);
+            assertEquals(style.name(), Math.round(GlassTabBar.Haptics.PULSE_MS * 1.5f * 1.5f), stronger.ms);
+            assertEquals(style.name(), GlassTabBar.Haptics.PULSE_MS * 4, strongest.ms);
         }
-        assertTrue("long enough for a coin motor to spin up", GlassTabBar.Haptics.PULSE_MS * 2 >= 25);
+        assertTrue("long enough for a coin motor to spin up", GlassTabBar.Haptics.PULSE_MS * 4 >= 50);
 
         // Android 10, before primitives, still plays the built-in tick, heavier when stronger.
         plan = GlassTabBar.Haptics.plan(HapticStyle.SOFT, 100, q, true, false, false);
         assertEquals(android.os.VibrationEffect.EFFECT_TICK, plan.effect);
         plan = GlassTabBar.Haptics.plan(HapticStyle.SOFT, 150, q, true, false, false);
         assertEquals(android.os.VibrationEffect.EFFECT_HEAVY_CLICK, plan.effect);
+    }
+
+    /**
+     * #689: 200% was still barely felt on some phones. Everything past 100% played the one built-in heavy click
+     * (or the click primitive at its top), so 125% to 200% felt the same, and a phone's heavy click can be weak.
+     * Past 150% every style plays a full-strength pulse that keeps growing to the top of the slider, on any motor.
+     */
+    @Test
+    public void hapticStrengthKeepsGrowingToTheTopOfTheSlider() {
+        int t = android.os.Build.VERSION_CODES.TIRAMISU;
+        for (HapticStyle style : HapticStyle.values()) {
+            for (boolean amplitude : new boolean[] {true, false}) {
+                for (boolean primitives : new boolean[] {true, false}) {
+                    String what = style + " amplitude=" + amplitude + " primitives=" + primitives;
+                    GlassTabBar.Haptics.Plan high = GlassTabBar.Haptics.plan(style, 175, t, amplitude, primitives, primitives);
+                    GlassTabBar.Haptics.Plan top = GlassTabBar.Haptics.plan(style, 200, t, amplitude, primitives, primitives);
+                    assertEquals(what, -1, top.effect);
+                    assertEquals(what, -1, top.primitive);
+                    assertEquals(what, amplitude ? 255 : android.os.VibrationEffect.DEFAULT_AMPLITUDE, top.amplitude);
+                    assertEquals(what, -1, high.effect);
+                    assertTrue(what + " grows from " + high.ms + " to " + top.ms, top.ms > high.ms);
+                    assertTrue(what + " clearly felt, even on a coin motor: " + top.ms, top.ms >= 50);
+                    assertTrue(what + " still a tap, not a buzz: " + top.ms, top.ms <= 80);
+                }
+            }
+        }
+        assertEquals("up to 150% the crisp heavy click stays", android.os.VibrationEffect.EFFECT_HEAVY_CLICK,
+                GlassTabBar.Haptics.plan(HapticStyle.SYSTEM, 150, t, true, false, false).effect);
+        int last = 0;
+        for (int percent = 125; percent <= 200; percent += 25) {
+            int ms = GlassTabBar.Haptics.plan(HapticStyle.SYSTEM, percent, t, false, false, false).ms;
+            assertTrue("one strength motors get longer at every step: " + percent + "% is " + ms + " ms", ms > last);
+            last = ms;
+        }
     }
 
     /** #640: the click's volume follows the slider on a curve, 70% close to the phone's own click and 100% full. */
@@ -2937,6 +2976,95 @@ public class GlassTabBarTest {
         } finally {
             ReelFrames.source = originalSource;
             ReelFrames.copier = originalCopier;
+        }
+    }
+
+    /**
+     * #583: copied eight times a second, the blur under the pill stepped behind the reel. A copy from the
+     * surface leaves the main thread alone, so each recording asks for the next one, and a paused reel,
+     * still showing the frame copied last, isn't copied again either way.
+     */
+    @Test
+    @GraphicsMode(GraphicsMode.Mode.NATIVE)
+    @Config(sdk = 34)
+    public void theReelBehindThePillIsCopiedEachRecordingOnlyWhileItPlays() {
+        Context context = RuntimeEnvironment.getApplication();
+        FrameLayout parent = new FrameLayout(context);
+        FrameLayout viewer = new FrameLayout(context);
+        TextureView video = new TextureView(context);
+        viewer.addView(video);
+        parent.addView(viewer);
+        parent.addView(new View(context));
+        parent.layout(0, 0, 100, 200);
+        viewer.layout(0, 0, 100, 200);
+        video.layout(0, 80, 100, 200);
+        Set<View> paths = new HashSet<>();
+        Set<View> skipped = new HashSet<>();
+        assertTrue(GlassTabBar.leaveOut(viewer, parent, paths, skipped));
+        ReelFrames reels = new ReelFrames();
+
+        ReelBlurBars.FrameSource originalSource = ReelFrames.source;
+        ReelFrames.Copier originalCopier = ReelFrames.copier;
+        java.util.function.ToLongFunction<TextureView> originalFrameAt = ReelFrames.frameAt;
+        long[] made = {1L};
+        ReelFrames.frameAt = from -> made[0];
+        java.util.List<java.util.function.Consumer<Boolean>> landing = new java.util.ArrayList<>();
+        ReelFrames.copier = (from, bitmap, done) -> landing.add(done);
+        AtomicInteger heldTheMainThread = new AtomicInteger();
+        ReelFrames.source = (from, reuse, width, height) -> {
+            heldTheMainThread.incrementAndGet();
+            return Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+        };
+        try {
+            long now = 1000L;
+            reels.copy(viewer, parent, 150, 50, now);
+            landing.get(0).accept(true);
+            assertTrue("the copy keeps up with the glass", ReelFrames.COPY_LATER_EVERY_MS <= GlassTabBar.RECORD_EVERY_MS);
+
+            made[0]++;
+            now += GlassTabBar.RECORD_EVERY_MS;
+            reels.copy(viewer, parent, 150, 50, now);
+            assertEquals("the next recording asks for the reel's next frame", 2, landing.size());
+            landing.get(1).accept(true);
+
+            now += GlassTabBar.RECORD_EVERY_MS;
+            reels.copy(viewer, parent, 150, 50, now);
+            assertEquals("a paused reel shows the frame copied last, so it isn't copied again", 2, landing.size());
+
+            made[0] = 0L;
+            reels.copy(viewer, parent, 150, 50, now);
+            assertEquals("a video that doesn't say when its frame was made is copied as before", 3, landing.size());
+            landing.get(2).accept(false);
+            made[0] = 7L;
+            now += GlassTabBar.RECORD_EVERY_MS;
+            reels.copy(viewer, parent, 150, 50, now);
+            assertEquals(4, landing.size());
+            landing.get(3).accept(false);
+            now += GlassTabBar.RECORD_EVERY_MS;
+            reels.copy(viewer, parent, 150, 50, now);
+            assertEquals("a copy that came back empty is asked for again on the same frame", 5, landing.size());
+            assertEquals(0, heldTheMainThread.get());
+
+            // The copy that holds the main thread: before Android 14, and for a video whose surface gives nothing back.
+            ReelFrames.copier = null;
+            ReelFrames reelsTheOldWay = new ReelFrames();
+            made[0] = 20L;
+            reelsTheOldWay.copy(viewer, parent, 150, 50, now);
+            assertEquals(1, heldTheMainThread.get());
+            now += GlassTabBar.RECORD_EVERY_MS;
+            made[0]++;
+            reelsTheOldWay.copy(viewer, parent, 150, 50, now);
+            assertEquals("read the old way, it's still taken only every so often (#672)", 1, heldTheMainThread.get());
+            now += ReelFrames.COPY_EVERY_MS;
+            reelsTheOldWay.copy(viewer, parent, 150, 50, now);
+            assertEquals(2, heldTheMainThread.get());
+            now += ReelFrames.COPY_EVERY_MS;
+            reelsTheOldWay.copy(viewer, parent, 150, 50, now);
+            assertEquals("and never for a paused reel", 2, heldTheMainThread.get());
+        } finally {
+            ReelFrames.source = originalSource;
+            ReelFrames.copier = originalCopier;
+            ReelFrames.frameAt = originalFrameAt;
         }
     }
 
@@ -3491,22 +3619,100 @@ public class GlassTabBarTest {
     /**
      * #372: with the switch on, the viewer fills the screen behind the pill and its caption, buttons and
      * seek bar are raised by the slot; off, today's layout. A slot not kept (bar hidden) has the viewer
-     * run to the window's bottom, so only the navigation bar's height is cleared (#450).
+     * run to the window's bottom, so only the navigation bar's height is cleared (#450). Over a kept slot
+     * the seek bar also keeps a gap above the pill, either way (#187).
      */
     @Test
     public void reelsBehindThePillRaiseTheControlsInsteadOfStoppingTheViewer() {
         assertFalse("off by default", Settings.GLASS_TAB_BAR_REELS_BEHIND.defaultValue);
         assertEquals(126, GlassTabBar.reelsViewerMargin(true, false, 126));
-        assertEquals(0, GlassTabBar.reelsBandLift(true, false, 126, 48));
+        assertEquals("only the gap over a viewer that stops at the slot", 8, GlassTabBar.reelsBandLift(true, false, 126, 48, 8));
         assertEquals(0, GlassTabBar.reelsViewerMargin(true, true, 126));
-        assertEquals(126, GlassTabBar.reelsBandLift(true, true, 126, 48));
-        assertEquals("no slot kept, only the navigation bar cleared", 48, GlassTabBar.reelsBandLift(false, true, 126, 48));
-        assertEquals(48, GlassTabBar.reelsBandLift(false, false, 126, 48));
-        assertEquals("Instagram pads for the navigation bar itself", 0, GlassTabBar.reelsBandLift(false, false, 126, 0));
+        assertEquals("the slot and the gap behind the pill", 134, GlassTabBar.reelsBandLift(true, true, 126, 48, 8));
+        assertEquals("no slot kept, only the navigation bar cleared", 48, GlassTabBar.reelsBandLift(false, true, 126, 48, 8));
+        assertEquals(48, GlassTabBar.reelsBandLift(false, false, 126, 48, 8));
+        assertEquals("Instagram pads for the navigation bar itself", 0, GlassTabBar.reelsBandLift(false, false, 126, 0, 8));
         assertEquals(0, GlassTabBar.reelsViewerMargin(false, true, 126));
         assertEquals(0, GlassTabBar.reelsViewerMargin(false, false, 126));
-        assertEquals(0, GlassTabBar.reelsBandLift(true, true, -5, 48));
-        assertEquals(0, GlassTabBar.reelsBandLift(false, true, 126, -5));
+        assertEquals(8, GlassTabBar.reelsBandLift(true, true, -5, 48, 8));
+        assertEquals(0, GlassTabBar.reelsBandLift(false, true, 126, -5, 8));
+        assertEquals(126, GlassTabBar.reelsBandLift(true, true, 126, 48, -3));
+        assertTrue("a gap you can see", GlassTabBar.REELS_GAP_DP >= 6);
+    }
+
+    /**
+     * #450: a 1920 pixel reel centred in a 2260 pixel viewer that runs behind a 250 pixel slot sat 125
+     * pixels lower than in the 2010 pixel viewer stopped at the slot. A 250 margin puts it back. A reel
+     * with only 100 pixels to spare rises by those and no further, a reel filling the viewer or laid
+     * from the top stays, and a viewer stopped at the slot, or with no slot kept, gets no margin.
+     */
+    @Test
+    public void aReelBehindThePillSitsWhereTheSlotWouldPutIt() {
+        int centre = Gravity.CENTER;
+        assertEquals("half the slot, which lifts a centred view by all of it", 125, GlassTabBar.reelsMediaMargin(true, true, 250, 2260, 1920, centre));
+        assertEquals("only as far as the reel's top room", 50, GlassTabBar.reelsMediaMargin(true, true, 250, 2260, 2160, centre));
+        assertEquals("a reel that fills the viewer", 0, GlassTabBar.reelsMediaMargin(true, true, 250, 2260, 2260, centre));
+        assertEquals("a reel taller than the viewer", 0, GlassTabBar.reelsMediaMargin(true, true, 250, 2260, 2400, centre));
+        assertEquals("laid from the top", 0, GlassTabBar.reelsMediaMargin(true, true, 250, 2260, 1920, Gravity.TOP | Gravity.CENTER_HORIZONTAL));
+        assertEquals(125, GlassTabBar.reelsMediaMargin(true, true, 250, 2260, 1920, Gravity.CENTER_VERTICAL));
+        assertEquals("a viewer stopped at the slot", 0, GlassTabBar.reelsMediaMargin(true, false, 250, 2010, 1920, centre));
+        assertEquals("no slot kept", 0, GlassTabBar.reelsMediaMargin(false, true, 250, 2260, 1920, centre));
+        assertEquals(0, GlassTabBar.reelsMediaMargin(true, true, 0, 2260, 1920, centre));
+        assertEquals(0, GlassTabBar.reelsMediaMargin(true, true, 250, 0, 1920, centre));
+        assertEquals(0, GlassTabBar.reelsMediaMargin(true, true, 250, 2260, 0, centre));
+    }
+
+    /**
+     * #450: in a 2260 pixel viewer behind a 250 pixel slot, a 1920 pixel reel's video and cover move up to
+     * 45 from the top, where a viewer stopped at the slot puts them, and the play button centred over them
+     * stays. With the reel no longer behind the pill they go back to 170, and the margin they had is theirs again.
+     */
+    @Test
+    public void aReelBehindThePillMovesItsVideoAndCoverOnly() {
+        Context context = RuntimeEnvironment.getApplication();
+        FrameLayout viewer = new FrameLayout(context);
+        FrameLayout item = new FrameLayout(context);
+        viewer.addView(item, new FrameLayout.LayoutParams(1080, ViewGroup.LayoutParams.MATCH_PARENT));
+        ImageView cover = new ImageView(context);
+        item.addView(cover, new FrameLayout.LayoutParams(1080, 1920, Gravity.CENTER));
+        View video = new com.instagram.ui.simplevideolayout.SimpleVideoLayout(context);
+        item.addView(video, new FrameLayout.LayoutParams(1080, 1920, Gravity.CENTER));
+        ImageView play = new ImageView(context);
+        item.addView(play, new FrameLayout.LayoutParams(120, 120, Gravity.CENTER));
+        View inside = new com.instagram.ui.simplevideolayout.SimpleVideoLayout(context);
+        ((ViewGroup) video).addView(inside);
+        layOutReel(viewer);
+
+        java.util.List<View> media = new java.util.ArrayList<>();
+        GlassTabBar.reelMedia(viewer, media, 0);
+        assertEquals("the video and its cover, not the play button or inside the video",
+                java.util.Arrays.asList(video, cover), media);
+
+        Map<View, Integer> given = new HashMap<>();
+        for (View view : media) assertTrue(GlassTabBar.placeReelMedia(view, true, true, 250, given));
+        layOutReel(viewer);
+        assertEquals(45, video.getTop());
+        assertEquals(45, cover.getTop());
+        assertEquals("the play button stays", (2260 - 120) / 2, play.getTop());
+        assertFalse("nothing to change the next look", GlassTabBar.placeReelMedia(video, true, true, 250, given));
+
+        for (View view : media) assertTrue(GlassTabBar.placeReelMedia(view, true, false, 250, given));
+        layOutReel(viewer);
+        assertEquals(170, video.getTop());
+        assertEquals(0, ((FrameLayout.LayoutParams) video.getLayoutParams()).bottomMargin);
+        assertTrue(given.isEmpty());
+
+        ((FrameLayout.LayoutParams) cover.getLayoutParams()).bottomMargin = 10;
+        assertTrue(GlassTabBar.placeReelMedia(cover, true, true, 250, given));
+        assertEquals("Instagram's own margin kept under ours", 135, ((FrameLayout.LayoutParams) cover.getLayoutParams()).bottomMargin);
+        assertTrue(GlassTabBar.placeReelMedia(cover, false, true, 250, given));
+        assertEquals(10, ((FrameLayout.LayoutParams) cover.getLayoutParams()).bottomMargin);
+    }
+
+    private static void layOutReel(View view) {
+        view.measure(View.MeasureSpec.makeMeasureSpec(1080, View.MeasureSpec.EXACTLY),
+                View.MeasureSpec.makeMeasureSpec(2260, View.MeasureSpec.EXACTLY));
+        view.layout(0, 0, 1080, 2260);
     }
 
     /**
@@ -3524,8 +3730,8 @@ public class GlassTabBarTest {
         assertEquals("past the foot counts the bar only", 48, GlassTabBar.intoTheNavigationBar(1700, 1600, 48));
         assertEquals("no bar", 0, GlassTabBar.intoTheNavigationBar(1600, 1600, 0));
         assertEquals("no window yet", 0, GlassTabBar.intoTheNavigationBar(1600, 0, 48));
-        assertEquals(48, GlassTabBar.reelsBandLift(false, false, 126, GlassTabBar.intoTheNavigationBar(1600, 1600, 48)));
-        assertEquals(0, GlassTabBar.reelsBandLift(false, false, 126, GlassTabBar.intoTheNavigationBar(1552, 1600, 48)));
+        assertEquals(48, GlassTabBar.reelsBandLift(false, false, 126, GlassTabBar.intoTheNavigationBar(1600, 1600, 48), 8));
+        assertEquals(0, GlassTabBar.reelsBandLift(false, false, 126, GlassTabBar.intoTheNavigationBar(1552, 1600, 48), 8));
     }
 
     /**
@@ -3623,6 +3829,52 @@ public class GlassTabBarTest {
         assertEquals("the buttons are highest", 954, GlassTabBar.roomAbove(band));
         buttons.setVisibility(View.INVISIBLE);
         assertEquals(1807, GlassTabBar.roomAbove(band));
+    }
+
+    /**
+     * #704: the seek bar's room lifts a reel's seek bar row out of the navigation bar, and the pill raises the
+     * same row. When the room got there first, the pill took its lift for Instagram's and left the row there,
+     * with the seek bar behind the pill. The room's lift, and the caption scroll that goes with it, are the
+     * pill's to take over now. A translation or a scroll anyone else gave stays theirs.
+     */
+    @Test
+    public void theSeekBarRoomsLiftIsThePillsToTakeOver() {
+        Context context = RuntimeEnvironment.getApplication();
+        int info = 0x7f0b0633;
+        FrameLayout layer = new FrameLayout(context);
+        FrameLayout caption = new FrameLayout(context);
+        View name = new View(context);
+        name.setId(info);
+        caption.addView(name);
+        FrameLayout row = new FrameLayout(context);
+        layer.addView(caption);
+        layer.addView(row);
+        caption.layout(0, 0, 1080, 2316);
+        name.layout(0, 1500, 1080, 1800);
+        assertFalse("nothing on it", GlassTabBar.othersTranslation(row, null));
+        assertFalse(GlassTabBar.othersScroll(caption, null));
+
+        ReflectionHelpers.callStaticMethod(ReelSeekRoom.class, "due",
+                ReflectionHelpers.ClassParameter.from(View.class, row), ReflectionHelpers.ClassParameter.from(long.class, 10_000L));
+        ReflectionHelpers.callStaticMethod(ReelSeekRoom.class, "keep",
+                ReflectionHelpers.ClassParameter.from(View.class, row), ReflectionHelpers.ClassParameter.from(boolean.class, true),
+                ReflectionHelpers.ClassParameter.from(int.class, 2316), ReflectionHelpers.ClassParameter.from(int.class, 2316),
+                ReflectionHelpers.ClassParameter.from(int.class, 48));
+        ReflectionHelpers.callStaticMethod(ReelSeekRoom.class, "along",
+                ReflectionHelpers.ClassParameter.from(View.class, row), ReflectionHelpers.ClassParameter.from(int.class, info));
+        assertEquals("the room lifted the row", -48f, row.getTranslationY(), 0f);
+        assertEquals("and scrolled the caption", 48, caption.getScrollY());
+        assertFalse("the room's lift is the pill's to take", GlassTabBar.othersTranslation(row, null));
+        assertFalse("and so is the caption's scroll", GlassTabBar.othersScroll(caption, null));
+        assertTrue("moved since the pill raised it", GlassTabBar.othersTranslation(row, -134f));
+
+        View other = new View(context);
+        other.setTranslationY(-48f);
+        other.scrollTo(0, 48);
+        assertTrue("Instagram's", GlassTabBar.othersTranslation(other, null));
+        assertTrue(GlassTabBar.othersScroll(other, null));
+        assertFalse("the pill's own", GlassTabBar.othersTranslation(other, -48f));
+        assertFalse(GlassTabBar.othersScroll(other, 48));
     }
 
     /**
