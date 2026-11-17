@@ -12,13 +12,21 @@ def get_unmerged_files():
     res = subprocess.run(["git", "diff", "--name-only", "--diff-filter=U"], capture_output=True, text=True)
     return [line.strip() for line in res.stdout.splitlines() if line.strip()]
 
+def get_conflict_marker_files():
+    res = subprocess.run(
+        ["git", "grep", "-l", "-E", r"^(<<<<<<<|=======|>>>>>>>)"],
+        capture_output=True,
+        text=True,
+    )
+    return [line.strip() for line in res.stdout.splitlines() if line.strip()]
+
 def resolve_tsv_conflicts():
     tsv_files = glob.glob("extensions/shared/library/src/main/l10n/*.tsv")
     for tsv in tsv_files:
         with open(tsv, "r", encoding="utf-8") as f:
             content = f.read()
         if "<<<<<<<" in content:
-            pattern = re.compile(r'<<<<<<< [^\n]*\n(.*?)\n=======\n(.*?)\n>>>>>>> [^\n]*\n', re.DOTALL)
+            pattern = re.compile(r'<<<<<<< [^\n]*\n(.*?)\n?=======\n(.*?)\n>>>>>>> [^\n]*\n', re.DOTALL)
             def repl(m):
                 head_lines = m.group(1).splitlines()
                 up_lines = m.group(2).splitlines()
@@ -111,7 +119,7 @@ def resolve_readme_conflicts():
     with open(readme_path, "r", encoding="utf-8") as f:
         content = f.read()
     if "<<<<<<<" in content:
-        pattern = re.compile(r'<<<<<<< [^\n]*\n(.*?)\n=======\n(.*?)\n>>>>>>> [^\n]*\n', re.DOTALL)
+        pattern = re.compile(r'<<<<<<< [^\n]*\n(.*?)\n?=======\n(.*?)\n>>>>>>> [^\n]*\n', re.DOTALL)
         def repl(m):
             head_part = m.group(1)
             up_part = m.group(2)
@@ -324,11 +332,12 @@ def resolve_generic_conflicts():
 
 def main():
     unmerged = get_unmerged_files()
-    if not unmerged:
+    marker_files = get_conflict_marker_files()
+    if not unmerged and not marker_files:
         print("No merge conflicts to resolve.")
         return 0
 
-    print(f"Attempting auto-resolution for unmerged files: {unmerged}")
+    print(f"Attempting auto-resolution for unmerged files: {unmerged + marker_files}")
 
     resolve_tsv_conflicts()
     resolve_l10n_translations()
@@ -360,8 +369,9 @@ def main():
         print(f"Notice: generatePatchesList skipped or failed: {e}")
 
     remaining = get_unmerged_files()
-    if remaining:
-        print(f"Error: Unresolvable conflicts remain in: {remaining}")
+    remaining_markers = get_conflict_marker_files()
+    if remaining or remaining_markers:
+        print(f"Error: Unresolvable conflicts remain in: {remaining + remaining_markers}")
         return 1
 
     print("All conflicts resolved successfully!")
