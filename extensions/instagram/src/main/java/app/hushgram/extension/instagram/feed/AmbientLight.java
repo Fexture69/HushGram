@@ -89,6 +89,8 @@ import app.hushgram.extension.shared.diagnostics.HookStatus;
  * ({@link #coversOf}). Each such view wears a {@link Glow} in its overlay that draws the same glow over
  * its own colour there and nowhere else: in the frame's corners, or in the strip above the view's
  * children, so a story's progress bar and header stay on top. The host leaves that strip to it.
+ * Rounded corners on Reels cuts a reel's frame the same way, and the black behind it showed in its
+ * corners too (#722), so the view the frame sits in draws the glow there ({@link #reelBackOf}).
  *
  * <p>Every {@link AmbientSpeed#sampleMillis} each light on screen takes a small copy of its picture
  * (a video's own frame, or the window's pixels for a photo). A story video Instagram still plays on a
@@ -123,6 +125,12 @@ public final class AmbientLight {
 
     /** How many parents of a picture are asked whether they're its stage. */
     static final int STAGE_DEPTH = 16;
+    /**
+     * How many parents of a stage are asked whether they span the window and light the bands round
+     * it. On 454 the Reels tab's reel is 18 views below that one (#722), so this looks further than
+     * {@link #STAGE_DEPTH}. The walk still stops at the activity's content view.
+     */
+    static final int HOST_DEPTH = 40;
     /**
      * How many parents above a photo reel's stage are asked whether the picture leaves room in them.
      * On 454 the reel's own view is one up. Past two, a full screen photo reaches the window's layout.
@@ -439,7 +447,7 @@ public final class AmbientLight {
         stage.getLocationInWindow(at);
         if (at[1] <= 0 && at[1] + stage.getHeight() >= height) return null;
         ViewParent parent = stage.getParent();
-        for (int i = 0; i < STAGE_DEPTH && parent instanceof ViewGroup && parent != root; i++, parent = parent.getParent()) {
+        for (int i = 0; i < HOST_DEPTH && parent instanceof ViewGroup && parent != root; i++, parent = parent.getParent()) {
             ViewGroup group = (ViewGroup) parent;
             group.getLocationInWindow(at);
             if (at[0] <= 0 && at[0] + group.getWidth() >= width && at[1] <= 0 && at[1] + group.getHeight() >= height) return group;
@@ -462,6 +470,23 @@ public final class AmbientLight {
     }
 
     /**
+     * The view whose colour shows in a reel's [frame]'s corners once they're cut round (#722): the
+     * outermost of Instagram's rounded layouts between the frame and its [host] that paints its own
+     * corners, else the view the frame sits in, which on 454 is the reel's stage. Null without a frame.
+     */
+    @Nullable
+    static ViewGroup reelBackOf(@Nullable View frame, @Nullable ViewGroup host) {
+        ViewParent parent = frame == null ? null : frame.getParent();
+        if (!(parent instanceof ViewGroup)) return null;
+        ViewGroup back = (ViewGroup) parent;
+        if (cutCorners.isEmpty()) return back;
+        for (int i = 0; i < HOST_DEPTH && parent instanceof ViewGroup && parent != host; i++, parent = parent.getParent()) {
+            if (paintedCorner((View) parent) > 0) back = (ViewGroup) parent;
+        }
+        return back;
+    }
+
+    /**
      * The views from a story's [stage] up to its [host] that leave a strip above their children and
      * can paint it themselves, over the host's glow (#630). On Instagram the layout round the story
      * viewer holds it below the status bar and paints the status bar's strip.
@@ -469,7 +494,7 @@ public final class AmbientLight {
     static List<ViewGroup> coversOf(ViewGroup stage, ViewGroup host) {
         List<ViewGroup> found = new ArrayList<>(1);
         ViewParent parent = stage.getParent();
-        for (int i = 0; i < STAGE_DEPTH && parent instanceof ViewGroup && parent != host; i++, parent = parent.getParent()) {
+        for (int i = 0; i < HOST_DEPTH && parent instanceof ViewGroup && parent != host; i++, parent = parent.getParent()) {
             ViewGroup group = (ViewGroup) parent;
             if (stripUnder(group) > 0) found.add(group);
         }
@@ -598,6 +623,7 @@ public final class AmbientLight {
                 if (old.kind == Kind.REEL) {
                     old.keepBar(barUnder(owner, old.host()));
                     old.keepFooter(footerOn(owner, old.host()));
+                    old.keepBack(reelBackOf(anchor, old.host()));
                 } else if (old.kind == Kind.STORY) {
                     keepFronts(old, anchor, stage, old.host());
                 }
@@ -612,6 +638,7 @@ public final class AmbientLight {
         if (kind == Kind.REEL) {
             light.keepBar(barUnder(owner, host));
             light.keepFooter(footerOn(owner, host));
+            light.keepBack(reelBackOf(anchor, host));
         } else if (kind == Kind.STORY) {
             keepFronts(light, anchor, stage, host);
         }
@@ -911,7 +938,7 @@ public final class AmbientLight {
             Glow bands = host == null ? null : glowOn(host);
             dressBar(light, host);
             boolean moved = light.place(media, stage);
-            if (story) dressFronts(light);
+            if (story || light.kind == Kind.REEL) dressFronts(light);
             if (moved) {
                 glow.invalidateSelf();
                 if (bands != null) bands.invalidateSelf();
@@ -1437,7 +1464,9 @@ public final class AmbientLight {
             View frame = anchor.get();
             if (behind != null && frame != null && media.isShown() && under(frame, behind)) {
                 if (frame.getClipToOutline()) {
-                    fresh.set(0, 0, frame.getWidth(), frame.getHeight());
+                    // Rounded corners on Reels cuts a reel's frame round the video it shows, not at its own edges.
+                    if (kind == Kind.REEL) fresh.set(RoundedFrames.shown(frame));
+                    else fresh.set(0, 0, frame.getWidth(), frame.getHeight());
                     onto(frame, behind, fresh);
                 }
                 // Instagram's media layout paints its own corners solid over the frame, cut round or not (#630).
@@ -2065,7 +2094,7 @@ public final class AmbientLight {
             if (stale != null) drop(stale, lights.get(stale));
             if (media == null) return;
             ViewGroup stage = reelStageOf(media, frame);
-            light(owner, media, Kind.REEL, null, media instanceof ImageView ? reelPhotoStageOf((ImageView) media, stage) : stage);
+            light(owner, media, Kind.REEL, frame, media instanceof ImageView ? reelPhotoStageOf((ImageView) media, stage) : stage);
         }
 
         /** The first video under [view] that shows. */

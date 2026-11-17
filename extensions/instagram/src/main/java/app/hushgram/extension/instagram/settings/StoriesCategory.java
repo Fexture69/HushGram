@@ -6,7 +6,11 @@
  */
 package app.hushgram.extension.instagram.settings;
 
+import static app.hushgram.extension.instagram.settings.HushgramPreferenceFragment.CLEAR_STORY_VIEWERS;
 import static app.hushgram.extension.instagram.settings.HushgramPreferenceFragment.category;
+import static app.hushgram.extension.instagram.settings.HushgramPreferenceFragment.clearStoryViewers;
+import static app.hushgram.extension.instagram.settings.HushgramPreferenceFragment.mark;
+import static app.hushgram.extension.instagram.settings.HushgramPreferenceFragment.storyViewersRow;
 import static app.hushgram.extension.instagram.settings.HushgramPreferenceFragment.onFlip;
 import static app.hushgram.extension.instagram.settings.HushgramPreferenceFragment.priorityAccountsRow;
 import static app.hushgram.extension.instagram.settings.HushgramPreferenceFragment.storyBarRow;
@@ -40,6 +44,7 @@ import java.util.Set;
 
 import app.hushgram.extension.instagram.feed.AmbientLight;
 import app.hushgram.extension.instagram.stories.StoryProgressBar;
+import app.hushgram.extension.instagram.stories.StoryReplyBox;
 import app.hushgram.extension.shared.L10n;
 
 /** Builds the Stories category of HushGram settings. */
@@ -172,18 +177,18 @@ final class StoriesCategory {
                             + "Tap Send message to reply.")));
         }
         if (build.contains(PatchFamily.STORY_REPLY_BOX)) {
-            stories.add(toggle(context, Settings.HIDE_STORY_REPLY_BOX, L10n.t("Hide the reply box on stories"),
+            stories.add(onFlip(toggle(context, Settings.HIDE_STORY_REPLY_BOX, L10n.t("Hide the reply box on stories"),
                     L10n.t("Takes the Send message box off the bottom of other people's stories. The like and "
-                            + "share buttons next to it stay where they are.")));
-            stories.add(toggle(context, Settings.HIDE_STORY_LIKE_BUTTON, L10n.t("Hide the Like button on stories"),
+                            + "share buttons next to it stay where they are.")), StoryReplyBox::switchChanged));
+            stories.add(onFlip(toggle(context, Settings.HIDE_STORY_LIKE_BUTTON, L10n.t("Hide the Like button on stories"),
                     L10n.t("Takes the heart off the bottom of other people's stories, so nothing gets liked by "
-                            + "mistake. No empty space is left behind.")));
-            stories.add(toggle(context, Settings.HIDE_STORY_COMMENT_BUTTON, L10n.t("Hide the Comment button on stories"),
+                            + "mistake. No empty space is left behind.")), StoryReplyBox::switchChanged));
+            stories.add(onFlip(toggle(context, Settings.HIDE_STORY_COMMENT_BUTTON, L10n.t("Hide the Comment button on stories"),
                     L10n.t("Takes the Comment button off the bottom of other people's stories that have one. "
-                            + "No empty space is left behind.")));
-            stories.add(toggle(context, Settings.HIDE_STORY_SHARE_BUTTON, L10n.t("Hide the Share button on stories"),
+                            + "No empty space is left behind.")), StoryReplyBox::switchChanged));
+            stories.add(onFlip(toggle(context, Settings.HIDE_STORY_SHARE_BUTTON, L10n.t("Hide the Share button on stories"),
                     L10n.t("Takes the paper plane off the bottom of other people's stories. No empty space is "
-                            + "left behind.")));
+                            + "left behind.")), StoryReplyBox::switchChanged));
         }
         if (build.contains(PatchFamily.GLASS_CHAT)) {
             stories.add(toggle(context, Settings.GLASS_STORY_REPLY_BOX, L10n.t("Glass reply box on stories"),
@@ -259,6 +264,24 @@ final class StoriesCategory {
             stories.add(uploadFrameRateRow(context));
             stories.add(uploadPhotoQualityRow(context));
             stories.add(uploadPhotoSizeRow(context));
+        }
+        if (build.contains(PatchFamily.STORY_VIEWERS)) {
+            stories.add(toggle(context, Settings.STORY_VIEWERS, L10n.t("Keep story viewers"),
+                    L10n.t("Each time you open who viewed one of your stories, the list is kept on this phone and set "
+                            + "beside your followers. Nothing extra is asked of Instagram. Turn it off and it stops at once.")));
+            Preference viewers = storyViewersRow(context);
+            stories.add(viewers);
+            HushgramPreferenceFragment.Row clear = new HushgramPreferenceFragment.Row(context);
+            clear.setKey(CLEAR_STORY_VIEWERS);
+            clear.setPersistent(false);
+            clear.actsAtOnce = true;
+            clear.setTitle(L10n.t("Clear story viewers"));
+            clear.setSummary(L10n.t("Forgets every story's viewers kept here. The switch stays as it is."));
+            clear.setOnPreferenceClickListener(p -> {
+                clearStoryViewers(p, viewers);
+                return true;
+            });
+            stories.add(mark(clear, SettingsIcons.DELETE));
         }
         if (build.contains(PatchFamily.STORY_FONTS)) {
             stories.add(toggle(context, Settings.STORY_FONTS, L10n.t("Your fonts in story text"),

@@ -559,6 +559,8 @@ Seek bar like DM videos	Bilah geser seperti video di pesan
 Gives reels the seek bar of a video in a chat, a thin gray line that turns white as it plays, with a big round white handle. The time shows above it. Drag it to seek. When Bigger seek bar on reels is on too, this look wins. It also keeps the bar on short reels.	Memberi Reel bilah geser seperti video di obrolan, garis abu-abu tipis yang berubah putih saat diputar, dengan pegangan putih bulat yang besar. Waktu tampil di atasnya. Seret untuk mencari posisi. Jika Bilah geser lebih besar di Reel juga aktif, gaya ini yang dipakai. Bilah juga tetap tampil di Reel pendek.
 Seek bar on photos with music	Bilah geser di foto dengan musik
 Reels that are a photo with a song get the same seek bar and time as a video reel, following the song. Drag it to seek.	Reel berupa foto dengan lagu mendapat bilah geser dan waktu yang sama seperti reel video, mengikuti lagunya. Seret untuk mencari posisi.
+Hide the seek bar on reels	Sembunyikan bilah putar di reel
+Takes the seek bar off the bottom of every reel, long ones too. Hold a reel to bring it back and seek. Keep a seek bar and the seek bar looks above win over it.	Menghapus bilah putar dari bagian bawah setiap reel, termasuk yang panjang. Tahan reel untuk memunculkannya lagi dan mencari posisi. Tetap tampilkan bilah putar dan gaya bilah di atas lebih diutamakan.
 Blur the bars around a reel	Buramkan bilah di sekitar reel
 A reel that doesn't fill the screen shows a blurred copy of itself above and below it instead of black bars, and the strip under the tab bar and the band behind the clock show the reel blurred too. The copy shows only where a reel leaves room, as with Show the whole reel on. Open Reels again after a change.	Reel yang tidak memenuhi layar menampilkan salinan buramnya di atas dan di bawahnya, bukan bilah hitam, dan strip di bawah bilah tab serta area di belakang jam juga menampilkan reel itu secara buram. Salinan itu hanya muncul di tempat reel menyisakan ruang, seperti saat Tampilkan reel utuh aktif. Buka Reel lagi setelah ada perubahan.
 # Chosen navigation long-press settings entry. Account tab availability varies.
@@ -1209,7 +1211,7 @@ Show the Friends tab on Reels	Tampilkan tab Teman di Reels
 Adds the Friends tab to the top of the Reels tab if your account never got it. What's in it still comes from Instagram, so it can be empty. Hide the Friends tab wins.	Menambahkan tab Teman di bagian atas tab Reels jika akunmu belum pernah mendapatkannya. Isinya tetap dari Instagram, jadi bisa kosong. Sembunyikan tab Teman lebih diutamakan.
 # context: Reels settings and the list held open from the Friends tab at the top of the Reels tab. Friends tab wording matches the Hide the Friends tab row above it. The last two are short toasts.
 Hold the Friends tab to pick friends	Tahan tab Teman untuk memilih teman
-Hold the Friends tab on Reels and pick from the friends it has shown you. It then keeps only reels they liked or shared. A page with none of them keeps one reel so the next page can load.	Tahan tab Teman di Reels lalu pilih dari teman yang sudah ditampilkan. Setelah itu tab hanya menyimpan reel yang mereka sukai atau bagikan. Halaman tanpa mereka tetap menyimpan satu reel agar halaman berikutnya bisa dimuat.
+Hold the Friends tab on Reels and pick from the friends it has shown you. It then keeps only reels they liked or shared.	Tahan tab Teman di Reels lalu pilih dari teman yang sudah ditampilkan. Setelah itu tab hanya menyimpan reel yang mereka sukai atau bagikan.
 Pick friends	Pilih teman
 Open the Friends tab first.	Buka tab Teman dulu.
 No friends to pick yet.	Belum ada teman untuk dipilih.
@@ -2464,6 +2466,42 @@ Saved photos and videos take up %1$s now.	Foto dan video tersimpan sekarang mema
 # context: Tab bar: switch under Keep the pill full size, for the liquid look's bubble under a held finger (#705)
 Glass lens under your finger	Lensa kaca di bawah jarimu
 Hold a finger on the liquid pill's bubble, or slide it across the tabs, and the bubble swells and bends what's behind it harder, like glass under a fingertip. It eases back when you let go. The bend needs Blur behind the tab bar and Android 13 or newer. Restart Instagram after changing it.	Tahan jari di gelembung pil kaca cair, atau geser di sepanjang tab, dan gelembungnya membesar serta membiaskan apa yang ada di belakangnya lebih kuat, seperti kaca di bawah ujung jari. Gelembung kembali normal saat kamu melepasnya. Pembiasan butuh Blur di belakang bilah tab dan Android 13 atau yang lebih baru. Mulai ulang Instagram setelah mengubahnya.
+# context: Keep story viewers, its Stories settings rows and the Story viewers page.
+Keep story viewers	Simpan penonton cerita
+Each time you open who viewed one of your stories, the list is kept on this phone and set beside your followers. Nothing extra is asked of Instagram. Turn it off and it stops at once.	Setiap kali kamu membuka siapa yang melihat salah satu ceritamu, daftarnya disimpan di ponsel ini dan disandingkan dengan pengikutmu. Tidak ada permintaan tambahan ke Instagram. Matikan dan langsung berhenti.
+Story viewers	Penonton cerita
+Nothing here yet. With Keep story viewers on, open who viewed one of your stories in Instagram and the list is kept here.	Belum ada apa-apa. Dengan Simpan penonton cerita aktif, buka siapa yang melihat salah satu ceritamu di Instagram dan daftarnya disimpan di sini.
+%1$d story kept since %2$s. Tap to see who viewed it and who has no view recorded.	%1$d cerita disimpan sejak %2$s. Ketuk untuk melihat siapa yang melihatnya dan siapa yang belum tercatat melihat.
+%1$d stories kept since %2$s. Tap to see who viewed each one and who has no view recorded.	%1$d cerita disimpan sejak %2$s. Ketuk untuk melihat siapa yang melihat tiap cerita dan siapa yang belum tercatat melihat.
+Clear story viewers	Hapus penonton cerita
+Forgets every story's viewers kept here. The switch stays as it is.	Melupakan penonton semua cerita yang disimpan di sini. Sakelarnya tetap seperti semula.
+Story viewers cleared.	Penonton cerita dihapus.
+Couldn't clear the story viewers. Try again.	Penonton tidak bisa dihapus. Coba lagi.
+Last 7 days	7 hari terakhir
+Last 30 days	30 hari terakhir
+Last 90 days	90 hari terakhir
+All kept	Semua yang disimpan
+Viewers	Penonton
+No view recorded	Belum tercatat melihat
+Frequent	Sering
+Stories kept: %1$d. Viewers: %2$d.	Cerita disimpan: %1$d. Penonton: %2$d.
+%1$d%% of your followers viewed at least one.	%1$d%% pengikutmu melihat setidaknya satu.
+To see followers with no view recorded, turn on Recent unfollowers and open your Followers list once.	Untuk melihat pengikut yang belum tercatat melihat, nyalakan Berhenti mengikuti baru-baru ini lalu buka daftar Pengikutmu sekali.
+Viewed this story	Melihat cerita ini
+Not on this story's list	Tidak ada di daftar cerita ini
+Stories viewed: %1$d of %2$d, the newest posted %3$s	Cerita dilihat: %1$d dari %2$d, yang terbaru diposting %3$s
+None in this period. The last story they viewed is from %s	Tidak ada di periode ini. Cerita terakhir yang dilihatnya dari %s
+No view recorded since %s	Belum tercatat melihat sejak %s
+Story from %s	Cerita dari %s
+Viewers kept: %1$d of %2$d	Penonton disimpan: %1$d dari %2$d
+Viewers: %1$d	Penonton: %1$d
+Viewers: %1$d. Followers not on the list: %2$d	Penonton: %1$d. Pengikut yang tidak ada di daftar: %2$d
+No stories kept in this period.	Tidak ada cerita yang disimpan di periode ini.
+Every follower viewed at least one story in this period.	Semua pengikut melihat setidaknya satu cerita di periode ini.
+No one has viewed half of this period's stories yet.	Belum ada yang melihat setengah dari cerita periode ini.
+# context: Feed: switch under Hide the home feed that keeps Instagram from learning which posts in Home you looked at and for how long (#664)
+Don't send feed view history	Jangan kirim riwayat tampilan feed
+Stops telling Instagram which posts in Home you looked at and for how long. Instagram uses that to pick what Home shows. Posts you've seen may come back.	Instagram tidak lagi diberi tahu postingan mana di Beranda yang kamu lihat dan berapa lama. Instagram memakainya untuk memilih apa yang ditampilkan Beranda. Postingan yang sudah kamu lihat bisa muncul lagi.
 2x speed for videos in the feed	2x speed for videos in the feed
 Adds a shortcut to your saved posts in the Explore tab.	Adds a shortcut to your saved posts in the Explore tab.
 Adds a speed choice to the menu on a reel.	Adds a speed choice to the menu on a reel.

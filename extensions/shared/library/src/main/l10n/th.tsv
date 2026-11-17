@@ -556,6 +556,8 @@ Seek bar like DM videos	แถบเลื่อนเวลาเหมือ�
 Gives reels the seek bar of a video in a chat, a thin gray line that turns white as it plays, with a big round white handle. The time shows above it. Drag it to seek. When Bigger seek bar on reels is on too, this look wins. It also keeps the bar on short reels.	แสดงแถบเลื่อนเวลาของวิดีโอในแชทให้กับรีลส์ ซึ่งเป็นเส้นบางสีเทาที่จะเปลี่ยนเป็นสีขาวขณะเล่น พร้อมปุ่มควบคุมทรงกลมสีขาวขนาดใหญ่ เวลาจะแสดงอยู่ด้านบน ลากเพื่อเลื่อนตำแหน่ง หากเปิด "แถบเลื่อนเวลาขนาดใหญ่ขึ้นบนรีลส์" ไว้ด้วย รูปลักษณ์นี้จะมีความสำคัญกว่า และยังคงแสดงแถบบนรีลส์สั้นๆ อีกด้วย
 Seek bar on photos with music	แถบเลื่อนเวลาบนรูปภาพพร้อมเพลง
 Reels that are a photo with a song get the same seek bar and time as a video reel, following the song. Drag it to seek.	รีลส์ที่เป็นรูปภาพพร้อมเพลงจะได้รับแถบเลื่อนเวลาและเวลาเหมือนกับวิดีโอรีลส์ โดยเป็นไปตามเพลง ลากเพื่อเลื่อนตำแหน่ง
+Hide the seek bar on reels	ซ่อนแถบเลื่อนเวลาบนรีลส์
+Takes the seek bar off the bottom of every reel, long ones too. Hold a reel to bring it back and seek. Keep a seek bar and the seek bar looks above win over it.	นำแถบเลื่อนเวลาออกจากด้านล่างของทุกรีลส์ รวมถึงรีลส์ที่ยาว กดค้างที่รีลส์เพื่อให้แถบกลับมาและเลื่อนเวลา แสดงแถบเลื่อนเวลาเสมอและรูปแบบแถบด้านบนจะมีผลก่อน
 Blur the bars around a reel	เบลอแถบรอบรีลส์
 A reel that doesn't fill the screen shows a blurred copy of itself above and below it instead of black bars, and the strip under the tab bar and the band behind the clock show the reel blurred too. The copy shows only where a reel leaves room, as with Show the whole reel on. Open Reels again after a change.	รีลส์ที่ไม่เต็มหน้าจอจะแสดงภาพรีลส์แบบเบลอที่ด้านบนและด้านล่างแทนแถบสีดำ รวมถึงแถบใต้แถบแท็บและแถบด้านหลังนาฬิกาจะแสดงภาพรีลส์แบบเบลอด้วย ภาพสำเนาจะแสดงเฉพาะบริเวณที่รีลส์เหลือพื้นที่ไว้ เช่น เมื่อเปิด "แสดงรีลส์ทั้งคลิป" เปิดรีลส์อีกครั้งหลังจากเปลี่ยนแปลง
 # Chosen navigation long-press settings entry. Account tab availability varies.
@@ -1200,7 +1202,7 @@ Show the Friends tab on Reels	แสดงแท็บเพื่อนใน�
 Adds the Friends tab to the top of the Reels tab if your account never got it. What's in it still comes from Instagram, so it can be empty. Hide the Friends tab wins.	เพิ่มแท็บ "เพื่อน" ที่ด้านบนสุดของแท็บรีลส์หากบัญชีของคุณไม่เคยได้รับแท็บนี้ เนื้อหาภายในยังคงมาจาก Instagram จึงอาจว่างเปล่าได้ การตั้งค่า "ซ่อนแท็บเพื่อน" จะมีผลเหนือกว่า
 # context: Reels settings and the list held open from the Friends tab at the top of the Reels tab. Friends tab wording matches the Hide the Friends tab row above it. The last two are short toasts.
 Hold the Friends tab to pick friends	กดแท็บเพื่อนค้างไว้เพื่อเลือกเพื่อน
-Hold the Friends tab on Reels and pick from the friends it has shown you. It then keeps only reels they liked or shared. A page with none of them keeps one reel so the next page can load.	กดแท็บ "เพื่อน" ในรีลส์ค้างไว้ แล้วเลือกจากเพื่อนที่แสดงขึ้นมา จากนั้นจะเก็บไว้เฉพาะรีลส์ที่พวกเขาถูกใจหรือแชร์เท่านั้น หน้าที่ไม่มีเพื่อนเหล่านี้จะคงรีลส์ไว้หนึ่งคลิปเพื่อให้สามารถโหลดหน้าถัดไปได้
+Hold the Friends tab on Reels and pick from the friends it has shown you. It then keeps only reels they liked or shared.	กดแท็บ "เพื่อน" ในรีลส์ค้างไว้ แล้วเลือกจากเพื่อนที่แสดงขึ้นมา จากนั้นจะเก็บไว้เฉพาะรีลส์ที่พวกเขาถูกใจหรือแชร์เท่านั้น
 Pick friends	เลือกเพื่อน
 Open the Friends tab first.	เปิดแท็บเพื่อนก่อน
 No friends to pick yet.	ยังไม่มีเพื่อนให้เลือก
@@ -2461,6 +2463,42 @@ Saved photos and videos take up %1$s now.	รูปภาพและวิด�
 # context: Tab bar: switch under Keep the pill full size, for the liquid look's bubble under a held finger (#705)
 Glass lens under your finger	เลนส์แก้วใต้นิ้วของคุณ
 Hold a finger on the liquid pill's bubble, or slide it across the tabs, and the bubble swells and bends what's behind it harder, like glass under a fingertip. It eases back when you let go. The bend needs Blur behind the tab bar and Android 13 or newer. Restart Instagram after changing it.	แตะนิ้วค้างไว้บนฟองของแถบแคปซูลแบบแก้วเหลว หรือเลื่อนไปตามแท็บ แล้วฟองจะขยายและหักเหสิ่งที่อยู่ด้านหลังแรงขึ้น เหมือนแก้วใต้ปลายนิ้ว และจะกลับเป็นปกติเมื่อคุณปล่อยนิ้ว การหักเหต้องเปิดเบลอด้านหลังแถบแท็บและใช้ Android 13 ขึ้นไป รีสตาร์ท Instagram หลังจากเปลี่ยนแปลงการตั้งค่า
+# context: Keep story viewers, its Stories settings rows and the Story viewers page.
+Keep story viewers	เก็บรายชื่อผู้ดูสตอรี่
+Each time you open who viewed one of your stories, the list is kept on this phone and set beside your followers. Nothing extra is asked of Instagram. Turn it off and it stops at once.	ทุกครั้งที่คุณเปิดดูว่าใครดูสตอรี่ของคุณ รายชื่อจะถูกเก็บไว้ในโทรศัพท์เครื่องนี้และวางคู่กับผู้ติดตามของคุณ ไม่มีการขออะไรเพิ่มจาก Instagram ปิดแล้วจะหยุดทันที
+Story viewers	ผู้ดูสตอรี่
+Nothing here yet. With Keep story viewers on, open who viewed one of your stories in Instagram and the list is kept here.	ยังไม่มีอะไร เมื่อเปิด เก็บรายชื่อผู้ดูสตอรี่ ไว้ ให้เปิดดูว่าใครดูสตอรี่ของคุณใน Instagram แล้วรายชื่อจะถูกเก็บไว้ที่นี่
+%1$d story kept since %2$s. Tap to see who viewed it and who has no view recorded.	เก็บ %1$d สตอรี่ตั้งแต่ %2$s แตะเพื่อดูว่าใครดูบ้างและใครยังไม่มีการดูที่บันทึกไว้
+%1$d stories kept since %2$s. Tap to see who viewed each one and who has no view recorded.	เก็บ %1$d สตอรี่ตั้งแต่ %2$s แตะเพื่อดูว่าใครดูแต่ละสตอรี่และใครยังไม่มีการดูที่บันทึกไว้
+Clear story viewers	ล้างรายชื่อผู้ดูสตอรี่
+Forgets every story's viewers kept here. The switch stays as it is.	ลืมรายชื่อผู้ดูของทุกสตอรี่ที่เก็บไว้ที่นี่ สวิตช์ยังคงเหมือนเดิม
+Story viewers cleared.	ล้างรายชื่อผู้ดูแล้ว
+Couldn't clear the story viewers. Try again.	ล้างรายชื่อผู้ดูไม่ได้ โปรดลองอีกครั้ง
+Last 7 days	7 วันที่ผ่านมา
+Last 30 days	30 วันที่ผ่านมา
+Last 90 days	90 วันที่ผ่านมา
+All kept	ทั้งหมดที่เก็บไว้
+Viewers	ผู้ดู
+No view recorded	ไม่มีการดูที่บันทึกไว้
+Frequent	ดูบ่อย
+Stories kept: %1$d. Viewers: %2$d.	สตอรี่ที่เก็บไว้: %1$d ผู้ดู: %2$d
+%1$d%% of your followers viewed at least one.	ผู้ติดตาม %1$d%% ดูอย่างน้อยหนึ่งสตอรี่
+To see followers with no view recorded, turn on Recent unfollowers and open your Followers list once.	หากต้องการดูผู้ติดตามที่ไม่มีการดูที่บันทึกไว้ ให้เปิด ผู้ที่เลิกติดตามล่าสุด แล้วเปิดรายชื่อผู้ติดตามของคุณหนึ่งครั้ง
+Viewed this story	ดูสตอรี่นี้แล้ว
+Not on this story's list	ไม่อยู่ในรายชื่อของสตอรี่นี้
+Stories viewed: %1$d of %2$d, the newest posted %3$s	ดูสตอรี่แล้ว: %1$d จาก %2$d ล่าสุดโพสต์ %3$s
+None in this period. The last story they viewed is from %s	ไม่มีในช่วงนี้ สตอรี่ล่าสุดที่ดูคือของวันที่ %s
+No view recorded since %s	ไม่มีการดูที่บันทึกไว้ตั้งแต่ %s
+Story from %s	สตอรี่จาก %s
+Viewers kept: %1$d of %2$d	ผู้ดูที่เก็บไว้: %1$d จาก %2$d
+Viewers: %1$d	ผู้ดู: %1$d
+Viewers: %1$d. Followers not on the list: %2$d	ผู้ดู: %1$d ผู้ติดตามที่ไม่อยู่ในรายชื่อ: %2$d
+No stories kept in this period.	ไม่มีสตอรี่ที่เก็บไว้ในช่วงนี้
+Every follower viewed at least one story in this period.	ผู้ติดตามทุกคนดูอย่างน้อยหนึ่งสตอรี่ในช่วงนี้
+No one has viewed half of this period's stories yet.	ยังไม่มีใครดูครึ่งหนึ่งของสตอรี่ในช่วงนี้
+# context: Feed: switch under Hide the home feed that keeps Instagram from learning which posts in Home you looked at and for how long (#664)
+Don't send feed view history	ไม่ส่งประวัติการดูฟีด
+Stops telling Instagram which posts in Home you looked at and for how long. Instagram uses that to pick what Home shows. Posts you've seen may come back.	หยุดส่งข้อมูลให้ Instagram ว่าคุณดูโพสต์ใดในหน้าหลักและดูนานเท่าใด Instagram ใช้ข้อมูลนี้เพื่อเลือกสิ่งที่จะแสดงในหน้าหลัก โพสต์ที่คุณเห็นแล้วอาจวนกลับมาแสดงอีก
 %1$d entries left out because they repeat or don't fit.	%1$d entries left out because they repeat or don't fit.
 %1$d overrides from a different Instagram version don't fit this one and were left out.	%1$d overrides from a different Instagram version don't fit this one and were left out.
 2x speed for videos in the feed	2x speed for videos in the feed

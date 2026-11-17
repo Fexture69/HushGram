@@ -34,27 +34,29 @@ internal const val FIXED_STRIP = "$FEED_HOLD->fixedStrip(I)Z"
 internal const val STRIP = "$FEED_HOLD->strip(D)D"
 
 /**
- * The feature as a whole, read by a static (UserSession) helper (02o9.A00 on 454's 386014758). The
+ * The feature as a whole, read by a static (UserSession) helper (02c4.A00 on 456's 386214574). The
  * press entry calls that helper once, and a dozen other places in the feed call it too; the patch
  * answers the press entry's call alone, so the rest of the feed stays Instagram's.
  */
-internal const val HOLD_FLAG = 0x810ec4000251f6L
+// 456 renumbered the whole config from 455's 0x810ead (config index -29, slot -43), as 455 did from
+// 454's 0x810ec4 (config index -23, slot -33).
+internal const val HOLD_FLAG = 0x810e90000251aaL
 
 /**
  * One for each kind of post the press entry tells apart. It picks one in a branch and reads
  * whichever it picked in one place.
  */
-internal val KIND_FLAGS = listOf(0x810ec4000451f8L, 0x810ec4000551f9L, 0x810ec4000351f7L)
+internal val KIND_FLAGS = listOf(0x810e90000451acL, 0x810e90000551adL, 0x810e90000351abL)
 
 /** The speed-up itself, and a carousel's, which skips the other. */
-internal const val FAST_FLAG = 0x810ec4000151f5L
-internal const val CAROUSEL_FLAG = 0x810ec4000051f4L
+internal const val FAST_FLAG = 0x810e90000151a9L
+internal const val CAROUSEL_FLAG = 0x810e90000051a8L
 
 /** Whether the strip along each side where a hold counts is a fixed width, about 50dp. */
-internal const val FIXED_STRIP_FLAG = 0x20810ec4000651faL
+internal const val FIXED_STRIP_FLAG = 0x20810e90000651aeL
 
-/** The strip as a share of the video's width, when it isn't fixed. Read as a double on every 454 build. */
-internal const val STRIP_FLAG = 0x840ec40007038cL
+/** The strip as a share of the video's width, when it isn't fixed. Read as a double on every 456 build. */
+internal const val STRIP_FLAG = 0x840e900007038dL
 
 /**
  * Turns on Instagram's own hold for 2x on feed videos, which it keeps behind server flags in the

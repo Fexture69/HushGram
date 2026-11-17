@@ -9,6 +9,7 @@ import app.morphe.patcher.patch.BytecodePatchContext
 import app.morphe.patcher.patch.PatchException
 import app.morphe.patches.instagram.misc.extension.EXTENSION_PACKAGE
 import app.morphe.patches.instagram.misc.extension.classesLoadingString
+import app.morphe.patches.instagram.misc.extension.classesReadingObjects
 import app.morphe.patches.instagram.misc.extension.jumpTargets
 import app.morphe.patches.instagram.misc.extension.loadsString
 import app.morphe.patches.instagram.misc.extension.parameterRegisterNumber
@@ -65,8 +66,9 @@ internal class RingGradient(val name: String, val parameters: List<String>, val 
 
 /**
  * Finds every place a ring builds its gradient, and checks each before anything changes. The ring
- * is a view that keeps its class name. Its builder is its one static method taking
- * [GRADIENT_PARAMETERS] and answering a gradient. Most of 454's builds also give the view a private
+ * is a view that keeps its class name. Its builder is its one method answering a gradient that takes
+ * [GRADIENT_PARAMETERS] when static or, as on every 455 build, [SETTER_PARAMETERS] with the ring as
+ * `this`. Most of 454's builds and every 455 build also give the view a private
  * setter taking [SETTER_PARAMETERS] that makes the same gradient with its own copy of the builder's
  * code and keeps it (#518). That setter is what the stories row's rings go through, from the ring's
  * measure and from every ring spec it's given, and the builder only serves a couple of other
@@ -84,7 +86,7 @@ internal fun BytecodePatchContext.findRingGradients(patch: String = PATCH): List
     val spinner = classDefByOrNull(GRADIENT_SPINNER) ?: refuse("the build has no $GRADIENT_SPINNER", patch)
     val builders = spinner.methods.filter { it.isRingBuilder() }
     val builder = builders.singleOrNull()
-        ?: refuse("expected one static gradient builder taking stops and colors in $GRADIENT_SPINNER, found ${builders.size}", patch)
+        ?: refuse("expected one gradient builder taking stops and colors in $GRADIENT_SPINNER, found ${builders.size}", patch)
     if (!builder.makesGradientFromArrays()) {
         refuse("$GRADIENT_SPINNER->${builder.name} no longer makes its gradient from an array of colors and an array of stops", patch)
     }
@@ -117,8 +119,8 @@ private fun Method.ringGradient(patch: String): RingGradient {
     return RingGradient(name, parameterTypes.map(CharSequence::toString), colors, stops)
 }
 
-private fun Method.isRingBuilder() = AccessFlags.STATIC.isSet(accessFlags) && returnType == LINEAR_GRADIENT &&
-    parameterTypes.map(CharSequence::toString) == GRADIENT_PARAMETERS
+private fun Method.isRingBuilder() = returnType == LINEAR_GRADIENT && parameterTypes.map(CharSequence::toString) ==
+    if (AccessFlags.STATIC.isSet(accessFlags)) GRADIENT_PARAMETERS else SETTER_PARAMETERS
 
 private fun Method.isRingSetter() = !AccessFlags.STATIC.isSet(accessFlags) && returnType == "V" &&
     parameterTypes.map(CharSequence::toString) == SETTER_PARAMETERS
@@ -129,6 +131,8 @@ private fun Method.makesGradientFromArrays() =
 /**
  * The methods that put Instagram's default ring together: each is in a class loading
  * [DEFAULT_RING] and loads every one of [DEFAULT_RING_STOPS]. On 450 there is one in every build.
+ * 455's arm64, x86 and x86_64 builds have two, a RingSpec and a ring with its angle, in two
+ * lambda classes, both with the same stops.
  */
 internal fun BytecodePatchContext.findDefaultRingStops(): List<String> =
     classesLoadingString(DEFAULT_RING).flatMap { classDef ->
@@ -187,19 +191,27 @@ internal class ComposeRing(
 
 /**
  * Finds where Compose screens put Instagram's default ring together (#528). The ring view's builder
- * never sees that ring: the method loading [DEFAULT_RING] reads the ring's colors as a list from the
- * default ring spec and turns them into an array with a static taking a list and answering an int
- * array, then makes Compose colors from that array. On 454 that is `LX/0IDN;->A00()`, and no other
- * method loading the ring's name turns a list into an array. Exactly one call like it, in exactly
+ * never sees that ring: Compose reads the ring's colors as a list from the default ring and turns
+ * them into an array with a static taking a list and answering an int array, then makes Compose
+ * colors from that array. On 454 the method doing that loads [DEFAULT_RING] itself
+ * (`LX/0IDN;->A00()`). On every 455 build it reads the name from the default ring's own class
+ * instead: a static taking only that class, the one a method loading [DEFAULT_RING] makes from two
+ * lists and four doubles (its colors, its stops and its two points). Both kinds are searched, and
+ * no other method of either kind turns a list into an array. Exactly one call like it, in exactly
  * one such method, is what the patch can be sure of. The hook goes right after the array lands, so
  * nothing may jump there.
  */
 internal fun BytecodePatchContext.findComposeRing(patch: String = PATCH): ComposeRing {
-    val found = classesLoadingString(DEFAULT_RING).flatMap { classDef ->
-        classDef.methods.filter { loadsString(it, DEFAULT_RING) }.flatMap { method ->
-            method.colorArraysFromLists().map { at -> Triple(classDef.type, method, at) }
+    val named = classesLoadingString(DEFAULT_RING).flatMap { classDef ->
+        classDef.methods.filter { loadsString(it, DEFAULT_RING) }.map { classDef.type to it }
+    }
+    val takers = named.flatMapTo(LinkedHashSet()) { (_, method) -> method.defaultRingsMade() }.flatMap { ring ->
+        classesReadingObjects(ring, LIST).flatMap { classDef ->
+            classDef.methods.filter { it.parameterTypes.map(CharSequence::toString) == listOf(ring) }.map { classDef.type to it }
         }
     }
+    val found = (named + takers).distinctBy { (type, method) -> "$type->${method.name}(${method.parameterTypes.joinToString("")})" }
+        .flatMap { (type, method) -> method.colorArraysFromLists().map { at -> Triple(type, method, at) } }
     val (type, method, call) = found.singleOrNull()
         ?: refuse(
             "expected one place a method loading \"$DEFAULT_RING\" turns a list of colors into an array, found ${found.size}" +
@@ -227,6 +239,15 @@ private fun Method.colorArraysFromLists(): List<Int> {
 }
 
 private const val LIST = "Ljava/util/List;"
+
+/** The classes this method makes with two lists and four doubles, the way the default ring is made from its colors, stops and points. */
+private fun Method.defaultRingsMade(): List<String> =
+    implementation?.instructions?.mapNotNull { (it as? ReferenceInstruction)?.reference as? MethodReference }
+        ?.filter { call ->
+            val types = call.parameterTypes.map(CharSequence::toString)
+            call.name == "<init>" && types.count { it == LIST } == 2 && types.count { it == "D" } == 4
+        }
+        ?.map { it.definingClass }.orEmpty()
 
 /**
  * Passes the default ring's colors through [hook] right after Compose screens turn them into an

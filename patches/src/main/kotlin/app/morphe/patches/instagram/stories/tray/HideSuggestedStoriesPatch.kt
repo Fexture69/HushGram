@@ -54,9 +54,11 @@ internal const val MUSIC_CARD = "$EXTENSION_PACKAGE/stories/StoriesTray;->musicC
  * 451's 0x810cc0000146f1; its one static session check there is still asked by the code that
  * casts to the repository right after. 453 renumbered it again to 0x810c9b0001461a, still the one
  * static session check asked by the path that casts to the repository. 454 moved it to
- * 0x810c6600014620, read by 01hH.A00, which the same six places ask.
+ * 0x810c6600014620, read by 01hH.A00, which the same six places ask. 455 moved it to
+ * 0x810c56000145f8, read by 00bM.A00 on 386113969, and 456 to 0x810c3e000145aa, read by 018d.A00
+ * on 386214574.
  */
-internal const val MUSIC_CARD_FLAG = 0x810c6600014620L
+internal const val MUSIC_CARD_FLAG = 0x810c3e000145aaL
 
 /** The name only the music midcard repository's constructor holds, which it gives its base class. */
 internal const val MUSIC_CARD_REPOSITORY = "MusicMidcardRepository"
@@ -136,24 +138,33 @@ val hideSuggestedStoriesPatch = bytecodePatch(
     }
 }
 
-/** Finds the Music for you card's flag read with [findMusicCard] and has the extension answer it through [MUSIC_CARD]. */
+/** Finds the Music for you card's flag reads with [findMusicCardReads] and has the extension answer each through [MUSIC_CARD]. */
 internal fun BytecodePatchContext.hideMusicCard() {
-    answerFlagLoads(listOf(findMusicCard() to MUSIC_CARD))
+    answerFlagLoads(findMusicCardReads().map { it to MUSIC_CARD })
 }
 
+/** The Music for you card's own check, the first of [findMusicCardReads]. */
+internal fun BytecodePatchContext.findMusicCard(): FlagLoad = findMusicCardReads().first()
+
 /**
- * Finds the one read of [MUSIC_CARD_FLAG]. It has to be the flag's own read, in a check taking the
- * session and answering a boolean, and something calling that check has to cast to the class
- * built with the name [MUSIC_CARD_REPOSITORY] ([musicCardRepositories]), since that's the card's
- * own data. Fails before anything changes when any of it isn't so, since that's an update this
- * patch hasn't seen.
+ * Finds the reads of [MUSIC_CARD_FLAG], the card's own check first. The check has to be the flag's
+ * own read, in a check taking the session and answering a boolean, and something calling that
+ * check has to cast to the class built with the name [MUSIC_CARD_REPOSITORY]
+ * ([musicCardRepositories]), since that's the card's own data. Up to 455 that check was the flag's
+ * one read. 456 also copies the check into the two places the stories viewer filters its list of
+ * items (ReelViewerFragment.A1g and 0MbB.A04 on 386214574), each reading the flag itself, so when
+ * there's more than one read, exactly one has to be the session check and every other one has to
+ * be handed only that list. Fails before anything changes when any of it isn't so, since that's an
+ * update this patch hasn't seen.
  */
-internal fun BytecodePatchContext.findMusicCard(): FlagLoad {
+internal fun BytecodePatchContext.findMusicCardReads(): List<FlagLoad> {
     val flag = MUSIC_CARD_FLAG.toString(16)
     val repositories = musicCardRepositories()
     if (repositories.isEmpty()) refuse("no class holds $MUSIC_CARD_REPOSITORY, so $flag isn't the Music for you card's flag")
     val reads = findFlagLoads(PATCH, MUSIC_CARD_FLAG, "Z")
-    val read = reads.singleOrNull() ?: refuse("expected one read of the Music for you card flag $flag, found ${reads.size}")
+    val read = reads.singleOrNull() ?: reads.filter { it.parameters == listOf(USER_SESSION) && it.returnType == "Z" }.singleOrNull()
+        ?.takeIf { check -> reads.all { it === check || it.parameters == listOf("Ljava/util/List;") } }
+        ?: refuse("expected one read of the Music for you card flag $flag, found ${reads.size}")
     val where = "${read.type}->${read.name}"
     if (read.shared) refuse("the read of $flag in $where is shared with another flag")
     if (read.parameters != listOf(USER_SESSION) || read.returnType != "Z") {
@@ -167,7 +178,7 @@ internal fun BytecodePatchContext.findMusicCard(): FlagLoad {
         }
     }
     if (!casts) refuse("nothing that asks $where casts to the class holding $MUSIC_CARD_REPOSITORY")
-    return read
+    return listOf(read) + reads.filter { it !== read }
 }
 
 /**

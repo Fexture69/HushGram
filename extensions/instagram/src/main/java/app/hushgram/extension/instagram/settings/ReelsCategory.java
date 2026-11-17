@@ -142,8 +142,7 @@ final class ReelsCategory {
                             + "it still comes from Instagram, so it can be empty. Hide the Friends tab wins.")));
             reels.add(toggle(context, Settings.PICK_FRIENDS_TAB, L10n.t("Hold the Friends tab to pick friends"),
                     L10n.t("Hold the Friends tab on Reels and pick from the friends it has shown you. It then keeps "
-                            + "only reels they liked or shared. A page with none of them keeps one reel so the next "
-                            + "page can load.")));
+                            + "only reels they liked or shared.")));
             reels.add(toggle(context, Settings.HIDE_REEL_LIKE_BUTTON, L10n.t("Hide the Like button on reels"),
                     L10n.t("Takes the heart out of the column of buttons beside a reel, and the like count under it. "
                             + "Double tap still likes a reel.")));
@@ -287,6 +286,9 @@ final class ReelsCategory {
             reels.add(toggle(context, Settings.PHOTO_REEL_SEEK_BAR, L10n.t("Seek bar on photos with music"),
                     L10n.t("Reels that are a photo with a song get the same seek bar and time as a video reel, "
                             + "following the song. Drag it to seek.")));
+            reels.add(toggle(context, Settings.HIDE_REEL_SEEK_BAR, L10n.t("Hide the seek bar on reels"),
+                    L10n.t("Takes the seek bar off the bottom of every reel, long ones too. Hold a reel to bring it "
+                            + "back and seek. Keep a seek bar and the seek bar looks above win over it.")));
         }
         if (build.contains(PatchFamily.REEL_ZOOM)) {
             reels.add(toggle(context, Settings.PINCH_ZOOM_REELS, L10n.t("Pinch to zoom"),

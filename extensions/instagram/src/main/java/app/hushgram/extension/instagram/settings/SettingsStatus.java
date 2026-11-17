@@ -61,6 +61,10 @@ public final class SettingsStatus {
         return false;
     }
 
+    public static boolean feedViewHistory() {
+        return false;
+    }
+
     public static boolean storyAutoAdvance() {
         return false;
     }
@@ -581,6 +585,11 @@ public final class SettingsStatus {
 
     /** Rewritten by the Keep online history patch. */
     public static boolean onlineHistory() {
+        return false;
+    }
+
+    /** Rewritten by the Keep story viewers patch. */
+    public static boolean storyViewers() {
         return false;
     }
 

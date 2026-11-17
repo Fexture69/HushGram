@@ -6,7 +6,9 @@ Every HushGram release, newest first.
 
 ### Features
 
+* `Don't send feed view history`, new under Feed, stops Instagram from learning which posts in Home you looked at and for how long, the way `Don't send reel watch history` does for Reels. Posts you've already seen may come back. It starts off, and Ghost mode turns it with its other switches. Asked for in #664.
 * `Ask for VP9 instead of AV1`, new under Downloads, tells Instagram your phone has no AV1 decoder, so reels and stories come as VP9 or H.264. It helps when AV1 saves won't play in your gallery. Asked for in #546.
+* `Keep story viewers`, new under Stories, keeps a list on your phone of who viewed each of your stories, from the viewer list Instagram already shows you. Its page shows who viewed over the last week, month or 90 days and who views most often. With Recent unfollowers on, it also shows which followers have no view recorded. Asked for in #710.
 * `Keep online history`, new under Profiles, keeps a list on your phone of when people in your messages came online and went offline, from the active status Instagram already shows. Asked for in #590.
 * `Glass lens under your finger`, under `Keep the pill full size` in Tab bar, makes the `Liquid glass look` bubble act like glass under a fingertip. Hold a finger on it, or slide it across the tabs, and it swells and bends what's behind it harder, then eases back when you let go. The bend needs `Blur behind the tab bar` and Android 13 or newer. It starts off. Asked for in #705.
 * `Cache size limit`, a slider under `Clear the media cache` in Storage, picks how much room Instagram's saved photos and videos can take before they're cleared, from 100 MB to 4,000 MB. It starts at 500 MB like before. `Clear saved copies now` also shows how much they take up right now. Asked for in #713.
@@ -19,10 +21,11 @@ Every HushGram release, newest first.
 * `Start feed videos muted`, under Feed, keeps videos on Home quiet even after you turn the sound on in Reels, so reels keep theirs. Tap a video's speaker to hear that one. Asked for in #718.
 * `Double tap to skip` on Reels flashes arrows and the seconds skipped on the side you tapped, like it already does on feed videos. `Show the skip arrows`, right under it, turns them off. Asked for in #691.
 * Quick double taps the same way now add up under the skip arrows on Reels and feed videos, so three skips ahead read 10, 20 and then 30. Asked for in #554.
+* `Hide the seek bar on reels`, new under Reels, takes the seek bar off the bottom of every reel, long ones too. Hold a reel and it comes back so you can seek. Asked for in #680.
 * `Hide the pause icon on reels` under Reels keeps a paused reel clear of the big pause icon and its sound button, so the frame you stopped on stays in view. A tap still plays it. Asked for in #686.
 * `Hide the Like button on reels` and `Hide the Comment button on reels` under Reels, and `Hide the Like button` under Feed, take those buttons and their counts away. Double tap still likes. Asked for in #668.
 * `Ask before a refresh` also asks when you tap Home, Reels or Explore while you're already on it, since that tap scrolls back to the top and reloads too. Cancel leaves the list where it was. Asked for in #655.
-* HushGram's own settings screen uses the font you pick in `Change the font` too, headings and switch labels included. Asked for in #166.
+* HushGram's own settings screen uses the font you pick in `Change the font` too, headings and switch labels included. Its popups follow it as well, like the "i" descriptions, pickers and PIN prompts. Asked for in #166.
 * HushGram speaks Simplified Chinese. Phones set to Simplified Chinese, or to Chinese for China or Singapore, get it instead of English. It's built from the Traditional Chinese table and uses Instagram's own mainland names, like 快拍 and 帖子. Asked for in #659.
 * `Double-tap Messages for hidden chats` now shows your hidden chats right in your inbox after your screen lock or PIN, and two more quick taps on Messages hide them again. Long press a chat for Hide chat or Unhide chat. Asked for in #661.
 * A new switch, `Hide You may also like in search` under Explore, takes the You may also like posts and their title off the bottom of search results. Accounts and the posts you searched for stay. Asked for in #657.
@@ -57,9 +60,19 @@ Every HushGram release, newest first.
 * `Keep 2x after you let go`, right under `Hold for 2x on feed videos` in Feed, keeps a held feed video at 2x once you lift your finger. Hold it again and let go to get normal speed back. Starts off. Asked for in #552.
 * `Ring thickness`, new under `Story ring size` in Stories, draws story rings thinner or thicker, from 50% to 200% of Instagram's width. The size and color lists above it work the same as before. Asked for in #528.
 * `Ring color` has a Custom choice now. Type a hex color in `Custom ring color` for one solid color, and add one in `Custom ring end color` if you want the ring to fade between the two. Saving the first color picks Custom for you. Asked for in #696.
+* On a photo story with music, the Download button at the top of the story asks whether you want the video or the photo, like the three-dot menu already does. Asked for in #726.
+
+### Improvements
+
+* HushGram now patches Instagram 455.0.0.51.72 instead of 454.0.0.54.77. Get APKMirror's (arm64-v8a) (480-640dpi) (Android 9.0+) bundle, build 386113969. Its armeabi-v7a (386113968), x86 (386113970) and x86_64 (386113971) builds are declared too.
+* HushGram now patches Instagram 456.0.0.53.78 instead of 455.0.0.51.72. Get APKMirror's (arm64-v8a) (480dpi) (Android 9.0+) bundle, build 386214574. Its armeabi-v7a (386214562) and x86 (386214575) builds are declared too. Meta published no x86_64 build this time.
+* HushGram now builds on Morphe patcher 2.4.0, so patching needs Morphe Manager 2.6.0 or newer. On a computer, use morphe-desktop 2.2.0 or newer.
 
 ### Bug Fixes
 
+* `Keep playing in the background` shows its notification on a Root Mount install too, with Pause, Play and Stop. A mount can't add the service HushGram normally uses, so the video used to keep playing with no notification and no way to stop it short of opening Instagram again. Reported in #349.
+* Picking friends on the Friends tab in Reels now leaves the other reels out. Before, one reel from each page without your picks still showed between theirs, so the tab barely looked filtered. Reported in #503.
+* In Turkish, German, Spanish and Portuguese, the seek bar rows called it a search bar. They now use the same word as `Keep a seek bar` in each language. Reported in #10.
 * In Simplified Chinese, `Clear saved copies now` says it freed the space instead of saying it published it.
 * The Like button is back on reels where HushGram's extra icons made the button column too tall, which left only the like count showing. When a column runs past the top bar, HushGram's own icons in it are laid out a little smaller from the next reel on, so every button fits on screen. Turning an icon on or off sets them back to full size. Reported in #676.
 * The `Keep the comment bar's space` row now says it leaves a black band, and that reels from Explore get it too. Search settings for "black bar" and it comes up. Turn it off to let the reel fill that space again. Reported in #680.
@@ -67,8 +80,13 @@ Every HushGram release, newest first.
 * `Split the notes row` shows the Stories stack next to Instants and Notes on accounts where Instagram had left it out, with your friends' stories in it. Reported in #717.
 * `Never save AV1 video`, `Never save HDR video` and `Save videos as MKV` go into a settings backup now, so restoring one brings them back with the other save switches. They used to come back off.
 * `Hide Follow on posts` catches the Follow button on a post you scroll to as well. It could slip through until something else on the screen moved. `Hide captions`, `Hide the Like button`, `Hide the Save button`, `Hide the emoji row` and `Hide GIFs in comments` got the same fix. Reported in #719.
-* `Below the Send message box` under `Seek bar position` now puts the story seek bar there on phones with little room under the box. The box moves up just enough for the bar and goes back down when the bar does. It used to stay above the box. A keyboard over the box still keeps the bar above it. Reported in #636.
+* `Below the Send message box` under `Seek bar position` now puts the story seek bar there on phones with little room under the box, full-screen stories with gesture navigation included. The box moves up just enough for the bar to sit clear of the swipe area and goes back down when the bar does. It used to stay above the box. A keyboard over the box still keeps the bar above it. Reported in #636.
 * With `Stories fill the screen` on, a feed post reshared to a story keeps its whole frame like a shared reel does, so its sides aren't cut off once the video starts. Reported in #618.
+* With `Stories fill the screen` on, a reel or post shared to a story keeps its whole frame now. A second layout pass right after was stretching it back over the whole screen and cutting its sides. Reported in #618.
+* With `Hide the reply box on stories` or the Like, Comment and Share ones on, a story you open from its ring no longer shows those for a split second before they go. Reported in #618.
+* `Ambient light` glows above and below a reel on the Reels tab and in reels opened from the feed again. Instagram 454 nests the reel deeper than the light was looking. Reported in #722.
+* With `Rounded corners on Reels` on, `Ambient light` fills a reel's rounded corners too, so they show the glow instead of black. Reported in #722.
+* A video's sound in your feed goes quiet while the HushGram settings are open, also when the restart button brings them back, and comes back when you close them. Reported in #725.
 * `Story rings in the accent color` now reaches the rings on profiles, posts, chats and the newer Instagram screens, not just the few that read the theme. They kept Instagram's gradient before. Reported in #528.
 * A color picked in `Ring color` now shows on the story rings of Instagram's newer screens too, which kept the stock gradient. A ring color you pick still wins over `Story rings in the accent color`. Reported in #528.
 * `Take a scroll break` remembers a running break and the minutes you've already used when Instagram is closed and opened again, or Android ends it in the background. Both used to start over. Reported in #297.
@@ -87,13 +105,13 @@ Every HushGram release, newest first.
 * When Instagram itself lets you swipe through the reels a chat shared, with `Swipe through a chat's reels` off, a reply or reaction now goes to the reel you're watching, not the one you tapped. Reported in #662.
 * With `Swipe through a chat's reels` on, tapping a comment shared in a chat opens the reel the comment is on. It used to start on the first unread reel the chat shared. Reported in #662.
 * With `Glass tab bar` off, dragging along the lower edge of a reel's seek bar seeks again. That edge sits over the tab bar, so the drag used to press a tab or slide across the tabs instead. Reported in #526.
-* With `Glass tab bar` on, the share sheet's Send button works on Reels again. A tap there went to the seek bar of the reel behind the sheet. Swiping along the sheet's row of apps doesn't slide across the tabs anymore either. Reported in #526.
+* The share sheet's Send button works on Reels again, and so does any other button Instagram puts over the tab bar. A tap there went to the seek bar of the reel behind the sheet. Swiping along the sheet's row of apps doesn't slide across the tabs anymore either. Reported in #526.
 * With a `Seek bar shape` picked, a reel's seek bar shows the whole shape. The wave and the tall handle got cut off at the top and bottom, and so did the bar while you held it. Reported in #450.
 * With `See-through top bar` on, the frosted strip behind the status bar fades out into Home's feed once the top bar slides away. It ended in a hard line. Reported in #450.
 * With `Page dots on a pill` and `Peek at the next carousel page` on, the pill stays at one height under a square or tall carousel's pages. It jumped up whenever you swiped to a video. Reported in #450.
 * With `Glass tab bar` on, tapping a reel's More button or audio square right above the seek bar opens it again instead of seeking. Only a press on the bar itself goes to the seek bar now.
 * With `Keep playing in the background` on, a video story that ends while Instagram is hidden plays the next story instead of stopping. Only one story plays at a time, and one you paused stays paused. Reported in #497.
-* `Hide lives in Reels` also catches the lives Instagram adds to the Reels tab after a page has loaded, so they stop turning up between reels. Reported in #566.
+* `Hide lives in Reels` also catches the lives Instagram adds to the Reels tab after a page has loaded, so they stop turning up between reels. That includes the ones it slips in one at a time after you've been scrolling for a while. Reported in #566.
 * Tapping Stop on the background playback notification lets the video's player go once. If Instagram let it go during Stop's pause, HushGram let it go a second time.
 * With `Keep playing in the background` on, a reel that hands over to the next one while Instagram is hidden lets go of the old player right away. The new one keeps playing.
 * The glass tab bar costs less on Reels. It stopped asking for frames of its own between the reel's, and on Android 14 and newer copying the reel behind the pill no longer holds up the screen. Reported in #672.
@@ -104,6 +122,7 @@ Every HushGram release, newest first.
 * Opening `Pause and diagnostics` on its own page no longer freezes Instagram. It hung whenever HushGram wasn't paused or locked.
 * With `Pure black` and `Classic colors` or `Backgrounds in the accent color` both on in dark mode, the rows in a post's Likes list match the sheet behind them. They stayed black. Reported in #639.
 * With `Lock your messages` on, `Double-tap Messages for hidden chats` works on the first try after Instagram starts. The lock dropped the second check, so the inbox opened with your hidden chats still hidden. Reported in #661.
+* On fast phones, `Double-tap Messages for hidden chats` with `Lock your messages` on no longer loses its second tap to the fingerprint prompt. The locked inbox now waits out the double-tap time before it asks, so a single tap gets the prompt a moment later. Reported in #661.
 * With `Hide the search bar` and `Hide group buttons` both on, the share sheet no longer leaves an empty band between its handle and the people grid. Reported in #685.
 * With `Keep Home's top bar` on, the stories tray stays in the feed and scrolls away with your posts instead of sticking under the bar. Reported in #677.
 * `Seek bar shape` keeps its own size on a `Thicker story progress bar`, the story bar glides while a video plays instead of stepping, and Instagram's own reel bar takes the shape too. Reported in #689.
@@ -120,7 +139,7 @@ Every HushGram release, newest first.
 * `Save every page without asking` now covers a single photo with music in Reels and Explore too. The download icon saves the photo right away instead of asking video or photo. Asked for in #190.
 * With `Backgrounds in the accent color` or `Classic colors` on in dark mode, the tab bar on Reels and the navigation bar under it match your other pages instead of turning black. The floating `Glass tab bar` pill picks up the color there too. Reported in #187.
 * With `Backgrounds in the accent color` or `Classic colors` on, gray buttons like Edit profile and Share profile on your profile take a shade of the background color too. They kept Instagram's gray. Reported in #187.
-* With `Accent color` on, the verified badge on a profile takes your color too, along with other icons that get their blue from a layout. It stayed blue. Reported in #187.
+* With `Accent color` on, the verified badge on a profile takes your color too, along with other icons that get their blue from a layout. It stayed blue. Reported in #187 and #721.
 * With `Accent color` on in dark mode, the Older posts link above Home's suggested posts takes your color. It was still Instagram's light blue. Reported in #187.
 * `Full screen Messages` hides the bars on your list of chats again. Instagram's newer messages list wasn't recognized, so only an open chat went full screen. Reported in #187.
 * With `Accent color` on, the account switcher and Meta's other menus inside Instagram take your color instead of Meta's blue. With `Backgrounds in the accent color` or `Classic colors` on, their backgrounds match your pages too. Reported in #187.

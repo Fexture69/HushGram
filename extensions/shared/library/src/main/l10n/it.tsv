@@ -559,6 +559,8 @@ Seek bar like DM videos	Barra di avanzamento come i video nei messaggi
 Gives reels the seek bar of a video in a chat, a thin gray line that turns white as it plays, with a big round white handle. The time shows above it. Drag it to seek. When Bigger seek bar on reels is on too, this look wins. It also keeps the bar on short reels.	Dà ai reel la barra di avanzamento di un video in una chat, una sottile linea grigia che diventa bianca durante la riproduzione, con una grande maniglia rotonda bianca. Il tempo si vede sopra. Trascinala per spostarti. Se è attiva anche Barra di avanzamento più grande sui reel, vince questo aspetto. Mantiene la barra anche sui reel brevi.
 Seek bar on photos with music	Barra di avanzamento sulle foto con musica
 Reels that are a photo with a song get the same seek bar and time as a video reel, following the song. Drag it to seek.	I reel composti da una foto con una canzone hanno la stessa barra di avanzamento e lo stesso tempo di un reel video, che seguono la canzone. Trascinala per spostarti.
+Hide the seek bar on reels	Nascondi la barra di avanzamento nei reel
+Takes the seek bar off the bottom of every reel, long ones too. Hold a reel to bring it back and seek. Keep a seek bar and the seek bar looks above win over it.	Toglie la barra di avanzamento dal fondo di ogni reel, anche di quelli lunghi. Tieni premuto un reel per farla tornare e spostarti. Mantieni una barra di avanzamento e gli stili della barra qui sopra hanno la precedenza.
 Blur the bars around a reel	Sfoca le barre intorno a un reel
 A reel that doesn't fill the screen shows a blurred copy of itself above and below it instead of black bars, and the strip under the tab bar and the band behind the clock show the reel blurred too. The copy shows only where a reel leaves room, as with Show the whole reel on. Open Reels again after a change.	Un reel che non riempie lo schermo mostra una copia sfocata di sé sopra e sotto invece delle barre nere, e anche la striscia sotto la barra delle schede e la fascia dietro l'orologio mostrano il reel sfocato. La copia compare solo dove un reel lascia spazio, come con Mostra il reel intero attivo. Riapri i reel dopo una modifica.
 # Chosen navigation long-press settings entry. Account tab availability varies.
@@ -1209,7 +1211,7 @@ Show the Friends tab on Reels	Mostra la scheda Amici sui reel
 Adds the Friends tab to the top of the Reels tab if your account never got it. What's in it still comes from Instagram, so it can be empty. Hide the Friends tab wins.	Aggiunge la scheda Amici in cima alla scheda Reel se il tuo account non l'ha mai ricevuta. I contenuti arrivano sempre da Instagram, quindi può essere vuota. Nascondi la scheda Amici ha la precedenza.
 # context: Reels settings and the list held open from the Friends tab at the top of the Reels tab. Friends tab wording matches the Hide the Friends tab row above it. The last two are short toasts.
 Hold the Friends tab to pick friends	Tieni premuta la scheda Amici per scegliere gli amici
-Hold the Friends tab on Reels and pick from the friends it has shown you. It then keeps only reels they liked or shared. A page with none of them keeps one reel so the next page can load.	Tieni premuta la scheda Amici sui reel e scegli tra gli amici che ti ha mostrato. Da quel momento tiene solo i reel che hanno apprezzato o condiviso. Una pagina senza di loro tiene un reel, così la successiva può caricarsi.
+Hold the Friends tab on Reels and pick from the friends it has shown you. It then keeps only reels they liked or shared.	Tieni premuta la scheda Amici sui reel e scegli tra gli amici che ti ha mostrato. Da quel momento tiene solo i reel che hanno apprezzato o condiviso.
 Pick friends	Scegli amici
 Open the Friends tab first.	Apri prima la scheda Amici.
 No friends to pick yet.	Ancora nessun amico da scegliere.
@@ -2464,6 +2466,42 @@ Saved photos and videos take up %1$s now.	Le foto e i video salvati occupano ora
 # context: Tab bar: switch under Keep the pill full size, for the liquid look's bubble under a held finger (#705)
 Glass lens under your finger	Lente di vetro sotto il dito
 Hold a finger on the liquid pill's bubble, or slide it across the tabs, and the bubble swells and bends what's behind it harder, like glass under a fingertip. It eases back when you let go. The bend needs Blur behind the tab bar and Android 13 or newer. Restart Instagram after changing it.	Tieni un dito sulla bolla della pillola liquid glass, o falla scorrere sulle schede, e la bolla si gonfia e piega di più ciò che c'è dietro, come il vetro sotto un polpastrello. Torna com'era quando lasci. La piega richiede Sfocatura dietro la barra delle schede e Android 13 o versioni successive. Riavvia Instagram dopo averlo cambiato.
+# context: Keep story viewers, its Stories settings rows and the Story viewers page.
+Keep story viewers	Tieni gli spettatori delle storie
+Each time you open who viewed one of your stories, the list is kept on this phone and set beside your followers. Nothing extra is asked of Instagram. Turn it off and it stops at once.	Ogni volta che apri chi ha visto una delle tue storie, l'elenco viene tenuto su questo telefono e messo accanto ai tuoi follower. A Instagram non viene chiesto niente in più. Disattivalo e si ferma subito.
+Story viewers	Spettatori delle storie
+Nothing here yet. With Keep story viewers on, open who viewed one of your stories in Instagram and the list is kept here.	Ancora niente. Con Tieni gli spettatori delle storie attivo, apri in Instagram chi ha visto una delle tue storie e l'elenco viene tenuto qui.
+%1$d story kept since %2$s. Tap to see who viewed it and who has no view recorded.	%1$d storia tenuta dal %2$s. Tocca per vedere chi l'ha vista e chi non ha visualizzazioni registrate.
+%1$d stories kept since %2$s. Tap to see who viewed each one and who has no view recorded.	%1$d storie tenute dal %2$s. Tocca per vedere chi ha visto ciascuna e chi non ha visualizzazioni registrate.
+Clear story viewers	Cancella gli spettatori delle storie
+Forgets every story's viewers kept here. The switch stays as it is.	Dimentica gli spettatori di tutte le storie tenuti qui. L'interruttore resta com'è.
+Story viewers cleared.	Spettatori cancellati.
+Couldn't clear the story viewers. Try again.	Spettatori non cancellati. Riprova.
+Last 7 days	Ultimi 7 giorni
+Last 30 days	Ultimi 30 giorni
+Last 90 days	Ultimi 90 giorni
+All kept	Tutto
+Viewers	Spettatori
+No view recorded	Nessuna visualizzazione registrata
+Frequent	Frequenti
+Stories kept: %1$d. Viewers: %2$d.	Storie tenute: %1$d. Spettatori: %2$d.
+%1$d%% of your followers viewed at least one.	Il %1$d%% dei tuoi follower ne ha vista almeno una.
+To see followers with no view recorded, turn on Recent unfollowers and open your Followers list once.	Per vedere i follower senza visualizzazioni registrate, attiva Smesso di seguirti di recente e apri una volta il tuo elenco Follower.
+Viewed this story	Ha visto questa storia
+Not on this story's list	Non è nell'elenco di questa storia
+Stories viewed: %1$d of %2$d, the newest posted %3$s	Storie viste: %1$d su %2$d, la più recente pubblicata %3$s
+None in this period. The last story they viewed is from %s	Nessuna in questo periodo. L'ultima storia che ha visto è del %s
+No view recorded since %s	Nessuna visualizzazione registrata dal %s
+Story from %s	Storia del %s
+Viewers kept: %1$d of %2$d	Spettatori tenuti: %1$d su %2$d
+Viewers: %1$d	Spettatori: %1$d
+Viewers: %1$d. Followers not on the list: %2$d	Spettatori: %1$d. Follower non nell'elenco: %2$d
+No stories kept in this period.	Nessuna storia tenuta in questo periodo.
+Every follower viewed at least one story in this period.	Tutti i follower hanno visto almeno una storia in questo periodo.
+No one has viewed half of this period's stories yet.	Nessuno ha ancora visto metà delle storie di questo periodo.
+# context: Feed: switch under Hide the home feed that keeps Instagram from learning which posts in Home you looked at and for how long (#664)
+Don't send feed view history	Non inviare la cronologia delle visualizzazioni del feed
+Stops telling Instagram which posts in Home you looked at and for how long. Instagram uses that to pick what Home shows. Posts you've seen may come back.	Smette di dire a Instagram quali post della Home hai guardato e per quanto tempo. Instagram lo usa per scegliere cosa mostrare nella Home. I post già visti potrebbero tornare.
 2x speed for videos in the feed	2x speed for videos in the feed
 Adds a shortcut to your saved posts in the Explore tab.	Adds a shortcut to your saved posts in the Explore tab.
 Adds a speed choice to the menu on a reel.	Adds a speed choice to the menu on a reel.

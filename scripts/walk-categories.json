@@ -35,7 +35,8 @@
               "Hide that you're typing",
               "Hide your active status",
               "Don't report screenshots",
-              "Don't report Blend visits"
+              "Don't report Blend visits",
+              "Don't send feed view history"
             ]
           }
         ]
@@ -54,7 +55,8 @@
               "Hide that you're typing",
               "Hide your active status",
               "Don't report screenshots",
-              "Don't report Blend visits"
+              "Don't report Blend visits",
+              "Don't send feed view history"
             ]
           }
         },
@@ -82,6 +84,7 @@
           "Stop swipe to create",
           "Full resolution photos",
           "Hide the home feed",
+          "Don't send feed view history",
           "Stop swiping between tabs",
           "Ask before a like",
           "Ask before a refresh",
@@ -371,7 +374,8 @@
           "View live anonymously",
           "Download any story",
           "Upload stories at full quality",
-          "Story text fonts"
+          "Story text fonts",
+          "Keep story viewers"
         ]
       },
       "anchors": [
@@ -390,6 +394,15 @@
             "op": "any",
             "patches": [
               "View stories anonymously"
+            ]
+          }
+        },
+        {
+          "title": "Keep story viewers",
+          "when": {
+            "op": "any",
+            "patches": [
+              "Keep story viewers"
             ]
           }
         }

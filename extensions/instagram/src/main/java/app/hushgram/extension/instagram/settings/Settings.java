@@ -245,6 +245,14 @@ public class Settings extends BaseSettings {
             new BooleanSetting("hushgram_dont_send_reel_watch_history", FALSE);
 
     /**
+     * The posts you looked at in Home, and for how long, which Instagram sends with each Home page
+     * it asks feed/timeline/ for (feed_view_info) to rank Home. Nobody else sees it. Held back,
+     * posts you've seen may come back. Off to start. Ghost mode turns it too (#664).
+     */
+    public static final BooleanSetting DONT_SEND_FEED_VIEW_HISTORY =
+            new BooleanSetting("hushgram_dont_send_feed_view_history", FALSE);
+
+    /**
      * A story whose photo timer ran out or whose video ended stays on screen until you tap or
      * swipe, instead of the viewer moving on by itself. Off to start.
      */
@@ -3768,6 +3776,15 @@ public class Settings extends BaseSettings {
             new BooleanSetting("hushgram_photo_reel_seek_bar", FALSE);
 
     /**
+     * Instagram's seek bar stays hidden on every ordinary reel until you hold it (#680): no reel counts as long
+     * enough for the bar that always shows, and each gets the kind a hold brings up
+     * ({@link app.hushgram.extension.instagram.reels.ReelSeekBar#hidden}). A switch above that keeps the bar wins.
+     * Decided as each reel shows, so no restart. Off to start.
+     */
+    public static final BooleanSetting HIDE_REEL_SEEK_BAR =
+            new BooleanSetting("hushgram_hide_reel_seek_bar", FALSE);
+
+    /**
      * The shape of the seek bars on feed videos, stories and reels (#586, #592), one choice for all
      * of them, and of Instagram's own story progress segments and the seek bar of a video opened
      * from a chat (#630), and of the bar Instagram itself puts under a long reel (#689). Those need
@@ -4571,6 +4588,15 @@ public class Settings extends BaseSettings {
      */
     public static final BooleanSetting PROFILE_HISTORY_SAVE_PICTURES =
             new BooleanSetting("hushgram_profile_history_save_pictures", FALSE, parent(PROFILE_HISTORY));
+
+    /**
+     * Keeps, only on this phone, who Instagram listed as viewers of your stories each time you open
+     * a story's viewer list (#710), and sets them beside your last Followers list. Nothing is asked
+     * for or sent. The lists stay out of settings backups and the diagnostic report, and Clear story
+     * viewers forgets them. Starts off.
+     */
+    public static final BooleanSetting STORY_VIEWERS =
+            new BooleanSetting("hushgram_story_viewers", FALSE);
 
     /**
      * The name a saved video gets: {date}, {video_id}, {owner} and {posted} fill in per save, the

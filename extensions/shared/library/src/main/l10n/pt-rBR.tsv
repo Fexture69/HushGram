@@ -559,6 +559,8 @@ Seek bar like DM videos	Barra de progresso como nos vídeos de mensagens
 Gives reels the seek bar of a video in a chat, a thin gray line that turns white as it plays, with a big round white handle. The time shows above it. Drag it to seek. When Bigger seek bar on reels is on too, this look wins. It also keeps the bar on short reels.	Dá aos Reels a barra de progresso de um vídeo em uma conversa, uma linha cinza fina que fica branca conforme toca, com um controle redondo branco grande. O tempo aparece acima. Arraste para avançar. Se Barra de progresso maior nos Reels também estiver ligada, este estilo vale. Também mantém a barra em Reels curtos.
 Seek bar on photos with music	Barra de progresso em fotos com música
 Reels that are a photo with a song get the same seek bar and time as a video reel, following the song. Drag it to seek.	Reels que são uma foto com uma música ganham a mesma barra de progresso e o mesmo tempo de um Reel de vídeo, acompanhando a música. Arraste para avançar ou voltar.
+Hide the seek bar on reels	Ocultar a barra de progresso nos Reels
+Takes the seek bar off the bottom of every reel, long ones too. Hold a reel to bring it back and seek. Keep a seek bar and the seek bar looks above win over it.	Tira a barra de progresso da parte de baixo de todo Reel, inclusive dos longos. Segure um Reel para trazê-la de volta e avançar ou voltar. Manter a barra de progresso e os estilos de barra acima têm prioridade.
 Blur the bars around a reel	Desfocar as barras ao redor de um reel
 A reel that doesn't fill the screen shows a blurred copy of itself above and below it instead of black bars, and the strip under the tab bar and the band behind the clock show the reel blurred too. The copy shows only where a reel leaves room, as with Show the whole reel on. Open Reels again after a change.	Um reel que não preenche a tela mostra uma cópia desfocada de si mesmo acima e abaixo, em vez de barras pretas, e a faixa sob a barra de abas e a área atrás do relógio também mostram o reel desfocado. A cópia só aparece onde o reel deixa espaço, como com Mostrar o reel inteiro ativado. Abra os Reels de novo depois de uma alteração.
 # Chosen navigation long-press settings entry. Account tab availability varies.
@@ -1209,7 +1211,7 @@ Show the Friends tab on Reels	Mostrar a aba Amigos nos reels
 Adds the Friends tab to the top of the Reels tab if your account never got it. What's in it still comes from Instagram, so it can be empty. Hide the Friends tab wins.	Adiciona a aba Amigos no topo da aba Reels se sua conta nunca a recebeu. O conteúdo continua vindo do Instagram, então pode ficar vazia. Ocultar a aba Amigos tem prioridade.
 # context: Reels settings and the list held open from the Friends tab at the top of the Reels tab. Friends tab wording matches the Hide the Friends tab row above it. The last two are short toasts.
 Hold the Friends tab to pick friends	Segure a aba Amigos para escolher amigos
-Hold the Friends tab on Reels and pick from the friends it has shown you. It then keeps only reels they liked or shared. A page with none of them keeps one reel so the next page can load.	Segure a aba Amigos nos reels e escolha entre os amigos que ela mostrou. Depois ela mantém só os reels que eles curtiram ou compartilharam. Uma página sem eles mantém um reel para que a próxima possa carregar.
+Hold the Friends tab on Reels and pick from the friends it has shown you. It then keeps only reels they liked or shared.	Segure a aba Amigos nos reels e escolha entre os amigos que ela mostrou. Depois ela mantém só os reels que eles curtiram ou compartilharam.
 Pick friends	Escolher amigos
 Open the Friends tab first.	Abra a aba Amigos primeiro.
 No friends to pick yet.	Ainda não há amigos para escolher.
@@ -1293,9 +1295,9 @@ Rounds the corners of a post's photo, video and carousel pages in Home and Follo
 Corner size	Tamanho dos cantos
 Rounded corners on Reels	Cantos arredondados nos Reels
 Rounded corners on stories	Cantos arredondados nos stories
-Seek bar on stories	Barra de busca nos stories
+Seek bar on stories	Barra de progresso nos stories
 Shows a bar near the bottom of a video story. Drag it to jump to any point in the video. Photos don't get one.	Mostra uma barra perto da parte de baixo de um story em vídeo. Arraste para pular para qualquer ponto do vídeo. Fotos não têm.
-Seek bar on feed videos	Barra de busca nos vídeos do feed
+Seek bar on feed videos	Barra de progresso nos vídeos do feed
 Shows a bar along the bottom of the video playing in a feed. Drag it and let go to jump to that point in the video.	Mostra uma barra na parte de baixo do vídeo que está tocando em um feed. Arraste e solte para pular para esse ponto do vídeo.
 Thicker story progress bar	Barra de progresso dos stories mais grossa
 Draws the bar along the top of a story as thick as the choice below. Its segments and timing stay as they were.	Desenha a barra no topo de um story tão grossa quanto a opção abaixo. Os segmentos e o tempo continuam como estavam.
@@ -1757,9 +1759,9 @@ Adds a menu button at the top of Home with your viewing history, Ghost mode and 
 History button on Home's header	Botão de histórico no cabeçalho da Página inicial
 Adds a clock at the top of Home that opens your viewing history in one tap. Restart Instagram to see the change.	Adiciona um relógio no topo da Página inicial que abre seu histórico com um toque. Reinicie o Instagram para ver a mudança.
 HushGram menu	Menu do HushGram
-Seek bar button on feed videos	Botão da barra de busca nos vídeos do feed
-Adds a small button at the bottom left of a feed video that shows or hides its seek bar. It works with Seek bar on feed videos on or off.	Adiciona um botão pequeno no canto inferior esquerdo de um vídeo do feed que mostra ou oculta a barra de busca. Funciona com a barra de busca nos vídeos do feed ligada ou desligada.
-Seek bar	Barra de busca
+Seek bar button on feed videos	Botão da barra de progresso nos vídeos do feed
+Adds a small button at the bottom left of a feed video that shows or hides its seek bar. It works with Seek bar on feed videos on or off.	Adiciona um botão pequeno no canto inferior esquerdo de um vídeo do feed que mostra ou oculta a barra de progresso. Funciona com a barra de progresso nos vídeos do feed ligada ou desligada.
+Seek bar	Barra de progresso
 Tint intensity	Intensidade do tom
 Refraction intensity	Intensidade da refração
 Preview of the tab bar	Prévia da barra de abas
@@ -1904,7 +1906,7 @@ Accounts mentioned in this story	Contas mencionadas neste story
 # context: Feed settings: picks how the carousel page-dots pill looks (#471)
 Pill look	Visual da pílula
 # context: Feed and Stories settings: picks how the seek bar over a video looks (#471)
-Seek bar look	Visual da barra de busca
+Seek bar look	Visual da barra de progresso
 # context: Feed settings: a double tap on the left or right third of a feed video jumps 10 seconds (#562)
 Double tap to skip on feed videos	Tocar duas vezes para pular nos vídeos do feed
 Double tap the left side of the video playing in a feed to go back, or the right side to go ahead, as far as Skip length says. A double tap in the middle works as before.	Toque duas vezes no lado esquerdo do vídeo que está tocando no feed para voltar, ou no lado direito para avançar, o quanto Tamanho do salto disser. Tocar duas vezes no meio funciona como antes.
@@ -1920,8 +1922,8 @@ A light pill with dark dots, as it's always been.	Uma pílula clara com pontos e
 A see-through dark pill with white dots, so more of the photo shows.	Uma pílula escura transparente com pontos brancos, para mostrar mais da foto.
 A frosted glass pill that blurs the photo under it. Before Android 12 it's see-through instead.	Uma pílula de vidro fosco que desfoca a foto embaixo. Antes do Android 12 ela fica transparente.
 Turn on Page dots on a pill to use this choice.	Ative Pontos de página em uma pílula para usar esta opção.
-Turn on Seek bar on feed videos or its button to use this choice.	Ative Barra de busca nos vídeos do feed ou o botão dela para usar esta opção.
-Turn on Seek bar on stories to use this choice.	Ative Barra de busca nos stories para usar esta opção.
+Turn on Seek bar on feed videos or its button to use this choice.	Ative Barra de progresso nos vídeos do feed ou o botão dela para usar esta opção.
+Turn on Seek bar on stories to use this choice.	Ative Barra de progresso nos stories para usar esta opção.
 A white bar and handle, as they've always been.	Barra e marcador brancos, como sempre foram.
 A fainter bar and handle, so more of the video shows through.	Barra e marcador mais suaves, para mostrar mais do vídeo.
 A white bar on a strip of frosted glass that blurs the video under it. Before Android 12 the strip is see-through instead.	Uma barra branca sobre uma faixa de vidro fosco que desfoca o vídeo embaixo. Antes do Android 12 a faixa fica transparente.
@@ -2055,8 +2057,8 @@ That isn't a color. Try #4A6B82.	Isso não é uma cor. Tente #4A6B82.
 Count on the heart	Número no coração
 The heart at the top of Home shows how many notifications are waiting, like the number on Messages, in place of the red dot. Restart Instagram to see the change.	O coração no topo da Página inicial mostra quantas notificações estão esperando, como o número em Mensagens, no lugar do ponto vermelho. Reinicie o Instagram para ver a mudança.
 # context: a switch under Seek bar on feed videos
-Seek bar on the bottom edge	Barra de busca na borda de baixo
-Puts the seek bar right on the bottom edge of the video, so it's harder to touch by accident while you scroll.	Coloca a barra de busca bem na borda de baixo do vídeo, para ficar mais difícil de tocar sem querer enquanto você rola.
+Seek bar on the bottom edge	Barra de progresso na borda de baixo
+Puts the seek bar right on the bottom edge of the video, so it's harder to touch by accident while you scroll.	Coloca a barra de progresso bem na borda de baixo do vídeo, para ficar mais difícil de tocar sem querer enquanto você rola.
 # context: "Made with Edits" is the label Instagram shows under a post's author for a video made in Meta's Edits app; it stays in English here
 Hide Made with Edits	Ocultar "Made with Edits"
 Takes the "Made with Edits" label out of the line under a post's author. The song, the place and the other labels keep taking turns there.	Tira a etiqueta "Made with Edits" da linha embaixo do autor de um post. A música, o local e as outras etiquetas continuam se revezando ali.
@@ -2104,7 +2106,7 @@ Everyone can ring your phone, as usual.	Todos podem te ligar, como sempre.
 Decline calls that don't ring	Recusar as chamadas que não tocam
 Calls kept quiet by Who can call you are also declined, the same as tapping Decline, instead of being left unanswered.	As chamadas silenciadas por Quem pode te ligar também são recusadas, como ao tocar em Recusar, em vez de ficarem sem resposta.
 # context: Seek bar shape and preview (#567, #586, #592)
-Seek bar shape	Forma da barra de busca
+Seek bar shape	Forma da barra de progresso
 Thin line	Linha fina
 Rounded	Arredondada
 Expressive	Expressiva
@@ -2114,8 +2116,8 @@ A thin line with no handle that grows while you drag it. On feed videos it sits 
 A thicker rounded bar with no handle.	Uma barra arredondada mais grossa, sem controle.
 A rounded bar split by a tall handle.	Uma barra arredondada dividida por um controle alto.
 A wavy line for the part played, with a tall handle.	Uma linha ondulada para a parte reproduzida, com um controle alto.
-Preview while you drag a seek bar	Prévia ao arrastar uma barra de busca
-Shows the time above your finger while you drag a seek bar on a feed video, story or reel, and a small picture of that moment when Instagram has one for the video.	Mostra o tempo acima do seu dedo enquanto você arrasta uma barra de busca em um vídeo do feed, story ou Reel, e uma imagem pequena daquele momento quando o Instagram tem uma para o vídeo.
+Preview while you drag a seek bar	Prévia ao arrastar uma barra de progresso
+Shows the time above your finger while you drag a seek bar on a feed video, story or reel, and a small picture of that moment when Instagram has one for the video.	Mostra o tempo acima do seu dedo enquanto você arrasta uma barra de progresso em um vídeo do feed, story ou Reel, e uma imagem pequena daquele momento quando o Instagram tem uma para o vídeo.
 Swipe right on Home opens	Deslizar para a direita no Início abre
 The camera, as Instagram has it. Pick a tab and the same swipe opens that tab instead.	A câmera, como no Instagram. Escolha uma aba e o mesmo gesto abre essa aba.
 A swipe right on Home opens %1$s. The + button still opens the camera.	Deslizar para a direita no Início abre %1$s. O botão + continua abrindo a câmera.
@@ -2330,7 +2332,7 @@ Hide the Create button on saved reels	Ocultar o botão Criar nos reels salvos
 # context: Summary of Hide the Create button on saved reels; Saved is Instagram's own Saved page (#620)
 Takes the plus button off the top of reels you open from Saved or a collection and closes up the gap. The Reels tab and other reels keep theirs.	Tira o botão de mais do topo dos reels que você abre em Salvos ou numa coleção e fecha o espaço. A aba Reels e os outros reels mantêm o deles.
 # context: Stories settings: picks where the story seek bar sits, above or below Instagram's Send message box at the bottom of a story (#636)
-Seek bar position	Posição da barra de busca
+Seek bar position	Posição da barra de progresso
 # context: Choice of Seek bar position; Send message is Instagram's reply field at the bottom of someone else's story. Use Instagram's own label for it (#636)
 Above the Send message box	Acima da caixa Enviar mensagem
 Below the Send message box	Abaixo da caixa Enviar mensagem
@@ -2363,11 +2365,11 @@ Tells Instagram your phone has no AV1 decoder, so reels and stories come as VP9 
 # context: Summary of Show the skip arrows under Double tap to skip on feed videos in Feed settings (#562)
 Two arrows flash on the side you double tapped, with the seconds skipped under them.	Duas setas piscam no lado em que você tocou duas vezes, com os segundos pulados embaixo.
 # context: Feed settings: choice under Seek bar shape that gives the seek bar on feed videos a shape of its own (#567)
-Feed seek bar shape	Forma da barra de busca no feed
+Feed seek bar shape	Forma da barra de progresso no feed
 # context: Choice in Feed seek bar shape: feed videos follow the shape picked in Seek bar shape (#567)
-Same as Seek bar shape	Igual a Forma da barra de busca
+Same as Seek bar shape	Igual a Forma da barra de progresso
 # context: Summary of Same as Seek bar shape in Feed seek bar shape (#567)
-Feed videos use the shape picked in Seek bar shape.	Os vídeos do feed usam a forma escolhida em Forma da barra de busca.
+Feed videos use the shape picked in Seek bar shape.	Os vídeos do feed usam a forma escolhida em Forma da barra de progresso.
 # context: Summary of Standard in Feed seek bar shape (#567)
 The bar and round handle you know, on feed videos only.	A barra e o controle redondo de sempre, só nos vídeos do feed.
 # context: Summary of Thin line in Feed seek bar shape (#567)
@@ -2379,13 +2381,13 @@ A rounded bar split by a tall handle, on feed videos only.	Uma barra arredondada
 # context: Summary of Wave in Feed seek bar shape (#567)
 A wavy line for the part played, with a tall handle, on feed videos only.	Uma linha ondulada para a parte reproduzida, com um controle alto, só nos vídeos do feed.
 # context: Feed settings: a switch under Seek bar on feed videos that shows the time over the bar (#711)
-Time on the seek bar	Tempo na barra de busca
+Time on the seek bar	Tempo na barra de progresso
 # context: Summary of Time on the seek bar; 0:12 / 0:45 is an example time, keep the digits as they are (#711)
-Shows the time played and the video's length over the seek bar on feed videos, like 0:12 / 0:45. Tap the time to see the time left instead.	Mostra o tempo assistido e a duração do vídeo sobre a barra de busca nos vídeos do feed, como 0:12 / 0:45. Toque no tempo para ver quanto falta.
+Shows the time played and the video's length over the seek bar on feed videos, like 0:12 / 0:45. Tap the time to see the time left instead.	Mostra o tempo assistido e a duração do vídeo sobre a barra de progresso nos vídeos do feed, como 0:12 / 0:45. Toque no tempo para ver quanto falta.
 # context: Feed settings: a switch under Time on the seek bar that counts the time down instead (#711)
 Show the time left	Mostrar o tempo restante
 # context: Summary of Show the time left; -0:33 / 0:45 is an example time, keep the digits and the minus sign as they are (#711)
-The time on the seek bar counts down what's left of the video, like -0:33 / 0:45. A tap on the time switches back.	O tempo na barra de busca conta para trás o que falta do vídeo, como -0:33 / 0:45. Um toque no tempo volta ao normal.
+The time on the seek bar counts down what's left of the video, like -0:33 / 0:45. A tap on the time switches back.	O tempo na barra de progresso conta para trás o que falta do vídeo, como -0:33 / 0:45. Um toque no tempo volta ao normal.
 # context: Feed settings: a switch under Tap a feed video to pause it that keeps any tap on a feed video from opening Reels (#706)
 Taps on feed videos stay in the feed	Toques em vídeos do feed ficam no feed
 # context: Summary of Taps on feed videos stay in the feed; Tap a feed video to pause it is the switch above it, use its translation (#706)
@@ -2464,6 +2466,42 @@ Saved photos and videos take up %1$s now.	As fotos e vídeos salvos ocupam %1$s 
 # context: Tab bar: switch under Keep the pill full size, for the liquid look's bubble under a held finger (#705)
 Glass lens under your finger	Lente de vidro sob o seu dedo
 Hold a finger on the liquid pill's bubble, or slide it across the tabs, and the bubble swells and bends what's behind it harder, like glass under a fingertip. It eases back when you let go. The bend needs Blur behind the tab bar and Android 13 or newer. Restart Instagram after changing it.	Segure um dedo na bolha da pílula de vidro líquido, ou deslize-a pelas abas, e a bolha cresce e curva mais o que está atrás dela, como vidro sob a ponta de um dedo. Ela volta ao normal quando você solta. A curvatura precisa de Desfoque atrás da barra de abas e Android 13 ou mais recente. Reinicie o Instagram depois de alterar.
+# context: Keep story viewers, its Stories settings rows and the Story viewers page.
+Keep story viewers	Guardar quem viu os stories
+Each time you open who viewed one of your stories, the list is kept on this phone and set beside your followers. Nothing extra is asked of Instagram. Turn it off and it stops at once.	Toda vez que você abre quem viu um dos seus stories, a lista fica guardada neste celular, ao lado dos seus seguidores. Nada a mais é pedido ao Instagram. Desative e para na hora.
+Story viewers	Quem viu os stories
+Nothing here yet. With Keep story viewers on, open who viewed one of your stories in Instagram and the list is kept here.	Nada aqui ainda. Com Guardar quem viu os stories ativado, abra no Instagram quem viu um dos seus stories e a lista fica guardada aqui.
+%1$d story kept since %2$s. Tap to see who viewed it and who has no view recorded.	%1$d story guardado desde %2$s. Toque para ver quem viu e quem não tem visualização registrada.
+%1$d stories kept since %2$s. Tap to see who viewed each one and who has no view recorded.	%1$d stories guardados desde %2$s. Toque para ver quem viu cada um e quem não tem visualização registrada.
+Clear story viewers	Apagar quem viu os stories
+Forgets every story's viewers kept here. The switch stays as it is.	Esquece quem viu cada story guardado aqui. O botão fica como está.
+Story viewers cleared.	Lista de quem viu apagada.
+Couldn't clear the story viewers. Try again.	Lista não apagada. Tente de novo.
+Last 7 days	Últimos 7 dias
+Last 30 days	Últimos 30 dias
+Last 90 days	Últimos 90 dias
+All kept	Tudo guardado
+Viewers	Quem viu
+No view recorded	Sem visualização registrada
+Frequent	Frequentes
+Stories kept: %1$d. Viewers: %2$d.	Stories guardados: %1$d. Quem viu: %2$d.
+%1$d%% of your followers viewed at least one.	%1$d%% dos seus seguidores viram pelo menos um.
+To see followers with no view recorded, turn on Recent unfollowers and open your Followers list once.	Para ver seguidores sem visualização registrada, ative Deixaram de seguir você e abra sua lista de Seguidores uma vez.
+Viewed this story	Viu este story
+Not on this story's list	Não está na lista deste story
+Stories viewed: %1$d of %2$d, the newest posted %3$s	Stories vistos: %1$d de %2$d, o mais recente postado %3$s
+None in this period. The last story they viewed is from %s	Nenhum neste período. O último story que viu é de %s
+No view recorded since %s	Sem visualização registrada desde %s
+Story from %s	Story de %s
+Viewers kept: %1$d of %2$d	Quem viu, guardados: %1$d de %2$d
+Viewers: %1$d	Quem viu: %1$d
+Viewers: %1$d. Followers not on the list: %2$d	Quem viu: %1$d. Seguidores fora da lista: %2$d
+No stories kept in this period.	Nenhum story guardado neste período.
+Every follower viewed at least one story in this period.	Todos os seguidores viram pelo menos um story neste período.
+No one has viewed half of this period's stories yet.	Ninguém viu metade dos stories deste período ainda.
+# context: Feed: switch under Hide the home feed that keeps Instagram from learning which posts in Home you looked at and for how long (#664)
+Don't send feed view history	Não enviar o histórico de visualização do feed
+Stops telling Instagram which posts in Home you looked at and for how long. Instagram uses that to pick what Home shows. Posts you've seen may come back.	Impede que o Instagram saiba quais posts do Início você viu e por quanto tempo. O Instagram usa isso para escolher o que o Início mostra. Posts que você já viu podem voltar a aparecer.
 2x speed for videos in the feed	2x speed for videos in the feed
 Adds a shortcut to your saved posts in the Explore tab.	Adds a shortcut to your saved posts in the Explore tab.
 Adds a speed choice to the menu on a reel.	Adds a speed choice to the menu on a reel.

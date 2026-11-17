@@ -19,6 +19,7 @@ import app.morphe.patches.instagram.profile.follow.askBeforeFollowPatch
 import app.morphe.patches.instagram.profile.follow.sentFollowRequestsPatch
 import app.morphe.patches.instagram.direct.instants.hideInstantsPatch
 import app.morphe.patches.instagram.direct.presence.keepOnlineHistoryPatch
+import app.morphe.patches.instagram.stories.viewers.keepStoryViewersPatch
 import app.morphe.patches.instagram.direct.presence.showLastActivePatch
 import app.morphe.patches.instagram.direct.presence.shorterActiveNowPatch
 import app.morphe.patches.instagram.direct.lock.lockMessagesPatch
@@ -67,6 +68,7 @@ import app.morphe.patches.instagram.feed.swipecreate.stopSwipeToCreatePatch
 import app.morphe.patches.instagram.feed.topbar.keepHomeTopBarPatch
 import app.morphe.patches.instagram.feed.tabswipe.stopTabSwipingPatch
 import app.morphe.patches.instagram.feed.time.showPostTimePatch
+import app.morphe.patches.instagram.feed.viewhistory.dontSendFeedViewHistoryPatch
 import app.morphe.patches.instagram.media.background.backgroundPlayPatch
 import app.morphe.patches.instagram.media.hdr.turnOffHdrBoostsPatch
 import app.morphe.patches.instagram.media.loop.stopVideoLoopingPatch
@@ -227,6 +229,7 @@ class DefaultCatalogTest {
         dontSaveRecentSearchesPatch,
         showAllRecentSearchesPatch,
         dontSendReelWatchHistoryPatch,
+        dontSendFeedViewHistoryPatch,
         downloadVideoPatch,
         askForVp9Patch,
         downloadVoiceMessagesPatch,
@@ -299,6 +302,7 @@ class DefaultCatalogTest {
         showHiddenLikeCountsPatch,
         showLastActivePatch,
         keepOnlineHistoryPatch,
+        keepStoryViewersPatch,
         shorterActiveNowPatch,
         showPostTimePatch,
         showReelTimePatch,
@@ -403,7 +407,7 @@ class DefaultCatalogTest {
     }
 
     @Test fun initiallyNeutralControlsAreAvailableInSimpleMode() {
-        assertEquals(163, neutral.size)
+        assertEquals(165, neutral.size)
         neutral.forEach { assertEquals(it.name, true, it.default) }
     }
 
@@ -415,7 +419,7 @@ class DefaultCatalogTest {
     @Test fun generatedCatalogMatchesAllReviewedDeclarations() {
         val all = prior + neutral + optIn
         val declarations = all.associate { it.name!! to it.default }
-        assertEquals("every named patch needs one reviewed decision", 185, all.size)
+        assertEquals("every named patch needs one reviewed decision", 187, all.size)
         assertEquals("the review must not name a patch twice", all.size, declarations.size)
         val file = File("patches-list.json").takeIf(File::isFile) ?: File("../patches-list.json")
         val rows = JsonParser.parseString(file.readText()).asJsonObject.getAsJsonArray("patches")

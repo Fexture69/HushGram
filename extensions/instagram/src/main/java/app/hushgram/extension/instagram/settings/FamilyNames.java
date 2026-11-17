@@ -24,6 +24,7 @@ public final class FamilyNames {
     public static final String RESTORE_TRUST = "Restore trust on re-signed builds";
     public static final String REMOVE_AD_ID = "Remove the advertising ID";
     public static final String REEL_WATCH_HISTORY = "Don't send reel watch history";
+    public static final String FEED_VIEW_HISTORY = "Don't send feed view history";
     public static final String STORY_AUTO_ADVANCE = "Stop Story auto-advance";
     public static final String STORY_TIME = "Show a story's exact time";
     public static final String STORY_MENTIONS = "See who a story mentions";
@@ -204,4 +205,5 @@ public final class FamilyNames {
     public static final String LIVE_SEEN = "View live anonymously";
     public static final String VP9_VIDEO = "Ask for VP9 instead of AV1";
     public static final String ONLINE_HISTORY = "Keep online history";
+    public static final String STORY_VIEWERS = "Keep story viewers";
 }
