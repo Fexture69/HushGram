@@ -61,6 +61,10 @@ public final class SettingsStatus {
         return false;
     }
 
+    public static boolean feedViewHistory() {
+        return false;
+    }
+
     public static boolean storyAutoAdvance() {
         return false;
     }
@@ -236,6 +240,11 @@ public final class SettingsStatus {
         return false;
     }
 
+    /** Rewritten by the Shorter Active now patch. */
+    public static boolean shortActiveNow() {
+        return false;
+    }
+
     public static boolean shareSheet() {
         return false;
     }
@@ -381,6 +390,11 @@ public final class SettingsStatus {
         return false;
     }
 
+    /** Rewritten by the Sort reels on profiles patch. */
+    public static boolean profileReelSort() {
+        return false;
+    }
+
     public static boolean homeFeed() {
         return false;
     }
@@ -507,6 +521,10 @@ public final class SettingsStatus {
         return false;
     }
 
+    public static boolean menuItems() {
+        return false;
+    }
+
     public static boolean watchAgain() {
         return false;
     }
@@ -557,6 +575,21 @@ public final class SettingsStatus {
     }
 
     public static boolean reelDownload() {
+        return false;
+    }
+
+    /** Rewritten by the Ask for VP9 instead of AV1 patch. */
+    public static boolean vp9Video() {
+        return false;
+    }
+
+    /** Rewritten by the Keep online history patch. */
+    public static boolean onlineHistory() {
+        return false;
+    }
+
+    /** Rewritten by the Keep story viewers patch. */
+    public static boolean storyViewers() {
         return false;
     }
 
@@ -770,6 +803,11 @@ public final class SettingsStatus {
     }
 
     public static boolean askBeforeFollow() {
+        return false;
+    }
+
+    /** Rewritten by the Sent follow requests patch. */
+    public static boolean sentRequests() {
         return false;
     }
 

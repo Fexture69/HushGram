@@ -10,6 +10,8 @@ import app.morphe.patcher.extensions.InstructionExtensions.addInstructions
 import app.morphe.patcher.patch.PatchException
 import app.morphe.patches.instagram.download.INSTAGRAM_MEDIA
 import app.morphe.patches.instagram.misc.extension.PatchLogCapture
+import app.morphe.patches.instagram.reels.profiletabbar.OPEN_PROFILE_PAGE
+import app.morphe.patches.instagram.reels.profiletabbar.SHORT_DRAMA_PROFILE
 import app.morphe.util.namedRegisters
 import com.android.tools.smali.dexlib2.AccessFlags
 import com.android.tools.smali.dexlib2.Opcode
@@ -17,6 +19,7 @@ import com.android.tools.smali.dexlib2.iface.ClassDef
 import com.android.tools.smali.dexlib2.iface.Field
 import com.android.tools.smali.dexlib2.iface.Method
 import com.android.tools.smali.dexlib2.iface.instruction.Instruction
+import com.android.tools.smali.dexlib2.iface.instruction.OffsetInstruction
 import com.android.tools.smali.dexlib2.iface.instruction.ReferenceInstruction
 import com.android.tools.smali.dexlib2.immutable.ImmutableClassDef
 import com.android.tools.smali.dexlib2.immutable.ImmutableField
@@ -107,9 +110,9 @@ class FindReelOriginHookTest {
             stubs.single { it.name == "mediaType" }.code()[1].reference())
     }
 
-    @Test fun aMissingOpenerIsRefused() = refuses("holding the $OPEN_PROFILE marker, found none",
+    @Test fun aMissingOpenerIsRefused() = refuses("loading both $OPEN_PROFILE_PAGE and $SHORT_DRAMA_PROFILE, found none",
         ReelOriginFixture.classes().filter { it.type != ReelOriginFixture.OPENER })
-    @Test fun anOpenerMarkerInTwoMethodsIsRefused() = refuses("holding the $OPEN_PROFILE marker, found LX/07FC;->A0",
+    @Test fun anOpenerInTwoMethodsIsRefused() = refuses("loading both $OPEN_PROFILE_PAGE and $SHORT_DRAMA_PROFILE, found LX/07FC;->A0",
         ReelOriginFixture.with(ReelOriginFixture.opener(twice = true)))
     @Test fun aStaticOpenerIsRefused() = refuses("LX/07FC;->A03 is static",
         ReelOriginFixture.with(ReelOriginFixture.opener(flags = AccessFlags.PUBLIC.value or AccessFlags.STATIC.value)))
@@ -129,17 +132,17 @@ class FindReelOriginHookTest {
         ReelOriginFixture.with(ReelOriginFixture.opener(reads = "A01")))
     @Test fun aMediaWithoutPublicGetIdIsRefused() = refuses("$MEDIA has no public getId()",
         ReelOriginFixture.with(ReelOriginFixture.media(AccessFlags.PRIVATE.value)))
-    @Test fun aMissingTabIsRefused() = refuses("holding the $TAB_RESUME marker, found none",
+    @Test fun aMissingTabIsRefused() = refuses("expected one onCreate(Bundle) reading $USER_KEY, found none",
         ReelOriginFixture.classes().filter { it.type != ReelOriginFixture.TAB })
-    @Test fun aTabMarkerOutsideOnResumeIsRefused() = refuses("the Reels tab's marker isn't in an instance onResume()V",
+    @Test fun aTabWithoutOnResumeIsRefused() = refuses("the Reels tab ${ReelOriginFixture.TAB} has no instance onResume()V",
         ReelOriginFixture.with(ReelOriginFixture.tab(resumeName = "onStart")))
     @Test fun aJumpToTheTabsFirstInstructionIsRefused() = refuses("enters the Reels tab's onResume at its first instruction",
         ReelOriginFixture.with(ReelOriginFixture.tab(loop = true)))
-    @Test fun aTabThatNoLongerReadsWhoseProfileItIsIsRefused() = refuses("the Reels tab's onCreate doesn't read $USER_KEY",
+    @Test fun aTabThatNoLongerReadsWhoseProfileItIsIsRefused() = refuses("expected one onCreate(Bundle) reading $USER_KEY, found none",
         ReelOriginFixture.with(ReelOriginFixture.tab(userKey = false)))
     @Test fun aTabThatNoLongerFindsTilesByTransitionNameIsRefused() = refuses("doesn't look its tiles up by transition name",
         ReelOriginFixture.with(ReelOriginFixture.tab(transitionNames = false)))
-    @Test fun aTileLookupInAnotherClassIsRefused() = refuses("the $TILE_LOOKUP marker is in LX/07FC;, not the Reels tab",
+    @Test fun aTileLookupInAnotherClassIsRefused() = refuses("the Reels tab doesn't look its tiles up by transition name",
         ReelOriginFixture.with(ReelOriginFixture.opener(lookup = true)).map {
             if (it.type == ReelOriginFixture.TAB) ReelOriginFixture.tab(lookup = false) else it
         })
@@ -172,6 +175,7 @@ class FindReelOriginHookTest {
         val before = input.associate { it.type to snapshot(it.methods) }
         val gridResume = ReelOriginFixture.postsGrid().methods.single { it.name == "onResume" }.code()
         val tabResume = ReelOriginFixture.tab().methods.single { it.name == "onResume" }.code()
+        val bind = ReelOriginFixture.cell().methods.single { it.name == "A01" }.code()
         context.hookReelOrigin()
 
         val grid = context.mutableClassDefBy(POSTS_GRID).methods
@@ -180,6 +184,12 @@ class FindReelOriginHookTest {
             before.getValue(POSTS_GRID).filter { !it.first.contains("->onResume(") },
             snapshot(grid.filter { it.name != "onResume" }))
         assertResumeHook(context.mutableClassDefBy(ReelOriginFixture.TAB).methods.single { it.name == "onResume" }, tabResume)
+        // Each posts tile and its item's media go to the extension as the tile binds (#689).
+        val cell = context.mutableClassDefBy(ReelOriginFixture.CELL).methods
+        assertTileHook(cell.single { it.name == "A01" }, bind, "${ReelOriginFixture.ITEM}->A01:$MEDIA")
+        assertEquals("the binder's other methods stay as they were",
+            before.getValue(ReelOriginFixture.CELL).filter { !it.first.contains("->A01(") },
+            snapshot(cell.filter { it.name != "A01" }))
 
         val stubs = context.mutableClassDefBy(INSTAGRAM_MEDIA).methods
         val bridge = stubs.single { it.name == "mediaType" }.code()
@@ -192,7 +202,7 @@ class FindReelOriginHookTest {
         assertEquals("the other bridges stay unwritten",
             before.getValue(INSTAGRAM_MEDIA).filter { snapshot -> written.none { snapshot.first.contains("->$it(") } },
             snapshot(stubs.filter { it.name !in written }))
-        val hooked = setOf(ReelOriginFixture.OPENER, ReelOriginFixture.TAB, POSTS_GRID, INSTAGRAM_MEDIA)
+        val hooked = setOf(ReelOriginFixture.OPENER, ReelOriginFixture.TAB, POSTS_GRID, ReelOriginFixture.CELL, INSTAGRAM_MEDIA)
         for (other in input.filter { it.type !in hooked }) {
             assertEquals("${other.type} changed", before[other.type], snapshot(context.mutableClassDefBy(other.type).methods))
         }
@@ -248,6 +258,29 @@ class FindReelOriginHookTest {
         skipsPhotos(ReelOriginFixture.withPhotos(ReelOriginFixture.media(AccessFlags.PUBLIC.value, typeGetters = 2)),
             "for media_type, found A6N, A6O")
 
+    // 454's posts tiles bear no transition name, so the tile binder names them to the extension (#689).
+    @Test fun withoutTheTileBinderOnlyTheReelsTabIsHooked() =
+        skipsPhotos(ReelOriginFixture.withPhotos().filter { it.type != ReelOriginFixture.CELL },
+            "expected one method loading $POSTS_TILE, found none")
+    @Test fun aStaticTileBinderIsSkipped() =
+        skipsPhotos(ReelOriginFixture.withPhotos(ReelOriginFixture.cell(flags = AccessFlags.PUBLIC.value or AccessFlags.STATIC.value)),
+            "LX/0Fjr;->A01 isn't an instance method returning void")
+    @Test fun aTileBinderNotReadingItsItemsMediaIsSkipped() =
+        skipsPhotos(ReelOriginFixture.withPhotos(ReelOriginFixture.cell(reads = "A00")),
+            "LX/0Fjr;->A01 doesn't read one $MEDIA of an item it binds, found 0")
+    @Test fun anItemNotDeclaringItsMediaIsSkipped() =
+        skipsPhotos(ReelOriginFixture.withPhotos().filter { it.type != ReelOriginFixture.ITEM },
+            "LX/0Eiq; doesn't declare A01")
+    @Test fun aJumpToTheTileBindersFirstInstructionIsSkipped() =
+        skipsPhotos(ReelOriginFixture.withPhotos(ReelOriginFixture.cell(loop = true)),
+            "a jump or exception handler enters LX/0Fjr;->A01 at its first instruction")
+    @Test fun aTileBinderWithOneLocalIsSkipped() =
+        skipsPhotos(ReelOriginFixture.withPhotos(ReelOriginFixture.cell(locals = 1)),
+            "LX/0Fjr;->A01 has fewer than two local registers for the hook")
+    @Test fun anExtensionWithoutTheTileHookIsSkipped() =
+        skipsPhotos(ReelOriginFixture.withPhotos(ReelOriginFixture.extension(leaveOut = "postsTileBound")),
+            "extension has no public static postsTileBound(Ljava/lang/Object;Ljava/lang/Object;)V")
+
     /**
      * The Reels tab is hooked as ever, while the posts grid and the media type stub are left as they
      * were, and the patch log says why, once. The trial stub, which video reels need too, is written.
@@ -262,8 +295,10 @@ class FindReelOriginHookTest {
         assertTrue(warnings.single(), warnings.single().startsWith("$REEL_ORIGIN_PATCH: ") && reason in warnings.single() &&
             warnings.single().endsWith("$REEL_ORIGIN_PATCH goes in finding video reels alone."))
         assertResumeHook(context.mutableClassDefBy(ReelOriginFixture.TAB).methods.single { it.name == "onResume" }, tabResume)
-        if (input.any { it.type == POSTS_GRID }) {
-            assertEquals("$POSTS_GRID changed", before[POSTS_GRID], snapshot(context.mutableClassDefBy(POSTS_GRID).methods))
+        for (photos in listOf(POSTS_GRID, ReelOriginFixture.CELL)) {
+            if (input.any { it.type == photos }) {
+                assertEquals("$photos changed", before[photos], snapshot(context.mutableClassDefBy(photos).methods))
+            }
         }
         val stubs = context.mutableClassDefBy(INSTAGRAM_MEDIA).methods
         assertTrialBridge(stubs)
@@ -319,6 +354,35 @@ class FindReelOriginHookTest {
          * The posts grid goes to [GRID_RESUMED] right after its super.onResume(), in its own register,
          * and the rest of its [original] onResume runs as it was, whatever sits in front.
          */
+        /**
+         * The tile binder hands the extension its tile, p0, and the media of the item it binds, or
+         * null for no item, read into v0 and v1 by five instructions in front, and then Instagram's
+         * [original] code runs as it was (#689). Payload alignment nops are left out of the count.
+         */
+        internal fun assertTileHook(method: Method, original: List<Instruction>, media: String) {
+            val code = method.code()
+            val parameters = method.parameterTypes.map(Any::toString)
+            val widths = parameters.map { if (it == "J" || it == "D") 2 else 1 }
+            val self = method.implementation!!.registerCount - 1 - widths.sum()
+            val item = self + 1 + widths.take(parameters.indexOf(media.substringBefore("->"))).sum()
+            assertEquals(1, code.count { it.reference() == TILE_BOUND })
+            assertEquals(listOf(Opcode.MOVE_OBJECT_FROM16, Opcode.MOVE_OBJECT_FROM16, Opcode.IF_EQZ, Opcode.IGET_OBJECT, Opcode.INVOKE_STATIC),
+                code.take(5).map { it.opcode })
+            assertEquals("the tile goes into v0", listOf(0, self), code[0].namedRegisters())
+            assertEquals("the item goes into v1", listOf(1, item), code[1].namedRegisters())
+            assertEquals("no item skips its read", listOf(1), code[2].namedRegisters())
+            assertEquals("to the call", 4, (code[2] as OffsetInstruction).codeOffset)
+            assertEquals(media, code[3].reference())
+            assertEquals("v1's media is read into v1", listOf(1, 1), code[3].namedRegisters())
+            assertEquals(TILE_BOUND, code[4].reference())
+            assertEquals("the hook reads v0 and v1", listOf(0, 1), code[4].namedRegisters())
+            val stock = original.filter { it.opcode != Opcode.NOP }
+            val rest = code.drop(5).filter { it.opcode != Opcode.NOP }
+            assertEquals("five instructions come in front, nothing else", stock.size, rest.size)
+            assertEquals(stock.map { Triple(it.opcode, it.reference(), it.namedRegisters()) },
+                rest.map { Triple(it.opcode, it.reference(), it.namedRegisters()) })
+        }
+
         internal fun assertGridHook(method: Method, original: List<Instruction>) {
             val code = method.code()
             val self = method.implementation!!.registerCount - 1
@@ -363,8 +427,6 @@ internal object ReelOriginFixture {
     /** The tab's own superclass, between it and Fragment, as in 450. */
     const val BASE = "LX/0ASy;"
 
-    private fun marker(name: String) = "android_purge_26_q3_$name"
-
     fun classes(): List<ClassDef> = listOf(opener(), destination(), media(AccessFlags.PUBLIC.value or AccessFlags.FINAL.value),
         tab(), clazz(BASE, FRAGMENT, emptyList()), fragment(), extension(), ExtensionDex.classDef(INSTAGRAM_MEDIA))
 
@@ -372,8 +434,8 @@ internal object ReelOriginFixture {
     fun with(replacement: ClassDef): List<ClassDef> = classes().map { if (it.type == replacement.type) replacement else it }
 
     /**
-     * 450's opener: a trace marker, then the destination's media read and the rest. v0 and v1 are
-     * its locals, p1 the destination.
+     * 450's opener: the two strings it's found by, then the destination's media read and the
+     * rest. v0 and v1 are its locals, p1 the destination.
      */
     fun opener(
         flags: Int = AccessFlags.PUBLIC.value or AccessFlags.FINAL.value,
@@ -389,17 +451,18 @@ internal object ReelOriginFixture {
         val code = mutableListOf<Instruction>()
         if (readsV0) code += ImmutableInstruction12x(Opcode.MOVE_OBJECT, 1, 0)
         code += ImmutableInstruction11n(Opcode.CONST_4, 1, 0)
-        code += ImmutableInstruction21c(Opcode.CONST_STRING, 0, ImmutableStringReference(marker(OPEN_PROFILE)))
+        code += ImmutableInstruction21c(Opcode.CONST_STRING, 0, ImmutableStringReference(OPEN_PROFILE_PAGE))
+        code += ImmutableInstruction21c(Opcode.CONST_STRING, 0, ImmutableStringReference(SHORT_DRAMA_PROFILE))
         val type = if (reads == "A03") MEDIA else "LX/011g;"
         code += ImmutableInstruction22c(Opcode.IGET_OBJECT, 0, argument, ImmutableFieldReference(DESTINATION, reads, type))
-        // A goto back to the start, five code units back.
-        code += if (loop) ImmutableInstruction10t(Opcode.GOTO, -5) else ImmutableInstruction11x(Opcode.RETURN, 1)
+        // A goto back to the start, seven code units back.
+        code += if (loop) ImmutableInstruction10t(Opcode.GOTO, -7) else ImmutableInstruction11x(Opcode.RETURN, 1)
         val methods = mutableListOf(method(OPENER, "A03", parameters, "Z", registers, code, flags))
         if (twice) methods += method(OPENER, "A04", listOf(DESTINATION), "Z", 4, listOf(
-            ImmutableInstruction21c(Opcode.CONST_STRING, 0, ImmutableStringReference(marker(OPEN_PROFILE))),
+            ImmutableInstruction21c(Opcode.CONST_STRING, 0, ImmutableStringReference(OPEN_PROFILE_PAGE)),
+            ImmutableInstruction21c(Opcode.CONST_STRING, 0, ImmutableStringReference(SHORT_DRAMA_PROFILE)),
             ImmutableInstruction11n(Opcode.CONST_4, 0, 0), ImmutableInstruction11x(Opcode.RETURN, 0)), flags)
         if (lookup) methods += method(OPENER, "A05", emptyList(), "V", 1, listOf(
-            ImmutableInstruction21c(Opcode.CONST_STRING, 0, ImmutableStringReference(marker(TILE_LOOKUP))),
             ImmutableInstruction35c(Opcode.INVOKE_VIRTUAL, 1, 0, 0, 0, 0, 0,
                 ImmutableMethodReference("Landroid/view/View;", "getTransitionName", emptyList(), "Ljava/lang/String;")),
             ImmutableInstruction10x(Opcode.RETURN_VOID)), AccessFlags.PUBLIC.value)
@@ -430,13 +493,50 @@ internal object ReelOriginFixture {
         ImmutableInstruction11x(Opcode.RETURN_OBJECT, 0)), AccessFlags.PUBLIC.value or AccessFlags.FINAL.value)
 
     /**
-     * [classes] with what a photo reel's search needs too: 451's posts grid and Media's media_type
-     * getter, then [replacements] in place of the classes of their types.
+     * [classes] with what a photo reel's search needs too: 451's posts grid, 454's posts tile binder
+     * with the item it binds, and Media's media_type getter, then [replacements] in place of the
+     * classes of their types.
      */
     fun withPhotos(vararg replacements: ClassDef): List<ClassDef> =
         (classes().map { if (it.type == MEDIA) media(AccessFlags.PUBLIC.value or AccessFlags.FINAL.value, typeGetters = 1) else it } +
-            postsGrid())
+            postsGrid() + cell() + item())
             .map { classDef -> replacements.firstOrNull { it.type == classDef.type } ?: classDef }
+
+    /** 454's posts tile binder and the grid item it binds. */
+    const val CELL = "LX/0Fjr;"
+    const val ITEM = "LX/0Eiq;"
+
+    /**
+     * 454's posts tile binder, 0Fjr.A01: it names the tile's picture by [POSTS_TILE] and its place,
+     * and reads the media of the item it binds, [reads] here. The item comes after a String and a
+     * long, so it's p4, past [locals] locals.
+     */
+    fun cell(
+        locals: Int = 2,
+        loop: Boolean = false,
+        reads: String = "A01",
+        flags: Int = AccessFlags.PUBLIC.value or AccessFlags.FINAL.value,
+    ): ClassDef {
+        val registers = locals + 5
+        val type = if (reads == "A01") MEDIA else "LX/03M4;"
+        val code = listOf<Instruction>(
+            ImmutableInstruction21c(Opcode.CONST_STRING, 0, ImmutableStringReference(POSTS_TILE)),
+            ImmutableInstruction22c(Opcode.IGET_OBJECT, 0, registers - 1, ImmutableFieldReference(ITEM, reads, type)),
+            // A goto back to the start, four code units back.
+            if (loop) ImmutableInstruction10t(Opcode.GOTO, -4) else ImmutableInstruction10x(Opcode.RETURN_VOID),
+        )
+        return clazz(CELL, OBJECT, listOf(
+            method(CELL, "A01", listOf("Ljava/lang/String;", "J", ITEM), "V", registers, code, flags),
+            // Another method of the class, which the hook leaves alone.
+            method(CELL, "A00", emptyList(), "V", 1, listOf(ImmutableInstruction10x(Opcode.RETURN_VOID)), AccessFlags.PUBLIC.value),
+        ))
+    }
+
+    /** The posts grid's item: its media, and like 454's, another field beside it. */
+    fun item(): ClassDef = clazz(ITEM, OBJECT, emptyList(), listOf(
+        field(ITEM, "A00", "LX/03M4;", AccessFlags.PUBLIC.value),
+        field(ITEM, "A01", MEDIA, AccessFlags.PUBLIC.value or AccessFlags.FINAL.value),
+    ))
 
     /**
      * 451's posts grid, ProfileMediaTabFragment: an onResume holding no string, only its trace
@@ -472,7 +572,7 @@ internal object ReelOriginFixture {
         return clazz(POSTS_GRID, superclass, methods, fields)
     }
 
-    /** 450's Reels tab: its onResume with the trace marker, its onCreate, its tile lookup and its grid. */
+    /** 450's Reels tab: its onResume with its trace name, its onCreate, its tile lookup and its grid. */
     fun tab(
         resumeName: String = "onResume",
         loop: Boolean = false,
@@ -482,18 +582,17 @@ internal object ReelOriginFixture {
         grids: List<Int> = listOf(AccessFlags.PUBLIC.value),
     ): ClassDef {
         val resume = mutableListOf<Instruction>(
-            ImmutableInstruction21c(Opcode.CONST_STRING, 0, ImmutableStringReference(marker(TAB_RESUME))),
+            ImmutableInstruction21c(Opcode.CONST_STRING, 0, ImmutableStringReference("ClipsProfileTabFragment.onResume")),
             ImmutableInstruction35c(Opcode.INVOKE_SUPER, 1, 1, 0, 0, 0, 0, ImmutableMethodReference(BASE, "onResume", emptyList(), "V")),
         )
         // A goto back to the start, five code units back.
         resume += if (loop) ImmutableInstruction10t(Opcode.GOTO, -5) else ImmutableInstruction10x(Opcode.RETURN_VOID)
         val create = listOfNotNull<Instruction>(
-            ImmutableInstruction21c(Opcode.CONST_STRING, 0, ImmutableStringReference(marker(TAB_CREATE))),
+            ImmutableInstruction21c(Opcode.CONST_STRING, 0, ImmutableStringReference("ClipsProfileTabFragment.onCreate")),
             if (userKey) ImmutableInstruction21c(Opcode.CONST_STRING, 0, ImmutableStringReference(USER_KEY)) else null,
             ImmutableInstruction10x(Opcode.RETURN_VOID),
         )
         val find = listOfNotNull<Instruction>(
-            ImmutableInstruction21c(Opcode.CONST_STRING, 0, ImmutableStringReference(marker(TILE_LOOKUP))),
             if (transitionNames) ImmutableInstruction35c(Opcode.INVOKE_VIRTUAL, 1, 0, 0, 0, 0, 0,
                 ImmutableMethodReference("Landroid/view/View;", "getTransitionName", emptyList(), "Ljava/lang/String;")) else null,
             ImmutableInstruction10x(Opcode.RETURN_VOID),
@@ -519,10 +618,11 @@ internal object ReelOriginFixture {
                     AccessFlags.PUBLIC.value or AccessFlags.FINAL.value)
             })
 
-    fun extension(leaveOut: String? = null): ClassDef = clazz(REEL_ORIGIN, OBJECT, listOf("opening", "reelsTabResumed", "postsGridResumed")
-        .filter { it != leaveOut }
-        .map { method(REEL_ORIGIN, it, listOf(OBJECT), "V", 1, listOf(ImmutableInstruction10x(Opcode.RETURN_VOID)),
-            AccessFlags.PUBLIC.value or AccessFlags.STATIC.value) })
+    fun extension(leaveOut: String? = null): ClassDef = clazz(REEL_ORIGIN, OBJECT,
+        listOf("opening" to 1, "reelsTabResumed" to 1, "postsGridResumed" to 1, "postsTileBound" to 2)
+            .filter { it.first != leaveOut }
+            .map { (name, arguments) -> method(REEL_ORIGIN, name, List(arguments) { OBJECT }, "V", arguments,
+                listOf(ImmutableInstruction10x(Opcode.RETURN_VOID)), AccessFlags.PUBLIC.value or AccessFlags.STATIC.value) })
 
     fun clazz(type: String, superclass: String, methods: List<Method>, fields: List<Field> = emptyList()): ClassDef =
         ImmutableClassDef(type, AccessFlags.PUBLIC.value, superclass, null, null, null, fields, methods)
