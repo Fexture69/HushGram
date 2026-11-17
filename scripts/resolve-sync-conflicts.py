@@ -14,11 +14,20 @@ def get_unmerged_files():
 
 def get_conflict_marker_files():
     res = subprocess.run(
-        ["git", "grep", "-l", "-E", r"^(<<<<<<<|=======|>>>>>>>)"],
+        ["git", "grep", "-l", "-E", r"^(<<<<<<< |=======$|>>>>>>> )"],
         capture_output=True,
         text=True,
     )
-    return [line.strip() for line in res.stdout.splitlines() if line.strip()]
+    files = [line.strip() for line in res.stdout.splitlines() if line.strip()]
+    verified = []
+    for f in files:
+        if not os.path.exists(f):
+            continue
+        with open(f, "r", encoding="utf-8", errors="replace") as fp:
+            text = fp.read()
+        if re.search(r"^(<<<<<<< |={7}(\r?\n|$)|>>>>>>> )", text, re.MULTILINE):
+            verified.append(f)
+    return verified
 
 def resolve_tsv_conflicts():
     tsv_files = glob.glob("extensions/shared/library/src/main/l10n/*.tsv")
@@ -148,11 +157,27 @@ def resolve_readme_conflicts():
                 return up_updated + "\n"
             return up_part + "\n"
 
-        new_content = pattern.sub(repl, content)
-        with open(readme_path, "w", encoding="utf-8", newline="\n") as f:
-            f.write(new_content)
-        subprocess.run(["git", "add", readme_path], check=True)
-        print("Resolved conflicts in README.md")
+        content = pattern.sub(repl, content)
+
+    # Deduplicate patch rows in README table if any
+    lines = content.splitlines(keepends=True)
+    row_re = re.compile(r"^\|\s*`([^`]+)`\s*\|\s*((?:\\\||[^|])*?)\s*\|\s*(Included|Opt-in)\s*\|$")
+    seen_patches = set()
+    deduped_lines = []
+    for line in lines:
+        m = row_re.match(line.rstrip("\r\n"))
+        if m:
+            patch_name = m.group(1)
+            if patch_name in seen_patches:
+                continue
+            seen_patches.add(patch_name)
+        deduped_lines.append(line)
+
+    new_content = "".join(deduped_lines)
+    with open(readme_path, "w", encoding="utf-8", newline="\n") as f:
+        f.write(new_content)
+    subprocess.run(["git", "add", readme_path], check=True)
+    print("Resolved conflicts in README.md")
 
 def resolve_catalog_test_conflicts():
     catalog_path = "patches/src/test/kotlin/app/morphe/util/DefaultCatalogTest.kt"
@@ -303,9 +328,11 @@ def resolve_patch_family_and_status_conflicts():
 
 def resolve_generic_conflicts():
     unmerged = get_unmerged_files()
-    if not unmerged:
+    marker_files = get_conflict_marker_files()
+    to_check = set(unmerged + marker_files)
+    if not to_check:
         return
-    for path in unmerged:
+    for path in to_check:
         if not os.path.exists(path):
             continue
         with open(path, "r", encoding="utf-8", errors="replace") as f:
@@ -313,7 +340,7 @@ def resolve_generic_conflicts():
         if "<<<<<<<" not in content:
             continue
 
-        pattern = re.compile(r'<<<<<<< [^\n]*\n(.*?)\n=======\n(.*?)\n>>>>>>> [^\n]*\n', re.DOTALL)
+        pattern = re.compile(r'<<<<<<< [^\n]*\n(.*?)\n?=======\n(.*?)\n>>>>>>> [^\n]*\n', re.DOTALL)
 
         if path == "NOTICE" or path.endswith((".md", ".txt", ".json", ".properties")):
             def repl_doc(m):
@@ -359,8 +386,8 @@ def main():
             except Exception:
                 pass
         gradle_cmd = ["bash", "./gradlew"] if os.name != "nt" else ["cmd.exe", "/c", "gradlew.bat"]
-        res = subprocess.run(gradle_cmd + [":patches:generatePatchesList", "--no-daemon", "--dependency-verification=lenient"], check=False)
-        if res.returncode == 0 and os.path.exists("scripts/gen-readme-patches.py"):
+        subprocess.run(gradle_cmd + [":patches:generatePatchesList", "--no-daemon", "--dependency-verification=lenient"], check=False)
+        if os.path.exists("scripts/gen-readme-patches.py") and os.path.exists("patches-list.json"):
             subprocess.run([sys.executable, "scripts/gen-readme-patches.py"], check=False)
         for generated_path in ("patches-list.json", "README.md"):
             if os.path.exists(generated_path):
