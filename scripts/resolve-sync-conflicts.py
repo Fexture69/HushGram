@@ -315,7 +315,7 @@ def resolve_generic_conflicts():
 
         pattern = re.compile(r'<<<<<<< [^\n]*\n(.*?)\n=======\n(.*?)\n>>>>>>> [^\n]*\n', re.DOTALL)
 
-        if path.endswith((".md", ".txt", ".json", ".properties")):
+        if path == "NOTICE" or path.endswith((".md", ".txt", ".json", ".properties")):
             def repl_doc(m):
                 head_part = m.group(1)
                 up_part = m.group(2)
