@@ -61,6 +61,7 @@ Every HushGram release, newest first.
 * `Ring thickness`, new under `Story ring size` in Stories, draws story rings thinner or thicker, from 50% to 200% of Instagram's width. The size and color lists above it work the same as before. Asked for in #528.
 * `Ring color` has a Custom choice now. Type a hex color in `Custom ring color` for one solid color, and add one in `Custom ring end color` if you want the ring to fade between the two. Saving the first color picks Custom for you. Asked for in #696.
 * On a photo story with music, the Download button at the top of the story asks whether you want the video or the photo, like the three-dot menu already does. Asked for in #726.
+* `Hide stories in Reels`, new under Reels right below `Hide suggested accounts`, leaves out the Catch up with friends pages of stories that Instagram drops between reels. Your stories row on Home stays. Starts off. Asked for in #730.
 
 ### Improvements
 
@@ -70,6 +71,8 @@ Every HushGram release, newest first.
 
 ### Bug Fixes
 
+* With `Glass in chats` on, the messages now run all the way down behind the message bar and the strip under it, so the bar is see-through from top to bottom. Before, they stopped halfway down the bar and left black below. A bigger `Text size` also keeps the camera and + buttons inside the bar's round ends now, where they used to poke out at the corners. Reported in #729.
+* Long press a chat low in your messages and its menu now opens above the chat when it wouldn't fit between the chat and the tab bar. Before, it covered the tab bar, and with a bigger font its last rows were cut off. Reported in #728.
 * `Keep playing in the background` shows its notification on a Root Mount install too, with Pause, Play and Stop. A mount can't add the service HushGram normally uses, so the video used to keep playing with no notification and no way to stop it short of opening Instagram again. Reported in #349.
 * Picking friends on the Friends tab in Reels now leaves the other reels out. Before, one reel from each page without your picks still showed between theirs, so the tab barely looked filtered. Reported in #503.
 * In Turkish, German, Spanish and Portuguese, the seek bar rows called it a search bar. They now use the same word as `Keep a seek bar` in each language. Reported in #10.
@@ -101,6 +104,7 @@ Every HushGram release, newest first.
 * `Copy link` in the share sheet uses your `Sharing domain` again. The copied link had its tracking bits removed but still pointed at instagram.com. Reported in #667.
 * In light mode the strips above and below a story, from a profile too, are black instead of white, so the clock and navigation buttons show again. `Ambient light in stories` glows on black there too. Reported in #666.
 * With `Accent color` and `Icons in the accent color` on, the tab bar icons keep the picked color on Reels and after you leave it. They turned white on Reels and stayed white back on Home. Reported in #663.
+* With `Accent color` and `Icons in the accent color` on, the comment, repost, share and save buttons under posts in Home take your color too. They stayed black, or white in dark mode. Reported in #724.
 * Tapping a comment someone shared with you in a chat opens the reel it was on, not another reel that loaded first. It's part of `Open reel links on that reel`. Reported in #662.
 * When Instagram itself lets you swipe through the reels a chat shared, with `Swipe through a chat's reels` off, a reply or reaction now goes to the reel you're watching, not the one you tapped. Reported in #662.
 * With `Swipe through a chat's reels` on, tapping a comment shared in a chat opens the reel the comment is on. It used to start on the first unread reel the chat shared. Reported in #662.
