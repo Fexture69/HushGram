@@ -49,7 +49,7 @@ class ReelSeekBarHookTest {
     /** The hooks the patch writes are in the ReelSeekBar and ReelSeekTouch the bundle ships, public and static. */
     @Test
     fun theHooksAreInTheExtension() {
-        for (hook in listOf(MIN_SECONDS, LAZY, PROGRESS, BIND, BIND_REEL, LISTEN, PHOTO_BAR_ON, PHOTO_REEL, PHOTO_ROW, PHOTO_PROGRESS, PHOTO_TOUCH_ONLY, PHOTO_STRIP, SEEK_PREVIEW_ON, REMEMBER_REEL)) {
+        for (hook in listOf(MIN_SECONDS, LAZY, PASS_THROUGH, PROGRESS, BIND, BIND_REEL, LISTEN, PHOTO_BAR_ON, PHOTO_REEL, PHOTO_ROW, PHOTO_PROGRESS, PHOTO_TOUCH_ONLY, PHOTO_STRIP, SEEK_PREVIEW_ON, REMEMBER_REEL, BARS_HIDDEN, HIDDEN_TOUCH_ONLY)) {
             val declared = ExtensionDex.classDef(hook.substringBefore("->")).methods
                 .filter { AccessFlags.PUBLIC.isSet(it.accessFlags) && AccessFlags.STATIC.isSet(it.accessFlags) }
                 .map { "${it.name}(${it.parameterTypes.joinToString("")})${it.returnType}" }
@@ -67,6 +67,7 @@ class ReelSeekBarHookTest {
         assertEquals(listOf(false, true, true), sites.lengths.map { it.shared }.sorted())
         assertEquals(ROW, sites.lazy.type)
         assertTrue("the hidden kind's read is the ads' too", sites.lazy.shared)
+        assertEquals(listOf(PROGRESS_STATE, PROGRESS_STATE), sites.passThroughs.map { it.type })
         assertEquals(SEEK_BAR, sites.progress.definingClass)
         assertEquals(BINDER, sites.bind.method.definingClass)
         assertEquals("the container", sites.bind.method.parameterRegisterNumber(1), sites.bind.view)
@@ -90,6 +91,7 @@ class ReelSeekBarHookTest {
         assertAnsweredOnItsOwn("A0M", context.method(UTIL, "A0M"), ORGANIC_MIN_SECONDS, AD_MIN_SECONDS, MIN_SECONDS)
         assertAnsweredOnItsOwn("progress state", context.method(PROGRESS_STATE, "A00"), ORGANIC_MIN_SECONDS, null, MIN_SECONDS)
         assertAnsweredOnItsOwn("scrubber row", context.method(ROW, "A00"), ORGANIC_LAZY, AD_LAZY, LAZY)
+        assertDragAnswered("stand-in", context.method(PROGRESS_STATE, "A00"))
         assertProgressHookedFirst("stand-in", context.method(SEEK_BAR, PROGRESS_CHANGED))
         assertBindHookedAfterTheAdRead("stand-in", context.method(BINDER, "invoke"), context.method(ROW, "A00"))
         assertReelIdAsked("stand-in", context, ITEM_TYPE)
@@ -111,6 +113,7 @@ class ReelSeekBarHookTest {
         context.applyReelSeekBar(sites)
 
         assertPhotoHooked("stand-in", context, sites)
+        assertHiddenBarsHooked("stand-in", context, sites)
     }
 
     /** A build without what a photo's hooks need stops the patch before anything changes, naming what it couldn't find. */
@@ -130,6 +133,9 @@ class ReelSeekBarHookTest {
             standIns().map { if (it.type == STRIP) strip(touchHead = "if-eqz p0, :answer", touchTail = "move-result v0\n:answer\nreturn v0") else it } to
                 "jumps to its return of the answer",
             standIns().map { if (it.type == STRIP) strip(touchHead = "move-object p0, v1") else it } to "writes over its controller",
+            standIns().map { if (it.type == STRIP) strip(adRead = "const/4 v0, 0x0") else it } to "whether it's an ad, found 0",
+            standIns().map { if (it.type == STRIP) strip(adRead = "iget-boolean v1, v0, $ITEM_TYPE->A18:Z\niget-boolean v0, v0, $AD_FIELD") else it } to
+                "whether it's an ad, found 2",
             standIns().map { if (it.type == STRIP) strip(lengthRead = "const-wide/16 v4, 0x5") else it } to
                 "to ask its controller for the reel's length once, found 0",
             standIns().map { if (it.type == STRIP) strip(stripHead = "invoke-static {p0}, $STRIP->A03($STRIP)J\nmove-result-wide v4") else it } to
@@ -372,6 +378,38 @@ class ReelSeekBarHookTest {
         }
     }
 
+    /**
+     * Hide the seek bar on reels (#680) needs the sideways drag, so a builder missing one of its reads, or a
+     * read of it outside the method reading the minimum, is an update the patch hasn't seen.
+     */
+    @Test
+    fun aDragReadThePatchHasntSeenFailsBeforeAnythingChanges() {
+        val elsewhere = classOf(
+            EXTRA,
+            method(
+                EXTRA, "A00", emptyList(), "Z", 4,
+                """
+                    invoke-static {}, $CONFIGS->A00()Ljava/lang/Object;
+                    move-result-object v2
+                    const-wide v0, 0x${ATTACHED_PASS_THROUGH.toString(16)}L
+                    invoke-static {v2, v0, v1}, $WRAPPER->A1H(Ljava/lang/Object;J)Z
+                    move-result v0
+                    return v0
+                """,
+            ),
+        )
+        val cases = listOf(
+            "missing" to standIns().map { if (it.type == PROGRESS_STATE) progressState(dragFlag = 0x81092d001033cbL) else it },
+            "moved" to standIns().map { if (it.type == PROGRESS_STATE) progressState(dragFlag = 0x81092d001033cbL) else it } + elsewhere,
+        )
+        for ((what, classes) in cases) {
+            val context = PatchContexts.of(classes)
+            val refusal = assertThrows(what, PatchException::class.java) { context.applyReelSeekBar(context.findReelSeekBarSites()) }
+            assertTrue("$what: ${refusal.message}", refusal.message!!.contains("sideways drag scrubs a reel"))
+            assertNothingWritten(what, context)
+        }
+    }
+
     /** No read of the hidden kind, or two, fails before anything changes. */
     @Test
     fun anotherCountOfHiddenKindReadsFailsBeforeAnythingChanges() {
@@ -587,11 +625,59 @@ class ReelSeekBarHookTest {
             "${label} ${sites.lazy.type}->${sites.lazy.name}", context.method(sites.lazy),
             ORGANIC_LAZY, AD_LAZY, LAZY,
         )
+        assertEquals("${label}: the drag's reads sit in one method", 1, sites.passThroughs.map { it.type to it.name }.distinct().size)
+        assertDragAnswered(label, context.method(sites.passThroughs.first()))
         assertProgressHookedFirst(label, context.method(SEEK_BAR, PROGRESS_CHANGED))
         assertBindHookedAfterTheAdRead(label, context.method(sites.bind.method), context.method(sites.lazy))
         assertReelIdAsked(label, context, itemType)
         assertTouchHandedOver(label, context.method(sites.touch.method), sites.touch)
         assertPhotoHooked(label, context, sites)
+        assertHiddenBarsHooked(label, context, sites)
+    }
+
+    /**
+     * Hide the seek bar on reels (#680): the touch-only check and the strip check each ask [BARS_HIDDEN] first, and off land
+     * on the photo's switch. On, the touch-only check asks the controller for the reel on screen again and hands
+     * [HIDDEN_TOUCH_ONLY] Instagram's answer and the reel's ad flag, then goes on to the photo's hook with that answer, and
+     * the strip check answers yes right there.
+     */
+    private fun assertHiddenBarsHooked(what: String, context: BytecodePatchContext, sites: ReelSeekBarSites) {
+        val onTouch = sites.photo.touchOnly
+        val touchFlow = ControlFlow.of(context.method(onTouch.method))
+        val touch = touchFlow.instructions
+        val at = onTouch.at
+        assertTrue("$what: the hidden bars' switch comes first in the touch check", touch[at].calls(BARS_HIDDEN))
+        assertEquals("$what: its answer", Opcode.MOVE_RESULT, touch[at + 1].opcode)
+        assertEquals("$what: its test", Opcode.IF_EQZ, touch[at + 2].opcode)
+        val photoAt = (at until touch.size).first { touch[it].calls(PHOTO_BAR_ON) }
+        assertTrue("$what: off, the photo's switch", photoAt in touchFlow.normal[at + 2])
+        assertEquals("$what: touch hooks", 1, touch.count { it.calls(HIDDEN_TOUCH_ONLY) })
+        val hookAt = touch.indexOfFirst { it.calls(HIDDEN_TOUCH_ONLY) }
+        val asked = (at until hookAt).single { touch[it].calls(onTouch.current) }
+        assertEquals("$what: of the controller", listOf(onTouch.controller), touch[asked].arguments())
+        val reel = (touch[asked + 1] as OneRegisterInstruction).registerA
+        assertEquals("$what: no reel on screen", Opcode.IF_EQZ, touch[asked + 2].opcode)
+        assertTrue("$what: no reel, the photo's switch", photoAt in touchFlow.normal[asked + 2])
+        val adRead = touch[asked + 3]
+        assertEquals("$what: the ad flag", Opcode.IGET_BOOLEAN, adRead.opcode)
+        assertEquals("$what: the reel's ad flag", onTouch.ad, (adRead.reference() as? FieldReference)?.toString())
+        assertEquals("$what: of the reel", reel, (adRead as TwoRegisterInstruction).registerB)
+        assertEquals("$what: Instagram's answer and the ad flag go in", listOf(onTouch.answer, adRead.registerA), touch[hookAt].arguments())
+        assertEquals("$what: the answer comes back", onTouch.answer, (touch[hookAt + 1] as OneRegisterInstruction).registerA)
+        assertEquals("$what: then the photo's switch", photoAt, hookAt + 2)
+
+        val onStrip = sites.photo.strip
+        val stripFlow = ControlFlow.of(context.method(onStrip.method))
+        val strip = stripFlow.instructions
+        val start = onStrip.at
+        assertTrue("$what: the hidden bars' switch comes first in the strip check", strip[start].calls(BARS_HIDDEN))
+        val yes = (strip[start + 1] as OneRegisterInstruction).registerA
+        assertEquals("$what: its test", Opcode.IF_EQZ, strip[start + 2].opcode)
+        assertEquals("$what: of its answer", yes, (strip[start + 2] as OneRegisterInstruction).registerA)
+        assertEquals("$what: a yes is returned", Opcode.RETURN, strip[start + 3].opcode)
+        assertEquals("$what: the yes itself", yes, (strip[start + 3] as OneRegisterInstruction).registerA)
+        assertTrue("$what: off, the photo's switch", strip[start + 4].calls(PHOTO_BAR_ON))
+        assertTrue("$what: off, on to it", start + 4 in stripFlow.normal[start + 2])
     }
 
     /**
@@ -606,11 +692,15 @@ class ReelSeekBarHookTest {
         assertTrue("$what: the preview's switch comes first", rowFlow.instructions[0].calls(SEEK_PREVIEW_ON))
         assertEquals("$what: the post is remembered once", 1, rowFlow.instructions.count { it.calls(REMEMBER_REEL) })
         assertTrue("$what: off, the row goes on to the photo bar's switch", photoRowAt in rowFlow.normal[2])
+        // The hidden bars' block (#680) goes in ahead of the photo's in the touch-only and strip checks.
+        val onTouch = photo.touchOnly
+        val touch = context.method(onTouch.method).implementation!!.instructions.toList()
+        val photoTouchAt = (onTouch.at until touch.size).first { touch[it].calls(PHOTO_BAR_ON) }
         for ((method, start, hook) in listOf(
             Triple(context.method(photo.answer), photo.answerAt, PHOTO_REEL),
             Triple(context.method(photo.row), photoRowAt, PHOTO_ROW),
             Triple(context.method(photo.player), 0, PHOTO_PROGRESS),
-            Triple(context.method(photo.touchOnly.method), photo.touchOnly.at, PHOTO_TOUCH_ONLY),
+            Triple(context.method(onTouch.method), photoTouchAt, PHOTO_TOUCH_ONLY),
         )) {
             val name = "$what ${method.definingClass}->${method.name}"
             val flow = ControlFlow.of(method)
@@ -630,10 +720,8 @@ class ReelSeekBarHookTest {
         assertEquals("$what: Instagram's answer goes in", photo.answerRegister, answer[hookAt].arguments().first())
 
         // The touch-only check asks the controller again for the reel on screen, and answers back where Instagram returned.
-        val onTouch = photo.touchOnly
-        val touch = context.method(onTouch.method).implementation!!.instructions.toList()
         val touchAt = touch.indexOfFirst { it.calls(PHOTO_TOUCH_ONLY) }
-        val asked = touch.indices.filter { it in onTouch.at until touchAt && touch[it].calls(onTouch.current) }
+        val asked = touch.indices.filter { it in photoTouchAt until touchAt && touch[it].calls(onTouch.current) }
         assertEquals("$what: the reel on screen asked once in the hook", 1, asked.size)
         assertEquals("$what: of the controller", listOf(onTouch.controller), touch[asked.single()].arguments())
         assertEquals("$what: the touch hook's answer", onTouch.answer, (touch[touchAt + 1] as OneRegisterInstruction).registerA)
@@ -644,13 +732,13 @@ class ReelSeekBarHookTest {
         val onStrip = photo.strip
         val stripFlow = ControlFlow.of(context.method(onStrip.method))
         val strip = stripFlow.instructions
-        val length = (onStrip.at until strip.size).first { strip[it].opcode == Opcode.CMP_LONG }
-        assertTrue("$what: the strip's switch comes first", strip[onStrip.at].calls(PHOTO_BAR_ON))
-        assertEquals("$what: the strip's switch test", Opcode.IF_EQZ, strip[onStrip.at + 2].opcode)
-        assertTrue("$what: off, the strip check goes by the length", length in stripFlow.normal[onStrip.at + 2])
+        val photoStripAt = (onStrip.at until strip.size).first { strip[it].calls(PHOTO_BAR_ON) }
+        val length = (photoStripAt until strip.size).first { strip[it].opcode == Opcode.CMP_LONG }
+        assertEquals("$what: the strip's switch test", Opcode.IF_EQZ, strip[photoStripAt + 2].opcode)
+        assertTrue("$what: off, the strip check goes by the length", length in stripFlow.normal[photoStripAt + 2])
         assertEquals("$what: strip hooks", 1, strip.count { it.calls(PHOTO_STRIP) })
         val stripAt = strip.indexOfFirst { it.calls(PHOTO_STRIP) }
-        val reelId = strip.indices.filter { it in onStrip.at until stripAt && strip[it].calls(photo.id) }
+        val reelId = strip.indices.filter { it in photoStripAt until stripAt && strip[it].calls(photo.id) }
         assertEquals("$what: the strip's reel asked its id", listOf(listOf(onStrip.item)), reelId.map { strip[it].arguments() })
         val yes = (strip[stripAt + 1] as OneRegisterInstruction).registerA
         assertEquals("$what: the strip hook's answer tested", Opcode.IF_EQZ, strip[stripAt + 2].opcode)
@@ -709,6 +797,27 @@ class ReelSeekBarHookTest {
 
     private fun BytecodePatchContext.method(load: FlagLoad): Method = mutableClassDefBy(load.type).methods.single {
         it.name == load.name && it.parameterTypes.map(CharSequence::toString) == load.parameters
+    }
+
+    /**
+     * Each read of whether a sideways drag scrubs is answered in place: the load, the read, its move-result, then
+     * the hook on that register and its answer back into it, and nothing else in [method] calls the hook.
+     */
+    private fun assertDragAnswered(what: String, method: Method) {
+        val code = method.implementation!!.instructions.toList()
+        assertEquals("$what: drag hooks", 2, code.count { it.calls(PASS_THROUGH) })
+        for (flag in listOf(UNIVERSAL_PASS_THROUGH, ATTACHED_PASS_THROUGH)) {
+            val name = "$what ${flag.toString(16)}"
+            var at = code.indices.single { code[it].isLoadOf(flag) } + 1
+            if (code[at].opcode == Opcode.CHECK_CAST) at++
+            assertEquals("$name: the read's answer", Opcode.MOVE_RESULT, code[at + 1].opcode)
+            val register = (code[at + 1] as OneRegisterInstruction).registerA
+            val call = code[at + 2]
+            assertTrue("$name: the hook follows the read", call.calls(PASS_THROUGH))
+            assertEquals("$name: the hook's register", listOf(register), call.arguments())
+            assertEquals("$name: the answer", Opcode.MOVE_RESULT, code[at + 3].opcode)
+            assertEquals("$name: the answer's register", register, (code[at + 3] as OneRegisterInstruction).registerA)
+        }
     }
 
     /**
@@ -944,6 +1053,7 @@ class ReelSeekBarHookTest {
             touchHead: String = "",
             current: String = "invoke-static {p0}, $type->A07($type)$ITEM_TYPE",
             touchTail: String = "move-result v0\nreturn v0",
+            adRead: String = "iget-boolean v0, v0, $AD_FIELD",
             stripTop: String = "",
             lengthRead: String = "invoke-static {p0}, $type->A03($type)J\nmove-result-wide v4",
             stripHead: String = "",
@@ -993,7 +1103,7 @@ class ReelSeekBarHookTest {
                     invoke-static {p0}, $type->A03($type)J
                     move-result-wide v2
                     iget-object v1, p0, $type->A0c:Ljava/lang/Object;
-                    iget-boolean v0, v0, $AD_FIELD
+                    $adRead
                     invoke-static {v1, v2, v3, v0}, $UTIL->A0N(Ljava/lang/Object;JZ)Z
                     $touchTail
                 """,
@@ -1105,8 +1215,12 @@ class ReelSeekBarHookTest {
             ),
         )
 
-        /** Shaped like 449's progress controller limits: the minimum read on its own, through a static wrapper. */
-        fun progressState(): ClassDef = classOf(
+        /**
+         * Shaped like 449's progress controller limits: the minimum read on its own, through a static wrapper,
+         * then (456's scrubber config builder) the two reads of whether a sideways drag scrubs. [dragFlag] is
+         * the second of those.
+         */
+        fun progressState(dragFlag: Long = ATTACHED_PASS_THROUGH): ClassDef = classOf(
             PROGRESS_STATE,
             method(
                 PROGRESS_STATE, "A00", listOf("Ljava/lang/Object;"), "Ljava/lang/Object;", 8,
@@ -1116,6 +1230,12 @@ class ReelSeekBarHookTest {
                     const-wide v0, $ORGANIC_MIN_SECONDS_HEX
                     invoke-static {v3, v0, v1}, $WRAPPER->A08(Ljava/lang/Object;J)J
                     move-result-wide v5
+                    const-wide v0, 0x${UNIVERSAL_PASS_THROUGH.toString(16)}L
+                    invoke-static {v3, v0, v1}, $WRAPPER->A1H(Ljava/lang/Object;J)Z
+                    move-result v2
+                    const-wide v0, 0x${dragFlag.toString(16)}L
+                    invoke-static {v3, v0, v1}, $WRAPPER->A1H(Ljava/lang/Object;J)Z
+                    move-result v4
                     return-object v3
                 """,
             ),

@@ -79,6 +79,17 @@ internal const val ORGANIC_MIN_SECONDS_READS = 3
 internal const val ORGANIC_LAZY = 0x8108b9001031f3L
 internal const val ORGANIC_LAZY_READS = 1
 
+internal const val PASS_THROUGH = "$REEL_SEEK_BAR->passThrough(I)Z"
+
+/**
+ * Whether a sideways drag across a reel scrubs it, for a reel shorter than the minimum (the one whose bar is
+ * the hidden kind, which nothing else brings back) and for a longer one: the Reels scrubber config's
+ * enableUniversalScrubberPassThroughGesture and enableScrubberPassThroughGesture. 456 reads each once, in the
+ * builder of that config (on 456's 386214574 LX/0JBj->A01), which also reads [ORGANIC_MIN_SECONDS].
+ */
+internal const val UNIVERSAL_PASS_THROUGH = 0x8108b9001431f6L
+internal const val ATTACHED_PASS_THROUGH = 0x8108b9001131f4L
+
 /**
  * What the check of whether a reel gets the attached bar takes: the session, the reel's length and two
  * booleans. 456 dropped the markers that named it; it's the one method this shape reading the minimum
@@ -142,6 +153,16 @@ internal const val PHOTO_TOUCH_ONLY = "$REEL_SEEK_BAR->photoTouchOnly(ILjava/lan
  */
 internal const val PHOTO_STRIP = "$REEL_SEEK_BAR->photoStrip(Ljava/lang/Object;Ljava/lang/String;)Z"
 
+/**
+ * Hide the seek bar on reels (#680) in the same two checks of the progress controller. Each asks [BARS_HIDDEN] first, ahead
+ * of the photo's hook. Yes, the strip check answers yes for every ordinary reel, since it goes by a length no reel reaches
+ * while the bars are hidden, and a reel with no strip had nothing for the drag along its bottom edge to land on. The
+ * touch-only check hands [HIDDEN_TOUCH_ONLY] its answer and whether the reel is an ad, so a short reel that keeps its strip
+ * still keeps its bar hidden until touched.
+ */
+internal const val BARS_HIDDEN = "$REEL_SEEK_BAR->barsHidden()Z"
+internal const val HIDDEN_TOUCH_ONLY = "$REEL_SEEK_BAR->hiddenTouchOnly(II)Z"
+
 /** What Instagram reports from the method that works out a post's kind of reel (on 454 LX/087h->A00), photo with music among them. */
 internal const val KIND_OF_REPORT = "MixedMediaTypeExt.toMixedMediaType unsupported carousel type"
 private const val MEDIA = "Lcom/instagram/feed/media/Media;"
@@ -175,6 +196,10 @@ private const val STRING = "Ljava/lang/String;"
  * of a hold on the reel shows the bar again only when the controller's check of the strip you drag from says
  * so, which goes by the length too, so that check asks the extension before it does.
  *
+ * Hide the seek bar on reels (#680) gives every ordinary reel the hidden kind, which only a sideways drag across
+ * the reel brings back, and that drag is off on many accounts. The scrubber config's two reads of whether it's
+ * on go to the extension too, which answers yes while that switch hides the bars.
+ *
  * Every read is found by its server id and counted, each is checked against the seek bar's methods it
  * sits in, and the bar's class and method, the binder and the strip's listener call are
  * checked, all before anything changes. A build that differs stops the patch naming what it couldn't find, and nothing is half
@@ -199,10 +224,14 @@ val reelSeekBarPatch = bytecodePatch(
 
 private fun refuse(detail: String): Nothing = throw PatchException("$PATCH: $detail")
 
-/** The three reads of the minimum, the read of the hidden kind, the seek bar's listener method, the binder and the strip. */
+/**
+ * The three reads of the minimum, the read of the hidden kind, the two reads of whether a sideways drag scrubs,
+ * the seek bar's listener method, the binder and the strip.
+ */
 internal class ReelSeekBarSites(
     val lengths: List<FlagLoad>,
     val lazy: FlagLoad,
+    val passThroughs: List<FlagLoad>,
     val progress: Method,
     val bind: BindSite,
     val touch: TouchSite,
@@ -246,8 +275,8 @@ internal class StripSite(
 
 /**
  * Where the check of whether the bar shows only while touched answers: [at] is its return of [answer], which a call put there, [current]
- * the static getter of the reel on screen it asks with the controller in [controller], and [scratch] three
- * registers free at that return.
+ * the static getter of the reel on screen it asks with the controller in [controller], [ad] the reel's field it reads
+ * as whether the reel is an ad, and [scratch] three registers free at that return.
  */
 internal class TouchOnlySite(
     val method: Method,
@@ -256,6 +285,7 @@ internal class TouchOnlySite(
     val current: String,
     val controller: Int,
     val scratch: List<Int>,
+    val ad: String,
 )
 
 /** Where [method] calls [SET_ON_TOUCH] on the strip: instruction [at], with the strip in [view] and the listener in [listener]. */
@@ -302,6 +332,16 @@ internal fun BytecodePatchContext.findReelSeekBarSites(): ReelSeekBarSites {
         refuse("expected $ORGANIC_LAZY_READS read of the hidden seek bar flag (${ORGANIC_LAZY.toString(16)}), found ${lazies.size}")
     }
     val lazy = lazies.single()
+    // Both reads of whether a sideways drag scrubs sit in the scrubber config's builder, a method reading the minimum.
+    val passThroughs = listOf(UNIVERSAL_PASS_THROUGH, ATTACHED_PASS_THROUGH).map { flag ->
+        val loads = findFlagLoads(PATCH, flag, "Z")
+        val load = loads.singleOrNull()
+            ?: refuse("expected one read of whether a sideways drag scrubs a reel (${flag.toString(16)}), found ${loads.size}")
+        if (lengths.none { it.signature() == load.signature() }) {
+            refuse("${load.signature()} reads whether a sideways drag scrubs a reel but not the shortest reel with a seek bar")
+        }
+        load
+    }
 
     val attacheds = lengths.filter { it.parameters == ATTACHED_PARAMETERS && it.returnType == "Z" }.map { methodOf(it) }
         .filter { AccessFlags.STATIC.isSet(it.accessFlags) }.distinctBy { it.signature() }
@@ -354,7 +394,7 @@ internal fun BytecodePatchContext.findReelSeekBarSites(): ReelSeekBarSites {
     classDefByOrNull(REEL_ITEM_READER)?.methods?.singleOrNull { it.signature() == REEL_ITEM_ID && AccessFlags.STATIC.isSet(it.accessFlags) }
         ?: refuse("the extension has no static $REEL_ITEM_ID")
     return ReelSeekBarSites(
-        lengths, lazy, findProgressChanged(), findBindSite(row, lazy), findTouchSite(touchStrip),
+        lengths, lazy, passThroughs, findProgressChanged(), findBindSite(row, lazy), findTouchSite(touchStrip),
         findPhotoSites(calculate, attached, row, player, touchOnly, expanded),
     )
 }
@@ -516,7 +556,11 @@ private fun findTouchOnlySite(method: Method, itemType: String): TouchOnlySite {
     if (code.any { it.writes(self) }) refuse("$where writes over its controller")
     val free = (0 until minOf(method.localRegisterCount(), 16)).filter { it != answer }
     if (free.size < 3) refuse("$where has no three registers free at its return")
-    return TouchOnlySite(method, at, answer, current, self, free.take(3))
+    // The length check takes whether the reel is an ad, the one boolean of the reel this check reads (on 456's 386214574 LX/04Dh->A19).
+    val ads = code.filter { it.opcode == Opcode.IGET_BOOLEAN }.mapNotNull { it.fieldReference() }
+        .filter { it.definingClass == itemType }.map { it.text() }.distinct()
+    val ad = ads.singleOrNull() ?: refuse("expected $where to read one boolean of the $itemType, whether it's an ad, found ${ads.size}")
+    return TouchOnlySite(method, at, answer, current, self, free.take(3), ad)
 }
 
 /**
@@ -721,8 +765,9 @@ internal fun BytecodePatchContext.findProgressChanged(): Method {
 }
 
 /**
- * Answers each read of the minimum through [MIN_SECONDS] and the read of the hidden kind through
- * [LAZY], then puts the call to [PROGRESS] first in the seek bar's [PROGRESS_CHANGED], handing it
+ * Answers each read of the minimum through [MIN_SECONDS], the read of the hidden kind through [LAZY]
+ * and both reads of whether a sideways drag scrubs through [PASS_THROUGH], then puts the call to
+ * [PROGRESS] first in the seek bar's [PROGRESS_CHANGED], handing it
  * the bar (`this`) and the position, and the call to [BIND] right after the binder's read of
  * whether its reel is an ad, handing it the container and that answer, with [BIND_REEL] just before
  * the read, handing it the container and the reel item [REEL_ITEM_ID] asks the id of. Last, the strip's
@@ -730,7 +775,7 @@ internal fun BytecodePatchContext.findProgressChanged(): Method {
  * listener itself behind its gate.
  */
 internal fun BytecodePatchContext.applyReelSeekBar(sites: ReelSeekBarSites) {
-    answerFlagLoads(sites.lengths.map { it to MIN_SECONDS } + (sites.lazy to LAZY))
+    answerFlagLoads(sites.lengths.map { it to MIN_SECONDS } + (sites.lazy to LAZY) + sites.passThroughs.map { it to PASS_THROUGH })
     val progress = sites.progress
     mutableClassDefBy(progress.definingClass).methods.single {
         it.name == progress.name && it.parameterTypes.map(CharSequence::toString) == PROGRESS_CHANGED_PARAMETERS
@@ -760,6 +805,52 @@ internal fun BytecodePatchContext.applyReelSeekBar(sites: ReelSeekBarSites) {
             it.parameterTypes.map(CharSequence::toString) == touch.method.parameterTypes.map(CharSequence::toString)
     }.replaceInstruction(touch.at, "invoke-static { v${touch.view}, v${touch.listener} }, $LISTEN")
     applyPhotoHooks(sites.photo)
+    applyHiddenBarHooks(sites.photo)
+}
+
+/**
+ * Puts [BARS_HIDDEN]'s blocks in the progress controller's touch-only and strip checks, at the same places as the photo's
+ * hooks and ahead of them, so they run first and a photo with a song still gets its own answer after. Off, each lands on
+ * the photo's switch, the instruction that was there.
+ */
+private fun BytecodePatchContext.applyHiddenBarHooks(sites: PhotoSites) {
+    fun mutable(method: Method) = mutableClassDefBy(method.definingClass).methods.single {
+        it.name == method.name && it.returnType == method.returnType &&
+            it.parameterTypes.map(CharSequence::toString) == method.parameterTypes.map(CharSequence::toString)
+    }
+
+    val onTouch = sites.touchOnly
+    val touchOnly = mutable(onTouch.method)
+    val (flag, onScreen) = onTouch.scratch
+    touchOnly.addInstructionsWithLabels(
+        onTouch.at,
+        """
+            invoke-static {}, $BARS_HIDDEN
+            move-result v$flag
+            if-eqz v$flag, :photo_touch
+            invoke-static { v${onTouch.controller} }, ${onTouch.current}
+            move-result-object v$onScreen
+            if-eqz v$onScreen, :photo_touch
+            iget-boolean v$flag, v$onScreen, ${onTouch.ad}
+            invoke-static { v${onTouch.answer}, v$flag }, $HIDDEN_TOUCH_ONLY
+            move-result v${onTouch.answer}
+        """,
+        ExternalLabel("photo_touch", touchOnly.getInstruction(onTouch.at)),
+    )
+
+    val onStrip = sites.strip
+    val strip = mutable(onStrip.method)
+    val yes = onStrip.scratch.first
+    strip.addInstructionsWithLabels(
+        onStrip.at,
+        """
+            invoke-static {}, $BARS_HIDDEN
+            move-result v$yes
+            if-eqz v$yes, :photo_strip
+            return v$yes
+        """,
+        ExternalLabel("photo_strip", strip.getInstruction(onStrip.at)),
+    )
 }
 
 /**
