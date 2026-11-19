@@ -254,8 +254,12 @@ Turn on Tap to play to use this choice.	이 옵션을 사용하려면 ‘탭하�
 Resume long videos	긴 동영상 이어보기
 Videos and reels over two minutes pick up where you left off. Seek to start elsewhere. Live videos and ads start as usual.	2분이 넘는 동영상과 릴스는 시청을 중단한 시점부터 이어서 재생됩니다. 다른 부분을 보려면 원하는 시점으로 이동하세요. 라이브 동영상과 광고는 기존과 동일하게 처음부터 재생됩니다
 Default playback quality	기본 재생 화질
-# context: description of the Default playback quality switch on the Playback page, with the list of qualities below it. A video that keeps stalling because the connection is too slow for its quality switches to the next lower quality that video offers (#599)
-Videos, reels and stories play at the quality below, starting with the next one you open. When your connection can't keep up, a video drops to the next lower quality.	동영상, 릴스 및 스토리는 다음에 여는 콘텐츠부터 아래 설정된 화질로 재생됩니다. 연결 속도가 따라가지 못하면 동영상이 한 단계 낮은 화질로 내려갑니다
+# context: description of the Default playback quality switch on the Playback page, with the list of qualities below it
+Videos, reels and stories play at the quality below, starting with the next one you open.	동영상, 릴스 및 스토리는 다음에 여는 콘텐츠부터 아래 설정된 화질로 재생됩니다.
+# context: title of a switch under Default playback quality on the Playback page. On, a video that keeps stalling because the connection is too slow for its quality switches to the next lower quality that video offers (#599); off, it keeps the quality picked (#761)
+Drop quality to keep playing	끊기지 않도록 화질 낮추기
+# context: description of the Drop quality to keep playing switch
+When your connection can't keep up, a video drops to the next lower quality instead of stalling. Turn this off to keep the quality you picked.	연결 속도가 따라가지 못하면 동영상이 멈추는 대신 한 단계 낮은 화질로 내려갑니다. 선택한 화질을 유지하려면 이 설정을 끄세요.
 Playback quality	재생 화질
 Auto	자동
 Data saver	데이터 절약
@@ -468,6 +472,8 @@ Turn on Start Home on Following to use this choice.	이 옵션을 사용하려�
 # context: Settings page: the summary of a greyed-out slider in place of its value; %1$s is the title of the switch it waits on, like Glass tab bar
 Turn on %1$s to use this slider.	이 슬라이더를 사용하려면 ‘%1$s’을(를) 활성화하세요.
 Turn on Story ring size to use this choice.	이 옵션을 사용하려면 ‘스토리 링 사이즈’를 활성화하세요
+# context: Settings page, Reels: the line under the greyed-out Fill the screen switch while Show the whole reel is on
+Turn off Show the whole reel to use this choice.	이 옵션을 사용하려면 ‘릴스 전체 보기’를 비활성화하세요
 Turn on Default playback quality to use this choice.	이 옵션을 사용하려면 ‘기본 재생 화질’을 활성화하세요
 Updating remembered positions...	저장된 위치를 업데이트하는 중...
 Undo cleared positions	위치 지우기 실행 취소
@@ -822,6 +828,10 @@ Copy media link	미디어 링크 복사
 Couldn't copy the media link	미디어 링크를 복사할 수 없습니다
 Details	세부 정보
 Details in a post's menu	게시물 메뉴의 세부 정보
+Block in a post's menu	게시물 메뉴의 차단
+Adds Block to the menu of someone else's feed post. It opens Instagram's own block sheet, so nothing happens until you confirm there.	다른 사람의 피드 게시물 메뉴에 차단을 추가합니다. Instagram의 차단 화면이 열리므로 거기서 확인하기 전에는 아무 일도 일어나지 않습니다.
+Speed in a post's menu	게시물 메뉴의 속도
+Adds Playback speed to a feed video's menu. Pick a speed from 0.5x to 3x for the video that's playing.	피드 동영상 메뉴에 재생 속도를 추가합니다. 재생 중인 동영상의 속도를 0.5x에서 3x까지 고를 수 있습니다.
 Media ID %1$s	미디어 ID %1$s
 Media link	미디어 링크
 Media link copied. It stops working after a few days.	미디어 링크를 복사했습니다. 며칠 후에는 작동하지 않습니다.
@@ -1621,7 +1631,7 @@ Unmute all	모두 무음 해제
 Settings button on Home's header	홈 상단의 설정 버튼
 Adds a gear at the top of Home that opens HushGram settings. Restart Instagram to see the change.	홈 상단에 HushGram 설정을 여는 톱니바퀴를 추가합니다. 변경 사항을 보려면 Instagram을 다시 시작하세요.
 Download button on stories	스토리의 다운로드 버튼
-Puts a Download button at the top of a story, beside the three dots. One tap saves the photo or video in front, the same as Download in the menu.	스토리 상단의 점 세 개 옆에 다운로드 버튼을 추가합니다. 한 번 탭하면 메뉴의 다운로드와 똑같이 보고 있는 사진이나 동영상을 저장합니다.
+Puts a Download button at the top of a story, beside the three dots. One tap saves the photo or video in front, the same as Download in the menu. Press and hold for Save all, to save every story in the set you're watching.	스토리 상단의 점 세 개 옆에 다운로드 버튼을 추가합니다. 한 번 탭하면 메뉴의 다운로드와 똑같이 보고 있는 사진이나 동영상을 저장합니다. 길게 누르면 모두 저장을 선택해 보고 있는 스토리 묶음 전체를 저장할 수 있습니다.
 Start reels muted	릴스를 음소거로 시작
 Every reel starts silent, wherever you open it from. The volume keys or the speaker icon unmute it. Wins over Start reels with sound.	어디서 열든 모든 릴스가 소리 없이 시작됩니다. 볼륨 키나 스피커 아이콘으로 소리를 켤 수 있습니다. 릴스를 소리와 함께 시작보다 우선합니다.
 Hide captions	캡션 숨기기
@@ -1888,6 +1898,9 @@ While you swipe through a chat's reels, a banner says when the other person sent
 New message after this reel	이 릴스 다음에 새 메시지
 Hide the audio icon on posts	게시물의 오디오 아이콘 숨기기
 Takes the speaker icon off videos in your feed. Tapping the video still turns the sound on or off. Posts already on screen change when they load again.	피드의 동영상에서 스피커 아이콘을 없앱니다. 동영상을 탭하면 이전처럼 소리가 켜지거나 꺼집니다. 이미 화면에 있는 게시물은 다시 불러올 때 바뀝니다.
+# context: second switch on the Feed page under Hide the audio icon on posts; the tag icon is the small person badge in the corner of a post with people tagged (#762)
+Hide the tag icon on posts	게시물의 태그 아이콘 숨기기
+Takes the little person icon off posts with people tagged in them. Tapping the photo still shows who's tagged.	사람이 태그된 게시물에서 작은 사람 아이콘을 없앱니다. 사진을 탭하면 이전처럼 태그된 사람이 보입니다.
 Light when paused	일시정지 시 밝게
 Pause a reel and Burn-in guard brings the buttons back to full brightness until you play it again or swipe on. The wait then starts over.	릴스를 일시정지하면 번인 방지가 버튼을 다시 최대 밝기로 되돌리고, 다시 재생하거나 넘길 때까지 유지합니다. 그 뒤 대기 시간이 처음부터 다시 시작됩니다.
 Grow the heart	하트 키우기
@@ -2074,6 +2087,11 @@ Hide the Save button	저장 버튼 숨기기
 Takes the Save button off the bottom of posts in your feed, so a stray tap can't save one.	피드 게시물 아래쪽의 저장 버튼을 없애서 실수로 눌러 저장되는 일이 없게 합니다.
 Hide the Like button	좋아요 버튼 숨기기
 Takes the heart and the like count off the bottom of posts in your feed. Double tap still likes a post.	피드 게시물 아래쪽에서 하트와 좋아요 수를 없앱니다. 두 번 탭하면 여전히 게시물에 좋아요를 누를 수 있습니다.
+# context: two switches on the Feed page under Hide the Like button; Liked by is the line under a feed post naming who liked it (#762)
+Hide counts on posts	게시물의 숫자 숨기기
+Takes the like, comment, share and repost numbers off posts in your feed. The buttons stay. Posts already on screen change when they load again.	피드 게시물에서 좋아요, 댓글, 공유, 리포스트 수를 없앱니다. 버튼은 그대로 있습니다. 이미 화면에 있는 게시물은 다시 불러올 때 바뀝니다.
+Hide Liked by	좋아요 누른 사람 줄 숨기기
+Takes the "Liked by" line off posts in your feed.	피드 게시물에서 누가 좋아요를 눌렀는지 보여 주는 줄을 없앱니다.
 # context: the row in a feed post's three-dot menu for a post you already saved, and the row that takes an account off Saved profiles, on its profile's menu and on the Saved profiles page (#629)
 Remove from saved	저장됨에서 삭제
 # context: a switch on the Reels page
@@ -2368,7 +2386,7 @@ Keeps the message Instagram shows when you lock a reel's speed, and when the loc
 Remove hidden data from saved photos	저장한 사진에서 숨겨진 데이터 제거
 Takes Meta's FBMD tracking tag out of each photo you save, along with any camera, place and time details. The picture and its colors stay the same. With Add the source on, the source still goes in afterward. JPEG photos only.	저장하는 사진마다 Meta의 FBMD 추적 태그와 카메라, 장소, 시간 정보를 제거합니다. 사진과 색상은 그대로입니다. ‘저장한 사진과 동영상에 출처 추가’를 켜 두면 출처는 그 뒤에 그대로 기록됩니다. JPEG 사진만 해당합니다.
 Ask for VP9 instead of AV1	AV1 대신 VP9 요청
-Tells Instagram your phone has no AV1 decoder, so reels and stories come as VP9 or H.264, both to watch and to save. Takes a restart.	휴대폰에 AV1 디코더가 없다고 Instagram에 알려서 릴스와 스토리를 VP9 또는 H.264로 받습니다. 보기와 저장 모두 해당합니다. 다시 시작해야 적용됩니다.
+Tells Instagram your phone has no AV1 decoder. Instagram doesn't always listen, so videos can still come as AV1. If they do, Convert to keep the full size gives you H.264. Takes a restart.	휴대폰에 AV1 디코더가 없다고 Instagram에 알립니다. Instagram이 항상 따르지는 않아서 동영상이 여전히 AV1로 올 수 있습니다. 그럴 때는 원본 크기를 유지하도록 변환을 켜면 H.264로 받을 수 있습니다. 다시 시작해야 적용됩니다.
 # context: Summary of Show the skip arrows under Double tap to skip on feed videos in Feed settings (#562)
 Two arrows flash on the side you double tapped, with the seconds skipped under them.	두 번 탭한 쪽에 화살표 두 개가 잠깐 나타나고, 그 아래에 건너뛴 초가 표시됩니다.
 # context: Feed settings: choice under Seek bar shape that gives the seek bar on feed videos a shape of its own (#567)

@@ -253,8 +253,12 @@ Turn on Tap to play to use this choice.	Bu seçimi kullanmak için Oynatmak içi
 Resume long videos	Uzun videolara kaldığın yerden devam et
 Videos and reels over two minutes pick up where you left off. Seek to start elsewhere. Live videos and ads start as usual.	İki dakikadan uzun videolar ve reels kaldığın yerden devam eder. Başka bir yerden başlatmak için çubuğu kaydır. Canlı videolar ve reklamlar normal başlar.
 Default playback quality	Varsayılan oynatma kalitesi
-# context: description of the Default playback quality switch on the Playback page, with the list of qualities below it. A video that keeps stalling because the connection is too slow for its quality switches to the next lower quality that video offers (#599)
-Videos, reels and stories play at the quality below, starting with the next one you open. When your connection can't keep up, a video drops to the next lower quality.	Videolar, reels ve hikayeler, açacağın bir sonrakinden itibaren aşağıdaki kalitede oynatılır. Bağlantın yetişemediğinde video bir alt kaliteye düşer.
+# context: description of the Default playback quality switch on the Playback page, with the list of qualities below it
+Videos, reels and stories play at the quality below, starting with the next one you open.	Videolar, reels ve hikayeler, açacağın bir sonrakinden itibaren aşağıdaki kalitede oynatılır.
+# context: title of a switch under Default playback quality on the Playback page. On, a video that keeps stalling because the connection is too slow for its quality switches to the next lower quality that video offers (#599); off, it keeps the quality picked (#761)
+Drop quality to keep playing	Oynamaya devam etmek için kaliteyi düşür
+# context: description of the Drop quality to keep playing switch
+When your connection can't keep up, a video drops to the next lower quality instead of stalling. Turn this off to keep the quality you picked.	Bağlantın yetişemediğinde video takılmak yerine bir alt kaliteye düşer. Seçtiğin kaliteyi korumak için bunu kapat.
 Playback quality	Oynatma kalitesi
 Auto	Otomatik
 Data saver	Veri tasarrufu
@@ -467,6 +471,8 @@ Turn on Start Home on Following to use this choice.	Bu seçimi kullanmak için A
 # context: Settings page: the summary of a greyed-out slider in place of its value; %1$s is the title of the switch it waits on, like Glass tab bar
 Turn on %1$s to use this slider.	Bu kaydırıcıyı kullanmak için %1$s seçeneğini açın.
 Turn on Story ring size to use this choice.	Bu seçimi kullanmak için Hikâye halkası boyutu seçeneğini açın.
+# context: Settings page, Reels: the line under the greyed-out Fill the screen switch while Show the whole reel is on
+Turn off Show the whole reel to use this choice.	Bu seçimi kullanmak için Reels videosunun tamamını göster seçeneğini kapatın.
 Turn on Default playback quality to use this choice.	Bu seçimi kullanmak için Varsayılan oynatma kalitesi seçeneğini açın.
 Updating remembered positions...	Kaydedilen konumlar güncelleniyor...
 Undo cleared positions	Silinen konumları geri yükle
@@ -823,6 +829,10 @@ Copy media link	Medya bağlantısını kopyala
 Couldn't copy the media link	Medya bağlantısı kopyalanamadı
 Details	Ayrıntılar
 Details in a post's menu	Gönderi menüsünde Ayrıntılar
+Block in a post's menu	Gönderi menüsünde Engelle
+Adds Block to the menu of someone else's feed post. It opens Instagram's own block sheet, so nothing happens until you confirm there.	Başkalarının akış gönderilerinin menüsüne Engelle'yi ekler. Instagram'ın kendi engelleme ekranını açar, yani orada onaylayana kadar hiçbir şey olmaz.
+Speed in a post's menu	Gönderi menüsünde hız
+Adds Playback speed to a feed video's menu. Pick a speed from 0.5x to 3x for the video that's playing.	Akış videolarının menüsüne Oynatma hızı seçeneğini ekler. Oynayan video için 0.5x ile 3x arasında bir hız seç.
 Media ID %1$s	Medya kimliği %1$s
 Media link	Medya bağlantısı
 Media link copied. It stops working after a few days.	Medya bağlantısı kopyalandı. Birkaç gün sonra çalışmaz.
@@ -1622,7 +1632,7 @@ Unmute all	Tümünün sesini aç
 Settings button on Home's header	Ana sayfa üstünde Ayarlar düğmesi
 Adds a gear at the top of Home that opens HushGram settings. Restart Instagram to see the change.	Ana sayfanın üstüne HushGram ayarlarını açan bir dişli ekler. Değişikliği görmek için Instagram'ı yeniden başlat.
 Download button on stories	Hikayelerde indirme düğmesi
-Puts a Download button at the top of a story, beside the three dots. One tap saves the photo or video in front, the same as Download in the menu.	Bir hikayenin üstüne, üç noktanın yanına bir indirme düğmesi koyar. Tek dokunuş, menüdeki İndir gibi önündeki fotoğrafı veya videoyu kaydeder.
+Puts a Download button at the top of a story, beside the three dots. One tap saves the photo or video in front, the same as Download in the menu. Press and hold for Save all, to save every story in the set you're watching.	Bir hikayenin üstüne, üç noktanın yanına bir indirme düğmesi koyar. Tek dokunuş, menüdeki İndir gibi önündeki fotoğrafı veya videoyu kaydeder. Basılı tutunca Tümünü kaydet çıkar ve izlediğin dizideki tüm hikayeleri kaydeder.
 Start reels muted	Reel'leri sessiz başlat
 Every reel starts silent, wherever you open it from. The volume keys or the speaker icon unmute it. Wins over Start reels with sound.	Her reel, nereden açarsan aç sessiz başlar. Ses tuşları veya hoparlör simgesi sesi açar. Reel'leri sesli başlat ayarından önce gelir.
 Hide captions	Açıklamaları gizle
@@ -1889,6 +1899,9 @@ While you swipe through a chat's reels, a banner says when the other person sent
 New message after this reel	Bu videodan sonra yeni mesaj
 Hide the audio icon on posts	Gönderilerdeki ses simgesini gizle
 Takes the speaker icon off videos in your feed. Tapping the video still turns the sound on or off. Posts already on screen change when they load again.	Akışındaki videolardan hoparlör simgesini kaldırır. Videoya dokunmak sesi yine açıp kapatır. Ekranda zaten olan gönderiler yeniden yüklendiğinde değişir.
+# context: second switch on the Feed page under Hide the audio icon on posts; the tag icon is the small person badge in the corner of a post with people tagged (#762)
+Hide the tag icon on posts	Gönderilerdeki etiket simgesini gizle
+Takes the little person icon off posts with people tagged in them. Tapping the photo still shows who's tagged.	Kişilerin etiketlendiği gönderilerden küçük kişi simgesini kaldırır. Fotoğrafa dokunmak kimlerin etiketlendiğini yine gösterir.
 Light when paused	Duraklatınca aydınlık
 Pause a reel and Burn-in guard brings the buttons back to full brightness until you play it again or swipe on. The wait then starts over.	Bir reel'i duraklatın, Ekran yanığı koruması tuşları siz tekrar oynatana veya kaydırana kadar tam parlaklığa getirsin. Sonra bekleme baştan başlar.
 Grow the heart	Kalbi büyüt
@@ -2075,6 +2088,11 @@ Hide the Save button	Kaydet düğmesini gizle
 Takes the Save button off the bottom of posts in your feed, so a stray tap can't save one.	Akışındaki gönderilerin altındaki Kaydet düğmesini kaldırır, böylece yanlışlıkla bir dokunuş hiçbir şeyi kaydetmez.
 Hide the Like button	Beğen düğmesini gizle
 Takes the heart and the like count off the bottom of posts in your feed. Double tap still likes a post.	Akışındaki gönderilerin altından kalbi ve beğeni sayısını kaldırır. Çift dokunarak gönderiyi yine beğenebilirsin.
+# context: two switches on the Feed page under Hide the Like button; Liked by is the line under a feed post naming who liked it (#762)
+Hide counts on posts	Gönderilerdeki sayıları gizle
+Takes the like, comment, share and repost numbers off posts in your feed. The buttons stay. Posts already on screen change when they load again.	Akışındaki gönderilerden beğeni, yorum, paylaşım ve yeniden paylaşım sayılarını kaldırır. Düğmeler kalır. Ekranda olan gönderiler yeniden yüklendiğinde değişir.
+Hide Liked by	Beğenenler satırını gizle
+Takes the "Liked by" line off posts in your feed.	Akışındaki gönderilerden kimlerin beğendiğini gösteren satırı kaldırır.
 # context: the row in a feed post's three-dot menu for a post you already saved, and the row that takes an account off Saved profiles, on its profile's menu and on the Saved profiles page (#629)
 Remove from saved	Kaydedilenlerden kaldır
 # context: a switch on the Reels page
@@ -2369,7 +2387,7 @@ Keeps the message Instagram shows when you lock a reel's speed, and when the loc
 Remove hidden data from saved photos	Kayıtlı fotoğraflardaki gizli verileri kaldır
 Takes Meta's FBMD tracking tag out of each photo you save, along with any camera, place and time details. The picture and its colors stay the same. With Add the source on, the source still goes in afterward. JPEG photos only.	Kaydettiğin her fotoğraftan Meta'nın FBMD izleme etiketini, varsa kamera, yer ve zaman bilgileriyle birlikte çıkarır. Resim ve renkleri aynı kalır. Kayıtlı fotoğraf ve videolara kaynağı ekle açıkken kaynak yine sonrasında yazılır. Yalnızca JPEG fotoğraflar.
 Ask for VP9 instead of AV1	AV1 yerine VP9 iste
-Tells Instagram your phone has no AV1 decoder, so reels and stories come as VP9 or H.264, both to watch and to save. Takes a restart.	Instagram'a telefonunda AV1 kod çözücü olmadığını söyler, böylece reels ve hikayeler hem izlemek hem kaydetmek için VP9 ya da H.264 olarak gelir. Yeniden başlatma gerekir.
+Tells Instagram your phone has no AV1 decoder. Instagram doesn't always listen, so videos can still come as AV1. If they do, Convert to keep the full size gives you H.264. Takes a restart.	Instagram'a telefonunda AV1 kod çözücü olmadığını söyler. Instagram buna her zaman uymaz, bu yüzden videolar yine de AV1 olarak gelebilir. Böyle olursa Tam boyutu korumak için dönüştür sana H.264 verir. Yeniden başlatma gerekir.
 # context: Summary of Show the skip arrows under Double tap to skip on feed videos in Feed settings (#562)
 Two arrows flash on the side you double tapped, with the seconds skipped under them.	Çift dokunduğun tarafta iki ok kısa bir süre görünür, altında atlanan saniyeler yazar.
 # context: Feed settings: choice under Seek bar shape that gives the seek bar on feed videos a shape of its own (#567)

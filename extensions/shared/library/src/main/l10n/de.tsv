@@ -253,8 +253,12 @@ Turn on Tap to play to use this choice.	Aktiviere „Zum Abspielen tippen“, um
 Resume long videos	Lange Videos fortsetzen
 Videos and reels over two minutes pick up where you left off. Seek to start elsewhere. Live videos and ads start as usual.	Videos und Reels über zwei Minuten laufen an deiner letzten Stelle weiter. Die Zeitleiste ändert den Start. Live-Videos und Werbung starten wie gewohnt.
 Default playback quality	Standard-Wiedergabequalität
-# context: description of the Default playback quality switch on the Playback page, with the list of qualities below it. A video that keeps stalling because the connection is too slow for its quality switches to the next lower quality that video offers (#599)
-Videos, reels and stories play at the quality below, starting with the next one you open. When your connection can't keep up, a video drops to the next lower quality.	Videos, Reels und Stories laufen in der Qualität unten, ab dem nächsten Video, das du öffnest. Kommt deine Verbindung nicht mit, schaltet ein Video eine Qualitätsstufe herunter.
+# context: description of the Default playback quality switch on the Playback page, with the list of qualities below it
+Videos, reels and stories play at the quality below, starting with the next one you open.	Videos, Reels und Stories laufen in der Qualität unten, ab dem nächsten Video, das du öffnest.
+# context: title of a switch under Default playback quality on the Playback page. On, a video that keeps stalling because the connection is too slow for its quality switches to the next lower quality that video offers (#599); off, it keeps the quality picked (#761)
+Drop quality to keep playing	Qualität senken, damit es weiterläuft
+# context: description of the Drop quality to keep playing switch
+When your connection can't keep up, a video drops to the next lower quality instead of stalling. Turn this off to keep the quality you picked.	Kommt deine Verbindung nicht mit, schaltet ein Video eine Qualitätsstufe herunter, statt hängen zu bleiben. Schalte das aus, um die gewählte Qualität zu behalten.
 Playback quality	Wiedergabequalität
 Auto	Automatisch
 Data saver	Datensparmodus
@@ -467,6 +471,8 @@ Turn on Start Home on Following to use this choice.	Aktiviere „Startseite mit 
 # context: Settings page: the summary of a greyed-out slider in place of its value; %1$s is the title of the switch it waits on, like Glass tab bar
 Turn on %1$s to use this slider.	Aktiviere „%1$s“, um diesen Regler zu nutzen.
 Turn on Story ring size to use this choice.	Aktiviere „Größe der Story-Ringe“, um diese Auswahl zu nutzen.
+# context: Settings page, Reels: the line under the greyed-out Fill the screen switch while Show the whole reel is on
+Turn off Show the whole reel to use this choice.	Deaktiviere „Ganzes Reel zeigen“, um diese Auswahl zu nutzen.
 Turn on Default playback quality to use this choice.	Aktiviere „Standard-Wiedergabequalität“, um diese Auswahl zu nutzen.
 Updating remembered positions...	Gespeicherte Wiedergabepositionen werden aktualisiert...
 Undo cleared positions	Gelöschte Wiedergabepositionen wiederherstellen
@@ -823,6 +829,10 @@ Copy media link	Medienlink kopieren
 Couldn't copy the media link	Medienlink konnte nicht kopiert werden
 Details	Details
 Details in a post's menu	Details im Menü eines Beitrags
+Block in a post's menu	Blockieren im Menü eines Beitrags
+Adds Block to the menu of someone else's feed post. It opens Instagram's own block sheet, so nothing happens until you confirm there.	Fügt dem Menü fremder Feed-Beiträge „Blockieren“ hinzu. Es öffnet Instagrams eigenes Blockier-Fenster, es passiert also nichts, bis du dort bestätigst.
+Speed in a post's menu	Geschwindigkeit im Menü eines Beitrags
+Adds Playback speed to a feed video's menu. Pick a speed from 0.5x to 3x for the video that's playing.	Fügt dem Menü eines Feed-Videos „Wiedergabegeschwindigkeit“ hinzu. Wähle für das laufende Video eine Geschwindigkeit von 0.5x bis 3x.
 Media ID %1$s	Medien-ID %1$s
 Media link	Medienlink
 Media link copied. It stops working after a few days.	Medienlink kopiert. Er funktioniert nach ein paar Tagen nicht mehr.
@@ -1622,7 +1632,7 @@ Unmute all	Alle Stummschaltungen aufheben
 Settings button on Home's header	Einstellungen-Taste oben auf der Startseite
 Adds a gear at the top of Home that opens HushGram settings. Restart Instagram to see the change.	Fügt oben auf der Startseite ein Zahnrad hinzu, das die HushGram-Einstellungen öffnet. Starte Instagram neu, um die Änderung zu sehen.
 Download button on stories	Download-Taste bei Stories
-Puts a Download button at the top of a story, beside the three dots. One tap saves the photo or video in front, the same as Download in the menu.	Setzt oben in einer Story neben die drei Punkte eine Download-Taste. Ein Tipp speichert das Foto oder Video, das du gerade siehst, genau wie Download im Menü.
+Puts a Download button at the top of a story, beside the three dots. One tap saves the photo or video in front, the same as Download in the menu. Press and hold for Save all, to save every story in the set you're watching.	Setzt oben in einer Story neben die drei Punkte eine Download-Taste. Ein Tipp speichert das Foto oder Video, das du gerade siehst, genau wie Download im Menü. Gedrückt halten zeigt Alle speichern, das jede Story dieser Reihe speichert.
 Start reels muted	Reels stumm starten
 Every reel starts silent, wherever you open it from. The volume keys or the speaker icon unmute it. Wins over Start reels with sound.	Jedes Reel startet stumm, egal wo du es öffnest. Die Lautstärketasten oder das Lautsprechersymbol schalten den Ton ein. Hat Vorrang vor Reels mit Ton starten.
 Hide captions	Beschreibungen ausblenden
@@ -1889,6 +1899,9 @@ While you swipe through a chat's reels, a banner says when the other person sent
 New message after this reel	Neue Nachricht nach diesem Reel
 Hide the audio icon on posts	Audio-Symbol bei Beiträgen ausblenden
 Takes the speaker icon off videos in your feed. Tapping the video still turns the sound on or off. Posts already on screen change when they load again.	Entfernt das Lautsprecher-Symbol von Videos in deinem Feed. Ein Tipp auf das Video schaltet den Ton weiterhin ein oder aus. Beiträge, die schon auf dem Bildschirm sind, ändern sich, wenn sie neu geladen werden.
+# context: second switch on the Feed page under Hide the audio icon on posts; the tag icon is the small person badge in the corner of a post with people tagged (#762)
+Hide the tag icon on posts	Markierungssymbol bei Beiträgen ausblenden
+Takes the little person icon off posts with people tagged in them. Tapping the photo still shows who's tagged.	Entfernt das kleine Personen-Symbol von Beiträgen, auf denen Leute markiert sind. Ein Tipp auf das Foto zeigt weiterhin, wer markiert ist.
 Light when paused	Hell bei Pause
 Pause a reel and Burn-in guard brings the buttons back to full brightness until you play it again or swipe on. The wait then starts over.	Pausiere ein Reel, und der Einbrennschutz stellt die Tasten wieder auf volle Helligkeit, bis du es weiter abspielst oder wegwischst. Danach beginnt die Wartezeit von vorn.
 Grow the heart	Herz wachsen lassen
@@ -2075,6 +2088,11 @@ Hide the Save button	Speichern-Button ausblenden
 Takes the Save button off the bottom of posts in your feed, so a stray tap can't save one.	Entfernt den Speichern-Button unten an Beiträgen in deinem Feed, damit ein versehentliches Tippen nichts speichert.
 Hide the Like button	Gefällt-mir-Button ausblenden
 Takes the heart and the like count off the bottom of posts in your feed. Double tap still likes a post.	Nimmt das Herz und die Zahl der Likes unten von Beiträgen in deinem Feed. Ein Doppeltipp gibt einem Beitrag weiterhin ein Like.
+# context: two switches on the Feed page under Hide the Like button; Liked by is the line under a feed post naming who liked it (#762)
+Hide counts on posts	Zahlen an Beiträgen ausblenden
+Takes the like, comment, share and repost numbers off posts in your feed. The buttons stay. Posts already on screen change when they load again.	Nimmt die Zahlen für Likes, Kommentare, Teilen und Reposts von Beiträgen in deinem Feed. Die Buttons bleiben. Beiträge, die schon angezeigt werden, ändern sich, wenn sie neu laden.
+Hide Liked by	„Gefällt“-Zeile ausblenden
+Takes the "Liked by" line off posts in your feed.	Nimmt die Zeile „Gefällt …“ von Beiträgen in deinem Feed.
 # context: the row in a feed post's three-dot menu for a post you already saved, and the row that takes an account off Saved profiles, on its profile's menu and on the Saved profiles page (#629)
 Remove from saved	Aus Gespeichertem entfernen
 # context: a switch on the Reels page
@@ -2369,7 +2387,7 @@ Keeps the message Instagram shows when you lock a reel's speed, and when the loc
 Remove hidden data from saved photos	Versteckte Daten aus gespeicherten Fotos entfernen
 Takes Meta's FBMD tracking tag out of each photo you save, along with any camera, place and time details. The picture and its colors stay the same. With Add the source on, the source still goes in afterward. JPEG photos only.	Entfernt Metas FBMD-Tracking-Tag aus jedem Foto, das du speicherst, und dazu alle Angaben zu Kamera, Ort und Zeit. Das Bild und seine Farben bleiben gleich. Ist „Quelle zu gespeicherten Fotos und Videos hinzufügen“ an, wird die Quelle danach trotzdem eingetragen. Nur JPEG-Fotos.
 Ask for VP9 instead of AV1	VP9 statt AV1 anfordern
-Tells Instagram your phone has no AV1 decoder, so reels and stories come as VP9 or H.264, both to watch and to save. Takes a restart.	Sagt Instagram, dass dein Handy keinen AV1-Decoder hat. Reels und Storys kommen dann als VP9 oder H.264, zum Ansehen und zum Speichern. Braucht einen Neustart.
+Tells Instagram your phone has no AV1 decoder. Instagram doesn't always listen, so videos can still come as AV1. If they do, Convert to keep the full size gives you H.264. Takes a restart.	Sagt Instagram, dass dein Handy keinen AV1-Decoder hat. Instagram hält sich nicht immer daran, Videos können also trotzdem als AV1 kommen. Dann liefert dir Umwandeln, um die volle Größe zu behalten, H.264. Braucht einen Neustart.
 # context: Summary of Show the skip arrows under Double tap to skip on feed videos in Feed settings (#562)
 Two arrows flash on the side you double tapped, with the seconds skipped under them.	Zwei Pfeile blinken auf der Seite auf, auf die du doppelt getippt hast, darunter die übersprungenen Sekunden.
 # context: Feed settings: choice under Seek bar shape that gives the seek bar on feed videos a shape of its own (#567)

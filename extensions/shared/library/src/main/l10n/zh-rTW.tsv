@@ -258,8 +258,12 @@ Turn on Tap to play to use this choice.	請啟用「點擊播放」以使用此�
 Resume long videos	繼續播放長影片
 Videos and reels over two minutes pick up where you left off. Seek to start elsewhere. Live videos and ads start as usual.	超過兩分鐘的影片與 Reels 會從上次離開的位置繼續播放。可拖曳進度列改從其他位置開始。直播與廣告仍會照常播放。
 Default playback quality	預設播放畫質
-# context: description of the Default playback quality switch on the Playback page, with the list of qualities below it. A video that keeps stalling because the connection is too slow for its quality switches to the next lower quality that video offers (#599)
-Videos, reels and stories play at the quality below, starting with the next one you open. When your connection can't keep up, a video drops to the next lower quality.	從下一部開啟的影片開始，影片、Reels 和限時動態會以下方畫質播放。連線速度跟不上時，影片會降到低一級的畫質。
+# context: description of the Default playback quality switch on the Playback page, with the list of qualities below it
+Videos, reels and stories play at the quality below, starting with the next one you open.	從下一部開啟的影片開始，影片、Reels 和限時動態會以下方畫質播放。
+# context: title of a switch under Default playback quality on the Playback page. On, a video that keeps stalling because the connection is too slow for its quality switches to the next lower quality that video offers (#599); off, it keeps the quality picked (#761)
+Drop quality to keep playing	降低畫質以持續播放
+# context: description of the Drop quality to keep playing switch
+When your connection can't keep up, a video drops to the next lower quality instead of stalling. Turn this off to keep the quality you picked.	連線速度跟不上時，影片會降到低一級的畫質，而不是卡住。關閉此選項即可維持你選的畫質。
 Playback quality	播放畫質
 Auto	自動
 Data saver	節省數據
@@ -472,6 +476,8 @@ Turn on Start Home on Following to use this choice.	請啟用「首頁預設顯�
 # context: Settings page: the summary of a greyed-out slider in place of its value; %1$s is the title of the switch it waits on, like Glass tab bar
 Turn on %1$s to use this slider.	請啟用「%1$s」以使用此滑桿。
 Turn on Story ring size to use this choice.	請啟用「限時動態光圈尺寸」以使用此選項。
+# context: Settings page, Reels: the line under the greyed-out Fill the screen switch while Show the whole reel is on
+Turn off Show the whole reel to use this choice.	請關閉「顯示完整的 Reels」以使用此選項。
 Turn on Default playback quality to use this choice.	請啟用「預設播放畫質」以使用此選項。
 Updating remembered positions...	正在更新記住的播放位置…
 Undo cleared positions	復原清除播放位置
@@ -827,6 +833,10 @@ Copy media link	複製媒體連結
 Couldn't copy the media link	無法複製媒體連結
 Details	詳細資料
 Details in a post's menu	貼文選單中的詳細資料
+Block in a post's menu	貼文選單中的封鎖
+Adds Block to the menu of someone else's feed post. It opens Instagram's own block sheet, so nothing happens until you confirm there.	在別人的動態首頁貼文選單中加入「封鎖」。它會開啟 Instagram 自己的封鎖畫面，在那裡確認之前不會發生任何事。
+Speed in a post's menu	貼文選單中的速度
+Adds Playback speed to a feed video's menu. Pick a speed from 0.5x to 3x for the video that's playing.	在動態首頁影片的選單中加入「播放速度」。可為正在播放的影片選擇 0.5x 到 3x 的速度。
 Media ID %1$s	媒體 ID %1$s
 Media link	媒體連結
 Media link copied. It stops working after a few days.	已複製媒體連結。連結會在幾天後失效。
@@ -1625,7 +1635,7 @@ Unmute all	全部取消靜音
 Settings button on Home's header	首頁頂端的設定按鈕
 Adds a gear at the top of Home that opens HushGram settings. Restart Instagram to see the change.	在首頁頂端加入齒輪，可開啟 HushGram 設定。請重新啟動 Instagram 以套用變更。
 Download button on stories	限時動態的下載按鈕
-Puts a Download button at the top of a story, beside the three dots. One tap saves the photo or video in front, the same as Download in the menu.	在限時動態頂端的三個點旁加入下載按鈕。點一下就能儲存目前的相片或影片，與選單中的下載相同。
+Puts a Download button at the top of a story, beside the three dots. One tap saves the photo or video in front, the same as Download in the menu. Press and hold for Save all, to save every story in the set you're watching.	在限時動態頂端的三個點旁加入下載按鈕。點一下就能儲存目前的相片或影片，與選單中的下載相同。長按可選擇儲存全部，儲存正在觀看的這組限時動態。
 Start reels muted	Reels 預設靜音
 Every reel starts silent, wherever you open it from. The volume keys or the speaker icon unmute it. Wins over Start reels with sound.	無論從哪裡開啟，每則 Reels 都會靜音開始。音量鍵或喇叭圖示可取消靜音。優先於「Reels 預設開啟聲音」。
 Hide captions	隱藏說明文字
@@ -1892,6 +1902,9 @@ While you swipe through a chat's reels, a banner says when the other person sent
 New message after this reel	這則 Reel 之後有新訊息
 Hide the audio icon on posts	隱藏貼文上的音訊圖示
 Takes the speaker icon off videos in your feed. Tapping the video still turns the sound on or off. Posts already on screen change when they load again.	移除動態中影片上的喇叭圖示。點一下影片仍可開啟或關閉聲音。畫面上已有的貼文會在重新載入後更新。
+# context: second switch on the Feed page under Hide the audio icon on posts; the tag icon is the small person badge in the corner of a post with people tagged (#762)
+Hide the tag icon on posts	隱藏貼文上的標註圖示
+Takes the little person icon off posts with people tagged in them. Tapping the photo still shows who's tagged.	移除有標註他人的貼文上的小人像圖示。點一下相片仍會顯示標註了誰。
 Light when paused	暫停時亮起
 Pause a reel and Burn-in guard brings the buttons back to full brightness until you play it again or swipe on. The wait then starts over.	暫停 Reels 後，防烙印保護會讓按鈕恢復全亮，直到你再次播放或滑到下一部。之後等待時間會重新計算。
 Grow the heart	放大愛心
@@ -2078,6 +2091,11 @@ Hide the Save button	隱藏儲存按鈕
 Takes the Save button off the bottom of posts in your feed, so a stray tap can't save one.	移除動態中貼文底部的儲存按鈕，避免誤觸而儲存貼文。
 Hide the Like button	隱藏讚按鈕
 Takes the heart and the like count off the bottom of posts in your feed. Double tap still likes a post.	移除動態消息貼文底部的愛心與讚數。仍可點兩下對貼文按讚。
+# context: two switches on the Feed page under Hide the Like button; Liked by is the line under a feed post naming who liked it (#762)
+Hide counts on posts	隱藏貼文上的數字
+Takes the like, comment, share and repost numbers off posts in your feed. The buttons stay. Posts already on screen change when they load again.	移除動態消息貼文上的讚、留言、分享和轉發次數。按鈕會保留。已在畫面上的貼文重新載入後才會改變。
+Hide Liked by	隱藏「說讚的人」
+Takes the "Liked by" line off posts in your feed.	移除動態消息貼文上顯示誰說讚的那一行。
 # context: the row in a feed post's three-dot menu for a post you already saved, and the row that takes an account off Saved profiles, on its profile's menu and on the Saved profiles page (#629)
 Remove from saved	從已儲存移除
 # context: a switch on the Reels page
@@ -2372,7 +2390,7 @@ Keeps the message Instagram shows when you lock a reel's speed, and when the loc
 Remove hidden data from saved photos	移除已儲存照片中的隱藏資料
 Takes Meta's FBMD tracking tag out of each photo you save, along with any camera, place and time details. The picture and its colors stay the same. With Add the source on, the source still goes in afterward. JPEG photos only.	從你儲存的每張照片中移除 Meta 的 FBMD 追蹤標記，以及相機、地點和時間等資訊。圖片和色彩保持不變。開啟「在儲存的照片和影片中加入來源資訊」時，之後仍會寫入來源。僅適用於 JPEG 照片。
 Ask for VP9 instead of AV1	改要求 VP9 而非 AV1
-Tells Instagram your phone has no AV1 decoder, so reels and stories come as VP9 or H.264, both to watch and to save. Takes a restart.	告訴 Instagram 你的手機沒有 AV1 解碼器，讓連續短片和限時動態改以 VP9 或 H.264 傳來，觀看和儲存都一樣。需要重新啟動。
+Tells Instagram your phone has no AV1 decoder. Instagram doesn't always listen, so videos can still come as AV1. If they do, Convert to keep the full size gives you H.264. Takes a restart.	告訴 Instagram 你的手機沒有 AV1 解碼器。Instagram 不一定會照做，影片仍可能以 AV1 傳來。遇到這種情況，轉換格式以保留完整尺寸可以給你 H.264。需要重新啟動。
 # context: Summary of Show the skip arrows under Double tap to skip on feed videos in Feed settings (#562)
 Two arrows flash on the side you double tapped, with the seconds skipped under them.	在你點兩下的那一側閃現兩個箭頭，下方顯示跳過的秒數.
 # context: Feed settings: choice under Seek bar shape that gives the seek bar on feed videos a shape of its own (#567)
