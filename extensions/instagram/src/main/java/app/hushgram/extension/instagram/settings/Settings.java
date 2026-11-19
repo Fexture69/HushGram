@@ -1817,6 +1817,22 @@ public class Settings extends BaseSettings {
             new BooleanSetting("hushgram_hide_inbox_suggestions", FALSE, true);
 
     /**
+     * The New message button in the top bar of your messages
+     * ({@link app.hushgram.extension.instagram.direct.NewMessageButton}, #762). Read each time the
+     * bar binds its buttons. Off to start.
+     */
+    public static final BooleanSetting HIDE_NEW_MESSAGE_BUTTON =
+            new BooleanSetting("hushgram_hide_new_message_button", FALSE);
+
+    /**
+     * The Suggested people on the New message screen and the new group picker
+     * ({@link app.hushgram.extension.instagram.direct.NewMessageSuggestions}, #762). Read each
+     * time a picker fills its rows, and a search still lists its matches. Off to start.
+     */
+    public static final BooleanSetting HIDE_NEW_MESSAGE_SUGGESTIONS =
+            new BooleanSetting("hushgram_hide_new_message_suggestions", FALSE);
+
+    /**
      * Instants, Instagram's no-edit camera for friends, everywhere Instagram offers it
      * ({@link app.hushgram.extension.instagram.direct.Instants}). Instagram settles what it shows when
      * it starts, so a change takes a restart. Off to start.
@@ -2665,6 +2681,15 @@ public class Settings extends BaseSettings {
      */
     public static final BooleanSetting HIDE_CREATE_BUTTON =
             new BooleanSetting("hushgram_hide_create_button", FALSE);
+
+    /**
+     * The "Create your first post" prompt filling your own profile's grid while it has no posts, with
+     * its picture and Create button ({@link app.hushgram.extension.instagram.profile.ThreadsButton},
+     * #762). Read each time the grid decides whether to show it, so a change shows on the next profile
+     * opened. Other people's empty profiles keep theirs. Off to start.
+     */
+    public static final BooleanSetting HIDE_EMPTY_PROFILE_PROMPT =
+            new BooleanSetting("hushgram_hide_empty_profile_prompt", FALSE);
 
     /**
      * The Share profile button in your profile's row of action buttons, with Edit profile taking its

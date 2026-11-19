@@ -968,6 +968,12 @@ Half a second	Meio segundo
 On this Instagram build it covers %1$d of %2$d routes. The diagnostic report lists the rest.	Nesta versão do Instagram, cobre %1$d de %2$d caminhos. O relatório de diagnóstico lista o restante.
 Hide suggested accounts in Messages	Ocultar contas sugeridas nas Mensagens
 Takes the accounts Instagram suggests off the bottom of your messages. Your chats and follow requests stay. Restart Instagram to see the change.	Tira da parte de baixo das suas mensagens as contas que o Instagram sugere. Suas conversas e as solicitações para seguir continuam lá. Reinicie o Instagram para ver a mudança.
+# context: switch on the Messages page after Hide suggested accounts in Messages; New message is Instagram's own label for the pencil button in the inbox top bar and the screen it opens (#762)
+Hide the New message button	Ocultar o botão Nova mensagem
+Takes the pencil button for a new message off the top of your messages.	Tira o botão de lápis para uma nova mensagem do topo das suas mensagens.
+# context: switch right after it; Suggested is the header Instagram puts over the people listed on the New message screen before you type, and new group is the screen for starting a group chat (#762)
+Hide suggestions in New message	Ocultar sugestões em Nova mensagem
+Takes the Suggested people off the New message and new group screens. Search still finds anyone.	Tira as pessoas sugeridas das telas Nova mensagem e novo grupo. A busca continua encontrando qualquer pessoa.
 A light tick each time the highlight slides past a tab, so it follows the bar as you tap or swipe between screens.	Um toque leve cada vez que o destaque passa por uma aba, para acompanhar a barra quando você toca ou desliza entre telas.
 Blur behind the tab bar	Desfoque atrás da barra de abas
 Blurs what's behind the pill on Android 12 and newer. Off, the pill is a frosted tint.	Desfoca o que está atrás da pílula no Android 12 e mais recentes. Desativado, a pílula é um tom fosco.
@@ -1437,6 +1443,9 @@ Once Burn-in guard fades the buttons, they stay faded on Reels whatever you tap 
 # context: Profiles: switches next to Hide the Threads button. Create is the plus at the top of your own profile (#254); Share profile and Edit profile are Instagram's own button names (#253)
 Hide the Create button	Ocultar o botão Criar
 Takes the plus for new posts off the top of your own profile. The other buttons stay where they were.	Tira o mais para novos posts do topo do seu próprio perfil. Os outros botões continuam onde estavam.
+# context: switch on the Profiles page after Hide the Create button; the prompt is the big picture, heading and Create button Instagram shows in place of the grid on your own profile before your first post (#762)
+Hide the empty profile prompt	Ocultar o convite do perfil vazio
+Takes the big prompt for your first post off your own profile while it has no posts. Other people's profiles stay as they are.	Tira o convite grande para o seu primeiro post do seu próprio perfil enquanto ele não tiver posts. Os perfis de outras pessoas continuam como estão.
 Hide Share profile	Ocultar Compartilhar perfil
 Takes the Share profile button off your profile, and Edit profile stretches to fill the space.	Tira o botão Compartilhar perfil do seu perfil, e Editar perfil estica para ocupar o espaço.
 # context: Profiles: switches that hide Subscribe and the arrow at the end of the action buttons on someone's profile, which opens a menu of the buttons that didn't fit (#248). Subscribe is Instagram's own button label, as in the Feed switch that hides Follow and Subscribe.
