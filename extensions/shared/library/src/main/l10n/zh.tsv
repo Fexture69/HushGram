@@ -2782,6 +2782,22 @@ Couldn't start recording this call	无法开始录制这次通话
 Couldn't save the call recording	无法保存通话录音
 # context: a toast when a recording ends with no sound in it (#732)
 Nothing was recorded	什么都没有录到
+# context: a toast when a save starts, naming the account the media is from (#792)
+Saving from @%1$s...	正在保存 @%1$s 的内容…
+# context: a second toast after the one above, when notifications are off (#792)
+You can cancel from Downloads in HushGram settings.	你可以从 HushGram 设置中的“下载”取消。
+# context: a toast when a save waits for the ones already running, the account unknown (#792)
+Queued	已加入队列
+# context: a toast when a save waits for the ones already running, naming the account (#792)
+Queued: @%1$s	已加入队列：@%1$s
+# context: a toast when too many saves already wait their turn (#792)
+Not saved: %1$d saves are already waiting	未保存：已有 %1$d 个在等待
+# context: a waiting save's notification text and its line in Downloads (#792)
+Waiting for the saves before it	正在等待前面的保存
+# context: Feed settings: a switch under Start feed videos with sound that starts them with sound while the phone is on silent or vibrate too (#762)
+Even on silent	静音时也播放声音
+# context: Summary of Even on silent, a switch under Start feed videos with sound (#762)
+Feed videos start with sound with the phone on silent or vibrate too. Only the media volume counts.	手机处于静音或振动模式时，动态视频也会带声音开始播放。只看媒体音量.
 %1$d entries left out because they repeat or don't fit.	%1$d entries left out because they repeat or don't fit.
 %1$d overrides from a different Instagram version don't fit this one and were left out.	%1$d overrides from a different Instagram version don't fit this one and were left out.
 2x speed for videos in the feed	2x speed for videos in the feed

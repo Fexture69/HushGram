@@ -2694,6 +2694,22 @@ Couldn't start recording this call	Không thể bắt đầu ghi âm cuộc gọ
 Couldn't save the call recording	Không lưu được bản ghi âm cuộc gọi
 # context: a toast when a recording ends with no sound in it (#732)
 Nothing was recorded	Không ghi âm được gì
+# context: a toast when a save starts, naming the account the media is from (#792)
+Saving from @%1$s...	Đang lưu từ @%1$s...
+# context: a second toast after the one above, when notifications are off (#792)
+You can cancel from Downloads in HushGram settings.	Bạn có thể hủy trong Tải xuống ở cài đặt HushGram.
+# context: a toast when a save waits for the ones already running, the account unknown (#792)
+Queued	Đã xếp hàng
+# context: a toast when a save waits for the ones already running, naming the account (#792)
+Queued: @%1$s	Đã xếp hàng: @%1$s
+# context: a toast when too many saves already wait their turn (#792)
+Not saved: %1$d saves are already waiting	Chưa lưu: đã có %1$d mục đang chờ
+# context: a waiting save's notification text and its line in Downloads (#792)
+Waiting for the saves before it	Đang chờ các lượt lưu trước
+# context: Feed settings: a switch under Start feed videos with sound that starts them with sound while the phone is on silent or vibrate too (#762)
+Even on silent	Kể cả khi im lặng
+# context: Summary of Even on silent, a switch under Start feed videos with sound (#762)
+Feed videos start with sound with the phone on silent or vibrate too. Only the media volume counts.	Video trong bảng feed vẫn bắt đầu có tiếng khi điện thoại ở chế độ im lặng hoặc rung. Chỉ âm lượng nội dung nghe nhìn được tính.
 2x speed for videos in the feed	2x speed for videos in the feed
 Adds a shortcut to your saved posts in the Explore tab.	Adds a shortcut to your saved posts in the Explore tab.
 Adds a speed choice to the menu on a reel.	Adds a speed choice to the menu on a reel.

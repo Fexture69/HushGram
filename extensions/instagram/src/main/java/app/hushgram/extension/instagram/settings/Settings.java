@@ -529,6 +529,14 @@ public class Settings extends BaseSettings {
             new BooleanSetting("hushgram_start_feed_videos_with_sound", FALSE);
 
     /**
+     * {@link #START_FEED_VIDEOS_WITH_SOUND} leaves the phone's ringer out of it: on silent or vibrate the
+     * first feed video still starts with its sound, as long as the media volume is up
+     * ({@link app.hushgram.extension.instagram.feed.FeedSound}). Off to start (#762).
+     */
+    public static final BooleanSetting START_FEED_VIDEOS_ON_SILENT =
+            new BooleanSetting("hushgram_start_feed_videos_on_silent", FALSE, parent(START_FEED_VIDEOS_WITH_SOUND));
+
+    /**
      * Every feed video starts with its sound off, even with the account's audio state on, which Reels
      * share, so reels keep their sound and the feed stays quiet. The account's state is left alone.
      * Wins over {@link #START_FEED_VIDEOS_WITH_SOUND} when both are on. Off to start (#718).
@@ -3479,7 +3487,7 @@ public class Settings extends BaseSettings {
     /**
      * The items left out of the menus behind the three dots on posts, reels and stories
      * ({@link app.hushgram.extension.instagram.feed.MenuItems}, #697, #707), with commas between: any
-     * of REPORT, MUTE, UNFOLLOW, NOT_INTERESTED, INTERESTED, WHY, PLAYBACK_SPEED and PLAYBACK. Nothing
+     * of {@link app.hushgram.extension.instagram.feed.MenuItems#OFFERED}, HushGram's own rows among them. Nothing
      * named is the start, so every item shows. Read each time a menu is built, so a change shows the
      * next time one opens. Stories only have Report and Mute to leave out.
      */
