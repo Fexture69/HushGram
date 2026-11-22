@@ -716,7 +716,7 @@ val hideLiveReelsPatch = bytecodePatch(
     description = "Leaves out the live broadcasts Instagram puts between reels in the Reels tab and when you swipe " +
         "through reels from Explore. Starts off. Turn it on in HushGram settings > Reels.",
 ) {
-    category("Reels")
+    category("Ads")
     dependsOn(settingsPatch, instagramExtensionPatch)
     compatibleWith(*AppCompatibilities.instagram())
 
