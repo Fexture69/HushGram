@@ -328,6 +328,52 @@ def resolve_obfuscated_identity_test_conflicts():
     subprocess.run(["git", "add", path], check=True)
     print("Resolved conflicts in ObfuscatedIdentityTest.kt using complete file versions")
 
+def resolve_patch_categories_test_conflicts():
+    path = "patches/src/test/kotlin/app/morphe/PatchCategoriesTest.kt"
+    unmerged = subprocess.run(
+        ["git", "diff", "--name-only", "--diff-filter=U"],
+        capture_output=True,
+        text=True,
+        check=True,
+    )
+    if path not in unmerged.stdout.splitlines():
+        return
+
+    ours = subprocess.run(
+        ["git", "show", f":2:{path}"],
+        capture_output=True,
+        text=True,
+        check=True,
+    ).stdout
+    upstream = subprocess.run(
+        ["git", "show", f":3:{path}"],
+        capture_output=True,
+        text=True,
+        check=True,
+    ).stdout
+    comment_pattern = re.compile(r"(?m)^    /\*\* Interface once held 43[^\n]* \*/$")
+    ours_match = comment_pattern.search(ours)
+    upstream_match = comment_pattern.search(upstream)
+    if not ours_match or not upstream_match:
+        raise ValueError(f"Could not find category guidance in {path}")
+
+    marker = "CATEGORY_GUIDANCE"
+    if comment_pattern.sub(marker, ours, count=1) != comment_pattern.sub(marker, upstream, count=1):
+        raise ValueError(f"Unexpected non-documentation conflict in {path}")
+
+    ours_comment = ours_match.group(0)[:-3].rstrip()
+    upstream_comment = upstream_match.group(0)[:-3].rstrip()
+    common = os.path.commonprefix([ours_comment, upstream_comment])
+    ours_note = ours_comment[len(common):].strip()
+    upstream_note = upstream_comment[len(common):].strip()
+    merged_comment = f"{common} {upstream_note} {ours_note} */"
+    content = upstream[:upstream_match.start()] + merged_comment + upstream[upstream_match.end():]
+
+    with open(path, "w", encoding="utf-8", newline="\n") as f:
+        f.write(content)
+    subprocess.run(["git", "add", path], check=True)
+    print("Resolved PatchCategoriesTest.kt by preserving both category notes")
+
 def resolve_neutral_defaults_settings_test_conflicts():
     """Take the upstream test implementation when the fork and upstream both change it."""
     path = "extensions/instagram/src/test/java/app/hushgram/extension/instagram/settings/NeutralDefaultsSettingsTest.java"
@@ -413,6 +459,7 @@ def main():
     resolve_data_saver_test_conflicts()
     resolve_cleanup_reels_conflicts()
     resolve_friends_tab_conflicts()
+    resolve_patch_categories_test_conflicts()
     resolve_obfuscated_identity_test_conflicts()
     resolve_neutral_defaults_settings_test_conflicts()
     resolve_patch_family_and_status_conflicts()
