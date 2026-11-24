@@ -792,6 +792,9 @@ Takes Reply off each comment in a post's or reel's comments. View more replies s
 # context: Comments: a Hide comments switch that takes the heart (the like button) and the like count under it off each comment in a comment sheet (#762).
 Hide likes on comments	Ocultar curtidas nos comentários
 Takes the heart and the like count off each comment in a post's or reel's comments.	Tira o coração e o número de curtidas de cada comentário de um post ou reel.
+# context: Comments: a Hide comments switch that takes AI labels like AI-generated profile off the line with a commenter's name and time in a comment sheet (#787). AI-generated profile is a label Instagram shows there, use this language's Instagram words for it if you know them.
+Hide AI labels on comments	Ocultar rótulos de IA nos comentários
+Takes AI-generated profile and similar AI labels off the line with a commenter's name. The name and the time stay.	Tira “Perfil gerado por IA” e rótulos de IA parecidos da linha com o nome de quem comentou. O nome e a hora ficam.
 # context: Comments: a Hide comments switch that takes the comment box off the bottom of a comment sheet (#762). Comment box is the field where you type a comment; Post is Instagram's own label on its send button, use this language's Instagram word for it.
 Hide the comment box	Ocultar a caixa de comentários
 Takes the comment box, with your picture and Post, off the bottom of a post's or reel's comments. Turn it off when you want to comment.	Tira a caixa de comentários, com sua foto e o Publicar, da parte de baixo dos comentários de um post ou reel. Desative quando quiser comentar.
@@ -916,6 +919,10 @@ The chip sits under the posts, followers and following counts.	O chip fica abaix
 A smaller chip, centered under the profile picture. A profile with no room there gets the small chip under the counts.	Um chip menor, centralizado abaixo da foto do perfil. Um perfil sem espaço ali mostra o chip pequeno abaixo dos números.
 Turn on Show it as a chip to use this choice.	Ative Mostrar como chip para usar esta opção.
 Turn on Show if a profile follows you to use this choice.	Ative Mostrar se um perfil segue você para usar esta opção.
+# context: Profiles: switch under Show if a profile follows you. A green check or red cross by the menu in a profile's top bar (#842)
+Show it as an icon at the top	Mostrar como ícone no topo
+# context: Profiles: summary of Show it as an icon at the top. The chip is the Show it as a chip label
+Puts a green check by the menu at the top of the profile when they follow you and a red cross when they don't, instead of the words or the chip. Tap it to see the rest of what Instagram has said about you two.	Coloca um visto verde ao lado do menu no topo do perfil quando a conta segue você e um X vermelho quando não segue, no lugar do texto ou do chip. Toque nele para ver todo o resto que o Instagram disse sobre vocês dois.
 The Add comment bar under a reel you open from a profile's reposts. The comment button still opens the comments.	A barra Adicionar comentário abaixo de um reel que você abre a partir dos reposts de um perfil. O botão de comentários continua abrindo os comentários.
 Hide the comment bar on all reels	Ocultar a barra de comentários em todos os reels
 The Add a comment bar under every reel, including the ones in the Reels tab. The comment button still opens the comments.	A barra Adicionar um comentário abaixo de cada reel, inclusive os da aba Reels. O botão de comentários continua abrindo os comentários.
@@ -969,6 +976,8 @@ Turns Instagram's blue, on Follow buttons, links and the like, into the color yo
 Badges in the accent color	Selos na cor de destaque
 The red dots and counts for new messages and notifications take the color you picked. Restart Instagram to see the change.	Os pontos e números vermelhos de novas mensagens e notificações ficam na cor que você escolheu. Reinicie o Instagram para ver a mudança.
 Icons in the accent color	Ícones na cor de destaque
+Reel buttons in the accent color	Botões dos reels na cor de destaque
+The buttons beside a reel and their counts take the color you picked instead of white. Restart Instagram to see the change.	Os botões ao lado de um reel e as contagens deles ficam na cor que você escolheu em vez de branco. Reinicie o Instagram para ver a mudança.
 Instagram's icons on the top bar, the tab bar and under posts take the color you picked. Text stays as it is. Restart Instagram to see the change.	Os ícones do Instagram na barra superior, na barra de abas e embaixo dos posts ficam na cor que você escolheu. O texto continua como está. Reinicie o Instagram para ver a mudança.
 Story rings in the accent color	Anéis de stories na cor de destaque
 Story rings take the color you picked instead of Instagram's gradient. A few other gradients share those colors and change with them. Restart Instagram to see the change.	Os anéis dos stories ficam na cor que você escolheu em vez do degradê do Instagram. Alguns outros degradês usam essas cores e mudam junto. Reinicie o Instagram para ver a mudança.
@@ -1018,7 +1027,7 @@ Half a second	Meio segundo
 1.5 seconds	1,5 segundo
 On this Instagram build it covers %1$d of %2$d routes. The diagnostic report lists the rest.	Nesta versão do Instagram, cobre %1$d de %2$d caminhos. O relatório de diagnóstico lista o restante.
 Hide suggested accounts in Messages	Ocultar contas sugeridas nas Mensagens
-Takes the accounts Instagram suggests off the bottom of your messages. Your chats and follow requests stay. Restart Instagram to see the change.	Tira da parte de baixo das suas mensagens as contas que o Instagram sugere. Suas conversas e as solicitações para seguir continuam lá. Reinicie o Instagram para ver a mudança.
+Takes the accounts Instagram suggests off the bottom of your messages and out of the search there. Your chats and follow requests stay. Restart Instagram to see the change.	Tira as contas que o Instagram sugere da parte de baixo das suas mensagens e da busca nelas. Suas conversas e as solicitações para seguir continuam lá. Reinicie o Instagram para ver a mudança.
 # context: switch on the Messages page after Hide suggested accounts in Messages; New message is Instagram's own label for the pencil button in the inbox top bar and the screen it opens (#762)
 Hide the New message button	Ocultar o botão Nova mensagem
 Takes the pencil button for a new message off the top of your messages.	Tira o botão de lápis para uma nova mensagem do topo das suas mensagens.
@@ -1306,6 +1315,8 @@ Takes the heart out of the column of buttons beside a reel, and the like count u
 Hide the Comment button on reels	Ocultar o botão Comentar nos reels
 Takes the Comment button out of the column of buttons beside a reel, and the count under it. The comment bar under a reel has its own switch.	Tira o botão Comentar da coluna de botões ao lado de um reel, junto com o número embaixo dele. A barra de comentários embaixo de um reel tem uma chave própria.
 Hide the Save button on reels	Ocultar o botão Salvar nos reels
+Hide the More button on reels	Ocultar o botão Mais nos reels
+Takes the three dots, and the menu they open, off the bottom of the column of buttons beside a reel. Repost and Share have their own switches under Sharing.	Tira os três pontinhos, e o menu que eles abrem, da parte de baixo da coluna de botões ao lado de um reel. Repostar e Compartilhar têm chaves próprias em Compartilhamento.
 Burn-in guard	Proteção contra burn-in
 Dim when idle	Escurecer quando parado
 Dim when idle and shift	Escurecer quando parado e mover
@@ -1453,6 +1464,7 @@ On a carousel, the download icon saves all of its pages at once instead of askin
 Hide reels by caption words	Ocultar reels por palavras da legenda
 Also on Home	Também no Início
 Leaves out posts on Home whose caption holds a word or phrase from the list too. Pull down on Home to refresh after changing it.	Tira também do Início os posts cuja legenda tem uma palavra ou frase da lista. Puxe o Início para baixo para atualizar depois de mudar.
+Leaves out posts on Home that use a hidden sound too. Pull down on Home to refresh after changing it.	Tira também do Início os posts que usam um som oculto. Puxe o Início para baixo para atualizar depois de mudar.
 Leaves out reels in the Reels tab whose caption holds a word or phrase from the list below. A reel you open yourself still plays.	Deixa de fora da aba Reels os reels cuja legenda tem uma palavra ou frase da lista abaixo. Um reel que você mesmo abre continua tocando.
 Blocked words	Palavras bloqueadas
 Words or phrases, with a comma or a new line between them. Capital letters don't matter, a hashtag works too, and an @name hides that account's posts.	Palavras ou frases, separadas por vírgula ou por uma nova linha. Maiúsculas não fazem diferença, uma hashtag também funciona, e um @nome oculta as publicações dessa conta.
@@ -1744,6 +1756,11 @@ Find a post, reel, story or profile you saw before.	Encontre uma publicação, u
 Recently seen	Vistos recentemente
 Open profile	Abrir perfil
 Remove from history	Remover do histórico
+# context: the long press menu on a row of the viewing history page (#228). Open opens the post, reel, story's person or profile in Instagram. The account is whoever posted the row, or the profile itself. Removed %d from history is a short toast with how many rows went.
+Show all from this account	Ver tudo desta conta
+Open	Abrir
+Remove all from this account	Remover tudo desta conta
+Removed %d from history	%d removidos do histórico
 # context: the viewing history page's button that switches its rows to a grid of big pictures, then back
 Show as grid	Mostrar em grade
 Show as list	Mostrar em lista
@@ -1922,6 +1939,30 @@ Minimum views	Mínimo de visualizações
 Reels with fewer views than this are left out. Type a whole number, or 0 to not look at views.	Reels com menos visualizações que isso ficam de fora. Digite um número inteiro, ou 0 para não considerar visualizações.
 Fewer than %1$s views	Menos de %1$s visualizações
 Minimum likes	Mínimo de curtidas
+Maximum likes	Máximo de curtidas
+Minimum comments	Mínimo de comentários
+Maximum comments	Máximo de comentários
+Minimum shares	Mínimo de compartilhamentos
+Maximum shares	Máximo de compartilhamentos
+Minimum saves	Mínimo de salvamentos
+Maximum saves	Máximo de salvamentos
+Reels with more likes than this are left out. Type a whole number, or 0 for no maximum.	Reels com mais curtidas que isso ficam de fora. Digite um número inteiro, ou 0 para não ter máximo.
+Reels with fewer comments than this are left out. Type a whole number, or 0 to not look at comments.	Reels com menos comentários que isso ficam de fora. Digite um número inteiro, ou 0 para não considerar comentários.
+Reels with more comments than this are left out. Type a whole number, or 0 for no maximum.	Reels com mais comentários que isso ficam de fora. Digite um número inteiro, ou 0 para não ter máximo.
+Reels with fewer shares than this are left out. Type a whole number, or 0 to not look at shares.	Reels com menos compartilhamentos que isso ficam de fora. Digite um número inteiro, ou 0 para não considerar compartilhamentos.
+Reels with more shares than this are left out. Type a whole number, or 0 for no maximum.	Reels com mais compartilhamentos que isso ficam de fora. Digite um número inteiro, ou 0 para não ter máximo.
+Reels with fewer saves than this are left out. Type a whole number, or 0 to not look at saves.	Reels com menos salvamentos que isso ficam de fora. Digite um número inteiro, ou 0 para não considerar salvamentos.
+Reels with more saves than this are left out. Type a whole number, or 0 for no maximum.	Reels com mais salvamentos que isso ficam de fora. Digite um número inteiro, ou 0 para não ter máximo.
+More than %1$s likes	Mais de %1$s curtidas
+Comments aren't looked at	Comentários não são considerados
+Fewer than %1$s comments	Menos de %1$s comentários
+More than %1$s comments	Mais de %1$s comentários
+Shares aren't looked at	Compartilhamentos não são considerados
+Fewer than %1$s shares	Menos de %1$s compartilhamentos
+More than %1$s shares	Mais de %1$s compartilhamentos
+Saves aren't looked at	Salvamentos não são considerados
+Fewer than %1$s saves	Menos de %1$s salvamentos
+More than %1$s saves	Mais de %1$s salvamentos
 Reels with fewer likes than this are left out. Type a whole number, or 0 to not look at likes.	Reels com menos curtidas que isso ficam de fora. Digite um número inteiro, ou 0 para não considerar curtidas.
 Fewer than %1$s likes	Menos de %1$s curtidas
 Likes aren't looked at	Curtidas não são consideradas
@@ -2133,6 +2174,28 @@ Who stopped following you, after you open your Followers list	Quem deixou de seg
 Notify me of unfollowers	Avisar quem deixar de me seguir
 # context: that switch summary (#492)
 After you scroll your own Followers list to the end, posts a notification naming who has left since last time. Nothing extra is asked of Instagram.	Depois que você rola sua lista de seguidores até o fim, mostra uma notificação com quem saiu desde a última vez. Nada extra é pedido ao Instagram.
+# context: settings switch title on the Profiles page (#847); holding a tab (Followers, Following) at the top of a follow list filters it
+Hold a follow list's tabs to filter it	Toque e segure as abas de uma lista para filtrá-la
+# context: that switch's summary (#847); Followers and Following are Instagram's own list names
+In any Followers or Following list, hold a tab at the top to show everyone, only public accounts or only private ones. Accounts Instagram hasn't said either way about stay.	Em qualquer lista Seguidores ou Seguindo, toque e segure uma aba no topo para mostrar todos, só contas públicas ou só privadas. Contas sobre as quais o Instagram não disse nada continuam.
+# context: settings switch title on the Profiles page (#847): dates on your own Followers and Following lists
+Follow dates in your lists	Datas de seguir nas suas listas
+# context: that switch's summary (#847)
+Your own Followers and Following lists show since when each account follows you, or you them. Dates start the first time you scroll a list to the end with this on, so accounts already there get none.	Suas próprias listas Seguidores e Seguindo mostram desde quando cada conta segue você, ou você a ela. As datas começam na primeira vez que você rola uma lista até o fim com isto ativado, então contas que já estavam lá não recebem nenhuma.
+# context: a choice in the follow list filter dialog (#847): only public accounts
+Public accounts	Contas públicas
+# context: a choice in the follow list filter dialog (#847): only private accounts
+Private accounts	Contas privadas
+# context: title of the follow list filter dialog, whose choices are Everyone, Public accounts and Private accounts (#847)
+Show in follow lists	Mostrar nas listas de seguidores
+# context: toast after picking Everyone in the follow list filter (#847)
+Showing everyone	Mostrando todos
+# context: toast after picking Public accounts in the follow list filter (#847)
+Showing public accounts	Mostrando contas públicas
+# context: toast after picking Private accounts in the follow list filter (#847)
+Showing private accounts	Mostrando contas privadas
+# context: before a follow list row's name: since when that follow started, %s is a short date like Mar 3 (#847)
+Since %s	Desde %s
 # context: settings switch title and button label, the row Instagram calls About this account (#492)
 About this account	Sobre esta conta
 About this account button	Botão Sobre esta conta
@@ -2410,6 +2473,8 @@ Removed the folder %s	Pasta %s removida
 Renamed the folder to %s	Pasta renomeada para %s
 # context: row in the long press menu on an account on the Saved profiles page, and title of the folder checklist it opens; an account can be in several folders (#687)
 Choose folders	Escolher pastas
+# context: a row in the menu on a saved account's profile (#629) naming the Saved profiles folders it's in, comma separated; tapping it opens the folder picker.
+Folders: %s	Pastas: %s
 # context: toast after Choose folders with every folder unticked; %s is the account's username, which stays saved (#687)
 @%s is in no folder now	@%s agora não está em nenhuma pasta
 # context: toast after Choose folders leaves the account in one folder; %1$s is its username, %2$s the folder's name (#687)
@@ -2538,10 +2603,18 @@ Shows the time played and the video's length over the seek bar on feed videos, l
 Show the time left	Mostrar o tempo restante
 # context: Summary of Show the time left; -0:33 / 0:45 is an example time, keep the digits and the minus sign as they are (#711)
 The time on the seek bar counts down what's left of the video, like -0:33 / 0:45. A tap on the time switches back.	O tempo na barra de progresso conta para trás o que falta do vídeo, como -0:33 / 0:45. Um toque no tempo volta ao normal.
+# context: Feed settings: a switch under Time on the seek bar that moves the time from the middle of the bar to the corner under Instagram's tags button (#711)
+Time under the tags button	Tempo abaixo do botão de marcações
+# context: Summary of Time under the tags button (#711)
+Puts the time in the corner under the tags button instead of the middle of the bar.	Coloca o tempo no canto, abaixo do botão de marcações, em vez do meio da barra.
 # context: Feed settings: a switch under Tap a feed video to pause it that keeps any tap on a feed video from opening Reels (#706)
 Taps on feed videos stay in the feed	Toques em vídeos do feed ficam no feed
 # context: Summary of Taps on feed videos stay in the feed; Tap a feed video to pause it is the switch above it, use its translation (#706)
 A tap on a feed video, or on the screen it shows when it ends, no longer opens it full screen in Reels. Tap a feed video to pause it still pauses it, and the buttons on that screen still work.	Um toque em um vídeo do feed, ou na tela que ele mostra ao terminar, não o abre mais em tela cheia no Reels. Tocar em um vídeo do feed para pausar continua pausando, e os botões dessa tela continuam funcionando.
+# context: Feed settings: a switch under Tap a feed video to pause it that pauses only for a tap in the middle of the video (#706)
+Only the middle pauses it	Só o centro pausa
+# context: Summary of Only the middle pauses it; Taps on feed videos stay in the feed is another switch, use its translation (#706)
+Only a tap in the middle of the video, where Instagram puts its play button, pauses or plays it. A tap anywhere else opens it in Reels, unless Taps on feed videos stay in the feed is on.	Só um toque no centro do vídeo, onde o Instagram coloca o botão de reproduzir, pausa ou reproduz o vídeo. Um toque em qualquer outro lugar abre o vídeo no Reels, a menos que Toques em vídeos do feed ficam no feed esteja ativado.
 # context: Item in Items in the three-dot menus under Feed: Instagram's Report row in the menus behind the three dots (#697)
 Report	Denunciar
 # context: Item in Items in the three-dot menus under Feed: Instagram's Unfollow row (#697)
@@ -2576,6 +2649,10 @@ Keeps 2x only when you hold the video for about 3 seconds. Let go sooner and it 
 Keep the name while you hold	Manter o nome ao segurar
 # context: Summary of Keep the name while you hold, a switch under Hold for 2x on feed videos (#552)
 The name over a feed video stays while you hold it for 2x. Instagram's 2x and time labels don't show then.	O nome sobre um vídeo do feed continua lá enquanto você o segura para 2x. Os rótulos de 2x e de tempo do Instagram não aparecem.
+# context: Title of a switch under Hold for 2x on feed videos (#639)
+Hold the middle to pause it	Segurar o centro pausa
+# context: Summary of Hold the middle to pause it, a switch under Hold for 2x on feed videos (#639)
+Holding the middle of a feed video pauses it until you let go. Hold its left or right side for 2x.	Segurar o centro de um vídeo do feed pausa o vídeo até você soltar. Segure o lado esquerdo ou direito para 2x.
 # context: Stories settings: title and dialog title of the list under Story ring size that picks how thick story rings are drawn (#528)
 Ring thickness	Espessura dos anéis
 # context: Stories settings: the Ring thickness choice that keeps the thickness Instagram gives story rings (#528)
@@ -2787,6 +2864,7 @@ Record this call	Gravar esta chamada
 Stop recording	Parar de gravar
 # context: a toast when the Record button can't start a recording (#732)
 Couldn't start recording this call	Não foi possível começar a gravar a chamada
+Record calls closed Instagram, so it's off now.	Gravar chamadas fechou o Instagram e foi desligado.
 # context: a toast when a finished call recording can't be saved to the phone (#732)
 Couldn't save the call recording	Não foi possível salvar a gravação da chamada
 # context: a toast when a recording ends with no sound in it (#732)
@@ -2809,6 +2887,34 @@ Even on silent	Mesmo no silencioso
 Feed videos start with sound with the phone on silent or vibrate too. Only the media volume counts.	Os vídeos do feed começam com som mesmo com o celular no silencioso ou no vibrar. Só o volume de mídia conta.
 Also in search	Também na pesquisa
 Takes rows of the Explore grid and of search results out when a post in them holds a word or phrase from the list, or comes from an account the list names with @.	Tira linhas da grade do Explorar e dos resultados da pesquisa quando um post nelas contém uma palavra ou frase da lista, ou é de uma conta que a lista cita com @.
+Holding a post's Share button shows a row of people to send it to. Instagram shows four, and this shows as many as fit across the screen.	Segurar o botão Compartilhar de uma publicação mostra uma fileira de pessoas para quem enviar. O Instagram mostra quatro, e isto mostra quantas couberem na largura da tela.
+More people when you hold Share	Mais pessoas ao segurar Compartilhar
+Copy hashtags	Copiar hashtags
+Hashtags	Hashtags
+Hashtags copied	Hashtags copiadas
+Couldn't copy the hashtags	Não deu para copiar as hashtags
+Translate caption	Traduzir legenda
+No app here can translate it	Nenhum app pode traduzir
+# context: Reels switch Hide reels you've seen and its summary (#830)
+Hide reels you've seen	Ocultar reels que você já viu
+Leaves reels you've already watched out of the Reels tab when Instagram shows them again. Reels you open from a profile or a chat still play. The last 3000 are kept on this phone.	Tira da aba Reels os reels que você já assistiu quando o Instagram os mostra de novo. Reels que você abre de um perfil ou de uma conversa continuam tocando. Os últimos 3000 ficam salvos neste celular.
+# context: Messages switch Chat groups, its chat menu row, dialogs and toasts (discussion #838)
+Chat groups	Grupos de conversas
+Long press a chat and tap Move to group to put it in a group you name. It leaves your main inbox. Long press the Messages button to show one group, or all chats. Groups stay on this phone.	Toque e segure uma conversa e toque em Mover para um grupo para colocá-la num grupo com o nome que você quiser. Ela sai da sua caixa de entrada principal. Toque e segure o botão Mensagens para ver um grupo ou todas as conversas. Os grupos ficam neste celular.
+Move to group	Mover para um grupo
+Group or hide chat	Agrupar ou ocultar conversa
+No group	Sem grupo
+New group	Novo grupo
+Group name	Nome do grupo
+All chats	Todas as conversas
+Showing all chats	Mostrando todas as conversas
+Showing %1$s	Mostrando %1$s
+%1$s is in %2$s	%1$s está em %2$s
+%1$s is back in your inbox	%1$s voltou para a caixa de entrada
+Long press a chat to group it	Toque e segure uma conversa para agrupá-la
+# context: Stories switch Story rings on saved posts and its summary, for posts on the Saved page (#790)
+Story rings on saved posts	Anéis de stories em posts salvos
+Posts you saved show the story ring around the author's picture, like Home does, and a tap on it opens their story. It only uses stories Instagram has already loaded.	Os posts que você salvou mostram o anel do story em volta da foto do autor, como no Início, e um toque nele abre o story. Só usa stories que o Instagram já carregou.
 2x speed for videos in the feed	2x speed for videos in the feed
 Adds a shortcut to your saved posts in the Explore tab.	Adds a shortcut to your saved posts in the Explore tab.
 Adds a speed choice to the menu on a reel.	Adds a speed choice to the menu on a reel.

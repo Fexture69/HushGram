@@ -11,7 +11,14 @@ import static app.hushgram.extension.instagram.settings.HushgramPreferenceFragme
 import static app.hushgram.extension.instagram.settings.HushgramPreferenceFragment.commentsPerThousandRow;
 import static app.hushgram.extension.instagram.settings.HushgramPreferenceFragment.likesPerThousandRow;
 import static app.hushgram.extension.instagram.settings.HushgramPreferenceFragment.longestReelRow;
+import static app.hushgram.extension.instagram.settings.HushgramPreferenceFragment.maxCommentsRow;
+import static app.hushgram.extension.instagram.settings.HushgramPreferenceFragment.maxLikesRow;
+import static app.hushgram.extension.instagram.settings.HushgramPreferenceFragment.maxSavesRow;
+import static app.hushgram.extension.instagram.settings.HushgramPreferenceFragment.maxSharesRow;
 import static app.hushgram.extension.instagram.settings.HushgramPreferenceFragment.maxViewsRow;
+import static app.hushgram.extension.instagram.settings.HushgramPreferenceFragment.minCommentsRow;
+import static app.hushgram.extension.instagram.settings.HushgramPreferenceFragment.minSavesRow;
+import static app.hushgram.extension.instagram.settings.HushgramPreferenceFragment.minSharesRow;
 import static app.hushgram.extension.instagram.settings.HushgramPreferenceFragment.minLikesRow;
 import static app.hushgram.extension.instagram.settings.HushgramPreferenceFragment.minViewsRow;
 import static app.hushgram.extension.instagram.settings.HushgramPreferenceFragment.oldestReelRow;
@@ -115,8 +122,15 @@ final class ReelsCategory {
             reels.add(minViewsRow(context));
             reels.add(maxViewsRow(context));
             reels.add(minLikesRow(context));
+            reels.add(maxLikesRow(context));
             reels.add(likesPerThousandRow(context));
+            reels.add(minCommentsRow(context));
+            reels.add(maxCommentsRow(context));
             reels.add(commentsPerThousandRow(context));
+            reels.add(minSharesRow(context));
+            reels.add(maxSharesRow(context));
+            reels.add(minSavesRow(context));
+            reels.add(maxSavesRow(context));
             reels.add(shortestReelRow(context));
             reels.add(longestReelRow(context));
             reels.add(oldestReelRow(context));
@@ -127,6 +141,11 @@ final class ReelsCategory {
                         L10n.t("Leaves out suggested posts on Home outside the same numbers too. "
                                 + "Pull down on Home to refresh after changing it.")));
             }
+        }
+        if (build.contains(PatchFamily.SEEN_REELS)) {
+            reels.add(toggle(context, Settings.HIDE_SEEN_REELS, L10n.t("Hide reels you've seen"),
+                    L10n.t("Leaves reels you've already watched out of the Reels tab when Instagram shows them again. "
+                            + "Reels you open from a profile or a chat still play. The last 3000 are kept on this phone.")));
         }
         if (build.contains(PatchFamily.EXPAND_CAPTIONS)) {
             reels.add(toggle(context, Settings.EXPAND_REEL_CAPTIONS, L10n.t("Expand captions on reels"),
@@ -205,6 +224,9 @@ final class ReelsCategory {
             reels.add(toggle(context, Settings.HIDE_REEL_SAVE_BUTTON, L10n.t("Hide the Save button on reels"),
                     L10n.t("Takes the Save button out of the column of buttons beside a reel, and the count under it. "
                             + "Posts in your feed keep theirs.")));
+            reels.add(toggle(context, Settings.HIDE_REEL_MORE_BUTTON, L10n.t("Hide the More button on reels"),
+                    L10n.t("Takes the three dots, and the menu they open, off the bottom of the column of buttons "
+                            + "beside a reel. Repost and Share have their own switches under Sharing.")));
             reels.add(toggle(context, Settings.HIDE_REEL_LIKE_COUNT, L10n.t("Hide like counts on reels"),
                     L10n.t("Takes away the number under the heart beside a reel. The heart stays.")));
             reels.add(toggle(context, Settings.HIDE_REEL_COMMENT_COUNT, L10n.t("Hide comment counts on reels"),
@@ -463,6 +485,11 @@ final class ReelsCategory {
                     L10n.t("Puts a music icon beside a reel. Tap it and the Reels tab skips other reels using that "
                             + "sound. Tap it again to bring them back.")));
             reels.add(page.hiddenSoundsRow(context));
+            if (PatchFamily.feedTypesInBuild()) {
+                reels.add(toggle(context, Settings.HIDE_SOUND_HOME, L10n.t("Also on Home"),
+                        L10n.t("Leaves out posts on Home that use a hidden sound too. "
+                                + "Pull down on Home to refresh after changing it.")));
+            }
             reels.add(toggle(context, Settings.TEXT_BUTTON_ON_REELS, L10n.t("Copy text button on reels"),
                     L10n.t("Puts a Lens icon beside a reel. Tap it and Google Lens opens on what's showing, so you "
                             + "can select and copy its text.")));

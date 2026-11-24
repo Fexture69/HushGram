@@ -463,6 +463,14 @@ public final class SettingsStatus {
         return false;
     }
 
+    public static boolean seenReels() {
+        return false;
+    }
+
+    public static boolean savedStoryRings() {
+        return false;
+    }
+
     public static boolean commentCopy() {
         return false;
     }
@@ -512,6 +520,11 @@ public final class SettingsStatus {
 
     /** Rewritten by Hide comments when the heart and like count on a comment row were found too. */
     public static boolean commentLikes() {
+        return false;
+    }
+
+    /** Rewritten by Hide comments when the AI label on a comment's name line was found too. */
+    public static boolean commentAiLabel() {
         return false;
     }
 

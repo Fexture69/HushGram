@@ -96,7 +96,9 @@ val friendshipStatusPatch = bytecodePatch(
     description = "Adds Follows you or Doesn't follow you beside the name on someone's profile. Other switches " +
         "add a chip and mark accounts on your Following list that don't follow you back, in words or as a red " +
         "cross on the profile picture with a green check for those that do, and Recent unfollowers " +
-        "shows who left your Followers list, with a Follower history of who left, came back or is new. The chip is blue for " +
+        "shows who left your Followers list, with a Follower history of who left, came back or is new. Holding a follow " +
+        "list's tabs can show only its public or private accounts, and your own lists can show since when each follow " +
+        "started, counted from when you turn that on. The chip is blue for " +
         "Follows you, green for Following each other and red for Doesn't follow you, and it can go small under " +
         "the profile picture. Tap the chip to see the rest of what Instagram says about you two, like Close " +
         "Friends, Favorites, mutes, restrictions and pending follow requests. On by default. Turn it " +
@@ -300,7 +302,8 @@ internal class ProfileUser(
  * that string names, the pronouns slot: a field read into a register that's asked for its view,
  * which is cast to a TextView, given its text and shown, and read once more into a register that's
  * hidden straight away. Where the slot is read before the check that there are pronouns (456), that
- * check's branch lands on the hide for a profile with a name, which must be there too (#727). The
+ * check's branch lands on the hide for a profile with a name, or on up to two moves of the
+ * visibility into place right before it (456.1's 32-bit builds), which must be there too (#727). The
  * binder's one parameter whose class has a [VIEW_MODEL] field is the
  * header and the view model's one [USER] field the profile's user. Whether the account follows you
  * comes from the user model's one getter answering a [RELATIONSHIP] and loading
@@ -366,13 +369,21 @@ internal fun BytecodePatchContext.findProfileName(): ProfileName {
         ?: refuse("expected one place in $where's $BIND_FULL_NAME section hiding the slot, found ${hiddenSites.size}")
     val hides = mutableListOf(hidden to code[hidden].namedRegisters().first())
     // A profile with a name and no pronouns takes the check's branch, and only that hide runs for it (#727).
+    // 456.1's armeabi-v7a and x86 builds land on a move of the visibility into place, right before the hide.
     shownSite.guard?.let { guard ->
         val addresses = code.runningFold(0) { address, instruction -> address + instruction.codeUnits }
         val target = addresses.indexOf(addresses[guard] + (code[guard] as OffsetInstruction).codeOffset)
-        if (target !in code.indices || !code[target].isSetVisibility(slot, shownSite.slot)) {
+        val hide = if (target in code.indices) {
+            (target until minOf(target + 3, code.size)).firstOrNull { at ->
+                code[at].opcode !in moves || (code[at] as OneRegisterInstruction).registerA == shownSite.slot
+            }
+        } else {
+            null
+        }
+        if (hide == null || !code[hide].isSetVisibility(slot, shownSite.slot)) {
             refuse("expected the pronouns check in $where's $BIND_FULL_NAME section to branch to the slot being hidden")
         }
-        hides += target to shownSite.slot
+        hides += hide to shownSite.slot
     }
 
     val headers = binder.parameterTypes.withIndex().mapNotNull { (index, parameter) ->

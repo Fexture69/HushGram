@@ -119,6 +119,10 @@ final class ProfilesCategory {
                                 + "see everything else Instagram has said about you two, like Close Friends, mutes "
                                 + "and restrictions.")));
                 profiles.addPreference(followLabelPlaceRow(context));
+                profiles.addPreference(toggle(context, Settings.FOLLOW_ICON_AT_TOP, L10n.t("Show it as an icon at the top"),
+                        L10n.t("Puts a green check by the menu at the top of the profile when they follow you and a red "
+                                + "cross when they don't, instead of the words or the chip. Tap it to see the rest of what "
+                                + "Instagram has said about you two.")));
                 if (PatchFamily.followingListMarkInBuild()) {
                     profiles.addPreference(toggle(context, Settings.MARK_FOLLOWING_LIST, L10n.t("Mark who doesn't follow you back"),
                             L10n.t("On your own Following list, adds Doesn't follow you before the name of each account that "
@@ -152,6 +156,13 @@ final class ProfilesCategory {
                         return true;
                     });
                     profiles.addPreference(mark(clearUnfollowers, SettingsIcons.DELETE));
+                    profiles.addPreference(toggle(context, Settings.FOLLOW_LIST_FILTER, L10n.t("Hold a follow list's tabs to filter it"),
+                            L10n.t("In any Followers or Following list, hold a tab at the top to show everyone, only public "
+                                    + "accounts or only private ones. Accounts Instagram hasn't said either way about stay.")));
+                    profiles.addPreference(toggle(context, Settings.FOLLOW_DATES, L10n.t("Follow dates in your lists"),
+                            L10n.t("Your own Followers and Following lists show since when each account follows you, or you "
+                                    + "them. Dates start the first time you scroll a list to the end with this on, so "
+                                    + "accounts already there get none.")));
                 }
             }
             if (build.contains(PatchFamily.ASK_BEFORE_FOLLOW)) {
