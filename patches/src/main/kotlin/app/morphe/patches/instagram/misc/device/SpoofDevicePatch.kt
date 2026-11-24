@@ -85,7 +85,7 @@ val spoofDevicePatch = bytecodePatch(
         "after changing it. Starts off. Turn it on in HushGram settings > Ads and privacy.",
     default = true,
 ) {
-    category("Privacy")
+    category("Settings")
     dependsOn(settingsPatch, instagramExtensionPatch)
     compatibleWith(*AppCompatibilities.instagram())
 

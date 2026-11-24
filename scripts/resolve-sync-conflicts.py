@@ -265,29 +265,68 @@ def resolve_friends_tab_conflicts():
 
 def resolve_obfuscated_identity_test_conflicts():
     path = "patches/src/test/kotlin/app/morphe/ObfuscatedIdentityTest.kt"
-    if not os.path.exists(path):
+    unmerged = subprocess.run(
+        ["git", "diff", "--name-only", "--diff-filter=U"],
+        capture_output=True,
+        text=True,
+        check=True,
+    )
+    if path not in unmerged.stdout.splitlines():
         return
-    with open(path, "r", encoding="utf-8") as f:
-        content = f.read()
-    if "<<<<<<<" in content:
-        pattern = re.compile(r'<<<<<<< [^\n]*\n(.*?)\n=======\n(.*?)\n>>>>>>> [^\n]*\n', re.DOTALL)
-        def repl(m):
-            head_part = m.group(1)
-            up_part = m.group(2)
-            if "REAL_NAMES" in head_part or "REAL_NAMES" in up_part:
-                names = []
-                for s in re.findall(r'"([^"]+)"', head_part + "\n" + up_part):
-                    if s not in names:
-                        names.append(s)
-                names_str = ", ".join(f'"{s}"' for s in names)
-                return f"        val REAL_NAMES = setOf({names_str})\n"
-            return up_part + "\n"
 
-        new_content = pattern.sub(repl, content)
-        with open(path, "w", encoding="utf-8") as f:
-            f.write(new_content)
-        subprocess.run(["git", "add", path], check=True)
-        print("Resolved conflicts in ObfuscatedIdentityTest.kt")
+    def stage_content(stage):
+        return subprocess.run(
+            ["git", "show", f":{stage}:{path}"],
+            capture_output=True,
+            text=True,
+            check=True,
+        ).stdout
+
+    ours = stage_content(2)
+    upstream = stage_content(3)
+
+    def real_names(source):
+        match = re.search(r'(?m)^(\s*val REAL_NAMES\s*=\s*setOf\()(.*)(\))\s*$', source)
+        if not match:
+            raise ValueError(f"Could not find REAL_NAMES set in {path}")
+        return match, re.findall(r'"([^"]+)"', match.group(2))
+
+    upstream_match, upstream_names = real_names(upstream)
+    _, our_names = real_names(ours)
+    names = list(dict.fromkeys(upstream_names + our_names))
+    names_line = (
+        upstream_match.group(1)
+        + ", ".join(f'"{name}"' for name in names)
+        + upstream_match.group(3)
+    )
+    content = upstream[:upstream_match.start()] + names_line + upstream[upstream_match.end():]
+
+    method_start = "    fun `real names of the same shape are not`() {"
+
+    def method_assertions(source):
+        start = source.find(method_start)
+        if start < 0:
+            raise ValueError(f"Could not find real-name assertions in {path}")
+        body_start = source.find("\n", start) + 1
+        method_end = re.search(r"(?m)^    }$", source[body_start:])
+        if not method_end:
+            raise ValueError(f"Could not find end of real-name assertions in {path}")
+        body_end = body_start + method_end.start()
+        body = source[body_start:body_end]
+        assertions = re.findall(r"(?m)^\s*assertTrue\(identitiesIn\(.*$", body)
+        return body_start, body_end, body, assertions
+
+    body_start, body_end, body, upstream_assertions = method_assertions(content)
+    _, _, _, our_assertions = method_assertions(ours)
+    added_assertions = [line for line in our_assertions if line not in upstream_assertions]
+    if added_assertions:
+        body = body.rstrip() + "\n" + "\n".join(added_assertions) + "\n"
+        content = content[:body_start] + body + content[body_end:]
+
+    with open(path, "w", encoding="utf-8", newline="\n") as f:
+        f.write(content)
+    subprocess.run(["git", "add", path], check=True)
+    print("Resolved conflicts in ObfuscatedIdentityTest.kt using complete file versions")
 
 def resolve_neutral_defaults_settings_test_conflicts():
     """Take the upstream test implementation when the fork and upstream both change it."""

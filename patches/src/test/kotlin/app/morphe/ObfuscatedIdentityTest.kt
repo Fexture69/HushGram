@@ -137,6 +137,9 @@ class ObfuscatedIdentityTest {
          * Names that match a shape above and are nobody's invention: the patch category, framework
          * members compared by name, file extensions, the label Copy bio gives the clipboard, the
          * encoder bitrate mode and the AV1 codec the converted-save report names, the first tab
-        val REAL_NAMES = setOf("Ads", "All", "App", "Bio", "CBR", "AV1", "ART", "add", "get", "put", "run", "id", "raw", "mp3", "mp4", "m4a", "m4v", "ALL")
+         * of the viewing history, the Saved screen's All tab Instagram names in its tab list, and the
+         * artist tag in a saved MP4's metadata.
+         */
+        val REAL_NAMES = setOf("Ads", "All", "ALL", "App", "ART", "Bio", "CBR", "AV1", "add", "get", "put", "run", "id", "raw", "mp3", "mp4", "m4a", "m4v")
     }
 }
