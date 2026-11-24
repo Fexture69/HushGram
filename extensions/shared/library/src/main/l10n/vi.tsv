@@ -1801,6 +1801,12 @@ Instagram gradient on dark	Instagram chuyển sắc trên nền tối
 Retro Instagram	Instagram cổ điển
 Menu button on Home's header	Nút menu ở đầu trang chủ
 Adds a menu button at the top of Home with your viewing history, Ghost mode and HushGram settings. Restart Instagram to see the change.	Thêm nút menu ở đầu trang chủ với lịch sử đã xem, Chế độ ẩn và cài đặt HushGram. Hãy khởi động lại Instagram để thấy thay đổi.
+# context: entry of the menu that the menu button on Home's header opens; starts Instagram's own log out (#850)
+Log out	Đăng xuất
+# context: Tab bar settings: switch that adds Log out to the list of the menu button on Home's header (#850)
+Log out in Home's menu	Đăng xuất trong menu trang chủ
+# context: that switch summary (#850)
+Adds Log out after HushGram settings in the list the menu button on Home's header opens. It starts the same Log out as Instagram's own settings.	Thêm Đăng xuất sau cài đặt HushGram trong danh sách mà nút menu ở đầu trang chủ mở ra. Nó bắt đầu cùng quy trình đăng xuất như trong cài đặt của Instagram.
 History button on Home's header	Nút lịch sử ở đầu trang chủ
 Adds a clock at the top of Home that opens your viewing history in one tap. Restart Instagram to see the change.	Thêm một đồng hồ ở đầu trang chủ để mở lịch sử đã xem chỉ với một lần chạm. Hãy khởi động lại Instagram để thấy thay đổi.
 HushGram menu	Menu HushGram
@@ -1931,6 +1937,12 @@ That picture is over %1$d MB.	Ảnh đó lớn hơn %1$d MB.
 Couldn't save the picture.	Không lưu được ảnh.
 Open a chat, tap the clock button next to the call buttons at the top, or long press the chat's name, and pick Jump to the first message or Jump to a date. The chat loads its older messages on its own, with a count and a Cancel button.	Mở một cuộc trò chuyện, nhấn nút đồng hồ cạnh các nút gọi ở đầu màn hình, hoặc nhấn giữ tên cuộc trò chuyện, rồi chọn Chuyển đến tin nhắn đầu tiên hoặc Chuyển đến một ngày. Cuộc trò chuyện tự tải các tin nhắn cũ hơn, có hiển thị số lượng và nút Hủy.
 Open a chat, tap the clock button next to the call buttons at the top, or long press the chat's name, and pick Export chat. The whole chat is saved as a text file in Downloads, HushGram folder, one line per message. Select messages in the same menu lets you tick messages to copy, share or save.	Mở một cuộc trò chuyện, nhấn nút đồng hồ cạnh các nút gọi ở đầu màn hình, hoặc nhấn giữ tên cuộc trò chuyện, rồi chọn Xuất cuộc trò chuyện. Toàn bộ cuộc trò chuyện được lưu thành tệp văn bản trong thư mục HushGram của Downloads, mỗi tin nhắn một dòng. Chọn tin nhắn trong cùng menu cho phép bạn đánh dấu tin nhắn để sao chép, chia sẻ hoặc lưu.
+# context: settings switch title on the Messages page (#852): link buttons under a chat message, like the ones automated accounts send
+Copy links from chat buttons	Sao chép liên kết từ nút trong cuộc trò chuyện
+# context: that switch's summary (#852); Copy link is the row it adds to the menu you get when you hold a message, same words as the Copy link key
+Hold a message with link buttons, like the ones automated accounts send, and tap Copy link to copy where a button goes without opening it. With several buttons you pick one.	Nhấn giữ một tin nhắn có nút liên kết, như tin nhắn từ các tài khoản tự động, rồi nhấn Sao chép liên kết để sao chép nơi nút dẫn tới mà không mở nó. Nếu có nhiều nút, bạn chọn một.
+# context: toast after Copy link put a chat button's link on the clipboard (#852)
+Link copied	Đã sao chép liên kết
 Instagram stopped loading older messages.	Instagram đã ngừng tải tin nhắn cũ hơn.
 Black settings page	Trang cài đặt màu đen
 Black rows and dialogs, with HushGram's name at the top.	Hàng và hộp thoại màu đen, tên HushGram ở trên cùng.
@@ -2046,6 +2058,8 @@ Speed button on reels	Nút tốc độ trên reel
 Puts a speed icon beside a reel. Tap it to pick a speed from 0.5x to 3x. With Keep the reel speed on, the next reels play at it too.	Đặt một biểu tượng tốc độ bên cạnh reel. Chạm vào để chọn tốc độ từ 0,5x đến 3x. Khi bật Giữ tốc độ reel, các reel tiếp theo cũng phát ở tốc độ đó.
 Speed in the reel menu	Tốc độ trong menu reel
 Adds Playback speed to the menu a reel's three dots open. Pick a speed there from 0.5x to 3x. With Keep the reel speed on, the next reels play at it too.	Thêm Tốc độ phát vào menu mở ra từ ba dấu chấm của reel. Chọn tốc độ ở đó từ 0,5x đến 3x. Khi bật Giữ tốc độ reel, các reel tiếp theo cũng phát ở tốc độ đó.
+Whole reel in the reel menu	Toàn bộ reel trong menu reel
+Adds Show the whole reel to the menu a reel's three dots open. A tap fits that reel inside the screen until you swipe to the next one. Fill the screen there crops it again.	Thêm Hiện toàn bộ reel vào menu mà dấu ba chấm của reel mở ra. Chạm một lần để reel đó hiện trọn trong màn hình cho đến khi bạn vuốt sang reel tiếp theo. Lấp đầy màn hình trong cùng menu sẽ cắt lại.
 # context: Reels settings: a switch for an icon beside each reel that does what Instagram's own Full screen row in the reel's menu does (#480). Full screen is Instagram's term for it (bundled 453 string packs: Vollbild, pantalla completa, layar penuh, schermo intero, 전체 화면, tela cheia, tam ekran, toàn màn hình, 全螢幕); Start every reel in clear mode is HushGram's switch of that name
 Full screen button on reels	Nút toàn màn hình trên reel
 Puts a Full screen icon beside a reel, so one tap does what Full screen in its menu does. Start every reel in clear mode opens every reel that way.	Đặt một biểu tượng Toàn màn hình bên cạnh reel, nên một lần chạm làm giống Toàn màn hình trong menu của nó. Bắt đầu mọi reel ở chế độ xem sạch sẽ mở mọi reel theo cách đó.
@@ -2061,6 +2075,9 @@ Full screen didn't open	Không mở được toàn màn hình
 Stories fill the screen	Tin lấp đầy màn hình
 # context: that switch's summary (#436)
 On a tall screen a story covers the whole screen, with the reply bar on top of it like on shorter phones, instead of a rounded card above the bar.	Trên màn hình dài, tin phủ kín toàn màn hình với thanh trả lời nằm trên, như trên điện thoại ngắn hơn, thay vì một thẻ bo góc phía trên thanh.
+Show the whole story	Hiện toàn bộ tin
+Whole story in the story menu	Toàn bộ tin trong menu tin
+Adds Show the whole story to the menu a story's three dots open while Stories fill the screen is on. A tap fits that story inside the screen until the next one. Fill the screen there fills it again.	Thêm Hiện toàn bộ tin vào menu mà dấu ba chấm của tin mở ra khi Tin lấp đầy màn hình đang bật. Chạm một lần để tin đó hiện trọn trong màn hình cho đến tin tiếp theo. Lấp đầy màn hình trong cùng menu sẽ lấp đầy lại.
 # context: a button in the select-text window that copies the whole text (#492)
 Copy all	Sao chép tất cả
 # context: toast after Copy all in the select-text window (#492)
@@ -2677,6 +2694,10 @@ Matches: %1$d of %2$d blocked accounts	Khớp: %1$d trên %2$d tài khoản đã
 Long press a profile picture to view it	Nhấn giữ ảnh đại diện để xem
 # context: that switch summary (#737)
 Long press the picture at the top of a profile to open the whole square picture at full size, with Save under it, instead of Instagram's own preview. A tap works as before.	Nhấn giữ ảnh ở đầu trang cá nhân để mở toàn bộ ảnh vuông ở kích thước đầy đủ, có nút Lưu bên dưới, thay cho bản xem trước của Instagram. Nhấn bình thường vẫn như cũ.
+# context: Profiles settings: switch that makes a tap on a profile's picture open the account's story when the picture has a story ring, where Instagram sometimes opened the picture (#823)
+A story ring opens the story	Vòng tin mở tin
+# context: that switch summary (#823)
+Tapping the picture at the top of a profile with a story ring opens the story whenever Instagram has it, where Instagram sometimes opens the picture instead.	Chạm vào ảnh ở đầu trang cá nhân có vòng tin sẽ mở tin mỗi khi Instagram đã có tin đó, thay vì đôi khi Instagram mở ảnh.
 # context: Notifications settings: row that opens a list of the kinds of notification rows this phone has seen, to tick the ones to hide (#756)
 Hide notifications by type	Ẩn thông báo theo loại
 # context: that row's summary while nothing is ticked (#756)

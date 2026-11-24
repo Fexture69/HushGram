@@ -1886,6 +1886,12 @@ Instagram gradient on dark	Koyu üzerinde Instagram gradyanı
 Retro Instagram	Retro Instagram
 Menu button on Home's header	Ana sayfa üstünde menü düğmesi
 Adds a menu button at the top of Home with your viewing history, Ghost mode and HushGram settings. Restart Instagram to see the change.	Ana sayfanın üstüne görüntüleme geçmişin, Hayalet modu ve HushGram ayarlarını içeren bir menü düğmesi ekler. Değişikliği görmek için Instagram'ı yeniden başlat.
+# context: entry of the menu that the menu button on Home's header opens; starts Instagram's own log out (#850)
+Log out	Çıkış yap
+# context: Tab bar settings: switch that adds Log out to the list of the menu button on Home's header (#850)
+Log out in Home's menu	Ana sayfa menüsünde Çıkış yap
+# context: that switch summary (#850)
+Adds Log out after HushGram settings in the list the menu button on Home's header opens. It starts the same Log out as Instagram's own settings.	Ana sayfa üstündeki menü düğmesinin açtığı listeye HushGram ayarlarından sonra Çıkış yap ekler. Instagram'ın kendi ayarlarındaki çıkışın aynısını başlatır.
 History button on Home's header	Ana sayfa üstünde geçmiş düğmesi
 Adds a clock at the top of Home that opens your viewing history in one tap. Restart Instagram to see the change.	Ana sayfanın üstüne görüntüleme geçmişini tek dokunuşla açan bir saat ekler. Değişikliği görmek için Instagram'ı yeniden başlat.
 HushGram menu	HushGram menüsü
@@ -2016,6 +2022,12 @@ That picture is over %1$d MB.	Bu resim %1$d MB'tan büyük.
 Couldn't save the picture.	Resim kaydedilemedi.
 Open a chat, tap the clock button next to the call buttons at the top, or long press the chat's name, and pick Jump to the first message or Jump to a date. The chat loads its older messages on its own, with a count and a Cancel button.	Bir sohbet aç, üstte arama düğmelerinin yanındaki saat düğmesine dokun ya da sohbetin adına uzun bas, sonra İlk mesaja atla veya Bir tarihe atla seçeneğini seç. Sohbet eski mesajlarını kendisi yükler, bir sayaç ve İptal düğmesi gösterir.
 Open a chat, tap the clock button next to the call buttons at the top, or long press the chat's name, and pick Export chat. The whole chat is saved as a text file in Downloads, HushGram folder, one line per message. Select messages in the same menu lets you tick messages to copy, share or save.	Bir sohbet aç, üstte arama düğmelerinin yanındaki saat düğmesine dokun ya da sohbetin adına uzun bas, sonra Sohbeti dışa aktar seçeneğini seç. Sohbetin tamamı İndirilenler içindeki HushGram klasörüne metin dosyası olarak kaydedilir, her mesaj bir satırdır. Aynı menüdeki Mesajları seç ile kopyalamak, paylaşmak veya kaydetmek için mesajları işaretleyebilirsin.
+# context: settings switch title on the Messages page (#852): link buttons under a chat message, like the ones automated accounts send
+Copy links from chat buttons	Sohbet düğmelerindeki bağlantıları kopyala
+# context: that switch's summary (#852); Copy link is the row it adds to the menu you get when you hold a message, same words as the Copy link key
+Hold a message with link buttons, like the ones automated accounts send, and tap Copy link to copy where a button goes without opening it. With several buttons you pick one.	Otomatik hesapların gönderdikleri gibi bağlantı düğmeleri olan bir mesajı basılı tut ve bir düğmenin nereye gittiğini açmadan kopyalamak için Bağlantıyı kopyala'ya dokun. Birden çok düğme varsa birini seçersin.
+# context: toast after Copy link put a chat button's link on the clipboard (#852)
+Link copied	Bağlantı kopyalandı
 Instagram stopped loading older messages.	Instagram eski mesajları yüklemeyi bıraktı.
 Black settings page	Siyah ayarlar sayfası
 Black rows and dialogs, with HushGram's name at the top.	Siyah satırlar ve pencereler, üstte HushGram adıyla.
@@ -2131,6 +2143,8 @@ Speed button on reels	Reels'te hız düğmesi
 Puts a speed icon beside a reel. Tap it to pick a speed from 0.5x to 3x. With Keep the reel speed on, the next reels play at it too.	Bir reel'in yanına hız simgesi koyar. 0,5x ile 3x arasında bir hız seçmek için dokun. Reel hızını koru açıksa sonraki reel'ler de bu hızda oynar.
 Speed in the reel menu	Reel menüsünde hız
 Adds Playback speed to the menu a reel's three dots open. Pick a speed there from 0.5x to 3x. With Keep the reel speed on, the next reels play at it too.	Bir reel'in üç noktasının açtığı menüye Oynatma hızı ekler. Orada 0,5x ile 3x arasında bir hız seç. Reel hızını koru açıksa sonraki reel'ler de bu hızda oynar.
+Whole reel in the reel menu	Reel menüsünde videonun tamamı
+Adds Show the whole reel to the menu a reel's three dots open. A tap fits that reel inside the screen until you swipe to the next one. Fill the screen there crops it again.	Bir reel'in üç noktasının açtığı menüye Reels videosunun tamamını göster seçeneğini ekler. Dokununca o reel, sonrakine geçene kadar ekrana sığacak şekilde tamamen görünür. Aynı menüdeki Ekranı doldur onu yeniden kırpar.
 # context: Reels settings: a switch for an icon beside each reel that does what Instagram's own Full screen row in the reel's menu does (#480). Full screen is Instagram's term for it (bundled 453 string packs: Vollbild, pantalla completa, layar penuh, schermo intero, 전체 화면, tela cheia, tam ekran, toàn màn hình, 全螢幕); Start every reel in clear mode is HushGram's switch of that name
 Full screen button on reels	Reels'te tam ekran düğmesi
 Puts a Full screen icon beside a reel, so one tap does what Full screen in its menu does. Start every reel in clear mode opens every reel that way.	Bir reel'in yanına Tam ekran simgesi koyar, böylece tek dokunuş menüsündeki Tam ekran ile aynı işi yapar. Her reel'i temiz modda başlat her reel'i böyle açar.
@@ -2146,6 +2160,9 @@ Full screen didn't open	Tam ekran açılmadı
 Stories fill the screen	Hikayeler ekranı doldursun
 # context: that switch's summary (#436)
 On a tall screen a story covers the whole screen, with the reply bar on top of it like on shorter phones, instead of a rounded card above the bar.	Uzun bir ekranda hikaye, çubuğun üstünde yuvarlak köşeli bir kart yerine daha kısa telefonlardaki gibi tüm ekranı kaplar ve yanıt çubuğu üstünde durur.
+Show the whole story	Hikayenin tamamını göster
+Whole story in the story menu	Hikaye menüsünde hikayenin tamamı
+Adds Show the whole story to the menu a story's three dots open while Stories fill the screen is on. A tap fits that story inside the screen until the next one. Fill the screen there fills it again.	Hikayeler ekranı doldursun açıkken bir hikayenin üç noktasının açtığı menüye Hikayenin tamamını göster seçeneğini ekler. Dokununca o hikaye, sonrakine kadar ekrana sığacak şekilde tamamen görünür. Aynı menüdeki Ekranı doldur onu yeniden ekranı dolduracak hale getirir.
 # context: a button in the select-text window that copies the whole text (#492)
 Copy all	Tümünü kopyala
 # context: toast after Copy all in the select-text window (#492)
@@ -2762,6 +2779,10 @@ Matches: %1$d of %2$d blocked accounts	Eşleşen: %2$d engellenen hesaptan %1$d
 Long press a profile picture to view it	Görmek için profil fotoğrafına uzun bas
 # context: that switch summary (#737)
 Long press the picture at the top of a profile to open the whole square picture at full size, with Save under it, instead of Instagram's own preview. A tap works as before.	Bir profilin üstündeki fotoğrafa uzun basarak, Instagram'ın kendi önizlemesi yerine kare fotoğrafın tamamını tam boyutta, altında Kaydet ile aç. Dokunma eskisi gibi çalışır.
+# context: Profiles settings: switch that makes a tap on a profile's picture open the account's story when the picture has a story ring, where Instagram sometimes opened the picture (#823)
+A story ring opens the story	Hikaye halkası hikayeyi açar
+# context: that switch summary (#823)
+Tapping the picture at the top of a profile with a story ring opens the story whenever Instagram has it, where Instagram sometimes opens the picture instead.	Hikaye halkası olan bir profilin üstündeki fotoğrafa dokunmak, Instagram'da hikaye olduğu her seferde hikayeyi açar. Instagram bazen bunun yerine fotoğrafı açar.
 # context: Notifications settings: row that opens a list of the kinds of notification rows this phone has seen, to tick the ones to hide (#756)
 Hide notifications by type	Bildirimleri türe göre gizle
 # context: that row's summary while nothing is ticked (#756)

@@ -218,6 +218,12 @@ Adds a gear at the top of Home that opens HushGram settings. Restart Instagram t
 Adds a ghost button at the top of Home, next to Messages when it's there and at the end of the buttons when it isn't. Tap it to turn Ghost mode on or off. Restart Instagram to see the change.	يضيف زر شبح في أعلى الرئيسية، بجوار الرسائل عند وجودها وفي نهاية الأزرار عند عدم وجودها. اضغط عليه لتشغيل وضع الشبح أو إيقافه. أعد تشغيل Instagram لرؤية التغيير.
 Adds a magnifier at the top of Home that opens Search, like the Search tab does. It works with the Search tab hidden too. Restart Instagram to see the change.	يضيف عدسة مكبّرة في أعلى الرئيسية تفتح البحث، كما يفعل تبويب البحث. يعمل أيضًا مع إخفاء تبويب البحث. أعد تشغيل Instagram لرؤية التغيير.
 Adds a menu button at the top of Home with your viewing history, Ghost mode and HushGram settings. Restart Instagram to see the change.	يضيف زر قائمة في أعلى الرئيسية يضم سجل المشاهدة ووضع الشبح وإعدادات HushGram. أعد تشغيل Instagram لرؤية التغيير.
+# context: entry of the menu that the menu button on Home's header opens; starts Instagram's own log out (#850)
+Log out	تسجيل الخروج
+# context: Tab bar settings: switch that adds Log out to the list of the menu button on Home's header (#850)
+Log out in Home's menu	تسجيل الخروج في قائمة الرئيسية
+# context: that switch summary (#850)
+Adds Log out after HushGram settings in the list the menu button on Home's header opens. It starts the same Log out as Instagram's own settings.	يضيف تسجيل الخروج بعد إعدادات HushGram في القائمة التي يفتحها زر القائمة في رأس الصفحة الرئيسية. يبدأ تسجيل الخروج نفسه الموجود في إعدادات Instagram.
 Adds a row next to Download on a reel and a feed video that plays it in an app you pick, such as VLC. The player streams it from Instagram's servers.	يضيف صفًا بجوار تنزيل على مقطع وعلى فيديو في الخلاصة يشغّله في تطبيق تختاره، مثل VLC. يبث المشغّل الفيديو من خوادم Instagram.
 Adds a search box above a post's comments. Type a word or a name and the comments scroll to the next one that has it. Replies you haven't opened aren't searched.	يضيف مربع بحث فوق تعليقات المنشور. اكتب كلمة أو اسمًا وتنتقل التعليقات إلى التالي الذي يتضمنه. الردود التي لم تفتحها لا تُبحث.
 Adds a search box above your blocked accounts in Instagram's settings. It finds them by username or name, and loads the rest of your list as you type.	يضيف مربع بحث فوق حساباتك المحظورة في إعدادات Instagram. يعثر عليها باسم المستخدم أو الاسم، ويحمّل بقية قائمتك أثناء الكتابة.
@@ -1180,6 +1186,10 @@ Long press a photo to zoom	اضغط مطولًا على صورة للتكبير
 Long press a post for full screen	اضغط مطولًا على منشور لملء الشاشة
 Long press a profile picture to view it	اضغط مطولًا على صورة الملف الشخصي لعرضها
 Long press the picture at the top of a profile to open the whole square picture at full size, with Save under it, instead of Instagram's own preview. A tap works as before.	اضغط مطولًا على الصورة أعلى الملف الشخصي لفتح الصورة المربعة كاملة بالحجم الكامل مع خيار حفظ أسفلها، بدلًا من المعاينة الخاصة بـ Instagram. وتعمل النقرة كما كانت.
+# context: Profiles settings: switch that makes a tap on a profile's picture open the account's story when the picture has a story ring, where Instagram sometimes opened the picture (#823)
+A story ring opens the story	حلقة القصة تفتح القصة
+# context: that switch summary (#823)
+Tapping the picture at the top of a profile with a story ring opens the story whenever Instagram has it, where Instagram sometimes opens the picture instead.	النقر على الصورة أعلى ملف شخصي حولها حلقة قصة يفتح القصة متى كانت لدى Instagram، بينما يفتح Instagram الصورة أحيانًا بدلًا منها.
 Longer than %1$s second	أطول من %1$s ثانية
 Longer than %1$s seconds	أطول من %1$s ثانية
 Longest video	أطول فيديو
@@ -1367,6 +1377,9 @@ On a carousel, the download icon saves all of its pages at once instead of askin
 On a foldable or tablet, Instagram keeps its phone layout across the whole screen, with the tab bar at the bottom instead of down the side. Restart Instagram to see the change.	على جهاز قابل للطي أو جهاز لوحي، يُبقي Instagram تخطيط الهاتف على كامل الشاشة، مع شريط التبويبات في الأسفل بدلًا من جانبه. أعد تشغيل Instagram لرؤية التغيير.
 On a phone under 1440 pixels wide, asks Instagram for photos sized for a wider screen. This uses more data. Restart Instagram to see the change.	على هاتف عرضه أقل من 1440 بكسل، يطلب من Instagram صورًا بحجم شاشة أوسع. يستهلك هذا بيانات أكثر. أعد تشغيل Instagram لرؤية التغيير.
 On a tall screen a story covers the whole screen, with the reply bar on top of it like on shorter phones, instead of a rounded card above the bar.	على شاشة طويلة، تغطي القصة كامل الشاشة، مع شريط الرد فوقها كما في الهواتف الأقصر، بدلًا من بطاقة مستديرة فوق الشريط.
+Show the whole story	إظهار القصة كاملة
+Whole story in the story menu	القصة الكاملة في قائمة القصة
+Adds Show the whole story to the menu a story's three dots open while Stories fill the screen is on. A tap fits that story inside the screen until the next one. Fill the screen there fills it again.	يضيف «إظهار القصة كاملة» إلى القائمة التي تفتحها النقاط الثلاث في القصة عندما يكون «تملأ القصص الشاشة» مفعّلاً. النقر عليه يُظهر تلك القصة كاملة داخل الشاشة حتى القصة التالية. و«ملء الشاشة» في القائمة نفسها يجعلها تملأ الشاشة من جديد.
 On comments	على التعليقات
 On messages	على الرسائل
 On posts	على المنشورات
@@ -1402,6 +1415,12 @@ Open a chat in Instagram, then come back here to hide it.	افتح محادثة 
 Open a chat in Instagram, then come back here to lock it.	افتح محادثة في Instagram، ثم عُد إلى هنا لقفلها.
 Open a chat in Instagram, then come back here to pin it.	افتح محادثة في Instagram، ثم عُد إلى هنا لتثبيتها.
 Open a chat, tap the clock button next to the call buttons at the top, or long press the chat's name, and pick Export chat. The whole chat is saved as a text file in Downloads, HushGram folder, one line per message. Select messages in the same menu lets you tick messages to copy, share or save.	افتح محادثة، وانقر زر الساعة بجوار أزرار الاتصال في الأعلى، أو اضغط مطولًا على اسم المحادثة، واختر تصدير المحادثة. تُحفظ المحادثة كاملة كملف نصي في التنزيلات، مجلد HushGram، سطر لكل رسالة. يتيح لك تحديد الرسائل من القائمة نفسها وضع علامة على الرسائل لنسخها أو مشاركتها أو حفظها.
+# context: settings switch title on the Messages page (#852): link buttons under a chat message, like the ones automated accounts send
+Copy links from chat buttons	نسخ الروابط من أزرار الدردشة
+# context: that switch's summary (#852); Copy link is the row it adds to the menu you get when you hold a message, same words as the Copy link key
+Hold a message with link buttons, like the ones automated accounts send, and tap Copy link to copy where a button goes without opening it. With several buttons you pick one.	اضغط مطولًا على رسالة فيها أزرار روابط، مثل التي ترسلها الحسابات الآلية، ثم اضغط على نسخ الرابط لنسخ وجهة الزر دون فتحه. إذا كانت هناك عدة أزرار فاختر واحدًا.
+# context: toast after Copy link put a chat button's link on the clipboard (#852)
+Link copied	تم نسخ الرابط
 Open a chat, tap the clock button next to the call buttons at the top, or long press the chat's name, and pick Jump to the first message or Jump to a date. The chat loads its older messages on its own, with a count and a Cancel button.	افتح محادثة، وانقر زر الساعة بجوار أزرار الاتصال في الأعلى، أو اضغط مطولًا على اسم المحادثة، واختر الانتقال إلى أول رسالة أو الانتقال إلى تاريخ. تحمّل المحادثة رسائلها الأقدم تلقائيًا، مع عدّاد وزر إلغاء.
 Open a creator's profile from a reel, then their Reels tab, and it scrolls to that reel and labels it You just watched for a few seconds. A photo reel is found in their posts. Stop looking ends the search where it is.	افتح ملف تعريف منشئ من Reel، ثم تبويب Reels الخاص به، فينتقل التمرير إلى ذلك الـReel ويضع عليه علامة شاهدته للتو لبضع ثوانٍ. يُعثر على Reel صورة في منشوراته. إيقاف البحث ينهي البحث في موضعه.
 Open a photo or video from a chat and swipe up for the next photo, video or shared post in that chat, in chat order. Swipe down to go back one. Back takes you to the chat.	افتح صورة أو فيديو من محادثة واسحب لأعلى للصورة أو الفيديو أو المنشور المشترك التالي في تلك المحادثة، بترتيب المحادثة. اسحب لأسفل للرجوع واحدًا. الرجوع يعيدك إلى المحادثة.
@@ -1859,6 +1878,8 @@ Speed button on stories	زر السرعة على القصص
 Speed didn't change	لم تتغيّر السرعة
 Speed in a post's menu	السرعة في قائمة المنشور
 Speed in the reel menu	السرعة في قائمة Reel
+Whole reel in the reel menu	المقطع الكامل في قائمة Reel
+Adds Show the whole reel to the menu a reel's three dots open. A tap fits that reel inside the screen until you swipe to the next one. Fill the screen there crops it again.	يضيف «إظهار مقطع Reel كاملاً» إلى القائمة التي تفتحها النقاط الثلاث في المقطع. النقر عليه يُظهر ذلك المقطع كاملاً داخل الشاشة حتى تنتقل إلى التالي. و«ملء الشاشة» في القائمة نفسها يقصّه من جديد.
 Speed in the story menu	السرعة في قائمة القصة
 Split the notes row	قسّم صف الملاحظات
 Splits the row of notes into three stacks, Instants, Notes and Stories, the layout Instagram is trying out. Restart Instagram to see the change.	يقسم صف الملاحظات إلى ثلاث مجموعات، Instants وNotes وStories، التخطيط الذي يجرّبه Instagram. أعد تشغيل Instagram لرؤية التغيير.

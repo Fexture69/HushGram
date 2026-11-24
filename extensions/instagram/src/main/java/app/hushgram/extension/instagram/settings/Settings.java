@@ -1256,6 +1256,14 @@ public class Settings extends BaseSettings {
     public static final BooleanSetting EXPORT_CHAT = new BooleanSetting("hushgram_export_chat", FALSE);
 
     /**
+     * Holding a chat message with link buttons, the kind automated accounts send under a text or a
+     * card, offers Copy link, which copies where a button goes without opening it
+     * ({@link app.hushgram.extension.instagram.direct.ChatButtonLinks}, #852). Read each time a
+     * message is held. Off to start.
+     */
+    public static final BooleanSetting COPY_CHAT_BUTTON_LINKS = new BooleanSetting("hushgram_copy_chat_button_links", FALSE);
+
+    /**
      * A call started from a chat waits for a question first
      * ({@link app.hushgram.extension.instagram.direct.CallConfirm}). Off to start.
      */
@@ -3502,6 +3510,14 @@ public class Settings extends BaseSettings {
             new BooleanSetting("hushgram_profile_picture_long_press", FALSE);
 
     /**
+     * A tap on the picture at the top of a profile with a story ring opens the story whenever
+     * Instagram has it, where Instagram sometimes opens the picture instead (#823,
+     * {@link app.hushgram.extension.instagram.download.ProfileRingTap}). Off until enabled.
+     */
+    public static final BooleanSetting RING_TAP_OPENS_STORY =
+            new BooleanSetting("hushgram_ring_tap_opens_story", FALSE);
+
+    /**
      * A voice message's menu in a chat gets Save
      * ({@link app.hushgram.extension.instagram.download.VoiceMessage}). Off until enabled.
      */
@@ -4313,6 +4329,14 @@ public class Settings extends BaseSettings {
             new BooleanSetting("hushgram_menu_button_on_home", FALSE, true);
 
     /**
+     * Log out last in the list of the menu button on Home's header (#850,
+     * {@link app.hushgram.extension.instagram.settings.HomeLogout}), which starts Instagram's own Log out.
+     * Read each time the list opens. Off to start.
+     */
+    public static final BooleanSetting LOGOUT_IN_HOME_MENU =
+            new BooleanSetting("hushgram_logout_in_home_menu", FALSE);
+
+    /**
      * A clock on Home's header that opens the viewing history in one tap (#228,
      * {@link app.hushgram.extension.instagram.settings.HistoryHeaderButton}). The header builds it as it
      * draws, so a change takes a restart. Off to start.
@@ -4887,6 +4911,22 @@ public class Settings extends BaseSettings {
      * stays Instagram's own.
      */
     public static final BooleanSetting SPEED_IN_REEL_MENU = new BooleanSetting("hushgram_speed_in_reel_menu", FALSE);
+
+    /**
+     * A Show the whole reel row in the menu a reel's three dots open, whose tap fits that one reel
+     * inside the screen until it's swiped away, and Fill the screen there crops it again (#845,
+     * {@link app.hushgram.extension.instagram.reels.ReelWhole}). Starts off, so the menu stays
+     * Instagram's own.
+     */
+    public static final BooleanSetting WHOLE_REEL_IN_REEL_MENU = new BooleanSetting("hushgram_whole_reel_in_reel_menu", FALSE);
+
+    /**
+     * A Show the whole story row in the menu a story's three dots open while Stories fill the screen is
+     * on, whose tap fits that one story inside the screen until the next story, and Fill the screen
+     * there fills it again (#845, {@link app.hushgram.extension.instagram.reels.StoryWhole}). Starts off,
+     * so the menu stays Instagram's own.
+     */
+    public static final BooleanSetting WHOLE_STORY_IN_STORY_MENU = new BooleanSetting("hushgram_whole_story_in_story_menu", FALSE);
 
     /**
      * A Full screen icon in the column beside a reel whose tap turns on Instagram's own Full screen,

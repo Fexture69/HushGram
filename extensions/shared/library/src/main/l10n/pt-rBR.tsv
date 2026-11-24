@@ -1886,6 +1886,12 @@ Instagram gradient on dark	Instagram em degradê no escuro
 Retro Instagram	Instagram retrô
 Menu button on Home's header	Botão de menu no cabeçalho da Página inicial
 Adds a menu button at the top of Home with your viewing history, Ghost mode and HushGram settings. Restart Instagram to see the change.	Adiciona um botão de menu no topo da Página inicial com seu histórico, o modo fantasma e as configurações do HushGram. Reinicie o Instagram para ver a mudança.
+# context: entry of the menu that the menu button on Home's header opens; starts Instagram's own log out (#850)
+Log out	Sair
+# context: Tab bar settings: switch that adds Log out to the list of the menu button on Home's header (#850)
+Log out in Home's menu	Sair no menu da Página inicial
+# context: that switch summary (#850)
+Adds Log out after HushGram settings in the list the menu button on Home's header opens. It starts the same Log out as Instagram's own settings.	Adiciona Sair depois das configurações do HushGram na lista que o botão de menu no cabeçalho da Página inicial abre. Ele inicia a mesma saída das configurações do Instagram.
 History button on Home's header	Botão de histórico no cabeçalho da Página inicial
 Adds a clock at the top of Home that opens your viewing history in one tap. Restart Instagram to see the change.	Adiciona um relógio no topo da Página inicial que abre seu histórico com um toque. Reinicie o Instagram para ver a mudança.
 HushGram menu	Menu do HushGram
@@ -2016,6 +2022,12 @@ That picture is over %1$d MB.	Essa imagem passa de %1$d MB.
 Couldn't save the picture.	Não foi possível salvar a imagem.
 Open a chat, tap the clock button next to the call buttons at the top, or long press the chat's name, and pick Jump to the first message or Jump to a date. The chat loads its older messages on its own, with a count and a Cancel button.	Abra uma conversa, toque no botão de relógio ao lado dos botões de chamada no topo, ou mantenha o nome da conversa pressionado, e escolha Ir para a primeira mensagem ou Ir para uma data. A conversa carrega as mensagens mais antigas sozinha, com uma contagem e um botão Cancelar.
 Open a chat, tap the clock button next to the call buttons at the top, or long press the chat's name, and pick Export chat. The whole chat is saved as a text file in Downloads, HushGram folder, one line per message. Select messages in the same menu lets you tick messages to copy, share or save.	Abra uma conversa, toque no botão de relógio ao lado dos botões de chamada no topo, ou mantenha o nome da conversa pressionado, e escolha Exportar conversa. A conversa inteira é salva como arquivo de texto em Downloads, pasta HushGram, com uma linha por mensagem. Em Selecionar mensagens, no mesmo menu, você marca mensagens para copiar, compartilhar ou salvar.
+# context: settings switch title on the Messages page (#852): link buttons under a chat message, like the ones automated accounts send
+Copy links from chat buttons	Copiar links dos botões da conversa
+# context: that switch's summary (#852); Copy link is the row it adds to the menu you get when you hold a message, same words as the Copy link key
+Hold a message with link buttons, like the ones automated accounts send, and tap Copy link to copy where a button goes without opening it. With several buttons you pick one.	Toque e segure uma mensagem com botões de link, como as que contas automáticas enviam, e toque em Copiar link para copiar para onde um botão leva sem abri-lo. Com vários botões, você escolhe um.
+# context: toast after Copy link put a chat button's link on the clipboard (#852)
+Link copied	Link copiado
 Instagram stopped loading older messages.	O Instagram parou de carregar mensagens antigas.
 Black settings page	Página de configurações preta
 Black rows and dialogs, with HushGram's name at the top.	Linhas e caixas de diálogo pretas, com o nome do HushGram no topo.
@@ -2131,6 +2143,8 @@ Speed button on reels	Botão de velocidade nos reels
 Puts a speed icon beside a reel. Tap it to pick a speed from 0.5x to 3x. With Keep the reel speed on, the next reels play at it too.	Coloca um ícone de velocidade ao lado de um reel. Toque nele para escolher uma velocidade de 0,5x a 3x. Com Manter a velocidade do reel ativado, os próximos reels também tocam nessa velocidade.
 Speed in the reel menu	Velocidade no menu do reel
 Adds Playback speed to the menu a reel's three dots open. Pick a speed there from 0.5x to 3x. With Keep the reel speed on, the next reels play at it too.	Adiciona Velocidade de reprodução ao menu que os três pontos de um reel abrem. Escolha ali uma velocidade de 0,5x a 3x. Com Manter a velocidade do reel ativado, os próximos reels também tocam nessa velocidade.
+Whole reel in the reel menu	Reel inteiro no menu do reel
+Adds Show the whole reel to the menu a reel's three dots open. A tap fits that reel inside the screen until you swipe to the next one. Fill the screen there crops it again.	Adiciona Mostrar o reel inteiro ao menu que os três pontinhos de um reel abrem. Um toque mostra esse reel inteiro na tela até você passar para o próximo. Preencher a tela, no mesmo menu, corta de novo.
 # context: Reels settings: a switch for an icon beside each reel that does what Instagram's own Full screen row in the reel's menu does (#480). Full screen is Instagram's term for it (bundled 453 string packs: Vollbild, pantalla completa, layar penuh, schermo intero, 전체 화면, tela cheia, tam ekran, toàn màn hình, 全螢幕); Start every reel in clear mode is HushGram's switch of that name
 Full screen button on reels	Botão de tela cheia nos reels
 Puts a Full screen icon beside a reel, so one tap does what Full screen in its menu does. Start every reel in clear mode opens every reel that way.	Coloca um ícone de Tela cheia ao lado de um reel, então um toque faz o mesmo que Tela cheia no menu dele. Começar cada reel no modo limpo abre todos os reels assim.
@@ -2146,6 +2160,9 @@ Full screen didn't open	A tela cheia não abriu
 Stories fill the screen	Stories preenchem a tela
 # context: that switch's summary (#436)
 On a tall screen a story covers the whole screen, with the reply bar on top of it like on shorter phones, instead of a rounded card above the bar.	Em uma tela alta, o story cobre a tela inteira, com a barra de resposta por cima como em celulares mais curtos, em vez de um cartão arredondado acima da barra.
+Show the whole story	Mostrar o story inteiro
+Whole story in the story menu	Story inteiro no menu do story
+Adds Show the whole story to the menu a story's three dots open while Stories fill the screen is on. A tap fits that story inside the screen until the next one. Fill the screen there fills it again.	Adiciona Mostrar o story inteiro ao menu que os três pontinhos de um story abrem enquanto Stories preenchem a tela estiver ligado. Um toque mostra esse story inteiro na tela até o próximo. Preencher a tela, no mesmo menu, volta a preencher.
 # context: a button in the select-text window that copies the whole text (#492)
 Copy all	Copiar tudo
 # context: toast after Copy all in the select-text window (#492)
@@ -2762,6 +2779,10 @@ Matches: %1$d of %2$d blocked accounts	Resultados: %1$d de %2$d contas bloqueada
 Long press a profile picture to view it	Mantenha uma foto do perfil pressionada para vê-la
 # context: that switch summary (#737)
 Long press the picture at the top of a profile to open the whole square picture at full size, with Save under it, instead of Instagram's own preview. A tap works as before.	Mantenha pressionada a foto no topo de um perfil para abrir a foto quadrada inteira em tamanho real, com Salvar embaixo, no lugar da prévia do próprio Instagram. Um toque funciona como antes.
+# context: Profiles settings: switch that makes a tap on a profile's picture open the account's story when the picture has a story ring, where Instagram sometimes opened the picture (#823)
+A story ring opens the story	O anel de stories abre o story
+# context: that switch summary (#823)
+Tapping the picture at the top of a profile with a story ring opens the story whenever Instagram has it, where Instagram sometimes opens the picture instead.	Tocar na foto no topo de um perfil com anel de stories abre o story sempre que o Instagram o tiver, onde às vezes o Instagram abre a foto.
 # context: Notifications settings: row that opens a list of the kinds of notification rows this phone has seen, to tick the ones to hide (#756)
 Hide notifications by type	Ocultar notificações por tipo
 # context: that row's summary while nothing is ticked (#756)

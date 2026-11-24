@@ -201,6 +201,9 @@ public final class ConfigurationBackup {
             if (PatchFamily.feedTypesInBuild()) settings.put(Settings.HIDE_LOW_VIEW_HOME.key, Settings.HIDE_LOW_VIEW_HOME);
         }
         if (PatchFamily.STORY_PRIORITY.inBuild()) settings.put(Settings.STORY_PRIORITY_ACCOUNTS.key, Settings.STORY_PRIORITY_ACCOUNTS);
+        if (PatchFamily.STORY_DOWNLOAD.inBuild() && PatchFamily.FULL_SCREEN_BARS.inBuild()) {
+            settings.put(Settings.WHOLE_STORY_IN_STORY_MENU.key, Settings.WHOLE_STORY_IN_STORY_MENU);
+        }
         if (PatchFamily.CALL_BLOCKER.inBuild()) {
             settings.put(Settings.CALL_BLOCK_MODE.key, Settings.CALL_BLOCK_MODE);
             settings.put(Settings.CALL_BLOCK_ACCOUNTS.key, Settings.CALL_BLOCK_ACCOUNTS);
@@ -337,6 +340,7 @@ public final class ConfigurationBackup {
             // Also on Home: its row shows only with Home's reads in the build.
             if (PatchFamily.feedTypesInBuild()) settings.put(Settings.HIDE_SOUND_HOME.key, Settings.HIDE_SOUND_HOME);
             settings.put(Settings.TEXT_BUTTON_ON_REELS.key, Settings.TEXT_BUTTON_ON_REELS);
+            settings.put(Settings.WHOLE_REEL_IN_REEL_MENU.key, Settings.WHOLE_REEL_IN_REEL_MENU);
             if (PatchFamily.KEEP_REEL_SPEED.inBuild()) {
                 settings.put(Settings.SPEED_BUTTON_ON_REELS.key, Settings.SPEED_BUTTON_ON_REELS);
                 settings.put(Settings.SPEED_IN_REEL_MENU.key, Settings.SPEED_IN_REEL_MENU);

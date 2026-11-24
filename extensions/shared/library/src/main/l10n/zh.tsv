@@ -1889,6 +1889,12 @@ Instagram gradient on dark	深色底的 Instagram 渐变
 Retro Instagram	复古 Instagram
 Menu button on Home's header	首页顶端的菜单按钮
 Adds a menu button at the top of Home with your viewing history, Ghost mode and HushGram settings. Restart Instagram to see the change.	在首页顶端加入菜单按钮，内含浏览纪录、鬼魂模式与 HushGram 设置。请重新启动 Instagram 以应用变更。
+# context: entry of the menu that the menu button on Home's header opens; starts Instagram's own log out (#850)
+Log out	退出登录
+# context: Tab bar settings: switch that adds Log out to the list of the menu button on Home's header (#850)
+Log out in Home's menu	首页菜单中的退出登录
+# context: that switch summary (#850)
+Adds Log out after HushGram settings in the list the menu button on Home's header opens. It starts the same Log out as Instagram's own settings.	在首页顶端菜单按钮打开的列表中，于 HushGram 设置之后加入退出登录。它会启动与 Instagram 设置相同的退出登录流程。
 History button on Home's header	首页顶端的纪录按钮
 Adds a clock at the top of Home that opens your viewing history in one tap. Restart Instagram to see the change.	在首页顶端加入时钟，轻触一下即可打开浏览纪录。请重新启动 Instagram 以应用变更。
 HushGram menu	HushGram 菜单
@@ -2019,6 +2025,12 @@ That picture is over %1$d MB.	这张图片超过 %1$d MB。
 Couldn't save the picture.	无法保存图片。
 Open a chat, tap the clock button next to the call buttons at the top, or long press the chat's name, and pick Jump to the first message or Jump to a date. The chat loads its older messages on its own, with a count and a Cancel button.	打开聊天，点一下上方通话按钮旁的时钟按钮，或长按聊天名称，选择“跳到第一则消息”或“跳到某个日期”。聊天会自动加载较旧的消息，并显示数量和取消按钮。
 Open a chat, tap the clock button next to the call buttons at the top, or long press the chat's name, and pick Export chat. The whole chat is saved as a text file in Downloads, HushGram folder, one line per message. Select messages in the same menu lets you tick messages to copy, share or save.	打开聊天，点一下上方通话按钮旁的时钟按钮，或长按聊天名称，选择“导出聊天”。整个聊天会存成文字档，放在“下载”的 HushGram 文件夹，每则消息一行。 同一菜单中的“选择消息”可让你勾选消息来复制、分享或保存。
+# context: settings switch title on the Messages page (#852): link buttons under a chat message, like the ones automated accounts send
+Copy links from chat buttons	复制聊天按钮中的链接
+# context: that switch's summary (#852); Copy link is the row it adds to the menu you get when you hold a message, same words as the Copy link key
+Hold a message with link buttons, like the ones automated accounts send, and tap Copy link to copy where a button goes without opening it. With several buttons you pick one.	长按带有链接按钮的消息（例如自动账号发送的消息），然后点按复制链接，即可在不打开的情况下复制按钮指向的网址。有多个按钮时可从中选择一个。
+# context: toast after Copy link put a chat button's link on the clipboard (#852)
+Link copied	已复制链接
 Instagram stopped loading older messages.	Instagram 已停止加载较旧的消息。
 Black settings page	黑色设置页面
 Black rows and dialogs, with HushGram's name at the top.	黑色的列和对话框，顶端显示 HushGram 名称。
@@ -2134,6 +2146,8 @@ Speed button on reels	Reels 速度按钮
 Puts a speed icon beside a reel. Tap it to pick a speed from 0.5x to 3x. With Keep the reel speed on, the next reels play at it too.	在 Reel 旁加入速度图标。点一下即可选择 0.5x 到 3x 的速度。打开“保留 Reels 播放速度”时，之后的 Reels 也会以这个速度播放。
 Speed in the reel menu	Reel 菜单中的速度
 Adds Playback speed to the menu a reel's three dots open. Pick a speed there from 0.5x to 3x. With Keep the reel speed on, the next reels play at it too.	在 Reel 三个点打开的菜单中加入“播放速度”。可在那里选择 0.5x 到 3x 的速度。打开“保留 Reels 播放速度”时，之后的 Reels 也会以这个速度播放。
+Whole reel in the reel menu	Reel 菜单中的完整 Reels
+Adds Show the whole reel to the menu a reel's three dots open. A tap fits that reel inside the screen until you swipe to the next one. Fill the screen there crops it again.	在 Reel 三个点打开的菜单中加入“显示完整的 Reels”。点一下，那条 Reel 会完整显示在屏幕内，直到你滑到下一条。在同一菜单点“填满屏幕”即可再次裁剪。
 # context: Reels settings: a switch for an icon beside each reel that does what Instagram's own Full screen row in the reel's menu does (#480). Full screen is Instagram's term for it (bundled 453 string packs: Vollbild, pantalla completa, layar penuh, schermo intero, 전체 화면, tela cheia, tam ekran, toàn màn hình, 全螢幕); Start every reel in clear mode is HushGram's switch of that name
 Full screen button on reels	Reels 全屏幕按钮
 Puts a Full screen icon beside a reel, so one tap does what Full screen in its menu does. Start every reel in clear mode opens every reel that way.	在 Reel 旁加入全屏幕图标，点一下就和菜单中的“全屏幕”一样。打开“每个 Reel 都以清爽模式开始”后，每个 Reel 都会这样打开。
@@ -2149,6 +2163,9 @@ Full screen didn't open	无法打开全屏幕
 Stories fill the screen	快拍填满屏幕
 # context: that switch's summary (#436)
 On a tall screen a story covers the whole screen, with the reply bar on top of it like on shorter phones, instead of a rounded card above the bar.	在较长的屏幕上，快拍会像在较短的手机上一样覆盖整个屏幕，回复栏叠在上方，而不是以圆角卡片显示在回复栏上方。
+Show the whole story	显示完整的快拍
+Whole story in the story menu	快拍菜单中的完整快拍
+Adds Show the whole story to the menu a story's three dots open while Stories fill the screen is on. A tap fits that story inside the screen until the next one. Fill the screen there fills it again.	在“快拍填满屏幕”开启时，于快拍三个点打开的菜单中加入“显示完整的快拍”。点一下，那条快拍会完整显示在屏幕内，直到下一条。在同一菜单点“填满屏幕”即可再次填满。
 # context: a button in the select-text window that copies the whole text (#492)
 Copy all	全部复制
 # context: toast after Copy all in the select-text window (#492)
@@ -2765,6 +2782,10 @@ Matches: %1$d of %2$d blocked accounts	匹配 %1$d 个，共 %2$d 个已屏蔽�
 Long press a profile picture to view it	长按头像即可查看
 # context: that switch summary (#737)
 Long press the picture at the top of a profile to open the whole square picture at full size, with Save under it, instead of Instagram's own preview. A tap works as before.	长按主页顶部的头像，即可打开完整的正方形原尺寸图片，下方附有“保存”，取代 Instagram 自带的预览。轻点的操作不变.
+# context: Profiles settings: switch that makes a tap on a profile's picture open the account's story when the picture has a story ring, where Instagram sometimes opened the picture (#823)
+A story ring opens the story	点快拍圆环打开快拍
+# context: that switch summary (#823)
+Tapping the picture at the top of a profile with a story ring opens the story whenever Instagram has it, where Instagram sometimes opens the picture instead.	点按主页顶部带快拍圆环的头像时，只要 Instagram 已有该快拍就会打开它，而 Instagram 有时会改为打开头像。
 # context: Notifications settings: row that opens a list of the kinds of notification rows this phone has seen, to tick the ones to hide (#756)
 Hide notifications by type	按类型隐藏通知
 # context: that row's summary while nothing is ticked (#756)
