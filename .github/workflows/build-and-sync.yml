@@ -143,6 +143,10 @@ jobs:
             echo "Repository is already up to date with upstream."
           fi
 
+      - name: Generate Localization Translations
+        run: |
+          python3 scripts/gen-l10n.py
+
       - name: Verify Patches, Settings & Category Tests
         env:
           ANDROID_HOME: /usr/local/lib/android/sdk
