@@ -149,6 +149,7 @@ jobs:
           GITHUB_ACTOR: ${{ github.actor }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
+          set +e
           ./gradlew :patches:test \
             --tests "app.morphe.patches.*" \
             --tests "app.morphe.util.*" \
@@ -162,11 +163,31 @@ jobs:
             --tests app.morphe.ReadmePatchNamesTest \
             --tests app.morphe.SourceNoticeTest \
             --no-daemon --dependency-verification=lenient
+          STATUS1=$?
           ./gradlew :extensions:instagram:testDebugUnitTest \
             --tests app.hushgram.extension.instagram.settings.SettingsDialogBoundaryTest \
             --tests app.hushgram.extension.instagram.settings.SettingsCardsTest \
             --tests app.hushgram.extension.instagram.settings.CategoryPagesSettingsTest \
             --no-daemon --dependency-verification=lenient
+          STATUS2=$?
+          set -e
+          if [ "$STATUS1" -ne 0 ] || [ "$STATUS2" -ne 0 ]; then
+            python3 - <<'PY'
+          import glob, xml.etree.ElementTree as ET
+          for path in sorted(glob.glob("**/build/test-results/**/TEST-*.xml", recursive=True)):
+              try:
+                  root = ET.parse(path).getroot()
+                  for tc in root.findall(".//testcase"):
+                      for tag in ("failure", "error"):
+                          node = tc.find(tag)
+                          if node is not None:
+                              msg = (node.attrib.get("message") or node.text or "").strip().replace("\n", " ")[:400]
+                              print(f"::error::{tc.attrib.get('classname')}.{tc.attrib.get('name')}: {msg}")
+              except Exception:
+                  pass
+          PY
+            exit 1
+          fi
 
       - name: Extract Patch Version
         id: version
