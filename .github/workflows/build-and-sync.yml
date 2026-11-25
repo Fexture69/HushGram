@@ -124,7 +124,8 @@ jobs:
                 git push origin "$CURRENT_BRANCH" || (git fetch origin "$CURRENT_BRANCH" && git merge --no-edit "origin/$CURRENT_BRANCH" && git push origin "$CURRENT_BRANCH")
                 echo "Successfully synced with upstream!"
               else
-                echo "::warning::Merge conflict with upstream could not be fully auto-resolved. Aborting merge and continuing with existing branch."
+                REMAINING=$(git diff --name-only --diff-filter=U | tr '\n' ' ')
+                echo "::warning::Merge conflict with upstream could not be fully auto-resolved (remaining: $REMAINING). Aborting merge and continuing with existing branch."
                 git merge --abort
               fi
             else
