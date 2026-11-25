@@ -15,9 +15,9 @@ Adds Copy text to the menu a story's three dots open. It copies the words Instag
 Ads and privacy	Iklan dan privasi
 Also in comments	Juga di komentar
 Asks Android to run Instagram at your screen's fastest refresh rate, at the same resolution. Some phones keep their own limit for apps, and battery saver can still lower it.	Meminta Android menjalankan Instagram pada refresh rate tertinggi layarmu, dengan resolusi yang sama. Beberapa ponsel punya batas sendiri untuk aplikasi, dan penghemat baterai tetap bisa menurunkannya.
-# context: Layout: a switch under Use the highest refresh rate (#868). While a video plays it tells Android the video's frames per second, so a phone that changes its screen's refresh rate on its own picks one the video divides into evenly (60 or 120 Hz for a 30 fps video) instead of hopping.
+# context: Layout: a switch under Use the highest refresh rate (#868). While a video plays it tells Android the video's frames per second and asks Instagram's window for a refresh rate that frame rate divides into (60 Hz for a 30 fps video, 120 Hz for 24 fps). Use the highest refresh rate is the other switch's name, as on its own row.
 Match the video's frame rate	Sesuaikan dengan frame rate video
-While a video plays, tells Android how many frames a second it has, so a screen that picks its own refresh rate can choose one the video fits evenly.	Saat video diputar, memberi tahu Android berapa frame per detik video itu, agar layar yang memilih refresh rate sendiri bisa memilih yang pas dengan video.
+While a video plays, tells Android its frame rate and asks for a refresh rate that frame rate divides into, like 60 Hz for a 30 fps reel. Use the highest refresh rate comes first while it's on.	Saat video diputar, memberi tahu Android frame rate-nya dan meminta refresh rate kelipatannya, misalnya 60 Hz untuk reel 30 fps. Saat Gunakan refresh rate tertinggi aktif, itu yang didahulukan.
 Back	Kembali
 Before you sign in	Sebelum Anda masuk
 Cancel	Batal
@@ -384,6 +384,9 @@ Hide the Muse button on your profile	Sembunyikan tombol Muse di profilmu
 Removes the Muse button from the top bar of your profile. Your username and the menu stay.	Menghapus tombol Muse dari bilah atas profilmu. Nama pengguna dan menu tetap ada.
 Hide Blend on reels	Sembunyikan Blend di reel
 Removes the Blend invite button from reels. Everything else on a reel stays.	Menghapus tombol undangan Blend dari reel. Semua yang lain di reel tetap ada.
+# context: Meta AI: a Hide Meta AI switch (#866) that removes the line Instagram shows at the top of a story made with a Meta AI tool, such as Restyled with Meta AI followed by a Try it link. Restyled with Meta AI and Try it are Instagram's own labels, so use this language's Instagram wording for them where it's known.
+Hide Meta AI credits on stories	Sembunyikan kredit Meta AI di cerita
+Removes lines like Restyled with Meta AI and its Try it link from the top of stories. Music and effect credits stay.	Menghapus baris seperti Diubah gayanya dengan Meta AI dan tautan Coba dari bagian atas cerita. Kredit musik dan efek tetap ada.
 Explore	Jelajahi
 Hide the Explore grid	Sembunyikan kisi Jelajahi
 Hides the grid of posts and reels under the Search tab's bar. Search, recent searches and results stay.	Menyembunyikan kisi postingan dan reel di bawah kolom tab Pencarian. Pencarian, pencarian terbaru, dan hasilnya tetap ada.

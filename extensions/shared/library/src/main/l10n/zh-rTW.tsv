@@ -20,9 +20,9 @@ Adds Copy text to the menu a story's three dots open. It copies the words Instag
 Ads and privacy	廣告與隱私
 Also in comments	同時套用至留言
 Asks Android to run Instagram at your screen's fastest refresh rate, at the same resolution. Some phones keep their own limit for apps, and battery saver can still lower it.	要求 Android 以螢幕最高的更新率、相同的解析度執行 Instagram。部分手機會為應用程式設定自己的上限，省電模式也仍可能調低更新率。
-# context: Layout: a switch under Use the highest refresh rate (#868). While a video plays it tells Android the video's frames per second, so a phone that changes its screen's refresh rate on its own picks one the video divides into evenly (60 or 120 Hz for a 30 fps video) instead of hopping.
+# context: Layout: a switch under Use the highest refresh rate (#868). While a video plays it tells Android the video's frames per second and asks Instagram's window for a refresh rate that frame rate divides into (60 Hz for a 30 fps video, 120 Hz for 24 fps). Use the highest refresh rate is the other switch's name, as on its own row.
 Match the video's frame rate	配合影片的影格率
-While a video plays, tells Android how many frames a second it has, so a screen that picks its own refresh rate can choose one the video fits evenly.	影片播放時告訴 Android 它每秒有幾格，讓會自行調整更新率的螢幕選擇剛好配合影片的更新率。
+While a video plays, tells Android its frame rate and asks for a refresh rate that frame rate divides into, like 60 Hz for a 30 fps reel. Use the highest refresh rate comes first while it's on.	影片播放時告訴 Android 它的影格率，並要求一個是影格率整數倍的更新率，例如 30 fps 的 Reels 用 60 Hz。開啟「使用最高更新率」時以它為準。
 Back	返回
 Before you sign in	登入之前
 Cancel	取消
@@ -389,6 +389,9 @@ Hide the Muse button on your profile	隱藏個人檔案上的 Muse 按鈕
 Removes the Muse button from the top bar of your profile. Your username and the menu stay.	從個人檔案頂端列移除 Muse 按鈕。使用者名稱與選單仍會保留。
 Hide Blend on reels	隱藏 Reels 上的 Blend
 Removes the Blend invite button from reels. Everything else on a reel stays.	移除 Reels 上的 Blend 邀請按鈕。Reel 上的其他內容仍會保留。
+# context: Meta AI: a Hide Meta AI switch (#866) that removes the line Instagram shows at the top of a story made with a Meta AI tool, such as Restyled with Meta AI followed by a Try it link. Restyled with Meta AI and Try it are Instagram's own labels, so use this language's Instagram wording for them where it's known.
+Hide Meta AI credits on stories	隱藏限時動態上的 Meta AI 標示
+Removes lines like Restyled with Meta AI and its Try it link from the top of stories. Music and effect credits stay.	移除限時動態頂端的「已使用 Meta AI 改變風格」等標示及其「試試看」連結。音樂和效果標示會保留。
 Explore	探索
 Hide the Explore grid	隱藏探索網格
 Hides the grid of posts and reels under the Search tab's bar. Search, recent searches and results stay.	隱藏搜尋分頁搜尋列下方的貼文與 Reels 網格。搜尋、最近搜尋與搜尋結果仍會保留。

@@ -16,9 +16,9 @@ Adds Copy text to the menu a story's three dots open. It copies the words Instag
 Ads and privacy	광고 및 개인정보 보호
 Also in comments	댓글에도 적용
 Asks Android to run Instagram at your screen's fastest refresh rate, at the same resolution. Some phones keep their own limit for apps, and battery saver can still lower it.	화면의 가장 높은 주사율, 같은 해상도로 Instagram을 실행하도록 Android에 요청합니다. 일부 휴대전화는 앱에 자체 제한을 두며, 절전 모드가 주사율을 낮출 수도 있습니다.
-# context: Layout: a switch under Use the highest refresh rate (#868). While a video plays it tells Android the video's frames per second, so a phone that changes its screen's refresh rate on its own picks one the video divides into evenly (60 or 120 Hz for a 30 fps video) instead of hopping.
+# context: Layout: a switch under Use the highest refresh rate (#868). While a video plays it tells Android the video's frames per second and asks Instagram's window for a refresh rate that frame rate divides into (60 Hz for a 30 fps video, 120 Hz for 24 fps). Use the highest refresh rate is the other switch's name, as on its own row.
 Match the video's frame rate	동영상 프레임 속도에 맞추기
-While a video plays, tells Android how many frames a second it has, so a screen that picks its own refresh rate can choose one the video fits evenly.	동영상이 재생되는 동안 초당 프레임 수를 Android에 알려, 주사율을 스스로 정하는 화면이 동영상에 딱 맞는 주사율을 고르게 합니다.
+While a video plays, tells Android its frame rate and asks for a refresh rate that frame rate divides into, like 60 Hz for a 30 fps reel. Use the highest refresh rate comes first while it's on.	동영상이 재생되는 동안 프레임 속도를 Android에 알리고 그 배수인 주사율을 요청합니다. 예를 들어 30fps 릴스에는 60Hz입니다. 가장 높은 주사율 사용이 켜져 있으면 그쪽이 우선합니다.
 Back	뒤로
 Before you sign in	로그인 전에 읽어보세요
 Cancel	취소
@@ -385,6 +385,9 @@ Hide the Muse button on your profile	내 프로필에서 Muse 버튼 숨기기
 Removes the Muse button from the top bar of your profile. Your username and the menu stay.	내 프로필 상단 바에서 Muse 버튼을 없앱니다. 사용자 이름과 메뉴는 그대로 남습니다.
 Hide Blend on reels	릴스에서 Blend 숨기기
 Removes the Blend invite button from reels. Everything else on a reel stays.	릴스에서 Blend 초대 버튼을 없앱니다. 릴스의 다른 부분은 그대로 둡니다.
+# context: Meta AI: a Hide Meta AI switch (#866) that removes the line Instagram shows at the top of a story made with a Meta AI tool, such as Restyled with Meta AI followed by a Try it link. Restyled with Meta AI and Try it are Instagram's own labels, so use this language's Instagram wording for them where it's known.
+Hide Meta AI credits on stories	스토리에서 Meta AI 표시 숨기기
+Removes lines like Restyled with Meta AI and its Try it link from the top of stories. Music and effect credits stay.	스토리 상단에서 'Meta AI로 스타일 변경됨' 같은 줄과 '사용해 보기' 링크를 없앱니다. 음악과 효과 표시는 그대로 둡니다.
 Explore	탐색
 Hide the Explore grid	탐색 그리드 숨기기
 Hides the grid of posts and reels under the Search tab's bar. Search, recent searches and results stay.	검색 탭 검색창 아래의 게시물과 릴스 격자를 숨깁니다. 검색, 최근 검색, 검색 결과는 그대로입니다.

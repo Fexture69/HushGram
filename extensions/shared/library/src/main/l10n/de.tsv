@@ -15,9 +15,9 @@ Adds Copy text to the menu a story's three dots open. It copies the words Instag
 Ads and privacy	Werbung und Datenschutz
 Also in comments	Auch in Kommentaren
 Asks Android to run Instagram at your screen's fastest refresh rate, at the same resolution. Some phones keep their own limit for apps, and battery saver can still lower it.	Bittet Android, Instagram mit der schnellsten Bildwiederholrate deines Displays bei gleicher Auflösung laufen zu lassen. Manche Handys setzen Apps ein eigenes Limit, und der Energiesparmodus kann die Rate trotzdem senken.
-# context: Layout: a switch under Use the highest refresh rate (#868). While a video plays it tells Android the video's frames per second, so a phone that changes its screen's refresh rate on its own picks one the video divides into evenly (60 or 120 Hz for a 30 fps video) instead of hopping.
+# context: Layout: a switch under Use the highest refresh rate (#868). While a video plays it tells Android the video's frames per second and asks Instagram's window for a refresh rate that frame rate divides into (60 Hz for a 30 fps video, 120 Hz for 24 fps). Use the highest refresh rate is the other switch's name, as on its own row.
 Match the video's frame rate	Bildrate des Videos übernehmen
-While a video plays, tells Android how many frames a second it has, so a screen that picks its own refresh rate can choose one the video fits evenly.	Teilt Android beim Abspielen eines Videos mit, wie viele Bilder pro Sekunde es hat, damit ein Bildschirm, der seine Bildwiederholrate selbst wählt, eine passende nimmt.
+While a video plays, tells Android its frame rate and asks for a refresh rate that frame rate divides into, like 60 Hz for a 30 fps reel. Use the highest refresh rate comes first while it's on.	Teilt Android beim Abspielen eines Videos seine Bildrate mit und fragt nach einer Bildwiederholrate, die ein Vielfaches davon ist, etwa 60 Hz für ein Reel mit 30 fps. Ist „Höchste Bildwiederholrate nutzen“ an, geht das vor.
 Back	Zurück
 Before you sign in	Bevor du dich anmeldest
 Cancel	Abbrechen
@@ -384,6 +384,9 @@ Hide the Muse button on your profile	Muse-Schaltfläche auf deinem Profil ausble
 Removes the Muse button from the top bar of your profile. Your username and the menu stay.	Entfernt die Muse-Schaltfläche aus der oberen Leiste deines Profils. Dein Benutzername und das Menü bleiben.
 Hide Blend on reels	Blend auf Reels ausblenden
 Removes the Blend invite button from reels. Everything else on a reel stays.	Entfernt die Blend-Einladungsschaltfläche von Reels. Alles andere an einem Reel bleibt.
+# context: Meta AI: a Hide Meta AI switch (#866) that removes the line Instagram shows at the top of a story made with a Meta AI tool, such as Restyled with Meta AI followed by a Try it link. Restyled with Meta AI and Try it are Instagram's own labels, so use this language's Instagram wording for them where it's known.
+Hide Meta AI credits on stories	Meta-AI-Hinweise in Stories ausblenden
+Removes lines like Restyled with Meta AI and its Try it link from the top of stories. Music and effect credits stay.	Entfernt Zeilen wie „Mit Meta AI umgestaltet“ und den Link „Ausprobieren“ oben aus Stories. Hinweise zu Musik und Effekten bleiben.
 Explore	Entdecken
 Hide the Explore grid	Entdecken-Raster ausblenden
 Hides the grid of posts and reels under the Search tab's bar. Search, recent searches and results stay.	Blendet das Raster mit Beiträgen und Reels unter der Leiste des Suchtabs aus. Suche, letzte Suchen und Ergebnisse bleiben.
