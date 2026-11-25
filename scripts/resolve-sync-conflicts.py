@@ -459,6 +459,10 @@ def resolve_generic_conflicts():
             print(f"Auto-resolved conflicts in {path} using doc preference")
 
 def main():
+    if len(sys.argv) > 1 and sys.argv[1] in ("--l10n", "-l10n"):
+        resolve_l10n_translations()
+        return 0
+
     unmerged = get_unmerged_files()
     marker_files = get_conflict_marker_files()
     if not unmerged and not marker_files:
