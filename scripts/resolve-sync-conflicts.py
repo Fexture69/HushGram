@@ -101,10 +101,12 @@ def sync_missing_translation_keys():
         print(f"Notice: sync_missing_translation_keys encountered an error: {e}")
 
 def resolve_l10n_translations():
+    target = "extensions/shared/library/src/main/java/app/hushgram/extension/shared/L10nTranslations.java"
+    if os.path.exists(target):
+        subprocess.run(["git", "checkout", "--ours", target], check=False)
     sync_missing_translation_keys()
     print("Regenerating L10nTranslations.java...")
     subprocess.run([sys.executable, "scripts/gen-l10n.py"], check=True)
-    target = "extensions/shared/library/src/main/java/app/hushgram/extension/shared/L10nTranslations.java"
     if os.path.exists(target):
         subprocess.run(["git", "add", target], check=True)
 
@@ -442,6 +444,12 @@ def resolve_generic_conflicts():
             continue
 
         pattern = re.compile(r'<<<<<<< [^\n]*\n(.*?)\n?=======\n(.*?)\n>>>>>>> [^\n]*\n', re.DOTALL)
+
+        if path == "provenance.json":
+            subprocess.run(["git", "checkout", "--theirs", path], check=False)
+            subprocess.run(["git", "add", path], check=False)
+            print(f"Auto-resolved conflicts in {path} using upstream preference")
+            continue
 
         if path == "NOTICE" or path.endswith((".md", ".txt", ".json", ".properties")):
             def repl_doc(m):
