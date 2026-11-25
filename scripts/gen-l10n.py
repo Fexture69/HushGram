@@ -17,7 +17,7 @@ The English text in the code is the lookup key, so only the translations are sto
 travel in the extension's own DEX: HushGram adds no resources to Instagram.
 
 Each language becomes its own method filling a map, split across several methods so no single
-one approaches the 64 KB bytecode limit. Every character past ASCII is written as a \\u escape,
+one approaches the 64 KB bytecode limit. Every character past ASCII is written as a \u escape,
 so the generated file reads the same in any editor and can't hide a character in plain sight.
 
 Anything it can't make sense of stops the run with the file and line rather than being dropped
@@ -30,7 +30,7 @@ Context. A table may carry a comment line above a row, "# context: what the row 
 shows", and the reader skips it. A key is a whole sentence or phrase, never a lone word joined
 into one, so a translator sees the sentence the words sit in.
 
-Escapes. A backslash is written as \\\\, and a line feed as \\n. Sequential decoding keeps
+Escapes. A backslash is written as \\, and a line feed as \n. Sequential decoding keeps
 literal backslash+n text distinct from a line feed. Unknown or unfinished escapes fail.
 
 Plurals. A count is written as two English keys, the one form and the other form, and
@@ -469,7 +469,7 @@ def render(tables):
             labels.append(alias + dash + tail)
         for label in labels:
             lines.append(f"            case {literal(label)}:")
-        lines.append(f"                return build{method_name(lang)}();")
+        lines.append(f"                return Lang{method_name(lang)}.build();")
     lines.append("            default:")
     lines.append("                return null;")
     lines.append("        }")
@@ -482,19 +482,21 @@ def render(tables):
         name = method_name(lang)
 
         lines.append("")
-        lines.append(f"    private static Map<String, String> build{name}() {{")
-        lines.append(f"        Map<String, String> table = new HashMap<>({len(pairs) * 2});")
+        lines.append(f"    private static final class Lang{name} {{")
+        lines.append(f"        static Map<String, String> build() {{")
+        lines.append(f"            Map<String, String> table = new HashMap<>({len(pairs) * 2});")
         for index in range(len(chunks)):
-            lines.append(f"        fill{name}{index}(table);")
-        lines.append("        return table;")
-        lines.append("    }")
+            lines.append(f"            fill{index}(table);")
+        lines.append("            return table;")
+        lines.append("        }")
         for index, chunk in enumerate(chunks):
             lines.append("")
-            lines.append(f"    private static void fill{name}{index}(Map<String, String> table) {{")
+            lines.append(f"        private static void fill{index}(Map<String, String> table) {{")
             for english, translated in chunk:
-                lines.append(f"        table.put({literal(english)},")
-                lines.append(f"                {literal(translated)});")
-            lines.append("    }")
+                lines.append(f"            table.put({literal(english)},")
+                lines.append(f"                    {literal(translated)});")
+            lines.append("        }")
+        lines.append("    }")
 
     lines.append("}")
 
