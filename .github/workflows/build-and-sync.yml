@@ -145,7 +145,7 @@ jobs:
 
       - name: Generate Localization Translations
         run: |
-          python3 scripts/resolve-sync-conflicts.py --l10n || true
+          python3 scripts/resolve-sync-conflicts.py --l10n
 
       - name: Verify Patches, Settings & Category Tests
         env:
