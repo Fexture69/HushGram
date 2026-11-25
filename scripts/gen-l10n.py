@@ -508,24 +508,6 @@ def main():
               if name.endswith(".tsv")}
     try:
         keys, others = source_catalog()
-        allowed = allowed_keys(keys, others)
-        for lang, entries in list(tables.items()):
-            missing = sorted(set(keys) - entries.keys())
-            unknown = set(entries.keys()) - allowed
-            if missing or unknown:
-                path = os.path.join(L10N, lang + ".tsv")
-                lines = []
-                with open(path, "r", encoding="utf-8") as f:
-                    for line in f:
-                        if "\t" in line and decode_field(line.split("\t", 1)[0]) in unknown:
-                            continue
-                        lines.append(line)
-                for k in missing:
-                    enc = encode_field(k)
-                    lines.append(f"{enc}\t{enc}\n")
-                with open(path, "w", encoding="utf-8", newline="\n") as f:
-                    f.writelines(lines)
-                tables[lang] = read(path)
         for entries in tables.values():
             validate_keys(entries, keys, others)
         output = render(tables)
