@@ -1,4 +1,4 @@
-"""Turn the translation tables into the Java class the extension carries.
+﻿"""Turn the translation tables into the Java class the extension carries.
 
 Taken from Hushfacebook's scripts/gen-l10n.py
 (https://github.com/SysAdminDoc/Hushfacebook, commit c15d4f7930505824789684d35039d3c78c8b0903).
@@ -17,7 +17,7 @@ The English text in the code is the lookup key, so only the translations are sto
 travel in the extension's own DEX: HushGram adds no resources to Instagram.
 
 Each language becomes its own method filling a map, split across several methods so no single
-one approaches the 64 KB bytecode limit. Every character past ASCII is written as a \u escape,
+one approaches the 64 KB bytecode limit. Every character past ASCII is written as a \\u escape,
 so the generated file reads the same in any editor and can't hide a character in plain sight.
 
 Anything it can't make sense of stops the run with the file and line rather than being dropped
@@ -30,7 +30,7 @@ Context. A table may carry a comment line above a row, "# context: what the row 
 shows", and the reader skips it. A key is a whole sentence or phrase, never a lone word joined
 into one, so a translator sees the sentence the words sit in.
 
-Escapes. A backslash is written as \\, and a line feed as \n. Sequential decoding keeps
+Escapes. A backslash is written as \\\\, and a line feed as \\n. Sequential decoding keeps
 literal backslash+n text distinct from a line feed. Unknown or unfinished escapes fail.
 
 Plurals. A count is written as two English keys, the one form and the other form, and
