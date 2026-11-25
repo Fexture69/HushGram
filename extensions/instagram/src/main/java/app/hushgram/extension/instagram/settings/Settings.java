@@ -606,6 +606,16 @@ public class Settings extends BaseSettings {
             new BooleanSetting("hushgram_hold_feed_video_keep_long", FALSE, parent(HOLD_FEED_VIDEO_KEEP));
 
     /**
+     * A feed video {@link #HOLD_FEED_VIDEO_KEEP} keeps at 2x after the lift wears HushGram's 2x label across its top,
+     * and keeps the look it has while held, until its speed goes back to normal
+     * ({@link app.hushgram.extension.instagram.feed.FeedHoldSpeed#keptLabel},
+     * {@link app.hushgram.extension.instagram.feed.FeedHoldSpeed#showsKept}). Read on every lift, so it needs no
+     * restart. Off to start (#860).
+     */
+    public static final BooleanSetting HOLD_FEED_VIDEO_KEEP_BADGE =
+            new BooleanSetting("hushgram_hold_feed_video_keep_badge", FALSE, parent(HOLD_FEED_VIDEO_KEEP));
+
+    /**
      * A feed video held for 2x under {@link #HOLD_FEED_VIDEO_FAST} keeps its look: the name over it
      * stays, and Instagram's 2x and time labels don't come up
      * ({@link app.hushgram.extension.instagram.feed.FeedHoldSpeed#keepsLook}). Read on every press, so
@@ -676,6 +686,24 @@ public class Settings extends BaseSettings {
             new BooleanSetting("hushgram_feed_seek_bar_time_under_tags", FALSE, parent(FEED_SEEK_TIME));
 
     /**
+     * The time over the feed seek bar sits in the video's top end corner instead, under anything
+     * Instagram shows there, like its countdown or a carousel's count (#788). Rests while
+     * {@link #FEED_SEEK_TIME_UNDER_TAGS} is on, which wins over it, so the two can't both look on.
+     * Read as the bar updates. Off to start.
+     */
+    public static final BooleanSetting FEED_SEEK_TIME_TOP =
+            new BooleanSetting("hushgram_feed_seek_bar_time_top", FALSE, new Setting.Availability() {
+                @Override public boolean isAvailable() {
+                    return FEED_SEEK_TIME.savedValue() && FEED_SEEK_TIME.isAvailable()
+                            && !FEED_SEEK_TIME_UNDER_TAGS.savedValue();
+                }
+
+                @Override public List<Setting<?>> getParentSettings() {
+                    return Collections.singletonList(FEED_SEEK_TIME);
+                }
+            });
+
+    /**
      * A double tap on the left or right third of the video playing in a feed moves it back or ahead
      * {@link #FEED_DOUBLE_TAP_SKIP_SECONDS} instead of liking the post (#562,
      * {@link app.hushgram.extension.instagram.feed.FeedDoubleTapSkip}). Off to start.
@@ -713,6 +741,13 @@ public class Settings extends BaseSettings {
     public static final IntegerSetting FEED_AUTO_SCROLL_SECONDS =
             new IntegerSetting("hushgram_feed_auto_scroll_seconds", 6, false, parent(FEED_AUTO_SCROLL))
                     .withRange(3, 30);
+
+    /**
+     * Blocking someone takes their posts out of Home as soon as the block goes through, instead of
+     * after Home is refreshed (#861, {@link app.hushgram.extension.instagram.feed.BlockedPosts}). Off to start.
+     */
+    public static final BooleanSetting HIDE_BLOCKED_POSTS =
+            new BooleanSetting("hushgram_hide_blocked_posts", FALSE);
 
     /**
      * A long press on a feed photo shows it zoomed in around the finger until the finger lifts, in
@@ -2568,12 +2603,28 @@ public class Settings extends BaseSettings {
             new BooleanSetting("hushgram_accent_icons", FALSE, true, parent(ACCENT_COLOR));
 
     /**
+     * Under {@link #ACCENT_ICONS}: Instagram's primary text, names, captions and titles, takes the
+     * icons' shade of the picked color too (#187, {@link app.hushgram.extension.instagram.misc.AccentTheme}).
+     * Secondary text stays gray. A change shows after a restart. Off to start.
+     */
+    public static final BooleanSetting ACCENT_TEXT =
+            new BooleanSetting("hushgram_accent_text", FALSE, true, parent(ACCENT_ICONS));
+
+    /**
      * Under {@link #ACCENT_COLOR}: the buttons beside a reel and their counts, white over the video,
      * take the picked color too (#187, {@link app.hushgram.extension.instagram.misc.AccentTheme#reelButtons(int)}).
      * A change shows after a restart. Off to start.
      */
     public static final BooleanSetting ACCENT_REELS =
             new BooleanSetting("hushgram_accent_reels", FALSE, true, parent(ACCENT_COLOR));
+
+    /**
+     * Under {@link #ACCENT_COLOR}: Saved's filters take the picked color, a border and title on the
+     * others and a fill on the one you're on (#187,
+     * {@link app.hushgram.extension.instagram.misc.AccentTheme#savedFilter}). Off to start.
+     */
+    public static final BooleanSetting ACCENT_PILLS =
+            new BooleanSetting("hushgram_accent_pills", FALSE, true, parent(ACCENT_COLOR));
 
     /**
      * Under {@link #ACCENT_COLOR}: the gradient on story rings runs through the picked color instead
@@ -5418,6 +5469,14 @@ public class Settings extends BaseSettings {
      */
     public static final BooleanSetting STORY_VIEWERS =
             new BooleanSetting("hushgram_story_viewers", FALSE);
+
+    /**
+     * Under {@link #STORY_VIEWERS}: the list of who viewed one of your stories gets a Search viewers
+     * bar at its top (#833), as Instagram's own list had before its search asked for a subscription.
+     * It searches the viewers kept on this phone. Off to start.
+     */
+    public static final BooleanSetting STORY_VIEWERS_SEARCH =
+            new BooleanSetting("hushgram_story_viewers_search", FALSE, parent(STORY_VIEWERS));
 
     /**
      * The name a saved video gets: {date}, {video_id}, {owner} and {posted} fill in per save, the

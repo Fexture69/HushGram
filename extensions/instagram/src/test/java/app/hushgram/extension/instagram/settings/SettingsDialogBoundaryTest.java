@@ -441,14 +441,15 @@ public class SettingsDialogBoundaryTest {
     public void rotationRetainsReadableFailureAndRejectsTheOldRetry() {
         BrokenPage.constructorFailures = 1;
         openRecovery();
+        // The page speaks the locale's language, Arabic here, so its text is looked up in it.
         String retryLabel = L10n.t(controller.get(), "Retry");
-        String failureLabel = L10n.t(controller.get(), "Settings couldn't open");
+        String failed = L10n.t(controller.get(), "Settings couldn't open");
         View oldRetry = text(dialog.getView(), retryLabel);
         assertNotNull(oldRetry);
         controller.recreate();
         dialog = (SettingsDialog) controller.get().getFragmentManager().findFragmentByTag("boundary_settings");
         assertNotNull(dialog);
-        assertNotNull(text(dialog.getView(), failureLabel));
+        assertNotNull(text(dialog.getView(), failed));
         View retry = text(dialog.getView(), retryLabel);
         assertNotSame(oldRetry, retry);
         oldRetry.performClick();
@@ -458,7 +459,7 @@ public class SettingsDialogBoundaryTest {
         root.measure(View.MeasureSpec.makeMeasureSpec(640, View.MeasureSpec.EXACTLY),
                 View.MeasureSpec.makeMeasureSpec(1280, View.MeasureSpec.EXACTLY));
         root.layout(0, 0, 640, 1280);
-        TextView message = (TextView) text(root, failureLabel);
+        TextView message = (TextView) text(root, failed);
         assertEquals(0, message.getLayout().getEllipsisCount(0));
         assertEquals(message.getText().length(), message.getLayout().getLineEnd(message.getLineCount() - 1));
         assertTrue(retry.getHeight() >= 96);

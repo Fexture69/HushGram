@@ -522,6 +522,8 @@ Turn on %1$s to use this slider.	请启用“%1$s”以使用此滑杆。
 Turn on Story ring size to use this choice.	请启用“快拍光圈尺寸”以使用此选项。
 # context: Settings page, Reels: the line under the greyed-out Fill the screen switch while Show the whole reel is on
 Turn off Show the whole reel to use this choice.	请关闭“显示完整的 Reels”以使用此选项。
+# context: Settings page, Feed: the line under the greyed-out Time in the top corner switch while Time under the tags button is on (#788)
+Turn off Time under the tags button to use this choice.	请关闭“时间显示在标记按钮下方”以使用此选项。
 Turn on Default playback quality to use this choice.	请启用“默认播放画质”以使用此选项。
 Updating remembered positions...	正在更新记住的播放位置…
 Undo cleared positions	复原清除播放位置
@@ -896,7 +898,7 @@ Media link copied. It stops working after a few days.	已复制媒体链接。�
 No direct link for this one	此项目没有直接链接
 Posted %1$s	发布于 %1$s
 Size %1$d × %2$d	尺寸 %1$d × %2$d
-Adds Details to a feed post's or reel's menu. It shows when it went up, who posted it, its media ID and the size Download saves, with buttons to copy the file link, username and caption.	在动态首页帖子或 Reel 的菜单中添加“详细数据”，显示发布时间、发布者、媒体 ID 与下载保存的尺寸，并提供复制文件链接、用户名与说明文字的按钮。
+Adds Details to a feed post's or reel's menu. It shows when it went up, who posted it, its media ID and the size Download saves, with buttons to copy the file link, username and caption, open the photo or video in another app, and read its text with Google Lens. A story's menu gets Copy username.	在动态首页帖子或 Reel 的菜单中添加“详细数据”，显示发布时间、发布者、媒体 ID 与下载保存的尺寸，并提供复制文件链接、用户名与说明文字、在其他应用中打开照片或视频，以及用 Google Lens 读取文字的按钮。快拍的菜单会加入“复制用户名”。
 Caption	说明文字
 Caption copied	已复制说明文字
 Copy caption	复制说明文字
@@ -1223,7 +1225,7 @@ Never. Pick a time and the tab bar slides away once a reel has played that long 
 # context: summary of the Hide the tab bar on Reels row; %1$d is the seconds picked, 2, 3, 5 or 8
 On Reels, the tab bar slides away after %1$d seconds without a touch. Tap the bottom edge of the screen, change tab or press Back to bring it back. Restart Instagram after changing it.	在 Reels 中，未触碰画面 %1$d 秒后标签栏会滑出画面。点击屏幕底部边缘、切换标签页或按返回即可重新显示。变更后请重新启动 Instagram。
 Start feed videos with sound	动态首页视频默认打开声音
-Videos on Home play with their sound on, the same as tapping a video's speaker. Mute one and the ones after it stay muted. Your phone's ringer and volume still count, so on silent or with the volume down, they stay quiet.	首页视频会打开声音播放，等同点击视频的喇叭按钮。将其中一部静音后，之后的视频也会保持静音。仍受手机铃声与音量设置影响，因此静音或音量调低时仍不会出声。
+Videos on Home play with their sound on, the same as tapping a video's speaker, and so do songs on photo posts. Mute one and the ones after it stay muted. Your phone's ringer and volume still count, so on silent or with the volume down, they stay quiet.	首页视频会打开声音播放，等同点击视频的喇叭按钮，照片帖子的歌曲也一样。将其中一部静音后，之后的视频也会保持静音。仍受手机铃声与音量设置影响，因此静音或音量调低时仍不会出声。
 Start feed videos muted	动态首页视频默认静音
 Videos on Home start silent, even after you turn the sound on in Reels, so reels keep their sound. Tap a video's speaker to hear that one. Wins over Start feed videos with sound.	首页视频会以静音开始播放，即使你在 Reels 中打开了声音也一样，因此 Reels 仍会保留声音。点击视频的喇叭按钮即可听该视频。优先于“动态首页视频默认打开声音”。
 Tap a feed video to pause it	点击动态首页视频以暂停
@@ -1664,6 +1666,11 @@ The red dots and counts for new messages and notifications take the color you pi
 Icons in the accent color	图标使用强调色
 Reel buttons in the accent color	Reels 按钮使用强调色
 The buttons beside a reel and their counts take the color you picked instead of white. Restart Instagram to see the change.	Reels 旁边的按钮和数字会改用你选择的颜色，不再是白色。请重新启动 Instagram 以查看变更.
+Text in the accent color	文字使用强调色
+Names, captions and other main text take the same color as the icons. Gray text stays gray. Restart Instagram to see the change.	名称、说明文字和其他主要文字会改用与图标相同的颜色。灰色文字保持灰色。请重新启动 Instagram 以查看变更.
+# context: Layout > Accent color switch. Saved is Instagram's own Saved page, in its label for this language.
+Filters in the accent color	筛选器使用强调色
+The filters along the top of Saved take the color you picked, and the one you're on is filled with it. Restart Instagram to see the change.	收藏夹顶部的筛选器会改用你选择的颜色，当前所在的筛选器会以该颜色填满。请重新启动 Instagram 以查看变更.
 Instagram's icons on the top bar, the tab bar and under posts take the color you picked. Text stays as it is. Restart Instagram to see the change.	顶部栏、标签栏和帖子下方的 Instagram 图标会改用你选择的颜色。文字保持不变。请重新启动 Instagram 以应用变更。
 Story rings in the accent color	快拍圆环使用强调色
 Story rings take the color you picked instead of Instagram's gradient. A few other gradients share those colors and change with them. Restart Instagram to see the change.	快拍圆环会改用你选择的颜色,取代 Instagram 的渐变。少数使用相同颜色的其他渐变也会一起改变。请重新启动 Instagram 以查看变更。
@@ -2584,6 +2591,10 @@ Tap sound volume	触摸音效音量
 Auto scroll in Home	首页自动卷动
 Moves Home on to the next post by itself. A video moves on when it ends, a photo or carousel after Time on each post. Touch the screen to hold it.	首页会自动移到下一条帖子。视频播完就移动，照片或轮播帖子则在“每条帖子的时间”后移动。触摸屏幕即可暂停。
 Time on each post	每条帖子的时间
+# context: Feed settings: switch that takes a blocked account's posts out of Home as soon as the block goes through (#861)
+Hide posts when you block someone	屏蔽某人时隐藏其帖子
+# context: Summary of Hide posts when you block someone, a Feed switch (#861)
+When you block someone, their posts in Home go away right away instead of after you refresh it.	屏蔽某人后，首页里此人的帖子会立即消失，不必先刷新.
 # context: Reels settings: switch that lets a tap on the reel shown above an open comments sheet pause or play it, and a hold play it at 2x, without closing the comments (#665)
 Control the reel above comments	控制评论上方的 Reel
 # context: Summary of Control the reel above comments (#665)
@@ -2627,6 +2638,10 @@ The time on the seek bar counts down what's left of the video, like -0:33 / 0:45
 Time under the tags button	时间显示在标记按钮下方
 # context: Summary of Time under the tags button (#711)
 Puts the time in the corner under the tags button instead of the middle of the bar.	把时间放在标记按钮下方的角落，而不是拖动条中间.
+# context: Feed settings: a switch under Time on the seek bar that moves the time to the video's top corner, below Instagram's countdown (#788)
+Time in the top corner	时间显示在上方角落
+# context: Summary of Time in the top corner (#788)
+Puts the time in the top corner of the video instead of over the bar, just below anything Instagram shows there, like its countdown.	把时间放在视频上方角落，而不是拖动条上方，就在 Instagram 显示的倒计时等内容正下方。
 # context: Feed settings: a switch under Tap a feed video to pause it that keeps any tap on a feed video from opening Reels (#706)
 Taps on feed videos stay in the feed	点击动态视频时留在动态
 # context: Summary of Taps on feed videos stay in the feed; Tap a feed video to pause it is the switch above it, use its translation (#706)
@@ -2665,6 +2680,10 @@ A feed video you hold for 2x keeps playing at 2x after you let go. Hold it again
 Only after a long hold	仅在长按较久后
 # context: Summary of Only after a long hold, a switch under Keep 2x after you let go (#552)
 Keeps 2x only when you hold the video for about 3 seconds. Let go sooner and it goes back to normal speed.	只有长按视频约 3 秒时才保持 2 倍速。提早放开就会恢复正常速度.
+# context: Feed settings: a switch under Keep 2x after you let go that leaves Instagram's 2x label on a feed video kept at 2x (#860)
+Show 2x after you let go	放开后显示 2 倍速
+# context: Summary of Show 2x after you let go, a switch under Keep 2x after you let go (#860)
+A feed video that keeps playing at 2x shows a 2x label at the top until it goes back to normal speed.	持续以 2 倍速播放的动态视频会在顶部显示 2x 标签，直到恢复正常速度。
 # context: Feed settings: a switch under Hold for 2x on feed videos that keeps the poster's name over the video while it's held at 2x (#552)
 Keep the name while you hold	按住时保留名称
 # context: Summary of Keep the name while you hold, a switch under Hold for 2x on feed videos (#552)
@@ -2732,6 +2751,10 @@ Hold a finger on the liquid pill's bubble, or slide it across the tabs, and the 
 # context: Keep story viewers, its Stories settings rows and the Story viewers page.
 Keep story viewers	保留快拍观看者
 Each time you open who viewed one of your stories, the list is kept on this phone and set beside your followers. Nothing extra is asked of Instagram. Turn it off and it stops at once.	每次你打开谁看过你的某条快拍，名单就会保留在这支手机上，并和你的粉丝放在一起对照。不会向 Instagram 多要任何东西。关闭后会立刻停止。
+# context: Stories > Keep story viewers, the switch for a search bar HushGram adds to Instagram's list of who viewed your story, and the bar's own words.
+Search bar in the viewer list	观看者名单中的搜索栏
+Puts a Search viewers bar at the top of the list of who viewed your story. It searches the viewers kept on this phone, the ones Instagram has listed so far.	在看过你快拍的名单顶部加上“搜索观看者”栏。它会搜索这支手机上保留的观看者，也就是 Instagram 目前已列出的人。
+Search viewers	搜索观看者
 Story viewers	快拍观看者
 Nothing here yet. With Keep story viewers on, open who viewed one of your stories in Instagram and the list is kept here.	这里还没有内容。开启“保留快拍观看者”后，在 Instagram 打开谁看过你的某条快拍，名单就会保留在这里。
 %1$d story kept since %2$s. Tap to see who viewed it and who has no view recorded.	自 %2$s 起保留了 %1$d 条快拍。点一下即可查看谁看过，以及谁没有记录到观看。
@@ -2939,6 +2962,14 @@ Long press a chat to group it	长按聊天即可分组
 # context: Stories switch Story rings on saved posts and its summary, for posts on the Saved page (#790)
 Story rings on saved posts	已保存帖子的快拍光圈
 Posts you saved show the story ring around the author's picture, like Home does, and a tap on it opens their story. It only uses stories Instagram has already loaded.	你保存的帖子会像首页一样在作者头像周围显示快拍光圈，点一下即可打开快拍。只使用 Instagram 已加载的快拍。
+# context: Details in a post's menu (#839): a row under the facts that sends the photo, or a video's cover, to Google Lens to read its words
+Read text with Lens	用 Lens 读取文字
+# context: Details in a post's menu (#839): a toast while Open with or Read text with Lens fetches the post's file
+Getting the file ready	正在准备文件
+# context: Details in a post's menu (#839): a toast when Open with or Read text with Lens couldn't fetch the post's file
+Couldn't get the file	无法获取文件
+# context: Details in a post's menu (#839): a toast when no app on the phone takes the photo or video Open with offers
+No app here can open it	没有可打开的应用
 %1$d entries left out because they repeat or don't fit.	%1$d entries left out because they repeat or don't fit.
 %1$d overrides from a different Instagram version don't fit this one and were left out.	%1$d overrides from a different Instagram version don't fit this one and were left out.
 2x speed for videos in the feed	2x speed for videos in the feed

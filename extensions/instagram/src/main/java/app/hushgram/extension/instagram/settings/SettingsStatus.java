@@ -594,6 +594,10 @@ public final class SettingsStatus {
         return false;
     }
 
+    public static boolean blockedPosts() {
+        return false;
+    }
+
     public static boolean homeTopBar() {
         return false;
     }

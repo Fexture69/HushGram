@@ -517,6 +517,8 @@ Turn on %1$s to use this slider.	Ative %1$s para usar este controle deslizante.
 Turn on Story ring size to use this choice.	Ative Tamanho dos anéis dos stories para usar esta opção.
 # context: Settings page, Reels: the line under the greyed-out Fill the screen switch while Show the whole reel is on
 Turn off Show the whole reel to use this choice.	Desative Mostrar o reel inteiro para usar esta opção.
+# context: Settings page, Feed: the line under the greyed-out Time in the top corner switch while Time under the tags button is on (#788)
+Turn off Time under the tags button to use this choice.	Desative Tempo abaixo do botão de marcações para usar esta opção.
 Turn on Default playback quality to use this choice.	Ative Qualidade de reprodução padrão para usar esta opção.
 Updating remembered positions...	Atualizando posições salvas...
 Undo cleared positions	Restaurar posições apagadas
@@ -893,7 +895,7 @@ Media link copied. It stops working after a few days.	Link da mídia copiado. El
 No direct link for this one	Não há link direto para este
 Posted %1$s	Postado em %1$s
 Size %1$d × %2$d	Tamanho %1$d × %2$d
-Adds Details to a feed post's or reel's menu. It shows when it went up, who posted it, its media ID and the size Download saves, with buttons to copy the file link, username and caption.	Adiciona Detalhes ao menu de um post do feed ou de um reel. Mostra quando foi publicado, quem postou, o ID da mídia e o tamanho que o Baixar salva, com botões para copiar o link do arquivo, o nome de usuário e a legenda.
+Adds Details to a feed post's or reel's menu. It shows when it went up, who posted it, its media ID and the size Download saves, with buttons to copy the file link, username and caption, open the photo or video in another app, and read its text with Google Lens. A story's menu gets Copy username.	Adiciona Detalhes ao menu de um post do feed ou de um reel. Mostra quando foi publicado, quem postou, o ID da mídia e o tamanho que o Baixar salva, com botões para copiar o link do arquivo, o nome de usuário e a legenda, abrir a foto ou o vídeo em outro app e ler o texto com o Google Lens. O menu de um story ganha Copiar nome de usuário.
 Caption	Legenda
 Caption copied	Legenda copiada
 Copy caption	Copiar legenda
@@ -978,6 +980,11 @@ The red dots and counts for new messages and notifications take the color you pi
 Icons in the accent color	Ícones na cor de destaque
 Reel buttons in the accent color	Botões dos reels na cor de destaque
 The buttons beside a reel and their counts take the color you picked instead of white. Restart Instagram to see the change.	Os botões ao lado de um reel e as contagens deles ficam na cor que você escolheu em vez de branco. Reinicie o Instagram para ver a mudança.
+Text in the accent color	Texto na cor de destaque
+Names, captions and other main text take the same color as the icons. Gray text stays gray. Restart Instagram to see the change.	Nomes, legendas e outros textos principais ficam na mesma cor dos ícones. O texto cinza continua cinza. Reinicie o Instagram para ver a mudança.
+# context: Layout > Accent color switch. Saved is Instagram's own Saved page, in its label for this language.
+Filters in the accent color	Filtros na cor de destaque
+The filters along the top of Saved take the color you picked, and the one you're on is filled with it. Restart Instagram to see the change.	Os filtros no topo de Salvos ficam na cor que você escolheu, e o que está em uso é preenchido com ela. Reinicie o Instagram para ver a mudança.
 Instagram's icons on the top bar, the tab bar and under posts take the color you picked. Text stays as it is. Restart Instagram to see the change.	Os ícones do Instagram na barra superior, na barra de abas e embaixo dos posts ficam na cor que você escolheu. O texto continua como está. Reinicie o Instagram para ver a mudança.
 Story rings in the accent color	Anéis de stories na cor de destaque
 Story rings take the color you picked instead of Instagram's gradient. A few other gradients share those colors and change with them. Restart Instagram to see the change.	Os anéis dos stories ficam na cor que você escolheu em vez do degradê do Instagram. Alguns outros degradês usam essas cores e mudam junto. Reinicie o Instagram para ver a mudança.
@@ -1236,7 +1243,7 @@ Never. Pick a time and the tab bar slides away once a reel has played that long 
 # context: summary of the Hide the tab bar on Reels row; %1$d is the seconds picked, 2, 3, 5 or 8
 On Reels, the tab bar slides away after %1$d seconds without a touch. Tap the bottom edge of the screen, change tab or press Back to bring it back. Restart Instagram after changing it.	Nos Reels, a barra de abas desliza para fora após %1$d segundos sem toque. Toque na borda inferior da tela, troque de aba ou pressione Voltar para trazê-la de volta. Reinicie o Instagram depois de alterar.
 Start feed videos with sound	Iniciar vídeos do feed com som
-Videos on Home play with their sound on, the same as tapping a video's speaker. Mute one and the ones after it stay muted. Your phone's ringer and volume still count, so on silent or with the volume down, they stay quiet.	Os vídeos do Início tocam com o som ligado, igual a tocar no alto-falante de um vídeo. Se você silenciar um, os próximos continuam mudos. O toque e o volume do celular continuam valendo, então no silencioso ou com o volume zerado, eles ficam mudos.
+Videos on Home play with their sound on, the same as tapping a video's speaker, and so do songs on photo posts. Mute one and the ones after it stay muted. Your phone's ringer and volume still count, so on silent or with the volume down, they stay quiet.	Os vídeos do Início tocam com o som ligado, igual a tocar no alto-falante de um vídeo, e as músicas de posts de foto também. Se você silenciar um, os próximos continuam mudos. O toque e o volume do celular continuam valendo, então no silencioso ou com o volume zerado, eles ficam mudos.
 Start feed videos muted	Iniciar vídeos do feed sem som
 Videos on Home start silent, even after you turn the sound on in Reels, so reels keep their sound. Tap a video's speaker to hear that one. Wins over Start feed videos with sound.	Os vídeos do Início começam sem som, mesmo depois de você ligar o som no Reels, então os reels mantêm o som. Toque no alto-falante de um vídeo para ouvir esse. Tem prioridade sobre Iniciar vídeos do feed com som.
 Tap a feed video to pause it	Tocar em um vídeo do feed para pausar
@@ -2581,6 +2588,10 @@ Tap sound volume	Volume do som de toque
 Auto scroll in Home	Rolagem automática no Início
 Moves Home on to the next post by itself. A video moves on when it ends, a photo or carousel after Time on each post. Touch the screen to hold it.	O Início passa sozinho para a próxima publicação. Um vídeo passa quando termina, e uma foto ou carrossel depois de Tempo em cada publicação. Toque na tela para pausar.
 Time on each post	Tempo em cada publicação
+# context: Feed settings: switch that takes a blocked account's posts out of Home as soon as the block goes through (#861)
+Hide posts when you block someone	Ocultar posts ao bloquear alguém
+# context: Summary of Hide posts when you block someone, a Feed switch (#861)
+When you block someone, their posts in Home go away right away instead of after you refresh it.	Quando você bloqueia alguém, os posts dessa pessoa no Início somem na hora, sem precisar atualizar.
 # context: Reels settings: switch that lets a tap on the reel shown above an open comments sheet pause or play it, and a hold play it at 2x, without closing the comments (#665)
 Control the reel above comments	Controlar o reel acima dos comentários
 # context: Summary of Control the reel above comments (#665)
@@ -2624,6 +2635,10 @@ The time on the seek bar counts down what's left of the video, like -0:33 / 0:45
 Time under the tags button	Tempo abaixo do botão de marcações
 # context: Summary of Time under the tags button (#711)
 Puts the time in the corner under the tags button instead of the middle of the bar.	Coloca o tempo no canto, abaixo do botão de marcações, em vez do meio da barra.
+# context: Feed settings: a switch under Time on the seek bar that moves the time to the video's top corner, below Instagram's countdown (#788)
+Time in the top corner	Tempo no canto superior
+# context: Summary of Time in the top corner (#788)
+Puts the time in the top corner of the video instead of over the bar, just below anything Instagram shows there, like its countdown.	Coloca o tempo no canto superior do vídeo em vez de sobre a barra, logo abaixo do que o Instagram mostrar ali, como a contagem regressiva.
 # context: Feed settings: a switch under Tap a feed video to pause it that keeps any tap on a feed video from opening Reels (#706)
 Taps on feed videos stay in the feed	Toques em vídeos do feed ficam no feed
 # context: Summary of Taps on feed videos stay in the feed; Tap a feed video to pause it is the switch above it, use its translation (#706)
@@ -2662,6 +2677,10 @@ A feed video you hold for 2x keeps playing at 2x after you let go. Hold it again
 Only after a long hold	Só depois de segurar por um tempo
 # context: Summary of Only after a long hold, a switch under Keep 2x after you let go (#552)
 Keeps 2x only when you hold the video for about 3 seconds. Let go sooner and it goes back to normal speed.	Mantém 2x só quando você segura o vídeo por cerca de 3 segundos. Se soltar antes, volta à velocidade normal.
+# context: Feed settings: a switch under Keep 2x after you let go that leaves Instagram's 2x label on a feed video kept at 2x (#860)
+Show 2x after you let go	Mostrar 2x ao soltar
+# context: Summary of Show 2x after you let go, a switch under Keep 2x after you let go (#860)
+A feed video that keeps playing at 2x shows a 2x label at the top until it goes back to normal speed.	Um vídeo do feed que continua em 2x mostra um rótulo de 2x no topo até voltar à velocidade normal.
 # context: Feed settings: a switch under Hold for 2x on feed videos that keeps the poster's name over the video while it's held at 2x (#552)
 Keep the name while you hold	Manter o nome ao segurar
 # context: Summary of Keep the name while you hold, a switch under Hold for 2x on feed videos (#552)
@@ -2729,6 +2748,10 @@ Hold a finger on the liquid pill's bubble, or slide it across the tabs, and the 
 # context: Keep story viewers, its Stories settings rows and the Story viewers page.
 Keep story viewers	Guardar quem viu os stories
 Each time you open who viewed one of your stories, the list is kept on this phone and set beside your followers. Nothing extra is asked of Instagram. Turn it off and it stops at once.	Toda vez que você abre quem viu um dos seus stories, a lista fica guardada neste celular, ao lado dos seus seguidores. Nada a mais é pedido ao Instagram. Desative e para na hora.
+# context: Stories > Keep story viewers, the switch for a search bar HushGram adds to Instagram's list of who viewed your story, and the bar's own words.
+Search bar in the viewer list	Barra de pesquisa na lista de quem viu
+Puts a Search viewers bar at the top of the list of who viewed your story. It searches the viewers kept on this phone, the ones Instagram has listed so far.	Coloca uma barra Pesquisar quem viu no topo da lista de quem viu seu story. Ela pesquisa quem viu guardado neste celular, as pessoas que o Instagram listou até agora.
+Search viewers	Pesquisar quem viu
 Story viewers	Quem viu os stories
 Nothing here yet. With Keep story viewers on, open who viewed one of your stories in Instagram and the list is kept here.	Nada aqui ainda. Com Guardar quem viu os stories ativado, abra no Instagram quem viu um dos seus stories e a lista fica guardada aqui.
 %1$d story kept since %2$s. Tap to see who viewed it and who has no view recorded.	%1$d story guardado desde %2$s. Toque para ver quem viu e quem não tem visualização registrada.
@@ -2936,6 +2959,14 @@ Long press a chat to group it	Toque e segure uma conversa para agrupá-la
 # context: Stories switch Story rings on saved posts and its summary, for posts on the Saved page (#790)
 Story rings on saved posts	Anéis de stories em posts salvos
 Posts you saved show the story ring around the author's picture, like Home does, and a tap on it opens their story. It only uses stories Instagram has already loaded.	Os posts que você salvou mostram o anel do story em volta da foto do autor, como no Início, e um toque nele abre o story. Só usa stories que o Instagram já carregou.
+# context: Details in a post's menu (#839): a row under the facts that sends the photo, or a video's cover, to Google Lens to read its words
+Read text with Lens	Ler texto com o Lens
+# context: Details in a post's menu (#839): a toast while Open with or Read text with Lens fetches the post's file
+Getting the file ready	Preparando o arquivo
+# context: Details in a post's menu (#839): a toast when Open with or Read text with Lens couldn't fetch the post's file
+Couldn't get the file	Não deu para pegar o arquivo
+# context: Details in a post's menu (#839): a toast when no app on the phone takes the photo or video Open with offers
+No app here can open it	Nenhum app aqui abre isso
 2x speed for videos in the feed	2x speed for videos in the feed
 Adds a shortcut to your saved posts in the Explore tab.	Adds a shortcut to your saved posts in the Explore tab.
 Adds a speed choice to the menu on a reel.	Adds a speed choice to the menu on a reel.
