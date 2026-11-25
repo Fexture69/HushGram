@@ -16,6 +16,9 @@ Adds Copy text to the menu a story's three dots open. It copies the words Instag
 Ads and privacy	광고 및 개인정보 보호
 Also in comments	댓글에도 적용
 Asks Android to run Instagram at your screen's fastest refresh rate, at the same resolution. Some phones keep their own limit for apps, and battery saver can still lower it.	화면의 가장 높은 주사율, 같은 해상도로 Instagram을 실행하도록 Android에 요청합니다. 일부 휴대전화는 앱에 자체 제한을 두며, 절전 모드가 주사율을 낮출 수도 있습니다.
+# context: Layout: a switch under Use the highest refresh rate (#868). While a video plays it tells Android the video's frames per second, so a phone that changes its screen's refresh rate on its own picks one the video divides into evenly (60 or 120 Hz for a 30 fps video) instead of hopping.
+Match the video's frame rate	동영상 프레임 속도에 맞추기
+While a video plays, tells Android how many frames a second it has, so a screen that picks its own refresh rate can choose one the video fits evenly.	동영상이 재생되는 동안 초당 프레임 수를 Android에 알려, 주사율을 스스로 정하는 화면이 동영상에 딱 맞는 주사율을 고르게 합니다.
 Back	뒤로
 Before you sign in	로그인 전에 읽어보세요
 Cancel	취소
@@ -799,6 +802,14 @@ Takes AI-generated profile and similar AI labels off the line with a commenter's
 # context: Comments: a Hide comments switch that takes the comment box off the bottom of a comment sheet (#762). Comment box is the field where you type a comment; Post is Instagram's own label on its send button, use this language's Instagram word for it.
 Hide the comment box	댓글 입력창 숨기기
 Takes the comment box, with your picture and Post, off the bottom of a post's or reel's comments. Turn it off when you want to comment.	게시물이나 릴스 댓글 아래쪽에서 내 사진과 게시 버튼이 있는 댓글 입력창을 없앱니다. 댓글을 달고 싶을 때는 꺼 주세요.
+# context: Comments: two Hide comments switches (#869). One hides the Meta AI search suggestion some comment sheets show above the comments (a pill reading Search plus a topic), the other the gift button at the end of the comment box. Comment box is the field where you type a comment.
+Hide search suggestions in comments	댓글의 검색 추천 숨기기
+Takes the Meta AI search suggestion off the top of a post's or reel's comments. Not every post has one.	게시물이나 릴스 댓글 맨 위에 있는 Meta AI 검색 추천을 없앱니다. 모든 게시물에 있지는 않습니다.
+Hide the gift button	선물 버튼 숨기기
+Takes the gift button off the right end of the comment box. The box itself stays.	댓글 입력창 오른쪽 끝의 선물 버튼을 없앱니다. 입력창은 그대로 표시됩니다
+# context: Comments: a Hide comments switch (#869) that hides the round (i) info button some comment sheets draw at the top right, just above the first comment. Write (i) as is.
+Hide the (i) button in comments	댓글의 (i) 버튼 숨기기
+Takes the (i) button off the top right of a post's or reel's comments, above the first comment. Not every post has it.	게시물이나 릴스 댓글의 오른쪽 위, 첫 댓글 위에 있는 (i) 버튼을 없앱니다. 모든 게시물에 있지는 않습니다.
 # context: Comments: the switch that hides the row of quick emoji above the comment box (#248). Comment box is the field where you type a comment.
 Hide the emoji row	이모지 줄 숨기기
 Takes the row of quick emoji off above the comment box. The box itself stays.	댓글 입력창 위에 있는 빠른 이모지 줄을 없앱니다. 입력창은 그대로 표시됩니다
@@ -2526,6 +2537,10 @@ Choose a file for your installed patches' settings and saved profiles. Your logi
 Ask before a follow	팔로우 전에 묻기
 # context: Profiles > summary of Ask before a follow; Follow, Follow back, Followers and Following are Instagram's own button and list names (#631)
 Asks before a Follow or Follow back button follows someone or sends them a request, so a stray tap on a profile or in a Followers or Following list doesn't do it for you.	팔로우 또는 맞팔로우 버튼이 누군가를 팔로우하거나 요청을 보내기 전에 먼저 묻습니다. 프로필이나 팔로워 또는 팔로잉 목록에서 실수로 탭해도 팔로우되지 않습니다.
+# context: Profiles > title of the switch that skips Instagram's "Review this account before following" sheet, so one tap on Follow follows (#867)
+Follow without the review sheet	검토 시트 없이 팔로우
+# context: Profiles > summary of Follow without the review sheet; the quoted title is Instagram's own sheet and Follow its button; Ask before a follow is the switch above (#867)
+For some accounts Instagram opens a "Review this account before following" sheet before a follow. With this on, the follow goes through at once, the same as the sheet's Follow button, so one tap follows. Ask before a follow still asks first.	일부 계정은 팔로우하기 전에 Instagram이 "팔로우하기 전에 이 계정을 검토하세요" 시트를 엽니다. 이 옵션을 켜면 시트의 팔로우 버튼을 누른 것처럼 바로 팔로우되어 한 번만 탭하면 됩니다. 팔로우 전에 묻기는 그대로 먼저 묻습니다.
 # context: Title of the question Ask before a follow puts up; %1$s is the account's username (#631)
 Follow @%1$s?	@%1$s님을 팔로우할까요?
 # context: Title of the question Ask before a follow puts up when the username can't be read (#631)
@@ -2664,6 +2679,9 @@ Use template	템플릿 사용
 Get Edits	Edits 다운로드
 # context: Title of the row under Feed that lists the items to keep in the menus behind the three dots on posts, reels and stories (#697, #707)
 Items in the three-dot menus	점 세 개 메뉴의 항목
+# context: Feed: a switch right under Items in the three-dot menus (#815). It adds Instagram's Interested row (the same word as the Interested item in that list) to the three-dot menus that leave it out, like the menu of a reel from an account you follow.
+Interested on every post and reel	모든 게시물과 릴스에 관심 있음
+Adds Interested to the three-dot menu of posts and reels that leave it out, like reels from accounts you follow.	관심 있음이 없는 게시물과 릴스의 점 세 개 메뉴에 관심 있음을 넣습니다. 팔로우하는 계정의 릴스도 마찬가지입니다.
 # context: Summary of Items in the three-dot menus under Feed while every item is ticked (#697, #707)
 Every item shows. Untick the ones you don't want in the menus behind the three dots on posts, reels and stories.	모든 항목이 표시됩니다. 게시물, 릴스, 스토리의 점 세 개 메뉴에서 원하지 않는 항목의 선택을 해제하세요.
 # context: Summary of Items in the three-dot menus under Feed naming the unticked items, which are joined with a comma (#697, #707)
@@ -2741,6 +2759,13 @@ Cache size limit	캐시 크기 한도
 %1$d MB	%1$dMB
 # context: Storage: second line under Clear saved copies now; %1$s is a size such as 312 MB
 Saved photos and videos take up %1$s now.	현재 저장된 사진과 동영상 용량: %1$s
+# context: Storage: a row that adds up how much space Instagram's data takes up outside its cache (#683), names its biggest folders (folder names like files/mqtt stay as they are) and HushGram's own files. Adding it up shows while it reads.
+Space used	사용 중인 공간
+Adding it up…	계산 중…
+Couldn't add up the space used.	사용 중인 공간을 계산할 수 없습니다.
+Instagram's data takes up %1$s, its cache aside.	Instagram 데이터 용량(캐시 제외): %1$s
+Biggest: %1$s.	가장 큰 항목: %1$s
+HushGram's own files take up %1$s.	HushGram 자체 파일 용량: %1$s
 # context: Tab bar: switch under Keep the pill full size, for the liquid look's bubble under a held finger (#705)
 Glass lens under your finger	손가락 아래 유리 렌즈
 Hold a finger on the liquid pill's bubble, or slide it across the tabs, and the bubble swells and bends what's behind it harder, like glass under a fingertip. It eases back when you let go. The bend needs Blur behind the tab bar and Android 13 or newer. Restart Instagram after changing it.	리퀴드 글래스 알약의 버블을 손가락으로 누르고 있거나 탭 위로 밀면 버블이 커지고 뒤에 있는 화면을 더 강하게 굴절시킵니다. 손끝 아래의 유리처럼요. 손을 떼면 원래대로 돌아갑니다. 굴절에는 탭 바 뒤 흐림 효과와 Android 13 이상이 필요합니다. 변경한 뒤에는 Instagram을 다시 시작하세요.
@@ -2966,6 +2991,22 @@ Getting the file ready	파일을 준비하는 중
 Couldn't get the file	파일을 가져오지 못했어요
 # context: Details in a post's menu (#839): a toast when no app on the phone takes the photo or video Open with offers
 No app here can open it	열 수 있는 앱이 없어요
+# context: Keep history for (#228): the title of a list row under Keep a viewing history, and of its dialogs
+Keep history for	기록 보관 기간
+# context: Keep history for (#228): its first choice, the newest 500 rows whatever their age
+Newest 500	최근 500개
+# context: Keep history for (#228): a choice of one day, typed under Custom
+1 day	1일
+# context: Keep history for (#228): a choice of days, like 7 days; %1$s is the number
+%1$s days	%1$s일
+# context: Keep history for (#228): the message of the dialog Custom opens
+Type how many days to keep, from 1 to 365.	보관할 일수를 1에서 365 사이로 입력하세요.
+# context: Keep history for (#228): the row's summary with Newest 500 chosen
+The newest 500 stay, however old they are.	기간과 상관없이 최근 500개를 남겨요.
+# context: Keep history for (#228): the row's summary with one day chosen
+Anything seen more than a day ago goes. At most 2000 stay.	본 지 하루가 넘은 항목은 지워져요. 최대 2000개까지 남아요.
+# context: Keep history for (#228): the row's summary with some days chosen; %1$s is the number
+Anything seen more than %1$s days ago goes. At most 2000 stay.	본 지 %1$s일이 넘은 항목은 지워져요. 최대 2000개까지 남아요.
 2x speed for videos in the feed	2x speed for videos in the feed
 Adds a shortcut to your saved posts in the Explore tab.	Adds a shortcut to your saved posts in the Explore tab.
 Adds a speed choice to the menu on a reel.	Adds a speed choice to the menu on a reel.

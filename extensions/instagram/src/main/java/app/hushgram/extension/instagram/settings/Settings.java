@@ -1452,6 +1452,13 @@ public class Settings extends BaseSettings {
     public static final BooleanSetting ASK_BEFORE_FOLLOW = new BooleanSetting("hushgram_ask_before_follow", FALSE);
 
     /**
+     * A follow that would open Instagram's "Review this account before following" sheet follows at
+     * once, as the sheet's Follow button would ({@link app.hushgram.extension.instagram.profile.FollowReview}).
+     * Off to start (#867).
+     */
+    public static final BooleanSetting SKIP_FOLLOW_REVIEW = new BooleanSetting("hushgram_skip_follow_review", FALSE);
+
+    /**
      * Keeps the follow requests a follow button shows as Requested, for the Sent follow requests page
      * ({@link app.hushgram.extension.instagram.profile.SentRequests}, #690). Read at each status, so no
      * restart. Off to start.
@@ -2543,6 +2550,14 @@ public class Settings extends BaseSettings {
             new BooleanSetting("hushgram_highest_refresh_rate", FALSE);
 
     /**
+     * A playing video's view asks Android for the video's own frame rate, Android 15 and up (#868,
+     * {@link app.hushgram.extension.instagram.misc.VideoFrameRate}). Read before each frame, so no
+     * restart. Off to start.
+     */
+    public static final BooleanSetting MATCH_VIDEO_FRAME_RATE =
+            new BooleanSetting("hushgram_match_video_frame_rate", FALSE);
+
+    /**
      * Every emoji draws in Google's style: EmojiCompat is asked to replace every emoji it knows
      * from the font it loads from Google Play services, not only the ones the phone lacks
      * ({@link app.hushgram.extension.instagram.misc.EmojiStyle}). Read for each piece of text, but
@@ -3618,6 +3633,30 @@ public class Settings extends BaseSettings {
             new BooleanSetting("hushgram_hide_comment_box", FALSE);
 
     /**
+     * A post's or reel's comments leave out the Meta AI search prompt some sheets show above the
+     * comments (#869, {@link app.hushgram.extension.instagram.feed.CommentSheetExtras}). Read before
+     * each frame of a resumed screen, so it needs no restart. Off to start.
+     */
+    public static final BooleanSetting HIDE_COMMENT_SEARCH_PROMPT =
+            new BooleanSetting("hushgram_hide_comment_search_prompt", FALSE);
+
+    /**
+     * The comment box leaves out the gift button at its right end (#869,
+     * {@link app.hushgram.extension.instagram.feed.CommentSheetExtras}). Read before each frame of a
+     * resumed screen, so it needs no restart. Off to start.
+     */
+    public static final BooleanSetting HIDE_COMMENT_GIFT_BUTTON =
+            new BooleanSetting("hushgram_hide_comment_gift_button", FALSE);
+
+    /**
+     * The row above a post's or reel's comments leaves out the (i) button some sheets draw at its
+     * right end (#869, {@link app.hushgram.extension.instagram.feed.CommentAboutButton}). Read as the
+     * row is built, so the next comments opened change. Off to start.
+     */
+    public static final BooleanSetting HIDE_COMMENT_ABOUT_BUTTON =
+            new BooleanSetting("hushgram_hide_comment_about_button", FALSE);
+
+    /**
      * The comment sheet leaves out the row of quick emoji above the comment box
      * ({@link app.hushgram.extension.instagram.feed.CommentEmojiRow}). Read before each frame of a
      * resumed screen, so it needs no restart. Off to start.
@@ -3773,6 +3812,14 @@ public class Settings extends BaseSettings {
      */
     public static final StringSetting HIDDEN_MENU_ITEMS =
             new StringSetting("hushgram_hidden_menu_items", "");
+
+    /**
+     * Interested shows in the three-dot menu of reels from accounts you follow and of posts Instagram
+     * leaves it off (#815, {@link app.hushgram.extension.instagram.feed.InterestedEverywhere}). Read as
+     * each menu opens, so it needs no restart. Off to start.
+     */
+    public static final BooleanSetting INTERESTED_EVERYWHERE =
+            new BooleanSetting("hushgram_interested_everywhere", FALSE);
 
     /**
      * "Watch again" on a feed reel's end card replays the reel in the feed instead of opening Reels
@@ -5419,13 +5466,22 @@ public class Settings extends BaseSettings {
 
     /**
      * A list, kept only on this phone, of the posts, reels, stories and profiles that came up on
-     * screen, newest first, about 500 rows (#228). It reads what Instagram already loaded, sends
-     * nothing and reads nothing about other accounts. Turning it off stops recording at once, and
-     * Clear history wipes the list. The list stays out of settings backups and the diagnostic
-     * report. Starts off.
+     * screen, newest first, the newest 500 rows or the days {@link #VIEWING_HISTORY_DAYS} picks (#228).
+     * It reads what Instagram already loaded, sends nothing and reads nothing about other accounts.
+     * Turning it off stops recording at once, and Clear history wipes the list. The list stays out
+     * of settings backups and the diagnostic report. Starts off.
      */
     public static final BooleanSetting VIEWING_HISTORY =
             new BooleanSetting("hushgram_viewing_history", FALSE);
+
+    /**
+     * Under {@link #VIEWING_HISTORY}: how many days a row stays in the viewing history (#228). 0, the
+     * start, keeps the newest 500 whatever their age, as the history always did. A number of days drops
+     * each row once it's that old instead and keeps at most 2000, so the list and its pictures stay small.
+     */
+    public static final IntegerSetting VIEWING_HISTORY_DAYS =
+            new IntegerSetting("hushgram_viewing_history_days", 0, false, parent(VIEWING_HISTORY))
+                    .withRange(0, 365);
 
     /**
      * Whether the viewing history page shows its rows as a grid of big pictures, from the button

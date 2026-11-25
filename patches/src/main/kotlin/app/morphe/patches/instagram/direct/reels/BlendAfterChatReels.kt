@@ -4,6 +4,7 @@
  */
 package app.morphe.patches.instagram.direct.reels
 
+import app.morphe.patcher.extensions.InstructionExtensions.addInstructions
 import app.morphe.patcher.extensions.InstructionExtensions.addInstructionsWithLabels
 import app.morphe.patcher.patch.BytecodePatchContext
 import app.morphe.patcher.patch.PatchException
@@ -45,7 +46,9 @@ private fun refuseBlend(detail: String): Nothing = throw PatchException("Swipe t
  * Where the Reels viewer picks the source of a reel opened from a chat that has a Blend (#804). The
  * picker (456's 06CU.A00) builds the chat's own source, which pages the chat's shared reels and then
  * its second side, only when the config holds no Blend. With a Blend it builds the Blend's source
- * instead, which pages the Blend's reels, so the chat's other shared reels never come.
+ * instead, which pages the Blend's reels, so the chat's other shared reels never come. Once Instagram
+ * has loaded the chat's Blend, a reel tapped in the chat opens with the Blend's viewer source instead
+ * of the chat's (457's 0lNl), still holding the chat, and the picker builds the same Blend source for it.
  *
  * [after] is the instruction after the Blend source's constructor, [blend] the register holding the
  * new source and [config] the picker's config parameter. The config's fields: where it was opened
@@ -217,6 +220,42 @@ internal fun BytecodePatchContext.keepChatReelsBeforeBlend(found: BlendSites) {
             move-object/from16 v${found.blend}, v$b
             :instagram
             nop
+        """,
+    )
+}
+
+/**
+ * Writes the extension's bridges reading a viewer's config the way the picker reads it: where the
+ * viewer was opened, [BlendSites.configSource], and the id of the chat it holds, [BlendSites.thread]
+ * of its [BlendSites.direct], or null when it holds none. The hooks keyed on a chat's viewer hand the
+ * extension the config rather than where it was opened, since a reel tapped in a chat opens as its
+ * Blend's once Instagram has loaded the Blend (#804), and the extension asks these.
+ */
+internal fun BytecodePatchContext.readChatViewers(found: BlendSites) {
+    val stubs = mutableClassDefBy(CHAT_REELS).methods
+    fun bridge(name: String, returns: String) = stubs.singleOrNull {
+        it.name == name && it.parameterTypes.map(Any::toString) == listOf("Ljava/lang/Object;") && it.returnType == returns &&
+            AccessFlags.PUBLIC.isSet(it.accessFlags) && AccessFlags.STATIC.isSet(it.accessFlags)
+    } ?: refuseBlend("the extension has no public static $name bridge reading a viewer's config")
+    bridge("viewerSource", "Ljava/lang/Object;").addInstructions(
+        0,
+        """
+            check-cast p0, $VIEWER_CONFIG
+            iget-object p0, p0, ${found.configSource}
+            return-object p0
+        """,
+    )
+    bridge("chatThread", "Ljava/lang/String;").addInstructionsWithLabels(
+        0,
+        """
+            check-cast p0, $VIEWER_CONFIG
+            iget-object p0, p0, ${found.direct}
+            if-nez p0, :read
+            const/4 p0, 0x0
+            return-object p0
+            :read
+            iget-object p0, p0, ${found.thread}
+            return-object p0
         """,
     )
 }

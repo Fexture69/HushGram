@@ -15,6 +15,9 @@ Adds Copy text to the menu a story's three dots open. It copies the words Instag
 Ads and privacy	Iklan dan privasi
 Also in comments	Juga di komentar
 Asks Android to run Instagram at your screen's fastest refresh rate, at the same resolution. Some phones keep their own limit for apps, and battery saver can still lower it.	Meminta Android menjalankan Instagram pada refresh rate tertinggi layarmu, dengan resolusi yang sama. Beberapa ponsel punya batas sendiri untuk aplikasi, dan penghemat baterai tetap bisa menurunkannya.
+# context: Layout: a switch under Use the highest refresh rate (#868). While a video plays it tells Android the video's frames per second, so a phone that changes its screen's refresh rate on its own picks one the video divides into evenly (60 or 120 Hz for a 30 fps video) instead of hopping.
+Match the video's frame rate	Sesuaikan dengan frame rate video
+While a video plays, tells Android how many frames a second it has, so a screen that picks its own refresh rate can choose one the video fits evenly.	Saat video diputar, memberi tahu Android berapa frame per detik video itu, agar layar yang memilih refresh rate sendiri bisa memilih yang pas dengan video.
 Back	Kembali
 Before you sign in	Sebelum Anda masuk
 Cancel	Batal
@@ -800,6 +803,14 @@ Takes AI-generated profile and similar AI labels off the line with a commenter's
 # context: Comments: a Hide comments switch that takes the comment box off the bottom of a comment sheet (#762). Comment box is the field where you type a comment; Post is Instagram's own label on its send button, use this language's Instagram word for it.
 Hide the comment box	Sembunyikan kotak komentar
 Takes the comment box, with your picture and Post, off the bottom of a post's or reel's comments. Turn it off when you want to comment.	Menghapus kotak komentar, beserta foto Anda dan Kirim, dari bagian bawah komentar postingan atau reel. Matikan saat Anda ingin berkomentar.
+# context: Comments: two Hide comments switches (#869). One hides the Meta AI search suggestion some comment sheets show above the comments (a pill reading Search plus a topic), the other the gift button at the end of the comment box. Comment box is the field where you type a comment.
+Hide search suggestions in comments	Sembunyikan saran pencarian di komentar
+Takes the Meta AI search suggestion off the top of a post's or reel's comments. Not every post has one.	Menghapus saran pencarian Meta AI dari bagian atas komentar postingan atau reel. Tidak semua postingan memilikinya.
+Hide the gift button	Sembunyikan tombol hadiah
+Takes the gift button off the right end of the comment box. The box itself stays.	Menghapus tombol hadiah di ujung kanan kotak komentar. Kotaknya tetap ada.
+# context: Comments: a Hide comments switch (#869) that hides the round (i) info button some comment sheets draw at the top right, just above the first comment. Write (i) as is.
+Hide the (i) button in comments	Sembunyikan tombol (i) di komentar
+Takes the (i) button off the top right of a post's or reel's comments, above the first comment. Not every post has it.	Menghapus tombol (i) di kanan atas komentar postingan atau reel, di atas komentar pertama. Tidak semua postingan memilikinya.
 # context: Comments: the switch that hides the row of quick emoji above the comment box (#248). Comment box is the field where you type a comment.
 Hide the emoji row	Sembunyikan baris emoji
 Takes the row of quick emoji off above the comment box. The box itself stays.	Menghapus baris emoji cepat di atas kotak komentar. Kotaknya tetap ada.
@@ -2527,6 +2538,10 @@ Choose a file for your installed patches' settings and saved profiles. Your logi
 Ask before a follow	Tanya sebelum mengikuti
 # context: Profiles > summary of Ask before a follow; Follow, Follow back, Followers and Following are Instagram's own button and list names (#631)
 Asks before a Follow or Follow back button follows someone or sends them a request, so a stray tap on a profile or in a Followers or Following list doesn't do it for you.	Bertanya dulu sebelum tombol Ikuti atau Ikuti Balik mengikuti seseorang atau mengirim permintaan, agar ketukan tak sengaja di profil atau di daftar Pengikut atau Mengikuti tidak melakukannya untukmu.
+# context: Profiles > title of the switch that skips Instagram's "Review this account before following" sheet, so one tap on Follow follows (#867)
+Follow without the review sheet	Ikuti tanpa lembar tinjauan
+# context: Profiles > summary of Follow without the review sheet; the quoted title is Instagram's own sheet and Follow its button; Ask before a follow is the switch above (#867)
+For some accounts Instagram opens a "Review this account before following" sheet before a follow. With this on, the follow goes through at once, the same as the sheet's Follow button, so one tap follows. Ask before a follow still asks first.	Untuk beberapa akun, Instagram membuka lembar "Tinjau akun ini sebelum mengikuti" sebelum mengikuti. Jika ini aktif, mengikuti langsung terjadi, sama seperti tombol Ikuti di lembar itu, jadi satu ketukan sudah cukup. Tanya sebelum mengikuti tetap bertanya dulu.
 # context: Title of the question Ask before a follow puts up; %1$s is the account's username (#631)
 Follow @%1$s?	Ikuti @%1$s?
 # context: Title of the question Ask before a follow puts up when the username can't be read (#631)
@@ -2665,6 +2680,9 @@ Use template	Gunakan template
 Get Edits	Dapatkan Edits
 # context: Title of the row under Feed that lists the items to keep in the menus behind the three dots on posts, reels and stories (#697, #707)
 Items in the three-dot menus	Item di menu titik tiga
+# context: Feed: a switch right under Items in the three-dot menus (#815). It adds Instagram's Interested row (the same word as the Interested item in that list) to the three-dot menus that leave it out, like the menu of a reel from an account you follow.
+Interested on every post and reel	Tertarik di setiap postingan dan reel
+Adds Interested to the three-dot menu of posts and reels that leave it out, like reels from accounts you follow.	Menambahkan Tertarik ke menu titik tiga postingan dan reel yang tidak memilikinya, seperti reel dari akun yang kamu ikuti.
 # context: Summary of Items in the three-dot menus under Feed while every item is ticked (#697, #707)
 Every item shows. Untick the ones you don't want in the menus behind the three dots on posts, reels and stories.	Semua item ditampilkan. Hapus centang item yang tidak kamu inginkan di menu titik tiga pada postingan, reel, dan cerita.
 # context: Summary of Items in the three-dot menus under Feed naming the unticked items, which are joined with a comma (#697, #707)
@@ -2742,6 +2760,13 @@ Cache size limit	Batas ukuran cache
 %1$d MB	%1$d MB
 # context: Storage: second line under Clear saved copies now; %1$s is a size such as 312 MB
 Saved photos and videos take up %1$s now.	Foto dan video tersimpan sekarang memakai %1$s.
+# context: Storage: a row that adds up how much space Instagram's data takes up outside its cache (#683), names its biggest folders (folder names like files/mqtt stay as they are) and HushGram's own files. Adding it up shows while it reads.
+Space used	Ruang terpakai
+Adding it up…	Sedang menghitung…
+Couldn't add up the space used.	Tidak bisa menghitung ruang terpakai.
+Instagram's data takes up %1$s, its cache aside.	Data Instagram memakai %1$s, di luar cache.
+Biggest: %1$s.	Terbesar: %1$s.
+HushGram's own files take up %1$s.	File milik HushGram memakai %1$s.
 # context: Tab bar: switch under Keep the pill full size, for the liquid look's bubble under a held finger (#705)
 Glass lens under your finger	Lensa kaca di bawah jarimu
 Hold a finger on the liquid pill's bubble, or slide it across the tabs, and the bubble swells and bends what's behind it harder, like glass under a fingertip. It eases back when you let go. The bend needs Blur behind the tab bar and Android 13 or newer. Restart Instagram after changing it.	Tahan jari di gelembung pil kaca cair, atau geser di sepanjang tab, dan gelembungnya membesar serta membiaskan apa yang ada di belakangnya lebih kuat, seperti kaca di bawah ujung jari. Gelembung kembali normal saat kamu melepasnya. Pembiasan butuh Blur di belakang bilah tab dan Android 13 atau yang lebih baru. Mulai ulang Instagram setelah mengubahnya.
@@ -2967,6 +2992,22 @@ Getting the file ready	Menyiapkan file
 Couldn't get the file	File tidak dapat diambil
 # context: Details in a post's menu (#839): a toast when no app on the phone takes the photo or video Open with offers
 No app here can open it	Tak ada aplikasi untuk membukanya
+# context: Keep history for (#228): the title of a list row under Keep a viewing history, and of its dialogs
+Keep history for	Simpan riwayat selama
+# context: Keep history for (#228): its first choice, the newest 500 rows whatever their age
+Newest 500	500 terbaru
+# context: Keep history for (#228): a choice of one day, typed under Custom
+1 day	1 hari
+# context: Keep history for (#228): a choice of days, like 7 days; %1$s is the number
+%1$s days	%1$s hari
+# context: Keep history for (#228): the message of the dialog Custom opens
+Type how many days to keep, from 1 to 365.	Ketik berapa hari yang disimpan, dari 1 sampai 365.
+# context: Keep history for (#228): the row's summary with Newest 500 chosen
+The newest 500 stay, however old they are.	500 terbaru tetap disimpan, berapa pun umurnya.
+# context: Keep history for (#228): the row's summary with one day chosen
+Anything seen more than a day ago goes. At most 2000 stay.	Yang dilihat lebih dari sehari lalu dihapus. Paling banyak 2000 disimpan.
+# context: Keep history for (#228): the row's summary with some days chosen; %1$s is the number
+Anything seen more than %1$s days ago goes. At most 2000 stay.	Yang dilihat lebih dari %1$s hari lalu dihapus. Paling banyak 2000 disimpan.
 2x speed for videos in the feed	2x speed for videos in the feed
 Adds a shortcut to your saved posts in the Explore tab.	Adds a shortcut to your saved posts in the Explore tab.
 Adds a speed choice to the menu on a reel.	Adds a speed choice to the menu on a reel.

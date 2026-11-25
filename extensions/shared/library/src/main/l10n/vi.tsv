@@ -15,6 +15,9 @@ Adds Copy text to the menu a story's three dots open. It copies the words Instag
 Ads and privacy	Quảng cáo và quyền riêng tư
 Also in comments	Cả trong bình luận
 Asks Android to run Instagram at your screen's fastest refresh rate, at the same resolution. Some phones keep their own limit for apps, and battery saver can still lower it.	Yêu cầu Android chạy Instagram ở tốc độ làm mới cao nhất của màn hình, với cùng độ phân giải. Một số điện thoại vẫn giữ giới hạn riêng cho ứng dụng và chế độ tiết kiệm pin có thể hạ tốc độ này xuống.
+# context: Layout: a switch under Use the highest refresh rate (#868). While a video plays it tells Android the video's frames per second, so a phone that changes its screen's refresh rate on its own picks one the video divides into evenly (60 or 120 Hz for a 30 fps video) instead of hopping.
+Match the video's frame rate	Khớp tốc độ khung hình của video
+While a video plays, tells Android how many frames a second it has, so a screen that picks its own refresh rate can choose one the video fits evenly.	Khi video đang phát, báo cho Android biết video có bao nhiêu khung hình mỗi giây, để màn hình tự chọn tần số quét có thể chọn mức vừa khớp với video.
 Back	Quay lại
 Before you sign in	Trước khi đăng nhập
 Cancel	Hủy
@@ -797,6 +800,14 @@ Takes AI-generated profile and similar AI labels off the line with a commenter's
 # context: Comments: a Hide comments switch that takes the comment box off the bottom of a comment sheet (#762). Comment box is the field where you type a comment; Post is Instagram's own label on its send button, use this language's Instagram word for it.
 Hide the comment box	Ẩn ô bình luận
 Takes the comment box, with your picture and Post, off the bottom of a post's or reel's comments. Turn it off when you want to comment.	Gỡ ô bình luận, cùng ảnh của bạn và nút Đăng, khỏi phía dưới phần bình luận của bài viết hoặc reel. Hãy tắt khi bạn muốn bình luận.
+# context: Comments: two Hide comments switches (#869). One hides the Meta AI search suggestion some comment sheets show above the comments (a pill reading Search plus a topic), the other the gift button at the end of the comment box. Comment box is the field where you type a comment.
+Hide search suggestions in comments	Ẩn gợi ý tìm kiếm trong bình luận
+Takes the Meta AI search suggestion off the top of a post's or reel's comments. Not every post has one.	Gỡ gợi ý tìm kiếm của Meta AI ở đầu phần bình luận của bài viết hoặc reel. Không phải bài viết nào cũng có.
+Hide the gift button	Ẩn nút quà tặng
+Takes the gift button off the right end of the comment box. The box itself stays.	Gỡ nút quà tặng ở đầu bên phải ô bình luận. Bản thân ô vẫn giữ.
+# context: Comments: a Hide comments switch (#869) that hides the round (i) info button some comment sheets draw at the top right, just above the first comment. Write (i) as is.
+Hide the (i) button in comments	Ẩn nút (i) trong bình luận
+Takes the (i) button off the top right of a post's or reel's comments, above the first comment. Not every post has it.	Gỡ nút (i) ở góc trên bên phải phần bình luận của bài viết hoặc reel, phía trên bình luận đầu tiên. Không phải bài viết nào cũng có.
 Hide the emoji row	Ẩn hàng biểu tượng cảm xúc
 Takes the row of quick emoji off above the comment box. The box itself stays.	Gỡ hàng biểu tượng cảm xúc nhanh phía trên ô bình luận. Bản thân ô vẫn giữ.
 # context: Comments: the switch that takes GIFs and stickers out of a post's comments (#511). A comment that has words keeps its words and loses only the picture. A comment that's only a GIF disappears, and its replies with it. Comment box is the field where you type a comment.
@@ -2442,6 +2453,10 @@ Choose a file for your installed patches' settings and saved profiles. Your logi
 Ask before a follow	Hỏi trước khi theo dõi
 # context: Profiles > summary of Ask before a follow; Follow, Follow back, Followers and Following are Instagram's own button and list names (#631)
 Asks before a Follow or Follow back button follows someone or sends them a request, so a stray tap on a profile or in a Followers or Following list doesn't do it for you.	Hỏi trước khi nút Theo dõi hoặc Theo dõi lại theo dõi ai đó hay gửi yêu cầu cho họ, để một lần chạm nhầm trên trang cá nhân hoặc trong danh sách Người theo dõi hay Đang theo dõi không làm điều đó thay bạn.
+# context: Profiles > title of the switch that skips Instagram's "Review this account before following" sheet, so one tap on Follow follows (#867)
+Follow without the review sheet	Theo dõi không cần trang xem xét
+# context: Profiles > summary of Follow without the review sheet; the quoted title is Instagram's own sheet and Follow its button; Ask before a follow is the switch above (#867)
+For some accounts Instagram opens a "Review this account before following" sheet before a follow. With this on, the follow goes through at once, the same as the sheet's Follow button, so one tap follows. Ask before a follow still asks first.	Với một số tài khoản, Instagram mở trang "Xem xét tài khoản này trước khi theo dõi" trước khi theo dõi. Khi bật mục này, việc theo dõi diễn ra ngay, giống như nút Theo dõi trên trang đó, nên chỉ cần chạm một lần. Hỏi trước khi theo dõi vẫn hỏi trước như cũ.
 # context: Title of the question Ask before a follow puts up; %1$s is the account's username (#631)
 Follow @%1$s?	Theo dõi @%1$s?
 # context: Title of the question Ask before a follow puts up when the username can't be read (#631)
@@ -2580,6 +2595,9 @@ Use template	Dùng mẫu
 Get Edits	Tải Edits
 # context: Title of the row under Feed that lists the items to keep in the menus behind the three dots on posts, reels and stories (#697, #707)
 Items in the three-dot menus	Mục trong menu ba chấm
+# context: Feed: a switch right under Items in the three-dot menus (#815). It adds Instagram's Interested row (the same word as the Interested item in that list) to the three-dot menus that leave it out, like the menu of a reel from an account you follow.
+Interested on every post and reel	Quan tâm trên mọi bài viết và reel
+Adds Interested to the three-dot menu of posts and reels that leave it out, like reels from accounts you follow.	Thêm Quan tâm vào menu ba chấm của bài viết và reel không có mục này, như reel của tài khoản bạn theo dõi.
 # context: Summary of Items in the three-dot menus under Feed while every item is ticked (#697, #707)
 Every item shows. Untick the ones you don't want in the menus behind the three dots on posts, reels and stories.	Mọi mục đều hiện. Bỏ chọn những mục bạn không muốn có trong menu ba chấm của bài viết, reels và tin.
 # context: Summary of Items in the three-dot menus under Feed naming the unticked items, which are joined with a comma (#697, #707)
@@ -2657,6 +2675,13 @@ Cache size limit	Giới hạn dung lượng bộ nhớ đệm
 %1$d MB	%1$d MB
 # context: Storage: second line under Clear saved copies now; %1$s is a size such as 312 MB
 Saved photos and videos take up %1$s now.	Ảnh và video đã lưu hiện chiếm %1$s.
+# context: Storage: a row that adds up how much space Instagram's data takes up outside its cache (#683), names its biggest folders (folder names like files/mqtt stay as they are) and HushGram's own files. Adding it up shows while it reads.
+Space used	Dung lượng đã dùng
+Adding it up…	Đang tính…
+Couldn't add up the space used.	Không tính được dung lượng đã dùng.
+Instagram's data takes up %1$s, its cache aside.	Dữ liệu của Instagram chiếm %1$s, không tính bộ nhớ đệm.
+Biggest: %1$s.	Lớn nhất: %1$s.
+HushGram's own files take up %1$s.	Tệp riêng của HushGram chiếm %1$s.
 # context: Tab bar: switch under Keep the pill full size, for the liquid look's bubble under a held finger (#705)
 Glass lens under your finger	Thấu kính kính dưới ngón tay
 Hold a finger on the liquid pill's bubble, or slide it across the tabs, and the bubble swells and bends what's behind it harder, like glass under a fingertip. It eases back when you let go. The bend needs Blur behind the tab bar and Android 13 or newer. Restart Instagram after changing it.	Giữ ngón tay trên bong bóng của viên kính lỏng, hoặc trượt nó qua các tab, bong bóng sẽ phồng lên và bẻ cong mạnh hơn những gì phía sau, như kính dưới đầu ngón tay. Bong bóng trở lại như cũ khi bạn thả tay. Hiệu ứng bẻ cong cần Làm mờ phía sau thanh tab và Android 13 trở lên. Hãy khởi động lại Instagram sau khi thay đổi.
@@ -2882,6 +2907,22 @@ Getting the file ready	Đang chuẩn bị tệp
 Couldn't get the file	Không lấy được tệp
 # context: Details in a post's menu (#839): a toast when no app on the phone takes the photo or video Open with offers
 No app here can open it	Không có ứng dụng nào mở được
+# context: Keep history for (#228): the title of a list row under Keep a viewing history, and of its dialogs
+Keep history for	Giữ lịch sử trong
+# context: Keep history for (#228): its first choice, the newest 500 rows whatever their age
+Newest 500	500 mục mới nhất
+# context: Keep history for (#228): a choice of one day, typed under Custom
+1 day	1 ngày
+# context: Keep history for (#228): a choice of days, like 7 days; %1$s is the number
+%1$s days	%1$s ngày
+# context: Keep history for (#228): the message of the dialog Custom opens
+Type how many days to keep, from 1 to 365.	Nhập số ngày muốn giữ, từ 1 đến 365.
+# context: Keep history for (#228): the row's summary with Newest 500 chosen
+The newest 500 stay, however old they are.	Giữ 500 mục mới nhất, dù cũ đến đâu.
+# context: Keep history for (#228): the row's summary with one day chosen
+Anything seen more than a day ago goes. At most 2000 stay.	Mục đã xem hơn một ngày trước sẽ bị xóa. Giữ tối đa 2000 mục.
+# context: Keep history for (#228): the row's summary with some days chosen; %1$s is the number
+Anything seen more than %1$s days ago goes. At most 2000 stay.	Mục đã xem hơn %1$s ngày trước sẽ bị xóa. Giữ tối đa 2000 mục.
 2x speed for videos in the feed	2x speed for videos in the feed
 Adds a shortcut to your saved posts in the Explore tab.	Adds a shortcut to your saved posts in the Explore tab.
 Adds a speed choice to the menu on a reel.	Adds a speed choice to the menu on a reel.

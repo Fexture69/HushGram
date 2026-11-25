@@ -896,7 +896,7 @@ public final class HushgramPreferenceFragment extends AbstractPreferenceFragment
                     belongs |= family == PatchFamily.FEED_AUTO_SCROLL && Settings.FEED_AUTO_SCROLL_SECONDS.key.equals(key);
                     belongs |= family == PatchFamily.EXPAND_CAPTIONS && Settings.CAPTION_LINES.key.equals(key);
                     belongs |= family == PatchFamily.MEDIA_CACHE && (Settings.MEDIA_CACHE_LIMIT_MB.key.equals(key)
-                            || CLEAR_MEDIA_CACHE_NOW.equals(key));
+                            || CLEAR_MEDIA_CACHE_NOW.equals(key) || StorageCategory.SPACE_USED.equals(key));
                     belongs |= family == PatchFamily.STORY_SEEK_BAR && (Settings.STORY_SEEK_BAR_LOOK.key.equals(key)
                             || Settings.STORY_SEEK_BAR_POSITION.key.equals(key)
                             || Settings.STORY_SEEK_TIME.key.equals(key) || Settings.STORY_SEEK_TIME_LEFT.key.equals(key));
@@ -997,6 +997,7 @@ public final class HushgramPreferenceFragment extends AbstractPreferenceFragment
                             && (Settings.DOWNLOAD_SKIP_SAVED.key.equals(key) || CLEAR_DOWNLOAD_HISTORY.equals(key));
                     belongs |= family == PatchFamily.VIDEO_DOWNLOAD && CLEAR_DOWNLOAD_HISTORY.equals(key);
                     belongs |= family == PatchFamily.VIDEO_DOWNLOAD && (Settings.VIEWING_HISTORY.key.equals(key)
+                            || Settings.VIEWING_HISTORY_DAYS.key.equals(key)
                             || VIEWING_HISTORY_ROW.equals(key) || CLEAR_VIEWING_HISTORY.equals(key));
                     belongs |= family == PatchFamily.PROFILE_PICTURE
                             && (PROFILE_HISTORY_ROW.equals(key) || CLEAR_PROFILE_HISTORY.equals(key)
@@ -2129,6 +2130,16 @@ public final class HushgramPreferenceFragment extends AbstractPreferenceFragment
     private static HushgramPreferenceFragment mutationOwner(Preference row) {
         WeakReference<HushgramPreferenceFragment> reference = mutationOwners.get(row);
         return reference == null ? null : reference.get();
+    }
+
+    /**
+     * The page of the settings showing [row], as a restart comes back to it: a category's key, or
+     * "" for the top of the list. Null when [row] isn't on settings that are open.
+     */
+    @Nullable
+    static String pageHolding(@Nullable Preference row) {
+        HushgramPreferenceFragment owner = row == null ? null : mutationOwner(row);
+        return owner == null || !owner.isAdded() ? null : owner.currentPage();
     }
 
     /** Native Save may already be posted when its page closes. An approval received later may not. */
@@ -5168,6 +5179,74 @@ public final class HushgramPreferenceFragment extends AbstractPreferenceFragment
     static final int VIEWING_HISTORY_SHOWN = 3;
 
     /**
+     * Keep history for (#228): the newest 500 whatever their age, the start, or 3, 7, 15 or 30 days,
+     * or Custom, which asks for a number of days. A list of everything ever seen isn't offered.
+     */
+    static HistoryDaysRow historyDaysRow(Context context) {
+        HistoryDaysRow row = new HistoryDaysRow(context);
+        row.setKey(Settings.VIEWING_HISTORY_DAYS.key);
+        row.setTitle(L10n.t("Keep history for"));
+        row.setDialogTitle(L10n.t("Keep history for"));
+        row.setNegativeButtonText(L10n.t("Cancel"));
+        int[] presets = HistoryDaysRow.PRESETS;
+        CharSequence[] entries = new CharSequence[presets.length + 1];
+        CharSequence[] values = new CharSequence[presets.length + 1];
+        for (int i = 0; i < presets.length; i++) {
+            entries[i] = historyDaysLabel(presets[i]);
+            values[i] = String.valueOf(presets[i]);
+        }
+        entries[presets.length] = L10n.t("Custom");
+        values[presets.length] = HistoryDaysRow.CUSTOM;
+        row.setEntries(entries);
+        row.setEntryValues(values);
+        row.setValue(String.valueOf(Settings.VIEWING_HISTORY_DAYS.savedValue()));
+        row.setOnPreferenceChangeListener((preference, value) -> {
+            if (!HistoryDaysRow.CUSTOM.equals(value)) return true;
+            askHistoryDays((HistoryDaysRow) preference);
+            return false;
+        });
+        return row;
+    }
+
+    /** Asks how many days Custom keeps, 1 to 365, and saves a whole number in that range. */
+    private static void askHistoryDays(HistoryDaysRow row) {
+        Activity activity = activityOf(row.getContext());
+        if (activity == null) return;
+        int pad = Math.round(20 * activity.getResources().getDisplayMetrics().density);
+        LinearLayout content = new LinearLayout(activity);
+        content.setOrientation(LinearLayout.VERTICAL);
+        content.setPadding(pad, pad / 2, pad, 0);
+        EditText field = new EditText(activity);
+        field.setId(android.R.id.edit);
+        field.setInputType(InputType.TYPE_CLASS_NUMBER);
+        field.setSingleLine(true);
+        field.setFilters(new InputFilter[]{new InputFilter.LengthFilter(3)});
+        int saved = Settings.VIEWING_HISTORY_DAYS.savedValue();
+        if (saved > 0) field.setText(String.valueOf(saved));
+        content.addView(field, new LinearLayout.LayoutParams(-1, -2));
+        AlertDialog dialog = new AlertDialog.Builder(activity)
+                .setTitle(L10n.t("Keep history for"))
+                .setMessage(L10n.t("Type how many days to keep, from 1 to 365."))
+                .setView(content)
+                .setPositiveButton(L10n.t("Save"), (shown, which) -> {
+                    int days = HistoryDaysRow.customDays(field.getText().toString());
+                    if (days > 0) saveDeferred(row, Settings.VIEWING_HISTORY_DAYS, days);
+                })
+                .setNegativeButton(L10n.t("Cancel"), null)
+                .create();
+        dialog.show();
+        ScreenColors.dialog(dialog);
+        fitAboveKeyboard(dialog);
+    }
+
+    /** What Keep history for's list calls [days]: Newest 500 for 0, else the days. */
+    static String historyDaysLabel(int days) {
+        if (days <= 0) return L10n.t("Newest 500");
+        if (days == 1) return L10n.t("1 day");
+        return L10n.f("%1$s days", NumberFormat.getIntegerInstance(L10n.locale()).format(days));
+    }
+
+    /**
      * The row with the newest of what the viewing history kept. Read off the main thread, so it
      * says so until it's read. Tapping it opens the whole list on a page of its own.
      */
@@ -7880,6 +7959,8 @@ public final class HushgramPreferenceFragment extends AbstractPreferenceFragment
             ((BurnInGuardRow) preference).showSummary();
         } else if (preference instanceof BurnInWaitRow) {
             ((BurnInWaitRow) preference).showSummary();
+        } else if (preference instanceof HistoryDaysRow) {
+            ((HistoryDaysRow) preference).showSummary();
         } else if (preference instanceof ScrollBreakRow) {
             ((ScrollBreakRow) preference).showSummary();
         } else if (preference instanceof StoryTimeModeRow) {
@@ -7943,6 +8024,8 @@ public final class HushgramPreferenceFragment extends AbstractPreferenceFragment
             ((StoryTimeModeRow) listPreference).showSummary();
         } else if (listPreference instanceof StoryMentionsLookRow) {
             ((StoryMentionsLookRow) listPreference).showSummary();
+        } else if (listPreference instanceof HistoryDaysRow) {
+            ((HistoryDaysRow) listPreference).showSummary();
         } else if (listPreference instanceof ChoiceRow) {
             ((ChoiceRow<?>) listPreference).showSummary();
         } else if (listPreference instanceof FollowLabelPlaceRow) {
@@ -9824,6 +9907,78 @@ public final class HushgramPreferenceFragment extends AbstractPreferenceFragment
                 if (candidate.name().equals(getValue())) wait = candidate;
             }
             setSummary(burnInWaitSummary(wait));
+        }
+
+        @Override
+        protected void onBindView(View view) {
+            super.onBindView(view);
+            showAllText(view);
+            ScreenColors.row(view, this);
+            view.setAccessibilityDelegate(new RowSemantics(this, Button.class));
+        }
+
+        /** Its list takes the screen's colours, as the other rows' dialogs do. */
+        @Override
+        protected void showDialog(Bundle state) {
+            super.showDialog(state);
+            if (getDialog() instanceof AlertDialog) ScreenColors.dialog((AlertDialog) getDialog());
+        }
+    }
+
+    /**
+     * Keep history for (#228). Its value is the days as a number, 0 for the newest 500, and a number
+     * that isn't one of the list's shows as Custom.
+     */
+    static final class HistoryDaysRow extends ListPreference {
+        /** The list's choices in days, 0 first for the newest 500. */
+        static final int[] PRESETS = {0, 3, 7, 15, 30};
+
+        /** The value of the list's Custom entry, never saved: picking it asks for a number instead. */
+        static final String CUSTOM = "custom";
+
+        HistoryDaysRow(Context context) {
+            super(context);
+        }
+
+        /** [text] as Custom's days, 1 to 365 (a bigger number is brought down), or 0 when it isn't a whole number above 0. */
+        static int customDays(@Nullable String text) {
+            try {
+                long days = Long.parseLong(text == null ? "" : text.trim());
+                return days < 1 ? 0 : (int) Math.min(365, days);
+            } catch (NumberFormatException notANumber) {
+                return 0;
+            }
+        }
+
+        /** The days a value names, 0 for one that isn't a number. */
+        static int daysOf(@Nullable String value) {
+            try {
+                return Math.max(0, Integer.parseInt(value == null ? "" : value.trim()));
+            } catch (NumberFormatException notANumber) {
+                return 0;
+            }
+        }
+
+        /** A saved number of days the list has no entry for is Custom's, so the list marks Custom. */
+        @Override
+        public int findIndexOfValue(String value) {
+            int found = super.findIndexOfValue(value);
+            if (found >= 0 || daysOf(value) <= 0) return found;
+            return super.findIndexOfValue(CUSTOM);
+        }
+
+        @Override
+        public void setValue(String value) {
+            super.setValue(value);
+            showSummary();
+        }
+
+        void showSummary() {
+            int days = daysOf(getValue());
+            if (days == 0) setSummary(L10n.t("The newest 500 stay, however old they are."));
+            else if (days == 1) setSummary(L10n.t("Anything seen more than a day ago goes. At most 2000 stay."));
+            else setSummary(L10n.f("Anything seen more than %1$s days ago goes. At most 2000 stay.",
+                    NumberFormat.getIntegerInstance(L10n.locale()).format(days)));
         }
 
         @Override

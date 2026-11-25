@@ -136,7 +136,8 @@ public enum PatchFamily {
     CHAT_BUBBLES(FamilyNames.CHAT_BUBBLES, "chatBubbles", null, Settings.CHAT_BUBBLES),
     ASK_BEFORE_LIKE(FamilyNames.ASK_BEFORE_LIKE, "askBeforeLike", null, Settings.ASK_BEFORE_LIKE),
     ASK_BEFORE_REFRESH(FamilyNames.ASK_BEFORE_REFRESH, "askBeforeRefresh", null, Settings.ASK_BEFORE_REFRESH),
-    ASK_BEFORE_FOLLOW(FamilyNames.ASK_BEFORE_FOLLOW, "askBeforeFollow", null, Settings.ASK_BEFORE_FOLLOW),
+    ASK_BEFORE_FOLLOW(FamilyNames.ASK_BEFORE_FOLLOW, "askBeforeFollow", null, Settings.ASK_BEFORE_FOLLOW,
+            Settings.SKIP_FOLLOW_REVIEW),
     SENT_FOLLOW_REQUESTS(FamilyNames.SENT_FOLLOW_REQUESTS, "sentRequests", null, Settings.SENT_FOLLOW_REQUESTS),
     SAVE_TRAY(FamilyNames.SAVE_TRAY, "saveTray", null, Settings.SKIP_COLLECTIONS_TRAY),
     STORIES_TRAY(FamilyNames.STORIES_TRAY, "storiesTray", null, Settings.HIDE_SUGGESTED_STORIES,
@@ -197,7 +198,7 @@ public enum PatchFamily {
             Settings.HIDE_EXPLORE_SAVED),
     STOP_HEARTBEAT(FamilyNames.STOP_HEARTBEAT, "stopHeartbeat", null, Settings.STOP_HEARTBEAT,
             Settings.STOP_UPLOAD_ALARM, Settings.STOP_BACKGROUND_FETCH),
-    REFRESH_RATE(FamilyNames.REFRESH_RATE, "refreshRate", null, Settings.HIGHEST_REFRESH_RATE),
+    REFRESH_RATE(FamilyNames.REFRESH_RATE, "refreshRate", null, Settings.HIGHEST_REFRESH_RATE, Settings.MATCH_VIDEO_FRAME_RATE),
     EMOJI_STYLE(FamilyNames.EMOJI_STYLE, "emojiStyle", null, Settings.NOTO_EMOJI),
     ACCENT_COLOR(FamilyNames.ACCENT_COLOR, "accentColor", null, Settings.ACCENT_COLOR, Settings.ACCENT_BADGES,
             Settings.ACCENT_ICONS, Settings.ACCENT_TEXT, Settings.ACCENT_REELS, Settings.ACCENT_PILLS, Settings.ACCENT_RINGS,
@@ -247,7 +248,8 @@ public enum PatchFamily {
             Settings.SAVED_PROFILES, Settings.PROFILE_PICTURE_LONG_PRESS, Settings.RING_TAP_OPENS_STORY),
     VOICE_MESSAGE(FamilyNames.VOICE_MESSAGE, "voiceMessage", null, Settings.DOWNLOAD_VOICE_MESSAGES),
     HIDE_COMMENTS(FamilyNames.HIDE_COMMENTS, "hideComments", null, Settings.HIDE_COMMENTS, Settings.HIDE_COMMENT_REPLY,
-            Settings.HIDE_COMMENT_LIKES, Settings.HIDE_COMMENT_AI_LABELS, Settings.HIDE_COMMENT_BOX),
+            Settings.HIDE_COMMENT_LIKES, Settings.HIDE_COMMENT_AI_LABELS, Settings.HIDE_COMMENT_BOX,
+            Settings.HIDE_COMMENT_SEARCH_PROMPT, Settings.HIDE_COMMENT_GIFT_BUTTON, Settings.HIDE_COMMENT_ABOUT_BUTTON),
     COMMENT_EMOJI_ROW(FamilyNames.COMMENT_EMOJI_ROW, "commentEmojiRow", null, Settings.HIDE_COMMENT_EMOJI_ROW),
     COMMENT_KEYBOARD(FamilyNames.COMMENT_KEYBOARD, "commentKeyboard", null, Settings.COMMENT_KEYBOARD_DOWN),
     COMMENT_GIFS(FamilyNames.COMMENT_GIFS, "commentGifs", null, Settings.HIDE_COMMENT_GIFS),
@@ -259,7 +261,7 @@ public enum PatchFamily {
     HOME_REELS_BELOW_NAME(FamilyNames.HOME_REELS_BELOW_NAME, "homeReelsBelowName", null, Settings.HOME_REELS_BELOW_NAME),
     FEED_SAVE(FamilyNames.FEED_SAVE, "feedSave", null, Settings.SAVE_IN_POST_MENU, Settings.HIDE_FEED_SAVE_BUTTON,
             Settings.HIDE_FEED_LIKE_BUTTON, Settings.HIDE_FEED_COUNTS, Settings.HIDE_LIKED_BY),
-    MENU_ITEMS(FamilyNames.MENU_ITEMS, "menuItems", null),
+    MENU_ITEMS(FamilyNames.MENU_ITEMS, "menuItems", null, Settings.INTERESTED_EVERYWHERE),
     WATCH_AGAIN(FamilyNames.WATCH_AGAIN, "watchAgain", null, Settings.WATCH_AGAIN_IN_FEED, Settings.HIDE_WATCH_MORE_REELS),
     ACTIVITY_BUBBLES(FamilyNames.ACTIVITY_BUBBLES, "activityBubbles", null, Settings.HIDE_ACTIVITY_BUBBLES),
     HIDE_CAPTIONS(FamilyNames.HIDE_CAPTIONS, "hideCaptions", null, Settings.HIDE_CAPTIONS),
@@ -570,6 +572,38 @@ public enum PatchFamily {
         return HIDE_COMMENTS.inBuild() && SettingsStatus.commentAiLabel();
     }
 
+    /** Whether a test says this build takes the (i) off comment sheets, instead of asking {@link SettingsStatus}. */
+    @Nullable
+    static volatile Boolean commentAboutButtonForTests;
+
+    /**
+     * Whether this build takes the (i) off the row above a comment sheet's comments. Hide comments
+     * goes in without it when that row has moved, so that switch isn't offered then.
+     */
+    public static boolean commentAboutButtonInBuild() {
+        Boolean forced = commentAboutButtonForTests;
+        if (forced != null) return forced;
+        Set<PatchFamily> families = inBuildForTests;
+        if (families != null) return families.contains(HIDE_COMMENTS);
+        return HIDE_COMMENTS.inBuild() && SettingsStatus.commentAboutButton();
+    }
+
+    /** Whether a test says this build can offer Interested everywhere, instead of asking {@link SettingsStatus}. */
+    @Nullable
+    static volatile Boolean interestedEverywhereForTests;
+
+    /**
+     * Whether this build can put Interested in every post's and reel's menu. Three-dot menu items goes
+     * in without it when either menu's decision has moved, so that switch isn't offered then.
+     */
+    public static boolean interestedEverywhereInBuild() {
+        Boolean forced = interestedEverywhereForTests;
+        if (forced != null) return forced;
+        Set<PatchFamily> families = inBuildForTests;
+        if (families != null) return families.contains(MENU_ITEMS);
+        return MENU_ITEMS.inBuild() && SettingsStatus.interestedEverywhere();
+    }
+
     /** Whether a test says this build filters Home by a post's type, instead of asking {@link SettingsStatus}. */
     @Nullable
     static volatile Boolean feedTypesForTests;
@@ -815,6 +849,12 @@ public enum PatchFamily {
                 }
                 if (family == HIDE_COMMENTS && !commentAiLabelInBuild()) {
                     lines.add("  Hide AI labels on comments: not in this build (the AI label on a comment's name line didn't match)");
+                }
+                if (family == HIDE_COMMENTS && !commentAboutButtonInBuild()) {
+                    lines.add("  Hide the (i) button in comments: not in this build (the row above a sheet's comments didn't match)");
+                }
+                if (family == MENU_ITEMS && !interestedEverywhereInBuild()) {
+                    lines.add("  Interested on every post and reel: not in this build (the reel menu's follow test or the post menu's flags didn't match)");
                 }
                 if (family == FOLLOWING_FEED && !followingMixInBuild()) {
                     lines.add("  Mix in Following: not in this build (Home's paging didn't match)");
