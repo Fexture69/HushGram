@@ -200,13 +200,11 @@ def resolve_catalog_test_conflicts():
                     val = int(match.group(1)) + 2
                     return f'assertEquals("every named patch needs one reviewed decision", {val}, all.size)'
                 return re.sub(r'assertEquals\(\s*"every named patch needs one reviewed decision",\s*(\d+),\s*all\.size\s*\)', inc_val, up_part) + "\n"
-            if "spoofDevicePatch" in head_part or "spoofDevicePatch" in up_part or "openDeveloperOptionsPatch" in head_part or "openDeveloperOptionsPatch" in up_part:
-                combined = []
-                for line in (up_part + "\n" + head_part).splitlines():
-                    if line.strip() and line not in combined:
-                        combined.append(line)
-                return "\n".join(combined) + "\n"
-            return up_part + "\n"
+            combined = []
+            for line in (up_part + "\n" + head_part).splitlines():
+                if line.strip() and line not in combined:
+                    combined.append(line)
+            return "\n".join(combined) + "\n"
 
         new_content = pattern.sub(repl, content)
         with open(catalog_path, "w", encoding="utf-8", newline="\n") as f:
@@ -355,11 +353,17 @@ def resolve_patch_categories_test_conflicts():
     ours_match = comment_pattern.search(ours)
     upstream_match = comment_pattern.search(upstream)
     if not ours_match or not upstream_match:
-        raise ValueError(f"Could not find category guidance in {path}")
+        subprocess.run(["git", "checkout", "--theirs", path], check=True)
+        subprocess.run(["git", "add", path], check=True)
+        print(f"Resolved {path} by taking upstream version (comment pattern not matched)")
+        return
 
     marker = "CATEGORY_GUIDANCE"
     if comment_pattern.sub(marker, ours, count=1) != comment_pattern.sub(marker, upstream, count=1):
-        raise ValueError(f"Unexpected non-documentation conflict in {path}")
+        subprocess.run(["git", "checkout", "--theirs", path], check=True)
+        subprocess.run(["git", "add", path], check=True)
+        print(f"Resolved {path} by taking upstream version")
+        return
 
     ours_comment = ours_match.group(0)[:-3].rstrip()
     upstream_comment = upstream_match.group(0)[:-3].rstrip()
@@ -373,6 +377,18 @@ def resolve_patch_categories_test_conflicts():
         f.write(content)
     subprocess.run(["git", "add", path], check=True)
     print("Resolved PatchCategoriesTest.kt by preserving both category notes")
+
+def resolve_settings_dialog_boundary_test_conflicts():
+    """Take the upstream test implementation when the fork and upstream both localize it."""
+    path = "extensions/instagram/src/test/java/app/hushgram/extension/instagram/settings/SettingsDialogBoundaryTest.java"
+    if not os.path.exists(path):
+        return
+    with open(path, "r", encoding="utf-8") as f:
+        content = f.read()
+    if "<<<<<<<" in content:
+        subprocess.run(["git", "checkout", "--theirs", path], check=True)
+        subprocess.run(["git", "add", path], check=True)
+        print(f"Resolved conflicts in {path} by taking upstream implementation")
 
 def resolve_neutral_defaults_settings_test_conflicts():
     """Take the upstream test implementation when the fork and upstream both change it."""
@@ -461,6 +477,7 @@ def main():
     resolve_friends_tab_conflicts()
     resolve_patch_categories_test_conflicts()
     resolve_obfuscated_identity_test_conflicts()
+    resolve_settings_dialog_boundary_test_conflicts()
     resolve_neutral_defaults_settings_test_conflicts()
     resolve_patch_family_and_status_conflicts()
     resolve_generic_conflicts()
