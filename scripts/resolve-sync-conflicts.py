@@ -100,6 +100,18 @@ def sync_missing_translation_keys():
     except Exception as e:
         print(f"Notice: sync_missing_translation_keys encountered an error: {e}")
 
+def resolve_gen_l10n_conflicts():
+    path = "scripts/gen-l10n.py"
+    if not os.path.exists(path):
+        return
+    with open(path, "r", encoding="utf-8", errors="replace") as f:
+        content = f.read()
+    if "<<<<<<<" in content:
+        subprocess.run(["git", "checkout", "--theirs", path], check=True)
+        subprocess.run(["git", "add", path], check=True)
+        print(f"Resolved conflicts in {path} by taking upstream implementation")
+
+
 def resolve_l10n_translations():
     target = "extensions/shared/library/src/main/java/app/hushgram/extension/shared/L10nTranslations.java"
     if os.path.exists(target):
@@ -479,6 +491,7 @@ def main():
 
     print(f"Attempting auto-resolution for unmerged files: {unmerged + marker_files}")
 
+    resolve_gen_l10n_conflicts()
     resolve_tsv_conflicts()
     resolve_l10n_translations()
     resolve_bundle_conflicts()
