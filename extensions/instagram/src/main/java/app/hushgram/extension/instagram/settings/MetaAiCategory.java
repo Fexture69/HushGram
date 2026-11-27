@@ -37,8 +37,8 @@ final class MetaAiCategory {
                     L10n.t("About this reel keeps its summary and Sources, and only the Ask Meta AI box under them "
                             + "goes.")));
             metaAi.addPreference(toggle(context, Settings.HIDE_META_AI_SHARE_TARGET, L10n.t("Hide Meta AI in the share sheet"),
-                    L10n.t("Removes Meta AI from the row at the bottom of the share sheet. Some accounts see it as "
-                            + "Muse.")));
+                    L10n.t("Removes Meta AI from the share sheet, both from the people you can send to and from "
+                            + "the row at the bottom. Some accounts see it as Muse.")));
             metaAi.addPreference(toggle(context, Settings.HIDE_META_AI_PROFILE_BANNER, L10n.t("Hide the Muse card"),
                     L10n.t("Removes the Meet Muse card, with its Try Muse button, from Home and your profile. "
                             + "Your other cards stay.")));
@@ -47,9 +47,9 @@ final class MetaAiCategory {
                             + "stay.")));
             metaAi.addPreference(toggle(context, Settings.HIDE_META_AI_BLEND, L10n.t("Hide Blend on reels"),
                     L10n.t("Removes the Blend invite button from reels. Everything else on a reel stays.")));
-            metaAi.addPreference(toggle(context, Settings.HIDE_META_AI_STORY_CREDIT, L10n.t("Hide Meta AI credits on stories"),
-                    L10n.t("Removes lines like Restyled with Meta AI and its Try it link from the top of stories. "
-                            + "Music and effect credits stay.")));
+            metaAi.addPreference(toggle(context, Settings.HIDE_META_AI_STORY_CREDIT, L10n.t("Hide Meta AI restyle credits"),
+                    L10n.t("Removes lines like Restyled with Meta AI and its Try it link from the top of stories, "
+                            + "and the same credit from reels. Music and effect credits stay.")));
         }
     }
 }

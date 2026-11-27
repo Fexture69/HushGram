@@ -232,6 +232,10 @@ public final class SettingsStatus {
         return false;
     }
 
+    public static boolean inboxTabs() {
+        return false;
+    }
+
     public static boolean inboxSearch() {
         return false;
     }
@@ -335,6 +339,14 @@ public final class SettingsStatus {
         return false;
     }
 
+    public static boolean hdrPhotos() {
+        return false;
+    }
+
+    public static boolean hdrVideos() {
+        return false;
+    }
+
     /** Rewritten by the Stop videos looping patch. */
     public static boolean stopLooping() {
         return false;
@@ -372,6 +384,10 @@ public final class SettingsStatus {
     }
 
     public static boolean profileFollowCounts() {
+        return false;
+    }
+
+    public static boolean activitySelectAll() {
         return false;
     }
 
@@ -887,6 +903,10 @@ public final class SettingsStatus {
     }
 
     public static boolean askBeforeLike() {
+        return false;
+    }
+
+    public static boolean ghostActions() {
         return false;
     }
 

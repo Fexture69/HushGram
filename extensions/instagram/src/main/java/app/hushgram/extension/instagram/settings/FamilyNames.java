@@ -87,6 +87,7 @@ public final class FamilyNames {
     public static final String EXPLORE_MENU = "Explore without personalization";
     public static final String NOTES_ROW = "Hide the notes row";
     public static final String SPLIT_NOTES_ROW = "Split the notes row";
+    public static final String INBOX_TABS = "Primary and General tabs";
     public static final String INBOX_SEARCH = "Hide the search bar in Messages";
     public static final String INBOX_SUGGESTIONS = "Hide suggested accounts in DMs";
     public static final String NEW_MESSAGE = "Hide New message button and suggestions";
@@ -112,6 +113,8 @@ public final class FamilyNames {
     public static final String FONT = "Font";
     public static final String NOTIFICATION_GROUPS = "Group Instagram's notifications";
     public static final String HDR_BOOST = "Turn off HDR brightness boosts";
+    public static final String HDR_PHOTOS = "Keep HDR on photo uploads";
+    public static final String HDR_VIDEOS = "Keep HDR on video uploads";
     public static final String STOP_LOOPING = "Stop videos looping";
     public static final String BACKGROUND_PLAY = "Keep playing in the background";
     public static final String MEDIA_CACHE = "Clear the media cache";
@@ -126,6 +129,7 @@ public final class FamilyNames {
     public static final String PROFILE_GRID_JUMP = "Jump a profile's posts to a date";
     public static final String PROFILE_REEL_SORT = "Sort reels on profiles";
     public static final String PROFILE_FOLLOW_COUNTS = "Hide Followers and Following on profiles";
+    public static final String ACTIVITY_SELECT_ALL = "Select all in Your activity";
     public static final String COMMENT_COPY = "Copy comment";
     public static final String COMMENT_PHOTO = "Save comment photo";
     public static final String PROFILE_PICTURE = "Save profile picture";
@@ -196,6 +200,7 @@ public final class FamilyNames {
     }
     public static final String SCREENSHOT_REPORTS = "Don't report screenshots";
     public static final String BLEND_VISITS = "Don't report Blend visits";
+    public static final String GHOST_ACTIONS = "Block likes, replies and posts in Ghost mode";
     public static final String SCREENSHOT_BLOCK = "Allow screenshots";
     public static final String KEEP_IN_CHAT = "Keep in chat";
     public static final String VIEW_ONCE_MARK = "Mark one-time photos and videos";

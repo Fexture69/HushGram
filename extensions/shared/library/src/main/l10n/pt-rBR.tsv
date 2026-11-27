@@ -290,6 +290,9 @@ Feed videos and stories wait for your tap. Reels and videos in Explore play as I
 Turn on Tap to play to use this choice.	Ative Tocar para reproduzir para usar esta opção.
 Resume long videos	Retomar vídeos longos
 Videos and reels over two minutes pick up where you left off. Seek to start elsewhere. Live videos and ads start as usual.	Vídeos e reels com mais de dois minutos continuam de onde você parou. Arraste a barra de progresso para começar em outro ponto. Vídeos ao vivo e anúncios começam normalmente.
+# context: a switch under Resume long videos (#874). A feed video you scroll past and come back to keeps playing from where it was, only until Instagram closes. The Reels tab is Instagram's own tab.
+Keep your place in feed videos	Lembrar onde parou nos vídeos do feed
+A feed video you scroll away from picks up where you left it when you scroll back, until you close Instagram. Reels in the Reels tab start over as usual.	Um vídeo do feed que você rola para longe continua de onde parou quando você volta a ele, até você fechar o Instagram. Os reels da aba Reels começam do início normalmente.
 Default playback quality	Qualidade de reprodução padrão
 # context: description of the Default playback quality switch on the Playback page, with the list of qualities below it
 Videos, reels and stories play at the quality below, starting with the next one you open.	Vídeos, reels e stories são reproduzidos na qualidade abaixo, a partir do próximo que você abrir.
@@ -377,16 +380,16 @@ Removes the summary, Sources and Ask Meta AI box from a reel's more menu. In you
 Hide Ask Meta AI in About this reel	Ocultar Pergunte à Meta AI em Sobre este reel
 About this reel keeps its summary and Sources, and only the Ask Meta AI box under them goes.	Sobre este reel mantém o resumo e as Fontes, e só a caixa Perguntar ao Meta AI abaixo deles some.
 Hide Meta AI in the share sheet	Ocultar a Meta AI no menu de compartilhamento
-Removes Meta AI from the row at the bottom of the share sheet. Some accounts see it as Muse.	Tira o Meta AI da fileira na parte de baixo da tela de compartilhar. Algumas contas veem como Muse.
+Removes Meta AI from the share sheet, both from the people you can send to and from the row at the bottom. Some accounts see it as Muse.	Tira o Meta AI da tela de compartilhar, tanto das pessoas para quem você pode enviar quanto da fileira na parte de baixo. Algumas contas veem como Muse.
 Hide the Muse card	Ocultar o cartão do Muse
 Removes the Meet Muse card, with its Try Muse button, from Home and your profile. Your other cards stay.	Tira do Início e do seu perfil o cartão Meet Muse, com o botão Try Muse. Seus outros cartões continuam.
 Hide the Muse button on your profile	Ocultar o botão do Muse no seu perfil
 Removes the Muse button from the top bar of your profile. Your username and the menu stay.	Tira o botão do Muse da barra de cima do seu perfil. Seu nome de usuário e o menu continuam.
 Hide Blend on reels	Ocultar o Blend nos reels
 Removes the Blend invite button from reels. Everything else on a reel stays.	Tira dos reels o botão de convite do Blend. O resto do reel continua.
-# context: Meta AI: a Hide Meta AI switch (#866) that removes the line Instagram shows at the top of a story made with a Meta AI tool, such as Restyled with Meta AI followed by a Try it link. Restyled with Meta AI and Try it are Instagram's own labels, so use this language's Instagram wording for them where it's known.
-Hide Meta AI credits on stories	Ocultar créditos da Meta AI nos Stories
-Removes lines like Restyled with Meta AI and its Try it link from the top of stories. Music and effect credits stay.	Tira do topo dos Stories linhas como Reestilizado com a Meta AI e o link Experimente. Os créditos de música e efeitos continuam.
+# context: Meta AI: a Hide Meta AI switch (#866) that removes the line Instagram shows at the top of a story made with a Meta AI tool, such as Restyled with Meta AI followed by a Try it link, and the same restyle credit on reels. Restyled with Meta AI and Try it are Instagram's own labels, so use this language's Instagram wording for them where it's known.
+Hide Meta AI restyle credits	Ocultar créditos de reestilização da Meta AI
+Removes lines like Restyled with Meta AI and its Try it link from the top of stories, and the same credit from reels. Music and effect credits stay.	Tira do topo dos Stories linhas como Reestilizado com a Meta AI e o link Experimente, e o mesmo crédito dos reels. Os créditos de música e efeitos continuam.
 Explore	Explorar
 Hide the Explore grid	Ocultar a grade do Explorar
 Hides the grid of posts and reels under the Search tab's bar. Search, recent searches and results stay.	Esconde a grade de posts e reels abaixo da barra da aba Pesquisa. A pesquisa, as pesquisas recentes e os resultados continuam.
@@ -602,6 +605,9 @@ Adds an eye button to the top of each story while you view anonymously. Tap it t
 Mark as seen	Marcar como visto
 Marked as seen. Tap again to undo.	Marcado como visto. Toque de novo para desfazer.
 Marked as seen and sent	Marcado como visto e enviado
+# context: View stories anonymously's third switch, after Mark as seen button. A like is the heart under a story, a quick reaction is an emoji from the row above a story's reply box
+Mark a story seen when you like or reply	Marcar o Story como visto quando você curtir ou responder
+While you view anonymously, liking a story, replying to it or sending it a quick reaction puts you on that story's viewer list first. The other stories stay hidden.	Enquanto você assiste anonimamente, curtir um Story, responder a ele ou enviar uma reação rápida coloca você primeiro na lista de quem viu aquele Story. Os outros Stories continuam ocultos.
 View DM photos and videos anonymously	Ver fotos e vídeos de mensagens anonimamente
 Stops people seeing that you opened their view once photos and videos. They still disappear after you view them. This is a test feature and starts off.	Impede que as pessoas vejam que você abriu as fotos e vídeos de visualização única delas. Eles continuam sumindo depois que você vê. É um recurso de teste e começa desligado.
 Restored %1$d settings. Kept %2$d newer choices.	%1$d configurações restauradas. %2$d escolhas mais recentes foram mantidas.
@@ -769,6 +775,11 @@ That isn't a place. Type latitude, longitude.	Isso não é um lugar. Digite lati
 %1$d reels. Swipe again after %2$d minutes away.	%1$d reels. Volte após %2$d minutos fora.
 The latitude and the longitude in degrees, with a comma between them, like 40.758, -73.9855. North and east are positive, south and west negative. A map app shows both when you press and hold a spot.	A latitude e a longitude em graus, separadas por vírgula, como 40.758, -73.9855. Norte e leste são positivos, sul e oeste negativos. Um app de mapas mostra as duas quando você toca e segura um ponto.
 Turn off HDR brightness boosts	Desativar o reforço de brilho HDR
+Keep HDR on photo uploads	Manter o HDR ao enviar fotos
+Experimental. An Ultra HDR photo you post keeps its gain map on Android 14 and newer, so it can still show in HDR. Turn it off if a photo you post looks wrong.	Experimental. Uma foto Ultra HDR que você publica mantém o mapa de ganho no Android 14 e mais recentes, para que ainda possa aparecer em HDR. Desative se uma foto que você publicar parecer errada.
+# context: Keep HDR on video uploads, under Playback next to the photo switch. Instagram encodes a video again before it uploads it; HDR means HLG here.
+Keep HDR on video uploads	Manter o HDR ao enviar vídeos
+Experimental. An HDR video you post is encoded in HDR on Android 13 and newer, where Instagram would make it SDR on some phones. Turn it off if a video you post looks wrong or won't upload.	Experimental. Um vídeo HDR que você publica é codificado em HDR no Android 13 e mais recentes, onde o Instagram o deixaria em SDR em alguns celulares. Desative se um vídeo que você publicar parecer errado ou não for enviado.
 What you open from search stays out of Recent, in the app and on Instagram's side. Searches already there stay until you clear them.	O que você abre pela pesquisa não entra em Recentes, nem no app nem do lado do Instagram. As pesquisas que já estão lá ficam até você limpá-las.
 Wi-Fi stays as it is. Turn this off to save data on every network.	O Wi-Fi fica como está. Desative esta chave para economizar dados em qualquer rede.
 Hide comments	Ocultar comentários
@@ -813,7 +824,7 @@ Hide the gift button	Ocultar o botão de presente
 Takes the gift button off the right end of the comment box. The box itself stays.	Tira o botão de presente da ponta direita da caixa de comentários. A caixa continua lá.
 # context: Comments: a Hide comments switch (#869) that hides the round (i) info button some comment sheets draw at the top right, just above the first comment. Write (i) as is.
 Hide the (i) button in comments	Ocultar o botão (i) nos comentários
-Takes the (i) button off the top right of a post's or reel's comments, above the first comment. Not every post has it.	Tira o botão (i) do canto superior direito dos comentários de um post ou reel, acima do primeiro comentário. Nem todo post tem.
+Takes the (i) button off the top right of a post's or reel's comments, and the row with an (i) that can sit above a reel's first comment. Not every post has them.	Tira o botão (i) do canto superior direito dos comentários de um post ou reel, e a linha com um (i) que pode aparecer acima do primeiro comentário de um reel. Nem todo post tem.
 # context: Comments: the switch that hides the row of quick emoji above the comment box (#248). Comment box is the field where you type a comment.
 Hide the emoji row	Ocultar a linha de emojis
 Takes the row of quick emoji off above the comment box. The box itself stays.	Tira a linha de emojis rápidos acima da caixa de comentários. A caixa continua lá.
@@ -998,7 +1009,7 @@ Text in the accent color	Texto na cor de destaque
 Names, captions and other main text take the same color as the icons. Gray text stays gray. Restart Instagram to see the change.	Nomes, legendas e outros textos principais ficam na mesma cor dos ícones. O texto cinza continua cinza. Reinicie o Instagram para ver a mudança.
 # context: Layout > Accent color switch. Saved is Instagram's own Saved page, in its label for this language.
 Filters in the accent color	Filtros na cor de destaque
-The filters along the top of Saved take the color you picked, and the one you're on is filled with it. Restart Instagram to see the change.	Os filtros no topo de Salvos ficam na cor que você escolheu, e o que está em uso é preenchido com ela. Reinicie o Instagram para ver a mudança.
+The filters along the top of Saved and under a search take the color you picked, and the one you're on is filled with it. Restart Instagram to see the change.	Os filtros no topo de Salvos e abaixo de uma pesquisa ficam na cor que você escolheu, e o que está em uso é preenchido com ela. Reinicie o Instagram para ver a mudança.
 Instagram's icons on the top bar, the tab bar and under posts take the color you picked. Text stays as it is. Restart Instagram to see the change.	Os ícones do Instagram na barra superior, na barra de abas e embaixo dos posts ficam na cor que você escolheu. O texto continua como está. Reinicie o Instagram para ver a mudança.
 Story rings in the accent color	Anéis de stories na cor de destaque
 Story rings take the color you picked instead of Instagram's gradient. A few other gradients share those colors and change with them. Restart Instagram to see the change.	Os anéis dos stories ficam na cor que você escolheu em vez do degradê do Instagram. Alguns outros degradês usam essas cores e mudam junto. Reinicie o Instagram para ver a mudança.
@@ -1097,6 +1108,8 @@ Stop the analytics upload alarm	Parar o alarme de envio de análises
 Instagram sets an alarm to wake your phone and send its usage events five minutes later. This stops that alarm. The events go the next time you use the app.	O Instagram define um alarme para acordar seu telefone e enviar os dados de uso cinco minutos depois. Isso para esse alarme. Os dados vão na próxima vez que você usar o app.
 Stop background feed refresh	Parar a atualização do feed em segundo plano
 About every half hour, Instagram wakes your phone to download your feed ahead of time. This stops that. The feed loads when you open the app instead, and messages and notifications still arrive.	Mais ou menos a cada meia hora, o Instagram acorda seu telefone para baixar seu feed com antecedência. Isso para essa atividade. O feed carrega quando você abre o app, e mensagens e notificações continuam chegando.
+Let Instagram close after account checks	Deixar o Instagram fechar após a verificação de contas
+When your phone checks its accounts, as it does at startup and when an account changes, Instagram never answers. Android then keeps it running for up to 15 minutes, even after you swipe it away. This answers right away so Instagram can close. Your login is unaffected.	Quando seu telefone verifica as contas, como ao ligar e quando uma conta muda, o Instagram nunca responde. O Android então o mantém rodando por até 15 minutos, mesmo depois de você deslizá-lo para fechar. Isso responde na hora para o Instagram poder fechar. Seu login não é afetado.
 Haptic style	Estilo de vibração
 Short tick	Toque curto
 System tick	Toque do sistema
@@ -1572,6 +1585,14 @@ All of them. Tap to leave some out, and Ghost mode leaves those as you set them.
 %1$s. The others stay as you set them.	%1$s. As outras ficam como você configurou.
 Switches Ghost mode turns	Chaves que o modo fantasma muda
 Ghost mode needs at least one switch to turn.	O modo fantasma precisa de ao menos uma chave.
+# context: Ghost mode: the switch under its rows in Ads and privacy that holds likes, story replies, comments, share links and new stories and posts back while Ghost mode is on (#876). A like is the heart under a post, a reel, a story or a comment, a share link is what Copy link and sharing a post out make, and posting is sharing a new story, post or reel from Instagram's camera; the five short ones are toasts shown when a tap is held back
+Block likes, replies and posts in Ghost mode	Bloquear curtidas, respostas e posts no modo fantasma
+While Ghost mode is on, liking, commenting, replying to a story, posting a story or post and copying or sharing a link do nothing, and a message says why. Nothing is sent.	Com o modo fantasma ativado, curtir, comentar, responder a um Story, publicar um Story ou post e copiar ou compartilhar um link não fazem nada, e uma mensagem explica o motivo. Nada é enviado.
+Likes are off in Ghost mode.	Curtidas estão desativadas no modo fantasma.
+Replies are off in Ghost mode.	Respostas estão desativadas no modo fantasma.
+Comments are off in Ghost mode.	Comentários desativados no modo fantasma.
+Share links are off in Ghost mode.	Links desativados no modo fantasma.
+Posting is off in Ghost mode.	Postar está desativado no modo fantasma.
 # context: Ghost mode: turning it on or off with a long press on a tab (#255). %1$s is a tab's name
 Turn Ghost mode on or off with a tab long press	Ativar ou desativar o modo fantasma ao manter uma aba pressionada
 Tab long presses keep Instagram's own action. Choose one to turn Ghost mode on or off instead.	Manter uma aba pressionada continua usando a ação do Instagram. Escolha uma para ativar ou desativar o modo fantasma no lugar dela.
@@ -1812,7 +1833,7 @@ Previous page	Página anterior
 Next page	Próxima página
 # context: Feed settings: the Page dots on a pill switch, right under Carousel arrows (#419). A pill is a small bar with round ends that holds the dots.
 Page dots on a pill	Pontos de página em uma pílula
-Moves a carousel post's page dots onto a round pill at the bottom of its photo or video, with the page you're on in blue. Hold the pill and slide left or right to move through the pages.	Move os pontos de página de uma publicação em carrossel para uma pílula arredondada na parte de baixo da foto ou do vídeo, com a página em que você está em azul. Segure a pílula e deslize para a esquerda ou para a direita para passar as páginas.
+Moves a carousel post's page dots onto a round pill at the bottom of its photo or video, with the page you're on in blue, or your accent color when Accent color is on. Hold the pill and slide left or right to move through the pages.	Move os pontos de página de uma publicação em carrossel para uma pílula arredondada na parte de baixo da foto ou do vídeo, com a página em que você está em azul, ou na sua cor de destaque quando Cor de destaque está ativada. Segure a pílula e deslize para a esquerda ou para a direita para passar as páginas.
 # context: Feed settings: the Hide page number switch, under Carousel arrows (#581). The number is the 3/5 in the corner of a carousel post.
 Hide page number	Ocultar número da página
 Takes the number like 3/5 off the corner of a carousel post's photo or video.	Tira o número como 3/5 do canto da foto ou do vídeo de uma publicação em carrossel.
@@ -1920,6 +1941,21 @@ Seek bar button on feed videos	Botão da barra de progresso nos vídeos do feed
 Adds a small button at the bottom left of a feed video that shows or hides its seek bar. It works with Seek bar on feed videos on or off.	Adiciona um botão pequeno no canto inferior esquerdo de um vídeo do feed que mostra ou oculta a barra de progresso. Funciona com a barra de progresso nos vídeos do feed ligada ou desligada.
 Seek bar	Barra de progresso
 Tint intensity	Intensidade do tom
+# context: Tab bar: the Tint color list under Tint intensity that picks the glass tab bar's color, its choices' descriptions, the Custom tint color field under it with its dialog message and empty summary, and what both say while another switch is in the way (#875). Light, Dark and AMOLED black are choices in the list; Tint intensity, Custom tint color, Glass tab bar and Material look are rows' names
+Tint color	Cor do tom
+Light	Claro
+Dark	Escuro
+AMOLED black	Preto AMOLED
+The glass takes Instagram's own colors, dark or light with its theme.	O vidro usa as cores do próprio Instagram, escuro ou claro como o Instagram estiver.
+Frosted white glass whatever Instagram's theme, with the tab icons dark on it.	Vidro branco fosco com o Instagram escuro ou claro, com os ícones das abas escuros sobre ele.
+Dark gray glass whatever Instagram's theme, with the tab icons white on it.	Vidro cinza-escuro com o Instagram escuro ou claro, com os ícones das abas brancos sobre ele.
+A black pill with no sheen, for AMOLED screens. A lower Tint intensity lets what's behind it show through.	Uma pílula preta sem brilho, para telas AMOLED. Com uma Intensidade do tom menor, o que está atrás aparece.
+The glass takes the accent color Android picks from your wallpaper. Android 12 and newer. Older phones keep Instagram's colors.	O vidro usa a cor de destaque que o Android escolhe do seu papel de parede. Android 12 ou mais recente. Celulares mais antigos mantêm as cores do Instagram.
+The glass takes the color you type under Custom tint color.	O vidro usa a cor que você digitar em Cor do tom personalizada.
+Custom tint color	Cor do tom personalizada
+A color as six hex digits, like #4A6B82. Saving it picks Custom under Tint color.	Uma cor em seis dígitos hexadecimais, como #4A6B82. Salvar escolhe Personalizada em Cor do tom.
+Turn on Glass tab bar to use this choice.	Ative Barra de abas de vidro para usar esta opção.
+Turn off Material look to use this choice.	Desative Visual Material para usar esta opção.
 Refraction intensity	Intensidade da refração
 Preview of the tab bar	Prévia da barra de abas
 Keep stories playing while zooming	Manter stories tocando ao dar zoom
@@ -1933,6 +1969,10 @@ Hide the Map bubble	Ocultar a bolha do Mapa
 Takes only the Map bubble out of the row of notes. Your notes stay.	Tira só a bolha do Mapa da fileira de notas. Suas notas continuam.
 Split the notes row	Dividir a fileira de notas
 Splits the row of notes into three stacks, Instants, Notes and Stories, the layout Instagram is trying out. Restart Instagram to see the change.	Divide a fileira de notas em três pilhas, Instants, Notas e Stories, o layout que o Instagram está testando. Reinicie o Instagram para ver a mudança.
+# context: Messages: a switch under Split the notes row (#832). Primary and General are the two tabs Instagram shows professional accounts at the top of their messages. Use the names Instagram's own messages page gives them in this language.
+Primary and General tabs	Abas Principal e Geral
+# context: the summary under Primary and General tabs; Primary is the tab's name again
+Experimental. Adds the Primary and General tabs that professional accounts get to your messages. Instagram may put every chat in Primary at first. Starts off. Restart Instagram to see the change.	Experimental. Adiciona às suas mensagens as abas Principal e Geral que as contas profissionais têm. No começo, o Instagram pode colocar todas as conversas em Principal. Começa desativado. Reinicie o Instagram para ver a mudança.
 Hide Saved in the plus menu	Ocultar Salvos no menu de mais
 Takes Saved off the menu the plus button opens in a chat's message bar.	Tira Salvos do menu que o botão de mais abre na barra de mensagens de uma conversa.
 Hide AI images in the plus menu	Ocultar imagens de IA no menu de mais
@@ -2116,9 +2156,11 @@ Solid	Sólido
 See-through	Transparente
 # context: a look for the page-dots pill and the seek bars: blurs what's under it
 Frosted glass	Vidro fosco
+Dots only	Só pontos
 A light pill with dark dots, as it's always been.	Uma pílula clara com pontos escuros, como sempre foi.
 A see-through dark pill with white dots, so more of the photo shows.	Uma pílula escura transparente com pontos brancos, para mostrar mais da foto.
 A frosted glass pill that blurs the photo under it. Before Android 12 it's see-through instead.	Uma pílula de vidro fosco que desfoca a foto embaixo. Antes do Android 12 ela fica transparente.
+Just the white dots with no pill behind them. A soft shadow keeps them clear on a bright photo.	Só os pontos brancos, sem pílula atrás. Uma sombra suave deixa eles visíveis numa foto clara.
 Turn on Page dots on a pill to use this choice.	Ative Pontos de página em uma pílula para usar esta opção.
 Turn on Seek bar on feed videos or its button to use this choice.	Ative Barra de progresso nos vídeos do feed ou o botão dela para usar esta opção.
 Turn on Seek bar on stories to use this choice.	Ative Barra de progresso nos stories para usar esta opção.
@@ -2326,6 +2368,15 @@ Takes the Watch more reels button off the card a reel in your feed shows when it
 # context: a switch on the Playback page under Keep playing in the background; Android's own name for picture in picture
 Picture in picture for reels	Picture-in-picture para reels
 Leaving Instagram while a reel plays shrinks it into a small window over your other apps. Works in Reels and on reels opened from the feed, on Android 15 or newer.	Ao sair do Instagram enquanto um reel toca, ele vira uma janela pequena sobre seus outros apps. Funciona no Reels e em reels abertos pelo feed, no Android 15 ou mais recente.
+# context: a switch on the Playback page under Picture in picture for reels; the reels window is Instagram's small picture in picture window for reels, and the button is Android's own button in that window
+Pause button in the reels window	Botão de pausa na janela de reels
+Instagram's small window for reels gets a button to pause the reel and play it again.	A janela pequena do Instagram para reels ganha um botão para pausar o reel e tocar de novo.
+# context: a switch on the Playback page under Pause button in the reels window; the buttons are Instagram's own Previous and Next buttons in its small picture in picture window for reels
+Previous and next in the reels window	Anterior e próximo na janela de reels
+Instagram's small window for reels gets its own buttons to go back a reel or on to the next one.	A janela pequena do Instagram para reels ganha os próprios botões para voltar um reel ou ir para o próximo.
+# context: a switch on the Playback page under Previous and next in the reels window; photo and carousel reels go in Instagram's small picture in picture window for reels, a carousel shows a dot per page, and the window's Previous and Next buttons turn its pages before moving to another reel (#873)
+Photos and carousels in the reels window	Fotos e carrosséis na janela de reels
+Photo and carousel reels go in Instagram's small window for reels too. A carousel shows a dot for each page, and Previous and Next go through its pages first.	Reels de foto e de carrossel também vão para a janela pequena do Instagram para reels. Um carrossel mostra um ponto para cada página, e Anterior e Próximo passam primeiro pelas páginas dele.
 # context: a switch on the Playback page under Picture in picture for reels; Android's own name for picture in picture, and it keeps moving on to the next stories inside the small window
 Picture in picture for stories	Picture-in-picture para stories
 Leaving Instagram while a story plays shrinks it into a small window over your other apps, where it keeps going through the stories.	Ao sair do Instagram enquanto um story toca, ele vira uma janela pequena sobre seus outros apps, onde continua passando pelos stories.
@@ -2773,6 +2824,9 @@ HushGram's own files take up %1$s.	Os arquivos do próprio HushGram ocupam %1$s.
 # context: Tab bar: switch under Keep the pill full size, for the liquid look's bubble under a held finger (#705)
 Glass lens under your finger	Lente de vidro sob o seu dedo
 Hold a finger on the liquid pill's bubble, or slide it across the tabs, and the bubble swells and bends what's behind it harder, like glass under a fingertip. It eases back when you let go. The bend needs Blur behind the tab bar and Android 13 or newer. Restart Instagram after changing it.	Segure um dedo na bolha da pílula de vidro líquido, ou deslize-a pelas abas, e a bolha cresce e curva mais o que está atrás dela, como vidro sob a ponta de um dedo. Ela volta ao normal quando você solta. A curvatura precisa de Desfoque atrás da barra de abas e Android 13 ou mais recente. Reinicie o Instagram depois de alterar.
+# context: Tab bar: switch under Glass lens under your finger that keeps Instagram's Search tab inside the liquid pill with the other tabs instead of in a glass circle of its own, and its description (#875). Search is Instagram's tab, named as it is there; Liquid glass look is another switch's name
+Keep Search in the pill	Manter a Pesquisa na pílula
+With Liquid glass look on, Search stays in the pill with the other tabs instead of a glass circle of its own. Restart Instagram after changing it.	Com o Visual de vidro líquido ativado, a Pesquisa fica na pílula com as outras abas em vez de em um círculo de vidro próprio. Reinicie o Instagram depois de alterar.
 # context: Keep story viewers, its Stories settings rows and the Story viewers page.
 Keep story viewers	Guardar quem viu os stories
 Each time you open who viewed one of your stories, the list is kept on this phone and set beside your followers. Nothing extra is asked of Instagram. Turn it off and it stops at once.	Toda vez que você abre quem viu um dos seus stories, a lista fica guardada neste celular, ao lado dos seus seguidores. Nada a mais é pedido ao Instagram. Desative e para na hora.
@@ -3011,6 +3065,82 @@ The newest 500 stay, however old they are.	Os 500 mais recentes ficam, não impo
 Anything seen more than a day ago goes. At most 2000 stay.	O que você viu há mais de um dia sai. Ficam no máximo 2000.
 # context: Keep history for (#228): the row's summary with some days chosen; %1$s is the number
 Anything seen more than %1$s days ago goes. At most 2000 stay.	O que você viu há mais de %1$s dias sai. Ficam no máximo 2000.
+# context: Feed > title of the switch that shows a drag handle at the right edge of Home's feed while it scrolls, like Fast scroll in Saved; Home is Instagram's own Home tab (#826)
+Fast scroll on Home	Rolagem rápida no Início
+# context: Feed > summary of Fast scroll on Home; the feed is the list of posts on Home (#826)
+Shows a handle at the right edge of Home while it scrolls. Drag it to jump down your feed and back to the top.	Mostra uma alça na borda direita do Início enquanto ele rola. Arraste para descer pelo seu feed e voltar ao topo.
+# context: Messages > title of the switch that shows a drag handle at the right edge of a chat while its messages scroll (#826)
+Fast scroll in chats	Rolagem rápida nos chats
+# context: Messages > summary of Fast scroll in chats; the newest messages are at the bottom of a chat (#826)
+Shows a handle at the right edge of a chat while it scrolls. Drag it up to your older messages and back down to the newest.	Mostra uma alça na borda direita de um chat enquanto ele rola. Arraste para cima até as mensagens mais antigas e para baixo até as mais recentes.
+# context: Stories > title of the switch that hides the comments Instagram floats over a story while you watch it, next to Hide the Comment button on stories (#826)
+Hide comments on stories	Ocultar comentários nos stories
+# context: Stories > summary of Hide comments on stories; the faces are the small round profile pictures of the commenters; the Comment button is the story's own Comment button, translated as in Hide the Comment button on stories (#826)
+Takes the comments floating over stories off them, along with the faces of the people who wrote them. The Comment button still opens them.	Tira os comentários que flutuam sobre os stories, junto com os rostos de quem os escreveu. O botão Comentar ainda os abre.
+# context: Stories > title of the choice of how high the line you tap to write a comment sits on a story, under Hide comments on stories (#826)
+Comment line height on stories	Altura da linha de comentário nos stories
+# context: Stories > Comment line height on stories > choice that leaves the line where Instagram puts it; 'it' is the comment line (#826)
+Where Instagram puts it	Onde o Instagram coloca
+# context: Stories > Comment line height on stories > choice that lifts the comment line a little (#826)
+A little higher	Um pouco mais alto
+# context: Stories > Comment line height on stories > choice that lifts the comment line more than A little higher (#826)
+Higher	Mais alto
+# context: Stories > summary of Comment line height on stories while Where Instagram puts it is chosen; the line is the one you tap on a story to write a comment (#826)
+The line for writing a comment sits where Instagram puts it, at the bottom of the story.	A linha para escrever um comentário fica onde o Instagram a coloca, na parte de baixo do story.
+# context: Stories > summary of Comment line height on stories while A little higher is chosen (#826)
+The line for writing a comment sits a little higher on the story.	A linha para escrever um comentário fica um pouco mais alta no story.
+# context: Stories > summary of Comment line height on stories while Higher is chosen; the bottom edge is the bottom of the screen (#826)
+The line for writing a comment sits higher on the story, well clear of the bottom edge.	A linha para escrever um comentário fica mais alta no story, bem longe da borda de baixo.
+# context: Stories: a switch (#187), named like Full screen Reels, Full screen Home and Full screen Messages
+Full screen stories	Stories em tela cheia
+# context: Full screen stories (#187): its summary, worded like Full screen Home's
+Hides the status bar and the navigation bar while a story shows. Swipe in from the edge to bring them back for a moment.	Oculta a barra de status e a barra de navegação enquanto um story aparece. Deslize a partir da borda para mostrá-las por um instante.
+# context: Explore: a switch (#187), named like Full screen Home. Explore is Instagram's tab, as the app names it
+Full screen Explore	Explorar em tela cheia
+# context: Full screen Explore (#187): its summary, worded like Full screen Home's
+Hides the status bar and the navigation bar while Explore shows. Swipe in from the edge to bring them back for a moment.	Oculta a barra de status e a barra de navegação enquanto o Explorar aparece. Deslize a partir da borda para mostrá-las por um instante.
+# context: Profiles: a switch (#187) for your own profile's tab, named like Full screen Home
+Full screen profile	Perfil em tela cheia
+# context: Full screen profile (#187): its summary, worded like Full screen Home's
+Hides the status bar and the navigation bar while your profile tab shows. Swipe in from the edge to bring them back for a moment.	Oculta a barra de status e a barra de navegação enquanto a aba do seu perfil aparece. Deslize a partir da borda para mostrá-las por um instante.
+# context: Settings entry > summary of Settings page logo while HushGram's logo is picked; this page is HushGram's settings page (#872)
+HushGram's logo shows at the top of this page.	O logo do HushGram aparece no topo desta página.
+# context: Settings entry > summary of Settings page logo while Instagram's icon is picked (#872)
+Instagram's icon shows at the top of this page.	O ícone do Instagram aparece no topo desta página.
+# context: Settings entry > summary of Settings page logo while Your picture is picked; Your picture is the list choice of that name (#872)
+Your picture shows at the top of this page. Pick Your picture again to change it.	Sua imagem aparece no topo desta página. Escolha Sua imagem de novo para trocar.
+# context: Settings entry > Settings page logo list choice: HushGram's own logo (#872)
+HushGram's logo	Logo do HushGram
+# context: Settings entry > Settings page logo list choice: Instagram's own app icon (#872)
+Instagram's icon	Ícone do Instagram
+# context: Settings entry > Settings page logo list choice: a picture the person picks from their phone (#872)
+Your picture	Sua imagem
+# context: Settings entry > row and list title: the picture at the top of HushGram's settings page, over its name (#872)
+Settings page logo	Logo da página de configurações
+# context: Settings entry > row and dialog title: the name at the top of HushGram's settings page (#872)
+Settings page name	Nome da página de configurações
+# context: Settings entry > Settings page name dialog message; %1$d is the most characters it takes (#872)
+A name of your own at the top of this page, in place of HushGram. Up to %1$d characters. Leave it blank for HushGram.	Um nome seu no topo desta página, no lugar de HushGram. Até %1$d caracteres. Deixe em branco para HushGram.
+# context: Settings entry > row that puts HushGram's logo and name back at the top of the settings page (#872)
+Reset the settings page header	Redefinir o cabeçalho da página de configurações
+# context: Settings entry > summary of Reset the settings page header (#872)
+Puts HushGram's logo and name back at the top of this page.	Volta o logo e o nome do HushGram para o topo desta página.
+# context: toast after Reset the settings page header; keep under two short lines (#872)
+Settings page header reset.	Cabeçalho das configurações redefinido.
+# context: toast after a picked picture becomes the settings page logo; keep under two short lines (#872)
+Settings page logo set.	Logo das configurações definido.
+# context: Settings entry > summary of Settings page name while no name is typed (#872)
+HushGram shows at the top of this page.	HushGram aparece no topo desta página.
+# context: Settings entry > summary of Settings page name; %1$s is the typed name (#872)
+The top of this page says %1$s.	O topo desta página diz %1$s.
+# context: Settings > Downloads > switch title, under Name saves by account and post time (#792)
+Date saves by when they were posted	Datar o que é salvo pela hora do post
+# context: Settings > Downloads > summary of Date saves by when they were posted (#792)
+Gives each saved photo and video the time its post went up, so your gallery sorts saves by the post instead of the day you saved them. A save that doesn't know when it was posted keeps the time it was saved.	Dá a cada foto e vídeo salvo a hora em que o post foi publicado, para que a galeria ordene o que você salva pelo post e não pelo dia em que você salvou. O que for salvo sem saber quando foi postado mantém a hora em que foi salvo.
+# context: Profiles > title of the switch that adds a Select all button beside Instagram's own Select on the grids in Your activity (#762); Your activity is Instagram's own page in the profile menu, use the name Instagram shows for it in this language
+Select all in Your activity	Selecionar tudo em Sua atividade
+# context: Profiles > summary of Select all in Your activity (#762). Select, Delete and Unlike are Instagram's own buttons on those grids; use the words Instagram shows there in this language
+Adds Select all beside Select on the photo and video grids in Your activity, like your posts, reels and likes. Tick one first and it shows. It only ticks them. Nothing goes until you press Delete or Unlike yourself.	Adiciona Selecionar tudo ao lado de Selecionar nas grades de fotos e vídeos de Sua atividade, como suas publicações, reels e curtidas. Ele aparece assim que você marca um. Ele só marca os itens. Nada é removido até você mesmo tocar em Excluir ou Descurtir.
 2x speed for videos in the feed	2x speed for videos in the feed
 Adds a shortcut to your saved posts in the Explore tab.	Adds a shortcut to your saved posts in the Explore tab.
 Adds a speed choice to the menu on a reel.	Adds a speed choice to the menu on a reel.

@@ -55,7 +55,10 @@ import app.hushgram.extension.shared.diagnostics.HookStatus;
  *
  * <p>The share sheet builds the targets in its bottom row from a list of names. Meta AI's ("hatch",
  * shown as Muse on some accounts) has its own case, and the answer of the case's name check goes
- * through {@link #shareTarget}.
+ * through {@link #shareTarget}. The grid of people above the row can hold Meta AI too, as a cell of
+ * its own made from Meta AI's share action rather than from a person or a chat. The grid's adapter
+ * takes that action through one setter, on handing over, closing and each search alike, and the
+ * action goes through {@link #museRecipient} first.
  *
  * <p>A reel's Blend invite button comes from one static check that the Reels viewer's reel binder
  * and the clips viewer both read. {@link #blendButton} makes it answer "no Blend" first.
@@ -67,6 +70,11 @@ import app.hushgram.extension.shared.diagnostics.HookStatus;
  * Meta AI's tool credit (Restyled with Meta AI and its Try it link, and the like). Every list of
  * them asks one check whether to show a kind's line for the story, and {@link #storyCredit} makes
  * it answer no for Meta AI's credit.
+ *
+ * <p>A reel credits Meta AI's restyle in two places. Its byline asks a gate whether to leave an
+ * Edits credit out, by the credit's name, and {@link #restyleByline} makes it say yes for the
+ * restyle one. Its pill row asks one check whether the reel was restyled, and {@link #restylePill}
+ * makes that answer no. The same switch as the story credit covers both.
  */
 public final class MetaAi {
     /**
@@ -86,6 +94,9 @@ public final class MetaAi {
 
     /** The kind of story header line Meta AI's tool credit is, by its constant's name on Instagram 457. */
     static final String STORY_CREDIT = "META_AI_ATTRIBUTION";
+
+    /** The name a reel's byline hands its Edits credit gate for Meta AI's restyle credit, on Instagram 457. */
+    static final String RESTYLE_GATE = "EDITS_AI_RESTYLE";
 
     /** The diagnostic counter route for the feed units. */
     static final String ROUTE = "Meta AI in the feed";
@@ -326,6 +337,28 @@ public final class MetaAi {
         }
     }
 
+    /**
+     * Injected at the start of the share sheet's setter for the Meta AI cell in its grid of people
+     * (Muse on some accounts), with the share action the grid is handed, or null for none. Answers
+     * null, which the grid takes as no Meta AI cell, also while searching, as long as Hide Meta AI
+     * in the share sheet is on, and the action otherwise, or when anything goes wrong. Never throws.
+     */
+    public static Object museRecipient(Object action) {
+        try {
+            HookStatus.invoked(FamilyNames.META_AI);
+            if (action == null) {
+                Logger.printDebug(() -> "Meta AI: the share sheet's people grid has no Meta AI cell");
+                return null;
+            }
+            if (!Utils.settingsReady() || !Settings.HIDE_META_AI_SHARE_TARGET.get()) return action;
+            Logger.printDebug(() -> "Meta AI: left Meta AI (Muse) out of the share sheet's people grid");
+            return null;
+        } catch (Throwable failure) {
+            HookStatus.threw(FamilyNames.META_AI, "Muse recipient", failure);
+            return action;
+        }
+    }
+
     /** The quick promotion slots of Home's feed header and your own profile's header. */
     static final Set<String> MUSE_SLOTS = Collections.unmodifiableSet(new HashSet<>(Arrays.asList(
             "MAIN_FEED", "PERSONAL_PROFILE")));
@@ -479,7 +512,7 @@ public final class MetaAi {
     /**
      * Injected at the start of the check that decides whether a story's header shows a line of a
      * given kind, with that kind. Answers true, so the check answers no, for Meta AI's tool credit
-     * while Hide Meta AI credits on stories is on, and false for every other kind, with the switch
+     * while Hide Meta AI restyle credits is on, and false for every other kind, with the switch
      * off, or when anything goes wrong. Never throws.
      */
     public static boolean storyCredit(Object kind) {
@@ -491,6 +524,42 @@ public final class MetaAi {
             return true;
         } catch (Throwable failure) {
             HookStatus.threw(FamilyNames.META_AI, "story credit", failure);
+            return false;
+        }
+    }
+
+    /**
+     * Injected at the start of the gate a reel's byline asks whether to leave one of its Edits
+     * credits out, with that credit's name. Answers true, so the gate says leave it out, for Meta
+     * AI's restyle credit while Hide Meta AI restyle credits is on, and false for every other name,
+     * with the switch off, or when anything goes wrong. Never throws.
+     */
+    public static boolean restyleByline(Object name) {
+        try {
+            if (!RESTYLE_GATE.equals(name)) return false;
+            HookStatus.invoked(FamilyNames.META_AI);
+            if (!Utils.settingsReady() || !Settings.HIDE_META_AI_STORY_CREDIT.get()) return false;
+            Logger.printDebug(() -> "Meta AI: left the restyle credit off a reel's byline");
+            return true;
+        } catch (Throwable failure) {
+            HookStatus.threw(FamilyNames.META_AI, "reel restyle byline", failure);
+            return false;
+        }
+    }
+
+    /**
+     * Injected at the start of the check that decides whether a reel's pill credits Meta AI's
+     * restyle. Answers true, so the check answers no, while Hide Meta AI restyle credits is on, and
+     * false with the switch off or when anything goes wrong. Never throws.
+     */
+    public static boolean restylePill() {
+        try {
+            HookStatus.invoked(FamilyNames.META_AI);
+            if (!Utils.settingsReady() || !Settings.HIDE_META_AI_STORY_CREDIT.get()) return false;
+            Logger.printDebug(() -> "Meta AI: left the restyle pill off a reel");
+            return true;
+        } catch (Throwable failure) {
+            HookStatus.threw(FamilyNames.META_AI, "reel restyle pill", failure);
             return false;
         }
     }

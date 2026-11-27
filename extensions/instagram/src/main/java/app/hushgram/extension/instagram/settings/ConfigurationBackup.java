@@ -266,6 +266,7 @@ public final class ConfigurationBackup {
         }
         if (PatchFamily.STORY_TIME.inBuild()) settings.put(Settings.STORY_TIME_MODE.key, Settings.STORY_TIME_MODE);
         if (PatchFamily.STORY_MENTIONS.inBuild()) settings.put(Settings.STORY_MENTIONS_LOOK.key, Settings.STORY_MENTIONS_LOOK);
+        if (PatchFamily.STORY_REPLY_BOX.inBuild()) settings.put(Settings.STORY_COMMENT_LINE.key, Settings.STORY_COMMENT_LINE);
         if (PatchFamily.CAROUSEL_ARROWS.inBuild()) settings.put(Settings.CAROUSEL_PILL_LOOK.key, Settings.CAROUSEL_PILL_LOOK);
         if (PatchFamily.EXPAND_CAPTIONS.inBuild()) settings.put(Settings.CAPTION_LINES.key, Settings.CAPTION_LINES);
         if (PatchFamily.FEED_SEEK_BAR.inBuild()) {
@@ -310,6 +311,8 @@ public final class ConfigurationBackup {
             settings.put(Settings.GLASS_TAB_BAR_CORNERS.key, Settings.GLASS_TAB_BAR_CORNERS);
             settings.put(Settings.GLASS_TAB_BAR_LIFT.key, Settings.GLASS_TAB_BAR_LIFT);
             settings.put(Settings.GLASS_TAB_BAR_REELS_HIDE.key, Settings.GLASS_TAB_BAR_REELS_HIDE);
+            settings.put(Settings.GLASS_TAB_BAR_TINT.key, Settings.GLASS_TAB_BAR_TINT);
+            settings.put(Settings.GLASS_TAB_BAR_TINT_CUSTOM.key, Settings.GLASS_TAB_BAR_TINT_CUSTOM);
         }
         if (PatchFamily.GLASS_CHAT.inBuild()) {
             settings.put(Settings.GLASS_CHAT_TOP_BAR_OPACITY.key, Settings.GLASS_CHAT_TOP_BAR_OPACITY);
@@ -390,6 +393,7 @@ public final class ConfigurationBackup {
             settings.put(Settings.SAVE_FOLDER.key, Settings.SAVE_FOLDER);
             settings.put(Settings.SAVE_FOLDER_PER_ACCOUNT.key, Settings.SAVE_FOLDER_PER_ACCOUNT);
             settings.put(Settings.SAVE_NAME_BY_POST.key, Settings.SAVE_NAME_BY_POST);
+            settings.put(Settings.SAVE_POST_DATE.key, Settings.SAVE_POST_DATE);
             settings.put(Settings.SAVE_PHOTO_METADATA.key, Settings.SAVE_PHOTO_METADATA);
             settings.put(Settings.SAVE_PHOTO_SCRUB.key, Settings.SAVE_PHOTO_SCRUB);
             settings.put(Settings.FILENAME_TEMPLATE.key, Settings.FILENAME_TEMPLATE);
@@ -408,6 +412,8 @@ public final class ConfigurationBackup {
         settings.put(Settings.SETTINGS_BLACK_LOOK.key, Settings.SETTINGS_BLACK_LOOK);
         settings.put(Settings.SETTINGS_LIGHT_LOOK.key, Settings.SETTINGS_LIGHT_LOOK);
         settings.put(Settings.SETTINGS_INSTAGRAM_LOOK.key, Settings.SETTINGS_INSTAGRAM_LOOK);
+        // The name only. The logo can be a picture kept on this phone, so it stays here (#872).
+        settings.put(Settings.SETTINGS_HEADER_NAME.key, Settings.SETTINGS_HEADER_NAME);
         settings.put(Settings.DATE_SETTINGS_EXPORT.key, Settings.DATE_SETTINGS_EXPORT);
         return settings;
     }
@@ -647,6 +653,8 @@ public final class ConfigurationBackup {
         if (setting == Settings.SHARING_DOMAIN) return SharingDomain.normalize(text) != null;
         // The row saves the header text cleaned, so a file holds it that way or blank.
         if (setting == Settings.HEADER_TEXT) return text.equals(HeaderText.clean(text));
+        // The settings page name saves the same way, a little shorter (#872).
+        if (setting == Settings.SETTINGS_HEADER_NAME) return text.equals(SettingsHeader.cleanName(text));
         // The Place row keeps what was typed, spaces too, and takes blank as no place.
         if (setting == Settings.SPOOF_LOCATION_PLACE) return text.trim().isEmpty() || SpoofLocation.parse(text) != null;
         // The row saves the server as host:port, so a file holds it that way or blank.
@@ -657,6 +665,8 @@ public final class ConfigurationBackup {
         if (setting == Settings.STORY_RING_CUSTOM || setting == Settings.STORY_RING_CUSTOM_END) {
             return text.isEmpty() || text.equals(CustomAccent.normalize(text));
         }
+        // And the glass tab bar's custom tint (#875).
+        if (setting == Settings.GLASS_TAB_BAR_TINT_CUSTOM) return text.isEmpty() || text.equals(CustomAccent.normalize(text));
         if (setting == Settings.TAB_ORDER) return text.equals(TabOrder.join(TabOrder.parse(text)));
         // The share sheet buttons to leave out, as Instagram's names for them with commas between.
         if (setting == Settings.HIDDEN_SHARE_SHEET_BUTTONS) {

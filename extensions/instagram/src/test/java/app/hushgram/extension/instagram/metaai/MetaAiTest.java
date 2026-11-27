@@ -99,6 +99,32 @@ public class MetaAiTest {
         }
     }
 
+    /**
+     * The same switch leaves Meta AI's cell (Muse on some accounts) out of the share sheet's grid of
+     * people (#879): the grid's setter gets null for the action, as on an account without one. Off,
+     * or paused, the grid keeps the action it was handed, and null stays null.
+     */
+    @Test
+    public void theMuseCellFollowsTheShareSheetSwitch() {
+        Object muse = new Object();
+        assertFalse("off to start", Settings.HIDE_META_AI_SHARE_TARGET.get());
+        assertSame(muse, MetaAi.museRecipient(muse));
+        assertNull(MetaAi.museRecipient(null));
+        Settings.HIDE_META_AI_SHARE_TARGET.save(true);
+        try {
+            assertNull(MetaAi.museRecipient(muse));
+            assertNull(MetaAi.museRecipient(null));
+            Settings.HIDE_META_AI_SEARCH.save(false);
+            assertNull("the search switch doesn't matter", MetaAi.museRecipient(muse));
+            PauseForTests.pause(HushgramPause.Reason.SWITCH);
+            assertSame("paused, Instagram decides", muse, MetaAi.museRecipient(muse));
+        } finally {
+            PauseForTests.resume();
+            Settings.HIDE_META_AI_SEARCH.save(true);
+            Settings.HIDE_META_AI_SHARE_TARGET.resetToDefault();
+        }
+    }
+
     /** The Muse card is left out only with its own switch, which starts off, and never while paused. */
     @Test
     public void theMuseBannerFollowsItsOwnSwitch() {
@@ -242,6 +268,34 @@ public class MetaAiTest {
             assertTrue("the search switch doesn't matter", MetaAi.storyCredit(HeaderLine.META_AI_ATTRIBUTION));
             PauseForTests.pause(HushgramPause.Reason.SWITCH);
             assertFalse("paused, Instagram decides", MetaAi.storyCredit(HeaderLine.META_AI_ATTRIBUTION));
+        } finally {
+            PauseForTests.resume();
+            Settings.HIDE_META_AI_SEARCH.save(true);
+            Settings.HIDE_META_AI_STORY_CREDIT.resetToDefault();
+        }
+    }
+
+    /**
+     * A reel's restyle credit follows the same switch: the byline's gate says leave it out only for
+     * the restyle credit's name, and the pill's check says no, both only with the switch on and
+     * never while paused.
+     */
+    @Test
+    public void theReelRestyleCreditsFollowTheSameSwitch() {
+        assertFalse("off to start", MetaAi.restyleByline("EDITS_AI_RESTYLE"));
+        assertFalse("off to start", MetaAi.restylePill());
+        Settings.HIDE_META_AI_STORY_CREDIT.save(true);
+        try {
+            assertTrue(MetaAi.restyleByline("EDITS_AI_RESTYLE"));
+            assertTrue(MetaAi.restylePill());
+            assertFalse("another Edits credit stays", MetaAi.restyleByline("EDITS_TEMPLATE"));
+            assertFalse("a name in another case isn't it", MetaAi.restyleByline("edits_ai_restyle"));
+            assertFalse(MetaAi.restyleByline(null));
+            Settings.HIDE_META_AI_SEARCH.save(false);
+            assertTrue("the search switch doesn't matter", MetaAi.restyleByline("EDITS_AI_RESTYLE"));
+            PauseForTests.pause(HushgramPause.Reason.SWITCH);
+            assertFalse("paused, Instagram decides", MetaAi.restyleByline("EDITS_AI_RESTYLE"));
+            assertFalse("paused, Instagram decides", MetaAi.restylePill());
         } finally {
             PauseForTests.resume();
             Settings.HIDE_META_AI_SEARCH.save(true);

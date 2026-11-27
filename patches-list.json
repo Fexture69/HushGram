@@ -435,6 +435,47 @@
       "options": []
     },
     {
+      "name": "Block likes, replies and posts in Ghost mode",
+      "description": "While Ghost mode is on, liking, commenting, replying to a story, posting a story or post and copying or sharing a link do nothing, and a message says why. Starts off. Turn it on in HushGram settings > Ads and privacy.",
+      "category": "Ghost mode",
+      "use": true,
+      "dependencies": [
+        "Ask before a like",
+        "BytecodePatch",
+        "HushGram settings",
+        "Turn off double tap to like"
+      ],
+      "compatiblePackages": {
+        "com.instagram.android": [
+          "457.0.0.55.73"
+        ]
+      },
+      "compatibility": [
+        {
+          "name": "Instagram",
+          "packageName": "com.instagram.android",
+          "description": null,
+          "appIconColor": 14757996,
+          "signatures": [
+            "3a10c50c18ba937506c2875e9047be74f8fd8b86fae2ff9feaa50a81fcb4c014",
+            "5f3e50f435583c9ae626302a71f7340044087a7e2c60adacfc254205a993e305"
+          ],
+          "targets": [
+            {
+              "version": "457.0.0.55.73",
+              "experimental": false,
+              "versionCodes": {
+                "ARM64_V8A": 386314341,
+                "ARMEABI_V7A": 386314340,
+                "X86_64": 386314286
+              }
+            }
+          ]
+        }
+      ],
+      "options": []
+    },
+    {
       "name": "Blur the bars around Reels",
       "description": "Shows a blurred copy of a reel above and below it, or beside it, where Instagram would leave black bars. Starts off. Turn it on in HushGram settings > Reels.",
       "category": "Reels",
@@ -1727,7 +1768,7 @@
     },
     {
       "name": "Full screen Reels and Home",
-      "description": "Hides the status bar and the navigation bar while Reels shows, and optionally while Home or your messages do. Swipe in from the edge to bring them back for a moment. Back and the keyboard work as usual. It can also show stories over the whole screen on tall phones. Starts off. Turn it on in HushGram settings > Reels (Full screen Reels), Feed (Full screen Home), Messages (Full screen Messages) and Stories (Stories fill the screen).",
+      "description": "Hides the status bar and the navigation bar while Reels shows, and optionally on Home, your messages, stories, Explore or your profile. Swipe in from the edge to bring them back for a moment. Back and the keyboard work as usual. It can also show stories over the whole screen on tall phones. Starts off. Turn it on in HushGram settings > Reels (Full screen Reels), Feed (Full screen Home), Messages (Full screen Messages), Stories (Full screen stories, Stories fill the screen), Explore (Full screen Explore) and Profiles (Full screen profile).",
       "category": "Reels",
       "use": true,
       "dependencies": [
@@ -1805,7 +1846,7 @@
     },
     {
       "name": "Glass tab bar",
-      "description": "Draws the tab bar as a floating, rounded pill of frosted glass that blurs what's behind it (Android 12 and newer), with a highlight on the tab you're on. Content can optionally run down behind it. With the liquid look off, `Shrink the pill as you scroll` makes the pill smaller while you scroll down, and `Material look` makes it a solid pill in your phone's colors. Starts off. Turn it on in HushGram settings > Tab bar, then restart Instagram.",
+      "description": "Draws the tab bar as a floating, rounded pill of frosted glass that blurs what's behind it (Android 12 and newer), with a highlight on the tab you're on. Content can optionally run down behind it. `Tint color` makes the glass light, dark, AMOLED black, your wallpaper's accent or a color you type. With the liquid look on, `Keep Search in the pill` keeps Search with the other tabs. With it off, `Shrink the pill as you scroll` makes the pill smaller while you scroll down, and `Material look` makes it a solid pill in your phone's colors. Starts off. Turn it on in HushGram settings > Tab bar, then restart Instagram.",
       "category": "Interface",
       "use": true,
       "dependencies": [
@@ -2195,7 +2236,7 @@
     },
     {
       "name": "Hide Meta AI",
-      "description": "Removes Meta AI from Instagram's search bars, messages, home top bar, reels menus, share sheet, stories and feed. Each part has its own switch. The search one and the Meta AI posts one start on, the rest start off. Change them in HushGram settings > Meta AI.",
+      "description": "Removes Meta AI from Instagram's search bars, messages, home top bar, reels menus, share sheet, stories and feed, and its restyle credits from stories and reels. Each part has its own switch. The search one and the Meta AI posts one start on, the rest start off. Change them in HushGram settings > Meta AI.",
       "category": "Interface",
       "use": true,
       "dependencies": [
@@ -3638,7 +3679,7 @@
     },
     {
       "name": "Hide the reply box on stories",
-      "description": "Takes the Send message box off the bottom of other people's stories. The like and share buttons next to it stay where they are. Switches of their own take the Like, Comment and Share buttons off too, with no empty space left behind. All start off. Turn them on in HushGram settings > Stories.",
+      "description": "Takes the Send message box off the bottom of other people's stories. The like and share buttons next to it stay where they are. Switches of their own take the Like, Comment and Share buttons off too, with no empty space left behind, and the comments floating over stories. A choice lifts the line for writing a comment. All start off. Set them in HushGram settings > Stories.",
       "category": "Stories",
       "use": true,
       "dependencies": [
@@ -4016,6 +4057,84 @@
       "options": []
     },
     {
+      "name": "Keep HDR on photo uploads",
+      "description": "Lets an Ultra HDR photo you post keep its HDR gain map on Android 14 and newer. Experimental. Starts off. Turn it on in HushGram settings > Playback.",
+      "category": "Downloads",
+      "use": true,
+      "dependencies": [
+        "BytecodePatch",
+        "HushGram settings"
+      ],
+      "compatiblePackages": {
+        "com.instagram.android": [
+          "457.0.0.55.73"
+        ]
+      },
+      "compatibility": [
+        {
+          "name": "Instagram",
+          "packageName": "com.instagram.android",
+          "description": null,
+          "appIconColor": 14757996,
+          "signatures": [
+            "3a10c50c18ba937506c2875e9047be74f8fd8b86fae2ff9feaa50a81fcb4c014",
+            "5f3e50f435583c9ae626302a71f7340044087a7e2c60adacfc254205a993e305"
+          ],
+          "targets": [
+            {
+              "version": "457.0.0.55.73",
+              "experimental": false,
+              "versionCodes": {
+                "ARM64_V8A": 386314341,
+                "ARMEABI_V7A": 386314340,
+                "X86_64": 386314286
+              }
+            }
+          ]
+        }
+      ],
+      "options": []
+    },
+    {
+      "name": "Keep HDR on video uploads",
+      "description": "Encodes an HDR video you post in HDR on Android 13 and newer, on phones where Instagram would make it SDR. Experimental. Starts off. Turn it on in HushGram settings > Playback.",
+      "category": "Downloads",
+      "use": true,
+      "dependencies": [
+        "BytecodePatch",
+        "HushGram settings"
+      ],
+      "compatiblePackages": {
+        "com.instagram.android": [
+          "457.0.0.55.73"
+        ]
+      },
+      "compatibility": [
+        {
+          "name": "Instagram",
+          "packageName": "com.instagram.android",
+          "description": null,
+          "appIconColor": 14757996,
+          "signatures": [
+            "3a10c50c18ba937506c2875e9047be74f8fd8b86fae2ff9feaa50a81fcb4c014",
+            "5f3e50f435583c9ae626302a71f7340044087a7e2c60adacfc254205a993e305"
+          ],
+          "targets": [
+            {
+              "version": "457.0.0.55.73",
+              "experimental": false,
+              "versionCodes": {
+                "ARM64_V8A": 386314341,
+                "ARMEABI_V7A": 386314340,
+                "X86_64": 386314286
+              }
+            }
+          ]
+        }
+      ],
+      "options": []
+    },
+    {
       "name": "Keep Home's top bar",
       "description": "Keeps the Instagram logo and the buttons beside it at the top of Home while you scroll. A second switch shows your feed blurred under them. Both start off. Turn them on in HushGram settings > Feed.",
       "category": "Feed",
@@ -4135,7 +4254,7 @@
     {
       "name": "Keep in chat",
       "description": "Keeps view once and replayable photos and videos in your chats after you open them, so they don't disappear. A photo or video you send stays Instagram's own sent bubble. Starts off. Turn it on in HushGram settings > Messages.",
-      "category": "Messages",
+      "category": "Downloads",
       "use": true,
       "dependencies": [
         "BytecodePatch",
@@ -5149,6 +5268,45 @@
       "options": []
     },
     {
+      "name": "Primary and General tabs",
+      "description": "Adds the Primary and General tabs professional accounts get to your messages, for any account. Experimental. It takes a restart. Starts off. Turn it on in HushGram settings > Messages.",
+      "category": "Messages",
+      "use": true,
+      "dependencies": [
+        "BytecodePatch",
+        "HushGram settings"
+      ],
+      "compatiblePackages": {
+        "com.instagram.android": [
+          "457.0.0.55.73"
+        ]
+      },
+      "compatibility": [
+        {
+          "name": "Instagram",
+          "packageName": "com.instagram.android",
+          "description": null,
+          "appIconColor": 14757996,
+          "signatures": [
+            "3a10c50c18ba937506c2875e9047be74f8fd8b86fae2ff9feaa50a81fcb4c014",
+            "5f3e50f435583c9ae626302a71f7340044087a7e2c60adacfc254205a993e305"
+          ],
+          "targets": [
+            {
+              "version": "457.0.0.55.73",
+              "experimental": false,
+              "versionCodes": {
+                "ARM64_V8A": 386314341,
+                "ARMEABI_V7A": 386314340,
+                "X86_64": 386314286
+              }
+            }
+          ]
+        }
+      ],
+      "options": []
+    },
+    {
       "name": "Profile posts as a list",
       "description": "Opening someone's profile takes you on to their posts as a scrolling list of full posts. Back shows the grid. Your own profile keeps its grid. Starts off. Turn it on in HushGram settings > Profiles.",
       "category": "Profiles",
@@ -5503,7 +5661,7 @@
     },
     {
       "name": "Resume long videos",
-      "description": "A video or reel longer than two minutes picks up where you left off the next time you play it on the same account. Live videos and ads start as usual. Starts off. Turn it on in HushGram settings > Playback.",
+      "description": "A video or reel longer than two minutes picks up where you left off the next time you play it on the same account. Live videos and ads start as usual. A second switch, Keep your place in feed videos, picks up any feed video you scroll back to until you close Instagram. Starts off. Turn them on in HushGram settings > Playback.",
       "category": "Playback",
       "use": true,
       "dependencies": [
@@ -5776,7 +5934,7 @@
     },
     {
       "name": "Saved on your profile",
-      "description": "Adds a bookmark to the tabs on your own profile, beside posts, reels and tagged, that opens Saved on All, a handle to drag through Saved and your collections, and switches that hide the + for a new collection, Saved's Reels tab and the Saved bookmark on the Search tab. All start off. Turn them on in HushGram settings > Profiles. The bookmarks need an Instagram restart.",
+      "description": "Adds a bookmark to the tabs on your own profile, beside posts, reels and tagged, that opens Saved on All, a handle to drag through Saved and your collections, and switches that hide the + for a new collection, Saved's Reels tab and the Saved bookmark on the Search tab. The same handle can run down Home and your chats. All start off. Turn them on in HushGram settings > Profiles, Feed and Messages. The bookmarks need an Instagram restart.",
       "category": "Profiles",
       "use": true,
       "dependencies": [
@@ -5974,6 +6132,45 @@
       "name": "Seek bar on stories",
       "description": "Shows a bar near the bottom of a video story that you can drag to jump to any point in the video. Photos don't get one. A choice under it makes the bar see-through or puts it on frosted glass, and another moves it into the space under the Send message box. Starts off. Turn it on in HushGram settings > Stories.",
       "category": "Stories",
+      "use": true,
+      "dependencies": [
+        "BytecodePatch",
+        "HushGram settings"
+      ],
+      "compatiblePackages": {
+        "com.instagram.android": [
+          "457.0.0.55.73"
+        ]
+      },
+      "compatibility": [
+        {
+          "name": "Instagram",
+          "packageName": "com.instagram.android",
+          "description": null,
+          "appIconColor": 14757996,
+          "signatures": [
+            "3a10c50c18ba937506c2875e9047be74f8fd8b86fae2ff9feaa50a81fcb4c014",
+            "5f3e50f435583c9ae626302a71f7340044087a7e2c60adacfc254205a993e305"
+          ],
+          "targets": [
+            {
+              "version": "457.0.0.55.73",
+              "experimental": false,
+              "versionCodes": {
+                "ARM64_V8A": 386314341,
+                "ARMEABI_V7A": 386314340,
+                "X86_64": 386314286
+              }
+            }
+          ]
+        }
+      ],
+      "options": []
+    },
+    {
+      "name": "Select all in Your activity",
+      "description": "Adds Select all beside Select on the photo and video grids in Your activity, so you can tick every post, reel or like at once. Starts off. Turn it on in HushGram settings > Profiles.",
+      "category": "Settings",
       "use": true,
       "dependencies": [
         "BytecodePatch",
@@ -6986,7 +7183,7 @@
     },
     {
       "name": "Stop background wake-ups",
-      "description": "Stops three things that wake your phone while Instagram is in the background. One alarm goes off every minute or two only to note that Instagram is still running, another wakes it five minutes later to upload usage events, and a job about every half hour downloads your feed ahead of time. Messages and notifications still arrive. Starts off. Turn it on in HushGram settings > Battery.",
+      "description": "Stops four things that keep Instagram busy while it's in the background. One alarm goes off every minute or two only to note that Instagram is still running, another wakes it five minutes later to upload usage events, and a job about every half hour downloads your feed ahead of time. And when your phone checks its accounts, Instagram never answers, which keeps it running for up to 15 minutes. Messages and notifications still arrive. Starts off. Turn it on in HushGram settings > Battery.",
       "category": "Fixes",
       "use": true,
       "dependencies": [

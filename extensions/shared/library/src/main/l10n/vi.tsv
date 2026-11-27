@@ -288,6 +288,9 @@ Feed videos and stories wait for your tap. Reels and videos in Explore play as I
 Turn on Tap to play to use this choice.	Hãy bật Nhấn để phát để dùng lựa chọn này.
 Resume long videos	Tiếp tục xem video dài
 Videos and reels over two minutes pick up where you left off. Seek to start elsewhere. Live videos and ads start as usual.	Video và reel dài hơn hai phút tiếp tục từ chỗ bạn dừng. Hãy tua để bắt đầu ở nơi khác. Video trực tiếp và quảng cáo bắt đầu như bình thường.
+# context: a switch under Resume long videos (#874). A feed video you scroll past and come back to keeps playing from where it was, only until Instagram closes. The Reels tab is Instagram's own tab.
+Keep your place in feed videos	Nhớ vị trí trong video bảng feed
+A feed video you scroll away from picks up where you left it when you scroll back, until you close Instagram. Reels in the Reels tab start over as usual.	Video bảng feed bạn cuộn qua sẽ tiếp tục từ chỗ bạn dừng khi bạn cuộn lại, cho đến khi bạn đóng Instagram. Reel trong tab Reels vẫn bắt đầu lại như bình thường.
 Default playback quality	Chất lượng phát mặc định
 # context: description of the Default playback quality switch on the Playback page, with the list of qualities below it
 Videos, reels and stories play at the quality below, starting with the next one you open.	Video, reel và tin phát ở chất lượng bên dưới, bắt đầu từ mục tiếp theo bạn mở.
@@ -375,16 +378,16 @@ Removes the summary, Sources and Ask Meta AI box from a reel's more menu. In you
 Hide Ask Meta AI in About this reel	Ẩn Hỏi Meta AI trong Giới thiệu về reel này
 About this reel keeps its summary and Sources, and only the Ask Meta AI box under them goes.	Giới thiệu về reel này vẫn giữ phần tóm tắt và Nguồn, chỉ gỡ ô Hỏi Meta AI bên dưới.
 Hide Meta AI in the share sheet	Ẩn Meta AI trong bảng chia sẻ
-Removes Meta AI from the row at the bottom of the share sheet. Some accounts see it as Muse.	Gỡ Meta AI khỏi hàng ở cuối bảng chia sẻ. Một số tài khoản thấy mục này là Muse.
+Removes Meta AI from the share sheet, both from the people you can send to and from the row at the bottom. Some accounts see it as Muse.	Gỡ Meta AI khỏi bảng chia sẻ, cả trong danh sách người bạn có thể gửi đến lẫn ở hàng cuối bảng. Một số tài khoản thấy mục này là Muse.
 Hide the Muse card	Ẩn thẻ Muse
 Removes the Meet Muse card, with its Try Muse button, from Home and your profile. Your other cards stay.	Gỡ thẻ Meet Muse, cùng nút Try Muse, khỏi trang chủ và trang cá nhân. Các thẻ khác vẫn giữ.
 Hide the Muse button on your profile	Ẩn nút Muse trên trang cá nhân
 Removes the Muse button from the top bar of your profile. Your username and the menu stay.	Gỡ nút Muse khỏi thanh trên cùng của trang cá nhân. Tên người dùng và menu vẫn giữ.
 Hide Blend on reels	Ẩn Blend trên reel
 Removes the Blend invite button from reels. Everything else on a reel stays.	Gỡ nút mời Blend khỏi reel. Mọi thứ khác trên reel vẫn giữ.
-# context: Meta AI: a Hide Meta AI switch (#866) that removes the line Instagram shows at the top of a story made with a Meta AI tool, such as Restyled with Meta AI followed by a Try it link. Restyled with Meta AI and Try it are Instagram's own labels, so use this language's Instagram wording for them where it's known.
-Hide Meta AI credits on stories	Ẩn ghi công Meta AI trên tin
-Removes lines like Restyled with Meta AI and its Try it link from the top of stories. Music and effect credits stay.	Gỡ các dòng như Đã đổi phong cách bằng Meta AI và liên kết Dùng thử khỏi đầu tin. Ghi công nhạc và hiệu ứng vẫn giữ.
+# context: Meta AI: a Hide Meta AI switch (#866) that removes the line Instagram shows at the top of a story made with a Meta AI tool, such as Restyled with Meta AI followed by a Try it link, and the same restyle credit on reels. Restyled with Meta AI and Try it are Instagram's own labels, so use this language's Instagram wording for them where it's known.
+Hide Meta AI restyle credits	Ẩn ghi công đổi phong cách của Meta AI
+Removes lines like Restyled with Meta AI and its Try it link from the top of stories, and the same credit from reels. Music and effect credits stay.	Gỡ các dòng như Đã đổi phong cách bằng Meta AI và liên kết Dùng thử khỏi đầu tin, và cả ghi công đó khỏi reel. Ghi công nhạc và hiệu ứng vẫn giữ.
 # context: the name of Instagram's Explore tab. Instagram's Vietnamese for it is Khám phá (not found in the fixture's strings, taken from the app's usual wording).
 Explore	Khám phá
 Hide the Explore grid	Ẩn lưới Khám phá
@@ -601,6 +604,9 @@ Adds an eye button to the top of each story while you view anonymously. Tap it t
 Mark as seen	Đánh dấu đã xem
 Marked as seen. Tap again to undo.	Đã đánh dấu đã xem. Nhấn lại để hoàn tác.
 Marked as seen and sent	Đã đánh dấu đã xem và gửi
+# context: View stories anonymously's third switch, after Mark as seen button. A like is the heart under a story, a quick reaction is an emoji from the row above a story's reply box
+Mark a story seen when you like or reply	Đánh dấu đã xem tin khi bạn thích hoặc trả lời
+While you view anonymously, liking a story, replying to it or sending it a quick reaction puts you on that story's viewer list first. The other stories stay hidden.	Khi bạn xem ẩn danh, việc thích một tin, trả lời tin đó hoặc gửi cảm xúc nhanh sẽ đưa bạn vào danh sách người xem của tin đó trước. Các tin khác vẫn ẩn.
 View DM photos and videos anonymously	Xem ảnh và video trong Direct ẩn danh
 Stops people seeing that you opened their view once photos and videos. They still disappear after you view them. This is a test feature and starts off.	Ngăn mọi người thấy bạn đã mở ảnh và video xem một lần của họ. Chúng vẫn biến mất sau khi bạn xem. Đây là tính năng thử nghiệm và mặc định tắt.
 Restored %1$d settings. Kept %2$d newer choices.	Đã khôi phục %1$d cài đặt. Giữ %2$d lựa chọn mới hơn.
@@ -766,6 +772,11 @@ That isn't a place. Type latitude, longitude.	Đó không phải vị trí. Nh�
 %1$d reels. Swipe again after %2$d minutes away.	%1$d reel. Rời app %2$d phút để vuốt tiếp.
 The latitude and the longitude in degrees, with a comma between them, like 40.758, -73.9855. North and east are positive, south and west negative. A map app shows both when you press and hold a spot.	Vĩ độ và kinh độ theo độ, cách nhau bằng dấu phẩy, ví dụ 40.758, -73.9855. Bắc và đông là số dương, nam và tây là số âm. Ứng dụng bản đồ hiện cả hai khi bạn nhấn giữ một điểm.
 Turn off HDR brightness boosts	Tắt tăng độ sáng HDR
+Keep HDR on photo uploads	Giữ HDR khi tải ảnh lên
+Experimental. An Ultra HDR photo you post keeps its gain map on Android 14 and newer, so it can still show in HDR. Turn it off if a photo you post looks wrong.	Thử nghiệm. Ảnh Ultra HDR bạn đăng giữ lại gain map trên Android 14 trở lên, nên vẫn có thể hiển thị ở HDR. Hãy tắt nếu ảnh bạn đăng trông không đúng.
+# context: Keep HDR on video uploads, under Playback next to the photo switch. Instagram encodes a video again before it uploads it; HDR means HLG here.
+Keep HDR on video uploads	Giữ HDR khi tải video lên
+Experimental. An HDR video you post is encoded in HDR on Android 13 and newer, where Instagram would make it SDR on some phones. Turn it off if a video you post looks wrong or won't upload.	Thử nghiệm. Video HDR bạn đăng được mã hóa ở HDR trên Android 13 trở lên, trong khi Instagram sẽ chuyển nó thành SDR trên một số điện thoại. Hãy tắt nếu video bạn đăng trông không đúng hoặc không tải lên được.
 What you open from search stays out of Recent, in the app and on Instagram's side. Searches already there stay until you clear them.	Nội dung bạn mở từ tìm kiếm không vào mục Gần đây, cả trong ứng dụng và phía Instagram. Nội dung tìm đã có vẫn ở đó cho đến khi bạn xóa.
 Wi-Fi stays as it is. Turn this off to save data on every network.	Wi-Fi giữ nguyên. Hãy tắt mục này để tiết kiệm dữ liệu trên mọi mạng.
 Hide comments	Ẩn bình luận
@@ -810,7 +821,7 @@ Hide the gift button	Ẩn nút quà tặng
 Takes the gift button off the right end of the comment box. The box itself stays.	Gỡ nút quà tặng ở đầu bên phải ô bình luận. Bản thân ô vẫn giữ.
 # context: Comments: a Hide comments switch (#869) that hides the round (i) info button some comment sheets draw at the top right, just above the first comment. Write (i) as is.
 Hide the (i) button in comments	Ẩn nút (i) trong bình luận
-Takes the (i) button off the top right of a post's or reel's comments, above the first comment. Not every post has it.	Gỡ nút (i) ở góc trên bên phải phần bình luận của bài viết hoặc reel, phía trên bình luận đầu tiên. Không phải bài viết nào cũng có.
+Takes the (i) button off the top right of a post's or reel's comments, and the row with an (i) that can sit above a reel's first comment. Not every post has them.	Gỡ nút (i) ở góc trên bên phải phần bình luận của bài viết hoặc reel, và hàng có biểu tượng (i) có thể nằm phía trên bình luận đầu tiên của reel. Không phải bài viết nào cũng có.
 Hide the emoji row	Ẩn hàng biểu tượng cảm xúc
 Takes the row of quick emoji off above the comment box. The box itself stays.	Gỡ hàng biểu tượng cảm xúc nhanh phía trên ô bình luận. Bản thân ô vẫn giữ.
 # context: Comments: the switch that takes GIFs and stickers out of a post's comments (#511). A comment that has words keeps its words and loses only the picture. A comment that's only a GIF disappears, and its replies with it. Comment box is the field where you type a comment.
@@ -991,7 +1002,7 @@ Text in the accent color	Văn bản theo màu nhấn
 Names, captions and other main text take the same color as the icons. Gray text stays gray. Restart Instagram to see the change.	Tên, chú thích và văn bản chính khác lấy cùng màu với biểu tượng. Văn bản màu xám vẫn giữ màu xám. Khởi động lại Instagram để thấy thay đổi.
 # context: Layout > Accent color switch. Saved is Instagram's own Saved page, in its label for this language.
 Filters in the accent color	Bộ lọc theo màu nhấn
-The filters along the top of Saved take the color you picked, and the one you're on is filled with it. Restart Instagram to see the change.	Các bộ lọc ở đầu mục Đã lưu lấy màu bạn đã chọn, và bộ lọc đang dùng được tô bằng màu đó. Khởi động lại Instagram để thấy thay đổi.
+The filters along the top of Saved and under a search take the color you picked, and the one you're on is filled with it. Restart Instagram to see the change.	Các bộ lọc ở đầu mục Đã lưu và bên dưới tìm kiếm lấy màu bạn đã chọn, và bộ lọc đang dùng được tô bằng màu đó. Khởi động lại Instagram để thấy thay đổi.
 Instagram's icons on the top bar, the tab bar and under posts take the color you picked. Text stays as it is. Restart Instagram to see the change.	Biểu tượng của Instagram trên thanh trên cùng, thanh tab và dưới bài viết lấy màu bạn đã chọn. Văn bản giữ nguyên. Hãy khởi động lại Instagram để thấy thay đổi.
 Story rings in the accent color	Vòng tin theo màu nhấn
 Story rings take the color you picked instead of Instagram's gradient. A few other gradients share those colors and change with them. Restart Instagram to see the change.	Vòng tin lấy màu bạn đã chọn thay cho dải màu của Instagram. Một vài dải màu khác dùng chung các màu đó và đổi theo. Khởi động lại Instagram để thấy thay đổi.
@@ -1082,6 +1093,8 @@ Stop the analytics upload alarm	Ngừng báo thức tải phân tích
 Instagram sets an alarm to wake your phone and send its usage events five minutes later. This stops that alarm. The events go the next time you use the app.	Instagram đặt báo thức để đánh thức điện thoại và gửi sự kiện sử dụng sau năm phút. Mục này ngăn báo thức đó. Các sự kiện sẽ gửi vào lần tới bạn dùng ứng dụng.
 Stop background feed refresh	Ngừng làm mới bảng tin trong nền
 About every half hour, Instagram wakes your phone to download your feed ahead of time. This stops that. The feed loads when you open the app instead, and messages and notifications still arrive.	Khoảng nửa giờ một lần, Instagram đánh thức điện thoại để tải trước bảng tin. Mục này ngăn điều đó. Bảng tin sẽ tải khi bạn mở ứng dụng, còn tin nhắn và thông báo vẫn đến.
+Let Instagram close after account checks	Cho Instagram đóng sau khi kiểm tra tài khoản
+When your phone checks its accounts, as it does at startup and when an account changes, Instagram never answers. Android then keeps it running for up to 15 minutes, even after you swipe it away. This answers right away so Instagram can close. Your login is unaffected.	Khi điện thoại kiểm tra các tài khoản, như lúc khởi động và khi một tài khoản thay đổi, Instagram không bao giờ trả lời. Android khi đó giữ nó chạy tới 15 phút, kể cả sau khi bạn vuốt để đóng. Mục này trả lời ngay để Instagram có thể đóng. Việc đăng nhập không bị ảnh hưởng.
 Haptic style	Kiểu rung
 Short tick	Rung ngắn
 System tick	Rung hệ thống
@@ -1516,6 +1529,14 @@ All of them. Tap to leave some out, and Ghost mode leaves those as you set them.
 %1$s. The others stay as you set them.	%1$s. Các mục khác giữ như bạn đã đặt.
 Switches Ghost mode turns	Công tắc mà Chế độ ẩn bật tắt
 Ghost mode needs at least one switch to turn.	Chế độ ẩn cần ít nhất một công tắc để bật tắt.
+# context: Ghost mode: the switch under its rows in Ads and privacy that holds likes, story replies, comments, share links and new stories and posts back while Ghost mode is on (#876). A like is the heart under a post, a reel, a story or a comment, a share link is what Copy link and sharing a post out make, and posting is sharing a new story, post or reel from Instagram's camera; the five short ones are toasts shown when a tap is held back
+Block likes, replies and posts in Ghost mode	Chặn thích, trả lời và đăng bài khi ở chế độ ẩn
+While Ghost mode is on, liking, commenting, replying to a story, posting a story or post and copying or sharing a link do nothing, and a message says why. Nothing is sent.	Khi bật chế độ ẩn, thích, bình luận, trả lời một tin, đăng tin hoặc bài viết và sao chép hoặc chia sẻ liên kết sẽ không có tác dụng, và một thông báo cho biết lý do. Không có gì được gửi đi.
+Likes are off in Ghost mode.	Thích đã bị tắt ở chế độ ẩn.
+Replies are off in Ghost mode.	Trả lời đã bị tắt ở chế độ ẩn.
+Comments are off in Ghost mode.	Bình luận đã bị tắt ở chế độ ẩn.
+Share links are off in Ghost mode.	Liên kết chia sẻ đã bị tắt ở chế độ ẩn.
+Posting is off in Ghost mode.	Đăng bài đã bị tắt ở chế độ ẩn.
 Turn Ghost mode on or off with a tab long press	Bật hoặc tắt Chế độ ẩn bằng cách nhấn giữ tab
 Tab long presses keep Instagram's own action. Choose one to turn Ghost mode on or off instead.	Nhấn giữ tab vẫn dùng thao tác riêng của Instagram. Hãy chọn một tab để bật hoặc tắt Chế độ ẩn.
 Long press %1$s to turn Ghost mode on or off instead of that tab's usual action, and a toast says which way it went. Normal taps and other tabs stay the same. If the same tab opens HushGram or picks the playback quality, that comes first.	Nhấn giữ %1$s để bật hoặc tắt Chế độ ẩn thay cho thao tác thường của tab đó, và một thông báo cho biết đã chuyển sang bên nào. Nhấn bình thường và các tab khác không đổi. Nếu cùng tab mở HushGram hoặc chọn chất lượng phát thì mục đó được ưu tiên.
@@ -1752,7 +1773,7 @@ Puts a back and a next arrow on a carousel post's photos and videos. Tap one to 
 Previous page	Trang trước
 Next page	Trang sau
 Page dots on a pill	Chấm trang trên viên thuốc
-Moves a carousel post's page dots onto a round pill at the bottom of its photo or video, with the page you're on in blue. Hold the pill and slide left or right to move through the pages.	Đưa các chấm trang của bài viết nhiều trang lên viên thuốc tròn ở cuối ảnh hoặc video, trang đang xem màu xanh dương. Giữ viên thuốc rồi trượt sang trái hoặc phải để chuyển trang.
+Moves a carousel post's page dots onto a round pill at the bottom of its photo or video, with the page you're on in blue, or your accent color when Accent color is on. Hold the pill and slide left or right to move through the pages.	Đưa các chấm trang của bài viết nhiều trang lên viên thuốc tròn ở cuối ảnh hoặc video, trang đang xem màu xanh dương, hoặc màu nhấn khi bật Màu nhấn. Giữ viên thuốc rồi trượt sang trái hoặc phải để chuyển trang.
 # context: Feed settings: the Hide page number switch, under Carousel arrows (#581). The number is the 3/5 in the corner of a carousel post.
 Hide page number	Ẩn số trang
 Takes the number like 3/5 off the corner of a carousel post's photo or video.	Bỏ số như 3/5 ở góc ảnh hoặc video của bài viết dạng băng chuyền.
@@ -1835,6 +1856,21 @@ Seek bar button on feed videos	Nút thanh tua trên video bảng feed
 Adds a small button at the bottom left of a feed video that shows or hides its seek bar. It works with Seek bar on feed videos on or off.	Thêm nút nhỏ ở dưới bên trái video bảng feed để hiện hoặc ẩn thanh tua. Dùng được dù Thanh tua trên video bảng feed bật hay tắt.
 Seek bar	Thanh tua
 Tint intensity	Độ đậm màu
+# context: Tab bar: the Tint color list under Tint intensity that picks the glass tab bar's color, its choices' descriptions, the Custom tint color field under it with its dialog message and empty summary, and what both say while another switch is in the way (#875). Light, Dark and AMOLED black are choices in the list; Tint intensity, Custom tint color, Glass tab bar and Material look are rows' names
+Tint color	Màu kính
+Light	Sáng
+Dark	Tối
+AMOLED black	Đen AMOLED
+The glass takes Instagram's own colors, dark or light with its theme.	Kính lấy màu của chính Instagram, tối hoặc sáng theo Instagram.
+Frosted white glass whatever Instagram's theme, with the tab icons dark on it.	Kính trắng mờ dù Instagram tối hay sáng, với biểu tượng tab màu tối trên đó.
+Dark gray glass whatever Instagram's theme, with the tab icons white on it.	Kính xám đậm dù Instagram tối hay sáng, với biểu tượng tab màu trắng trên đó.
+A black pill with no sheen, for AMOLED screens. A lower Tint intensity lets what's behind it show through.	Viên thanh màu đen không bóng, cho màn hình AMOLED. Độ đậm màu thấp hơn sẽ để lộ phía sau.
+The glass takes the accent color Android picks from your wallpaper. Android 12 and newer. Older phones keep Instagram's colors.	Kính lấy màu nhấn mà Android chọn từ hình nền của bạn. Android 12 trở lên. Điện thoại cũ hơn giữ màu của Instagram.
+The glass takes the color you type under Custom tint color.	Kính lấy màu bạn nhập trong Màu kính tùy chỉnh.
+Custom tint color	Màu kính tùy chỉnh
+A color as six hex digits, like #4A6B82. Saving it picks Custom under Tint color.	Một màu gồm sáu chữ số hex, như #4A6B82. Lưu lại sẽ chọn Tùy chỉnh trong Màu kính.
+Turn on Glass tab bar to use this choice.	Hãy bật Thanh tab kính để dùng lựa chọn này.
+Turn off Material look to use this choice.	Hãy tắt Kiểu Material để dùng lựa chọn này.
 Refraction intensity	Độ khúc xạ
 Preview of the tab bar	Xem trước thanh tab
 Keep stories playing while zooming	Giữ tin phát khi thu phóng
@@ -1848,6 +1884,10 @@ Hide the Map bubble	Ẩn bong bóng Bản đồ
 Takes only the Map bubble out of the row of notes. Your notes stay.	Chỉ gỡ bong bóng Bản đồ khỏi hàng ghi chú. Ghi chú vẫn giữ.
 Split the notes row	Tách hàng ghi chú
 Splits the row of notes into three stacks, Instants, Notes and Stories, the layout Instagram is trying out. Restart Instagram to see the change.	Tách hàng ghi chú thành ba chồng, Instants, Ghi chú và Tin, bố cục Instagram đang thử nghiệm. Hãy khởi động lại Instagram để thấy thay đổi.
+# context: Messages: a switch under Split the notes row (#832). Primary and General are the two tabs Instagram shows professional accounts at the top of their messages. Use the names Instagram's own messages page gives them in this language.
+Primary and General tabs	Tab Chính và Chung
+# context: the summary under Primary and General tabs; Primary is the tab's name again
+Experimental. Adds the Primary and General tabs that professional accounts get to your messages. Instagram may put every chat in Primary at first. Starts off. Restart Instagram to see the change.	Thử nghiệm. Thêm tab Chính và Chung mà tài khoản chuyên nghiệp có vào phần tin nhắn của bạn. Lúc đầu Instagram có thể đưa mọi cuộc trò chuyện vào Chính. Mặc định tắt. Hãy khởi động lại Instagram để thấy thay đổi.
 Hide Saved in the plus menu	Ẩn Đã lưu trong menu dấu cộng
 Takes Saved off the menu the plus button opens in a chat's message bar.	Gỡ Đã lưu khỏi menu mà nút dấu cộng mở ra trong thanh tin nhắn của cuộc trò chuyện.
 Hide AI images in the plus menu	Ẩn ảnh AI trong menu dấu cộng
@@ -2031,9 +2071,11 @@ Solid	Đặc
 See-through	Trong suốt
 # context: a look for the page-dots pill and the seek bars: blurs what's under it
 Frosted glass	Kính mờ
+Dots only	Chỉ chấm
 A light pill with dark dots, as it's always been.	Viên thuốc sáng màu với chấm tối, như trước giờ.
 A see-through dark pill with white dots, so more of the photo shows.	Viên thuốc tối trong suốt với chấm trắng, để thấy rõ ảnh hơn.
 A frosted glass pill that blurs the photo under it. Before Android 12 it's see-through instead.	Viên thuốc kính mờ làm nhòe ảnh bên dưới. Trước Android 12, viên thuốc chỉ trong suốt.
+Just the white dots with no pill behind them. A soft shadow keeps them clear on a bright photo.	Chỉ có các chấm trắng, không có viên thuốc phía sau. Bóng mờ nhẹ giúp chấm vẫn rõ trên ảnh sáng.
 Turn on Page dots on a pill to use this choice.	Hãy bật Chấm trang trên viên thuốc để dùng lựa chọn này.
 Turn on Seek bar on feed videos or its button to use this choice.	Hãy bật Thanh tua trên video bảng feed hoặc nút của nó để dùng lựa chọn này.
 Turn on Seek bar on stories to use this choice.	Hãy bật Thanh tua trên tin để dùng lựa chọn này.
@@ -2241,6 +2283,15 @@ Takes the Watch more reels button off the card a reel in your feed shows when it
 # context: a switch on the Playback page under Keep playing in the background; Android's own name for picture in picture
 Picture in picture for reels	Hình trong hình cho reel
 Leaving Instagram while a reel plays shrinks it into a small window over your other apps. Works in Reels and on reels opened from the feed, on Android 15 or newer.	Khi bạn rời Instagram lúc một reel đang phát, nó thu nhỏ thành một cửa sổ nhỏ nằm trên các ứng dụng khác. Hoạt động trong Reels và với reel mở từ bảng feed, trên Android 15 trở lên.
+# context: a switch on the Playback page under Picture in picture for reels; the reels window is Instagram's small picture in picture window for reels, and the button is Android's own button in that window
+Pause button in the reels window	Nút tạm dừng trong cửa sổ reel
+Instagram's small window for reels gets a button to pause the reel and play it again.	Cửa sổ nhỏ của Instagram cho reel có thêm nút để tạm dừng reel và phát lại.
+# context: a switch on the Playback page under Pause button in the reels window; the buttons are Instagram's own Previous and Next buttons in its small picture in picture window for reels
+Previous and next in the reels window	Trước và tiếp theo trong cửa sổ reel
+Instagram's small window for reels gets its own buttons to go back a reel or on to the next one.	Cửa sổ nhỏ của Instagram cho reel có thêm các nút riêng của Instagram để quay lại reel trước hoặc sang reel tiếp theo.
+# context: a switch on the Playback page under Previous and next in the reels window; photo and carousel reels go in Instagram's small picture in picture window for reels, a carousel shows a dot per page, and the window's Previous and Next buttons turn its pages before moving to another reel (#873)
+Photos and carousels in the reels window	Ảnh và băng chuyền trong cửa sổ reel
+Photo and carousel reels go in Instagram's small window for reels too. A carousel shows a dot for each page, and Previous and Next go through its pages first.	Reel ảnh và reel băng chuyền cũng vào cửa sổ nhỏ của Instagram cho reel. Băng chuyền hiện một chấm cho mỗi trang, và Trước và Tiếp theo đi qua các trang của nó trước.
 # context: a switch on the Playback page under Picture in picture for reels; Android's own name for picture in picture, and it keeps moving on to the next stories inside the small window
 Picture in picture for stories	Hình trong hình cho tin
 Leaving Instagram while a story plays shrinks it into a small window over your other apps, where it keeps going through the stories.	Khi bạn rời Instagram lúc một tin đang phát, nó thu nhỏ thành một cửa sổ nhỏ nằm trên các ứng dụng khác và tiếp tục chuyển qua các tin.
@@ -2688,6 +2739,9 @@ HushGram's own files take up %1$s.	Tệp riêng của HushGram chiếm %1$s.
 # context: Tab bar: switch under Keep the pill full size, for the liquid look's bubble under a held finger (#705)
 Glass lens under your finger	Thấu kính kính dưới ngón tay
 Hold a finger on the liquid pill's bubble, or slide it across the tabs, and the bubble swells and bends what's behind it harder, like glass under a fingertip. It eases back when you let go. The bend needs Blur behind the tab bar and Android 13 or newer. Restart Instagram after changing it.	Giữ ngón tay trên bong bóng của viên kính lỏng, hoặc trượt nó qua các tab, bong bóng sẽ phồng lên và bẻ cong mạnh hơn những gì phía sau, như kính dưới đầu ngón tay. Bong bóng trở lại như cũ khi bạn thả tay. Hiệu ứng bẻ cong cần Làm mờ phía sau thanh tab và Android 13 trở lên. Hãy khởi động lại Instagram sau khi thay đổi.
+# context: Tab bar: switch under Glass lens under your finger that keeps Instagram's Search tab inside the liquid pill with the other tabs instead of in a glass circle of its own, and its description (#875). Search is Instagram's tab, named as it is there; Liquid glass look is another switch's name
+Keep Search in the pill	Giữ Tìm kiếm trong viên thanh
+With Liquid glass look on, Search stays in the pill with the other tabs instead of a glass circle of its own. Restart Instagram after changing it.	Khi Kiểu kính lỏng bật, Tìm kiếm nằm trong viên thanh cùng các tab khác thay vì trong một vòng kính riêng. Hãy khởi động lại Instagram sau khi thay đổi.
 # context: Keep story viewers, its Stories settings rows and the Story viewers page.
 Keep story viewers	Giữ danh sách người xem tin
 Each time you open who viewed one of your stories, the list is kept on this phone and set beside your followers. Nothing extra is asked of Instagram. Turn it off and it stops at once.	Mỗi lần bạn mở xem ai đã xem một tin của bạn, danh sách sẽ được giữ trên điện thoại này và đặt cạnh người theo dõi của bạn. Không yêu cầu thêm gì từ Instagram. Tắt đi là dừng ngay.
@@ -2926,6 +2980,82 @@ The newest 500 stay, however old they are.	Giữ 500 mục mới nhất, dù cũ
 Anything seen more than a day ago goes. At most 2000 stay.	Mục đã xem hơn một ngày trước sẽ bị xóa. Giữ tối đa 2000 mục.
 # context: Keep history for (#228): the row's summary with some days chosen; %1$s is the number
 Anything seen more than %1$s days ago goes. At most 2000 stay.	Mục đã xem hơn %1$s ngày trước sẽ bị xóa. Giữ tối đa 2000 mục.
+# context: Feed > title of the switch that shows a drag handle at the right edge of Home's feed while it scrolls, like Fast scroll in Saved; Home is Instagram's own Home tab (#826)
+Fast scroll on Home	Cuộn nhanh ở Trang chủ
+# context: Feed > summary of Fast scroll on Home; the feed is the list of posts on Home (#826)
+Shows a handle at the right edge of Home while it scrolls. Drag it to jump down your feed and back to the top.	Hiện tay nắm ở cạnh phải của Trang chủ khi cuộn. Kéo tay nắm để nhảy xuống bảng feed và quay lại đầu trang.
+# context: Messages > title of the switch that shows a drag handle at the right edge of a chat while its messages scroll (#826)
+Fast scroll in chats	Cuộn nhanh trong đoạn chat
+# context: Messages > summary of Fast scroll in chats; the newest messages are at the bottom of a chat (#826)
+Shows a handle at the right edge of a chat while it scrolls. Drag it up to your older messages and back down to the newest.	Hiện tay nắm ở cạnh phải của đoạn chat khi cuộn. Kéo lên để xem tin nhắn cũ hơn và kéo xuống để về tin nhắn mới nhất.
+# context: Stories > title of the switch that hides the comments Instagram floats over a story while you watch it, next to Hide the Comment button on stories (#826)
+Hide comments on stories	Ẩn bình luận trên tin
+# context: Stories > summary of Hide comments on stories; the faces are the small round profile pictures of the commenters; the Comment button is the story's own Comment button, translated as in Hide the Comment button on stories (#826)
+Takes the comments floating over stories off them, along with the faces of the people who wrote them. The Comment button still opens them.	Bỏ các bình luận trôi trên tin, cùng với khuôn mặt của những người đã viết. Nút Bình luận vẫn mở được chúng.
+# context: Stories > title of the choice of how high the line you tap to write a comment sits on a story, under Hide comments on stories (#826)
+Comment line height on stories	Độ cao dòng bình luận trên tin
+# context: Stories > Comment line height on stories > choice that leaves the line where Instagram puts it; 'it' is the comment line (#826)
+Where Instagram puts it	Vị trí Instagram đặt
+# context: Stories > Comment line height on stories > choice that lifts the comment line a little (#826)
+A little higher	Cao hơn một chút
+# context: Stories > Comment line height on stories > choice that lifts the comment line more than A little higher (#826)
+Higher	Cao hơn
+# context: Stories > summary of Comment line height on stories while Where Instagram puts it is chosen; the line is the one you tap on a story to write a comment (#826)
+The line for writing a comment sits where Instagram puts it, at the bottom of the story.	Dòng để viết bình luận nằm ở vị trí Instagram đặt, ở cuối tin.
+# context: Stories > summary of Comment line height on stories while A little higher is chosen (#826)
+The line for writing a comment sits a little higher on the story.	Dòng để viết bình luận nằm cao hơn một chút trên tin.
+# context: Stories > summary of Comment line height on stories while Higher is chosen; the bottom edge is the bottom of the screen (#826)
+The line for writing a comment sits higher on the story, well clear of the bottom edge.	Dòng để viết bình luận nằm cao hơn trên tin, cách xa mép dưới.
+# context: Stories: a switch (#187), named like Full screen Reels, Full screen Home and Full screen Messages
+Full screen stories	Tin toàn màn hình
+# context: Full screen stories (#187): its summary, worded like Full screen Home's
+Hides the status bar and the navigation bar while a story shows. Swipe in from the edge to bring them back for a moment.	Ẩn thanh trạng thái và thanh điều hướng khi một tin hiện. Vuốt từ mép vào để đưa chúng trở lại trong giây lát.
+# context: Explore: a switch (#187), named like Full screen Home. Explore is Instagram's tab, as the app names it
+Full screen Explore	Khám phá toàn màn hình
+# context: Full screen Explore (#187): its summary, worded like Full screen Home's
+Hides the status bar and the navigation bar while Explore shows. Swipe in from the edge to bring them back for a moment.	Ẩn thanh trạng thái và thanh điều hướng khi Khám phá hiện. Vuốt từ mép vào để đưa chúng trở lại trong giây lát.
+# context: Profiles: a switch (#187) for your own profile's tab, named like Full screen Home
+Full screen profile	Trang cá nhân toàn màn hình
+# context: Full screen profile (#187): its summary, worded like Full screen Home's
+Hides the status bar and the navigation bar while your profile tab shows. Swipe in from the edge to bring them back for a moment.	Ẩn thanh trạng thái và thanh điều hướng khi tab trang cá nhân hiện. Vuốt từ mép vào để đưa chúng trở lại trong giây lát.
+# context: Settings entry > summary of Settings page logo while HushGram's logo is picked; this page is HushGram's settings page (#872)
+HushGram's logo shows at the top of this page.	Logo HushGram hiện ở đầu trang này.
+# context: Settings entry > summary of Settings page logo while Instagram's icon is picked (#872)
+Instagram's icon shows at the top of this page.	Biểu tượng Instagram hiện ở đầu trang này.
+# context: Settings entry > summary of Settings page logo while Your picture is picked; Your picture is the list choice of that name (#872)
+Your picture shows at the top of this page. Pick Your picture again to change it.	Ảnh của bạn hiện ở đầu trang này. Chọn lại Ảnh của bạn để đổi ảnh.
+# context: Settings entry > Settings page logo list choice: HushGram's own logo (#872)
+HushGram's logo	Logo HushGram
+# context: Settings entry > Settings page logo list choice: Instagram's own app icon (#872)
+Instagram's icon	Biểu tượng Instagram
+# context: Settings entry > Settings page logo list choice: a picture the person picks from their phone (#872)
+Your picture	Ảnh của bạn
+# context: Settings entry > row and list title: the picture at the top of HushGram's settings page, over its name (#872)
+Settings page logo	Logo trang cài đặt
+# context: Settings entry > row and dialog title: the name at the top of HushGram's settings page (#872)
+Settings page name	Tên trang cài đặt
+# context: Settings entry > Settings page name dialog message; %1$d is the most characters it takes (#872)
+A name of your own at the top of this page, in place of HushGram. Up to %1$d characters. Leave it blank for HushGram.	Một tên của riêng bạn ở đầu trang này, thay cho HushGram. Tối đa %1$d ký tự. Để trống để dùng HushGram.
+# context: Settings entry > row that puts HushGram's logo and name back at the top of the settings page (#872)
+Reset the settings page header	Đặt lại phần đầu trang cài đặt
+# context: Settings entry > summary of Reset the settings page header (#872)
+Puts HushGram's logo and name back at the top of this page.	Đưa logo và tên HushGram trở lại đầu trang này.
+# context: toast after Reset the settings page header; keep under two short lines (#872)
+Settings page header reset.	Đã đặt lại phần đầu cài đặt.
+# context: toast after a picked picture becomes the settings page logo; keep under two short lines (#872)
+Settings page logo set.	Đã đặt logo trang cài đặt.
+# context: Settings entry > summary of Settings page name while no name is typed (#872)
+HushGram shows at the top of this page.	HushGram hiện ở đầu trang này.
+# context: Settings entry > summary of Settings page name; %1$s is the typed name (#872)
+The top of this page says %1$s.	Đầu trang này ghi %1$s.
+# context: Settings > Downloads > switch title, under Name saves by account and post time (#792)
+Date saves by when they were posted	Ghi ngày bản lưu theo giờ đăng
+# context: Settings > Downloads > summary of Date saves by when they were posted (#792)
+Gives each saved photo and video the time its post went up, so your gallery sorts saves by the post instead of the day you saved them. A save that doesn't know when it was posted keeps the time it was saved.	Gán cho mỗi ảnh và video đã lưu thời điểm bài đăng được đăng, để thư viện sắp xếp bản lưu theo bài đăng thay vì ngày bạn lưu. Bản lưu không biết khi nào được đăng vẫn giữ thời điểm được lưu.
+# context: Profiles > title of the switch that adds a Select all button beside Instagram's own Select on the grids in Your activity (#762); Your activity is Instagram's own page in the profile menu, use the name Instagram shows for it in this language
+Select all in Your activity	Chọn tất cả trong Hoạt động của bạn
+# context: Profiles > summary of Select all in Your activity (#762). Select, Delete and Unlike are Instagram's own buttons on those grids; use the words Instagram shows there in this language
+Adds Select all beside Select on the photo and video grids in Your activity, like your posts, reels and likes. Tick one first and it shows. It only ticks them. Nothing goes until you press Delete or Unlike yourself.	Thêm Chọn tất cả cạnh nút Chọn trên lưới ảnh và video trong Hoạt động của bạn, như bài viết, Reels và lượt thích của bạn. Nút này hiện ra khi bạn đánh dấu một mục. Nó chỉ đánh dấu chúng. Không gì bị mất cho đến khi chính bạn nhấn Xóa hoặc Bỏ thích.
 2x speed for videos in the feed	2x speed for videos in the feed
 Adds a shortcut to your saved posts in the Explore tab.	Adds a shortcut to your saved posts in the Explore tab.
 Adds a speed choice to the menu on a reel.	Adds a speed choice to the menu on a reel.

@@ -41,7 +41,8 @@ import app.hushgram.extension.shared.settings.HushgramPause;
 
 /**
  * Helper for the "Full screen Reels and Home" patch: hides the status bar and the navigation bar
- * while Reels (or Home) is showing, and brings them back when it isn't.
+ * while Reels (or Home, your messages, a story, Explore or your profile, each with its own switch) is
+ * showing, and brings them back when it isn't.
  *
  * <p>Instagram's code changes in one place: its window insets listener asks {@link #barHeight} about each
  * bar height it keeps, since it keeps them while the bars are hidden and its screens would leave
@@ -52,8 +53,10 @@ import app.hushgram.extension.shared.settings.HushgramPause;
  * children of {@code tab_bar}. The viewer counts as showing when most of the window is its own, which
  * keeps a viewer sitting off screen in a pager from counting. Your messages ({@code
  * inbox_refreshable_thread_list_recyclerview}) and a chat ({@code thread_view_root}) count from a
- * smaller share, so the keyboard doesn't end them (#288). Without either, the tab bar's selected tab
- * answers.
+ * smaller share, so the keyboard doesn't end them (#288). The story viewer ({@code reel_viewer_root})
+ * counts like the reels viewer, any of the pages its pager keeps (#187). Without any of them, the tab
+ * bar's selected tab answers, {@code search_tab} for Explore and {@code profile_tab} for your profile
+ * among them.
  *
  * <p>The bars are hidden through the window's insets controller (Android 11 and newer) with the
  * "show transient bars by swipe" behaviour, and on Android 9 and 10 through the immersive sticky
@@ -76,7 +79,11 @@ public final class FullScreenBars {
     static final String REELS_TAB = "clips_tab";
     static final String HOME_TAB = "feed_tab";
     static final String SEARCH_TAB = "search_tab";
+    /** Your own profile's tab (#187). */
+    static final String PROFILE_TAB = "profile_tab";
     static final String VIEWER = "clips_viewer_container";
+    /** The story viewer, from wherever a story opens (#187). A pager keeps the stories beside it too. */
+    static final String STORY_VIEWER = "reel_viewer_root";
     /** Your messages' list of chats, and a chat's whole screen, as Instagram names them (#288). */
     static final String INBOX = "inbox_refreshable_thread_list_recyclerview";
     static final String CHAT = "thread_view_root";
@@ -95,6 +102,7 @@ public final class FullScreenBars {
     static final String COUNT_HID = "hid the bars";
     static final String COUNT_SHOWED = "showed the bars";
     static final String COUNT_NO_BAR_SPACE = "kept no space for a hidden bar";
+    static final String COUNT_NO_CHAT_STRIP = "left a chat theme's strip out under a hidden status bar";
 
     @SuppressWarnings("deprecation")
     static final int IMMERSIVE_FLAGS = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
@@ -155,7 +163,7 @@ public final class FullScreenBars {
     }
 
     /** What the screen is showing, as far as the bars are concerned. */
-    enum Screen { REELS, HOME, MESSAGES, OTHER }
+    enum Screen { REELS, STORIES, HOME, EXPLORE, PROFILE, MESSAGES, OTHER }
 
     static int id(Context context, String name) {
         synchronized (IDS) {
@@ -218,20 +226,25 @@ public final class FullScreenBars {
 
     /** Whether a view named [name] covers [MESSAGES_SHARE] of [decor]; a hidden one left behind doesn't hide another. */
     private static boolean anyCovers(View decor, String name) {
+        return anyCovers(decor, name, MESSAGES_SHARE);
+    }
+
+    /** Whether a view named [name] covers [share] of [decor], the first of that name or any other. */
+    private static boolean anyCovers(View decor, String name, float share) {
         int id = id(decor.getContext(), name);
         if (id == 0) return false;
         View first = decor.findViewById(id);
         if (first == null) return false;
-        return covers(first, decor, MESSAGES_SHARE) || anyCovers(decor, id, decor);
+        return covers(first, decor, share) || anyCovers(decor, id, decor, share);
     }
 
-    private static boolean anyCovers(View view, int id, View decor) {
+    private static boolean anyCovers(View view, int id, View decor, float share) {
         if (view.getVisibility() != View.VISIBLE) return false;
-        if (view.getId() == id) return covers(view, decor, MESSAGES_SHARE);
+        if (view.getId() == id) return covers(view, decor, share);
         if (!(view instanceof ViewGroup)) return false;
         ViewGroup group = (ViewGroup) view;
         for (int i = 0; i < group.getChildCount(); i++) {
-            if (anyCovers(group.getChildAt(i), id, decor)) return true;
+            if (anyCovers(group.getChildAt(i), id, decor, share)) return true;
         }
         return false;
     }
@@ -260,6 +273,7 @@ public final class FullScreenBars {
             if (tab.getId() != View.NO_ID && tab.getId() == id(decor.getContext(), REELS_TAB)) return REELS_TAB;
             if (tab.getId() != View.NO_ID && tab.getId() == id(decor.getContext(), HOME_TAB)) return HOME_TAB;
             if (tab.getId() != View.NO_ID && tab.getId() == id(decor.getContext(), SEARCH_TAB)) return SEARCH_TAB;
+            if (tab.getId() != View.NO_ID && tab.getId() == id(decor.getContext(), PROFILE_TAB)) return PROFILE_TAB;
             return null;
         }
         return null;
@@ -293,30 +307,37 @@ public final class FullScreenBars {
     }
 
     /**
-     * What [decor]'s screen is: the reels viewer filling the window, your messages or a chat, or the
-     * Reels or Home tab selected.
+     * What [decor]'s screen is: the reels viewer filling the window, a story filling it (#187), your
+     * messages or a chat, or the Reels, Home, Explore or profile tab selected (#187).
      */
     static Screen screenOf(View decor) {
         View viewer = find(decor, VIEWER);
         if (viewer != null && fills(viewer, decor)) return Screen.REELS;
+        if (anyCovers(decor, STORY_VIEWER, FILL_SHARE)) return Screen.STORIES;
         if (messagesShowing(decor)) return Screen.MESSAGES;
         String tab = selectedTab(decor);
         // A viewer there but not showing: Home, or a screen over Reels, whatever tab is selected.
         if (viewer == null && REELS_TAB.equals(tab)) return Screen.REELS;
-        return HOME_TAB.equals(tab) ? Screen.HOME : Screen.OTHER;
+        if (HOME_TAB.equals(tab)) return Screen.HOME;
+        if (SEARCH_TAB.equals(tab)) return Screen.EXPLORE;
+        return PROFILE_TAB.equals(tab) ? Screen.PROFILE : Screen.OTHER;
     }
 
-    /** Whether the bars should be hidden on [screen], by the three switches. */
+    /** Whether the bars should be hidden on [screen], by its switch. */
     static boolean wanted(Screen screen) {
         if (screen == Screen.REELS) return Settings.FULL_SCREEN_REELS.get();
+        if (screen == Screen.STORIES) return Settings.FULL_SCREEN_STORIES.get();
         if (screen == Screen.MESSAGES) return Settings.FULL_SCREEN_MESSAGES.get();
+        if (screen == Screen.EXPLORE) return Settings.FULL_SCREEN_EXPLORE.get();
+        if (screen == Screen.PROFILE) return Settings.FULL_SCREEN_PROFILE.get();
         return screen == Screen.HOME && Settings.FULL_SCREEN_HOME.get();
     }
 
-    /** Whether any of the three switches is on, so some screen may want the bars hidden. */
+    /** Whether any of the switches is on, so some screen may want the bars hidden. */
     static boolean eitherOn() {
         return Settings.FULL_SCREEN_REELS.get() || Settings.FULL_SCREEN_HOME.get()
-                || Settings.FULL_SCREEN_MESSAGES.get();
+                || Settings.FULL_SCREEN_MESSAGES.get() || Settings.FULL_SCREEN_STORIES.get()
+                || Settings.FULL_SCREEN_EXPLORE.get() || Settings.FULL_SCREEN_PROFILE.get();
     }
 
     /**
@@ -402,6 +423,26 @@ public final class FullScreenBars {
             return 0;
         } catch (Throwable failure) {
             HookStatus.threw(FamilyNames.FULL_SCREEN_BARS, "bar height", failure);
+            return height;
+        }
+    }
+
+    /**
+     * Called by an opened chat's background with the height of the strip its theme paints across the top,
+     * under the status bar (#187). Instagram reads it from the window's insets whether the bar shows or
+     * not, so with Full screen Messages the strip stayed where the hidden bar had been, a dark band above a
+     * themed chat's header. While that switch is on with the status bar among the bars it hides the answer
+     * is 0. It goes by the switches rather than the bar right now, since a chat paints its background as
+     * it opens, before the bar is gone. Otherwise, paused, or if anything throws, the height goes through.
+     */
+    public static int chatThemeStrip(int height) {
+        try {
+            if (height <= 0 || !Utils.settingsReady() || HushgramPause.isPaused()) return height;
+            if (!Settings.FULL_SCREEN_MESSAGES.get() || !chosenBars().status()) return height;
+            HookStatus.counted(FamilyNames.FULL_SCREEN_BARS, COUNT_NO_CHAT_STRIP);
+            return 0;
+        } catch (Throwable failure) {
+            HookStatus.threw(FamilyNames.FULL_SCREEN_BARS, "chat theme strip", failure);
             return height;
         }
     }

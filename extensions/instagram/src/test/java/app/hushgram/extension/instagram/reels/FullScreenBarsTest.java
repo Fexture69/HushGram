@@ -39,6 +39,9 @@ import org.robolectric.util.ReflectionHelpers;
 import app.hushgram.extension.instagram.misc.GlassTabBar;
 import app.hushgram.extension.instagram.settings.Settings;
 import app.hushgram.extension.shared.SettingsContextRule;
+import app.hushgram.extension.shared.settings.BaseSettings;
+import app.hushgram.extension.shared.settings.HushgramPause;
+import app.hushgram.extension.shared.settings.PauseForTests;
 
 /** Full screen Reels and Home: the bars hide on the screens the switches name and come back when they're left. */
 @RunWith(RobolectricTestRunner.class)
@@ -48,7 +51,8 @@ public class FullScreenBarsTest {
     @Rule public final SettingsContextRule settings = new SettingsContextRule();
 
     private static final int VIEWER = 7101, BAR = 7102, REELS_TAB = 7103, HOME_TAB = 7104, OTHER_TAB = 7105,
-            INBOX = 7106, CHAT = 7107, TOP_BAR = 7108, SHEET_HOLDER = 7109, SHEET_CONTENT = 7110, INBOX_BAR = 7111;
+            INBOX = 7106, CHAT = 7107, TOP_BAR = 7108, SHEET_HOLDER = 7109, SHEET_CONTENT = 7110, INBOX_BAR = 7111,
+            STORY = 7112, SEARCH_TAB = 7113, PROFILE_TAB = 7114;
 
     /** The window's own size: a view is only on screen as far as the window goes. */
     private int W, H;
@@ -64,9 +68,15 @@ public class FullScreenBarsTest {
         Settings.FULL_SCREEN_REELS.resetToDefault();
         Settings.FULL_SCREEN_HOME.resetToDefault();
         Settings.FULL_SCREEN_MESSAGES.resetToDefault();
+        Settings.FULL_SCREEN_STORIES.resetToDefault();
+        Settings.FULL_SCREEN_EXPLORE.resetToDefault();
+        Settings.FULL_SCREEN_PROFILE.resetToDefault();
         Settings.FULL_SCREEN_HIDES.resetToDefault();
         Settings.GLASS_TAB_BAR.resetToDefault();
         Settings.GLASS_TAB_BAR_FLOAT.resetToDefault();
+        FullScreenBars.idForTests(FullScreenBars.STORY_VIEWER, STORY);
+        FullScreenBars.idForTests(FullScreenBars.SEARCH_TAB, SEARCH_TAB);
+        FullScreenBars.idForTests(FullScreenBars.PROFILE_TAB, PROFILE_TAB);
         FullScreenBars.idForTests(FullScreenBars.INBOX, INBOX);
         FullScreenBars.idForTests(FullScreenBars.CHAT, CHAT);
         FullScreenBars.idForTests(FullScreenBars.INBOX_BAR, INBOX_BAR);
@@ -96,6 +106,9 @@ public class FullScreenBarsTest {
         Settings.FULL_SCREEN_REELS.resetToDefault();
         Settings.FULL_SCREEN_HOME.resetToDefault();
         Settings.FULL_SCREEN_MESSAGES.resetToDefault();
+        Settings.FULL_SCREEN_STORIES.resetToDefault();
+        Settings.FULL_SCREEN_EXPLORE.resetToDefault();
+        Settings.FULL_SCREEN_PROFILE.resetToDefault();
         Settings.FULL_SCREEN_HIDES.resetToDefault();
         Settings.GLASS_TAB_BAR.resetToDefault();
         Settings.GLASS_TAB_BAR_FLOAT.resetToDefault();
@@ -464,6 +477,47 @@ public class FullScreenBarsTest {
         assertEquals("without a glass pill the navigation bar's height goes through", 63, FullScreenBars.navBarHeight(63));
         assertEquals(63, GlassTabBar.navBarHeight(63));
         assertEquals("a bar that shows isn't kept room for", 0, FullScreenBars.hiddenNavHeight(63));
+    }
+
+    /**
+     * #187: an opened chat's theme paints a strip as tall as the status bar across its top, by the
+     * window's insets whether the bar shows or not, so with Full screen Messages a themed chat kept a
+     * dark band where the hidden bar had been. With that switch on and the status bar among the bars it
+     * hides the strip comes back 0, even before a chat's bar is gone; another screen's switch, the
+     * navigation bar alone, a pause or settings not read yet keep it, and so does an unset height.
+     */
+    @Test public void aChatThemeKeepsNoStripWhereTheHiddenStatusBarWas() {
+        assertEquals("nothing hidden", 84, chatThemeStrip(84));
+        Settings.FULL_SCREEN_REELS.save(true);
+        Settings.FULL_SCREEN_HOME.save(true);
+        assertEquals("another screen's switch", 84, chatThemeStrip(84));
+
+        Settings.FULL_SCREEN_MESSAGES.save(true);
+        assertEquals("the strip stayed under the hidden status bar", 0, chatThemeStrip(84));
+        assertEquals("an unset height changed", -1, chatThemeStrip(-1));
+        assertEquals(0, chatThemeStrip(0));
+        Settings.FULL_SCREEN_HIDES.save(HiddenBars.STATUS_BAR);
+        assertEquals("the status bar alone hidden", 0, chatThemeStrip(84));
+        Settings.FULL_SCREEN_HIDES.save(HiddenBars.NAVIGATION_BAR);
+        assertEquals("the status bar shows", 84, chatThemeStrip(84));
+        Settings.FULL_SCREEN_HIDES.save(HiddenBars.BOTH);
+
+        BaseSettings.PAUSED.save(true);
+        PauseForTests.pause(HushgramPause.Reason.SWITCH);
+        try {
+            assertEquals("paused", 84, chatThemeStrip(84));
+        } finally {
+            BaseSettings.PAUSED.save(false);
+            PauseForTests.resume();
+        }
+        SettingsContextRule.withoutContext(() -> assertEquals("no settings", 84, chatThemeStrip(84)));
+        assertEquals("back on", 0, chatThemeStrip(84));
+    }
+
+    /** FullScreenBars.chatThemeStrip by name, so this class still builds against code without it. */
+    private static int chatThemeStrip(int height) {
+        return ReflectionHelpers.callStaticMethod(FullScreenBars.class, "chatThemeStrip",
+                ReflectionHelpers.ClassParameter.from(int.class, height));
     }
 
     /**
@@ -1055,6 +1109,77 @@ public class FullScreenBarsTest {
     @Test public void aReelOverAChatIsReels() {
         Settings.FULL_SCREEN_MESSAGES.save(true);
         messagesView(CHAT, W, H);
+        showViewer(W, H);
+        assertEquals(FullScreenBars.Screen.REELS, screen());
+        assertFalse(watch().isHidden());
+    }
+
+    /**
+     * #187: a story filling the window, Explore's tab and your profile's tab each hide the bars with
+     * their own switch, and the other switches leave them. A story the pager keeps beside the one
+     * showing doesn't count, the one showing does whichever of its name it is, and a story over a tab
+     * is a story.
+     */
+    @Test public void storiesExploreAndYourProfileHideTheBarsWithTheirOwnSwitches() {
+        View explore = tab(SEARCH_TAB);
+        View profile = tab(PROFILE_TAB);
+        layout();
+        Settings.FULL_SCREEN_REELS.save(true);
+        Settings.FULL_SCREEN_HOME.save(true);
+        Settings.FULL_SCREEN_MESSAGES.save(true);
+
+        select(explore);
+        assertEquals(FullScreenBars.Screen.EXPLORE, screen());
+        FullScreenBars.Session session = watch();
+        assertFalse("the other switches aren't Explore's", session.isHidden());
+        Settings.FULL_SCREEN_EXPLORE.save(true);
+        session.evaluate();
+        assertTrue(session.isHidden());
+
+        explore.setSelected(false);
+        select(profile);
+        assertEquals(FullScreenBars.Screen.PROFILE, screen());
+        session.evaluate();
+        assertFalse("Explore's switch isn't your profile's", session.isHidden());
+        Settings.FULL_SCREEN_PROFILE.save(true);
+        session.evaluate();
+        assertTrue(session.isHidden());
+
+        FrameLayout pager = new FrameLayout(activity);
+        View beside = new View(activity);
+        beside.setId(STORY);
+        FrameLayout.LayoutParams aside = new FrameLayout.LayoutParams(W, H);
+        aside.leftMargin = W;
+        pager.addView(beside, aside);
+        root.addView(pager, new FrameLayout.LayoutParams(W, H));
+        layout();
+        assertEquals("a story beside the screen isn't showing", FullScreenBars.Screen.PROFILE, screen());
+        View story = new View(activity);
+        story.setId(STORY);
+        pager.addView(story, new FrameLayout.LayoutParams(W, H));
+        layout();
+        assertEquals("the one showing counts, the second of its name", FullScreenBars.Screen.STORIES, screen());
+        session.evaluate();
+        assertFalse("the other switches aren't a story's", session.isHidden());
+        Settings.FULL_SCREEN_STORIES.save(true);
+        session.evaluate();
+        assertTrue(session.isHidden());
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R) assertTrue(barsGone());
+
+        root.removeView(pager);
+        layout();
+        Settings.FULL_SCREEN_PROFILE.save(false);
+        session.evaluate();
+        assertFalse("back on your profile with its switch off", session.isHidden());
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R) assertFalse(barsGone());
+    }
+
+    /** #187: a reel filling the window over Explore is Reels, so Explore's switch leaves it. */
+    @Test public void aReelOverExploreIsReels() {
+        View explore = tab(SEARCH_TAB);
+        layout();
+        select(explore);
+        Settings.FULL_SCREEN_EXPLORE.save(true);
         showViewer(W, H);
         assertEquals(FullScreenBars.Screen.REELS, screen());
         assertFalse(watch().isHidden());

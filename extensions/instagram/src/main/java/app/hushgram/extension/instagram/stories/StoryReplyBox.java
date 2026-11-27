@@ -7,10 +7,15 @@ package app.hushgram.extension.instagram.stories;
 import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
+import android.content.res.ColorStateList;
+import android.graphics.ColorFilter;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffColorFilter;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewStub;
 import android.view.ViewTreeObserver;
+import android.widget.ImageView;
 
 import androidx.annotation.Nullable;
 
@@ -23,6 +28,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.WeakHashMap;
 
+import app.hushgram.extension.instagram.misc.AccentTheme;
 import app.hushgram.extension.instagram.settings.FamilyNames;
 import app.hushgram.extension.instagram.settings.Settings;
 import app.hushgram.extension.instagram.settings.SettingsStatus;
@@ -41,7 +47,7 @@ import app.hushgram.extension.shared.settings.BooleanSetting;
  * <p>On 453 the box is {@link #BOX}, in the story's footer ({@link #FOOTER}) beside the like and
  * share buttons. Older layouts inflate it from a stub as {@link #OLD_BOX}. The patch calls
  * {@link #resumed} right after the story viewer, ReelViewerFragment, hands its onResume on to its
- * superclass. While any of the four switches is on, the viewer's window gets a pre-draw listener.
+ * superclass. While any of its switches is on, the viewer's window gets a pre-draw listener.
  * With the reply box switch on it sets each box it finds INVISIBLE before the frame draws. An
  * invisible box keeps its place, so the buttons beside it don't move, and it takes no taps. A box
  * holding the focus, where typed text goes, shows again until it lets go, so a reply Instagram
@@ -63,6 +69,24 @@ import app.hushgram.extension.shared.settings.BooleanSetting;
  * while a switch is on each resumed activity also has {@link #OPENINGS} in its frames: after a
  * layout it looks a few levels into each of the content's children for {@link #OPENING}, and gives
  * a copy it finds a keeper of its own, run once right there so that very frame draws it hidden.
+ *
+ * <p>Hide comments on stories (#826) uses the same keeper. On 457 a story's page holds the comments
+ * that float over it ({@link #COMMENTS}: the bubbles, the faces of who wrote them and the newest
+ * one's preview) as views or stubs anywhere under the viewer, not in the footer. Each goes INVISIBLE
+ * like the box, so nothing around it moves, and a stub is followed to the view it inflates by its
+ * LayoutParams, as the buttons are.
+ *
+ * <p>The comment line's height (#826) uses it too. Instagram sets the line a story shows for writing a
+ * comment ({@link #COMMENT_LINE}) a few dp over the bottom of the page, and on a choice of
+ * {@link StoryCommentLine} other than Instagram's each frame lifts it by that many dp with
+ * translationY, which moves nothing else and needs no layout. It lifts a line only while it sits at
+ * rest or where this put it, so a move of Instagram's own wins, and puts it back the same way.
+ *
+ * <p>Accent color's Icons in the accent color (#187) uses it as well: the like, comment and share
+ * icons sit over the story in white, which no theme reaches, so each frame gives the icons of the
+ * buttons it found the tint {@link AccentTheme#storyButton} answers, and puts Instagram's back once
+ * the switch goes off. The More actions dots atop the story ({@link #MORE}) take it the same way, or
+ * as a color filter while Instagram draws them white with no tint or filter of its own.
  */
 public final class StoryReplyBox {
     /** The story's footer on 453, and the Send message box in it. */
@@ -70,6 +94,14 @@ public final class StoryReplyBox {
     static final String BOX = "message_composer_container";
     /** The box as older layouts inflate it, anywhere in the viewer. */
     static final String OLD_BOX = "reel_viewer_message_composer_container";
+    /** The comments floating over a story on 457, the faces beside them and the newest one's preview. */
+    static final String[] COMMENTS = {"story_comments_bubbles", "story_comments_face_swarm", "story_comments_preview"};
+    /** The line a story shows on 457 to tap and write a comment. */
+    static final String COMMENT_LINE = "story_comments_add_comment_text";
+    /** The More actions dots at the top right of a story, in its header (#187). */
+    static final String MORE = "mimicry_top_right_hamburger";
+    /** The white Instagram draws a story's icons in, which {@link AccentTheme#storyButton} answers for an icon with no tint. */
+    private static final ColorStateList WHITE = ColorStateList.valueOf(0xffffffff);
 
     static final String HOOK = "story reply box";
 
@@ -79,6 +111,8 @@ public final class StoryReplyBox {
     static final int OPENING_DEPTH = 3;
     /** The most views looked at under one child, so the app's own big tree costs next to nothing. */
     static final int OPENING_LOOK = 48;
+    /** How far under a footer button its icons may sit: the heart is one level under its container on 457. */
+    static final int ICON_DEPTH = 2;
 
     /**
      * A footer button with a switch of its own, by the ids it goes by in the footer. The first is
@@ -169,9 +203,9 @@ public final class StoryReplyBox {
     }
 
     /**
-     * One of the four switches was flipped in HushGram settings. They open as a dialog over
-     * [activity], which stays resumed, so it decides again now. Posted, so it reads the value this
-     * change saves.
+     * One of the switches was flipped, or the comment line's height chosen, in HushGram settings.
+     * They open as a dialog over [activity], which stays resumed, so it decides again now. Posted,
+     * so it reads the value this change saves.
      */
     public static void switchChanged(@Nullable Activity activity) {
         if (activity != null) Utils.runOnMainThread(() -> watch(activity));
@@ -285,13 +319,24 @@ public final class StoryReplyBox {
         return Utils.settingsReady() && Settings.HIDE_STORY_REPLY_BOX.get();
     }
 
+    /** Whether the comments floating over stories are kept off them. Reads off while paused. */
+    static boolean commentsOn() {
+        return Utils.settingsReady() && Settings.HIDE_STORY_COMMENTS.get();
+    }
+
+    /** How high the line for writing a comment sits. Instagram's place while paused. */
+    static StoryCommentLine commentLine() {
+        return Utils.settingsReady() ? Settings.STORY_COMMENT_LINE.get() : StoryCommentLine.INSTAGRAM;
+    }
+
     /**
-     * Whether the reply box or any footer button is kept off stories. Asked as any activity resumes
-     * too, so it reads no switch before the settings are, which would break them for good.
+     * Whether the reply box, the comments or any footer button is kept off stories, the comment line
+     * lifted or the buttons given the picked color. Asked as any activity resumes too, so it reads no switch before the settings are,
+     * which would break them for good.
      */
     static boolean anyOn() {
         if (!Utils.settingsReady()) return false;
-        if (switchedOn()) return true;
+        if (switchedOn() || commentsOn() || commentLine() != StoryCommentLine.INSTAGRAM || AccentTheme.storyButtonsOn()) return true;
         for (Button button : Button.ALL) {
             if (button.on()) return true;
         }
@@ -328,6 +373,26 @@ public final class StoryReplyBox {
         private final Map<View, Integer> gone = new WeakHashMap<>();
         /** Each button stub's LayoutParams, which the view it inflates takes over. */
         private final Map<ViewGroup.LayoutParams, Button> stubs = new WeakHashMap<>();
+        /** The floating comments found at the last look, while their switch is on. */
+        private final List<WeakReference<View>> comments = new ArrayList<>();
+        /** The comments this keeper made invisible and hasn't put back. */
+        private final Set<View> quiet = Collections.newSetFromMap(new WeakHashMap<>());
+        /** Each comments stub's LayoutParams, which the view it inflates takes over. */
+        private final Set<ViewGroup.LayoutParams> commentStubs = Collections.newSetFromMap(new WeakHashMap<>());
+        /** The comment lines found at the last look. */
+        private final List<WeakReference<View>> lines = new ArrayList<>();
+        /** The lines this keeper lifted and hasn't put back, with the translationY it gave each. */
+        private final Map<View, Float> lifted = new WeakHashMap<>();
+        /** Each comment line stub's LayoutParams. */
+        private final Set<ViewGroup.LayoutParams> lineStubs = Collections.newSetFromMap(new WeakHashMap<>());
+        /** The button icons this keeper gave the picked color, with Instagram's tint for each and the one this gave it. */
+        private final Map<ImageView, ColorStateList[]> tinted = new WeakHashMap<>();
+        /** The More actions icons found at the last look. */
+        private final List<WeakReference<ImageView>> menus = new ArrayList<>();
+        /** The More actions icons this keeper gave a color filter, Instagram drawing them with none, and that filter. */
+        private final Map<ImageView, ColorFilter> filtered = new WeakHashMap<>();
+        /** {@link #MORE}'s id at the last look, 0 when the build has none. */
+        private int more;
         @Nullable
         private ViewTreeObserver observer;
         private boolean stale = true;
@@ -376,6 +441,9 @@ public final class StoryReplyBox {
          */
         boolean restore() {
             showBoxes();
+            showComments();
+            lowerLines();
+            uncolorButtons();
             boolean moved = false;
             for (Map.Entry<View, Integer> entry : new ArrayList<>(gone.entrySet())) {
                 View button = entry.getKey();
@@ -393,6 +461,51 @@ public final class StoryReplyBox {
                 if (box.getVisibility() == View.INVISIBLE) box.setVisibility(View.VISIBLE);
             }
             hidden.clear();
+        }
+
+        private void showComments() {
+            for (View comment : new ArrayList<>(quiet)) {
+                if (comment.getVisibility() == View.INVISIBLE) comment.setVisibility(View.VISIBLE);
+            }
+            quiet.clear();
+        }
+
+        /** Puts each line this keeper lifted back where Instagram had it, unless Instagram has moved it since. */
+        private void lowerLines() {
+            for (Map.Entry<View, Float> entry : new ArrayList<>(lifted.entrySet())) {
+                View line = entry.getKey();
+                if (line != null && line.getTranslationY() == entry.getValue()) line.setTranslationY(0f);
+            }
+            lifted.clear();
+        }
+
+        /**
+         * Lifts each line by [px] that sits at rest or where this lifted it. A line Instagram moved
+         * itself is left to it, and lifted again once Instagram puts it back at rest.
+         */
+        private void liftLines(int px) {
+            float up = -px;
+            for (WeakReference<View> held : lines) {
+                View line = held.get();
+                if (line == null) continue;
+                Float ours = lifted.get(line);
+                float now = line.getTranslationY();
+                if (ours != null && now != ours) lifted.remove(line);
+                if (now == up || (now != 0f && (ours == null || now != ours))) continue;
+                line.setTranslationY(up);
+                lifted.put(line, up);
+            }
+        }
+
+        /** Makes each shown comments view invisible before the frame draws it. */
+        private void hideComments() {
+            for (WeakReference<View> held : comments) {
+                View comment = held.get();
+                if (comment != null && comment.getVisibility() == View.VISIBLE) {
+                    quiet.add(comment);
+                    comment.setVisibility(View.INVISIBLE);
+                }
+            }
         }
 
         @Override
@@ -422,15 +535,23 @@ public final class StoryReplyBox {
                 boolean boxOn = switchedOn();
                 View view = root.get();
                 if (!boxOn && !anyOn()) {
-                    if (!hidden.isEmpty() || !gone.isEmpty()) moved = restore();
+                    if (!hidden.isEmpty() || !gone.isEmpty() || !quiet.isEmpty() || !lifted.isEmpty() || !tinted.isEmpty() || !filtered.isEmpty()) moved = restore();
                 } else if (view != null) {
+                    boolean commentsOn = commentsOn();
+                    StoryCommentLine line = commentLine();
                     if (stale) {
                         stale = false;
-                        collect(view);
+                        collect(view, commentsOn, line != StoryCommentLine.INSTAGRAM);
                     }
                     if (boxOn) hideBoxes();
                     else if (!hidden.isEmpty()) showBoxes();
+                    if (commentsOn) hideComments();
+                    else if (!quiet.isEmpty()) showComments();
+                    if (line != StoryCommentLine.INSTAGRAM) liftLines(line.px(view.getResources().getDisplayMetrics().density));
+                    else if (!lifted.isEmpty()) lowerLines();
                     moved = keepButtons();
+                    if (AccentTheme.storyButtonsOn()) colorButtons();
+                    else if (!tinted.isEmpty() || !filtered.isEmpty()) uncolorButtons();
                 }
             } catch (Throwable failure) {
                 HookStatus.threw(FamilyNames.STORY_REPLY_BOX, HOOK, failure);
@@ -479,9 +600,100 @@ public final class StoryReplyBox {
             return moved;
         }
 
-        private void collect(View view) {
+        /**
+         * Gives each icon of a shown button the picked color (#187), through
+         * {@link AccentTheme#storyButton}, unless it holds the tint this gave it. One Instagram tinted
+         * again since, as it does when a story is liked or unliked, is looked at afresh, so a liked
+         * heart, which has no tint, keeps its red.
+         */
+        private void colorButtons() {
+            for (Held held : buttons) {
+                View button = held.view.get();
+                if (button != null && button.getVisibility() != View.GONE) colorIcons(button, ICON_DEPTH);
+            }
+            for (WeakReference<ImageView> held : menus) {
+                ImageView icon = held.get();
+                if (icon != null) colorMenu(icon);
+            }
+        }
+
+        /**
+         * Gives the More actions dots the picked color: through their tint as {@link #colorIcon} does
+         * when they have one, or else, while Instagram draws them white with no color filter of its own,
+         * through a filter of the shade {@link AccentTheme#storyButton} gives white.
+         */
+        private void colorMenu(ImageView icon) {
+            if (icon.getImageTintList() != null || tinted.containsKey(icon)) {
+                colorIcon(icon);
+                return;
+            }
+            ColorFilter now = icon.getColorFilter();
+            ColorFilter ours = filtered.get(icon);
+            if (ours != null && now == ours) return;
+            filtered.remove(icon);
+            if (now != null) return;
+            ColorStateList shade = AccentTheme.storyButton(WHITE);
+            if (shade == null) return;
+            ours = new PorterDuffColorFilter(shade.getDefaultColor(), PorterDuff.Mode.SRC_IN);
+            icon.setColorFilter(ours);
+            filtered.put(icon, ours);
+        }
+
+        /** Colors [view] when it's an icon, or each icon at most [depth] levels under it. */
+        private void colorIcons(View view, int depth) {
+            if (view instanceof ImageView) {
+                colorIcon((ImageView) view);
+                return;
+            }
+            if (depth == 0 || !(view instanceof ViewGroup)) return;
+            ViewGroup group = (ViewGroup) view;
+            for (int i = 0; i < group.getChildCount(); i++) colorIcons(group.getChildAt(i), depth - 1);
+        }
+
+        private void colorIcon(ImageView icon) {
+            ColorStateList now = icon.getImageTintList();
+            ColorStateList[] was = tinted.get(icon);
+            if (was != null && now == was[1]) return;
+            tinted.remove(icon);
+            ColorStateList ours = AccentTheme.storyButton(now);
+            if (ours == null) return;
+            icon.setImageTintList(ours);
+            tinted.put(icon, new ColorStateList[] {now, ours});
+        }
+
+        /** Puts Instagram's tint back on each icon this colored, and its filter back on each it filtered, unless Instagram has changed it since. */
+        private void uncolorButtons() {
+            for (Map.Entry<ImageView, ColorStateList[]> entry : new ArrayList<>(tinted.entrySet())) {
+                ImageView icon = entry.getKey();
+                if (icon != null && icon.getImageTintList() == entry.getValue()[1]) icon.setImageTintList(entry.getValue()[0]);
+            }
+            tinted.clear();
+            for (Map.Entry<ImageView, ColorFilter> entry : new ArrayList<>(filtered.entrySet())) {
+                ImageView icon = entry.getKey();
+                if (icon != null && icon.getColorFilter() == entry.getValue()) icon.clearColorFilter();
+            }
+            filtered.clear();
+        }
+
+        /**
+         * Looks for the boxes, buttons, comments and comment lines under [view]. A missing comments id
+         * is reported only while [commentsOn], and a missing line only while it's to be [lifting].
+         */
+        private void collect(View view, boolean commentsOn, boolean lifting) {
             boxes.clear();
             buttons.clear();
+            comments.clear();
+            lines.clear();
+            menus.clear();
+            more = id(view, MORE);
+            if (AccentTheme.storyButtonsOn()) report(more, MORE);
+            int[] talk = new int[COMMENTS.length];
+            for (int i = 0; i < COMMENTS.length; i++) {
+                talk[i] = id(view, COMMENTS[i]);
+                if (commentsOn) report(talk[i], COMMENTS[i]);
+            }
+            int[] line = {id(view, COMMENT_LINE)};
+            if (lifting) report(line[0], COMMENT_LINE);
             int footer = id(view, FOOTER);
             int box = id(view, BOX);
             int old = id(view, OLD_BOX);
@@ -500,11 +712,16 @@ public final class StoryReplyBox {
                     owners[owners.length - 1] = button;
                 }
             }
-            walk(view, footer, box, old, ids, owners);
+            walk(view, footer, box, old, ids, owners, talk, line);
         }
 
-        private void walk(View view, int footer, int box, int old, int[] ids, Button[] owners) {
+        private void walk(View view, int footer, int box, int old, int[] ids, Button[] owners, int[] talk, int[] line) {
+            if (floating(view, talk, line)) return;
             int id = view.getId();
+            if (more != 0 && id == more && view instanceof ImageView) {
+                menus.add(new WeakReference<>((ImageView) view));
+                return;
+            }
             if (old != 0 && id == old) {
                 boxes.add(new WeakReference<>(view));
                 return;
@@ -512,12 +729,49 @@ public final class StoryReplyBox {
             if (footer != 0 && id == footer) {
                 View found = box == 0 ? null : view.findViewById(box);
                 if (found != null) boxes.add(new WeakReference<>(found));
-                if (view instanceof ViewGroup) findButtons((ViewGroup) view, ids, owners);
+                if (view instanceof ViewGroup) {
+                    findButtons((ViewGroup) view, ids, owners);
+                    findFloating((ViewGroup) view, talk, line);
+                }
                 return;
             }
             if (!(view instanceof ViewGroup)) return;
             ViewGroup group = (ViewGroup) view;
-            for (int i = 0; i < group.getChildCount(); i++) walk(group.getChildAt(i), footer, box, old, ids, owners);
+            for (int i = 0; i < group.getChildCount(); i++) walk(group.getChildAt(i), footer, box, old, ids, owners, talk, line);
+        }
+
+        /** Holds [view] when it is one of the comments views or a comment line. Answers whether it was. */
+        private boolean floating(View view, int[] talk, int[] line) {
+            return held(view, talk, commentStubs, comments) || held(view, line, lineStubs, lines);
+        }
+
+        /**
+         * Holds [view] in [into] when it carries one of [ids], or its stub's LayoutParams in [stubs]
+         * while it is still a stub. Answers whether it was either, so nothing under it is looked at.
+         */
+        private static boolean held(View view, int[] ids, Set<ViewGroup.LayoutParams> stubs, List<WeakReference<View>> into) {
+            int id = view.getId();
+            boolean named = false;
+            for (int at = 0; at < ids.length && !named && id != View.NO_ID; at++) {
+                named = ids[at] != 0 && ids[at] == id;
+            }
+            ViewGroup.LayoutParams params = view.getLayoutParams();
+            if (view instanceof ViewStub) {
+                if (named && params != null) stubs.add(params);
+                return named;
+            }
+            if (named || (params != null && stubs.contains(params))) {
+                into.add(new WeakReference<>(view));
+                return true;
+            }
+            return false;
+        }
+
+        private void findFloating(ViewGroup group, int[] talk, int[] line) {
+            for (int i = 0; i < group.getChildCount(); i++) {
+                View child = group.getChildAt(i);
+                if (!floating(child, talk, line) && child instanceof ViewGroup) findFloating((ViewGroup) child, talk, line);
+            }
         }
 
         /** Holds each button under the footer, or its stub's LayoutParams while it is still a stub. */

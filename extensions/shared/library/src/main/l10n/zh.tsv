@@ -295,6 +295,9 @@ Feed videos and stories wait for your tap. Reels and videos in Explore play as I
 Turn on Tap to play to use this choice.	请启用“点击播放”以使用此选项。
 Resume long videos	继续播放长视频
 Videos and reels over two minutes pick up where you left off. Seek to start elsewhere. Live videos and ads start as usual.	超过两分钟的视频与 Reels 会从上次离开的位置继续播放。可拖动进度条改从其他位置开始。直播与广告仍会照常播放。
+# context: a switch under Resume long videos (#874). A feed video you scroll past and come back to keeps playing from where it was, only until Instagram closes. The Reels tab is Instagram's own tab.
+Keep your place in feed videos	记住动态视频的播放位置
+A feed video you scroll away from picks up where you left it when you scroll back, until you close Instagram. Reels in the Reels tab start over as usual.	你滑走的动态视频，滑回来时会从离开的位置继续播放，直到你关闭 Instagram。Reels 标签页中的 Reels 仍会照常从头播放。
 Default playback quality	默认播放画质
 # context: description of the Default playback quality switch on the Playback page, with the list of qualities below it
 Videos, reels and stories play at the quality below, starting with the next one you open.	从下一部打开的视频开始，视频、Reels 和快拍会以下方画质播放。
@@ -382,16 +385,16 @@ Removes the summary, Sources and Ask Meta AI box from a reel's more menu. In you
 Hide Ask Meta AI in About this reel	隐藏“关于这则 Reel”中的“询问 Meta AI”
 About this reel keeps its summary and Sources, and only the Ask Meta AI box under them goes.	保留“关于这则 Reel”的摘要与“来源”，仅移除下方的“询问 Meta AI”区块。
 Hide Meta AI in the share sheet	隐藏分享表单中的 Meta AI
-Removes Meta AI from the row at the bottom of the share sheet. Some accounts see it as Muse.	从分享表单底部栏移除 Meta AI。部分账户会显示为 Muse。
+Removes Meta AI from the share sheet, both from the people you can send to and from the row at the bottom. Some accounts see it as Muse.	从分享表单移除 Meta AI，包括可发送的对象和底部栏。部分账户会显示为 Muse。
 Hide the Muse card	隐藏 Muse 卡片
 Removes the Meet Muse card, with its Try Muse button, from Home and your profile. Your other cards stay.	从首页与主页移除“认识 Muse”卡片及其“试用 Muse”按钮。其他卡片仍会保留。
 Hide the Muse button on your profile	隐藏主页上的 Muse 按钮
 Removes the Muse button from the top bar of your profile. Your username and the menu stay.	从主页顶栏移除 Muse 按钮。用户名与菜单仍会保留。
 Hide Blend on reels	隐藏 Reels 上的 Blend
 Removes the Blend invite button from reels. Everything else on a reel stays.	移除 Reels 上的 Blend 邀请按钮。Reel 上的其他内容仍会保留。
-# context: Meta AI: a Hide Meta AI switch (#866) that removes the line Instagram shows at the top of a story made with a Meta AI tool, such as Restyled with Meta AI followed by a Try it link. Restyled with Meta AI and Try it are Instagram's own labels, so use this language's Instagram wording for them where it's known.
-Hide Meta AI credits on stories	隐藏快拍上的 Meta AI 标注
-Removes lines like Restyled with Meta AI and its Try it link from the top of stories. Music and effect credits stay.	移除快拍顶部的“已使用 Meta AI 改变风格”等标注及其“试试”链接。音乐和特效标注会保留。
+# context: Meta AI: a Hide Meta AI switch (#866) that removes the line Instagram shows at the top of a story made with a Meta AI tool, such as Restyled with Meta AI followed by a Try it link, and the same restyle credit on reels. Restyled with Meta AI and Try it are Instagram's own labels, so use this language's Instagram wording for them where it's known.
+Hide Meta AI restyle credits	隐藏 Meta AI 改变风格标注
+Removes lines like Restyled with Meta AI and its Try it link from the top of stories, and the same credit from reels. Music and effect credits stay.	移除快拍顶部的“已使用 Meta AI 改变风格”等标注及其“试试”链接，也移除 Reels 上的同一标注。音乐和特效标注会保留。
 Explore	探索
 Hide the Explore grid	隐藏探索网格
 Hides the grid of posts and reels under the Search tab's bar. Search, recent searches and results stay.	隐藏搜索标签页搜索栏下方的帖子与 Reels 网格。搜索、最近搜索与搜索结果仍会保留。
@@ -607,6 +610,9 @@ Adds an eye button to the top of each story while you view anonymously. Tap it t
 Mark as seen	标记为已读
 Marked as seen. Tap again to undo.	已标记为已读。再次点击即可复原。
 Marked as seen and sent	已标记为已读并送出
+# context: View stories anonymously's third switch, after Mark as seen button. A like is the heart under a story, a quick reaction is an emoji from the row above a story's reply box
+Mark a story seen when you like or reply	点赞或回复时将快拍标示为已读
+While you view anonymously, liking a story, replying to it or sending it a quick reaction puts you on that story's viewer list first. The other stories stay hidden.	匿名观看时，给快拍点赞、回复或发送快速回应，会先让你出现在该则快拍的观看者名单中。其他快拍仍维持匿名.
 View DM photos and videos anonymously	匿名查看消息照片与视频
 Stops people seeing that you opened their view once photos and videos. They still disappear after you view them. This is a test feature and starts off.	不让对方知道你已打开只能看一次的照片与视频。观看后仍会消失。此为测试功能，默认关闭。
 Restored %1$d settings. Kept %2$d newer choices.	已还原 %1$d 项设置，保留较新的 %2$d 项选择。
@@ -772,6 +778,11 @@ That isn't a place. Type latitude, longitude.	这不是有效的位置。请输�
 %1$d reels. Swipe again after %2$d minutes away.	已看 %1$d 则 Reels。离开 %2$d 分钟后可再滑动。
 The latitude and the longitude in degrees, with a comma between them, like 40.758, -73.9855. North and east are positive, south and west negative. A map app shows both when you press and hold a spot.	以度为单位输入纬度与经度，并以逗号分隔，例如 40.758, -73.9855。北纬与东经为正，南纬与西经为负。在地图应用程序中长按地点即可查看两者。
 Turn off HDR brightness boosts	禁用 HDR 亮度提升
+Keep HDR on photo uploads	上传照片时保留 HDR
+Experimental. An Ultra HDR photo you post keeps its gain map on Android 14 and newer, so it can still show in HDR. Turn it off if a photo you post looks wrong.	实验性功能。在 Android 14 及更高版本上，你发布的 Ultra HDR 照片会保留增益图，因此仍可以 HDR 显示。如果发布的照片看起来不对，请关闭此项。
+# context: Keep HDR on video uploads, under Playback next to the photo switch. Instagram encodes a video again before it uploads it; HDR means HLG here.
+Keep HDR on video uploads	上传视频时保留 HDR
+Experimental. An HDR video you post is encoded in HDR on Android 13 and newer, where Instagram would make it SDR on some phones. Turn it off if a video you post looks wrong or won't upload.	实验性功能。在 Android 13 及更高版本上，你发布的 HDR 视频会以 HDR 编码，而在部分手机上 Instagram 原本会把它转成 SDR。如果发布的视频看起来不对或无法上传，请关闭此项。
 What you open from search stays out of Recent, in the app and on Instagram's side. Searches already there stay until you clear them.	从搜索打开的内容不会加入最近搜索，应用程序与 Instagram 端皆适用。既有搜索记录会保留，直到你清除。
 Wi-Fi stays as it is. Turn this off to save data on every network.	Wi-Fi 不受影响。关闭此选项可在所有网络节省数据。
 Hide comments	隐藏评论
@@ -816,7 +827,7 @@ Hide the gift button	隐藏礼物按钮
 Takes the gift button off the right end of the comment box. The box itself stays.	移除评论输入框右端的礼物按钮，输入框本身仍会保留。
 # context: Comments: a Hide comments switch (#869) that hides the round (i) info button some comment sheets draw at the top right, just above the first comment. Write (i) as is.
 Hide the (i) button in comments	隐藏评论中的 (i) 按钮
-Takes the (i) button off the top right of a post's or reel's comments, above the first comment. Not every post has it.	移除帖子或 Reels 评论右上角、第一条评论上方的 (i) 按钮。并非每个帖子都有。
+Takes the (i) button off the top right of a post's or reel's comments, and the row with an (i) that can sit above a reel's first comment. Not every post has them.	移除帖子或 Reels 评论右上角的 (i) 按钮，以及可能出现在 Reels 第一条评论上方、带有 (i) 的那一行。并非每个帖子都有。
 # context: Comments: the switch that hides the row of quick emoji above the comment box (#248). Comment box is the field where you type a comment.
 Hide the emoji row	隐藏表情符号列
 Takes the row of quick emoji off above the comment box. The box itself stays.	移除评论输入框上方的快速表情符号列，输入框本身仍会保留。
@@ -1079,6 +1090,8 @@ Stop the analytics upload alarm	禁用分析数据上传闹钟
 Instagram sets an alarm to wake your phone and send its usage events five minutes later. This stops that alarm. The events go the next time you use the app.	Instagram 会设置闹钟，在五分钟后唤醒手机并发送使用事件。此选项会禁用该闹钟，事件改在下次使用应用程序时发送。
 Stop background feed refresh	停止背景动态更新
 About every half hour, Instagram wakes your phone to download your feed ahead of time. This stops that. The feed loads when you open the app instead, and messages and notifications still arrive.	Instagram 大约每半小时会唤醒手机，提前下载你的动态。此选项会停止该行为。动态改在打开应用程序时加载，消息与通知仍会照常送达。
+Let Instagram close after account checks	账号检查后让 Instagram 关闭
+When your phone checks its accounts, as it does at startup and when an account changes, Instagram never answers. Android then keeps it running for up to 15 minutes, even after you swipe it away. This answers right away so Instagram can close. Your login is unaffected.	手机检查账号时（例如开机时和账号变更时），Instagram 从不回应。Android 因此会让它持续运行最多 15 分钟，即使你已将它划掉关闭。此选项会立即回应，让 Instagram 可以关闭。不影响你的登录。
 Haptic style	触觉回馈样式
 Short tick	短震
 System tick	系统震动
@@ -1550,6 +1563,14 @@ All of them. Tap to leave some out, and Ghost mode leaves those as you set them.
 %1$s. The others stay as you set them.	%1$s。其他开关会保留你原本的设置。
 Switches Ghost mode turns	幽灵模式控制的开关
 Ghost mode needs at least one switch to turn.	幽灵模式至少需要控制一个开关。
+# context: Ghost mode: the switch under its rows in Ads and privacy that holds likes, story replies, comments, share links and new stories and posts back while Ghost mode is on (#876). A like is the heart under a post, a reel, a story or a comment, a share link is what Copy link and sharing a post out make, and posting is sharing a new story, post or reel from Instagram's camera; the five short ones are toasts shown when a tap is held back
+Block likes, replies and posts in Ghost mode	在幽灵模式中阻止点赞、回复和发布
+While Ghost mode is on, liking, commenting, replying to a story, posting a story or post and copying or sharing a link do nothing, and a message says why. Nothing is sent.	开启幽灵模式时，点赞、评论、回复快拍、发布快拍或帖子以及复制或分享链接都不会有任何作用，并会显示消息说明原因。不会发送任何内容.
+Likes are off in Ghost mode.	幽灵模式下无法点赞.
+Replies are off in Ghost mode.	幽灵模式下无法回复.
+Comments are off in Ghost mode.	幽灵模式下无法评论.
+Share links are off in Ghost mode.	幽灵模式下无法分享链接.
+Posting is off in Ghost mode.	幽灵模式下无法发布.
 # context: Ghost mode: turning it on or off with a long press on a tab (#255). %1$s is a tab's name
 Turn Ghost mode on or off with a tab long press	长按标签页切换幽灵模式
 Tab long presses keep Instagram's own action. Choose one to turn Ghost mode on or off instead.	长按标签页会保留 Instagram 原本的操作。选择一个标签页，改为打开或关闭幽灵模式。
@@ -1684,7 +1705,7 @@ Text in the accent color	文字使用强调色
 Names, captions and other main text take the same color as the icons. Gray text stays gray. Restart Instagram to see the change.	名称、说明文字和其他主要文字会改用与图标相同的颜色。灰色文字保持灰色。请重新启动 Instagram 以查看变更.
 # context: Layout > Accent color switch. Saved is Instagram's own Saved page, in its label for this language.
 Filters in the accent color	筛选器使用强调色
-The filters along the top of Saved take the color you picked, and the one you're on is filled with it. Restart Instagram to see the change.	收藏夹顶部的筛选器会改用你选择的颜色，当前所在的筛选器会以该颜色填满。请重新启动 Instagram 以查看变更.
+The filters along the top of Saved and under a search take the color you picked, and the one you're on is filled with it. Restart Instagram to see the change.	收藏夹顶部和搜索下方的筛选器会改用你选择的颜色，当前所在的筛选器会以该颜色填满。请重新启动 Instagram 以查看变更.
 Instagram's icons on the top bar, the tab bar and under posts take the color you picked. Text stays as it is. Restart Instagram to see the change.	顶部栏、标签栏和帖子下方的 Instagram 图标会改用你选择的颜色。文字保持不变。请重新启动 Instagram 以应用变更。
 Story rings in the accent color	快拍圆环使用强调色
 Story rings take the color you picked instead of Instagram's gradient. A few other gradients share those colors and change with them. Restart Instagram to see the change.	快拍圆环会改用你选择的颜色,取代 Instagram 的渐变。少数使用相同颜色的其他渐变也会一起改变。请重新启动 Instagram 以查看变更。
@@ -1815,7 +1836,7 @@ Previous page	上一页
 Next page	下一页
 # context: Feed settings: the Page dots on a pill switch, right under Carousel arrows (#419). A pill is a small bar with round ends that holds the dots.
 Page dots on a pill	胶囊页面圆点
-Moves a carousel post's page dots onto a round pill at the bottom of its photo or video, with the page you're on in blue. Hold the pill and slide left or right to move through the pages.	将轮播帖子的页面圆点移到照片或视频底部的圆角胶囊上，目前的页面以蓝色显示。按住胶囊并左右滑动即可切换页面。
+Moves a carousel post's page dots onto a round pill at the bottom of its photo or video, with the page you're on in blue, or your accent color when Accent color is on. Hold the pill and slide left or right to move through the pages.	将轮播帖子的页面圆点移到照片或视频底部的圆角胶囊上，目前的页面以蓝色显示，开启强调色时则以强调色显示。按住胶囊并左右滑动即可切换页面。
 # context: Feed settings: the Hide page number switch, under Carousel arrows (#581). The number is the 3/5 in the corner of a carousel post.
 Hide page number	隐藏页码
 Takes the number like 3/5 off the corner of a carousel post's photo or video.	拿掉轮播帖子照片或视频角落类似 3/5 的数字。
@@ -1923,6 +1944,21 @@ Seek bar button on feed videos	动态视频拖动条按钮
 Adds a small button at the bottom left of a feed video that shows or hides its seek bar. It works with Seek bar on feed videos on or off.	在动态视频左下角加入小按钮，可显示或隐藏拖动条。无论动态视频拖动条开或关都能使用。
 Seek bar	拖动条
 Tint intensity	染色强度
+# context: Tab bar: the Tint color list under Tint intensity that picks the glass tab bar's color, its choices' descriptions, the Custom tint color field under it with its dialog message and empty summary, and what both say while another switch is in the way (#875). Light, Dark and AMOLED black are choices in the list; Tint intensity, Custom tint color, Glass tab bar and Material look are rows' names
+Tint color	染色颜色
+Light	浅色
+Dark	深色
+AMOLED black	AMOLED 纯黑
+The glass takes Instagram's own colors, dark or light with its theme.	玻璃沿用 Instagram 自己的颜色，随 Instagram 显示深色或浅色。
+Frosted white glass whatever Instagram's theme, with the tab icons dark on it.	无论 Instagram 是深色还是浅色，都显示磨砂白玻璃，上面的标签图标为深色。
+Dark gray glass whatever Instagram's theme, with the tab icons white on it.	无论 Instagram 是深色还是浅色，都显示深灰色玻璃，上面的标签图标为白色。
+A black pill with no sheen, for AMOLED screens. A lower Tint intensity lets what's behind it show through.	无光泽的黑色胶囊，适合 AMOLED 屏幕。调低“染色强度”可透出后方的内容。
+The glass takes the accent color Android picks from your wallpaper. Android 12 and newer. Older phones keep Instagram's colors.	玻璃采用 Android 从你的壁纸选取的强调色。需要 Android 12 或更高版本。较旧的手机保留 Instagram 默认颜色。
+The glass takes the color you type under Custom tint color.	玻璃采用你在“自订染色颜色”输入的颜色。
+Custom tint color	自订染色颜色
+A color as six hex digits, like #4A6B82. Saving it picks Custom under Tint color.	用六位十六进位数字表示的颜色，例如 #4A6B82。保存后“染色颜色”会改为自订。
+Turn on Glass tab bar to use this choice.	请启用“玻璃标签栏”以使用此选项。
+Turn off Material look to use this choice.	请关闭“Material 外观”以使用此选项。
 Refraction intensity	折射强度
 Preview of the tab bar	标签栏预览
 Keep stories playing while zooming	缩放时继续播放快拍
@@ -1936,6 +1972,10 @@ Hide the Map bubble	隐藏地图泡泡
 Takes only the Map bubble out of the row of notes. Your notes stay.	只移除笔记栏中的地图泡泡。笔记仍会保留。
 Split the notes row	拆分笔记栏
 Splits the row of notes into three stacks, Instants, Notes and Stories, the layout Instagram is trying out. Restart Instagram to see the change.	将笔记栏拆成 Instants、笔记和快拍三叠，这是 Instagram 正在测试的版面。请重新启动 Instagram 以应用变更。
+# context: Messages: a switch under Split the notes row (#832). Primary and General are the two tabs Instagram shows professional accounts at the top of their messages. Use the names Instagram's own messages page gives them in this language.
+Primary and General tabs	“主要”和“一般”标签页
+# context: the summary under Primary and General tabs; Primary is the tab's name again
+Experimental. Adds the Primary and General tabs that professional accounts get to your messages. Instagram may put every chat in Primary at first. Starts off. Restart Instagram to see the change.	实验性功能。在消息中加入专业账户才有的“主要”和“一般”标签页。一开始 Instagram 可能会把所有聊天都放在“主要”中。默认关闭。请重新启动 Instagram 以应用变更。
 Hide Saved in the plus menu	在加号菜单中隐藏已保存
 Takes Saved off the menu the plus button opens in a chat's message bar.	从聊天消息栏的加号按钮所打开的菜单中移除已保存。
 Hide AI images in the plus menu	在加号菜单中隐藏 AI 图片
@@ -2119,9 +2159,11 @@ Solid	不透明
 See-through	半透明
 # context: a look for the page-dots pill and the seek bars: blurs what's under it
 Frosted glass	毛玻璃
+Dots only	仅圆点
 A light pill with dark dots, as it's always been.	浅色胶囊配深色圆点，与以往相同。
 A see-through dark pill with white dots, so more of the photo shows.	半透明深色胶囊配白色圆点，能看到更多照片。
 A frosted glass pill that blurs the photo under it. Before Android 12 it's see-through instead.	毛玻璃胶囊，会模糊其下方的照片。Android 12 以前改为半透明。
+Just the white dots with no pill behind them. A soft shadow keeps them clear on a bright photo.	只显示白色圆点，背后没有胶囊。柔和的阴影让圆点在明亮的照片上也看得清楚。
 Turn on Page dots on a pill to use this choice.	请启用“胶囊页面圆点”以使用此选项。
 Turn on Seek bar on feed videos or its button to use this choice.	请启用“动态视频拖动条”或其按钮以使用此选项。
 Turn on Seek bar on stories to use this choice.	请启用“快拍拖动条”以使用此选项。
@@ -2329,6 +2371,15 @@ Takes the Watch more reels button off the card a reel in your feed shows when it
 # context: a switch on the Playback page under Keep playing in the background; Android's own name for picture in picture
 Picture in picture for reels	Reel 子母画面
 Leaving Instagram while a reel plays shrinks it into a small window over your other apps. Works in Reels and on reels opened from the feed, on Android 15 or newer.	在 Reel 播放时离开 Instagram，视频会缩成浮在其他应用程序上方的小窗口。适用于 Reels 和从动态消息打开的 Reel，需要 Android 15 以上版本。
+# context: a switch on the Playback page under Picture in picture for reels; the reels window is Instagram's small picture in picture window for reels, and the button is Android's own button in that window
+Pause button in the reels window	Reel 小窗口中的暂停按钮
+Instagram's small window for reels gets a button to pause the reel and play it again.	Instagram 的 Reel 小窗口会多一个按钮，可暂停 Reel 并再次播放。
+# context: a switch on the Playback page under Pause button in the reels window; the buttons are Instagram's own Previous and Next buttons in its small picture in picture window for reels
+Previous and next in the reels window	Reel 小窗口中的上一个和下一个
+Instagram's small window for reels gets its own buttons to go back a reel or on to the next one.	Instagram 的 Reel 小窗口会多出 Instagram 自己的按钮，可回到上一个 Reel 或前往下一个。
+# context: a switch on the Playback page under Previous and next in the reels window; photo and carousel reels go in Instagram's small picture in picture window for reels, a carousel shows a dot per page, and the window's Previous and Next buttons turn its pages before moving to another reel (#873)
+Photos and carousels in the reels window	Reel 小窗口中的照片和轮播
+Photo and carousel reels go in Instagram's small window for reels too. A carousel shows a dot for each page, and Previous and Next go through its pages first.	照片和轮播 Reel 也会进入 Instagram 的 Reel 小窗口。轮播会为每一页显示一个圆点，上一个和下一个会先翻过它的各页。
 # context: a switch on the Playback page under Picture in picture for reels; Android's own name for picture in picture, and it keeps moving on to the next stories inside the small window
 Picture in picture for stories	快拍子母画面
 Leaving Instagram while a story plays shrinks it into a small window over your other apps, where it keeps going through the stories.	在快拍播放时离开 Instagram，它会缩成浮在其他应用程序上方的小窗口，并在其中继续播放快拍.
@@ -2776,6 +2827,9 @@ HushGram's own files take up %1$s.	HushGram 自己的文件占用 %1$s。
 # context: Tab bar: switch under Keep the pill full size, for the liquid look's bubble under a held finger (#705)
 Glass lens under your finger	手指下的玻璃透镜
 Hold a finger on the liquid pill's bubble, or slide it across the tabs, and the bubble swells and bends what's behind it harder, like glass under a fingertip. It eases back when you let go. The bend needs Blur behind the tab bar and Android 13 or newer. Restart Instagram after changing it.	用手指按住液态胶囊的气泡，或在标签页间滑动它，气泡会变大，并更强烈地折射后方的内容，就像指尖下的玻璃。松开后会恢复原状。折射需要开启“模糊标签栏后方内容”及 Android 13 或以上版本。变更后请重新启动 Instagram。
+# context: Tab bar: switch under Glass lens under your finger that keeps Instagram's Search tab inside the liquid pill with the other tabs instead of in a glass circle of its own, and its description (#875). Search is Instagram's tab, named as it is there; Liquid glass look is another switch's name
+Keep Search in the pill	将搜索保留在胶囊内
+With Liquid glass look on, Search stays in the pill with the other tabs instead of a glass circle of its own. Restart Instagram after changing it.	开启液态玻璃外观时，搜索会和其他标签页一起留在胶囊内，而不是放入独立的玻璃圆圈。变更后请重新启动 Instagram。
 # context: Keep story viewers, its Stories settings rows and the Story viewers page.
 Keep story viewers	保留快拍观看者
 Each time you open who viewed one of your stories, the list is kept on this phone and set beside your followers. Nothing extra is asked of Instagram. Turn it off and it stops at once.	每次你打开谁看过你的某条快拍，名单就会保留在这支手机上，并和你的粉丝放在一起对照。不会向 Instagram 多要任何东西。关闭后会立刻停止。
@@ -3014,6 +3068,82 @@ The newest 500 stay, however old they are.	保留最新 500 条，不论多久�
 Anything seen more than a day ago goes. At most 2000 stay.	超过一天前看过的会移除，最多保留 2000 条。
 # context: Keep history for (#228): the row's summary with some days chosen; %1$s is the number
 Anything seen more than %1$s days ago goes. At most 2000 stay.	超过 %1$s 天前看过的会移除，最多保留 2000 条。
+# context: Feed > title of the switch that shows a drag handle at the right edge of Home's feed while it scrolls, like Fast scroll in Saved; Home is Instagram's own Home tab (#826)
+Fast scroll on Home	首页快速卷动
+# context: Feed > summary of Fast scroll on Home; the feed is the list of posts on Home (#826)
+Shows a handle at the right edge of Home while it scrolls. Drag it to jump down your feed and back to the top.	卷动首页时，在右侧边缘显示拉杆。拖动拉杆即可在动态中往下跳转，或回到顶部。
+# context: Messages > title of the switch that shows a drag handle at the right edge of a chat while its messages scroll (#826)
+Fast scroll in chats	聊天快速卷动
+# context: Messages > summary of Fast scroll in chats; the newest messages are at the bottom of a chat (#826)
+Shows a handle at the right edge of a chat while it scrolls. Drag it up to your older messages and back down to the newest.	卷动聊天时，在右侧边缘显示拉杆。往上拖动可查看较早的消息，往下拖动可回到最新消息。
+# context: Stories > title of the switch that hides the comments Instagram floats over a story while you watch it, next to Hide the Comment button on stories (#826)
+Hide comments on stories	隐藏快拍上的评论
+# context: Stories > summary of Hide comments on stories; the faces are the small round profile pictures of the commenters; the Comment button is the story's own Comment button, translated as in Hide the Comment button on stories (#826)
+Takes the comments floating over stories off them, along with the faces of the people who wrote them. The Comment button still opens them.	移除漂浮在快拍上的评论，以及评论者的头像。“评论”按钮仍可打开评论。
+# context: Stories > title of the choice of how high the line you tap to write a comment sits on a story, under Hide comments on stories (#826)
+Comment line height on stories	快拍上的评论栏高度
+# context: Stories > Comment line height on stories > choice that leaves the line where Instagram puts it; 'it' is the comment line (#826)
+Where Instagram puts it	Instagram 默认的位置
+# context: Stories > Comment line height on stories > choice that lifts the comment line a little (#826)
+A little higher	稍高一点
+# context: Stories > Comment line height on stories > choice that lifts the comment line more than A little higher (#826)
+Higher	更高
+# context: Stories > summary of Comment line height on stories while Where Instagram puts it is chosen; the line is the one you tap on a story to write a comment (#826)
+The line for writing a comment sits where Instagram puts it, at the bottom of the story.	写评论的那一栏保持在 Instagram 默认的位置，也就是快拍的最下方。
+# context: Stories > summary of Comment line height on stories while A little higher is chosen (#826)
+The line for writing a comment sits a little higher on the story.	写评论的那一栏在快拍上的位置稍高一点。
+# context: Stories > summary of Comment line height on stories while Higher is chosen; the bottom edge is the bottom of the screen (#826)
+The line for writing a comment sits higher on the story, well clear of the bottom edge.	写评论的那一栏在快拍上的位置更高，离底部边缘有一段距离。
+# context: Stories: a switch (#187), named like Full screen Reels, Full screen Home and Full screen Messages
+Full screen stories	全屏幕快拍
+# context: Full screen stories (#187): its summary, worded like Full screen Home's
+Hides the status bar and the navigation bar while a story shows. Swipe in from the edge to bring them back for a moment.	显示快拍时隐藏状态栏与导航栏。从边缘向内滑动可短暂显示。
+# context: Explore: a switch (#187), named like Full screen Home. Explore is Instagram's tab, as the app names it
+Full screen Explore	全屏幕探索
+# context: Full screen Explore (#187): its summary, worded like Full screen Home's
+Hides the status bar and the navigation bar while Explore shows. Swipe in from the edge to bring them back for a moment.	显示探索时隐藏状态栏与导航栏。从边缘向内滑动可短暂显示。
+# context: Profiles: a switch (#187) for your own profile's tab, named like Full screen Home
+Full screen profile	全屏幕主页
+# context: Full screen profile (#187): its summary, worded like Full screen Home's
+Hides the status bar and the navigation bar while your profile tab shows. Swipe in from the edge to bring them back for a moment.	显示你的主页标签时隐藏状态栏与导航栏。从边缘向内滑动可短暂显示。
+# context: Settings entry > summary of Settings page logo while HushGram's logo is picked; this page is HushGram's settings page (#872)
+HushGram's logo shows at the top of this page.	此页顶端显示 HushGram 标志。
+# context: Settings entry > summary of Settings page logo while Instagram's icon is picked (#872)
+Instagram's icon shows at the top of this page.	此页顶端显示 Instagram 图标。
+# context: Settings entry > summary of Settings page logo while Your picture is picked; Your picture is the list choice of that name (#872)
+Your picture shows at the top of this page. Pick Your picture again to change it.	此页顶端显示你的图片。再次选择“你的图片”即可更换。
+# context: Settings entry > Settings page logo list choice: HushGram's own logo (#872)
+HushGram's logo	HushGram 标志
+# context: Settings entry > Settings page logo list choice: Instagram's own app icon (#872)
+Instagram's icon	Instagram 图标
+# context: Settings entry > Settings page logo list choice: a picture the person picks from their phone (#872)
+Your picture	你的图片
+# context: Settings entry > row and list title: the picture at the top of HushGram's settings page, over its name (#872)
+Settings page logo	设置页面标志
+# context: Settings entry > row and dialog title: the name at the top of HushGram's settings page (#872)
+Settings page name	设置页面名称
+# context: Settings entry > Settings page name dialog message; %1$d is the most characters it takes (#872)
+A name of your own at the top of this page, in place of HushGram. Up to %1$d characters. Leave it blank for HushGram.	此页顶端显示的自定义名称，取代 HushGram。最多 %1$d 个字符。留空则显示 HushGram。
+# context: Settings entry > row that puts HushGram's logo and name back at the top of the settings page (#872)
+Reset the settings page header	重置设置页面顶端
+# context: Settings entry > summary of Reset the settings page header (#872)
+Puts HushGram's logo and name back at the top of this page.	让此页顶端恢复 HushGram 的标志和名称。
+# context: toast after Reset the settings page header; keep under two short lines (#872)
+Settings page header reset.	已重置设置页面顶端。
+# context: toast after a picked picture becomes the settings page logo; keep under two short lines (#872)
+Settings page logo set.	已设置设置页面标志。
+# context: Settings entry > summary of Settings page name while no name is typed (#872)
+HushGram shows at the top of this page.	此页顶端显示 HushGram。
+# context: Settings entry > summary of Settings page name; %1$s is the typed name (#872)
+The top of this page says %1$s.	此页顶端显示“%1$s”。
+# context: Settings > Downloads > switch title, under Name saves by account and post time (#792)
+Date saves by when they were posted	按发布时间标注保存日期
+# context: Settings > Downloads > summary of Date saves by when they were posted (#792)
+Gives each saved photo and video the time its post went up, so your gallery sorts saves by the post instead of the day you saved them. A save that doesn't know when it was posted keeps the time it was saved.	为每张保存的照片及视频标上帖子发布的时间，让图库按帖子而非保存当天排序。若无法取得发布时间，则保留保存时的时间。
+# context: Profiles > title of the switch that adds a Select all button beside Instagram's own Select on the grids in Your activity (#762); Your activity is Instagram's own page in the profile menu, use the name Instagram shows for it in this language
+Select all in Your activity	在“你的动态”中全选
+# context: Profiles > summary of Select all in Your activity (#762). Select, Delete and Unlike are Instagram's own buttons on those grids; use the words Instagram shows there in this language
+Adds Select all beside Select on the photo and video grids in Your activity, like your posts, reels and likes. Tick one first and it shows. It only ticks them. Nothing goes until you press Delete or Unlike yourself.	在“你的动态”的照片和视频网格中，于“选择”旁添加“全选”，例如你的帖子、Reels 和赞过的内容。勾选一项后就会出现。它只会勾选项目。在你自己点按“删除”或“取消赞”之前，什么都不会消失。
 %1$d entries left out because they repeat or don't fit.	%1$d entries left out because they repeat or don't fit.
 %1$d overrides from a different Instagram version don't fit this one and were left out.	%1$d overrides from a different Instagram version don't fit this one and were left out.
 2x speed for videos in the feed	2x speed for videos in the feed

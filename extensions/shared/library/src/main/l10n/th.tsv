@@ -287,6 +287,9 @@ Feed videos and stories wait for your tap. Reels and videos in Explore play as I
 Turn on Tap to play to use this choice.	เปิด "แตะเพื่อเล่น" เพื่อใช้ตัวเลือกนี้
 Resume long videos	เล่นวิดีโอยาวต่อจากเดิม
 Videos and reels over two minutes pick up where you left off. Seek to start elsewhere. Live videos and ads start as usual.	วิดีโอและรีลส์ที่ยาวเกินสองนาทีจะเล่นต่อจากจุดที่คุณดูค้างไว้ เลื่อนแถบเวลาเพื่อเริ่มเล่นจากจุดอื่น ส่วนวิดีโอถ่ายทอดสดและโฆษณาจะเริ่มเล่นตามปกติ
+# context: a switch under Resume long videos (#874). A feed video you scroll past and come back to keeps playing from where it was, only until Instagram closes. The Reels tab is Instagram's own tab.
+Keep your place in feed videos	จำตำแหน่งในวิดีโอฟีด
+A feed video you scroll away from picks up where you left it when you scroll back, until you close Instagram. Reels in the Reels tab start over as usual.	วิดีโอในฟีดที่คุณเลื่อนผ่านไปจะเล่นต่อจากจุดเดิมเมื่อคุณเลื่อนกลับมา จนกว่าคุณจะปิด Instagram ส่วนรีลส์ในแท็บรีลส์จะเริ่มเล่นใหม่ตามปกติ
 Default playback quality	คุณภาพการเล่นเริ่มต้น
 # context: description of the Default playback quality switch on the Playback page, with the list of qualities below it
 Videos, reels and stories play at the quality below, starting with the next one you open.	วิดีโอ, รีลส์ และสตอรี่จะเล่นตามคุณภาพด้านล่าง โดยเริ่มจากรายการถัดไปที่คุณเปิด
@@ -374,16 +377,16 @@ Removes the summary, Sources and Ask Meta AI box from a reel's more menu. In you
 Hide Ask Meta AI in About this reel	ซ่อน "ถาม Meta AI" ใน "เกี่ยวกับรีลส์นี้"
 About this reel keeps its summary and Sources, and only the Ask Meta AI box under them goes.	เมนู "เกี่ยวกับรีลส์นี้" จะยังคงมีสรุปย่อและแหล่งที่มา โดยจะลบเฉพาะช่อง "ถาม Meta AI" ที่อยู่ด้านล่างออกเท่านั้น
 Hide Meta AI in the share sheet	ซ่อน Meta AI ในหน้าต่างการแชร์
-Removes Meta AI from the row at the bottom of the share sheet. Some accounts see it as Muse.	ลบ Meta AI ออกจากแถวด้านล่างของหน้าต่างการแชร์ ซึ่งบางบัญชีอาจเห็นเป็น Muse
+Removes Meta AI from the share sheet, both from the people you can send to and from the row at the bottom. Some accounts see it as Muse.	ลบ Meta AI ออกจากหน้าต่างการแชร์ ทั้งจากรายชื่อคนที่คุณส่งถึงได้และจากแถวด้านล่าง ซึ่งบางบัญชีอาจเห็นเป็น Muse
 Hide the Muse card	ซ่อนการ์ด Muse
 Removes the Meet Muse card, with its Try Muse button, from Home and your profile. Your other cards stay.	ลบการ์ด Meet Muse พร้อมปุ่ม Try Muse ออกจากหน้าหลักและโปรไฟล์ของคุณ การ์ดอื่นๆ จะยังคงอยู่
 Hide the Muse button on your profile	ซ่อนปุ่ม Muse บนโปรไฟล์ของคุณ
 Removes the Muse button from the top bar of your profile. Your username and the menu stay.	ลบปุ่ม Muse ออกจากแถบด้านบนของโปรไฟล์ ชื่อผู้ใช้และเมนูของคุณจะยังคงอยู่
 Hide Blend on reels	ซ่อน Blend บนรีลส์
 Removes the Blend invite button from reels. Everything else on a reel stays.	ลบปุ่มเชิญ Blend ออกจากรีลส์ ส่วนประกอบอื่นๆ ทั้งหมดบนรีลส์จะยังคงอยู่
-# context: Meta AI: a Hide Meta AI switch (#866) that removes the line Instagram shows at the top of a story made with a Meta AI tool, such as Restyled with Meta AI followed by a Try it link. Restyled with Meta AI and Try it are Instagram's own labels, so use this language's Instagram wording for them where it's known.
-Hide Meta AI credits on stories	ซ่อนเครดิต Meta AI ในสตอรี่
-Removes lines like Restyled with Meta AI and its Try it link from the top of stories. Music and effect credits stay.	ลบบรรทัดอย่าง ปรับสไตล์ด้วย Meta AI และลิงก์ ลองเลย ออกจากด้านบนของสตอรี่ เครดิตเพลงและเอฟเฟกต์จะยังคงอยู่
+# context: Meta AI: a Hide Meta AI switch (#866) that removes the line Instagram shows at the top of a story made with a Meta AI tool, such as Restyled with Meta AI followed by a Try it link, and the same restyle credit on reels. Restyled with Meta AI and Try it are Instagram's own labels, so use this language's Instagram wording for them where it's known.
+Hide Meta AI restyle credits	ซ่อนเครดิตการปรับสไตล์ของ Meta AI
+Removes lines like Restyled with Meta AI and its Try it link from the top of stories, and the same credit from reels. Music and effect credits stay.	ลบบรรทัดอย่าง ปรับสไตล์ด้วย Meta AI และลิงก์ ลองเลย ออกจากด้านบนของสตอรี่ และลบเครดิตเดียวกันออกจากรีลส์ เครดิตเพลงและเอฟเฟกต์จะยังคงอยู่
 Explore	สำรวจ
 Hide the Explore grid	ซ่อนตารางหน้าสำรวจ
 Hides the grid of posts and reels under the Search tab's bar. Search, recent searches and results stay.	ซ่อนตารางโพสต์และรีลส์ใต้แถบแท็บค้นหา โดยฟังก์ชันค้นหา, การค้นหาล่าสุด และผลการค้นหาจะยังคงอยู่
@@ -599,6 +602,9 @@ Adds an eye button to the top of each story while you view anonymously. Tap it t
 Mark as seen	ทำเครื่องหมายว่าดูแล้ว
 Marked as seen. Tap again to undo.	ทำเครื่องหมายว่าดูแล้ว แตะอีกครั้งเพื่อเลิกทำ
 Marked as seen and sent	ทำเครื่องหมายว่าดูแล้วและส่งแล้ว
+# context: View stories anonymously's third switch, after Mark as seen button. A like is the heart under a story, a quick reaction is an emoji from the row above a story's reply box
+Mark a story seen when you like or reply	ทำเครื่องหมายว่าดูสตอรี่แล้วเมื่อคุณกดถูกใจหรือตอบกลับ
+While you view anonymously, liking a story, replying to it or sending it a quick reaction puts you on that story's viewer list first. The other stories stay hidden.	ขณะที่คุณดูแบบไม่ระบุตัวตน การกดถูกใจสตอรี่ ตอบกลับสตอรี่ หรือส่งการแสดงความรู้สึกด่วนให้สตอรี่นั้น จะทำให้คุณแสดงในรายชื่อผู้ชมของสตอรี่นั้นก่อน สตอรี่อื่นๆ จะยังคงซ่อนอยู่
 View DM photos and videos anonymously	ดูรูปภาพและวิดีโอใน DM แบบไม่ระบุตัวตน
 Stops people seeing that you opened their view once photos and videos. They still disappear after you view them. This is a test feature and starts off.	ป้องกันไม่ให้ผู้อื่นเห็นว่าคุณเปิดดูรูปภาพและวิดีโอแบบดูได้ครั้งเดียวของพวกเขา รูปภาพและวิดีโอจะยังคงหายไปหลังจากที่คุณดู นี่เป็นฟีเจอร์ทดสอบและเริ่มต้นปิดใช้งานอยู่
 Restored %1$d settings. Kept %2$d newer choices.	กู้คืนการตั้งค่าแล้ว %1$d รายการ และคงตัวเลือกที่ใหม่กว่าไว้ %2$d รายการ
@@ -762,6 +768,11 @@ That isn't a place. Type latitude, longitude.	นั่นไม่ใช่ต�
 %1$d reels. Swipe again after %2$d minutes away.	%1$d รีลส์ ปัดอีกครั้งหลังออกไป %2$d นาที
 The latitude and the longitude in degrees, with a comma between them, like 40.758, -73.9855. North and east are positive, south and west negative. A map app shows both when you press and hold a spot.	ละติจูดและลองจิจูดในหน่วยองศา โดยคั่นด้วยเครื่องหมายจุลภาค เช่น 40.758, -73.9855 ทิศเหนือและทิศตะวันออกเป็นค่าบวก ทิศใต้และทิศตะวันตกเป็นค่าลบ แอปแผนที่จะแสดงทั้งสองค่าเมื่อคุณกดค้างที่ตำแหน่งใดตำแหน่งหนึ่ง
 Turn off HDR brightness boosts	ปิดการเร่งความสว่าง HDR
+Keep HDR on photo uploads	คง HDR ไว้เมื่ออัปโหลดรูปภาพ
+Experimental. An Ultra HDR photo you post keeps its gain map on Android 14 and newer, so it can still show in HDR. Turn it off if a photo you post looks wrong.	ทดลอง รูปภาพ Ultra HDR ที่คุณโพสต์จะเก็บ gain map ไว้บน Android 14 ขึ้นไป จึงยังแสดงเป็น HDR ได้ ปิดหากรูปภาพที่คุณโพสต์ดูผิดปกติ
+# context: Keep HDR on video uploads, under Playback next to the photo switch. Instagram encodes a video again before it uploads it; HDR means HLG here.
+Keep HDR on video uploads	คง HDR ไว้เมื่ออัปโหลดวิดีโอ
+Experimental. An HDR video you post is encoded in HDR on Android 13 and newer, where Instagram would make it SDR on some phones. Turn it off if a video you post looks wrong or won't upload.	ทดลอง วิดีโอ HDR ที่คุณโพสต์จะเข้ารหัสเป็น HDR บน Android 13 ขึ้นไป ซึ่งบนโทรศัพท์บางรุ่น Instagram จะทำให้เป็น SDR ปิดหากวิดีโอที่คุณโพสต์ดูผิดปกติหรืออัปโหลดไม่ได้
 What you open from search stays out of Recent, in the app and on Instagram's side. Searches already there stay until you clear them.	สิ่งที่คุณเปิดจากการค้นหาจะไม่ถูกบันทึกไว้ใน "ล่าสุด" ทั้งในแอปและบนฝั่งของ Instagram การค้นหาที่มีอยู่แล้วจะยังคงอยู่จนกว่าคุณจะล้างออก
 Wi-Fi stays as it is. Turn this off to save data on every network.	Wi-Fi จะยังคงเหมือนเดิม ปิดตัวเลือกนี้เพื่อประหยัดข้อมูลในทุกเครือข่าย
 Hide comments	ซ่อนความคิดเห็น
@@ -806,7 +817,7 @@ Hide the gift button	ซ่อนปุ่มของขวัญ
 Takes the gift button off the right end of the comment box. The box itself stays.	นำปุ่มของขวัญที่ปลายด้านขวาของช่องแสดงความคิดเห็นออก ทั้งนี้ช่องแสดงความคิดเห็นจะยังคงอยู่
 # context: Comments: a Hide comments switch (#869) that hides the round (i) info button some comment sheets draw at the top right, just above the first comment. Write (i) as is.
 Hide the (i) button in comments	ซ่อนปุ่ม (i) ในความคิดเห็น
-Takes the (i) button off the top right of a post's or reel's comments, above the first comment. Not every post has it.	นำปุ่ม (i) ที่มุมขวาบนของความคิดเห็นในโพสต์หรือรีล เหนือความคิดเห็นแรกออก ไม่ใช่ทุกโพสต์ที่มี
+Takes the (i) button off the top right of a post's or reel's comments, and the row with an (i) that can sit above a reel's first comment. Not every post has them.	นำปุ่ม (i) ที่มุมขวาบนของความคิดเห็นในโพสต์หรือรีล และแถวที่มี (i) ซึ่งอาจอยู่เหนือความคิดเห็นแรกของรีลออก ไม่ใช่ทุกโพสต์ที่มี
 # context: Comments: the switch that hides the row of quick emoji above the comment box (#248). Comment box is the field where you type a comment.
 Hide the emoji row	ซ่อนแถวอิโมจิ
 Takes the row of quick emoji off above the comment box. The box itself stays.	นำแถวอิโมจิด่วนด้านบนช่องแสดงความคิดเห็นออก ทั้งนี้ช่องแสดงความคิดเห็นจะยังคงอยู่
@@ -991,7 +1002,7 @@ Text in the accent color	ข้อความเป็นสีเน้น
 Names, captions and other main text take the same color as the icons. Gray text stays gray. Restart Instagram to see the change.	ชื่อ คำบรรยาย และข้อความหลักอื่นๆ จะเป็นสีเดียวกับไอคอน ข้อความสีเทายังคงเป็นสีเทา โปรดรีสตาร์ท Instagram เพื่อดูการเปลี่ยนแปลง
 # context: Layout > Accent color switch. Saved is Instagram's own Saved page, in its label for this language.
 Filters in the accent color	ตัวกรองเป็นสีเน้น
-The filters along the top of Saved take the color you picked, and the one you're on is filled with it. Restart Instagram to see the change.	ตัวกรองด้านบนของที่บันทึกไว้จะเป็นสีที่คุณเลือก และตัวกรองที่ใช้อยู่จะเติมด้วยสีนั้น โปรดรีสตาร์ท Instagram เพื่อดูการเปลี่ยนแปลง
+The filters along the top of Saved and under a search take the color you picked, and the one you're on is filled with it. Restart Instagram to see the change.	ตัวกรองด้านบนของที่บันทึกไว้และใต้การค้นหาจะเป็นสีที่คุณเลือก และตัวกรองที่ใช้อยู่จะเติมด้วยสีนั้น โปรดรีสตาร์ท Instagram เพื่อดูการเปลี่ยนแปลง
 Instagram's icons on the top bar, the tab bar and under posts take the color you picked. Text stays as it is. Restart Instagram to see the change.	ไอคอนของ Instagram บนแถบด้านบน แถบแท็บ และใต้โพสต์จะเปลี่ยนเป็นสีที่คุณเลือก ส่วนข้อความจะยังคงเหมือนเดิม โปรดรีสตาร์ท Instagram เพื่อดูการเปลี่ยนแปลง
 Story rings in the accent color	วงแหวนสตอรี่เป็นสีเน้น
 Story rings take the color you picked instead of Instagram's gradient. A few other gradients share those colors and change with them. Restart Instagram to see the change.	วงแหวนสตอรี่จะเปลี่ยนเป็นสีที่คุณเลือกแทนการไล่ระดับสีของ Instagram ทั้งนี้การไล่ระดับสีอื่นๆ บางส่วนที่ใช้สีเดียวกันจะเปลี่ยนตามไปด้วย โปรดรีสตาร์ท Instagram เพื่อดูการเปลี่ยนแปลง
@@ -1562,6 +1573,14 @@ All of them. Tap to leave some out, and Ghost mode leaves those as you set them.
 %1$s. The others stay as you set them.	%1$s รายการอื่นๆ จะยังคงเป็นไปตามที่คุณตั้งค่าไว้
 Switches Ghost mode turns	สวิตช์ที่โหมด Ghost สลับการทำงาน
 Ghost mode needs at least one switch to turn.	โหมด Ghost ต้องมีสวิตช์ให้สลับอย่างน้อยหนึ่งตัว
+# context: Ghost mode: the switch under its rows in Ads and privacy that holds likes, story replies, comments, share links and new stories and posts back while Ghost mode is on (#876). A like is the heart under a post, a reel, a story or a comment, a share link is what Copy link and sharing a post out make, and posting is sharing a new story, post or reel from Instagram's camera; the five short ones are toasts shown when a tap is held back
+Block likes, replies and posts in Ghost mode	บล็อกการกดถูกใจ การตอบกลับ และการโพสต์ในโหมด Ghost
+While Ghost mode is on, liking, commenting, replying to a story, posting a story or post and copying or sharing a link do nothing, and a message says why. Nothing is sent.	ขณะที่เปิดโหมด Ghost การกดถูกใจ การแสดงความคิดเห็น การตอบกลับสตอรี่ การโพสต์สตอรี่หรือโพสต์ และการคัดลอกหรือแชร์ลิงก์จะไม่เกิดผลใดๆ และมีข้อความบอกเหตุผล ไม่มีสิ่งใดถูกส่งออกไป
+Likes are off in Ghost mode.	การกดถูกใจปิดอยู่ในโหมด Ghost
+Replies are off in Ghost mode.	การตอบกลับปิดอยู่ในโหมด Ghost
+Comments are off in Ghost mode.	ความคิดเห็นปิดอยู่ในโหมด Ghost
+Share links are off in Ghost mode.	ลิงก์แชร์ปิดอยู่ในโหมด Ghost
+Posting is off in Ghost mode.	การโพสต์ปิดอยู่ในโหมด Ghost
 # context: Ghost mode: turning it on or off with a long press on a tab (#255). %1$s is a tab's name
 Turn Ghost mode on or off with a tab long press	เปิดหรือปิดโหมด Ghost ด้วยการกดค้างที่แท็บ
 Tab long presses keep Instagram's own action. Choose one to turn Ghost mode on or off instead.	การกดค้างที่แท็บจะยังคงใช้การดำเนินการเดิมของ Instagram เลือกแท็บหนึ่งเพื่อใช้เปิดหรือปิดโหมด Ghost แทน
@@ -1802,7 +1821,7 @@ Previous page	หน้าก่อนหน้า
 Next page	หน้าถัดไป
 # context: Feed settings: the Page dots on a pill switch, right under Carousel arrows (#419). A pill is a small bar with round ends that holds the dots.
 Page dots on a pill	จุดบอกหน้าในแถบแคปซูล
-Moves a carousel post's page dots onto a round pill at the bottom of its photo or video, with the page you're on in blue. Hold the pill and slide left or right to move through the pages.	ย้ายจุดบอกหน้าของโพสต์ภาพหมุนไปยังแถบแคปซูลมนที่ด้านล่างของรูปภาพหรือวิดีโอ โดยแสดงหน้าที่คุณเปิดอยู่เป็นสีฟ้า กดแถบแคปซูลค้างไว้แล้วเลื่อนไปทางซ้ายหรือขวาเพื่อเปลี่ยนหน้า
+Moves a carousel post's page dots onto a round pill at the bottom of its photo or video, with the page you're on in blue, or your accent color when Accent color is on. Hold the pill and slide left or right to move through the pages.	ย้ายจุดบอกหน้าของโพสต์ภาพหมุนไปยังแถบแคปซูลมนที่ด้านล่างของรูปภาพหรือวิดีโอ โดยแสดงหน้าที่คุณเปิดอยู่เป็นสีฟ้า หรือเป็นสีเน้นเมื่อเปิดสีเน้นไว้ กดแถบแคปซูลค้างไว้แล้วเลื่อนไปทางซ้ายหรือขวาเพื่อเปลี่ยนหน้า
 # context: Feed settings: the Ambient light switch and its Glow spread and Glow speed lists (#416)
 Ambient light	แสงรอบข้าง
 Puts a soft glow in a post's own colors around its photo or video, and in the bands around a reel that doesn't fill the screen. The glow follows a video as it plays.	แสดงแสงเรืองนุ่มนวลตามโทนสีของโพสต์รอบๆ รูปภาพหรือวิดีโอ และบริเวณขอบรอบรีลส์ที่ไม่เต็มหน้าจอ โดยแสงเรืองจะเปลี่ยนตามวิดีโอขณะเล่น
@@ -1907,6 +1926,21 @@ Seek bar button on feed videos	ปุ่มแถบเลื่อนเวล�
 Adds a small button at the bottom left of a feed video that shows or hides its seek bar. It works with Seek bar on feed videos on or off.	เพิ่มปุ่มขนาดเล็กที่ด้านล่างซ้ายของวิดีโอฟีดเพื่อแสดงหรือซ่อนแถบเลื่อนเวลา สามารถทำงานได้ไม่ว่าจะเปิดหรือปิด "แถบเลื่อนเวลาในวิดีโอฟีด"
 Seek bar	แถบเลื่อนเวลา
 Tint intensity	ความเข้มของโทนสี
+# context: Tab bar: the Tint color list under Tint intensity that picks the glass tab bar's color, its choices' descriptions, the Custom tint color field under it with its dialog message and empty summary, and what both say while another switch is in the way (#875). Light, Dark and AMOLED black are choices in the list; Tint intensity, Custom tint color, Glass tab bar and Material look are rows' names
+Tint color	สีกระจก
+Light	สว่าง
+Dark	มืด
+AMOLED black	ดำ AMOLED
+The glass takes Instagram's own colors, dark or light with its theme.	กระจกใช้สีของ Instagram เอง มืดหรือสว่างตาม Instagram
+Frosted white glass whatever Instagram's theme, with the tab icons dark on it.	กระจกฝ้าสีขาวไม่ว่า Instagram จะมืดหรือสว่าง พร้อมไอคอนแท็บสีเข้มบนกระจก
+Dark gray glass whatever Instagram's theme, with the tab icons white on it.	กระจกสีเทาเข้มไม่ว่า Instagram จะมืดหรือสว่าง พร้อมไอคอนแท็บสีขาวบนกระจก
+A black pill with no sheen, for AMOLED screens. A lower Tint intensity lets what's behind it show through.	แถบแคปซูลสีดำไม่มีความเงา สำหรับหน้าจอ AMOLED ลด "ความเข้มของโทนสี" เพื่อให้เห็นสิ่งที่อยู่ด้านหลัง
+The glass takes the accent color Android picks from your wallpaper. Android 12 and newer. Older phones keep Instagram's colors.	กระจกใช้สีเน้นที่ Android เลือกจากวอลเปเปอร์ของคุณ ใช้ได้บน Android 12 ขึ้นไป โทรศัพท์รุ่นเก่ายังคงใช้สีตาม Instagram
+The glass takes the color you type under Custom tint color.	กระจกใช้สีที่คุณป้อนใน "สีกระจกที่กำหนดเอง"
+Custom tint color	สีกระจกที่กำหนดเอง
+A color as six hex digits, like #4A6B82. Saving it picks Custom under Tint color.	รหัสสีแบบฐานสิบหก 6 หลัก เช่น #4A6B82 เมื่อบันทึกแล้ว "สีกระจก" จะเปลี่ยนเป็นกำหนดเอง
+Turn on Glass tab bar to use this choice.	เปิดใช้งาน "แถบแท็บกระจก" เพื่อใช้ตัวเลือกนี้
+Turn off Material look to use this choice.	ปิดใช้งาน "รูปลักษณ์ Material" เพื่อใช้ตัวเลือกนี้
 Refraction intensity	ความเข้มของการหักเหแสง
 Preview of the tab bar	ตัวอย่างแถบแท็บ
 Keep stories playing while zooming	เล่นสตอรี่ต่อไปขณะซูม
@@ -1920,6 +1954,10 @@ Hide the Map bubble	ซ่อนบับเบิลแผนที่
 Takes only the Map bubble out of the row of notes. Your notes stay.	นำเฉพาะบับเบิลแผนที่ออกจากแถวโน้ต โดยโน้ตของคุณจะยังคงอยู่
 Split the notes row	แยกแถวโน้ต
 Splits the row of notes into three stacks, Instants, Notes and Stories, the layout Instagram is trying out. Restart Instagram to see the change.	แยกแถวโน้ตออกเป็นสามกลุ่ม ได้แก่ ด่วน โน้ต และสตอรี่ ตามรูปแบบที่ Instagram กำลังทดลองใช้ รีสตาร์ท Instagram เพื่อดูการเปลี่ยนแปลง
+# context: Messages: a switch under Split the notes row (#832). Primary and General are the two tabs Instagram shows professional accounts at the top of their messages. Use the names Instagram's own messages page gives them in this language.
+Primary and General tabs	แท็บหลักและทั่วไป
+# context: the summary under Primary and General tabs; Primary is the tab's name again
+Experimental. Adds the Primary and General tabs that professional accounts get to your messages. Instagram may put every chat in Primary at first. Starts off. Restart Instagram to see the change.	ทดลอง เพิ่มแท็บหลักและทั่วไปที่บัญชีมืออาชีพมีลงในข้อความของคุณ ในช่วงแรก Instagram อาจใส่ทุกแชทไว้ในหลัก เริ่มต้นปิดใช้งานอยู่ รีสตาร์ท Instagram เพื่อดูการเปลี่ยนแปลง
 Hide Saved in the plus menu	ซ่อน "บันทึกแล้ว" ในเมนูเครื่องหมายบวก
 Takes Saved off the menu the plus button opens in a chat's message bar.	นำ "บันทึกแล้ว" ออกจากเมนูที่เปิดด้วยปุ่มเครื่องหมายบวกในแถบข้อความของแชท
 Hide AI images in the plus menu	ซ่อน "รูปภาพ AI" ในเมนูเครื่องหมายบวก
@@ -2103,9 +2141,11 @@ Solid	ทึบแสง
 See-through	โปร่งแสง
 # context: a look for the page-dots pill and the seek bars: blurs what's under it
 Frosted glass	กระจกฝ้า
+Dots only	เฉพาะจุด
 A light pill with dark dots, as it's always been.	แถบแคปซูลสีสว่างพร้อมจุดสีเข้มตามรูปแบบเดิม
 A see-through dark pill with white dots, so more of the photo shows.	แถบแคปซูลสีเข้มแบบโปร่งแสงพร้อมจุดสีขาว เพื่อให้เห็นรูปภาพได้มากขึ้น
 A frosted glass pill that blurs the photo under it. Before Android 12 it's see-through instead.	แถบแคปซูลแบบกระจกฝ้าที่เบลอรูปภาพด้านล่าง สำหรับเวอร์ชันก่อน Android 12 จะแสดงเป็นแบบโปร่งแสงแทน
+Just the white dots with no pill behind them. A soft shadow keeps them clear on a bright photo.	แสดงเฉพาะจุดสีขาวโดยไม่มีแถบแคปซูลด้านหลัง เงาจาง ๆ ช่วยให้มองเห็นได้ชัดบนรูปภาพสีสว่าง
 Turn on Page dots on a pill to use this choice.	เปิด "จุดบอกหน้าในแถบแคปซูล" เพื่อใช้ตัวเลือกนี้
 Turn on Seek bar on feed videos or its button to use this choice.	เปิด "แถบเลื่อนเวลาในวิดีโอฟีด" หรือปุ่มของฟีเจอร์นี้เพื่อใช้ตัวเลือกนี้
 Turn on Seek bar on stories to use this choice.	เปิด "แถบเลื่อนเวลาในสตอรี่" เพื่อใช้ตัวเลือกนี้
@@ -2313,6 +2353,15 @@ Takes the Watch more reels button off the card a reel in your feed shows when it
 # context: a switch on the Playback page under Keep playing in the background; Android's own name for picture in picture
 Picture in picture for reels	การแสดงภาพซ้อนภาพสำหรับรีลส์
 Leaving Instagram while a reel plays shrinks it into a small window over your other apps. Works in Reels and on reels opened from the feed, on Android 15 or newer.	การออกจาก Instagram ขณะที่รีลส์กำลังเล่นจะย่อขนาดเป็นหน้าต่างขนาดเล็กทับบนแอปอื่นๆ ของคุณ ใช้งานได้ในแท็บรีลส์และรีลส์ที่เปิดจากฟีด บน Android 15 ขึ้นไป
+# context: a switch on the Playback page under Picture in picture for reels; the reels window is Instagram's small picture in picture window for reels, and the button is Android's own button in that window
+Pause button in the reels window	ปุ่มหยุดชั่วคราวในหน้าต่างรีลส์
+Instagram's small window for reels gets a button to pause the reel and play it again.	หน้าต่างขนาดเล็กของ Instagram สำหรับรีลส์จะมีปุ่มสำหรับหยุดรีลส์ชั่วคราวและเล่นต่อ
+# context: a switch on the Playback page under Pause button in the reels window; the buttons are Instagram's own Previous and Next buttons in its small picture in picture window for reels
+Previous and next in the reels window	ก่อนหน้าและถัดไปในหน้าต่างรีลส์
+Instagram's small window for reels gets its own buttons to go back a reel or on to the next one.	หน้าต่างขนาดเล็กของ Instagram สำหรับรีลส์จะมีปุ่มของ Instagram เองสำหรับย้อนกลับไปรีลส์ก่อนหน้าหรือไปยังรีลส์ถัดไป
+# context: a switch on the Playback page under Previous and next in the reels window; photo and carousel reels go in Instagram's small picture in picture window for reels, a carousel shows a dot per page, and the window's Previous and Next buttons turn its pages before moving to another reel (#873)
+Photos and carousels in the reels window	รูปภาพและภาพสไลด์ในหน้าต่างรีลส์
+Photo and carousel reels go in Instagram's small window for reels too. A carousel shows a dot for each page, and Previous and Next go through its pages first.	รีลส์รูปภาพและภาพสไลด์จะเข้าไปอยู่ในหน้าต่างขนาดเล็กของ Instagram สำหรับรีลส์ด้วย ภาพสไลด์จะแสดงจุดสำหรับแต่ละหน้า และปุ่มก่อนหน้าและถัดไปจะเลื่อนผ่านหน้าของภาพสไลด์ก่อน
 # context: a switch on the Playback page under Picture in picture for reels; Android's own name for picture in picture, and it keeps moving on to the next stories inside the small window
 Picture in picture for stories	การแสดงภาพซ้อนภาพสำหรับสตอรี่
 Leaving Instagram while a story plays shrinks it into a small window over your other apps, where it keeps going through the stories.	การออกจาก Instagram ขณะที่สตอรี่กำลังเล่นจะย่อขนาดเป็นหน้าต่างขนาดเล็กทับบนแอปอื่นๆ ของคุณ และเล่นสตอรี่ต่อไปเรื่อยๆ ในหน้าต่างนั้น
@@ -2329,6 +2378,8 @@ Break length	ระยะเวลาพัก
 %1$d minutes	%1$d นาที
 Stop background feed refresh	หยุดการรีเฟรชฟีดในพื้นหลัง
 About every half hour, Instagram wakes your phone to download your feed ahead of time. This stops that. The feed loads when you open the app instead, and messages and notifications still arrive.	ประมาณทุกครึ่งชั่วโมง Instagram จะปลุกโทรศัพท์ของคุณเพื่อดาวน์โหลดฟีดล่วงหน้า ตัวเลือกนี้จะหยุดการทำงานดังกล่าว ฟีดจะโหลดเมื่อคุณเปิดแอปแทน และข้อความกับการแจ้งเตือนยังคงเข้ามาตามปกติ
+Let Instagram close after account checks	ให้ Instagram ปิดได้หลังการตรวจสอบบัญชี
+When your phone checks its accounts, as it does at startup and when an account changes, Instagram never answers. Android then keeps it running for up to 15 minutes, even after you swipe it away. This answers right away so Instagram can close. Your login is unaffected.	เมื่อโทรศัพท์ตรวจสอบบัญชีต่างๆ เช่น ตอนเปิดเครื่องและเมื่อบัญชีมีการเปลี่ยนแปลง Instagram จะไม่ตอบกลับเลย Android จึงให้แอปทำงานต่อได้นานถึง 15 นาที แม้คุณจะปัดปิดไปแล้ว ตัวเลือกนี้จะตอบกลับทันทีเพื่อให้ Instagram ปิดได้ การเข้าสู่ระบบของคุณไม่ได้รับผลกระทบ
 The pill's rim bends what's behind it like real glass, so what passes under the edge shows upside down. Android 13 and newer. Restart Instagram after changing it.	ขอบแถบเม็ดยาจะหักเหสิ่งที่อยู่ด้านหลังเหมือนกระจกจริง สิ่งที่ผ่านใต้ขอบจึงแสดงกลับหัว ใช้ได้ใน Android 13 ขึ้นไป รีสตาร์ท Instagram หลังจากเปลี่ยนค่านี้
 Hide page number	ซ่อนหมายเลขหน้า
 Takes the number like 3/5 off the corner of a carousel post's photo or video.	นำตัวเลขอย่าง 3/5 ออกจากมุมของรูปภาพหรือวิดีโอในโพสต์แบบเลื่อนดูหลายรูป
@@ -2770,6 +2821,9 @@ HushGram's own files take up %1$s.	ไฟล์ของ HushGram เองใ�
 # context: Tab bar: switch under Keep the pill full size, for the liquid look's bubble under a held finger (#705)
 Glass lens under your finger	เลนส์แก้วใต้นิ้วของคุณ
 Hold a finger on the liquid pill's bubble, or slide it across the tabs, and the bubble swells and bends what's behind it harder, like glass under a fingertip. It eases back when you let go. The bend needs Blur behind the tab bar and Android 13 or newer. Restart Instagram after changing it.	แตะนิ้วค้างไว้บนฟองของแถบแคปซูลแบบแก้วเหลว หรือเลื่อนไปตามแท็บ แล้วฟองจะขยายและหักเหสิ่งที่อยู่ด้านหลังแรงขึ้น เหมือนแก้วใต้ปลายนิ้ว และจะกลับเป็นปกติเมื่อคุณปล่อยนิ้ว การหักเหต้องเปิดเบลอด้านหลังแถบแท็บและใช้ Android 13 ขึ้นไป รีสตาร์ท Instagram หลังจากเปลี่ยนแปลงการตั้งค่า
+# context: Tab bar: switch under Glass lens under your finger that keeps Instagram's Search tab inside the liquid pill with the other tabs instead of in a glass circle of its own, and its description (#875). Search is Instagram's tab, named as it is there; Liquid glass look is another switch's name
+Keep Search in the pill	เก็บแท็บค้นหาไว้ในแถบแคปซูล
+With Liquid glass look on, Search stays in the pill with the other tabs instead of a glass circle of its own. Restart Instagram after changing it.	เมื่อเปิดรูปลักษณ์กระจกเหลว แท็บค้นหาจะอยู่ในแถบแคปซูลร่วมกับแท็บอื่นๆ แทนที่จะอยู่ในวงกลมกระจกแยกต่างหาก โปรดรีสตาร์ท Instagram หลังจากเปลี่ยนการตั้งค่านี้
 # context: Keep story viewers, its Stories settings rows and the Story viewers page.
 Keep story viewers	เก็บรายชื่อผู้ดูสตอรี่
 Each time you open who viewed one of your stories, the list is kept on this phone and set beside your followers. Nothing extra is asked of Instagram. Turn it off and it stops at once.	ทุกครั้งที่คุณเปิดดูว่าใครดูสตอรี่ของคุณ รายชื่อจะถูกเก็บไว้ในโทรศัพท์เครื่องนี้และวางคู่กับผู้ติดตามของคุณ ไม่มีการขออะไรเพิ่มจาก Instagram ปิดแล้วจะหยุดทันที
@@ -3008,6 +3062,82 @@ The newest 500 stay, however old they are.	เก็บ 500 รายการ�
 Anything seen more than a day ago goes. At most 2000 stay.	รายการที่ดูไปนานกว่า 1 วันจะถูกลบ เก็บไว้มากสุด 2000 รายการ
 # context: Keep history for (#228): the row's summary with some days chosen; %1$s is the number
 Anything seen more than %1$s days ago goes. At most 2000 stay.	รายการที่ดูไปนานกว่า %1$s วันจะถูกลบ เก็บไว้มากสุด 2000 รายการ
+# context: Feed > title of the switch that shows a drag handle at the right edge of Home's feed while it scrolls, like Fast scroll in Saved; Home is Instagram's own Home tab (#826)
+Fast scroll on Home	เลื่อนเร็วในหน้าหลัก
+# context: Feed > summary of Fast scroll on Home; the feed is the list of posts on Home (#826)
+Shows a handle at the right edge of Home while it scrolls. Drag it to jump down your feed and back to the top.	แสดงที่จับที่ขอบขวาของหน้าหลักขณะเลื่อน ลากเพื่อข้ามลงไปในฟีดและกลับขึ้นด้านบน
+# context: Messages > title of the switch that shows a drag handle at the right edge of a chat while its messages scroll (#826)
+Fast scroll in chats	เลื่อนเร็วในแชท
+# context: Messages > summary of Fast scroll in chats; the newest messages are at the bottom of a chat (#826)
+Shows a handle at the right edge of a chat while it scrolls. Drag it up to your older messages and back down to the newest.	แสดงที่จับที่ขอบขวาของแชทขณะเลื่อน ลากขึ้นไปยังข้อความเก่าและลากลงกลับมายังข้อความล่าสุด
+# context: Stories > title of the switch that hides the comments Instagram floats over a story while you watch it, next to Hide the Comment button on stories (#826)
+Hide comments on stories	ซ่อนความคิดเห็นบนสตอรี่
+# context: Stories > summary of Hide comments on stories; the faces are the small round profile pictures of the commenters; the Comment button is the story's own Comment button, translated as in Hide the Comment button on stories (#826)
+Takes the comments floating over stories off them, along with the faces of the people who wrote them. The Comment button still opens them.	นำความคิดเห็นที่ลอยอยู่บนสตอรี่ออก พร้อมกับใบหน้าของผู้ที่เขียน ปุ่มแสดงความคิดเห็นยังเปิดดูได้เหมือนเดิม
+# context: Stories > title of the choice of how high the line you tap to write a comment sits on a story, under Hide comments on stories (#826)
+Comment line height on stories	ความสูงของบรรทัดความคิดเห็นบนสตอรี่
+# context: Stories > Comment line height on stories > choice that leaves the line where Instagram puts it; 'it' is the comment line (#826)
+Where Instagram puts it	ตำแหน่งที่ Instagram วางไว้
+# context: Stories > Comment line height on stories > choice that lifts the comment line a little (#826)
+A little higher	สูงขึ้นเล็กน้อย
+# context: Stories > Comment line height on stories > choice that lifts the comment line more than A little higher (#826)
+Higher	สูงขึ้น
+# context: Stories > summary of Comment line height on stories while Where Instagram puts it is chosen; the line is the one you tap on a story to write a comment (#826)
+The line for writing a comment sits where Instagram puts it, at the bottom of the story.	บรรทัดสำหรับเขียนความคิดเห็นอยู่ในตำแหน่งที่ Instagram วางไว้ ที่ด้านล่างของสตอรี่
+# context: Stories > summary of Comment line height on stories while A little higher is chosen (#826)
+The line for writing a comment sits a little higher on the story.	บรรทัดสำหรับเขียนความคิดเห็นอยู่สูงขึ้นเล็กน้อยบนสตอรี่
+# context: Stories > summary of Comment line height on stories while Higher is chosen; the bottom edge is the bottom of the screen (#826)
+The line for writing a comment sits higher on the story, well clear of the bottom edge.	บรรทัดสำหรับเขียนความคิดเห็นอยู่สูงขึ้นบนสตอรี่ ห่างจากขอบล่างพอสมควร
+# context: Stories: a switch (#187), named like Full screen Reels, Full screen Home and Full screen Messages
+Full screen stories	สตอรี่แบบเต็มหน้าจอ
+# context: Full screen stories (#187): its summary, worded like Full screen Home's
+Hides the status bar and the navigation bar while a story shows. Swipe in from the edge to bring them back for a moment.	ซ่อนแถบสถานะและแถบการนำทางขณะแสดงสตอรี่ ปัดเข้าจากขอบเพื่อแสดงแถบชั่วขณะ
+# context: Explore: a switch (#187), named like Full screen Home. Explore is Instagram's tab, as the app names it
+Full screen Explore	สำรวจแบบเต็มหน้าจอ
+# context: Full screen Explore (#187): its summary, worded like Full screen Home's
+Hides the status bar and the navigation bar while Explore shows. Swipe in from the edge to bring them back for a moment.	ซ่อนแถบสถานะและแถบการนำทางขณะแสดงหน้าสำรวจ ปัดเข้าจากขอบเพื่อแสดงแถบชั่วขณะ
+# context: Profiles: a switch (#187) for your own profile's tab, named like Full screen Home
+Full screen profile	โปรไฟล์แบบเต็มหน้าจอ
+# context: Full screen profile (#187): its summary, worded like Full screen Home's
+Hides the status bar and the navigation bar while your profile tab shows. Swipe in from the edge to bring them back for a moment.	ซ่อนแถบสถานะและแถบการนำทางขณะแสดงแท็บโปรไฟล์ของคุณ ปัดเข้าจากขอบเพื่อแสดงแถบชั่วขณะ
+# context: Settings entry > summary of Settings page logo while HushGram's logo is picked; this page is HushGram's settings page (#872)
+HushGram's logo shows at the top of this page.	โลโก้ HushGram จะแสดงที่ด้านบนของหน้านี้
+# context: Settings entry > summary of Settings page logo while Instagram's icon is picked (#872)
+Instagram's icon shows at the top of this page.	ไอคอน Instagram จะแสดงที่ด้านบนของหน้านี้
+# context: Settings entry > summary of Settings page logo while Your picture is picked; Your picture is the list choice of that name (#872)
+Your picture shows at the top of this page. Pick Your picture again to change it.	รูปภาพของคุณจะแสดงที่ด้านบนของหน้านี้ เลือก รูปภาพของคุณ อีกครั้งเพื่อเปลี่ยน
+# context: Settings entry > Settings page logo list choice: HushGram's own logo (#872)
+HushGram's logo	โลโก้ HushGram
+# context: Settings entry > Settings page logo list choice: Instagram's own app icon (#872)
+Instagram's icon	ไอคอน Instagram
+# context: Settings entry > Settings page logo list choice: a picture the person picks from their phone (#872)
+Your picture	รูปภาพของคุณ
+# context: Settings entry > row and list title: the picture at the top of HushGram's settings page, over its name (#872)
+Settings page logo	โลโก้หน้าการตั้งค่า
+# context: Settings entry > row and dialog title: the name at the top of HushGram's settings page (#872)
+Settings page name	ชื่อหน้าการตั้งค่า
+# context: Settings entry > Settings page name dialog message; %1$d is the most characters it takes (#872)
+A name of your own at the top of this page, in place of HushGram. Up to %1$d characters. Leave it blank for HushGram.	ชื่อของคุณเองที่ด้านบนของหน้านี้แทน HushGram ได้สูงสุด %1$d ตัวอักษร เว้นว่างไว้เพื่อใช้ HushGram
+# context: Settings entry > row that puts HushGram's logo and name back at the top of the settings page (#872)
+Reset the settings page header	รีเซ็ตส่วนหัวของหน้าการตั้งค่า
+# context: Settings entry > summary of Reset the settings page header (#872)
+Puts HushGram's logo and name back at the top of this page.	นำโลโก้และชื่อของ HushGram กลับมาไว้ที่ด้านบนของหน้านี้
+# context: toast after Reset the settings page header; keep under two short lines (#872)
+Settings page header reset.	รีเซ็ตส่วนหัวการตั้งค่าแล้ว
+# context: toast after a picked picture becomes the settings page logo; keep under two short lines (#872)
+Settings page logo set.	ตั้งโลโก้หน้าการตั้งค่าแล้ว
+# context: Settings entry > summary of Settings page name while no name is typed (#872)
+HushGram shows at the top of this page.	HushGram จะแสดงที่ด้านบนของหน้านี้
+# context: Settings entry > summary of Settings page name; %1$s is the typed name (#872)
+The top of this page says %1$s.	ด้านบนของหน้านี้จะแสดง %1$s
+# context: Settings > Downloads > switch title, under Name saves by account and post time (#792)
+Date saves by when they were posted	ระบุวันที่ของไฟล์ที่บันทึกตามเวลาที่โพสต์
+# context: Settings > Downloads > summary of Date saves by when they were posted (#792)
+Gives each saved photo and video the time its post went up, so your gallery sorts saves by the post instead of the day you saved them. A save that doesn't know when it was posted keeps the time it was saved.	ใส่เวลาที่โพสต์ขึ้นให้กับรูปภาพและวิดีโอที่บันทึกแต่ละรายการ เพื่อให้แกลเลอรีจัดเรียงไฟล์ที่บันทึกตามโพสต์แทนวันที่คุณบันทึก การบันทึกที่ไม่ทราบเวลาที่โพสต์จะคงเวลาที่บันทึกไว้
+# context: Profiles > title of the switch that adds a Select all button beside Instagram's own Select on the grids in Your activity (#762); Your activity is Instagram's own page in the profile menu, use the name Instagram shows for it in this language
+Select all in Your activity	เลือกทั้งหมดในกิจกรรมของคุณ
+# context: Profiles > summary of Select all in Your activity (#762). Select, Delete and Unlike are Instagram's own buttons on those grids; use the words Instagram shows there in this language
+Adds Select all beside Select on the photo and video grids in Your activity, like your posts, reels and likes. Tick one first and it shows. It only ticks them. Nothing goes until you press Delete or Unlike yourself.	เพิ่มปุ่มเลือกทั้งหมดข้างปุ่มเลือกในตารางรูปภาพและวิดีโอของกิจกรรมของคุณ เช่น โพสต์ รีลส์ และการถูกใจของคุณ ปุ่มนี้จะแสดงเมื่อคุณติ๊กเลือกไว้หนึ่งรายการ ปุ่มนี้แค่ติ๊กเลือกเท่านั้น จะไม่มีอะไรหายไปจนกว่าคุณจะกดลบหรือเลิกถูกใจเอง
 %1$d entries left out because they repeat or don't fit.	%1$d entries left out because they repeat or don't fit.
 %1$d overrides from a different Instagram version don't fit this one and were left out.	%1$d overrides from a different Instagram version don't fit this one and were left out.
 2x speed for videos in the feed	2x speed for videos in the feed

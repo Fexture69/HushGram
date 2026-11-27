@@ -30,6 +30,7 @@ final class MessagesCategory {
 
     static void add(HushgramPreferenceFragment page, PreferenceScreen screen, Context context, Set<PatchFamily> build) {
         if (build.contains(PatchFamily.NOTES_ROW) || build.contains(PatchFamily.SPLIT_NOTES_ROW)
+                || build.contains(PatchFamily.INBOX_TABS)
                 || build.contains(PatchFamily.INBOX_SEARCH)
                 || build.contains(PatchFamily.INBOX_SUGGESTIONS) || build.contains(PatchFamily.NEW_MESSAGE)
                 || build.contains(PatchFamily.INSTANTS)
@@ -56,7 +57,8 @@ final class MessagesCategory {
                 || build.contains(PatchFamily.PLUS_MENU)
                 || build.contains(PatchFamily.GLASS_CHAT)
                 || build.contains(PatchFamily.CENTER_CHAT_NAME)
-                || build.contains(PatchFamily.FULL_SCREEN_BARS)) {
+                || build.contains(PatchFamily.FULL_SCREEN_BARS)
+                || build.contains(PatchFamily.SAVED_ON_PROFILE)) {
             PreferenceCategory messages = category(screen, L10n.t("Messages"), SettingsIcons.CHATS,
                     L10n.t("Privacy and controls for your chats."));
             if (build.contains(PatchFamily.NOTES_ROW)) {
@@ -70,6 +72,12 @@ final class MessagesCategory {
                 messages.addPreference(toggle(context, Settings.SPLIT_NOTES_ROW, L10n.t("Split the notes row"),
                         L10n.t("Splits the row of notes into three stacks, Instants, Notes and Stories, the layout "
                                 + "Instagram is trying out. Restart Instagram to see the change.")));
+            }
+            if (build.contains(PatchFamily.INBOX_TABS)) {
+                messages.addPreference(toggle(context, Settings.INBOX_TABS, L10n.t("Primary and General tabs"),
+                        L10n.t("Experimental. Adds the Primary and General tabs that professional accounts get to "
+                                + "your messages. Instagram may put every chat in Primary at first. Starts off. "
+                                + "Restart Instagram to see the change.")));
             }
             if (build.contains(PatchFamily.INBOX_SEARCH)) {
                 messages.addPreference(toggle(context, Settings.HIDE_INBOX_SEARCH,
@@ -295,6 +303,11 @@ final class MessagesCategory {
                 messages.addPreference(toggle(context, Settings.FULL_SCREEN_MESSAGES, L10n.t("Full screen Messages"),
                         L10n.t("Hides the status bar and the navigation bar while your messages or a chat shows. Swipe "
                                 + "in from the edge to bring them back for a moment. Back and the keyboard work as usual.")));
+            }
+            if (build.contains(PatchFamily.SAVED_ON_PROFILE)) {
+                messages.addPreference(toggle(context, Settings.FAST_SCROLL_CHATS, L10n.t("Fast scroll in chats"),
+                        L10n.t("Shows a handle at the right edge of a chat while it scrolls. Drag it up to your "
+                                + "older messages and back down to the newest.")));
             }
             if (build.contains(PatchFamily.MESSAGES_LOCK)) {
                 messages.addPreference(lockToggle(context, Settings.LOCK_MESSAGES, L10n.t("Lock your messages"),

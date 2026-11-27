@@ -14,6 +14,7 @@ import static app.hushgram.extension.instagram.settings.HushgramPreferenceFragme
 import static app.hushgram.extension.instagram.settings.HushgramPreferenceFragment.onFlip;
 import static app.hushgram.extension.instagram.settings.HushgramPreferenceFragment.priorityAccountsRow;
 import static app.hushgram.extension.instagram.settings.HushgramPreferenceFragment.storyBarRow;
+import static app.hushgram.extension.instagram.settings.HushgramPreferenceFragment.storyCommentLineRow;
 import static app.hushgram.extension.instagram.settings.HushgramPreferenceFragment.storyMentionsLookRow;
 import static app.hushgram.extension.instagram.settings.HushgramPreferenceFragment.storyRingColorRow;
 import static app.hushgram.extension.instagram.settings.HushgramPreferenceFragment.storyRingCustomEndRow;
@@ -157,6 +158,9 @@ final class StoriesCategory {
             }
         }
         if (build.contains(PatchFamily.FULL_SCREEN_BARS)) {
+            stories.add(toggle(context, Settings.FULL_SCREEN_STORIES, L10n.t("Full screen stories"),
+                    L10n.t("Hides the status bar and the navigation bar while a story shows. Swipe in from the edge "
+                            + "to bring them back for a moment.")));
             stories.add(toggle(context, Settings.FILL_STORY_SCREEN, L10n.t("Stories fill the screen"),
                     L10n.t("On a tall screen a story covers the whole screen, with the reply bar on top of it like "
                             + "on shorter phones, instead of a rounded card above the bar.")));
@@ -207,6 +211,10 @@ final class StoriesCategory {
             stories.add(onFlip(toggle(context, Settings.HIDE_STORY_SHARE_BUTTON, L10n.t("Hide the Share button on stories"),
                     L10n.t("Takes the paper plane off the bottom of other people's stories. No empty space is "
                             + "left behind.")), StoryReplyBox::switchChanged));
+            stories.add(onFlip(toggle(context, Settings.HIDE_STORY_COMMENTS, L10n.t("Hide comments on stories"),
+                    L10n.t("Takes the comments floating over stories off them, along with the faces of the people "
+                            + "who wrote them. The Comment button still opens them.")), StoryReplyBox::switchChanged));
+            stories.add(onFlip(storyCommentLineRow(context), StoryReplyBox::switchChanged));
         }
         if (build.contains(PatchFamily.GLASS_CHAT)) {
             stories.add(toggle(context, Settings.GLASS_STORY_REPLY_BOX, L10n.t("Glass reply box on stories"),
@@ -244,6 +252,9 @@ final class StoriesCategory {
             stories.add(toggle(context, Settings.MARK_STORIES_SEEN, L10n.t("Mark as seen button"),
                     L10n.t("Adds an eye button to the top of each story while you view anonymously. Tap it to show up "
                             + "on that story's viewer list. The other stories stay hidden.")));
+            stories.add(toggle(context, Settings.MARK_STORY_SEEN_ON_LIKE_OR_REPLY, L10n.t("Mark a story seen when you like or reply"),
+                    L10n.t("While you view anonymously, liking a story, replying to it or sending it a quick reaction "
+                            + "puts you on that story's viewer list first. The other stories stay hidden.")));
             stories.add(toggle(context, Settings.GRAY_OUT_WATCHED_STORIES, L10n.t("Gray out stories you've watched"),
                     L10n.t("While you view anonymously, a story you've watched turns gray and moves to the end of the row, "
                             + "on this phone only. Instagram still isn't told you watched it.")));

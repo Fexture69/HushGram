@@ -87,7 +87,9 @@ final class FeedCategory {
         boolean homeTopBar = build.contains(PatchFamily.HOME_TOP_BAR);
         boolean activityBubbles = build.contains(PatchFamily.ACTIVITY_BUBBLES);
         boolean feedViewHistory = build.contains(PatchFamily.FEED_VIEW_HISTORY);
+        boolean fastScroll = build.contains(PatchFamily.SAVED_ON_PROFILE);
         PreferenceCategory feed = suggestions || following || swipe || fullResolution || homeFeed || feedViewHistory || tabSwipe
+                || fastScroll
                 || askLike || askRefresh || saveTray || postTime || hiddenLikes || backHome || homePlace || feedSound || feedTapPause || feedHoldFast || feedSeekBar || longPressZoom
                 || roundedCorners || carouselArrows || ambientLight
                 || fullScreen || feedFollow || editsLabel || headerLine || homeReels || feedSave || watchAgain || hideCaptions || expandCaptions || feedAudioIcon || feedAutoScroll || homeTopBar
@@ -372,7 +374,8 @@ final class FeedCategory {
                             + "page without swiping.")), CarouselArrows::switchChanged));
             feed.addPreference(onFlip(toggle(context, Settings.CAROUSEL_DOTS_PILL, L10n.t("Page dots on a pill"),
                     L10n.t("Moves a carousel post's page dots onto a round pill at the bottom of its photo or video, "
-                            + "with the page you're on in blue. Hold the pill and slide left or right to move through the pages.")),
+                            + "with the page you're on in blue, or your accent color when Accent color is on. Hold the pill "
+                            + "and slide left or right to move through the pages.")),
                     CarouselArrows::switchChanged));
             feed.addPreference(carouselPillLookRow(context));
             feed.addPreference(onFlip(toggle(context, Settings.CAROUSEL_HIDE_NUMBER, L10n.t("Hide page number"),
@@ -479,6 +482,11 @@ final class FeedCategory {
                     L10n.t("Moves Home on to the next post by itself. A video moves on when it ends, a photo or "
                             + "carousel after Time on each post. Touch the screen to hold it.")));
             feed.addPreference(feedAutoScrollTimeRow(context));
+        }
+        if (fastScroll) {
+            feed.addPreference(toggle(context, Settings.FAST_SCROLL_HOME, L10n.t("Fast scroll on Home"),
+                    L10n.t("Shows a handle at the right edge of Home while it scrolls. Drag it to jump down your "
+                            + "feed and back to the top.")));
         }
         if (blockedPosts) {
             feed.addPreference(toggle(context, Settings.HIDE_BLOCKED_POSTS, L10n.t("Hide posts when you block someone"),

@@ -290,6 +290,9 @@ Feed videos and stories wait for your tap. Reels and videos in Explore play as I
 Turn on Tap to play to use this choice.	Aktifkan Ketuk untuk memutar untuk menggunakan pilihan ini.
 Resume long videos	Lanjutkan video panjang
 Videos and reels over two minutes pick up where you left off. Seek to start elsewhere. Live videos and ads start as usual.	Video dan reel lebih dari dua menit dilanjutkan dari posisi terakhir. Geser bilah untuk posisi lain. Video langsung dan iklan mulai seperti biasa.
+# context: a switch under Resume long videos (#874). A feed video you scroll past and come back to keeps playing from where it was, only until Instagram closes. The Reels tab is Instagram's own tab.
+Keep your place in feed videos	Ingat posisi di video feed
+A feed video you scroll away from picks up where you left it when you scroll back, until you close Instagram. Reels in the Reels tab start over as usual.	Video feed yang kamu gulir lewati akan lanjut dari posisi terakhir saat kamu kembali, sampai kamu menutup Instagram. Reel di tab Reels mulai dari awal seperti biasa.
 Default playback quality	Kualitas pemutaran default
 # context: description of the Default playback quality switch on the Playback page, with the list of qualities below it
 Videos, reels and stories play at the quality below, starting with the next one you open.	Video, reels, dan cerita diputar dengan kualitas di bawah, mulai dari yang berikutnya Anda buka.
@@ -377,16 +380,16 @@ Removes the summary, Sources and Ask Meta AI box from a reel's more menu. In you
 Hide Ask Meta AI in About this reel	Sembunyikan Tanya Meta AI di Tentang reel ini
 About this reel keeps its summary and Sources, and only the Ask Meta AI box under them goes.	Tentang reel ini tetap menampilkan ringkasan dan Sumber, hanya kotak Tanya Meta AI di bawahnya yang hilang.
 Hide Meta AI in the share sheet	Sembunyikan Meta AI di lembar berbagi
-Removes Meta AI from the row at the bottom of the share sheet. Some accounts see it as Muse.	Menghapus Meta AI dari baris di bagian bawah lembar bagikan. Beberapa akun melihatnya sebagai Muse.
+Removes Meta AI from the share sheet, both from the people you can send to and from the row at the bottom. Some accounts see it as Muse.	Menghapus Meta AI dari lembar bagikan, baik dari orang yang bisa kamu kirimi maupun dari baris di bagian bawah. Beberapa akun melihatnya sebagai Muse.
 Hide the Muse card	Sembunyikan kartu Muse
 Removes the Meet Muse card, with its Try Muse button, from Home and your profile. Your other cards stay.	Menghapus kartu Meet Muse, beserta tombol Try Muse, dari Beranda dan profilmu. Kartu lainnya tetap ada.
 Hide the Muse button on your profile	Sembunyikan tombol Muse di profilmu
 Removes the Muse button from the top bar of your profile. Your username and the menu stay.	Menghapus tombol Muse dari bilah atas profilmu. Nama pengguna dan menu tetap ada.
 Hide Blend on reels	Sembunyikan Blend di reel
 Removes the Blend invite button from reels. Everything else on a reel stays.	Menghapus tombol undangan Blend dari reel. Semua yang lain di reel tetap ada.
-# context: Meta AI: a Hide Meta AI switch (#866) that removes the line Instagram shows at the top of a story made with a Meta AI tool, such as Restyled with Meta AI followed by a Try it link. Restyled with Meta AI and Try it are Instagram's own labels, so use this language's Instagram wording for them where it's known.
-Hide Meta AI credits on stories	Sembunyikan kredit Meta AI di cerita
-Removes lines like Restyled with Meta AI and its Try it link from the top of stories. Music and effect credits stay.	Menghapus baris seperti Diubah gayanya dengan Meta AI dan tautan Coba dari bagian atas cerita. Kredit musik dan efek tetap ada.
+# context: Meta AI: a Hide Meta AI switch (#866) that removes the line Instagram shows at the top of a story made with a Meta AI tool, such as Restyled with Meta AI followed by a Try it link, and the same restyle credit on reels. Restyled with Meta AI and Try it are Instagram's own labels, so use this language's Instagram wording for them where it's known.
+Hide Meta AI restyle credits	Sembunyikan kredit ubah gaya Meta AI
+Removes lines like Restyled with Meta AI and its Try it link from the top of stories, and the same credit from reels. Music and effect credits stay.	Menghapus baris seperti Diubah gayanya dengan Meta AI dan tautan Coba dari bagian atas cerita, juga kredit yang sama dari reel. Kredit musik dan efek tetap ada.
 Explore	Jelajahi
 Hide the Explore grid	Sembunyikan kisi Jelajahi
 Hides the grid of posts and reels under the Search tab's bar. Search, recent searches and results stay.	Menyembunyikan kisi postingan dan reel di bawah kolom tab Pencarian. Pencarian, pencarian terbaru, dan hasilnya tetap ada.
@@ -602,6 +605,9 @@ Adds an eye button to the top of each story while you view anonymously. Tap it t
 Mark as seen	Tandai sudah dilihat
 Marked as seen. Tap again to undo.	Ditandai sudah dilihat. Ketuk lagi untuk membatalkan.
 Marked as seen and sent	Ditandai sudah dilihat dan dikirim
+# context: View stories anonymously's third switch, after Mark as seen button. A like is the heart under a story, a quick reaction is an emoji from the row above a story's reply box
+Mark a story seen when you like or reply	Tandai cerita sudah dilihat saat kamu menyukai atau membalas
+While you view anonymously, liking a story, replying to it or sending it a quick reaction puts you on that story's viewer list first. The other stories stay hidden.	Saat kamu melihat secara anonim, menyukai cerita, membalasnya, atau mengirim reaksi cepat ke cerita itu akan lebih dulu memasukkanmu ke daftar penonton cerita tersebut. Cerita lainnya tetap tersembunyi.
 View DM photos and videos anonymously	Lihat foto dan video di pesan secara anonim
 Stops people seeing that you opened their view once photos and videos. They still disappear after you view them. This is a test feature and starts off.	Mencegah orang tahu bahwa kamu membuka foto dan video sekali lihat mereka. Foto dan video itu tetap hilang setelah kamu melihatnya. Ini fitur uji coba dan awalnya nonaktif.
 Restored %1$d settings. Kept %2$d newer choices.	%1$d pengaturan dipulihkan. %2$d pilihan yang lebih baru dipertahankan.
@@ -769,6 +775,11 @@ That isn't a place. Type latitude, longitude.	Itu bukan tempat. Ketik lintang, b
 %1$d reels. Swipe again after %2$d minutes away.	%1$d reel. Tinggalkan %2$d menit untuk lanjut.
 The latitude and the longitude in degrees, with a comma between them, like 40.758, -73.9855. North and east are positive, south and west negative. A map app shows both when you press and hold a spot.	Lintang dan bujur dalam derajat, dengan koma di antaranya, seperti 40.758, -73.9855. Utara dan timur positif, selatan dan barat negatif. Aplikasi peta menampilkan keduanya saat Anda menekan lama sebuah titik.
 Turn off HDR brightness boosts	Matikan peningkatan kecerahan HDR
+Keep HDR on photo uploads	Pertahankan HDR saat mengunggah foto
+Experimental. An Ultra HDR photo you post keeps its gain map on Android 14 and newer, so it can still show in HDR. Turn it off if a photo you post looks wrong.	Eksperimental. Foto Ultra HDR yang kamu posting tetap menyimpan gain map-nya di Android 14 dan yang lebih baru, sehingga masih bisa tampil dalam HDR. Matikan jika foto yang kamu posting terlihat salah.
+# context: Keep HDR on video uploads, under Playback next to the photo switch. Instagram encodes a video again before it uploads it; HDR means HLG here.
+Keep HDR on video uploads	Pertahankan HDR saat mengunggah video
+Experimental. An HDR video you post is encoded in HDR on Android 13 and newer, where Instagram would make it SDR on some phones. Turn it off if a video you post looks wrong or won't upload.	Eksperimental. Video HDR yang kamu posting dienkode dalam HDR di Android 13 dan yang lebih baru, padahal Instagram akan menjadikannya SDR di beberapa ponsel. Matikan jika video yang kamu posting terlihat salah atau tidak terunggah.
 What you open from search stays out of Recent, in the app and on Instagram's side. Searches already there stay until you clear them.	Apa yang Anda buka dari pencarian tidak masuk ke Terbaru, baik di aplikasi maupun di sisi Instagram. Pencarian yang sudah ada di sana tetap ada sampai Anda menghapusnya.
 Wi-Fi stays as it is. Turn this off to save data on every network.	Wi-Fi tetap seperti semula. Matikan sakelar ini untuk menghemat data di setiap jaringan.
 Hide comments	Sembunyikan komentar
@@ -813,7 +824,7 @@ Hide the gift button	Sembunyikan tombol hadiah
 Takes the gift button off the right end of the comment box. The box itself stays.	Menghapus tombol hadiah di ujung kanan kotak komentar. Kotaknya tetap ada.
 # context: Comments: a Hide comments switch (#869) that hides the round (i) info button some comment sheets draw at the top right, just above the first comment. Write (i) as is.
 Hide the (i) button in comments	Sembunyikan tombol (i) di komentar
-Takes the (i) button off the top right of a post's or reel's comments, above the first comment. Not every post has it.	Menghapus tombol (i) di kanan atas komentar postingan atau reel, di atas komentar pertama. Tidak semua postingan memilikinya.
+Takes the (i) button off the top right of a post's or reel's comments, and the row with an (i) that can sit above a reel's first comment. Not every post has them.	Menghapus tombol (i) di kanan atas komentar postingan atau reel, dan baris dengan (i) yang bisa muncul di atas komentar pertama sebuah reel. Tidak semua postingan memilikinya.
 # context: Comments: the switch that hides the row of quick emoji above the comment box (#248). Comment box is the field where you type a comment.
 Hide the emoji row	Sembunyikan baris emoji
 Takes the row of quick emoji off above the comment box. The box itself stays.	Menghapus baris emoji cepat di atas kotak komentar. Kotaknya tetap ada.
@@ -998,7 +1009,7 @@ Text in the accent color	Teks dengan warna aksen
 Names, captions and other main text take the same color as the icons. Gray text stays gray. Restart Instagram to see the change.	Nama, keterangan, dan teks utama lainnya memakai warna yang sama dengan ikon. Teks abu-abu tetap abu-abu. Mulai ulang Instagram untuk melihat perubahannya.
 # context: Layout > Accent color switch. Saved is Instagram's own Saved page, in its label for this language.
 Filters in the accent color	Filter dengan warna aksen
-The filters along the top of Saved take the color you picked, and the one you're on is filled with it. Restart Instagram to see the change.	Filter di bagian atas Tersimpan memakai warna yang kamu pilih, dan filter yang sedang dipakai diisi dengan warna itu. Mulai ulang Instagram untuk melihat perubahannya.
+The filters along the top of Saved and under a search take the color you picked, and the one you're on is filled with it. Restart Instagram to see the change.	Filter di bagian atas Tersimpan dan di bawah pencarian memakai warna yang kamu pilih, dan filter yang sedang dipakai diisi dengan warna itu. Mulai ulang Instagram untuk melihat perubahannya.
 Instagram's icons on the top bar, the tab bar and under posts take the color you picked. Text stays as it is. Restart Instagram to see the change.	Ikon Instagram di bilah atas, bilah tab, dan di bawah postingan memakai warna yang kamu pilih. Teks tetap seperti semula. Mulai ulang Instagram untuk melihat perubahannya.
 Story rings in the accent color	Lingkaran story dengan warna aksen
 Story rings take the color you picked instead of Instagram's gradient. A few other gradients share those colors and change with them. Restart Instagram to see the change.	Lingkaran story memakai warna yang kamu pilih, bukan gradien Instagram. Beberapa gradien lain memakai warna yang sama dan ikut berubah. Mulai ulang Instagram untuk melihat perubahannya.
@@ -1097,6 +1108,8 @@ Stop the analytics upload alarm	Hentikan alarm unggah analitik
 Instagram sets an alarm to wake your phone and send its usage events five minutes later. This stops that alarm. The events go the next time you use the app.	Instagram memasang alarm yang membangunkan ponselmu untuk mengirim data penggunaannya lima menit kemudian. Ini menghentikan alarm itu. Data dikirim saat kamu memakai aplikasi berikutnya.
 Stop background feed refresh	Hentikan penyegaran feed di latar belakang
 About every half hour, Instagram wakes your phone to download your feed ahead of time. This stops that. The feed loads when you open the app instead, and messages and notifications still arrive.	Kira-kira setiap setengah jam, Instagram membangunkan ponselmu untuk mengunduh feed lebih dulu. Ini menghentikannya. Feed dimuat saat kamu membuka aplikasi, dan pesan serta notifikasi tetap masuk.
+Let Instagram close after account checks	Biarkan Instagram tertutup setelah pemeriksaan akun
+When your phone checks its accounts, as it does at startup and when an account changes, Instagram never answers. Android then keeps it running for up to 15 minutes, even after you swipe it away. This answers right away so Instagram can close. Your login is unaffected.	Saat ponselmu memeriksa akunnya, seperti saat menyala dan saat ada akun yang berubah, Instagram tidak pernah menjawab. Android lalu membiarkannya berjalan hingga 15 menit, bahkan setelah kamu menggesernya keluar. Ini langsung menjawab agar Instagram bisa tertutup. Status login kamu tidak terpengaruh.
 Haptic style	Gaya haptik
 Short tick	Ketukan pendek
 System tick	Ketukan sistem
@@ -1572,6 +1585,14 @@ All of them. Tap to leave some out, and Ghost mode leaves those as you set them.
 %1$s. The others stay as you set them.	%1$s. Yang lain tetap seperti yang kamu atur.
 Switches Ghost mode turns	Sakelar yang diubah Mode hantu
 Ghost mode needs at least one switch to turn.	Mode hantu perlu setidaknya satu sakelar untuk diubah.
+# context: Ghost mode: the switch under its rows in Ads and privacy that holds likes, story replies, comments, share links and new stories and posts back while Ghost mode is on (#876). A like is the heart under a post, a reel, a story or a comment, a share link is what Copy link and sharing a post out make, and posting is sharing a new story, post or reel from Instagram's camera; the five short ones are toasts shown when a tap is held back
+Block likes, replies and posts in Ghost mode	Blokir suka, balasan, dan postingan di mode hantu
+While Ghost mode is on, liking, commenting, replying to a story, posting a story or post and copying or sharing a link do nothing, and a message says why. Nothing is sent.	Saat mode hantu aktif, menyukai, berkomentar, membalas cerita, memposting cerita atau postingan, serta menyalin atau membagikan tautan tidak melakukan apa pun, dan sebuah pesan memberi tahu alasannya. Tidak ada yang dikirim.
+Likes are off in Ghost mode.	Suka dinonaktifkan di mode hantu.
+Replies are off in Ghost mode.	Balasan dinonaktifkan di mode hantu.
+Comments are off in Ghost mode.	Komentar dinonaktifkan di mode hantu.
+Share links are off in Ghost mode.	Tautan dinonaktifkan di mode hantu.
+Posting is off in Ghost mode.	Memposting dinonaktifkan di mode hantu.
 # context: Ghost mode: turning it on or off with a long press on a tab (#255). %1$s is a tab's name
 Turn Ghost mode on or off with a tab long press	Nyalakan atau matikan Mode hantu dengan menekan lama tab
 Tab long presses keep Instagram's own action. Choose one to turn Ghost mode on or off instead.	Menekan lama tab tetap menjalankan tindakan Instagram. Pilih satu tab untuk menyalakan atau mematikan Mode hantu sebagai gantinya.
@@ -1812,7 +1833,7 @@ Previous page	Halaman sebelumnya
 Next page	Halaman berikutnya
 # context: Feed settings: the Page dots on a pill switch, right under Carousel arrows (#419). A pill is a small bar with round ends that holds the dots.
 Page dots on a pill	Titik halaman di pil
-Moves a carousel post's page dots onto a round pill at the bottom of its photo or video, with the page you're on in blue. Hold the pill and slide left or right to move through the pages.	Memindahkan titik halaman kiriman carousel ke pil bulat di bagian bawah foto atau videonya, dengan halaman yang sedang dibuka berwarna biru. Tahan pil lalu geser ke kiri atau kanan untuk berpindah halaman.
+Moves a carousel post's page dots onto a round pill at the bottom of its photo or video, with the page you're on in blue, or your accent color when Accent color is on. Hold the pill and slide left or right to move through the pages.	Memindahkan titik halaman kiriman carousel ke pil bulat di bagian bawah foto atau videonya, dengan halaman yang sedang dibuka berwarna biru, atau berwarna aksen saat Warna aksen aktif. Tahan pil lalu geser ke kiri atau kanan untuk berpindah halaman.
 # context: Feed settings: the Hide page number switch, under Carousel arrows (#581). The number is the 3/5 in the corner of a carousel post.
 Hide page number	Sembunyikan nomor halaman
 Takes the number like 3/5 off the corner of a carousel post's photo or video.	Menghapus angka seperti 3/5 dari sudut foto atau video pada postingan carousel.
@@ -1920,6 +1941,21 @@ Seek bar button on feed videos	Tombol bilah geser di video feed
 Adds a small button at the bottom left of a feed video that shows or hides its seek bar. It works with Seek bar on feed videos on or off.	Menambahkan tombol kecil di kiri bawah video feed yang menampilkan atau menyembunyikan bilah gesernya. Berfungsi saat Bilah geser di video feed aktif maupun mati.
 Seek bar	Bilah geser
 Tint intensity	Intensitas warna
+# context: Tab bar: the Tint color list under Tint intensity that picks the glass tab bar's color, its choices' descriptions, the Custom tint color field under it with its dialog message and empty summary, and what both say while another switch is in the way (#875). Light, Dark and AMOLED black are choices in the list; Tint intensity, Custom tint color, Glass tab bar and Material look are rows' names
+Tint color	Warna kaca
+Light	Terang
+Dark	Gelap
+AMOLED black	Hitam AMOLED
+The glass takes Instagram's own colors, dark or light with its theme.	Kaca memakai warna Instagram sendiri, gelap atau terang mengikuti Instagram.
+Frosted white glass whatever Instagram's theme, with the tab icons dark on it.	Kaca putih buram saat Instagram gelap maupun terang, dengan ikon tab gelap di atasnya.
+Dark gray glass whatever Instagram's theme, with the tab icons white on it.	Kaca abu-abu gelap saat Instagram gelap maupun terang, dengan ikon tab putih di atasnya.
+A black pill with no sheen, for AMOLED screens. A lower Tint intensity lets what's behind it show through.	Pil hitam tanpa kilau, untuk layar AMOLED. Intensitas warna yang lebih rendah membuat yang di belakangnya terlihat.
+The glass takes the accent color Android picks from your wallpaper. Android 12 and newer. Older phones keep Instagram's colors.	Kaca memakai warna aksen yang dipilih Android dari wallpaper kamu. Android 12 dan yang lebih baru. Ponsel lama tetap memakai warna Instagram.
+The glass takes the color you type under Custom tint color.	Kaca memakai warna yang kamu ketik di Warna kaca kustom.
+Custom tint color	Warna kaca kustom
+A color as six hex digits, like #4A6B82. Saving it picks Custom under Tint color.	Warna dalam enam digit heksa, seperti #4A6B82. Menyimpannya memilih Kustom di Warna kaca.
+Turn on Glass tab bar to use this choice.	Aktifkan Bilah tab kaca untuk menggunakan pilihan ini.
+Turn off Material look to use this choice.	Nonaktifkan Tampilan Material untuk menggunakan pilihan ini.
 Refraction intensity	Intensitas pembiasan
 Preview of the tab bar	Pratinjau bilah tab
 Keep stories playing while zooming	Putar cerita terus saat di-zoom
@@ -1933,6 +1969,10 @@ Hide the Map bubble	Sembunyikan gelembung Peta
 Takes only the Map bubble out of the row of notes. Your notes stay.	Hanya menghapus gelembung Peta dari baris catatan. Catatanmu tetap ada.
 Split the notes row	Pisahkan baris catatan
 Splits the row of notes into three stacks, Instants, Notes and Stories, the layout Instagram is trying out. Restart Instagram to see the change.	Memisahkan baris catatan menjadi tiga tumpukan, Instants, Catatan, dan Cerita, tata letak yang sedang dicoba Instagram. Mulai ulang Instagram untuk melihat perubahannya.
+# context: Messages: a switch under Split the notes row (#832). Primary and General are the two tabs Instagram shows professional accounts at the top of their messages. Use the names Instagram's own messages page gives them in this language.
+Primary and General tabs	Tab Utama dan Umum
+# context: the summary under Primary and General tabs; Primary is the tab's name again
+Experimental. Adds the Primary and General tabs that professional accounts get to your messages. Instagram may put every chat in Primary at first. Starts off. Restart Instagram to see the change.	Eksperimental. Menambahkan tab Utama dan Umum yang dimiliki akun profesional ke pesanmu. Awalnya Instagram mungkin menaruh semua chat di Utama. Mulai dalam keadaan mati. Mulai ulang Instagram untuk melihat perubahannya.
 Hide Saved in the plus menu	Sembunyikan Tersimpan di menu plus
 Takes Saved off the menu the plus button opens in a chat's message bar.	Menghapus Tersimpan dari menu yang dibuka tombol plus di bilah pesan chat.
 Hide AI images in the plus menu	Sembunyikan gambar AI di menu plus
@@ -2116,9 +2156,11 @@ Solid	Padat
 See-through	Tembus pandang
 # context: a look for the page-dots pill and the seek bars: blurs what's under it
 Frosted glass	Kaca buram
+Dots only	Hanya titik
 A light pill with dark dots, as it's always been.	Pil terang dengan titik gelap, seperti biasanya.
 A see-through dark pill with white dots, so more of the photo shows.	Pil gelap tembus pandang dengan titik putih, agar foto lebih terlihat.
 A frosted glass pill that blurs the photo under it. Before Android 12 it's see-through instead.	Pil kaca buram yang mengaburkan foto di bawahnya. Sebelum Android 12, pil ini tembus pandang.
+Just the white dots with no pill behind them. A soft shadow keeps them clear on a bright photo.	Hanya titik putih tanpa pil di belakangnya. Bayangan lembut membuatnya tetap jelas di foto yang terang.
 Turn on Page dots on a pill to use this choice.	Aktifkan Titik halaman di pil untuk menggunakan pilihan ini.
 Turn on Seek bar on feed videos or its button to use this choice.	Aktifkan Bilah geser di video feed atau tombolnya untuk menggunakan pilihan ini.
 Turn on Seek bar on stories to use this choice.	Aktifkan Bilah geser di cerita untuk menggunakan pilihan ini.
@@ -2326,6 +2368,15 @@ Takes the Watch more reels button off the card a reel in your feed shows when it
 # context: a switch on the Playback page under Keep playing in the background; Android's own name for picture in picture
 Picture in picture for reels	Picture-in-picture untuk reels
 Leaving Instagram while a reel plays shrinks it into a small window over your other apps. Works in Reels and on reels opened from the feed, on Android 15 or newer.	Saat kamu keluar dari Instagram ketika reel sedang diputar, reel mengecil menjadi jendela kecil di atas aplikasi lain. Berfungsi di Reels dan pada reels yang dibuka dari feed, di Android 15 atau yang lebih baru.
+# context: a switch on the Playback page under Picture in picture for reels; the reels window is Instagram's small picture in picture window for reels, and the button is Android's own button in that window
+Pause button in the reels window	Tombol jeda di jendela reels
+Instagram's small window for reels gets a button to pause the reel and play it again.	Jendela kecil Instagram untuk reels mendapat tombol untuk menjeda reel dan memutarnya lagi.
+# context: a switch on the Playback page under Pause button in the reels window; the buttons are Instagram's own Previous and Next buttons in its small picture in picture window for reels
+Previous and next in the reels window	Sebelumnya dan berikutnya di jendela reels
+Instagram's small window for reels gets its own buttons to go back a reel or on to the next one.	Jendela kecil Instagram untuk reels mendapat tombolnya sendiri untuk kembali ke reel sebelumnya atau lanjut ke berikutnya.
+# context: a switch on the Playback page under Previous and next in the reels window; photo and carousel reels go in Instagram's small picture in picture window for reels, a carousel shows a dot per page, and the window's Previous and Next buttons turn its pages before moving to another reel (#873)
+Photos and carousels in the reels window	Foto dan carousel di jendela reels
+Photo and carousel reels go in Instagram's small window for reels too. A carousel shows a dot for each page, and Previous and Next go through its pages first.	Reels foto dan carousel juga masuk ke jendela kecil Instagram untuk reels. Carousel menampilkan titik untuk setiap halaman, dan Sebelumnya serta Berikutnya menelusuri halamannya lebih dulu.
 # context: a switch on the Playback page under Picture in picture for reels; Android's own name for picture in picture, and it keeps moving on to the next stories inside the small window
 Picture in picture for stories	Picture-in-picture untuk cerita
 Leaving Instagram while a story plays shrinks it into a small window over your other apps, where it keeps going through the stories.	Saat kamu keluar dari Instagram ketika cerita sedang diputar, cerita mengecil menjadi jendela kecil di atas aplikasi lain dan terus berlanjut ke cerita berikutnya.
@@ -2773,6 +2824,9 @@ HushGram's own files take up %1$s.	File milik HushGram memakai %1$s.
 # context: Tab bar: switch under Keep the pill full size, for the liquid look's bubble under a held finger (#705)
 Glass lens under your finger	Lensa kaca di bawah jarimu
 Hold a finger on the liquid pill's bubble, or slide it across the tabs, and the bubble swells and bends what's behind it harder, like glass under a fingertip. It eases back when you let go. The bend needs Blur behind the tab bar and Android 13 or newer. Restart Instagram after changing it.	Tahan jari di gelembung pil kaca cair, atau geser di sepanjang tab, dan gelembungnya membesar serta membiaskan apa yang ada di belakangnya lebih kuat, seperti kaca di bawah ujung jari. Gelembung kembali normal saat kamu melepasnya. Pembiasan butuh Blur di belakang bilah tab dan Android 13 atau yang lebih baru. Mulai ulang Instagram setelah mengubahnya.
+# context: Tab bar: switch under Glass lens under your finger that keeps Instagram's Search tab inside the liquid pill with the other tabs instead of in a glass circle of its own, and its description (#875). Search is Instagram's tab, named as it is there; Liquid glass look is another switch's name
+Keep Search in the pill	Biarkan Cari di dalam pil
+With Liquid glass look on, Search stays in the pill with the other tabs instead of a glass circle of its own. Restart Instagram after changing it.	Saat Tampilan kaca cair aktif, Cari tetap di dalam pil bersama tab lainnya, bukan di lingkaran kaca sendiri. Mulai ulang Instagram setelah mengubahnya.
 # context: Keep story viewers, its Stories settings rows and the Story viewers page.
 Keep story viewers	Simpan penonton cerita
 Each time you open who viewed one of your stories, the list is kept on this phone and set beside your followers. Nothing extra is asked of Instagram. Turn it off and it stops at once.	Setiap kali kamu membuka siapa yang melihat salah satu ceritamu, daftarnya disimpan di ponsel ini dan disandingkan dengan pengikutmu. Tidak ada permintaan tambahan ke Instagram. Matikan dan langsung berhenti.
@@ -3011,6 +3065,82 @@ The newest 500 stay, however old they are.	500 terbaru tetap disimpan, berapa pu
 Anything seen more than a day ago goes. At most 2000 stay.	Yang dilihat lebih dari sehari lalu dihapus. Paling banyak 2000 disimpan.
 # context: Keep history for (#228): the row's summary with some days chosen; %1$s is the number
 Anything seen more than %1$s days ago goes. At most 2000 stay.	Yang dilihat lebih dari %1$s hari lalu dihapus. Paling banyak 2000 disimpan.
+# context: Feed > title of the switch that shows a drag handle at the right edge of Home's feed while it scrolls, like Fast scroll in Saved; Home is Instagram's own Home tab (#826)
+Fast scroll on Home	Gulir cepat di Beranda
+# context: Feed > summary of Fast scroll on Home; the feed is the list of posts on Home (#826)
+Shows a handle at the right edge of Home while it scrolls. Drag it to jump down your feed and back to the top.	Menampilkan pegangan di tepi kanan Beranda saat digulir. Seret untuk melompat ke bawah feed-mu dan kembali ke atas.
+# context: Messages > title of the switch that shows a drag handle at the right edge of a chat while its messages scroll (#826)
+Fast scroll in chats	Gulir cepat di chat
+# context: Messages > summary of Fast scroll in chats; the newest messages are at the bottom of a chat (#826)
+Shows a handle at the right edge of a chat while it scrolls. Drag it up to your older messages and back down to the newest.	Menampilkan pegangan di tepi kanan chat saat digulir. Seret ke atas ke pesan lama dan kembali ke bawah ke pesan terbaru.
+# context: Stories > title of the switch that hides the comments Instagram floats over a story while you watch it, next to Hide the Comment button on stories (#826)
+Hide comments on stories	Sembunyikan komentar di cerita
+# context: Stories > summary of Hide comments on stories; the faces are the small round profile pictures of the commenters; the Comment button is the story's own Comment button, translated as in Hide the Comment button on stories (#826)
+Takes the comments floating over stories off them, along with the faces of the people who wrote them. The Comment button still opens them.	Menghapus komentar yang melayang di atas cerita, beserta wajah orang yang menulisnya. Tombol Komentari tetap membukanya.
+# context: Stories > title of the choice of how high the line you tap to write a comment sits on a story, under Hide comments on stories (#826)
+Comment line height on stories	Tinggi baris komentar di cerita
+# context: Stories > Comment line height on stories > choice that leaves the line where Instagram puts it; 'it' is the comment line (#826)
+Where Instagram puts it	Di tempat Instagram menaruhnya
+# context: Stories > Comment line height on stories > choice that lifts the comment line a little (#826)
+A little higher	Sedikit lebih tinggi
+# context: Stories > Comment line height on stories > choice that lifts the comment line more than A little higher (#826)
+Higher	Lebih tinggi
+# context: Stories > summary of Comment line height on stories while Where Instagram puts it is chosen; the line is the one you tap on a story to write a comment (#826)
+The line for writing a comment sits where Instagram puts it, at the bottom of the story.	Baris untuk menulis komentar berada di tempat Instagram menaruhnya, di bagian bawah cerita.
+# context: Stories > summary of Comment line height on stories while A little higher is chosen (#826)
+The line for writing a comment sits a little higher on the story.	Baris untuk menulis komentar berada sedikit lebih tinggi di cerita.
+# context: Stories > summary of Comment line height on stories while Higher is chosen; the bottom edge is the bottom of the screen (#826)
+The line for writing a comment sits higher on the story, well clear of the bottom edge.	Baris untuk menulis komentar berada lebih tinggi di cerita, jauh dari tepi bawah.
+# context: Stories: a switch (#187), named like Full screen Reels, Full screen Home and Full screen Messages
+Full screen stories	Cerita layar penuh
+# context: Full screen stories (#187): its summary, worded like Full screen Home's
+Hides the status bar and the navigation bar while a story shows. Swipe in from the edge to bring them back for a moment.	Menyembunyikan bilah status dan bilah navigasi saat cerita ditampilkan. Geser dari tepi untuk menampilkannya kembali sebentar.
+# context: Explore: a switch (#187), named like Full screen Home. Explore is Instagram's tab, as the app names it
+Full screen Explore	Jelajahi layar penuh
+# context: Full screen Explore (#187): its summary, worded like Full screen Home's
+Hides the status bar and the navigation bar while Explore shows. Swipe in from the edge to bring them back for a moment.	Menyembunyikan bilah status dan bilah navigasi saat Jelajahi ditampilkan. Geser dari tepi untuk menampilkannya kembali sebentar.
+# context: Profiles: a switch (#187) for your own profile's tab, named like Full screen Home
+Full screen profile	Profil layar penuh
+# context: Full screen profile (#187): its summary, worded like Full screen Home's
+Hides the status bar and the navigation bar while your profile tab shows. Swipe in from the edge to bring them back for a moment.	Menyembunyikan bilah status dan bilah navigasi saat tab profilmu ditampilkan. Geser dari tepi untuk menampilkannya kembali sebentar.
+# context: Settings entry > summary of Settings page logo while HushGram's logo is picked; this page is HushGram's settings page (#872)
+HushGram's logo shows at the top of this page.	Logo HushGram tampil di bagian atas halaman ini.
+# context: Settings entry > summary of Settings page logo while Instagram's icon is picked (#872)
+Instagram's icon shows at the top of this page.	Ikon Instagram tampil di bagian atas halaman ini.
+# context: Settings entry > summary of Settings page logo while Your picture is picked; Your picture is the list choice of that name (#872)
+Your picture shows at the top of this page. Pick Your picture again to change it.	Gambarmu tampil di bagian atas halaman ini. Pilih Gambarmu lagi untuk menggantinya.
+# context: Settings entry > Settings page logo list choice: HushGram's own logo (#872)
+HushGram's logo	Logo HushGram
+# context: Settings entry > Settings page logo list choice: Instagram's own app icon (#872)
+Instagram's icon	Ikon Instagram
+# context: Settings entry > Settings page logo list choice: a picture the person picks from their phone (#872)
+Your picture	Gambarmu
+# context: Settings entry > row and list title: the picture at the top of HushGram's settings page, over its name (#872)
+Settings page logo	Logo halaman pengaturan
+# context: Settings entry > row and dialog title: the name at the top of HushGram's settings page (#872)
+Settings page name	Nama halaman pengaturan
+# context: Settings entry > Settings page name dialog message; %1$d is the most characters it takes (#872)
+A name of your own at the top of this page, in place of HushGram. Up to %1$d characters. Leave it blank for HushGram.	Nama pilihanmu di bagian atas halaman ini, sebagai ganti HushGram. Maksimal %1$d karakter. Kosongkan untuk HushGram.
+# context: Settings entry > row that puts HushGram's logo and name back at the top of the settings page (#872)
+Reset the settings page header	Setel ulang kepala halaman pengaturan
+# context: Settings entry > summary of Reset the settings page header (#872)
+Puts HushGram's logo and name back at the top of this page.	Mengembalikan logo dan nama HushGram ke bagian atas halaman ini.
+# context: toast after Reset the settings page header; keep under two short lines (#872)
+Settings page header reset.	Kepala pengaturan disetel ulang.
+# context: toast after a picked picture becomes the settings page logo; keep under two short lines (#872)
+Settings page logo set.	Logo pengaturan dipasang.
+# context: Settings entry > summary of Settings page name while no name is typed (#872)
+HushGram shows at the top of this page.	HushGram tampil di bagian atas halaman ini.
+# context: Settings entry > summary of Settings page name; %1$s is the typed name (#872)
+The top of this page says %1$s.	Bagian atas halaman ini bertuliskan %1$s.
+# context: Settings > Downloads > switch title, under Name saves by account and post time (#792)
+Date saves by when they were posted	Beri tanggal simpanan menurut waktu posting
+# context: Settings > Downloads > summary of Date saves by when they were posted (#792)
+Gives each saved photo and video the time its post went up, so your gallery sorts saves by the post instead of the day you saved them. A save that doesn't know when it was posted keeps the time it was saved.	Memberi setiap foto dan video yang disimpan waktu postingannya diunggah, sehingga galeri mengurutkan simpanan menurut postingan, bukan menurut hari kamu menyimpannya. Simpanan yang tidak tahu kapan diposting tetap memakai waktu saat disimpan.
+# context: Profiles > title of the switch that adds a Select all button beside Instagram's own Select on the grids in Your activity (#762); Your activity is Instagram's own page in the profile menu, use the name Instagram shows for it in this language
+Select all in Your activity	Pilih semua di Aktivitas Anda
+# context: Profiles > summary of Select all in Your activity (#762). Select, Delete and Unlike are Instagram's own buttons on those grids; use the words Instagram shows there in this language
+Adds Select all beside Select on the photo and video grids in Your activity, like your posts, reels and likes. Tick one first and it shows. It only ticks them. Nothing goes until you press Delete or Unlike yourself.	Menambahkan Pilih semua di samping Pilih pada kisi foto dan video di Aktivitas Anda, seperti postingan, reel, dan suka Anda. Tombol ini muncul setelah Anda mencentang satu. Ini hanya mencentangnya. Tidak ada yang hilang sampai Anda sendiri menekan Hapus atau Batal suka.
 2x speed for videos in the feed	2x speed for videos in the feed
 Adds a shortcut to your saved posts in the Explore tab.	Adds a shortcut to your saved posts in the Explore tab.
 Adds a speed choice to the menu on a reel.	Adds a speed choice to the menu on a reel.
